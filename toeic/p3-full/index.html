@@ -4,23 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>多益聽力 Part 3 完整題組（13 組・39 題）｜小R 頻道</title>
-<meta name="description" content="原創多益 Part 3 完整題組：13 組對話、39 題、四種口音，附考場節奏音檔與中文詳解音檔。">
+<meta name="description" content="原創多益 Part 3 完整題組：13 組對話、39 題、四種口音；可線上點選作答、最後計分，附考場節奏音檔與中文詳解音檔。">
 <style>
-  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;--blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
   *{box-sizing:border-box}
   body{margin:0;background:var(--paper);color:var(--ink);line-height:1.75;
     font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
     background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:920px;margin:0 auto;padding:44px 18px 80px}
-  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;border-bottom:1.5px solid currentColor;color:var(--blue)}
+  .wrap{max-width:920px;margin:0 auto;padding:44px 18px 90px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
   h1{font-size:clamp(26px,5vw,38px);margin:6px 0 6px;text-align:center}
   .sub{text-align:center;color:var(--blue);margin-bottom:18px}
-  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px;font-size:14.5px;color:var(--soft)}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       margin-bottom:10px;font-size:14.5px;color:var(--soft)}
   .box strong{color:var(--ink)}
-  .players{display:grid;gap:10px;margin:16px 0 26px}
+  .players{display:grid;gap:10px;margin:16px 0 20px}
   .pl{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 16px}
   .pl b{display:block;margin-bottom:6px}
   audio{width:100%}
+  .bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+       background:rgba(246,241,230,.96);border:2px solid var(--line);border-radius:14px;
+       padding:10px 14px;margin:18px 0;backdrop-filter:blur(4px)}
+  .bar .prog{font-size:15px;color:var(--soft)}
+  .bar .prog b{color:var(--ink);font-size:18px}
+  button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
+         border:2px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--blue)}
+  button:disabled{opacity:.45;cursor:default}
+  .result{background:#fffdf6;border:2px solid var(--leaf);border-radius:16px;padding:16px 20px;
+          margin:0 0 20px;display:none}
+  .result.show{display:block}
+  .result .big{font-size:clamp(28px,6vw,40px);color:var(--leaf);line-height:1.2}
+  .result ul{margin:8px 0 0;padding-left:20px;font-size:14.5px;color:var(--soft)}
   h2{font-size:clamp(19px,3.2vw,24px);margin:38px 0 6px;border-top:2px solid var(--line);padding-top:16px}
   .meta{font-size:14px;color:var(--soft);font-weight:normal}
   details{margin:8px 0}
@@ -29,13 +46,29 @@
   .dlg li{margin-bottom:8px;padding-left:10px;border-left:3px solid var(--line)}
   .zh{display:block;color:var(--soft);font-size:14px}
   .q{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0}
-  .qh{font-size:16.5px;margin-bottom:6px}
-  .qn{display:inline-block;min-width:38px;font-weight:bold;color:var(--red)}
-  ol.opts{margin:0 0 6px;padding-left:26px}
-  ol.opts li{margin:2px 0}
-  ul.why{margin:6px 0;padding-left:22px}
+  .q.wrong{border-color:var(--red)}
+  .q.right{border-color:var(--leaf)}
+  .qh{font-size:16.5px;margin-bottom:8px;display:flex;gap:10px;align-items:baseline}
+  .qn{font-weight:bold;color:var(--red);flex:none;min-width:34px}
+  .mark{margin-left:auto;flex:none;font-size:16px}
+  ul.opts{list-style:none;margin:0;padding:0}
+  ul.opts li{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;margin:5px 0;
+       border:2px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+  ul.opts li:hover{border-color:#c8bda8}
+  ul.opts li b{flex:none;width:22px;color:var(--blue)}
+  ul.opts li.sel{background:var(--sel);border-color:#c9a94e}
+  ul.opts li.ok{background:#e8f3ea;border-color:var(--leaf)}
+  ul.opts li.bad{background:#fbeae7;border-color:var(--red)}
+  ul.opts li.locked{cursor:default}
+  .sol{margin-top:4px}
+  .toggle{background:transparent;color:var(--blue);border:0;padding:0;font-size:15px;
+          border-bottom:1.5px solid rgba(54,78,112,.5);border-radius:0}
+  .solbody{margin-top:10px;background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px}
+  ul.why{margin:6px 0;padding-left:20px}
   ul.why li{margin:3px 0;font-size:15px}
-  .tip{margin:6px 0 0;font-size:14.5px;color:var(--blue)}
+  ul.why li.yes{color:var(--leaf)}
+  ul.why li.no{color:var(--ink)}
+  .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
   .dim{color:var(--soft);font-size:13.5px}
 </style>
 </head>
@@ -43,11 +76,11 @@
 <div class="wrap">
   <a class="back" href="../../">← 回影片索引</a>
   <h1>多益聽力 Part 3 完整題組</h1>
-  <div class="sub">13 組對話・39 題・四種口音・考場節奏</div>
+  <div class="sub">13 組對話・39 題・四種口音・可線上作答計分</div>
 
   <div class="box">
-    <strong>音檔怎麼用</strong>：① 先聽「考場節奏」版，<strong>不要暫停</strong>，一次做 39 題；
-    ② 對答案、看詳解；③ 通車時聽「中文詳解」版，每題先重播英文再用中文講解。
+    <strong>怎麼做</strong>：① 播放下面「考場節奏版」，<strong>不要暫停</strong>，邊聽邊點選項作答；
+    ② 做完 39 題按「對答案並計分」；③ 錯的題目會自動展開詳解，通車時再聽「中文詳解版」複習。
   </div>
   <div class="box">
     <strong>原創聲明</strong>：多益（TOEIC）試題由 ETS 擁有著作權，本題組全部自行撰寫，只沿用相同題型結構；
@@ -55,7 +88,7 @@
   </div>
   <div class="box">
     <strong>節奏</strong>：對話只唸一次；練習版照樣唸出題目與選項（真考是印在題本），每題唸完留約 8 秒作答。
-    <p class="dim">實測：作答停頓 39 段（應為 39）／最短 8.07 秒／中位 8.1 秒／最長 8.13 秒；總長 00:25:44.47。</p>
+    作答停頓 39 段（應為 39）／最短 8.07 秒／中位 8.1 秒／最長 8.13 秒；總長 00:25:44.47。
   </div>
 
   <div class="players">
@@ -64,412 +97,653 @@
     <div class="pl"><b>② 中文詳解版（通勤聽）</b>
       <audio controls preload="metadata" src="audio/toeic_p3_full_explain.mp3"></audio></div>
   </div>
+
+  <div class="bar">
+    <span class="prog">已作答 <b><span id="done">0</span> / 39</b></span>
+    <button id="scoreBtn" type="button">對答案並計分</button>
+    <button id="resetBtn" type="button" class="ghost">清除作答</button>
+    <span class="prog" id="hint">（作答會自動存在這台裝置裡）</span>
+  </div>
+
+  <div class="result" id="result"></div>
   
-  <section class="set" id="set1">
+  <section class="set" id="set1" data-set="1">
     <h2>第 1 組　<span class="meta">行銷部｜會議改期｜美式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Hi, this is Dana from the marketing team. I&#x27;m calling about tomorrow&#x27;s budget review.<span class="zh">嗨，我是行銷部的 Dana。我打來是要講明天的預算檢討會。</span></li><li><b>M</b>：Oh, hi Dana. Don&#x27;t tell me it&#x27;s been moved again.<span class="zh">喔，嗨 Dana。別告訴我又改時間了。</span></li><li><b>W</b>：I&#x27;m afraid so. Mr. Okafor has a client call at nine, so the review is now at two in the afternoon.<span class="zh">恐怕是。Okafor 先生九點要跟客戶通電話，所以檢討會改到下午兩點。</span></li><li><b>M</b>：Two actually works better for me. Do you still need the sales figures?<span class="zh">兩點對我反而更好。你還是需要銷售數字嗎？</span></li><li><b>W</b>：Yes — and could you bring printouts? The projector in Room Four is being repaired.<span class="zh">要——而且可以麻煩你帶列印本嗎？四號會議室的投影機在維修。</span></li><li><b>M</b>：Sure. I&#x27;ll print three copies before lunch.<span class="zh">沒問題。我午餐前印三份。</span></li><li><b>W</b>：Thanks. I&#x27;ll send an updated invitation in a few minutes.<span class="zh">謝謝。我幾分鐘內會寄更新後的通知。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">32</span>Why is the woman calling?</div>
-      <ol class="opts"><li>To change the time of a meeting</li><li>To ask about a repair schedule</li><li>To welcome a new client</li><li>To reserve a conference room</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。她說「the review is now at two in the afternoon」，整通電話就是要改檢討會的時間。</li><li>❌ <b>(B)</b> 投影機維修只是她提到的理由，不是她打來的目的——聽到 room／projector 就選，會掉進相關字陷阱。</li><li>❌ <b>(C)</b> 沒有新客戶，是 Okafor 先生九點要跟客戶通電話。</li><li>❌ <b>(D)</b> 會議室早就定了（四號會議室），她不需要預約新會議室。</li></ul>
-        <p class="tip">🔑 開頭第一句常洩題：I&#x27;m calling about… 後面接的就是主旨。</p>
-      </details>
+    <div class="q" data-q="32" data-a="0">
+      <div class="qh"><span class="qn">32</span>Why is the woman calling?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To change the time of a meeting</span></li><li data-i="1"><b>B</b><span>To ask about a repair schedule</span></li><li data-i="2"><b>C</b><span>To welcome a new client</span></li><li data-i="3"><b>D</b><span>To reserve a conference room</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。她說「the review is now at two in the afternoon」，整通電話就是要改檢討會的時間。</li><li class="no">❌ <b>(B)</b> 投影機維修只是她提到的理由，不是她打來的目的——聽到 room／projector 就選，會掉進相關字陷阱。</li><li class="no">❌ <b>(C)</b> 沒有新客戶，是 Okafor 先生九點要跟客戶通電話。</li><li class="no">❌ <b>(D)</b> 會議室早就定了（四號會議室），她不需要預約新會議室。</li></ul>
+          <p class="tip">🔑 開頭第一句常洩題：I&#x27;m calling about… 後面接的就是主旨。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">33</span>What does the woman ask the man to do?</div>
-      <ol class="opts"><li>Call Mr. Okafor</li><li>Bring printed documents</li><li>Check the projector</li><li>Send the sales figures by e-mail</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 是 Okafor 先生自己有客戶電話，不是要他去聯絡。</li><li>✅ <b>(B)</b> 正解。could you bring printouts? ＋ 他說 I&#x27;ll print three copies。</li><li>❌ <b>(C)</b> 投影機是「正在維修」，她沒有要他去看。</li><li>❌ <b>(D)</b> 她要的是列印本（printouts），不是用 email 寄——print 與 email 是這題最常見的錯位。</li></ul>
-        <p class="tip">🔑 Part 3 的 ask／request 題，答案幾乎都在轉折詞之後（and could you…）。</p>
-      </details>
+    <div class="q" data-q="33" data-a="1">
+      <div class="qh"><span class="qn">33</span>What does the woman ask the man to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Call Mr. Okafor</span></li><li data-i="1"><b>B</b><span>Bring printed documents</span></li><li data-i="2"><b>C</b><span>Check the projector</span></li><li data-i="3"><b>D</b><span>Send the sales figures by e-mail</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 是 Okafor 先生自己有客戶電話，不是要他去聯絡。</li><li class="yes">✅ <b>(B)</b> 正解。could you bring printouts? ＋ 他說 I&#x27;ll print three copies。</li><li class="no">❌ <b>(C)</b> 投影機是「正在維修」，她沒有要他去看。</li><li class="no">❌ <b>(D)</b> 她要的是列印本（printouts），不是用 email 寄——print 與 email 是這題最常見的錯位。</li></ul>
+          <p class="tip">🔑 Part 3 的 ask／request 題，答案幾乎都在轉折詞之後（and could you…）。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">34</span>What will the woman do next?</div>
-      <ol class="opts"><li>Print three copies</li><li>Repair a projector</li><li>Send an updated invitation</li><li>Meet Mr. Okafor at nine</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 列印是男士要做的（I&#x27;ll print three copies）。</li><li>❌ <b>(B)</b> 維修是別人／廠商的事，對話中沒交代是誰修。</li><li>✅ <b>(C)</b> 正解。最後一句 I&#x27;ll send an updated invitation。</li><li>❌ <b>(D)</b> 九點是 Okafor 先生跟客戶通電話的時間，不是她要赴約。</li></ul>
-        <p class="tip">🔑 問「接下來做什麼」時，最後一兩句的 I&#x27;ll… 通常就是答案；同時要分清楚是誰要做。</p>
-      </details>
+    <div class="q" data-q="34" data-a="2">
+      <div class="qh"><span class="qn">34</span>What will the woman do next?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Print three copies</span></li><li data-i="1"><b>B</b><span>Repair a projector</span></li><li data-i="2"><b>C</b><span>Send an updated invitation</span></li><li data-i="3"><b>D</b><span>Meet Mr. Okafor at nine</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 列印是男士要做的（I&#x27;ll print three copies）。</li><li class="no">❌ <b>(B)</b> 維修是別人／廠商的事，對話中沒交代是誰修。</li><li class="yes">✅ <b>(C)</b> 正解。最後一句 I&#x27;ll send an updated invitation。</li><li class="no">❌ <b>(D)</b> 九點是 Okafor 先生跟客戶通電話的時間，不是她要赴約。</li></ul>
+          <p class="tip">🔑 問「接下來做什麼」時，最後一兩句的 I&#x27;ll… 通常就是答案；同時要分清楚是誰要做。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set2">
+  <section class="set" id="set2" data-set="2">
     <h2>第 2 組　<span class="meta">物流部｜到貨延遲｜加拿大</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>M</b>：Ms. Bennett? This is Owen from Northline Freight. I&#x27;m calling about your order of office chairs.<span class="zh">Bennett 小姐嗎？我是 Northline 貨運的 Owen。我打來是關於你們訂的辦公椅。</span></li><li><b>W</b>：Don&#x27;t tell me the truck broke down.<span class="zh">別告訴我貨車拋錨了。</span></li><li><b>M</b>：No, nothing like that. The shipment left our warehouse this morning, but it won&#x27;t reach you until Thursday.<span class="zh">不，不是那種事。貨今天早上離開我們的倉庫，但要到週四才會到你們那邊。</span></li><li><b>W</b>：Thursday? We were told Tuesday. The new office opens on Wednesday.<span class="zh">週四？我們被告知是週二。新辦公室週三就要開幕。</span></li><li><b>M</b>：I understand. There&#x27;s a customs inspection at the border, so everything is delayed by two days.<span class="zh">我理解。邊境有一場海關查驗，所以所有東西都延後兩天。</span></li><li><b>W</b>：All right. Could you send me that in writing? I need it for our facilities manager.<span class="zh">好吧。可以寄書面通知給我嗎？我要給我們的設施主管。</span></li><li><b>M</b>：Of course. I&#x27;ll e-mail you a revised delivery note today.<span class="zh">當然。我今天會 email 給你一份修正後的送貨單。</span></li><li><b>W</b>：Thank you. And please put the tracking number in the subject line.<span class="zh">謝謝。麻煩把追蹤編號放在主旨欄。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">35</span>What is the man&#x27;s problem?</div>
-      <ol class="opts"><li>A truck has broken down</li><li>A shipment has been delayed</li><li>An address is incorrect</li><li>A payment has not arrived</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 他特地澄清 no, nothing like that，貨車沒事——這是女士先說出口的猜測，用來當陷阱。</li><li>✅ <b>(B)</b> 正解。貨要延到週四，比原訂晚兩天。</li><li>❌ <b>(C)</b> 地址沒有問題，對話完全沒提。</li><li>❌ <b>(D)</b> 付款沒有提到。</li></ul>
-        <p class="tip">🔑 注意「先被否定的那個答案」通常就是錯的：No, nothing like that 之後才是真話。</p>
-      </details>
+    <div class="q" data-q="35" data-a="1">
+      <div class="qh"><span class="qn">35</span>What is the man&#x27;s problem?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A truck has broken down</span></li><li data-i="1"><b>B</b><span>A shipment has been delayed</span></li><li data-i="2"><b>C</b><span>An address is incorrect</span></li><li data-i="3"><b>D</b><span>A payment has not arrived</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 他特地澄清 no, nothing like that，貨車沒事——這是女士先說出口的猜測，用來當陷阱。</li><li class="yes">✅ <b>(B)</b> 正解。貨要延到週四，比原訂晚兩天。</li><li class="no">❌ <b>(C)</b> 地址沒有問題，對話完全沒提。</li><li class="no">❌ <b>(D)</b> 付款沒有提到。</li></ul>
+          <p class="tip">🔑 注意「先被否定的那個答案」通常就是錯的：No, nothing like that 之後才是真話。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">36</span>Why is the shipment late?</div>
-      <ol class="opts"><li>A customs inspection</li><li>Bad weather</li><li>A staff shortage</li><li>A missing document</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。There&#x27;s a customs inspection at the border。</li><li>❌ <b>(B)</b> 天氣完全沒提。</li><li>❌ <b>(C)</b> 缺人沒提。</li><li>❌ <b>(D)</b> 文件缺漏沒提——他提到的是「送貨單」（delivery note），那是他自己要寄的，不是延遲原因。</li></ul>
-        <p class="tip">🔑 原因題只要抓一個名詞（customs inspection）；沒聽清楚也別瞎選有聽到字的選項。</p>
-      </details>
+    <div class="q" data-q="36" data-a="0">
+      <div class="qh"><span class="qn">36</span>Why is the shipment late?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A customs inspection</span></li><li data-i="1"><b>B</b><span>Bad weather</span></li><li data-i="2"><b>C</b><span>A staff shortage</span></li><li data-i="3"><b>D</b><span>A missing document</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。There&#x27;s a customs inspection at the border。</li><li class="no">❌ <b>(B)</b> 天氣完全沒提。</li><li class="no">❌ <b>(C)</b> 缺人沒提。</li><li class="no">❌ <b>(D)</b> 文件缺漏沒提——他提到的是「送貨單」（delivery note），那是他自己要寄的，不是延遲原因。</li></ul>
+          <p class="tip">🔑 原因題只要抓一個名詞（customs inspection）；沒聽清楚也別瞎選有聽到字的選項。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">37</span>What does the woman ask the man to do?</div>
-      <ol class="opts"><li>Cancel the order</li><li>Refund the shipping fee</li><li>Put a tracking number in the subject line</li><li>Call the facilities manager</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 她沒有要取消訂單，只要求書面通知。</li><li>❌ <b>(B)</b> 退運費沒提到。</li><li>✅ <b>(C)</b> 正解。最後一句 please put the tracking number in the subject line。</li><li>❌ <b>(D)</b> 她要自己把文件交給設施主管，不是要他打給主管。</li></ul>
-        <p class="tip">🔑 最後一句常藏著答案；聽到 request 動詞（could you／please）就要豎起耳朵。</p>
-      </details>
+    <div class="q" data-q="37" data-a="2">
+      <div class="qh"><span class="qn">37</span>What does the woman ask the man to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Cancel the order</span></li><li data-i="1"><b>B</b><span>Refund the shipping fee</span></li><li data-i="2"><b>C</b><span>Put a tracking number in the subject line</span></li><li data-i="3"><b>D</b><span>Call the facilities manager</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 她沒有要取消訂單，只要求書面通知。</li><li class="no">❌ <b>(B)</b> 退運費沒提到。</li><li class="yes">✅ <b>(C)</b> 正解。最後一句 please put the tracking number in the subject line。</li><li class="no">❌ <b>(D)</b> 她要自己把文件交給設施主管，不是要他打給主管。</li></ul>
+          <p class="tip">🔑 最後一句常藏著答案；聽到 request 動詞（could you／please）就要豎起耳朵。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set3">
+  <section class="set" id="set3" data-set="3">
     <h2>第 3 組　<span class="meta">人力資源｜教育訓練報名｜英式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Good morning, this is Priya in Human Resources. I&#x27;m confirming your enrolment in the negotiation workshop.<span class="zh">早安，我是人資部的 Priya。我要確認你報名談判工作坊的事。</span></li><li><b>M</b>：Thanks for calling. Is it still the last Friday of the month?<span class="zh">謝謝你打來。還是這個月最後一個週五嗎？</span></li><li><b>W</b>：It is, but the venue has changed. We&#x27;ll be in the Riverside Room on the ground floor instead of the fifth-floor boardroom.<span class="zh">是，但場地改了。我們會在一樓的 Riverside 廳，不是五樓的董事會議室。</span></li><li><b>M</b>：Good to know. How many people are in the group?<span class="zh">知道了。這梯次有多少人？</span></li><li><b>W</b>：We&#x27;ve capped it at twelve, and two spots are still open if you&#x27;d like to bring a colleague.<span class="zh">我們上限十二人，還有兩個名額，如果你想帶同事來的話。</span></li><li><b>M</b>：I might do that. What do I need to bring?<span class="zh">我可能會。我需要帶什麼？</span></li><li><b>W</b>：Just a notebook. All the reading materials will be handed out at the door.<span class="zh">只要帶筆記本就好。所有閱讀材料會在門口發。</span></li><li><b>M</b>：Perfect. I&#x27;ll see you there.<span class="zh">太好了。到時候見。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">38</span>What is the purpose of the call?</div>
-      <ol class="opts"><li>To confirm a workshop registration</li><li>To interview an applicant</li><li>To book a boardroom</li><li>To hand out reading materials</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。I&#x27;m confirming your enrolment in the negotiation workshop。</li><li>❌ <b>(B)</b> 沒有面試，是教育訓練。</li><li>❌ <b>(C)</b> 會議室是上課場地，不是她打電話要預約的事。</li><li>❌ <b>(D)</b> 材料是在現場發，不是電話的目的；這是把細節當主旨的陷阱。</li></ul>
-        <p class="tip">🔑 enrolment（報名）這種字不熟沒關係，抓 workshop 與 confirming 就夠。</p>
-      </details>
+    <div class="q" data-q="38" data-a="0">
+      <div class="qh"><span class="qn">38</span>What is the purpose of the call?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To confirm a workshop registration</span></li><li data-i="1"><b>B</b><span>To interview an applicant</span></li><li data-i="2"><b>C</b><span>To book a boardroom</span></li><li data-i="3"><b>D</b><span>To hand out reading materials</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。I&#x27;m confirming your enrolment in the negotiation workshop。</li><li class="no">❌ <b>(B)</b> 沒有面試，是教育訓練。</li><li class="no">❌ <b>(C)</b> 會議室是上課場地，不是她打電話要預約的事。</li><li class="no">❌ <b>(D)</b> 材料是在現場發，不是電話的目的；這是把細節當主旨的陷阱。</li></ul>
+          <p class="tip">🔑 enrolment（報名）這種字不熟沒關係，抓 workshop 與 confirming 就夠。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">39</span>What has changed?</div>
-      <ol class="opts"><li>The number of trainers</li><li>The date of the workshop</li><li>The location of the workshop</li><li>The cost of the materials</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 講師人數沒變、沒提。</li><li>❌ <b>(B)</b> 日期沒變：女士說 It is（still the last Friday）。先被確認不變的就是常見錯答。</li><li>✅ <b>(C)</b> 正解。場地從五樓董事會議室改到一樓 Riverside 廳。</li><li>❌ <b>(D)</b> 費用完全沒提；材料是免費發放。</li></ul>
-        <p class="tip">🔑 the venue has changed 是關鍵句；Part 3 的 change 題幾乎都在考「哪一項沒變」。</p>
-      </details>
+    <div class="q" data-q="39" data-a="2">
+      <div class="qh"><span class="qn">39</span>What has changed?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The number of trainers</span></li><li data-i="1"><b>B</b><span>The date of the workshop</span></li><li data-i="2"><b>C</b><span>The location of the workshop</span></li><li data-i="3"><b>D</b><span>The cost of the materials</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 講師人數沒變、沒提。</li><li class="no">❌ <b>(B)</b> 日期沒變：女士說 It is（still the last Friday）。先被確認不變的就是常見錯答。</li><li class="yes">✅ <b>(C)</b> 正解。場地從五樓董事會議室改到一樓 Riverside 廳。</li><li class="no">❌ <b>(D)</b> 費用完全沒提；材料是免費發放。</li></ul>
+          <p class="tip">🔑 the venue has changed 是關鍵句；Part 3 的 change 題幾乎都在考「哪一項沒變」。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">40</span>What is the man asked to bring?</div>
-      <ol class="opts"><li>A notebook</li><li>A printed schedule</li><li>An identification badge</li><li>A laptop computer</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。Just a notebook。</li><li>❌ <b>(B)</b> 沒有要印好的時程表。</li><li>❌ <b>(C)</b> 識別證沒提。</li><li>❌ <b>(D)</b> 筆電沒提——reading materials 是主辦方提供，不是他要帶。</li></ul>
-        <p class="tip">🔑 Just a notebook 這種簡短句最容易漏聽，聽到 just 就要記下來。</p>
-      </details>
+    <div class="q" data-q="40" data-a="0">
+      <div class="qh"><span class="qn">40</span>What is the man asked to bring?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A notebook</span></li><li data-i="1"><b>B</b><span>A printed schedule</span></li><li data-i="2"><b>C</b><span>An identification badge</span></li><li data-i="3"><b>D</b><span>A laptop computer</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。Just a notebook。</li><li class="no">❌ <b>(B)</b> 沒有要印好的時程表。</li><li class="no">❌ <b>(C)</b> 識別證沒提。</li><li class="no">❌ <b>(D)</b> 筆電沒提——reading materials 是主辦方提供，不是他要帶。</li></ul>
+          <p class="tip">🔑 Just a notebook 這種簡短句最容易漏聽，聽到 just 就要記下來。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set4">
+  <section class="set" id="set4" data-set="4">
     <h2>第 4 組　<span class="meta">飯店｜婚宴場地洽詢｜澳式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Seabreeze Hotel, this is Carla speaking. How may I help you?<span class="zh">海風飯店，我是 Carla，請問需要什麼服務？</span></li><li><b>M</b>：Hello, I&#x27;d like to ask about the banquet hall for a wedding reception in October.<span class="zh">你好，我想詢問十月婚宴的宴會廳。</span></li><li><b>W</b>：Certainly. We have two rooms. The Harbour Room seats two hundred, and the Garden Room seats eighty.<span class="zh">當然。我們有兩個廳。港灣廳可坐兩百人，花園廳可坐八十人。</span></li><li><b>M</b>：Eighty should be plenty. We&#x27;re expecting about sixty-five guests.<span class="zh">八十應該很夠。我們預計大約六十五位賓客。</span></li><li><b>W</b>：Then I&#x27;d recommend the Garden Room. It opens onto the terrace, which is lovely for photographs.<span class="zh">那我會推薦花園廳。它連著露台，拍照很漂亮。</span></li><li><b>M</b>：That sounds good. What about parking?<span class="zh">聽起來不錯。停車方面呢？</span></li><li><b>W</b>：We have a hundred spaces underground, and guests pay a flat rate of five dollars.<span class="zh">我們地下有一百個車位，賓客一律收五元。</span></li><li><b>M</b>：Great. Can I come by on Saturday to look at the room?<span class="zh">太好了。我週六可以過去看看場地嗎？</span></li><li><b>W</b>：Of course. Ask for me at the front desk and I&#x27;ll show you around.<span class="zh">當然。到櫃檯找我，我帶你參觀。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">41</span>Why is the man calling?</div>
-      <ol class="opts"><li>To book a hotel room</li><li>To enquire about an event space</li><li>To change a reservation</li><li>To apply for a job</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 他要的是宴會廳，不是住宿房間——room 這個字重複出現是這題最大的陷阱。</li><li>✅ <b>(B)</b> 正解。ask about the banquet hall for a wedding reception。</li><li>❌ <b>(C)</b> 沒有要改既有訂位，是第一次洽詢。</li><li>❌ <b>(D)</b> 求職沒提。</li></ul>
-        <p class="tip">🔑 聽到 room 先別急，banquet hall／reception 才是關鍵字。</p>
-      </details>
+    <div class="q" data-q="41" data-a="1">
+      <div class="qh"><span class="qn">41</span>Why is the man calling?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To book a hotel room</span></li><li data-i="1"><b>B</b><span>To enquire about an event space</span></li><li data-i="2"><b>C</b><span>To change a reservation</span></li><li data-i="3"><b>D</b><span>To apply for a job</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 他要的是宴會廳，不是住宿房間——room 這個字重複出現是這題最大的陷阱。</li><li class="yes">✅ <b>(B)</b> 正解。ask about the banquet hall for a wedding reception。</li><li class="no">❌ <b>(C)</b> 沒有要改既有訂位，是第一次洽詢。</li><li class="no">❌ <b>(D)</b> 求職沒提。</li></ul>
+          <p class="tip">🔑 聽到 room 先別急，banquet hall／reception 才是關鍵字。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">42</span>Which room does the woman recommend?</div>
-      <ol class="opts"><li>The Harbour Room</li><li>The Boardroom</li><li>The Garden Room</li><li>The Terrace Room</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 港灣廳可坐兩百人，對六十五位賓客來說太大，她只是先介紹。</li><li>❌ <b>(B)</b> 董事會議室是別的通話（其他題組）出現的詞，這裡沒有。</li><li>✅ <b>(C)</b> 正解。I&#x27;d recommend the Garden Room。</li><li>❌ <b>(D)</b> 露台（terrace）是花園廳外面的一部分，不是一個廳。</li></ul>
-        <p class="tip">🔑 recommend／suggest 後面直接接答案；同時要記得「先介紹、後推薦」的順序。</p>
-      </details>
+    <div class="q" data-q="42" data-a="2">
+      <div class="qh"><span class="qn">42</span>Which room does the woman recommend?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The Harbour Room</span></li><li data-i="1"><b>B</b><span>The Boardroom</span></li><li data-i="2"><b>C</b><span>The Garden Room</span></li><li data-i="3"><b>D</b><span>The Terrace Room</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 港灣廳可坐兩百人，對六十五位賓客來說太大，她只是先介紹。</li><li class="no">❌ <b>(B)</b> 董事會議室是別的通話（其他題組）出現的詞，這裡沒有。</li><li class="yes">✅ <b>(C)</b> 正解。I&#x27;d recommend the Garden Room。</li><li class="no">❌ <b>(D)</b> 露台（terrace）是花園廳外面的一部分，不是一個廳。</li></ul>
+          <p class="tip">🔑 recommend／suggest 後面直接接答案；同時要記得「先介紹、後推薦」的順序。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">43</span>What will the man probably do on Saturday?</div>
-      <ol class="opts"><li>Pay a parking fee</li><li>Meet a wedding planner</li><li>Visit the hotel</li><li>Send a deposit</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 五元停車費是賓客的價格，不是他週六要做的事。</li><li>❌ <b>(B)</b> 婚禮企劃沒提到。</li><li>✅ <b>(C)</b> 正解。Can I come by on Saturday to look at the room?</li><li>❌ <b>(D)</b> 訂金沒提。</li></ul>
-        <p class="tip">🔑 問「probably do」時，找對話中已約好的下一步動作，不要自己推理出沒說的事。</p>
-      </details>
+    <div class="q" data-q="43" data-a="2">
+      <div class="qh"><span class="qn">43</span>What will the man probably do on Saturday?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Pay a parking fee</span></li><li data-i="1"><b>B</b><span>Meet a wedding planner</span></li><li data-i="2"><b>C</b><span>Visit the hotel</span></li><li data-i="3"><b>D</b><span>Send a deposit</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 五元停車費是賓客的價格，不是他週六要做的事。</li><li class="no">❌ <b>(B)</b> 婚禮企劃沒提到。</li><li class="yes">✅ <b>(C)</b> 正解。Can I come by on Saturday to look at the room?</li><li class="no">❌ <b>(D)</b> 訂金沒提。</li></ul>
+          <p class="tip">🔑 問「probably do」時，找對話中已約好的下一步動作，不要自己推理出沒說的事。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set5">
+  <section class="set" id="set5" data-set="5">
     <h2>第 5 組　<span class="meta">客戶服務｜退換貨處理｜美式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Thank you for calling Halden Electronics. May I have your order number?<span class="zh">感謝您致電 Halden 電子。可以給我您的訂單編號嗎？</span></li><li><b>M</b>：It&#x27;s four-seven-two-nine. I ordered a monitor, but the screen arrived with a scratch.<span class="zh">是四七二九。我訂了一台螢幕，但送來時螢幕上有刮痕。</span></li><li><b>W</b>：I&#x27;m sorry about that. Would you like a replacement or a refund?<span class="zh">很抱歉。您想要換貨還是退款？</span></li><li><b>M</b>：A replacement, please. I need it for a video project next week.<span class="zh">請給我換貨。我下週有個影片專案要用。</span></li><li><b>W</b>：Then I&#x27;ll send a new unit by express delivery. It should reach you in two business days.<span class="zh">那我會用快遞寄一台新的。應該兩個工作天會到。</span></li><li><b>M</b>：Do I need to return the damaged one first?<span class="zh">我需要先寄回壞掉的那台嗎？</span></li><li><b>W</b>：Not this time. Keep it until the new one arrives, then use the same box.<span class="zh">這次不用。請先留著，等新的到了再用同一個箱子寄回。</span></li><li><b>M</b>：Understood. Thanks for your help.<span class="zh">了解。謝謝你的協助。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">44</span>What is the man&#x27;s problem?</div>
-      <ol class="opts"><li>He received a damaged item</li><li>He was charged twice</li><li>His order never arrived</li><li>He ordered the wrong model</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。the screen arrived with a scratch。</li><li>❌ <b>(B)</b> 重複扣款沒提。</li><li>❌ <b>(C)</b> 貨有到，只是有刮痕。</li><li>❌ <b>(D)</b> 型號沒有錯，他沒有說訂錯。</li></ul>
-        <p class="tip">🔑 arrived with a scratch／was broken 這類描述＝瑕疵題的基本款。</p>
-      </details>
+    <div class="q" data-q="44" data-a="0">
+      <div class="qh"><span class="qn">44</span>What is the man&#x27;s problem?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>He received a damaged item</span></li><li data-i="1"><b>B</b><span>He was charged twice</span></li><li data-i="2"><b>C</b><span>His order never arrived</span></li><li data-i="3"><b>D</b><span>He ordered the wrong model</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。the screen arrived with a scratch。</li><li class="no">❌ <b>(B)</b> 重複扣款沒提。</li><li class="no">❌ <b>(C)</b> 貨有到，只是有刮痕。</li><li class="no">❌ <b>(D)</b> 型號沒有錯，他沒有說訂錯。</li></ul>
+          <p class="tip">🔑 arrived with a scratch／was broken 這類描述＝瑕疵題的基本款。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">45</span>What does the man want?</div>
-      <ol class="opts"><li>A refund</li><li>A replacement</li><li>A discount</li><li>A different model</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 退款的選項是女士主動提的，男士選了另一項——這是本題最大陷阱。</li><li>✅ <b>(B)</b> 正解。A replacement, please。</li><li>❌ <b>(C)</b> 折扣沒提。</li><li>❌ <b>(D)</b> 他沒有要換型號。</li></ul>
-        <p class="tip">🔑 二選一（replacement／refund）的題目一定要聽清楚最後選了哪個。</p>
-      </details>
+    <div class="q" data-q="45" data-a="1">
+      <div class="qh"><span class="qn">45</span>What does the man want?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A refund</span></li><li data-i="1"><b>B</b><span>A replacement</span></li><li data-i="2"><b>C</b><span>A discount</span></li><li data-i="3"><b>D</b><span>A different model</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 退款的選項是女士主動提的，男士選了另一項——這是本題最大陷阱。</li><li class="yes">✅ <b>(B)</b> 正解。A replacement, please。</li><li class="no">❌ <b>(C)</b> 折扣沒提。</li><li class="no">❌ <b>(D)</b> 他沒有要換型號。</li></ul>
+          <p class="tip">🔑 二選一（replacement／refund）的題目一定要聽清楚最後選了哪個。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">46</span>What does the woman say about returning the item?</div>
-      <ol class="opts"><li>It must be returned within a week</li><li>A courier will collect it tomorrow</li><li>It should be sent back after the new one arrives</li><li>It cannot be returned once opened</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 對話沒有一週內的期限。</li><li>❌ <b>(B)</b> 沒有說隔天來收，是「兩個工作天」到新貨。</li><li>✅ <b>(C)</b> 正解。Keep it until the new one arrives, then use the same box。</li><li>❌ <b>(D)</b> 可以退，而且他還沒寄。</li></ul>
-        <p class="tip">🔑 Not this time／keep it until… 這種「例外處理」句子是進階考點。</p>
-      </details>
+    <div class="q" data-q="46" data-a="2">
+      <div class="qh"><span class="qn">46</span>What does the woman say about returning the item?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It must be returned within a week</span></li><li data-i="1"><b>B</b><span>A courier will collect it tomorrow</span></li><li data-i="2"><b>C</b><span>It should be sent back after the new one arrives</span></li><li data-i="3"><b>D</b><span>It cannot be returned once opened</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 對話沒有一週內的期限。</li><li class="no">❌ <b>(B)</b> 沒有說隔天來收，是「兩個工作天」到新貨。</li><li class="yes">✅ <b>(C)</b> 正解。Keep it until the new one arrives, then use the same box。</li><li class="no">❌ <b>(D)</b> 可以退，而且他還沒寄。</li></ul>
+          <p class="tip">🔑 Not this time／keep it until… 這種「例外處理」句子是進階考點。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set6">
+  <section class="set" id="set6" data-set="6">
     <h2>第 6 組　<span class="meta">財務部｜三人對話：季報會議｜英式＋美式＋加拿大</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>F1</b>：Thanks for joining, everyone. Before Friday&#x27;s board meeting, we need to agree on the revenue figures.<span class="zh">謝謝大家參加。週五董事會之前，我們要先對營收數字有共識。</span></li><li><b>M</b>：I&#x27;ve circulated the draft, but the numbers from the Asian offices came in last night.<span class="zh">我已經寄出草稿，但亞洲各辦公室的數字昨晚才進來。</span></li><li><b>F2</b>：Do they change the total much?<span class="zh">那些會讓總數差很多嗎？</span></li><li><b>M</b>：About three percent higher — mostly from the Singapore branch.<span class="zh">大約高百分之三——主要來自新加坡分公司。</span></li><li><b>F1</b>：Then we should update the slides. Clara, could you handle that?<span class="zh">那我們要更新投影片。Clara，你可以處理嗎？</span></li><li><b>F2</b>：I can, but I&#x27;ll need the revised spreadsheet first.<span class="zh">可以，但我需要先拿到修正後的試算表。</span></li><li><b>M</b>：I&#x27;ll send it to you within the hour.<span class="zh">我一小時內寄給你。</span></li><li><b>F1</b>：Great. And let&#x27;s keep the currency slide in — the board asked about it last quarter.<span class="zh">太好了。另外匯率那張投影片要留著——董事會上一季問過。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">47</span>What are the speakers mainly discussing?</div>
-      <ol class="opts"><li>A change in revenue figures</li><li>A new branch opening</li><li>A currency exchange policy</li><li>A hiring plan</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。亞洲辦公室的新數字讓營收提高約百分之三，大家要同意並更新。</li><li>❌ <b>(B)</b> 新加坡分公司是既有據點，不是新開幕。</li><li>❌ <b>(C)</b> 匯率只是「要保留的一張投影片」，不是主要話題。</li><li>❌ <b>(D)</b> 人事沒提。</li></ul>
-        <p class="tip">🔑 三人對話先抓第一句主人（主席）的開場白，主旨幾乎都在那裡。</p>
-      </details>
+    <div class="q" data-q="47" data-a="0">
+      <div class="qh"><span class="qn">47</span>What are the speakers mainly discussing?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A change in revenue figures</span></li><li data-i="1"><b>B</b><span>A new branch opening</span></li><li data-i="2"><b>C</b><span>A currency exchange policy</span></li><li data-i="3"><b>D</b><span>A hiring plan</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。亞洲辦公室的新數字讓營收提高約百分之三，大家要同意並更新。</li><li class="no">❌ <b>(B)</b> 新加坡分公司是既有據點，不是新開幕。</li><li class="no">❌ <b>(C)</b> 匯率只是「要保留的一張投影片」，不是主要話題。</li><li class="no">❌ <b>(D)</b> 人事沒提。</li></ul>
+          <p class="tip">🔑 三人對話先抓第一句主人（主席）的開場白，主旨幾乎都在那裡。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">48</span>What does the woman ask the man to do?</div>
-      <ol class="opts"><li>Contact the board</li><li>Send a revised spreadsheet</li><li>Hire an assistant</li><li>Check the Singapore office</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 董事會是週五要開，沒有要他聯絡董事。</li><li>✅ <b>(B)</b> 正解。Clara 需要修正後的試算表，男士回答 I&#x27;ll send it to you。</li><li>❌ <b>(C)</b> 沒有提到找人。</li><li>❌ <b>(D)</b> 新加坡數字是已收到的資料，不需要他去查。</li></ul>
-        <p class="tip">🔑 三人對話要記住誰做了什麼：Clara 做投影片、男士寄試算表。</p>
-      </details>
+    <div class="q" data-q="48" data-a="1">
+      <div class="qh"><span class="qn">48</span>What does the woman ask the man to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Contact the board</span></li><li data-i="1"><b>B</b><span>Send a revised spreadsheet</span></li><li data-i="2"><b>C</b><span>Hire an assistant</span></li><li data-i="3"><b>D</b><span>Check the Singapore office</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 董事會是週五要開，沒有要他聯絡董事。</li><li class="yes">✅ <b>(B)</b> 正解。Clara 需要修正後的試算表，男士回答 I&#x27;ll send it to you。</li><li class="no">❌ <b>(C)</b> 沒有提到找人。</li><li class="no">❌ <b>(D)</b> 新加坡數字是已收到的資料，不需要他去查。</li></ul>
+          <p class="tip">🔑 三人對話要記住誰做了什麼：Clara 做投影片、男士寄試算表。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">49</span>What does the woman want to keep in the presentation?</div>
-      <ol class="opts"><li>A slide about currencies</li><li>A chart on hiring</li><li>A list of branch addresses</li><li>A summary of expenses</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。let&#x27;s keep the currency slide in。</li><li>❌ <b>(B)</b> 人事圖表沒提。</li><li>❌ <b>(C)</b> 地址清單沒提。</li><li>❌ <b>(D)</b> 費用摘要沒提。</li></ul>
-        <p class="tip">🔑 keep／include／leave out 這類動詞是「保留或刪除」題的訊號。</p>
-      </details>
+    <div class="q" data-q="49" data-a="0">
+      <div class="qh"><span class="qn">49</span>What does the woman want to keep in the presentation?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A slide about currencies</span></li><li data-i="1"><b>B</b><span>A chart on hiring</span></li><li data-i="2"><b>C</b><span>A list of branch addresses</span></li><li data-i="3"><b>D</b><span>A summary of expenses</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。let&#x27;s keep the currency slide in。</li><li class="no">❌ <b>(B)</b> 人事圖表沒提。</li><li class="no">❌ <b>(C)</b> 地址清單沒提。</li><li class="no">❌ <b>(D)</b> 費用摘要沒提。</li></ul>
+          <p class="tip">🔑 keep／include／leave out 這類動詞是「保留或刪除」題的訊號。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set7">
+  <section class="set" id="set7" data-set="7">
     <h2>第 7 組　<span class="meta">業務部｜商展攤位安排｜加拿大</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Marcus, did you get the floor plan for the trade show?<span class="zh">Marcus，你收到商展的攤位平面圖了嗎？</span></li><li><b>M</b>：I did. We&#x27;re at booth three seventeen, right next to the main entrance.<span class="zh">收到了。我們在三一七號攤位，就在主要入口旁邊。</span></li><li><b>W</b>：That&#x27;s a busy spot. How much space do we have?<span class="zh">那是人潮很多的位置。我們有多少空間？</span></li><li><b>M</b>：About nine square metres — enough for two tables and one display screen.<span class="zh">大約九平方公尺——夠放兩張桌子和一個展示螢幕。</span></li><li><b>W</b>：Good. Do we need to order the screen separately?<span class="zh">好。螢幕需要另外訂嗎？</span></li><li><b>M</b>：No, it&#x27;s included in the booth package, but we do need our own extension cords.<span class="zh">不用，它包含在攤位套裝裡，但延長線要自己帶。</span></li><li><b>W</b>：I&#x27;ll add those to the packing list. Anything else?<span class="zh">那我把延長線加進打包清單。還有別的嗎？</span></li><li><b>M</b>：Just make sure everything arrives by Wednesday afternoon. The doors open Thursday at ten.<span class="zh">只要確定所有東西週三下午前到就好。週四十點開放入場。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">50</span>What are the speakers talking about?</div>
-      <ol class="opts"><li>Preparations for a trade show</li><li>A new office layout</li><li>A job interview schedule</li><li>A product pricing policy</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。整段都在確認攤位位置、空間、設備。</li><li>❌ <b>(B)</b> 不是辦公室，是商展攤位。</li><li>❌ <b>(C)</b> 面試沒提。</li><li>❌ <b>(D)</b> 定價沒提。</li></ul>
-        <p class="tip">🔑 floor plan／booth／display 這些字指向展場情境，可用來猜主旨但答案仍要聽。</p>
-      </details>
+    <div class="q" data-q="50" data-a="0">
+      <div class="qh"><span class="qn">50</span>What are the speakers talking about?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Preparations for a trade show</span></li><li data-i="1"><b>B</b><span>A new office layout</span></li><li data-i="2"><b>C</b><span>A job interview schedule</span></li><li data-i="3"><b>D</b><span>A product pricing policy</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。整段都在確認攤位位置、空間、設備。</li><li class="no">❌ <b>(B)</b> 不是辦公室，是商展攤位。</li><li class="no">❌ <b>(C)</b> 面試沒提。</li><li class="no">❌ <b>(D)</b> 定價沒提。</li></ul>
+          <p class="tip">🔑 floor plan／booth／display 這些字指向展場情境，可用來猜主旨但答案仍要聽。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">51</span>What is included with the booth?</div>
-      <ol class="opts"><li>A display screen</li><li>Two tables</li><li>Extension cords</li><li>A staff pass</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。it&#x27;s included in the booth package（指螢幕）。</li><li>❌ <b>(B)</b> 兩張桌子是他們自己安排可以放的數量描述，不是套裝含的項目。</li><li>❌ <b>(C)</b> 延長線要自己帶，是本題最容易錯的反向陷阱。</li><li>❌ <b>(D)</b> 工作證沒提。</li></ul>
-        <p class="tip">🔑 included／not included 這種正反題，音檔常先問、後答，別急著選。</p>
-      </details>
+    <div class="q" data-q="51" data-a="0">
+      <div class="qh"><span class="qn">51</span>What is included with the booth?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A display screen</span></li><li data-i="1"><b>B</b><span>Two tables</span></li><li data-i="2"><b>C</b><span>Extension cords</span></li><li data-i="3"><b>D</b><span>A staff pass</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。it&#x27;s included in the booth package（指螢幕）。</li><li class="no">❌ <b>(B)</b> 兩張桌子是他們自己安排可以放的數量描述，不是套裝含的項目。</li><li class="no">❌ <b>(C)</b> 延長線要自己帶，是本題最容易錯的反向陷阱。</li><li class="no">❌ <b>(D)</b> 工作證沒提。</li></ul>
+          <p class="tip">🔑 included／not included 這種正反題，音檔常先問、後答，別急著選。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">52</span>What will the woman probably do next?</div>
-      <ol class="opts"><li>Order a display screen</li><li>Add items to a packing list</li><li>Reserve a larger booth</li><li>Call the trade show organisers</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 螢幕已含在套裝裡，不用訂——這是本題設計的反向陷阱。</li><li>✅ <b>(B)</b> 正解。I&#x27;ll add those to the packing list。</li><li>❌ <b>(C)</b> 攤位已定（三一七號），沒有要換大的。</li><li>❌ <b>(D)</b> 沒有要打給主辦單位。</li></ul>
-        <p class="tip">🔑 問下一步時，注意誰負責那件事：說 I&#x27;ll… 的人就是執行動作的人。</p>
-      </details>
+    <div class="q" data-q="52" data-a="1">
+      <div class="qh"><span class="qn">52</span>What will the woman probably do next?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Order a display screen</span></li><li data-i="1"><b>B</b><span>Add items to a packing list</span></li><li data-i="2"><b>C</b><span>Reserve a larger booth</span></li><li data-i="3"><b>D</b><span>Call the trade show organisers</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 螢幕已含在套裝裡，不用訂——這是本題設計的反向陷阱。</li><li class="yes">✅ <b>(B)</b> 正解。I&#x27;ll add those to the packing list。</li><li class="no">❌ <b>(C)</b> 攤位已定（三一七號），沒有要換大的。</li><li class="no">❌ <b>(D)</b> 沒有要打給主辦單位。</li></ul>
+          <p class="tip">🔑 問下一步時，注意誰負責那件事：說 I&#x27;ll… 的人就是執行動作的人。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set8">
+  <section class="set" id="set8" data-set="8">
     <h2>第 8 組　<span class="meta">資訊部｜三人對話：網站改版進度｜美式＋澳式＋英式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>M1</b>：Let&#x27;s start with the launch date. Are we still on for the fifteenth?<span class="zh">先講上線日期。我們還是預定十五號嗎？</span></li><li><b>W1</b>：The design is finished, but the French and German translations aren&#x27;t ready yet.<span class="zh">設計完成了，但法文和德文翻譯還沒好。</span></li><li><b>M2</b>：How long do you need? My team can test the site in the meantime.<span class="zh">你們需要多久？我的團隊可以趁這段時間測試網站。</span></li><li><b>W1</b>：The translation agency promised them by the eleventh.<span class="zh">翻譯公司承諾十一號交件。</span></li><li><b>M1</b>：Then we&#x27;ll keep the fifteenth, but let&#x27;s not announce it publicly until the twelfth.<span class="zh">那我們就維持十五號，但十二號前不要對外公布。</span></li><li><b>M2</b>：Agreed. I&#x27;ll send the testing checklist this afternoon so everyone can see it.<span class="zh">同意。我下午會把測試清單寄出去，讓大家都看得到。</span></li><li><b>W1</b>：Please add the checkout page to that list. It caused problems in the last release.<span class="zh">麻煩把結帳頁加進清單。上次改版就是那頁出問題。</span></li><li><b>M2</b>：It&#x27;s already at the top.<span class="zh">它已經排在最上面了。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">53</span>What are the speakers mainly discussing?</div>
-      <ol class="opts"><li>A website launch</li><li>A translation conference</li><li>A hiring decision</li><li>A customer complaint</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。整段在講上線日期與測試。</li><li>❌ <b>(B)</b> 翻譯只是其中一項待完成工作，不是主題。</li><li>❌ <b>(C)</b> 人事沒提。</li><li>❌ <b>(D)</b> 客訴沒提（上次出問題是結帳頁，不是抱怨）。</li></ul>
-        <p class="tip">🔑 三人對話用「誰提到什麼」來排除選項，比抓單一字更準。</p>
-      </details>
+    <div class="q" data-q="53" data-a="0">
+      <div class="qh"><span class="qn">53</span>What are the speakers mainly discussing?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A website launch</span></li><li data-i="1"><b>B</b><span>A translation conference</span></li><li data-i="2"><b>C</b><span>A hiring decision</span></li><li data-i="3"><b>D</b><span>A customer complaint</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。整段在講上線日期與測試。</li><li class="no">❌ <b>(B)</b> 翻譯只是其中一項待完成工作，不是主題。</li><li class="no">❌ <b>(C)</b> 人事沒提。</li><li class="no">❌ <b>(D)</b> 客訴沒提（上次出問題是結帳頁，不是抱怨）。</li></ul>
+          <p class="tip">🔑 三人對話用「誰提到什麼」來排除選項，比抓單一字更準。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">54</span>What is causing the delay?</div>
-      <ol class="opts"><li>The design is incomplete</li><li>Translations are not finished</li><li>The testing team is away</li><li>The client changed the brief</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 設計已經完成（The design is finished），這是最明顯的錯答。</li><li>✅ <b>(B)</b> 正解。法文與德文翻譯還沒好。</li><li>❌ <b>(C)</b> 測試團隊沒有請假，反而要趁空檔先測。</li><li>❌ <b>(D)</b> 沒有提到客戶改需求。</li></ul>
-        <p class="tip">🔑 聽到 finished 就要記住「哪一項不是原因」，Part 3 常用這種對比。</p>
-      </details>
+    <div class="q" data-q="54" data-a="1">
+      <div class="qh"><span class="qn">54</span>What is causing the delay?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The design is incomplete</span></li><li data-i="1"><b>B</b><span>Translations are not finished</span></li><li data-i="2"><b>C</b><span>The testing team is away</span></li><li data-i="3"><b>D</b><span>The client changed the brief</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 設計已經完成（The design is finished），這是最明顯的錯答。</li><li class="yes">✅ <b>(B)</b> 正解。法文與德文翻譯還沒好。</li><li class="no">❌ <b>(C)</b> 測試團隊沒有請假，反而要趁空檔先測。</li><li class="no">❌ <b>(D)</b> 沒有提到客戶改需求。</li></ul>
+          <p class="tip">🔑 聽到 finished 就要記住「哪一項不是原因」，Part 3 常用這種對比。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">55</span>What will the man do this afternoon?</div>
-      <ol class="opts"><li>Contact a translation agency</li><li>Publish the launch date</li><li>Send a testing checklist</li><li>Update the checkout page</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 聯絡翻譯公司是另一位女士敘述的事（agency promised…）。</li><li>❌ <b>(B)</b> 公布日期反而要延到十二號之後。</li><li>✅ <b>(C)</b> 正解。I&#x27;ll send the testing checklist this afternoon。</li><li>❌ <b>(D)</b> 結帳頁已經在清單最上面，不需要他更新。</li></ul>
-        <p class="tip">🔑 三人對話要嚴格分辨 I／you／she：動作歸屬是失分最多的地方。</p>
-      </details>
+    <div class="q" data-q="55" data-a="2">
+      <div class="qh"><span class="qn">55</span>What will the man do this afternoon?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Contact a translation agency</span></li><li data-i="1"><b>B</b><span>Publish the launch date</span></li><li data-i="2"><b>C</b><span>Send a testing checklist</span></li><li data-i="3"><b>D</b><span>Update the checkout page</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 聯絡翻譯公司是另一位女士敘述的事（agency promised…）。</li><li class="no">❌ <b>(B)</b> 公布日期反而要延到十二號之後。</li><li class="yes">✅ <b>(C)</b> 正解。I&#x27;ll send the testing checklist this afternoon。</li><li class="no">❌ <b>(D)</b> 結帳頁已經在清單最上面，不需要他更新。</li></ul>
+          <p class="tip">🔑 三人對話要嚴格分辨 I／you／she：動作歸屬是失分最多的地方。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set9">
+  <section class="set" id="set9" data-set="9">
     <h2>第 9 組　<span class="meta">活動企劃｜視聽設備租借｜澳式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Good afternoon, ProSound Rentals. How can I help you?<span class="zh">午安，ProSound 租借。需要什麼協助？</span></li><li><b>M</b>：I&#x27;m organising a product launch on the twenty-second and I need two wireless microphones.<span class="zh">我在籌備二十二號的產品發表會，需要兩支無線麥克風。</span></li><li><b>W</b>：We have those. Is the event indoors?<span class="zh">我們有。活動在室內嗎？</span></li><li><b>M</b>：Yes, in a hotel conference room. Would one speaker be enough?<span class="zh">是，在飯店會議室。一支擴音喇叭夠嗎？</span></li><li><b>W</b>：For a room that size, I&#x27;d take two so you can spread the sound.<span class="zh">那樣的空間，我會建議兩支，聲音比較平均。</span></li><li><b>M</b>：All right. Can you deliver them that morning?<span class="zh">好。你們當天早上可以送嗎？</span></li><li><b>W</b>：Delivery is free within the city, but we need the equipment back by noon on the twenty-third.<span class="zh">市內免運費，但設備要在二十三號中午前歸還。</span></li><li><b>M</b>：That&#x27;s fine. Please send the invoice to my office address, not my e-mail.<span class="zh">可以。請把發票寄到我的辦公室地址，不要寄 email。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">56</span>What does the man need to rent?</div>
-      <ol class="opts"><li>Two wireless microphones</li><li>Two speakers</li><li>A projector</li><li>A conference room</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。I need two wireless microphones。</li><li>❌ <b>(B)</b> 兩支擴音喇叭是女士建議的，不是他一開始要租的——這題同時考「需要的東西」和「被建議的東西」。</li><li>❌ <b>(C)</b> 投影機沒提。</li><li>❌ <b>(D)</b> 會議室是飯店的，不是向租借公司租。</li></ul>
-        <p class="tip">🔑 需求題只算「他開口要的」，別人建議的另計，這是 Part 3 的高頻陷阱。</p>
-      </details>
+    <div class="q" data-q="56" data-a="0">
+      <div class="qh"><span class="qn">56</span>What does the man need to rent?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Two wireless microphones</span></li><li data-i="1"><b>B</b><span>Two speakers</span></li><li data-i="2"><b>C</b><span>A projector</span></li><li data-i="3"><b>D</b><span>A conference room</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。I need two wireless microphones。</li><li class="no">❌ <b>(B)</b> 兩支擴音喇叭是女士建議的，不是他一開始要租的——這題同時考「需要的東西」和「被建議的東西」。</li><li class="no">❌ <b>(C)</b> 投影機沒提。</li><li class="no">❌ <b>(D)</b> 會議室是飯店的，不是向租借公司租。</li></ul>
+          <p class="tip">🔑 需求題只算「他開口要的」，別人建議的另計，這是 Part 3 的高頻陷阱。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">57</span>What does the woman suggest?</div>
-      <ol class="opts"><li>Hiring a technician</li><li>Using a larger room</li><li>Bringing a second microphone</li><li>Renting two speakers</li></ol>
-      <details><summary>答案與詳解（D）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 技術人員沒提。</li><li>❌ <b>(B)</b> 場地已經確定，她沒有建議換房間。</li><li>❌ <b>(C)</b> 麥克風的數量是男士自己講的（two wireless microphones），她沒有再多建議一支。</li><li>✅ <b>(D)</b> 正解。For a room that size, I&#x27;d take two（指喇叭）。</li></ul>
-        <p class="tip">🔑 I&#x27;d take／I&#x27;d recommend 後面的東西就是建議內容，別和對方原本的需求搞混。</p>
-      </details>
+    <div class="q" data-q="57" data-a="3">
+      <div class="qh"><span class="qn">57</span>What does the woman suggest?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Hiring a technician</span></li><li data-i="1"><b>B</b><span>Using a larger room</span></li><li data-i="2"><b>C</b><span>Bringing a second microphone</span></li><li data-i="3"><b>D</b><span>Renting two speakers</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 技術人員沒提。</li><li class="no">❌ <b>(B)</b> 場地已經確定，她沒有建議換房間。</li><li class="no">❌ <b>(C)</b> 麥克風的數量是男士自己講的（two wireless microphones），她沒有再多建議一支。</li><li class="yes">✅ <b>(D)</b> 正解。For a room that size, I&#x27;d take two（指喇叭）。</li></ul>
+          <p class="tip">🔑 I&#x27;d take／I&#x27;d recommend 後面的東西就是建議內容，別和對方原本的需求搞混。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">58</span>What does the man ask about the invoice?</div>
-      <ol class="opts"><li>To pay in cash</li><li>To receive a discount</li><li>To charge a different delivery fee</li><li>To send it to a different address</li></ol>
-      <details><summary>答案與詳解（D）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 現金沒提。</li><li>❌ <b>(B)</b> 折扣沒提。</li><li>❌ <b>(C)</b> 運費是免費的（within the city），他沒有要改。</li><li>✅ <b>(D)</b> 正解。send the invoice to my office address, not my e-mail。</li></ul>
-        <p class="tip">🔑 最後一句常是答案句；not my e-mail 這種對比更是明顯的考點。</p>
-      </details>
+    <div class="q" data-q="58" data-a="3">
+      <div class="qh"><span class="qn">58</span>What does the man ask about the invoice?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To pay in cash</span></li><li data-i="1"><b>B</b><span>To receive a discount</span></li><li data-i="2"><b>C</b><span>To charge a different delivery fee</span></li><li data-i="3"><b>D</b><span>To send it to a different address</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 現金沒提。</li><li class="no">❌ <b>(B)</b> 折扣沒提。</li><li class="no">❌ <b>(C)</b> 運費是免費的（within the city），他沒有要改。</li><li class="yes">✅ <b>(D)</b> 正解。send the invoice to my office address, not my e-mail。</li></ul>
+          <p class="tip">🔑 最後一句常是答案句；not my e-mail 這種對比更是明顯的考點。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set10">
+  <section class="set" id="set10" data-set="10">
     <h2>第 10 組　<span class="meta">餐飲部｜宴會訂位｜美式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>M</b>：Hello, I&#x27;d like to book a table for a retirement dinner on the ninth.<span class="zh">你好，我想訂位，九號要辦退休餐會。</span></li><li><b>W</b>：How many guests will you be?<span class="zh">請問幾位？</span></li><li><b>M</b>：Twenty-four, and we&#x27;d like a private room if possible.<span class="zh">二十四位，可以的話想要包廂。</span></li><li><b>W</b>：Our private room holds thirty, so that works. Would you like the set menu or à la carte?<span class="zh">我們的包廂可坐三十人，沒問題。您要套餐還是單點？</span></li><li><b>M</b>：The set menu, please. Two of our guests don&#x27;t eat seafood.<span class="zh">套餐，麻煩。我們有兩位不吃海鮮。</span></li><li><b>W</b>：I&#x27;ll note that. We can prepare a vegetarian alternative for them.<span class="zh">我會註記。我們可以為他們準備素食替代餐點。</span></li><li><b>M</b>：Perfect. Do you require a deposit?<span class="zh">太好了。需要訂金嗎？</span></li><li><b>W</b>：A hundred dollars, and it&#x27;s refundable up to three days before the event.<span class="zh">一百元，活動前三天以前都可退。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">59</span>What kind of event is the man planning?</div>
-      <ol class="opts"><li>A wedding anniversary</li><li>A retirement dinner</li><li>A business conference</li><li>A birthday party</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 結婚紀念日沒提。</li><li>✅ <b>(B)</b> 正解。a table for a retirement dinner。</li><li>❌ <b>(C)</b> 不是會議，是餐會。</li><li>❌ <b>(D)</b> 生日沒提。</li></ul>
-        <p class="tip">🔑 第一個句子通常就把活動性質講清楚，這是最好拿分的一題。</p>
-      </details>
+    <div class="q" data-q="59" data-a="1">
+      <div class="qh"><span class="qn">59</span>What kind of event is the man planning?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A wedding anniversary</span></li><li data-i="1"><b>B</b><span>A retirement dinner</span></li><li data-i="2"><b>C</b><span>A business conference</span></li><li data-i="3"><b>D</b><span>A birthday party</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 結婚紀念日沒提。</li><li class="yes">✅ <b>(B)</b> 正解。a table for a retirement dinner。</li><li class="no">❌ <b>(C)</b> 不是會議，是餐會。</li><li class="no">❌ <b>(D)</b> 生日沒提。</li></ul>
+          <p class="tip">🔑 第一個句子通常就把活動性質講清楚，這是最好拿分的一題。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">60</span>What does the man mention about some guests?</div>
-      <ol class="opts"><li>They will arrive late</li><li>They do not eat seafood</li><li>They need parking spaces</li><li>They prefer an outdoor table</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 遲到沒提。</li><li>✅ <b>(B)</b> 正解。Two of our guests don&#x27;t eat seafood。</li><li>❌ <b>(C)</b> 停車沒提。</li><li>❌ <b>(D)</b> 戶外沒提。</li></ul>
-        <p class="tip">🔑 數字＋限制條件（two guests don&#x27;t eat…）是常考細節，聽到 two 就要聯想後面接什麼。</p>
-      </details>
+    <div class="q" data-q="60" data-a="1">
+      <div class="qh"><span class="qn">60</span>What does the man mention about some guests?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>They will arrive late</span></li><li data-i="1"><b>B</b><span>They do not eat seafood</span></li><li data-i="2"><b>C</b><span>They need parking spaces</span></li><li data-i="3"><b>D</b><span>They prefer an outdoor table</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 遲到沒提。</li><li class="yes">✅ <b>(B)</b> 正解。Two of our guests don&#x27;t eat seafood。</li><li class="no">❌ <b>(C)</b> 停車沒提。</li><li class="no">❌ <b>(D)</b> 戶外沒提。</li></ul>
+          <p class="tip">🔑 數字＋限制條件（two guests don&#x27;t eat…）是常考細節，聽到 two 就要聯想後面接什麼。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">61</span>What does the woman say about the deposit?</div>
-      <ol class="opts"><li>It is fifty percent of the bill</li><li>It is refundable three days before</li><li>It must be paid in cash</li><li>It can be paid after the event</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 沒有說一半，是一百元固定金額。</li><li>✅ <b>(B)</b> 正解。refundable up to three days before the event。</li><li>❌ <b>(C)</b> 沒有指定現金。</li><li>❌ <b>(D)</b> 訂金必須先付，不能事後。</li></ul>
-        <p class="tip">🔑 金額與期限一起考的題目，兩個數字都要記（100 元／三天前）。</p>
-      </details>
+    <div class="q" data-q="61" data-a="1">
+      <div class="qh"><span class="qn">61</span>What does the woman say about the deposit?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It is fifty percent of the bill</span></li><li data-i="1"><b>B</b><span>It is refundable three days before</span></li><li data-i="2"><b>C</b><span>It must be paid in cash</span></li><li data-i="3"><b>D</b><span>It can be paid after the event</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 沒有說一半，是一百元固定金額。</li><li class="yes">✅ <b>(B)</b> 正解。refundable up to three days before the event。</li><li class="no">❌ <b>(C)</b> 沒有指定現金。</li><li class="no">❌ <b>(D)</b> 訂金必須先付，不能事後。</li></ul>
+          <p class="tip">🔑 金額與期限一起考的題目，兩個數字都要記（100 元／三天前）。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set11">
+  <section class="set" id="set11" data-set="11">
     <h2>第 11 組　<span class="meta">汽車保養廠｜維修預約｜英式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>M</b>：Morning, I&#x27;d like to book a service for my car. The brakes have been making a noise.<span class="zh">早安，我想預約保養。煞車一直有聲音。</span></li><li><b>W</b>：I can fit you in on Tuesday at half past eight. How long has it been making that noise?<span class="zh">我可以安排你週二八點半。那個聲音多久了？</span></li><li><b>M</b>：About a week. I only drive short distances to work.<span class="zh">大約一週。我只開短程上班。</span></li><li><b>W</b>：We&#x27;ll inspect the brakes first. If we need parts, the car may stay with us overnight.<span class="zh">我們會先檢查煞車。如果需要零件，車可能留過夜。</span></li><li><b>M</b>：That&#x27;s a problem — I need it for a trip on Wednesday.<span class="zh">那就有問題了——我週三要用車去旅行。</span></li><li><b>W</b>：Then let&#x27;s do the inspection on Tuesday and book the repair for the following Monday.<span class="zh">那我們週二先檢查，維修改到下週一。</span></li><li><b>M</b>：Good. Do you have a courtesy car I could borrow?<span class="zh">好。你們有代步車可以借嗎？</span></li><li><b>W</b>：We do, but there&#x27;s a small daily charge for insurance.<span class="zh">有，但保險要收一點日費。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">62</span>Why is the man calling?</div>
-      <ol class="opts"><li>To schedule a car service</li><li>To buy a new car</li><li>To report an accident</li><li>To renew his insurance</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。book a service／煞車有聲音。</li><li>❌ <b>(B)</b> 買車沒提。</li><li>❌ <b>(C)</b> 沒有事故，只是異音。</li><li>❌ <b>(D)</b> 保險是借代步車時提到的費用，不是他打來的原因。</li></ul>
-        <p class="tip">🔑 開場的 I&#x27;d like to book… 幾乎等於主旨答案。</p>
-      </details>
+    <div class="q" data-q="62" data-a="0">
+      <div class="qh"><span class="qn">62</span>Why is the man calling?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To schedule a car service</span></li><li data-i="1"><b>B</b><span>To buy a new car</span></li><li data-i="2"><b>C</b><span>To report an accident</span></li><li data-i="3"><b>D</b><span>To renew his insurance</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。book a service／煞車有聲音。</li><li class="no">❌ <b>(B)</b> 買車沒提。</li><li class="no">❌ <b>(C)</b> 沒有事故，只是異音。</li><li class="no">❌ <b>(D)</b> 保險是借代步車時提到的費用，不是他打來的原因。</li></ul>
+          <p class="tip">🔑 開場的 I&#x27;d like to book… 幾乎等於主旨答案。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">63</span>What will happen on Tuesday?</div>
-      <ol class="opts"><li>The car will be repaired</li><li>The brakes will be inspected</li><li>The man will collect parts</li><li>The man will take a trip</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 維修改到下週一，這是時間錯位的高頻陷阱。</li><li>✅ <b>(B)</b> 正解。let&#x27;s do the inspection on Tuesday。</li><li>❌ <b>(C)</b> 零件由保養廠處理，不是他去拿。</li><li>❌ <b>(D)</b> 旅行是週三，也不是週二。</li></ul>
-        <p class="tip">🔑 兩個日期同時出現時，把「哪一天做什麼」配對清楚再作答。</p>
-      </details>
+    <div class="q" data-q="63" data-a="1">
+      <div class="qh"><span class="qn">63</span>What will happen on Tuesday?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The car will be repaired</span></li><li data-i="1"><b>B</b><span>The brakes will be inspected</span></li><li data-i="2"><b>C</b><span>The man will collect parts</span></li><li data-i="3"><b>D</b><span>The man will take a trip</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 維修改到下週一，這是時間錯位的高頻陷阱。</li><li class="yes">✅ <b>(B)</b> 正解。let&#x27;s do the inspection on Tuesday。</li><li class="no">❌ <b>(C)</b> 零件由保養廠處理，不是他去拿。</li><li class="no">❌ <b>(D)</b> 旅行是週三，也不是週二。</li></ul>
+          <p class="tip">🔑 兩個日期同時出現時，把「哪一天做什麼」配對清楚再作答。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">64</span>What does the woman say about the courtesy car?</div>
-      <ol class="opts"><li>It is not available</li><li>It is free of charge</li><li>There is a daily insurance fee</li><li>It must be returned the same day</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 有代步車可借，所以不是沒有。</li><li>❌ <b>(B)</b> 不是免費，有一筆小額日費。</li><li>✅ <b>(C)</b> 正解。a small daily charge for insurance。</li><li>❌ <b>(D)</b> 沒有說當天要還，他們安排週一維修、隔天也要用車。</li></ul>
-        <p class="tip">🔑 免費與收費的對比是英式口音題常考的地方，注意 small charge 這種輕描淡寫的說法。</p>
-      </details>
+    <div class="q" data-q="64" data-a="2">
+      <div class="qh"><span class="qn">64</span>What does the woman say about the courtesy car?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It is not available</span></li><li data-i="1"><b>B</b><span>It is free of charge</span></li><li data-i="2"><b>C</b><span>There is a daily insurance fee</span></li><li data-i="3"><b>D</b><span>It must be returned the same day</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 有代步車可借，所以不是沒有。</li><li class="no">❌ <b>(B)</b> 不是免費，有一筆小額日費。</li><li class="yes">✅ <b>(C)</b> 正解。a small daily charge for insurance。</li><li class="no">❌ <b>(D)</b> 沒有說當天要還，他們安排週一維修、隔天也要用車。</li></ul>
+          <p class="tip">🔑 免費與收費的對比是英式口音題常考的地方，注意 small charge 這種輕描淡寫的說法。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set12">
+  <section class="set" id="set12" data-set="12">
     <h2>第 12 組　<span class="meta">採購部｜供應商議價｜加拿大</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Thanks for the quote. The unit price is higher than we expected.<span class="zh">謝謝你的報價。單價比我們預期高。</span></li><li><b>M</b>：Paper costs have gone up twice this year, Ms. Reid.<span class="zh">Reid 小姐，紙的成本今年漲了兩次。</span></li><li><b>W</b>：I understand. If we order five thousand units instead of three, could you improve the price?<span class="zh">我了解。如果我們訂五千個而不是三千個，價格可以好一點嗎？</span></li><li><b>M</b>：At five thousand, I can take eight percent off and include delivery.<span class="zh">訂到五千個，我可以降百分之八並含運費。</span></li><li><b>W</b>：And the lead time?<span class="zh">那交期呢？</span></li><li><b>M</b>：Six weeks from the order date. It&#x27;s three weeks longer than before, because of the printing schedule.<span class="zh">從下單起算六週。因為排印時程的關係，比以前多三週。</span></li><li><b>W</b>：That&#x27;s tight, but acceptable. Please put the offer in an e-mail so I can forward it to my director.<span class="zh">有點趕，但可以接受。請把這個報價寫在 email 裡，我要轉給主管。</span></li><li><b>M</b>：I&#x27;ll send it before the end of the day.<span class="zh">我今天結束前會寄出。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">65</span>What is the woman&#x27;s concern?</div>
-      <ol class="opts"><li>The price is too high</li><li>The quality is poor</li><li>The delivery is late</li><li>The contract is too short</li></ol>
-      <details><summary>答案與詳解（A）</summary>
-        <ul class="why"><li>✅ <b>(A)</b> 正解。The unit price is higher than we expected。</li><li>❌ <b>(B)</b> 品質沒提。</li><li>❌ <b>(C)</b> 交期是她後來才問的細節，不是一開始的顧慮。</li><li>❌ <b>(D)</b> 合約長度沒提。</li></ul>
-        <p class="tip">🔑 higher than we expected 是議價題的標準開場，價格相關答案優先。</p>
-      </details>
+    <div class="q" data-q="65" data-a="0">
+      <div class="qh"><span class="qn">65</span>What is the woman&#x27;s concern?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The price is too high</span></li><li data-i="1"><b>B</b><span>The quality is poor</span></li><li data-i="2"><b>C</b><span>The delivery is late</span></li><li data-i="3"><b>D</b><span>The contract is too short</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。The unit price is higher than we expected。</li><li class="no">❌ <b>(B)</b> 品質沒提。</li><li class="no">❌ <b>(C)</b> 交期是她後來才問的細節，不是一開始的顧慮。</li><li class="no">❌ <b>(D)</b> 合約長度沒提。</li></ul>
+          <p class="tip">🔑 higher than we expected 是議價題的標準開場，價格相關答案優先。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">66</span>What does the woman offer to do?</div>
-      <ol class="opts"><li>Pay in advance</li><li>Order a larger quantity</li><li>Find another supplier</li><li>Sign a two-year contract</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 預付沒提。</li><li>✅ <b>(B)</b> 正解。order five thousand units instead of three——用數量換價格。</li><li>❌ <b>(C)</b> 沒有要換供應商，她是在談條件。</li><li>❌ <b>(D)</b> 沒有提合約年限。</li></ul>
-        <p class="tip">🔑 If we…, could you…? 句型＝交換條件，注意她拿什麼去換。</p>
-      </details>
+    <div class="q" data-q="66" data-a="1">
+      <div class="qh"><span class="qn">66</span>What does the woman offer to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Pay in advance</span></li><li data-i="1"><b>B</b><span>Order a larger quantity</span></li><li data-i="2"><b>C</b><span>Find another supplier</span></li><li data-i="3"><b>D</b><span>Sign a two-year contract</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 預付沒提。</li><li class="yes">✅ <b>(B)</b> 正解。order five thousand units instead of three——用數量換價格。</li><li class="no">❌ <b>(C)</b> 沒有要換供應商，她是在談條件。</li><li class="no">❌ <b>(D)</b> 沒有提合約年限。</li></ul>
+          <p class="tip">🔑 If we…, could you…? 句型＝交換條件，注意她拿什麼去換。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">67</span>What does the woman ask the man to do?</div>
-      <ol class="opts"><li>Visit her office</li><li>Lower the delivery cost</li><li>Send the offer by e-mail</li><li>Speak to her director</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 沒有要求來訪。</li><li>❌ <b>(B)</b> 運費已含在八％折扣的方案裡。</li><li>✅ <b>(C)</b> 正解。Please put the offer in an e-mail。</li><li>❌ <b>(D)</b> 她要自己轉給主管，不是要他聯絡主管。</li></ul>
-        <p class="tip">🔑 forward it to my director 這種「我自己處理」的句子，正好是 (D) 的陷阱。</p>
-      </details>
+    <div class="q" data-q="67" data-a="2">
+      <div class="qh"><span class="qn">67</span>What does the woman ask the man to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Visit her office</span></li><li data-i="1"><b>B</b><span>Lower the delivery cost</span></li><li data-i="2"><b>C</b><span>Send the offer by e-mail</span></li><li data-i="3"><b>D</b><span>Speak to her director</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 沒有要求來訪。</li><li class="no">❌ <b>(B)</b> 運費已含在八％折扣的方案裡。</li><li class="yes">✅ <b>(C)</b> 正解。Please put the offer in an e-mail。</li><li class="no">❌ <b>(D)</b> 她要自己轉給主管，不是要他聯絡主管。</li></ul>
+          <p class="tip">🔑 forward it to my director 這種「我自己處理」的句子，正好是 (D) 的陷阱。</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="set" id="set13">
+  <section class="set" id="set13" data-set="13">
     <h2>第 13 組　<span class="meta">人力資源｜面試安排｜澳式</span></h2>
     <details class="script"><summary>看對話文字（建議做完再打開）</summary>
       <ul class="dlg"><li><b>W</b>：Hello, Mr. Alvarez? I&#x27;m calling from Kestrel Design about your application for the graphic designer position.<span class="zh">你好，Alvarez 先生嗎？我是 Kestrel Design，打來是關於你應徵平面設計師的事。</span></li><li><b>M</b>：Oh, hello. Thank you for getting back to me.<span class="zh">喔，你好。謝謝你回覆我。</span></li><li><b>W</b>：We&#x27;d like to invite you to an interview. Would Thursday at eleven suit you?<span class="zh">我們想邀請你來面試。週四十一點可以嗎？</span></li><li><b>M</b>：Thursday morning is difficult. Could we do the afternoon instead?<span class="zh">週四上午有困難。可以改下午嗎？</span></li><li><b>W</b>：Certainly. How about three o&#x27;clock? It should take about forty minutes.<span class="zh">當然。三點如何？面試大約四十分鐘。</span></li><li><b>M</b>：That works. Should I bring anything?<span class="zh">可以。我需要帶什麼嗎？</span></li><li><b>W</b>：Please bring a portfolio of recent work, and the names of two referees.<span class="zh">請帶近期作品集，以及兩位推薦人的名字。</span></li><li><b>M</b>：I&#x27;ll e-mail the portfolio tonight so you can look at it before we meet.<span class="zh">我今晚會把作品集 email 過去，讓你在見面前可以先看。</span></li><li><b>W</b>：That would be helpful. I&#x27;ll send you the building address and a visitor pass.<span class="zh">那很有幫助。我會把大樓地址和訪客證寄給你。</span></li></ul>
     </details>
     
-    <div class="q">
-      <div class="qh"><span class="qn">68</span>Why is the woman calling?</div>
-      <ol class="opts"><li>To offer the man a job</li><li>To arrange an interview</li><li>To request a reference</li><li>To reschedule a meeting</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 是邀請面試，不是直接錄取。</li><li>✅ <b>(B)</b> 正解。We&#x27;d like to invite you to an interview。</li><li>❌ <b>(C)</b> 推薦人是面試要帶的資料，不是她打來的原因。</li><li>❌ <b>(D)</b> 還沒有既有會議要改期。</li></ul>
-        <p class="tip">🔑 invite you to an interview ≠ offer you the job，這是最常見的過度解讀陷阱。</p>
-      </details>
+    <div class="q" data-q="68" data-a="1">
+      <div class="qh"><span class="qn">68</span>Why is the woman calling?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To offer the man a job</span></li><li data-i="1"><b>B</b><span>To arrange an interview</span></li><li data-i="2"><b>C</b><span>To request a reference</span></li><li data-i="3"><b>D</b><span>To reschedule a meeting</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 是邀請面試，不是直接錄取。</li><li class="yes">✅ <b>(B)</b> 正解。We&#x27;d like to invite you to an interview。</li><li class="no">❌ <b>(C)</b> 推薦人是面試要帶的資料，不是她打來的原因。</li><li class="no">❌ <b>(D)</b> 還沒有既有會議要改期。</li></ul>
+          <p class="tip">🔑 invite you to an interview ≠ offer you the job，這是最常見的過度解讀陷阱。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">69</span>What time will the interview take place?</div>
-      <ol class="opts"><li>Thursday at eleven</li><li>Thursday at three</li><li>Friday at eleven</li><li>Friday at three</li></ol>
-      <details><summary>答案與詳解（B）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 十一點是女士原本提議的時間，被男士婉拒了。</li><li>✅ <b>(B)</b> 正解。How about three o&#x27;clock? → That works。</li><li>❌ <b>(C)</b> 星期五沒提。</li><li>❌ <b>(D)</b> 星期五三點沒提——四個選項裡有兩個是「同一天不同時間」和「不同天」的組合，要聽清楚。</li></ul>
-        <p class="tip">🔑 時間題要記住「誰先提、誰改、最後定哪個」。</p>
-      </details>
+    <div class="q" data-q="69" data-a="1">
+      <div class="qh"><span class="qn">69</span>What time will the interview take place?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Thursday at eleven</span></li><li data-i="1"><b>B</b><span>Thursday at three</span></li><li data-i="2"><b>C</b><span>Friday at eleven</span></li><li data-i="3"><b>D</b><span>Friday at three</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 十一點是女士原本提議的時間，被男士婉拒了。</li><li class="yes">✅ <b>(B)</b> 正解。How about three o&#x27;clock? → That works。</li><li class="no">❌ <b>(C)</b> 星期五沒提。</li><li class="no">❌ <b>(D)</b> 星期五三點沒提——四個選項裡有兩個是「同一天不同時間」和「不同天」的組合，要聽清楚。</li></ul>
+          <p class="tip">🔑 時間題要記住「誰先提、誰改、最後定哪個」。</p>
+        </div>
+      </div>
     </div>
-    <div class="q">
-      <div class="qh"><span class="qn">70</span>What is the man asked to bring?</div>
-      <ol class="opts"><li>A visitor pass</li><li>Two reference letters</li><li>A portfolio of recent work</li><li>A completed application form</li></ol>
-      <details><summary>答案與詳解（C）</summary>
-        <ul class="why"><li>❌ <b>(A)</b> 訪客證是女士要寄給他的，不是他帶。</li><li>❌ <b>(B)</b> 他要帶的是「兩位推薦人的名字」，不是推薦信——這題專考細節。</li><li>✅ <b>(C)</b> 正解。Please bring a portfolio of recent work。</li><li>❌ <b>(D)</b> 申請表早就送出了（他是應徵者）。</li></ul>
-        <p class="tip">🔑 names of two referees ≠ reference letters；聽到相近意思的字要抓準名詞。</p>
-      </details>
+    <div class="q" data-q="70" data-a="2">
+      <div class="qh"><span class="qn">70</span>What is the man asked to bring?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A visitor pass</span></li><li data-i="1"><b>B</b><span>Two reference letters</span></li><li data-i="2"><b>C</b><span>A portfolio of recent work</span></li><li data-i="3"><b>D</b><span>A completed application form</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 訪客證是女士要寄給他的，不是他帶。</li><li class="no">❌ <b>(B)</b> 他要帶的是「兩位推薦人的名字」，不是推薦信——這題專考細節。</li><li class="yes">✅ <b>(C)</b> 正解。Please bring a portfolio of recent work。</li><li class="no">❌ <b>(D)</b> 申請表早就送出了（他是應徵者）。</li></ul>
+          <p class="tip">🔑 names of two referees ≠ reference letters；聽到相近意思的字要抓準名詞。</p>
+        </div>
+      </div>
     </div>
   </section>
+
   <p class="dim" style="margin-top:34px">題本文字檔：<code>多益_P3完整題組.md</code>（含對話翻譯、答案表、逐題詳解）</p>
   <a class="back" href="../../">← 回影片索引</a>
 </div>
+
+<script>
+(function () {
+  var KEY = 'p3full_answers_v1';
+  var qs = Array.prototype.slice.call(document.querySelectorAll('.q'));
+  var sel = {};
+  try { sel = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { sel = {}; }
+  var scored = false;
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(sel)); } catch (e) {} }
+  function doneCount() { return qs.filter(function (q) { return sel[q.dataset.q] !== undefined; }).length; }
+
+  function paint() {
+    qs.forEach(function (q) {
+      var picked = sel[q.dataset.q];
+      Array.prototype.forEach.call(q.querySelectorAll('.opts li'), function (li) {
+        li.classList.toggle('sel', String(picked) === li.dataset.i);
+      });
+    });
+    document.getElementById('done').textContent = doneCount();
+  }
+
+  function clearMarks() {
+    qs.forEach(function (q) {
+      q.classList.remove('right', 'wrong');
+      q.querySelector('.mark').textContent = '';
+      Array.prototype.forEach.call(q.querySelectorAll('.opts li'), function (li) {
+        li.classList.remove('ok', 'bad', 'locked');
+      });
+      var body = q.querySelector('.solbody');
+      if (body) body.hidden = true;
+      var t = q.querySelector('.toggle');
+      if (t) t.textContent = '看詳解';
+    });
+    document.getElementById('result').classList.remove('show');
+  }
+
+  document.addEventListener('click', function (ev) {
+    var li = ev.target.closest && ev.target.closest('.opts li');
+    if (li && !scored && !li.classList.contains('locked')) {
+      var q = li.closest('.q');
+      sel[q.dataset.q] = Number(li.dataset.i);
+      save(); paint();
+      return;
+    }
+    var t = ev.target.closest && ev.target.closest('.toggle');
+    if (t) {
+      var q2 = t.closest('.q');
+      var body2 = q2.querySelector('.solbody');
+      body2.hidden = !body2.hidden;
+      t.textContent = body2.hidden ? '看詳解' : '收起詳解';
+    }
+  });
+
+  document.getElementById('scoreBtn').addEventListener('click', function () {
+    var right = 0, blank = 0, perSet = {};
+    qs.forEach(function (q) {
+      var a = Number(q.dataset.a), picked = sel[q.dataset.q];
+      var setNo = q.closest('.set').dataset.set;
+      perSet[setNo] = perSet[setNo] || [0, 0];
+      perSet[setNo][1] += 1;
+      var lis = q.querySelectorAll('.opts li');
+      Array.prototype.forEach.call(lis, function (li) { li.classList.add('locked'); });
+      if (picked === undefined) {
+        blank++;
+        q.querySelector('.mark').textContent = '—';
+        lis[a].classList.add('ok');
+        return;
+      }
+      if (picked === a) {
+        right++; perSet[setNo][0]++;
+        q.classList.add('right');
+        q.querySelector('.mark').textContent = '✅';
+        lis[a].classList.add('ok');
+      } else {
+        q.classList.add('wrong');
+        q.querySelector('.mark').textContent = '❌';
+        lis[a].classList.add('ok');
+        lis[picked].classList.add('bad');
+        var body = q.querySelector('.solbody');
+        if (body) { body.hidden = false;
+          q.querySelector('.toggle').textContent = '收起詳解'; }
+      }
+    });
+    scored = true;
+    var sets = Object.keys(perSet).sort(function (a, b) { return a - b; });
+    var rows = sets.map(function (k) {
+      var v = perSet[k];
+      var bad = v[1] - v[0] > 0 ? '（錯 ' + (v[1] - v[0]) + ' 題）' : '（全對）';
+      return '<li>第 ' + k + ' 組：' + v[0] + ' / ' + v[1] + ' ' + bad + '</li>';
+    }).join('');
+    var weak = sets.filter(function (k) { return perSet[k][1] - perSet[k][0] > 0; });
+    document.getElementById('result').innerHTML =
+      '<div class="big">' + right + ' / 39</div>' +
+      '<div>答對 ' + right + ' 題' + (blank ? '，未作答 ' + blank + ' 題' : '') +
+      '，答對率 ' + Math.round(right / 39 * 100) + '%。</div>' +
+      '<ul>' + rows + '</ul>' +
+      (weak.length ? '<p class="dim" style="margin-top:8px">優先複習：' +
+        weak.map(function (k) { return '第 ' + k + ' 組'; }).join('、') + '</p>' : '') ;
+    document.getElementById('result').classList.add('show');
+    document.getElementById('hint').textContent = '（要重做請按「清除作答」）';
+    window.scrollTo({ top: document.getElementById('result').offsetTop - 80, behavior: 'smooth' });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    sel = {}; scored = false;
+    save(); clearMarks(); paint();
+    document.getElementById('hint').textContent = '（作答已清除）';
+  });
+
+  clearMarks();
+  paint();
+})();
+</script>
 </body>
 </html>
