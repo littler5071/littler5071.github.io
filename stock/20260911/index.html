@@ -30,6 +30,12 @@
   .tgs{display:flex;flex-wrap:wrap;gap:6px}
   .tg{font-size:12.5px;color:var(--soft);border:1.5px solid var(--line);border-radius:999px;padding:1px 9px}
   a.top{display:block;text-align:center;margin-top:34px;color:var(--blue)}
+
+  a.tg{text-decoration:none;color:var(--soft)}
+  a.tg:hover{color:var(--red);border-color:var(--red)}
+  a.toplink{display:inline-block;margin-top:8px;font-size:13.5px;color:var(--blue);text-decoration:none;
+            border-bottom:1.5px solid rgba(54,78,112,.4)}
+  a.toplink:hover{color:var(--red);border-color:var(--red)}
 </style>
 </head>
 <body>
@@ -40,8 +46,9 @@
     每一檔都附上 K 線圖與線型說明：黃圈是轉折低點、粉圈是轉折高點、藍線是月線；<strong>頸線</strong>取最近兩個轉折低點之間的最高轉折高點。
     本頁為公開資料（證交所每日收盤行情、三大法人、本益比；Yahoo 股市日線）的整理與觀察，<strong>不構成投資建議</strong>，不報牌、不預測、不下買賣決策。
   </div>
-  <section><h2>上升趨勢：底底高 ＋ 頭頭高（5）</h2><div class="nl"><a href="#3008">大立光</a><a href="#3406">玉晶光</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3017">奇鋐</a></div></section><section><h2>突破頸線（4）</h2><div class="nl"><a href="#2454">聯發科</a><a href="#2303">聯電</a><a href="#2409">友達</a><a href="#8996">高力</a></div></section><section><h2>跌破前低（線型轉弱）（4）</h2><div class="nl"><a href="#2308">台達電</a><a href="#2345">智邦</a><a href="#3481">群創</a><a href="#8039">台虹</a></div></section><section><h2>底底高（13）</h2><div class="nl"><a href="#2330">台積電</a><a href="#2308">台達電</a><a href="#2492">華新科</a><a href="#2303">聯電</a><a href="#3008">大立光</a><a href="#3406">玉晶光</a><a href="#1303">南亞</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3017">奇鋐</a><a href="#3481">群創</a><a href="#8996">高力</a><a href="#8039">台虹</a></div></section><section><h2>頭頭高（9）</h2><div class="nl"><a href="#2454">聯發科</a><a href="#3008">大立光</a><a href="#3406">玉晶光</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3443">創意</a><a href="#3017">奇鋐</a><a href="#3189">景碩</a><a href="#3006">晶豪科</a></div></section><section><h2>站上月線（16）</h2><div class="nl"><a href="#2454">聯發科</a><a href="#2492">華新科</a><a href="#2303">聯電</a><a href="#2409">友達</a><a href="#3711">日月光投控</a><a href="#3008">大立光</a><a href="#3026">禾伸堂</a><a href="#3406">玉晶光</a><a href="#1303">南亞</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3443">創意</a><a href="#3231">緯創</a><a href="#3017">奇鋐</a><a href="#8996">高力</a><a href="#3006">晶豪科</a></div></section><section><h2>外資買超（6）</h2><div class="nl"><a href="#3037">欣興</a><a href="#4958">臻鼎-KY</a><a href="#3231">緯創</a><a href="#2345">智邦</a><a href="#3189">景碩</a><a href="#8046">南電</a></div></section><section><h2>量價攻擊（收紅＋大量）（1）</h2><div class="nl"><a href="#8996">高力</a></div></section>
+  <a id="lists"></a><section id="sec-up"><h2>上升趨勢：底底高 ＋ 頭頭高（5）</h2><div class="nl"><a href="#3008">大立光</a><a href="#3406">玉晶光</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3017">奇鋐</a></div></section><section id="sec-neck"><h2>突破頸線（4）</h2><div class="nl"><a href="#2454">聯發科</a><a href="#2303">聯電</a><a href="#2409">友達</a><a href="#8996">高力</a></div></section><section id="sec-weak"><h2>跌破前低（線型轉弱）（4）</h2><div class="nl"><a href="#2308">台達電</a><a href="#2345">智邦</a><a href="#3481">群創</a><a href="#8039">台虹</a></div></section><section id="sec-hl"><h2>底底高（13）</h2><div class="nl"><a href="#2330">台積電</a><a href="#2308">台達電</a><a href="#2492">華新科</a><a href="#2303">聯電</a><a href="#3008">大立光</a><a href="#3406">玉晶光</a><a href="#1303">南亞</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3017">奇鋐</a><a href="#3481">群創</a><a href="#8996">高力</a><a href="#8039">台虹</a></div></section><section id="sec-hh"><h2>頭頭高（9）</h2><div class="nl"><a href="#2454">聯發科</a><a href="#3008">大立光</a><a href="#3406">玉晶光</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3443">創意</a><a href="#3017">奇鋐</a><a href="#3189">景碩</a><a href="#3006">晶豪科</a></div></section><section id="sec-ma"><h2>站上月線（16）</h2><div class="nl"><a href="#2454">聯發科</a><a href="#2492">華新科</a><a href="#2303">聯電</a><a href="#2409">友達</a><a href="#3711">日月光投控</a><a href="#3008">大立光</a><a href="#3026">禾伸堂</a><a href="#3406">玉晶光</a><a href="#1303">南亞</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3443">創意</a><a href="#3231">緯創</a><a href="#3017">奇鋐</a><a href="#8996">高力</a><a href="#3006">晶豪科</a></div></section><section id="sec-flow"><h2>外資買超（6）</h2><div class="nl"><a href="#3037">欣興</a><a href="#4958">臻鼎-KY</a><a href="#3231">緯創</a><a href="#2345">智邦</a><a href="#3189">景碩</a><a href="#8046">南電</a></div></section><section id="sec-vol"><h2>量價攻擊（收紅＋大量）（1）</h2><div class="nl"><a href="#8996">高力</a></div></section>
   <a class="top" href="#top">↑ 回到頂部</a>
+  <section id="sec-maup"><h2>月線向上（20）</h2><div class="nl"><a href="#2330">台積電</a><a href="#2454">聯發科</a><a href="#2408">南亞科</a><a href="#2492">華新科</a><a href="#2303">聯電</a><a href="#2409">友達</a><a href="#3711">日月光投控</a><a href="#3008">大立光</a><a href="#2344">華邦電</a><a href="#3026">禾伸堂</a><a href="#3406">玉晶光</a><a href="#1303">南亞</a><a href="#6770">力積電</a><a href="#4958">臻鼎-KY</a><a href="#3443">創意</a><a href="#6213">聯茂</a><a href="#3017">奇鋐</a><a href="#8996">高力</a><a href="#8039">台虹</a><a href="#3006">晶豪科</a></div></section>
   <h2 style="margin-top:40px">逐檔分析（30 檔）</h2>
   
   <article class="card" id="2330">
@@ -52,7 +59,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 510.5 億</span></div>
     <img src="charts/2330.jpg" alt="台積電 K 線圖" loading="lazy">
     <p class="an">轉折低點 2335、2350、2375 遞增（底底高），但高點 2445、2445、2505 沒有同步創高，仍在區間內。頸線在 2445（2026-08-28），收盤 2410 尚未突破，距離 -1.4%。收盤在月線 2411 之下。當日外資賣超 8,251 張。量比 1.06（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">月線向上</span><span class="tg">底底高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2454">
     <div class="hd">
@@ -62,7 +70,8 @@
     <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 348.87 億</span></div>
     <img src="charts/2454.jpg" alt="聯發科 K 線圖" loading="lazy">
     <p class="an">轉折高點 4125、4400、4855 遞增（頭頭高），但低點 2990、3810、3655 沒有同步墊高，底部結構不穩。收盤 4585 已站上頸線 4400（+4.2%），算是突破頸線。站在月線 4161.75 之上。當日外資賣超 742 張。量比 0.89（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">頭頭高</span><span class="tg">突破頸線</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2308">
     <div class="hd">
@@ -72,7 +81,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 256.47 億</span></div>
     <img src="charts/2308.jpg" alt="台達電 K 線圖" loading="lazy">
     <p class="an">轉折低點 1425、1655、1725 遞增（底底高），但高點 2005、1870、1885 沒有同步創高，仍在區間內。收盤 1620 跌破前一個轉折低點，頸線 1870 在更上方（-13.4%）。收盤在月線 1776.25 之下。當日外資賣超 3,573 張。量比 1.48（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">底底高</span><span class="tg">跌破前低</span></div>
+    <div class="tgs"><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3661">
     <div class="hd">
@@ -83,6 +93,7 @@
     <img src="charts/3661.jpg" alt="世芯-KY K 線圖" loading="lazy">
     <p class="an">低點 3245、2630、3585 與高點 3720、4530、4350 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 4530（2026-08-14），收盤 3650 尚未突破，距離 -19.4%。收盤在月線 3942.5 之下。當日外資賣超 2,000 張。量比 2.29（1 為與 20 日均量相當）。</p>
     <div class="tgs"></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2327">
     <div class="hd">
@@ -93,6 +104,7 @@
     <img src="charts/2327.jpg" alt="國巨* K 線圖" loading="lazy">
     <p class="an">低點 547、515、511 與高點 668、610、605 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 610（2026-08-28），收盤 544 尚未突破，距離 -10.8%。收盤在月線 561.15 之下。當日外資賣超 5,586 張。量比 0.79（1 為與 20 日均量相當）。</p>
     <div class="tgs"></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2408">
     <div class="hd">
@@ -102,7 +114,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 190.1 億</span></div>
     <img src="charts/2408.jpg" alt="南亞科 K 線圖" loading="lazy">
     <p class="an">低點 480、480、470 與高點 553、569、540 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 569（2026-08-28），收盤 493 尚未突破，距離 -13.4%。收盤在月線 515.275 之下。當日外資賣超 13,103 張。量比 0.48（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">月線向上</span></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2492">
     <div class="hd">
@@ -112,7 +125,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 186.58 億</span></div>
     <img src="charts/2492.jpg" alt="華新科 K 線圖" loading="lazy">
     <p class="an">轉折低點 198.5、251、270 遞增（底底高），但高點 283.5、322、317 沒有同步創高，仍在區間內。頸線在 317（2026-09-01），收盤 311.5 尚未突破，距離 -1.7%。站在月線 293.9 之上。當日外資賣超 6,755 張。量比 1.8（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2303">
     <div class="hd">
@@ -122,7 +136,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 168.81 億</span></div>
     <img src="charts/2303.jpg" alt="聯電 K 線圖" loading="lazy">
     <p class="an">轉折低點 112、117、123 遞增（底底高），但高點 130.5、128、136.5 沒有同步創高，仍在區間內。收盤 140.5 已站上頸線 136.5（+2.9%），算是突破頸線。站在月線 127.775 之上。當日外資賣超 3,985 張。量比 0.72（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">突破頸線</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2409">
     <div class="hd">
@@ -132,7 +147,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 154.96 億</span></div>
     <img src="charts/2409.jpg" alt="友達 K 線圖" loading="lazy">
     <p class="an">低點 22、25.25、24.6 與高點 26.8、27.9、27.4 都沒有明顯遞增，屬於區間震盪或轉弱。收盤 30.2 已站上頸線 27.4（+10.2%），算是突破頸線。站在月線 27.082 之上。當日外資賣超 101,829 張。量比 2.3（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">突破頸線</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3711">
     <div class="hd">
@@ -142,7 +158,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 139.19 億</span></div>
     <img src="charts/3711.jpg" alt="日月光投控 K 線圖" loading="lazy">
     <p class="an">低點 564、565、578 與高點 641、643、630 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 630（2026-08-28），收盤 618 尚未突破，距離 -1.9%。站在月線 604.35 之上。當日外資賣超 8,052 張。量比 1.26（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3008">
     <div class="hd">
@@ -152,7 +169,8 @@
     <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 133.19 億</span></div>
     <img src="charts/3008.jpg" alt="大立光 K 線圖" loading="lazy">
     <p class="an">三個轉折低點 3670、4230、6350 遞增，三個轉折高點 4175、4770、7995 也遞增，屬於上升趨勢的骨架。頸線在 7995（2026-09-01），收盤 6660 尚未突破，距離 -16.7%。站在月線 6470.5 之上。當日外資賣超 12 張。量比 0.76（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">頭頭高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2344">
     <div class="hd">
@@ -162,7 +180,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 128.74 億</span></div>
     <img src="charts/2344.jpg" alt="華邦電 K 線圖" loading="lazy">
     <p class="an">低點 165、168.5、165.5 與高點 192、192、192 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 192（2026-08-28），收盤 171.5 尚未突破，距離 -10.7%。收盤在月線 178.55 之下。當日外資賣超 31,178 張。量比 0.51（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">月線向上</span></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3026">
     <div class="hd">
@@ -172,7 +191,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 116.34 億</span></div>
     <img src="charts/3026.jpg" alt="禾伸堂 K 線圖" loading="lazy">
     <p class="an">低點 605、590、632 與高點 752、745、795 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 795（2026-09-01），收盤 744 尚未突破，距離 -6.4%。站在月線 700.95 之上。當日外資賣超 897 張。量比 1.81（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3406">
     <div class="hd">
@@ -182,7 +202,8 @@
     <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 116.01 億</span></div>
     <img src="charts/3406.jpg" alt="玉晶光 K 線圖" loading="lazy">
     <p class="an">三個轉折低點 442、628、961 遞增，三個轉折高點 543、584、1090 也遞增，屬於上升趨勢的骨架。頸線在 1090（2026-09-01），收盤 1060 尚未突破，距離 -2.8%。站在月線 876 之上。當日外資賣超 1,585 張。量比 1.87（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">頭頭高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="1303">
     <div class="hd">
@@ -192,7 +213,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 114.9 億</span></div>
     <img src="charts/1303.jpg" alt="南亞 K 線圖" loading="lazy">
     <p class="an">轉折低點 135.5、174、218 遞增（底底高），但高點 217、215、250 沒有同步創高，仍在區間內。頸線在 250（2026-09-01），收盤 234.5 尚未突破，距離 -6.2%。站在月線 216.55 之上。當日外資賣超 13,147 張。量比 0.48（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3037">
     <div class="hd">
@@ -202,7 +224,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 111.78 億</span></div>
     <img src="charts/3037.jpg" alt="欣興 K 線圖" loading="lazy">
     <p class="an">低點 1030、1030、873 與高點 1200、1230、1005 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 1230（2026-08-28），收盤 977 尚未突破，距離 -20.6%。收盤在月線 1043.75 之下。當日外資買超 406 張。量比 0.43（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">外資買超</span></div>
+    <div class="tgs"><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="6770">
     <div class="hd">
@@ -212,7 +235,8 @@
     <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 92.95 億</span></div>
     <img src="charts/6770.jpg" alt="力積電 K 線圖" loading="lazy">
     <p class="an">三個轉折低點 48、66.2、67 遞增，三個轉折高點 72.9、73.7、75.3 也遞增，屬於上升趨勢的骨架。頸線在 73.7（2026-09-01），收盤 70.7 尚未突破，距離 -4.1%。站在月線 70.43 之上。當日外資賣超 39,065 張。量比 0.76（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">頭頭高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="4958">
     <div class="hd">
@@ -222,7 +246,8 @@
     <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 92.11 億</span></div>
     <img src="charts/4958.jpg" alt="臻鼎-KY K 線圖" loading="lazy">
     <p class="an">三個轉折低點 368、421.5、446.5 遞增，三個轉折高點 502、522、550 也遞增，屬於上升趨勢的骨架。頸線在 550（2026-09-01），收盤 495 尚未突破，距離 -10.0%。站在月線 479.725 之上。當日外資買超 1,233 張。量比 0.58（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">頭頭高</span><span class="tg">外資買超</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3443">
     <div class="hd">
@@ -232,7 +257,8 @@
     <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 90.42 億</span></div>
     <img src="charts/3443.jpg" alt="創意 K 線圖" loading="lazy">
     <p class="an">轉折高點 4475、5990、6490 遞增（頭頭高），但低點 5230、5205、5680 沒有同步墊高，底部結構不穩。頸線在 6490（2026-09-01），收盤 6120 尚未突破，距離 -5.7%。站在月線 5833.5 之上。當日外資賣超 167 張。量比 0.71（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">頭頭高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="6213">
     <div class="hd">
@@ -242,7 +268,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 90.38 億</span></div>
     <img src="charts/6213.jpg" alt="聯茂 K 線圖" loading="lazy">
     <p class="an">低點 311、237、493.5 與高點 407.5、387.5、599 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 599（2026-08-27），收盤 509 尚未突破，距離 -15.0%。收盤在月線 522.675 之下。當日外資賣超 80 張。量比 1.12（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">月線向上</span></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3231">
     <div class="hd">
@@ -252,7 +279,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 79.73 億</span></div>
     <img src="charts/3231.jpg" alt="緯創 K 線圖" loading="lazy">
     <p class="an">低點 180.5、172.5、174 與高點 206、188、200.5 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 188（2026-08-27），收盤 185.5 尚未突破，距離 -1.3%。站在月線 183.7 之上。當日外資買超 3,259 張。量比 0.77（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">外資買超</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2345">
     <div class="hd">
@@ -262,7 +290,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 77.2 億</span></div>
     <img src="charts/2345.jpg" alt="智邦 K 線圖" loading="lazy">
     <p class="an">低點 2075、1960、1950 與高點 2595、2385、2235 都沒有明顯遞增，屬於區間震盪或轉弱。收盤 1885 跌破前一個轉折低點，頸線 2235 在更上方（-15.7%）。收盤在月線 2082 之下。當日外資買超 572 張。量比 1.13（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">跌破前低</span><span class="tg">外資買超</span></div>
+    <div class="tgs"><a class="tg" href="#sec-weak">跌破前低</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3017">
     <div class="hd">
@@ -272,7 +301,8 @@
     <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 70.72 億</span></div>
     <img src="charts/3017.jpg" alt="奇鋐 K 線圖" loading="lazy">
     <p class="an">三個轉折低點 2625、2740、3245 遞增，三個轉折高點 2965、3320、3595 也遞增，屬於上升趨勢的骨架。頸線在 3595（2026-09-07），收盤 3370 尚未突破，距離 -6.3%。站在月線 3236 之上。當日外資賣超 99 張。量比 0.56（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">頭頭高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3189">
     <div class="hd">
@@ -282,7 +312,8 @@
     <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 68.67 億</span></div>
     <img src="charts/3189.jpg" alt="景碩 K 線圖" loading="lazy">
     <p class="an">轉折高點 819、937、960 遞增（頭頭高），但低點 541、766、766 沒有同步墊高，底部結構不穩。頸線在 960（2026-08-27），收盤 822 尚未突破，距離 -14.4%。收盤在月線 840.6 之下。當日外資買超 519 張。量比 0.41（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">頭頭高</span><span class="tg">外資買超</span></div>
+    <div class="tgs"><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="8046">
     <div class="hd">
@@ -292,7 +323,8 @@
     <div class="pat">區間或轉弱　<span class="dim">成交金額 68.16 億</span></div>
     <img src="charts/8046.jpg" alt="南電 K 線圖" loading="lazy">
     <p class="an">低點 792、1070、1010 與高點 1310、1380、1335 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 1335（2026-09-01），收盤 1080 尚未突破，距離 -19.1%。收盤在月線 1159.25 之下。當日外資買超 617 張。量比 0.48（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">外資買超</span></div>
+    <div class="tgs"><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3481">
     <div class="hd">
@@ -302,7 +334,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 66.58 億</span></div>
     <img src="charts/3481.jpg" alt="群創 K 線圖" loading="lazy">
     <p class="an">轉折低點 40.5、44.95、48 遞增（底底高），但高點 52.3、52.3、52.4 沒有同步創高，仍在區間內。收盤 47.7 跌破前一個轉折低點，頸線 52.4 在更上方（-9.0%）。收盤在月線 48.185 之下。當日外資賣超 18,794 張。量比 0.68（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">底底高</span><span class="tg">跌破前低</span></div>
+    <div class="tgs"><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="8996">
     <div class="hd">
@@ -312,7 +345,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 66.05 億</span></div>
     <img src="charts/8996.jpg" alt="高力 K 線圖" loading="lazy">
     <p class="an">轉折低點 774、1070、1140 遞增（底底高），但高點 1330、1310、1410 沒有同步創高，仍在區間內。收盤 1330 已站上頸線 1310（+1.5%），算是突破頸線。站在月線 1221 之上。當日外資賣超 262 張。量比 1.2（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">突破頸線</span><span class="tg">量價攻擊</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="8039">
     <div class="hd">
@@ -322,7 +356,8 @@
     <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 60.69 億</span></div>
     <img src="charts/8039.jpg" alt="台虹 K 線圖" loading="lazy">
     <p class="an">轉折低點 210.5、259、291 遞增（底底高），但高點 254、364、327.5 沒有同步創高，仍在區間內。收盤 272 跌破前一個轉折低點，頸線 364 在更上方（-25.3%）。收盤在月線 297.7 之下。當日外資賣超 569 張。量比 0.55（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">月線向上</span><span class="tg">底底高</span><span class="tg">跌破前低</span></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="2317">
     <div class="hd">
@@ -333,6 +368,7 @@
     <img src="charts/2317.jpg" alt="鴻海 K 線圖" loading="lazy">
     <p class="an">低點 226.5、242.5、238 與高點 256.5、256.5、259 都沒有明顯遞增，屬於區間震盪或轉弱。頸線在 259（2026-09-07），收盤 248 尚未突破，距離 -4.2%。收盤在月線 249.9 之下。當日外資賣超 3,751 張。量比 0.71（1 為與 20 日均量相當）。</p>
     <div class="tgs"></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <article class="card" id="3006">
     <div class="hd">
@@ -342,7 +378,8 @@
     <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 59.84 億</span></div>
     <img src="charts/3006.jpg" alt="晶豪科 K 線圖" loading="lazy">
     <p class="an">轉折高點 219、285.5、309.5 遞增（頭頭高），但低點 236、263.5、263.5 沒有同步墊高，底部結構不穩。頸線在 309.5（2026-09-03），收盤 290.5 尚未突破，距離 -6.1%。站在月線 277.75 之上。當日外資賣超 6,834 張。量比 1.24（1 為與 20 日均量相當）。</p>
-    <div class="tgs"><span class="tg">站上月線</span><span class="tg">月線向上</span><span class="tg">頭頭高</span></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
   </article>
   <a class="top" href="../../">← 回影片索引</a>
 </div>
