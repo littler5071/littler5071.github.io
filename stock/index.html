@@ -4,79 +4,99 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>股市觀察｜小R 頻道</title>
-<meta name="description" content="小R 頻道的股市觀察：只用公開資料（證交所每日收盤行情、三大法人、信用交易），逐檔檢查技術線型與籌碼，附 K 線圖與統計。內容為觀察與記錄，不構成投資建議。">
+<meta name="description" content="小R 頻道的股市觀察：每個交易日成交金額上市前 35 名與上櫃前 15 名的技術線型逐檔分析，只用公開資料。">
 <style>
-  :root{
-    --paper:#f6f1e6; --ink:#4a4640; --soft:#78706a; --line:#d9d1c2;
-    --red:#bf4a3a; --blue:#364e70; --leaf:#5c7c54; --card:#fffdf6;
-  }
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;--blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
   *{box-sizing:border-box}
-  body{
-    margin:0; background:var(--paper); color:var(--ink);
+  body{margin:0;background:var(--paper);color:var(--ink);
     font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    line-height:1.75; letter-spacing:.01em;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px, transparent 1px);
-    background-size:26px 26px;
-  }
-  .wrap{max-width:900px;margin:0 auto;padding:52px 22px 80px}
-  .back{display:inline-block;margin-bottom:10px;font-size:14.5px;text-decoration:none;
-        border-bottom:1.5px solid currentColor;color:var(--blue)}
-  header{text-align:center;margin-bottom:8px}
-  h1{font-size:clamp(30px,6vw,46px);margin:0 0 4px;letter-spacing:.05em}
+    line-height:1.75;background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:34px 22px 80px}
+  header{text-align:center;margin-bottom:6px}
+  h1{font-size:clamp(30px,6vw,44px);margin:0 0 4px;letter-spacing:.05em}
   .sub{color:var(--blue);font-size:clamp(15px,2.6vw,19px)}
-  .rule{height:6px;width:200px;margin:14px auto 36px;border:0;
-        background:repeating-linear-gradient(90deg,var(--red) 0 12px,transparent 12px 20px);
-        border-radius:3px;opacity:.75}
+  .rule{height:6px;width:200px;margin:14px auto 30px;border:0;
+        background:repeating-linear-gradient(90deg,var(--red) 0 12px,transparent 12px 20px);border-radius:3px;opacity:.75}
+  h2{font-size:clamp(19px,3.2vw,25px);margin:38px 0 10px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
   .card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
         margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
   .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;
        border:1.5px solid currentColor;margin-right:8px;vertical-align:2px;color:var(--leaf)}
-  .card h3{margin:6px 0 4px;font-size:clamp(18px,3vw,22px)}
-  .card p{margin:0 0 12px;color:var(--soft);font-size:15px}
-  a.btn{display:inline-block;text-decoration:none;color:var(--blue);
-        border-bottom:2px solid var(--blue);padding-bottom:1px;font-size:15.5px}
+  .card h3{margin:6px 0 4px;font-size:clamp(17px,2.9vw,21px)}
+  .card p{margin:0 0 10px;color:var(--soft);font-size:15px}
+  a.btn{display:inline-block;text-decoration:none;color:var(--blue);border-bottom:2px solid var(--blue);
+        padding-bottom:1px;font-size:15.5px}
   a.btn:hover{color:var(--red);border-color:var(--red)}
-  .note{margin-top:40px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+  table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  td.d{white-space:nowrap;color:var(--soft)}
+  td a{color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(54,78,112,.35)}
+  td a:hover{color:var(--red);border-color:var(--red)}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
+  .scroll{overflow-x:auto}
+
+  /* hermesnav（共用導覽） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:7px 14px;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+        backdrop-filter:blur(4px)}
+  .hnav .brand{font-size:15px;color:#4a4640;text-decoration:none;margin-right:10px;letter-spacing:.04em}
+  .hnav a.lnk{font-size:14.5px;color:#364e70;text-decoration:none;padding:3px 11px;border-radius:999px;
+        border:1.5px solid transparent}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
 </style>
 </head>
 <body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../">小R 頻道</a>
+  <a class="lnk" href="../">首頁</a>
+  <a class="lnk" href="../#ai">AI 助理實測</a>
+  <a class="lnk on" href="../stock/">股市觀察</a>
+  <a class="lnk" href="../toeic/">多益英文</a>
+</nav>
+
 <div class="wrap">
-
-  <a class="back" href="../">← 回影片索引</a>
-
   <header>
     <h1>股市觀察</h1>
-    <div class="sub">只用公開資料・逐檔檢查・不構成投資建議</div>
+    <div class="sub">公開資料的觀察與記錄・不構成投資建議</div>
     <hr class="rule">
   </header>
-
+  <div class="card">
+    <span class="tag">最新</span>
+    <h3>2026/09/14 收盤後觀察：45862.52　-322.33 點（-0.70%）</h3>
+    <p>上市個股上漲／下跌 332 / 665；（底底高＋頭頭高＋站上月線＋月線向上＋5 日線向上）：上市 臻鼎-KY、玉晶光。</p>
+    <a class="btn" href="20260914/">逐檔 K 線圖與線型分析 →</a>
+  </div>
   <div class="card">
     <span class="tag">已上線</span>
-    <h3>2026/09/14 收盤後觀察：大盤 −322 點，50 檔裡 11 檔突破頸線（上櫃就佔 8 檔）</h3>
-    <p>加權指數 45,862.52（−322.33 點、−0.70%），上市個股上漲 332 家、下跌 665 家。統計範圍擴大為<strong>上市前 35 名＋上櫃前 15 名（共 50 檔）</strong>：五項條件全滿足 4 檔（臻鼎-KY、玉晶光、信昌電、聯一光）；上櫃 15 檔中 8 檔突破頸線、5 檔量價攻擊，比上市明顯強勢。</p>
-    <a class="btn" href="20260914/">逐檔 K 線圖與線型分析（50 檔）→</a>
+    <h3>2026/09/11 收盤後觀察：46184.85　-755.64 點（-1.61%）</h3>
+    <p>上市個股上漲／下跌 229 / 779；（底底高＋頭頭高＋站上月線＋月線向上＋5 日線向上）：上市 玉晶光、力積電、臻鼎-KY。</p>
+    <a class="btn" href="20260911/">逐檔 K 線圖與線型分析 →</a>
   </div>
-
-  <div class="card">
-    <span class="tag">已上線</span>
-    <h3>第 1 集：熱門股的技術結構怎麼看？（資料日 2026/09/11）</h3>
-    <p>把熱門股的條件拆成三種問題分開統計：技術面（月線位置、底底高、頭頭高）、量價（收紅＋攻擊量）、籌碼（三大法人；上櫃另有融資餘額），再加上頸線。影片以當時的「上市前 30 名」統計；<strong>頁面已擴充為上市前 35＋上櫃前 15（50 檔）</strong>，並補上櫃買中心的三大法人與融資資料。</p>
-    <a class="btn" href="20260911/">逐檔 K 線圖與線型分析（50 檔）→</a>
-    <a class="btn" style="margin-left:14px" href="https://youtu.be/VQNw1st0u6M">看影片 →</a>
+  <h2><span class="dot"></span>全部觀察紀錄（2 個交易日）</h2>
+  <div class="scroll">
+  <table>
+    <tr><th>資料日</th><th>加權指數</th><th>五項全滿足</th><th></th></tr>
+    <tr><td class="d">2026/09/14</td><td>45862.52　-322.33 點（-0.70%）</td><td>（底底高＋頭頭高＋站上月線＋月線向上＋5 日線向上）：上市 臻鼎-KY、玉晶光</td><td><a href="20260914/">逐檔分析 →</a></td></tr>
+    <tr><td class="d">2026/09/11</td><td>46184.85　-755.64 點（-1.61%）</td><td>（底底高＋頭頭高＋站上月線＋月線向上＋5 日線向上）：上市 玉晶光、力積電、臻鼎-KY</td><td><a href="20260911/">逐檔分析 →</a></td></tr>
+  </table>
   </div>
-
   <div class="note">
-    統計範圍為當日成交金額<strong>上市前 35 名 ＋ 上櫃前 15 名</strong>（4 位數代號個股，不含 ETF／權證），資料來源為證交所（每日收盤行情、三大法人）與櫃買中心（每日收盤行情、三大法人、融資融券）公開資料，以及 Yahoo 股市日線；頁面一律標明資料日期與統計範圍。<br>
+    統計範圍為當日成交金額<strong>上市前 35 名 ＋ 上櫃前 15 名</strong>（4 位數代號個股，不含 ETF／權證）；
+    資料來源為證交所與櫃買中心的每日收盤行情、三大法人（上櫃另有融資融券）公開資料，以及 Yahoo 股市日線。<br>
     <strong>內容為公開資料的整理與觀察，不構成任何投資建議</strong>；不報牌、不預測、不下買賣決策。
   </div>
 
   <footer>
     小R 頻道 · 股市觀察 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
-
 </div>
 </body>
 </html>

@@ -62,9 +62,29 @@
   }
   footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
+
+  /* hermesnav（共用導覽） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:7px 14px;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+        backdrop-filter:blur(4px)}
+  .hnav .brand{font-size:15px;color:#4a4640;text-decoration:none;margin-right:10px;letter-spacing:.04em}
+  .hnav a.lnk{font-size:14.5px;color:#364e70;text-decoration:none;padding:3px 11px;border-radius:999px;
+        border:1.5px solid transparent}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
 </style>
 </head>
 <body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="./">小R 頻道</a>
+  <a class="lnk on" href="./">首頁</a>
+  <a class="lnk" href="./#ai">AI 助理實測</a>
+  <a class="lnk" href="./stock/">股市觀察</a>
+  <a class="lnk" href="./toeic/">多益英文</a>
+</nav>
+
 <div class="wrap">
 
   <header>
@@ -73,7 +93,7 @@
     <hr class="rule">
   </header>
 
-  <section>
+  <section id="ai">
     <h2><span class="dot"></span>AI 助理實測</h2>
     <p class="hint">把 AI 助理真正做過的事記錄下來：怎麼運作、怎麼踩坑、怎麼修好。</p>
 
@@ -92,7 +112,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="stock">
     <h2><a class="h2link" href="stock/"><span class="dot"></span>股市觀察</a>
       <span class="more"><a href="stock/">分類頁 →</a></span>
     </h2>
@@ -119,7 +139,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="toeic">
     <h2><a class="h2link" href="toeic/"><span class="dot"></span>多益英文</a>
       <span class="more"><a href="toeic/">分類頁 →</a></span>
     </h2>
