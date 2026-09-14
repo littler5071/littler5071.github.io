@@ -32,7 +32,6 @@
   button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
          border:2px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
   button.ghost{background:transparent;color:var(--blue)}
-  button:disabled{opacity:.45;cursor:default}
   .result{background:#fffdf6;border:2px solid var(--leaf);border-radius:16px;padding:16px 20px;
           margin:0 0 20px;display:none}
   .result.show{display:block}
@@ -72,9 +71,10 @@
   .dim{color:var(--soft);font-size:13.5px}
 </style>
 </head>
-<body>
+<body data-quiz-key="p3full_answers_v1">
 <div class="wrap">
-  <a class="back" href="../../">← 回影片索引</a>
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
   <h1>多益聽力 Part 3 完整題組</h1>
   <div class="sub">13 組對話・39 題・四種口音・可線上作答計分</div>
 
@@ -629,125 +629,9 @@
   </section>
 
   <p class="dim" style="margin-top:34px">題本文字檔：<code>多益_P3完整題組.md</code>（含對話翻譯、答案表、逐題詳解）</p>
-  <a class="back" href="../../">← 回影片索引</a>
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
 </div>
-
-<script>
-(function () {
-  var KEY = 'p3full_answers_v1';
-  var qs = Array.prototype.slice.call(document.querySelectorAll('.q'));
-  var sel = {};
-  try { sel = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { sel = {}; }
-  var scored = false;
-
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(sel)); } catch (e) {} }
-  function doneCount() { return qs.filter(function (q) { return sel[q.dataset.q] !== undefined; }).length; }
-
-  function paint() {
-    qs.forEach(function (q) {
-      var picked = sel[q.dataset.q];
-      Array.prototype.forEach.call(q.querySelectorAll('.opts li'), function (li) {
-        li.classList.toggle('sel', String(picked) === li.dataset.i);
-      });
-    });
-    document.getElementById('done').textContent = doneCount();
-  }
-
-  function clearMarks() {
-    qs.forEach(function (q) {
-      q.classList.remove('right', 'wrong');
-      q.querySelector('.mark').textContent = '';
-      Array.prototype.forEach.call(q.querySelectorAll('.opts li'), function (li) {
-        li.classList.remove('ok', 'bad', 'locked');
-      });
-      var body = q.querySelector('.solbody');
-      if (body) body.hidden = true;
-      var t = q.querySelector('.toggle');
-      if (t) t.textContent = '看詳解';
-    });
-    document.getElementById('result').classList.remove('show');
-  }
-
-  document.addEventListener('click', function (ev) {
-    var li = ev.target.closest && ev.target.closest('.opts li');
-    if (li && !scored && !li.classList.contains('locked')) {
-      var q = li.closest('.q');
-      sel[q.dataset.q] = Number(li.dataset.i);
-      save(); paint();
-      return;
-    }
-    var t = ev.target.closest && ev.target.closest('.toggle');
-    if (t) {
-      var q2 = t.closest('.q');
-      var body2 = q2.querySelector('.solbody');
-      body2.hidden = !body2.hidden;
-      t.textContent = body2.hidden ? '看詳解' : '收起詳解';
-    }
-  });
-
-  document.getElementById('scoreBtn').addEventListener('click', function () {
-    var right = 0, blank = 0, perSet = {};
-    qs.forEach(function (q) {
-      var a = Number(q.dataset.a), picked = sel[q.dataset.q];
-      var setNo = q.closest('.set').dataset.set;
-      perSet[setNo] = perSet[setNo] || { ok: 0, wrong: 0, blank: 0, n: 0 };
-      perSet[setNo].n += 1;
-      var lis = q.querySelectorAll('.opts li');
-      Array.prototype.forEach.call(lis, function (li) { li.classList.add('locked'); });
-      if (picked === undefined) {
-        blank++; perSet[setNo].blank++;
-        q.querySelector('.mark').textContent = '—';
-        lis[a].classList.add('ok');
-        return;
-      }
-      if (picked === a) {
-        right++; perSet[setNo].ok++;
-        q.classList.add('right');
-        q.querySelector('.mark').textContent = '✅';
-        lis[a].classList.add('ok');
-      } else {
-        perSet[setNo].wrong++;
-        q.classList.add('wrong');
-        q.querySelector('.mark').textContent = '❌';
-        lis[a].classList.add('ok');
-        lis[picked].classList.add('bad');
-        var body = q.querySelector('.solbody');
-        if (body) { body.hidden = false;
-          q.querySelector('.toggle').textContent = '收起詳解'; }
-      }
-    });
-    scored = true;
-    var sets = Object.keys(perSet).sort(function (a, b) { return a - b; });
-    var rows = sets.map(function (k) {
-      var v = perSet[k], parts = [];
-      if (v.wrong) parts.push('錯 ' + v.wrong + ' 題');
-      if (v.blank) parts.push('未作答 ' + v.blank + ' 題');
-      if (!parts.length) parts.push('全對');
-      return '<li>第 ' + k + ' 組：' + v.ok + ' / ' + v.n + '（' + parts.join('・') + '）</li>';
-    }).join('');
-    var weak = sets.filter(function (k) { return perSet[k].wrong > 0; });
-    document.getElementById('result').innerHTML =
-      '<div class="big">' + right + ' / 39</div>' +
-      '<div>答對 ' + right + ' 題' + (blank ? '，未作答 ' + blank + ' 題' : '') +
-      '，答對率 ' + Math.round(right / 39 * 100) + '%。' +
-      (weak.length ? '' : '　全部答對，漂亮！') + '</div>' +
-      '<ul>' + rows + '</ul>' +
-      (weak.length ? '<p class="dim" style="margin-top:8px">優先複習：' +
-        weak.map(function (k) { return '第 ' + k + ' 組'; }).join('、') + '</p>' : '') ;
-    document.getElementById('result').classList.add('show');
-    document.getElementById('hint').textContent = '（要重做請按「清除作答」）';
-    window.scrollTo({ top: document.getElementById('result').offsetTop - 80, behavior: 'smooth' });
-  });
-
-  document.getElementById('resetBtn').addEventListener('click', function () {
-    sel = {}; scored = false;
-    save(); clearMarks(); paint();
-    document.getElementById('hint').textContent = '（作答已清除）';
-  });
-
-  clearMarks();
-  paint();
-})();
-</script>
+<script src="../quiz.js"></script>
 </body>
 </html>
