@@ -690,22 +690,23 @@
     qs.forEach(function (q) {
       var a = Number(q.dataset.a), picked = sel[q.dataset.q];
       var setNo = q.closest('.set').dataset.set;
-      perSet[setNo] = perSet[setNo] || [0, 0];
-      perSet[setNo][1] += 1;
+      perSet[setNo] = perSet[setNo] || { ok: 0, wrong: 0, blank: 0, n: 0 };
+      perSet[setNo].n += 1;
       var lis = q.querySelectorAll('.opts li');
       Array.prototype.forEach.call(lis, function (li) { li.classList.add('locked'); });
       if (picked === undefined) {
-        blank++;
+        blank++; perSet[setNo].blank++;
         q.querySelector('.mark').textContent = '—';
         lis[a].classList.add('ok');
         return;
       }
       if (picked === a) {
-        right++; perSet[setNo][0]++;
+        right++; perSet[setNo].ok++;
         q.classList.add('right');
         q.querySelector('.mark').textContent = '✅';
         lis[a].classList.add('ok');
       } else {
+        perSet[setNo].wrong++;
         q.classList.add('wrong');
         q.querySelector('.mark').textContent = '❌';
         lis[a].classList.add('ok');
@@ -718,15 +719,18 @@
     scored = true;
     var sets = Object.keys(perSet).sort(function (a, b) { return a - b; });
     var rows = sets.map(function (k) {
-      var v = perSet[k];
-      var bad = v[1] - v[0] > 0 ? '（錯 ' + (v[1] - v[0]) + ' 題）' : '（全對）';
-      return '<li>第 ' + k + ' 組：' + v[0] + ' / ' + v[1] + ' ' + bad + '</li>';
+      var v = perSet[k], parts = [];
+      if (v.wrong) parts.push('錯 ' + v.wrong + ' 題');
+      if (v.blank) parts.push('未作答 ' + v.blank + ' 題');
+      if (!parts.length) parts.push('全對');
+      return '<li>第 ' + k + ' 組：' + v.ok + ' / ' + v.n + '（' + parts.join('・') + '）</li>';
     }).join('');
-    var weak = sets.filter(function (k) { return perSet[k][1] - perSet[k][0] > 0; });
+    var weak = sets.filter(function (k) { return perSet[k].wrong > 0; });
     document.getElementById('result').innerHTML =
       '<div class="big">' + right + ' / 39</div>' +
       '<div>答對 ' + right + ' 題' + (blank ? '，未作答 ' + blank + ' 題' : '') +
-      '，答對率 ' + Math.round(right / 39 * 100) + '%。</div>' +
+      '，答對率 ' + Math.round(right / 39 * 100) + '%。' +
+      (weak.length ? '' : '　全部答對，漂亮！') + '</div>' +
       '<ul>' + rows + '</ul>' +
       (weak.length ? '<p class="dim" style="margin-top:8px">優先複習：' +
         weak.map(function (k) { return '第 ' + k + ' 組'; }).join('、') + '</p>' : '') ;
