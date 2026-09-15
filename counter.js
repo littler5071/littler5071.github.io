@@ -21,7 +21,15 @@
         el.textContent = d.value.toLocaleString('en-US');
         el.classList.add('vnum-on');
         if (!counted) { try { sessionStorage.setItem(flag, '1'); } catch (e) {} }
+      } else {
+        hide();
       }
     })
-    .catch(function () { /* 服務不通就什麼都不顯示，不影響閱讀 */ });
+    .catch(hide);
+
+  function hide() {
+    /* 服務不通／被限流：整行收起來，不留下「—」，也不影響閱讀 */
+    var box = el.closest ? el.closest('.viewsline') : null;
+    if (box) box.style.display = 'none';
+  }
 })();
