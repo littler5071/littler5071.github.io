@@ -38,7 +38,7 @@ def stock_items():
             bd = re.search(r'<div class="big">([^<]+)</div><div>上市個股上漲／下跌家數</div>', h)
             tw = f"{d[:4]}/{d[4:6]}/{d[6:]}"
             out.append(dict(date=tw, sort=(d, 3), category="股市觀察",
-                            title=f"{tw} 收盤後觀察：{_txt(big.group(1)) if big else '-'}（{_txt(big.group(2)) if big else ''}）",
+                            title=f"{tw} 收盤後觀察：{_txt(big.group(1)) if big else '-'}　{_txt(big.group(2)) if big else ''}",
                             url=f"stock/{d}/", btn="逐檔 K 線圖與線型分析（50 檔）→",
                             note=f"成交金額前 50 檔（上市 35＋上櫃 15）逐檔技術線型"
                                  + (f"；上市個股上漲／下跌 {_txt(bd.group(1))}。" if bd else "。")
