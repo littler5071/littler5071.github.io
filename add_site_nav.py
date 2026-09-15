@@ -37,8 +37,8 @@ NAV_CSS = """  /* hermesnav（共用導覽・密集版：手機單行可橫向�
     .hnav a.lnk{font-size:12.5px;padding:2px 6px}
   }
   /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:8px auto 0;padding:0 18px;text-align:right;
-        font-size:13px;color:#78706a}
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
@@ -99,13 +99,11 @@ def inject(path):
         html = html.replace("</style>", NAV_CSS + "</style>", 1)
     m = re.search(r"<body[^>]*>", html)
     html = (html[:m.end()] + "\n" + nav + html[m.end():]) if m else (nav + html)
-    # 瀏覽次數：放在內容容器開頭（置右的小字），沒有容器就放 body 結尾
-    if '<div class="wrap">' in html:
-        html = html.replace('<div class="wrap">', '<div class="wrap">\n' + views_html(rel), 1)
-    elif '<div class="wrap" ' in html:
-        html = re.sub(r'(<div class="wrap"[^>]*>)', r"\1\n" + views_html(rel), html, count=1)
-    elif "</body>" in html:
-        html = html.replace("</body>", views_html(rel) + "\n</body>", 1)
+    # 瀏覽次數：一律放頁尾（</body> 之前）
+    if "</body>" in html:
+        html = html.replace("</body>", views_html(rel) + chr(10) + "</body>", 1)
+    else:
+        html += chr(10) + views_html(rel)
     script = f'<script defer src="{base}/counter.js?v={asset_ver("counter.js")}"></script>'
     html = html.replace("</head>", script + "\n</head>", 1)
     open(path, "w", encoding="utf-8").write(html)
