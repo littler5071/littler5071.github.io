@@ -12,7 +12,8 @@ API = "https://abacus.jasoncameron.dev/get/%s/%s"
 
 def key_of(rel_dir):
     path = "/" if rel_dir == "." else "/" + rel_dir.replace(os.sep, "/") + "/"
-    return re.sub(r"[^A-Za-z0-9]+", "_", path).strip("_") or "root"
+    k = re.sub(r"[^A-Za-z0-9]+", "_", path).strip("_") or "root"
+    return "p" + k if len(k) < 3 else k   # 與 counter.js 相同規則（abacus 要求 >=3）
 
 
 def get(key):

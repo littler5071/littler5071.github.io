@@ -9,6 +9,7 @@
   var NS = 'littler5071-github-io';
   var path = location.pathname.replace(/index\.html$/, '');
   var key = path.replace(/[^A-Za-z0-9]+/g, '_').replace(/^_+|_+$/g, '') || 'root';
+  if (key.length < 3) key = 'p' + key;   // abacus 要求 key 長度 3~64，太短要補
   var flag = 'hv_' + key;
   var counted = false;
   try { counted = sessionStorage.getItem(flag) === '1'; } catch (e) {}
