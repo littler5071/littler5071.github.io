@@ -1,9 +1,26 @@
 {
   "note": "非股市項目的最新動態來源（多益題組等），股市由 build_homepage.py 自動從目錄掃出；AI 影片由 build_ai_index.py 的 VIDEOS 自動帶入。日期格式 YYYY/MM/DD。",
   "items": [
-    {"date": "2026/09/14", "category": "多益英文", "title": "Part 3 完整題組：13 組對話、39 題", "url": "toeic/p3-full/",
-     "note": "四種口音、考場節奏（題目→選項 2 秒、作答 8 秒），附中文詳解音檔與互動計分。"},
-    {"date": "2026/09/13", "category": "多益英文", "title": "Part 2 樣本：4 題 × 4 種口音（美式・加拿大・英式・澳式）", "url": "toeic/p2-sample/",
-     "note": "題目全部自行撰寫，附詳解與音檔。"}
+    {
+      "date": "2026/09/16",
+      "category": "多益英文",
+      "title": "TOEIC 題型分配、答題技巧與注意事項（Part 1–7）",
+      "url": "toeic/guide/",
+      "note": "Part 1（6 題）到 Part 4（30 題）一次看懂：七個部分題數、時間分配、常見陷阱、考場規則與分數制度。"
+    },
+    {
+      "date": "2026/09/14",
+      "category": "多益英文",
+      "title": "Part 3 完整題組：13 組對話、39 題",
+      "url": "toeic/p3-full/",
+      "note": "四種口音、考場節奏（題目→選項 2 秒、作答 8 秒），附中文詳解音檔與互動計分。"
+    },
+    {
+      "date": "2026/09/13",
+      "category": "多益英文",
+      "title": "Part 2 樣本：4 題 × 4 種口音（美式・加拿大・英式・澳式）",
+      "url": "toeic/p2-sample/",
+      "note": "題目全部自行撰寫，附詳解與音檔。"
+    }
   ]
 }
