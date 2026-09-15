@@ -132,7 +132,7 @@ def build_stock():
     <div class="sub">公開資料的觀察與記錄・不構成投資建議</div>
     <hr class="rule">
   </header>
-""" + "\n".join(icards + cards) + f"""
+""" + "\n".join(cards + icards) + f"""
   <h2><span class="dot"></span>全部觀察紀錄（{len(rows)} 個交易日）</h2>
   <div class="scroll">
   <table>
