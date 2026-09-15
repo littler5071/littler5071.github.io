@@ -1,8 +1,8 @@
 {
- "snapshot_at": "2026-09-15 13:44:35",
+ "snapshot_at": "2026-09-15 13:49:22",
  "service": "abacus.jasoncameron.dev",
  "pages": {
-  "ai": 2,
+  "ai": 4,
   ".": 5,
   "stock/20260911": 1,
   "stock/20260914": 2,

@@ -5,7 +5,7 @@
 瀏覽次數＝counter.js（abacus.jasoncameron.dev，免註冊、無 cookie），每頁一個 key。
 用法：python add_site_nav.py [網站根目錄]
 """
-import hashlib, os, re, sys, glob
+import hashlib, json, os, re, sys, glob
 
 
 def asset_ver(name):
@@ -41,6 +41,7 @@ NAV_CSS = """  /* hermesnav（共用導覽・密集版：手機單行可橫向�
         font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 """
 NAV_HTML = """{mark}
 <nav class="hnav">
@@ -50,7 +51,27 @@ NAV_HTML = """{mark}
   <a class="lnk{on_toeic}" href="{base}/toeic/">多益英文</a>
 </nav>
 """
-VIEWS_HTML = '<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>'
+SNAP = {}
+_snapfile = os.path.join(SITE, "views_snapshot.json")
+if os.path.exists(_snapfile):
+    try:
+        SNAP = json.load(open(_snapfile, encoding="utf-8")).get("pages", {})
+    except Exception:
+        SNAP = {}
+
+
+def snap_key(rel):
+    """與 counter.js／snapshot_views.py 相同的 key 規則（abacus key 長度需 >= 3）。"""
+    path = "/" if rel == "." else "/" + rel + "/"
+    k = re.sub(r"[^A-Za-z0-9]+", "_", path).strip("_") or "root"
+    return "p" + k if len(k) < 3 else k
+
+
+def views_html(rel):
+    n = SNAP.get(rel)
+    fb = f' data-views-fallback="{n}"' if n else ""
+    return f'<div class="viewsline">瀏覽次數 <span class="vnum"{fb} data-views>—</span></div>'
+
 
 
 def strip_old(html):
@@ -80,11 +101,11 @@ def inject(path):
     html = (html[:m.end()] + "\n" + nav + html[m.end():]) if m else (nav + html)
     # 瀏覽次數：放在內容容器開頭（置右的小字），沒有容器就放 body 結尾
     if '<div class="wrap">' in html:
-        html = html.replace('<div class="wrap">', '<div class="wrap">\n' + VIEWS_HTML, 1)
+        html = html.replace('<div class="wrap">', '<div class="wrap">\n' + views_html(rel), 1)
     elif '<div class="wrap" ' in html:
-        html = re.sub(r'(<div class="wrap"[^>]*>)', r"\1\n" + VIEWS_HTML, html, count=1)
+        html = re.sub(r'(<div class="wrap"[^>]*>)', r"\1\n" + views_html(rel), html, count=1)
     elif "</body>" in html:
-        html = html.replace("</body>", VIEWS_HTML + "\n</body>", 1)
+        html = html.replace("</body>", views_html(rel) + "\n</body>", 1)
     script = f'<script defer src="{base}/counter.js?v={asset_ver("counter.js")}"></script>'
     html = html.replace("</head>", script + "\n</head>", 1)
     open(path, "w", encoding="utf-8").write(html)

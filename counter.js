@@ -29,6 +29,12 @@
     .catch(hide);
 
   function hide() {
+    var fb = el.getAttribute('data-views-fallback');
+    if (fb) {                       // 服務不通／被外掛擋掉：顯示上次統計的數字
+      el.textContent = fb + '（上次統計）';
+      el.classList.add('vnum-off');
+      return;
+    }
     /* 服務不通／被限流：整行收起來，不留下「—」，也不影響閱讀 */
     var box = el.closest ? el.closest('.viewsline') : null;
     if (box) box.style.display = 'none';
