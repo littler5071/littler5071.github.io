@@ -127,8 +127,8 @@ FEED_CSS = """  /* 首頁：三塊分類卡（名稱、說明、最新兩則、�
   .cc-note{color:var(--soft);font-size:14px;margin-bottom:12px}
   .cc-latest-label{font-size:12.5px;letter-spacing:.16em;color:var(--soft);margin-bottom:6px}
   ul.cc-list{list-style:none;margin:0 0 12px;padding:0}
-  ul.cc-list li{margin:0 0 7px;line-height:1.5}
-  ul.cc-list .d{color:var(--soft);font-size:13px;margin-right:6px}
+  ul.cc-list li{margin:0 0 9px;line-height:1.55}
+  ul.cc-list .d{display:inline-block;min-width:48px;color:var(--soft);font-size:13px;margin-right:4px}
   ul.cc-list a{color:var(--blue);text-decoration:none;font-size:15.5px;
         border-bottom:1.5px solid rgba(54,78,112,.3)}
   ul.cc-list a:hover{color:var(--red);border-color:var(--red)}
