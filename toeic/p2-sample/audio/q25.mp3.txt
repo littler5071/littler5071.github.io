@@ -1,0 +1,8 @@
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/q25.mp3'
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/s2.mp3'
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/o25A.mp3'
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/s1.mp3'
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/o25B.mp3'
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/s1.mp3'
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/o25C.mp3'
+file 'D:/_Richard/OpenCode/圖片生成/小R頻道_多益/_p2_25_tmp/s5.mp3'
