@@ -70,6 +70,10 @@ def ai_items():
         d = v.get("date", "").replace("-", "/")
         out.append(dict(date=d, sort=(d.replace("/", ""), 2), category="AI 助理實測",
                         title=v["title"], url=v["url"], btn="看影片 →", note=v.get("desc", "")))
+    for a in getattr(mod, "ARTICLES", []):      # 報告類文章也算 AI 助理實測的內容
+        d = a.get("date", "").replace("-", "/")
+        out.append(dict(date=d, sort=(d.replace("/", ""), 3), category="AI 助理實測",   # 同日：報告排在影片前面（更新）
+                        title=a["title"], url="ai/" + a["url"], btn="看報告 →", note=a.get("desc", "")))
     return out
 
 

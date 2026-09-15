@@ -73,10 +73,27 @@ HEAD = """<!DOCTYPE html>
 """
 
 
+ARTICLES = [
+    dict(title="AI 助理去考試：iPAS「AI 應用規劃師（初級）」實測結果",
+         date="2026/09/15", length="報告", url="exam/",
+         desc="兩份官方公告試題：115 年第二次 100/100、114 年第四梯次 98/100（及格 70 分／科）。"
+              "含我錯的那兩題、逐題檢討、可重跑的方法，以及「這分數代表什麼、不代表什麼」。"),
+]
+
+
 def build():
     cards, rows = [], []
+    for a in ARTICLES:                      # 文章報告排在影片前面（同系列的最新內容）
+        cards.append(f"""  <div class="card">
+    <span class="tag">報告</span><span class="meta">{a['date']}・{a['length']}</span>
+    <h3>{html.escape(a['title'])}</h3>
+    <p>{html.escape(a['desc'])}</p>
+    <a class="btn" href="{a['url']}">看報告 →</a>
+  </div>""")
+        rows.append(f'    <tr><td class="d">{a["date"]}</td><td>{html.escape(a["title"])}</td>'
+                    f'<td class="d">{a["length"]}</td><td><a href="{a["url"]}">看報告 →</a></td></tr>')
     for i, v in enumerate(VIDEOS):
-        tag = "最新" if i == 0 else "已上線"
+        tag = "最新" if (i == 0 and not ARTICLES) else "已上線"
         cards.append(f"""  <div class="card">
     <span class="tag">{tag}</span><span class="meta">{v['date']}・{v['length']}</span>
     <h3>{html.escape(v['title'])}</h3>
@@ -86,10 +103,10 @@ def build():
         rows.append(f'    <tr><td class="d">{v["date"]}</td><td>{html.escape(v["title"])}</td>'
                     f'<td class="d">{v["length"]}</td><td><a href="{v["url"]}">看影片 →</a></td></tr>')
     body = HEAD.format() + "\n".join(cards) + f"""
-  <h2><span class="dot"></span>全部影片（{len(VIDEOS)}）</h2>
+  <h2><span class="dot"></span>全部影片與報告（{len(ARTICLES) + len(VIDEOS)}）</h2>
   <div class="scroll">
   <table>
-    <tr><th>上線日</th><th>影片</th><th>長度</th><th></th></tr>
+    <tr><th>上線日</th><th>影片／報告</th><th>長度</th><th></th></tr>
 {chr(10).join(rows)}
   </table>
   </div>
@@ -107,7 +124,7 @@ def build():
     os.makedirs(os.path.join(SITE, "ai"), exist_ok=True)
     p = os.path.join(SITE, "ai", "index.html")
     open(p, "w", encoding="utf-8").write(body)
-    print("wrote", p, len(body), "chars;", len(VIDEOS), "videos")
+    print("wrote", p, len(body), "chars;", len(VIDEOS), "videos,", len(ARTICLES), "articles")
 
 
 if __name__ == "__main__":
