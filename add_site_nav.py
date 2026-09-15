@@ -5,7 +5,13 @@
 瀏覽次數＝counter.js（abacus.jasoncameron.dev，免註冊、無 cookie），每頁一個 key。
 用法：python add_site_nav.py [網站根目錄]
 """
-import os, re, sys, glob
+import hashlib, os, re, sys, glob
+
+
+def asset_ver(name):
+    """用檔案內容雜湊當版本碼：counter.js 一改，所有頁面的 src 都會變 → 不會被瀏覽器快取卡住。"""
+    p = os.path.join(SITE, name)
+    return hashlib.md5(open(p, "rb").read()).hexdigest()[:8] if os.path.exists(p) else "1"
 
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 MARK = "<!-- hermesnav -->"
@@ -51,7 +57,7 @@ def strip_old(html):
     """移除先前注入的導覽列／瀏覽次數與它們的 CSS（讓本腳本可以重複執行）。"""
     html = re.sub(r"\n?<!-- hermesnav -->\s*<nav class=\"hnav\">.*?</nav>\s*", "\n", html, flags=re.S)
     html = re.sub(r"\n?<div class=\"viewsline\">.*?</div>\s*", "\n", html, flags=re.S)
-    html = re.sub(r"\n?<script defer src=\"[^\"]*counter\.js\"></script>\s*", "\n", html)
+    html = re.sub(r"\n?<script defer src=\"[^\"]*counter\.js[^\"]*\"></script>\s*", "\n", html)
     html = re.sub(r"\n  /\* hermes(nav|views).*?(?=</style>)", "\n", html, flags=re.S)
     return html
 
@@ -79,7 +85,7 @@ def inject(path):
         html = re.sub(r'(<div class="wrap"[^>]*>)', r"\1\n" + VIEWS_HTML, html, count=1)
     elif "</body>" in html:
         html = html.replace("</body>", VIEWS_HTML + "\n</body>", 1)
-    script = f'<script defer src="{base}/counter.js"></script>'
+    script = f'<script defer src="{base}/counter.js?v={asset_ver("counter.js")}"></script>'
     html = html.replace("</head>", script + "\n</head>", 1)
     open(path, "w", encoding="utf-8").write(html)
     return f"ok({cat})"
