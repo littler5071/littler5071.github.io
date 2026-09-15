@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-"""在網站每一頁注入共用導覽列（可重複執行：會先移除舊版再注入）。
+"""在網站每一頁注入：共用導覽列 ＋ 瀏覽次數（可重複執行：會先移除舊版再注入）。
 
 導覽列＝「小R 頻道」（＝首頁，使用者在首頁時會highlight）＋ AI 助理實測 / 股市觀察 / 多益英文。
+瀏覽次數＝counter.js（abacus.jasoncameron.dev，免註冊、無 cookie），每頁一個 key。
 用法：python add_site_nav.py [網站根目錄]
 """
 import os, re, sys, glob
@@ -29,6 +30,11 @@ NAV_CSS = """  /* hermesnav（共用導覽・密集版：手機單行可橫向�
     .hnav a.brand{font-size:13px;padding:2px 6px}
     .hnav a.lnk{font-size:12.5px;padding:2px 6px}
   }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:8px auto 0;padding:0 18px;text-align:right;
+        font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
 """
 NAV_HTML = """{mark}
 <nav class="hnav">
@@ -38,12 +44,15 @@ NAV_HTML = """{mark}
   <a class="lnk{on_toeic}" href="{base}/toeic/">多益英文</a>
 </nav>
 """
+VIEWS_HTML = '<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>'
 
 
 def strip_old(html):
-    """移除先前注入的導覽列與它的 CSS（讓本腳本可以重複執行、改了版型也能更新）。"""
+    """移除先前注入的導覽列／瀏覽次數與它們的 CSS（讓本腳本可以重複執行）。"""
     html = re.sub(r"\n?<!-- hermesnav -->\s*<nav class=\"hnav\">.*?</nav>\s*", "\n", html, flags=re.S)
-    html = re.sub(r"\n  /\* hermesnav（共用導覽） \*/.*?(?=</style>)", "\n", html, flags=re.S)
+    html = re.sub(r"\n?<div class=\"viewsline\">.*?</div>\s*", "\n", html, flags=re.S)
+    html = re.sub(r"\n?<script defer src=\"[^\"]*counter\.js\"></script>\s*", "\n", html)
+    html = re.sub(r"\n  /\* hermes(nav|views).*?(?=</style>)", "\n", html, flags=re.S)
     return html
 
 
@@ -63,11 +72,22 @@ def inject(path):
         html = html.replace("</style>", NAV_CSS + "</style>", 1)
     m = re.search(r"<body[^>]*>", html)
     html = (html[:m.end()] + "\n" + nav + html[m.end():]) if m else (nav + html)
+    # 瀏覽次數：放在內容容器開頭（置右的小字），沒有容器就放 body 結尾
+    if '<div class="wrap">' in html:
+        html = html.replace('<div class="wrap">', '<div class="wrap">\n' + VIEWS_HTML, 1)
+    elif '<div class="wrap" ' in html:
+        html = re.sub(r'(<div class="wrap"[^>]*>)', r"\1\n" + VIEWS_HTML, html, count=1)
+    elif "</body>" in html:
+        html = html.replace("</body>", VIEWS_HTML + "\n</body>", 1)
+    script = f'<script defer src="{base}/counter.js"></script>'
+    html = html.replace("</head>", script + "\n</head>", 1)
     open(path, "w", encoding="utf-8").write(html)
     return f"ok({cat})"
 
 
 pages = sorted(glob.glob(os.path.join(SITE, "**", "index.html"), recursive=True))
 for p in pages:
+    if "counter.js" in p:
+        continue
     print(os.path.relpath(p, SITE).replace("\\", "/"), "→", inject(p))
 print(f"共 {len(pages)} 頁")

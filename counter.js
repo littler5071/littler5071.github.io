@@ -1,0 +1,27 @@
+/* 全站瀏覽次數（免註冊、無 cookie）
+   服務：abacus.jasoncameron.dev（JSON + CORS）
+   規則：同一分頁每次工作階段只 +1 次，之後只讀取，避免重新整理把數字灌大。
+*/
+(function () {
+  var el = document.querySelector('[data-views]');
+  if (!el || location.protocol === 'file:') return;
+
+  var NS = 'littler5071-github-io';
+  var path = location.pathname.replace(/index\.html$/, '');
+  var key = path.replace(/[^A-Za-z0-9]+/g, '_').replace(/^_+|_+$/g, '') || 'root';
+  var flag = 'hv_' + key;
+  var counted = false;
+  try { counted = sessionStorage.getItem(flag) === '1'; } catch (e) {}
+
+  var url = 'https://abacus.jasoncameron.dev/' + (counted ? 'get' : 'hit') + '/' + NS + '/' + key;
+  fetch(url, { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d && typeof d.value === 'number') {
+        el.textContent = d.value.toLocaleString('en-US');
+        el.classList.add('vnum-on');
+        if (!counted) { try { sessionStorage.setItem(flag, '1'); } catch (e) {} }
+      }
+    })
+    .catch(function () { /* 服務不通就什麼都不顯示，不影響閱讀 */ });
+})();
