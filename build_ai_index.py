@@ -10,8 +10,8 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/
 # 新片放最前面
 VIDEOS = [
     dict(title="100 個任務裡，最值得先交給 AI 的 10 件（最後只留 3 件給你）",
-         date="2026/09/15", length="5:23", url="https://youtu.be/mOiv9EtJ3dk",
-         desc="用公開的真實使用資料（Anthropic 經濟指數 1,007 種請求類型）排出 100 個任務，再選出最值得先交給 AI 的 10 件；每一件都有「做法」與「驗收」，最後只留 3 件給你。"),
+         date="2026/09/15", length="4:29", url="https://youtu.be/0tfEOBG2-xE",
+         desc="用公開的真實使用資料（Anthropic 經濟指數 1,007 種請求類型）排出 100 個任務，再選出最值得先交給 AI 的 10 件；每一件都有「做法」與「驗收」，最後只留 3 件給你。（1.2 倍速版）"),
     dict(title="換電腦，AI 助理會忘記你嗎？我把她的記憶整個打包搬過去（實測）",
          date="2026/09/13", length="1:56", url="https://youtu.be/A2ydS9ZfE_s",
          desc="實測搬家全流程：1 分 56 秒、476 MB、14,684 個檔案。三步完成，外加一個「48 個檔案被悄悄跳過」的坑。"),
