@@ -181,7 +181,7 @@ def build_stock():
     for r in rows:
         parts = r[1].split("　")
         idx_by_day[r[4]] = (parts[0], parts[1] if len(parts) > 1 else "", r[3])
-    sync_homepage(days, icards_by_day, idx_by_day)
+    # 首頁改由 build_homepage.py 產生（見檔尾 __main__）
 
     body = HEAD.format(title="股市觀察｜小R 頻道",
                        desc="小R 頻道的股市觀察：每個交易日成交金額上市前 35 名與上櫃前 15 名的技術線型逐檔分析，只用公開資料。")
@@ -257,3 +257,8 @@ def build_toeic():
 if __name__ == "__main__":
     print("股市觀察：", build_stock(), "個交易日")
     print("多益英文：", build_toeic(), "個題組")
+    try:
+        import build_homepage
+        build_homepage.build()          # 首頁＝跨分類最新動態＋分類入口
+    except Exception as e:
+        print("⚠ 首頁產生失敗：", type(e).__name__, e)
