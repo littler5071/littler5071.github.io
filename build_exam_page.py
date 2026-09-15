@@ -61,7 +61,7 @@ def body_html():
     <div class="box"><div class="big">100 / 100</div><div>115 年第二次（科目1 50/50、科目2 50/50）</div></div>
     <div class="box"><div class="big">98 / 100</div><div>114 年第四梯次（科目1 50/50、科目2 48/50）</div></div>
     <div class="box"><div class="big">2 題</div><div>總共只錯這兩題（都在 114 年第四梯次）</div></div>
-    <div class="box"><div class="big">1,078 題</div><div>官方公告 100 題考卷共 2 份（發卷時答案欄已移除）</div></div>
+    <div class="box"><div class="big">200 題</div><div>兩份官方考卷（各 100 題、兩科），作答前答案欄已移除</div></div>
   </div>
 
   <div class="note warn">
