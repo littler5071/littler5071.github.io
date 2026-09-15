@@ -128,7 +128,7 @@ FEED_CSS = """  /* 首頁：三塊分類卡（名稱、說明、最新兩則、�
   .cc-latest-label{font-size:12.5px;letter-spacing:.16em;color:var(--soft);margin-bottom:6px}
   ul.cc-list{list-style:none;margin:0 0 12px;padding:0}
   ul.cc-list li{margin:0 0 9px;line-height:1.55}
-  ul.cc-list .d{display:inline-block;min-width:48px;color:var(--soft);font-size:13px;margin-right:4px}
+  ul.cc-list .d{display:inline-block;min-width:50px;color:var(--soft);font-size:13px;margin-right:8px}
   ul.cc-list a{color:var(--blue);text-decoration:none;font-size:15.5px;
         border-bottom:1.5px solid rgba(54,78,112,.3)}
   ul.cc-list a:hover{color:var(--red);border-color:var(--red)}
@@ -136,6 +136,20 @@ FEED_CSS = """  /* 首頁：三塊分類卡（名稱、說明、最新兩則、�
   .cat-card:hover .cc-go{border-color:var(--red);color:var(--red)}
   .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:30px}
 """
+
+
+def short_title(it):
+    """清單用的短標題：去掉開頭日期；股市每日只留指數與點數（手機一行內讀得完）。"""
+    t = re.sub(r"^\d{4}/\d{2}/\d{2}\s*", "", it["title"])
+    if it["category"] == "股市觀察" and t.startswith("收盤後觀察"):
+        m = re.match(r"收盤後觀察：([\d.]+)\s*(\S*\s*點)", t)
+        if m:
+            try:
+                idx = f"{float(m.group(1)):,.2f}"
+            except ValueError:
+                idx = m.group(1)
+            return f"收盤後觀察：{idx}（{m.group(2)}）"
+    return t
 
 
 def build():
@@ -148,7 +162,7 @@ def build():
         rows = []
         for it in mine[:2]:
             d = it["date"][5:] if len(it["date"]) >= 10 else it["date"]
-            title = re.sub(r"^\d{4}/\d{2}/\d{2}\s*", "", it["title"])   # 日期已顯示在左邊，標題不要再寫一次
+            title = short_title(it)   # 日期已顯示在左邊，標題不要再寫一次，且股市標題要縮短
             rows.append('        <li><span class="d">' + html.escape(d) + '</span>'
                         '<a href="' + it["url"] + '">' + html.escape(title) + "</a></li>")
         cards.append('    <a class="cat-card ' + cls + '" href="' + slug + '/">\n'
