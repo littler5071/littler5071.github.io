@@ -72,6 +72,36 @@ def txt(h):
     return html.unescape(re.sub(r"<[^>]+>", "", h)).strip()
 
 
+def sync_homepage(days, icards_by_day, idx_by_day):
+    """把首頁「股市觀察」區塊的最新卡片換成今天的內容（只動標記之間的區塊）。"""
+    idxf = os.path.join(SITE, "index.html")
+    if not os.path.exists(idxf):
+        return
+    h = open(idxf, encoding="utf-8").read()
+    if "stock-cards:start" not in h or "stock-cards:end" not in h:
+        return
+    NL = chr(10)
+    blocks = []
+    for i, d in enumerate(days[:2]):
+        tw = f"{d[:4]}/{d[4:6]}/{d[6:]}"
+        idx, chg, _focus = idx_by_day.get(d, ('-', '', ''))
+        tag = '<span class="tag new">最新</span>' if i == 0 else '<span class="tag live">已上線</span>'
+        blocks.append(NL + '    <div class="card">' + NL
+                      + '      ' + tag + NL
+                      + '      <h3>' + tw + ' 收盤後觀察：' + idx + '　' + chg + '</h3>' + NL
+                      + '      <p>五項條件全滿足、各項條件檔數、逐檔 K 線圖與線型說明；另有「好／不好條件最多」兩個排行榜。</p>' + NL
+                      + '      <a class="btn" href="stock/' + d + '/">逐檔 K 線圖與線型分析（50 檔）→</a>' + NL
+                      + '    </div>')
+        # 分類頁的盤中卡片用相對連結（20260915-intraday/），搬到首頁要補 stock/ 前綴
+        blocks.extend(c.replace('href="' + d + '/"', 'href="stock/' + d + '/"')
+                      for c in icards_by_day.get(d, []))
+    inner = NL.join(blocks)
+    new = re.sub(r"(?s)<!-- stock-cards:start[^>]*-->.*?<!-- stock-cards:end -->",
+                 "<!-- stock-cards:start（由 build_category_indexes.py 自動更新） -->" + inner + NL + "    <!-- stock-cards:end -->", h)
+    open(idxf, "w", encoding="utf-8").write(new)
+    print('首頁自動更新:', len(days[:2]), '天 +', sum(len(v) for v in icards_by_day.values()), '盤中')
+
+
 def build_stock():
     """從每日頁面抽出摘要，產生股市觀察分類頁。"""
     rows, cards = [], []
@@ -146,6 +176,12 @@ def build_stock():
                 f'<td><a href="{r[4]}/">逐檔分析 →</a></td></tr>')
 
     table = chr(10).join([x for r in rows for x in ([_drow(r)] + irows_by_day.get(r[4], []))])
+    idx_by_day = {}
+    for r in rows:
+        parts = r[1].split("　")
+        idx_by_day[r[4]] = (parts[0], parts[1] if len(parts) > 1 else "", r[3])
+    sync_homepage(days, icards_by_day, idx_by_day)
+
     body = HEAD.format(title="股市觀察｜小R 頻道",
                        desc="小R 頻道的股市觀察：每個交易日成交金額上市前 35 名與上櫃前 15 名的技術線型逐檔分析，只用公開資料。")
     body += """  <header>
