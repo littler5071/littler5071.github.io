@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-"""首頁產生器：三塊分類卡（每塊＝名稱、說明、「最新」兩則、全部連結）。
+"""首頁產生器：每個分類只放「最新一則」卡片（使用者定案 2026/09/15）＋ 分類入口連結。
 
-為什麼是這種形狀：使用者要「直覺、好讀」——一眼看到這個站有哪三類、每一類最新是什麼，
-不要跨分類的流水帳，也不要一長串卡片。
+形狀：三個分類區塊（AI 助理實測 → 股市觀察 → 多益英文，順序與導覽列一致），
+每區＝分類標題（可點）＋一句說明＋最新一則的卡片（標籤／標題／說明／按鈕）＋「全部 N 則 →」。
+股市若同一天另有盤中快照，在卡片下方給一行小連結（不要再佔一張卡）。
 
 資料來源
 - 股市觀察：掃 `stock/<YYYYMMDD>/`（收盤後）與 `stock/<YYYYMMDD>-intraday/`（盤中快照）。
-- AI 助理實測：`build_ai_index.py` 的 VIDEOS（單一來源）。
+- AI 助理實測：`build_ai_index.py` 的 VIDEOS。
 - 其餘（多益等）：`latest_items.json`。
 
 用法：python build_homepage.py [網站根目錄]
@@ -17,15 +18,9 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__f
 HEAD_FILE = os.path.join(SITE, "home_template_head.html")
 
 CATS = [
-    ("AI 助理實測", "ai", "c-ai",
-     "把 AI 助理真正做過的事記錄下來。",
-     "全部影片"),
-    ("股市觀察", "stock", "c-stock",
-     "每個交易日成交金額前 50 檔的技術線型逐檔分析（上市 35＋上櫃 15）。",
-     "全部觀察紀錄"),
-    ("多益英文", "toeic", "c-toeic",
-     "題目全部自行撰寫；附中文詳解與音檔。",
-     "全部題組"),
+    ("AI 助理實測", "ai", "把 AI 助理真正做過的事記錄下來。", "全部影片"),
+    ("股市觀察", "stock", "只用公開資料，把「熱門」拿去驗證；內容為觀察與記錄，不構成投資建議。", "全部觀察紀錄"),
+    ("多益英文", "toeic", "題目全部自行撰寫、不使用官方試題；附中文詳解與音檔。", "全部題組"),
 ]
 
 
@@ -40,20 +35,26 @@ def stock_items():
         h = open(p, encoding="utf-8").read()
         if re.fullmatch(r"\d{8}", d):
             big = re.search(r'<div class="big[^"]*">([^<]+)</div>\s*<div>加權指數\s*([^<]*)</div>', h)
+            bd = re.search(r'<div class="big">([^<]+)</div><div>上市個股上漲／下跌家數</div>', h)
             tw = f"{d[:4]}/{d[4:6]}/{d[6:]}"
             out.append(dict(date=tw, sort=(d, 3), category="股市觀察",
-                            title=f"{tw} 收盤後觀察：{_txt(big.group(1)) if big else '-'}　{_txt(big.group(2)) if big else ''}",
-                            url=f"stock/{d}/",
-                            note="成交金額前 50 檔逐檔 K 線圖與線型說明，含「好／不好條件最多」排行榜。"))
+                            title=f"{tw} 收盤後觀察：{_txt(big.group(1)) if big else '-'}（{_txt(big.group(2)) if big else ''}）",
+                            url=f"stock/{d}/", btn="逐檔 K 線圖與線型分析（50 檔）→",
+                            note=f"成交金額前 50 檔（上市 35＋上櫃 15）逐檔技術線型"
+                                 + (f"；上市個股上漲／下跌 {_txt(bd.group(1))}。" if bd else "。")
+                                 + "另有「好／不好條件最多」兩個排行榜。"))
         elif d.endswith("-intraday"):
             day = d[:8]
             sub = re.search(r'<div class="sub">([^<]+)</div>', h)
             snap = re.search(r"(\d{2}:\d{2}) 即時快照", _txt(sub.group(1)) if sub else "")
+            bd = re.search(r'<div class="big">(\d+) / (\d+)</div><div>候選池', h)
             tw = f"{day[:4]}/{day[4:6]}/{day[6:]}"
             out.append(dict(date=tw, sort=(day, 1), category="股市觀察",
                             title=f"{tw} {snap.group(1) if snap else ''} 盤中快照",
-                            url=f"stock/{d}/",
-                            note="候選池即時報價＋盤中成交金額前 50 檔，含時程紀錄與「盤中 → 收盤」對照。"))
+                            url=f"stock/{d}/", btn="盤中逐檔快照 →",
+                            note="當日盤中成交金額前 50 檔即時快照"
+                                 + (f"，候選池內上漲／下跌 {bd.group(1)} / {bd.group(2)}" if bd else "")
+                                 + "；含時程紀錄與「盤中 → 收盤」對照。盤中是快照、不是收盤定案。"))
     return out
 
 
@@ -68,7 +69,7 @@ def ai_items():
     for v in getattr(mod, "VIDEOS", []):
         d = v.get("date", "").replace("-", "/")
         out.append(dict(date=d, sort=(d.replace("/", ""), 2), category="AI 助理實測",
-                        title=v["title"], url=v["url"], note=v.get("desc", "")))
+                        title=v["title"], url=v["url"], btn="看影片 →", note=v.get("desc", "")))
     return out
 
 
@@ -80,24 +81,26 @@ def manifest_items():
     for v in json.load(open(p, encoding="utf-8")).get("items", []):
         d = v.get("date", "").replace("-", "/")
         out.append(dict(date=d, sort=(d.replace("/", ""), 2), category=v["category"],
-                        title=v["title"], url=v["url"], note=v.get("note", "")))
+                        title=v["title"], url=v["url"], btn=v.get("btn", "看內容 →"),
+                        note=v.get("note", "")))
     return out
 
 
-CAT_HTML = """  <section id="cats">
-    <div class="cat-grid">
-{cards}
-    </div>
+SECTION = """  <section id="{slug}">
+    <h2><a class="h2link" href="{slug}/"><span class="dot"></span>{name}</a>
+      <span class="more"><a href="{slug}/">{go}（{n}）→</a></span>
+    </h2>
+    <p class="hint">{note}</p>
+{card}{extra}
   </section>
-
-  <div class="note">
-    上面三塊就是這個站的全部內容，每一塊只放<strong>最新的兩則</strong>，更早的都在各自的分類頁裡。
-    股市觀察為公開資料的整理與觀察，<strong>不構成投資建議</strong>。
-  </div>
-  <div class="foot">
-    頻道：<a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
-  </div>
 """
+
+CARD = """    <div class="card">
+      <span class="tag new">最新</span>
+      <h3>{title}</h3>
+      <p>{note}</p>
+      <a class="btn" href="{url}">{btn}</a>{btn2}
+    </div>"""
 
 BODY = """<body>
 <div class="wrap">
@@ -107,83 +110,55 @@ BODY = """<body>
     <hr class="rule">
   </header>
 
-{cats}
+{sections}
+  <div class="foot">
+    頻道：<a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
+  </div>
 </div>
 </body>
 </html>
 """
 
-FEED_CSS = """  /* 首頁：三塊分類卡（名稱、說明、最新兩則、全部連結） */
-  .cat-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:6px}
-  @media (min-width:760px){.cat-grid{grid-template-columns:repeat(3,1fr);gap:14px}}
-  .cat-card{display:block;background:#fffdf6;border:2px solid var(--line);border-radius:16px;
-        padding:18px 20px 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06);text-decoration:none;
-        color:var(--ink);border-top:6px solid var(--line)}
-  .cat-card.c-stock{border-top-color:#bf4a3a}
-  .cat-card.c-ai{border-top-color:#364e70}
-  .cat-card.c-toeic{border-top-color:#2f8f63}
-  .cat-card:hover{box-shadow:3px 5px 0 rgba(74,70,64,.1)}
-  .cc-title{font-size:clamp(21px,3.4vw,25px);margin-bottom:4px}
-  .cc-note{color:var(--soft);font-size:14px;margin-bottom:12px}
-  .cc-latest-label{font-size:12.5px;letter-spacing:.16em;color:var(--soft);margin-bottom:6px}
-  ul.cc-list{list-style:none;margin:0 0 12px;padding:0}
-  ul.cc-list li{margin:0 0 9px;line-height:1.55}
-  ul.cc-list .d{display:inline-block;min-width:50px;color:var(--soft);font-size:13px;margin-right:8px}
-  ul.cc-list a{color:var(--blue);text-decoration:none;font-size:15.5px;
-        border-bottom:1.5px solid rgba(54,78,112,.3)}
-  ul.cc-list a:hover{color:var(--red);border-color:var(--red)}
-  .cc-go{display:inline-block;font-size:14.5px;color:var(--ink);border-bottom:2px solid var(--line);padding-bottom:1px}
-  .cat-card:hover .cc-go{border-color:var(--red);color:var(--red)}
-  .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:30px}
+EXTRA_CSS = """  /* 首頁：每個分類只放最新一則 */
+  section .hint{color:var(--soft);font-size:14.5px;margin:2px 0 10px}
+  .same-day{font-size:13.5px;color:var(--soft);margin:6px 0 0}
+  .same-day a{color:var(--blue)}
+  .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:34px}
 """
-
-
-def short_title(it):
-    """清單用的短標題：去掉開頭日期；股市每日只留指數與點數（手機一行內讀得完）。"""
-    t = re.sub(r"^\d{4}/\d{2}/\d{2}\s*", "", it["title"])
-    if it["category"] == "股市觀察" and t.startswith("收盤後觀察"):
-        m = re.match(r"收盤後觀察：([\d.]+)\s*(\S*\s*點)", t)
-        if m:
-            try:
-                idx = f"{float(m.group(1)):,.2f}"
-            except ValueError:
-                idx = m.group(1)
-            return f"收盤後觀察：{idx}（{m.group(2)}）"
-    return t
 
 
 def build():
     items = stock_items() + ai_items() + manifest_items()
-    cards = []
-    summary = []
-    for name, slug, cls, note, go in CATS:
-        mine = sorted([i for i in items if i["category"] == name],
-                      key=lambda x: x["sort"], reverse=True)
-        rows = []
-        for it in mine[:2]:
-            d = it["date"][5:] if len(it["date"]) >= 10 else it["date"]
-            title = short_title(it)   # 日期已顯示在左邊，標題不要再寫一次，且股市標題要縮短
-            rows.append('        <li><span class="d">' + html.escape(d) + ' ·</span>'
-                        '<a href="' + it["url"] + '">' + html.escape(title) + "</a></li>")
-        cards.append('    <a class="cat-card ' + cls + '" href="' + slug + '/">\n'
-                     '      <div class="cc-title">' + name + "</div>\n"
-                     '      <div class="cc-note">' + note + "</div>\n"
-                     '      <div class="cc-latest-label">最新</div>\n'
-                     '      <ul class="cc-list">\n'
-                     + (chr(10).join(rows) if rows else "        <li>（尚無內容）</li>") + "\n"
-                     "      </ul>\n"
-                     '      <span class="cc-go">' + go + "（" + str(len(mine)) + "）→</span>\n"
-                     "    </a>")
-        summary.append((name, len(mine), mine[0]["title"] if mine else "—"))
-
+    sections = []
+    log = []
+    for name, slug, note, go in CATS:
+        mine = sorted([i for i in items if i["category"] == name], key=lambda x: x["sort"], reverse=True)
+        if not mine:
+            sections.append(SECTION.format(slug=slug, name=name, go=go, n=0, note=note,
+                                           card="", extra=""))
+            continue
+        latest = mine[0]
+        card = CARD.format(title=html.escape(latest["title"]), note=html.escape(latest["note"]),
+                           url=latest["url"], btn=latest["btn"], btn2="")
+        extra = ""
+        # 同一天的盤中快照：不佔卡片，只給一行連結（同一天排在一起）
+        if name == "股市觀察":
+            same = [i for i in mine[1:] if i["sort"][0] == latest["sort"][0] and "-intraday" in i["url"]]
+            if same:
+                s0 = same[0]
+                extra = ('    <p class="same-day">同一天另有：'
+                         f'<a href="{s0["url"]}">{html.escape(_txt(s0["title"])[5:])}</a></p>')
+        sections.append(SECTION.format(slug=slug, name=name, go=go, n=len(mine), note=note,
+                                       card=card, extra=extra))
+        log.append((name, len(mine), latest["title"]))
     head = open(HEAD_FILE, encoding="utf-8").read()
     if "</style>" in head:
-        head = head.replace("</style>", FEED_CSS + "</style>", 1)
-    body = BODY.replace("{cats}", CAT_HTML.format(cards=chr(10).join(cards)))
+        head = head.replace("</style>", EXTRA_CSS + "</style>", 1)
+    body = BODY.replace("{sections}", chr(10).join(sections))
     open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(head + body)
-    print("首頁已產生：3 塊分類卡")
-    for name, n, latest in summary:
-        print("   ", name, "共", n, "則｜最新:", latest[:40])
+    print("首頁已產生：每個分類只留最新一則")
+    for name, n, t in log:
+        print("   ", name, "共", n, "則｜最新:", t[:44])
 
 
 if __name__ == "__main__":
