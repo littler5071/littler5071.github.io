@@ -93,7 +93,7 @@ def sync_homepage(days, icards_by_day, idx_by_day):
                       + '      <a class="btn" href="stock/' + d + '/">逐檔 K 線圖與線型分析（50 檔）→</a>' + NL
                       + '    </div>')
         # 分類頁的盤中卡片用相對連結（20260915-intraday/），搬到首頁要補 stock/ 前綴
-        blocks.extend(c.replace('href="' + d + '/"', 'href="stock/' + d + '/"')
+        blocks.extend(re.sub(r'href="(' + d + r'[^"]*)/"', r'href="stock//"', c)
                       for c in icards_by_day.get(d, []))
     inner = NL.join(blocks)
     new = re.sub(r"(?s)<!-- stock-cards:start[^>]*-->.*?<!-- stock-cards:end -->",
