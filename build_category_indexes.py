@@ -100,6 +100,28 @@ def build_stock():
     <p>上市個股上漲／下跌 {breadth}；{focus}。</p>
     <a class="btn" href="{d}/">逐檔 K 線圖與線型分析 →</a>
   </div>""")
+    # 盤中觀察（目錄名為 <日期>-intraday）
+    intr = sorted([os.path.basename(os.path.dirname(p)) for p in
+                   glob.glob(os.path.join(SITE, "stock", "*-intraday", "index.html"))], reverse=True)
+    icards = []
+    for d in intr:
+        h = open(os.path.join(SITE, "stock", d, "index.html"), encoding="utf-8").read()
+        label = f"{d[:4]}/{d[4:6]}/{d[6:8]}"
+        sub = re.search(r'<div class="sub">([^<]+)</div>', h)
+        sub_txt = txt(sub.group(1)) if sub else ""
+        snap = re.search(r"(\d{2}:\d{2}) 即時快照", sub_txt)
+        big = re.search(r'<div class="big[^"]*">([^<]+)</div>\s*<div>加權指數\s*([^<]*)</div>', h)
+        idx = txt(big.group(1)) if big else "-"
+        chg = txt(big.group(2)) if big else ""
+        bd = re.search(r'<div class="big">(\d+) / (\d+)</div><div>候選池', h)
+        breadth = f"{bd.group(1)} / {bd.group(2)}" if bd else "-"
+        snap_t = snap.group(1) if snap else ""
+        icards.append('<div class="card"><span class="tag" style="color:#8a6d1f">盤中快照</span>'
+                      '<h3>' + label + ' ' + snap_t + ' 盤中觀察：' + idx + '　' + chg + '</h3>'
+                      '<p>候選池內上漲／下跌 ' + breadth + '；當日盤中成交金額前 50 檔（上市 35＋上櫃 15）。'
+                      '<strong>盤中是快照、不是收盤定案。</strong></p>'
+                      '<a class="btn" href="' + d + '/">盤中逐檔快照 →</a></div>')
+
     table = "\n".join(
         f'    <tr><td class="d">{r[0]}</td><td>{r[1]}</td><td>{r[3] or "—"}</td>'
         f'<td><a href="{r[4]}/">逐檔分析 →</a></td></tr>' for r in rows)
@@ -110,7 +132,7 @@ def build_stock():
     <div class="sub">公開資料的觀察與記錄・不構成投資建議</div>
     <hr class="rule">
   </header>
-""" + "\n".join(cards) + f"""
+""" + "\n".join(icards + cards) + f"""
   <h2><span class="dot"></span>全部觀察紀錄（{len(rows)} 個交易日）</h2>
   <div class="scroll">
   <table>
