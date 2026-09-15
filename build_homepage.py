@@ -17,12 +17,12 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__f
 HEAD_FILE = os.path.join(SITE, "home_template_head.html")
 
 CATS = [
-    ("股市觀察", "stock", "c-stock",
-     "每個交易日成交金額前 50 檔的技術線型逐檔分析（上市 35＋上櫃 15）。",
-     "全部觀察紀錄"),
     ("AI 助理實測", "ai", "c-ai",
      "把 AI 助理真正做過的事記錄下來。",
      "全部影片"),
+    ("股市觀察", "stock", "c-stock",
+     "每個交易日成交金額前 50 檔的技術線型逐檔分析（上市 35＋上櫃 15）。",
+     "全部觀察紀錄"),
     ("多益英文", "toeic", "c-toeic",
      "題目全部自行撰寫；附中文詳解與音檔。",
      "全部題組"),
@@ -163,7 +163,7 @@ def build():
         for it in mine[:2]:
             d = it["date"][5:] if len(it["date"]) >= 10 else it["date"]
             title = short_title(it)   # 日期已顯示在左邊，標題不要再寫一次，且股市標題要縮短
-            rows.append('        <li><span class="d">' + html.escape(d) + '</span>'
+            rows.append('        <li><span class="d">' + html.escape(d) + ' ·</span>'
                         '<a href="' + it["url"] + '">' + html.escape(title) + "</a></li>")
         cards.append('    <a class="cat-card ' + cls + '" href="' + slug + '/">\n'
                      '      <div class="cc-title">' + name + "</div>\n"
