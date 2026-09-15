@@ -1,16 +1,17 @@
 {
- "snapshot_at": "2026-09-15 17:37:55",
+ "snapshot_at": "2026-09-15 21:31:51",
  "service": "abacus.jasoncameron.dev",
  "pages": {
-  "ai": 11,
-  ".": 8,
+  "ai/exam": 1,
+  "ai": 15,
+  ".": 27,
   "stock/20260911": 1,
-  "stock/20260914": 2,
-  "stock/20260915-intraday": 8,
-  "stock/20260915": 1,
-  "stock": 6,
-  "toeic": 4,
-  "toeic/p2-sample": 1,
+  "stock/20260914": 3,
+  "stock/20260915-intraday": 11,
+  "stock/20260915": 10,
+  "stock": 12,
+  "toeic": 8,
+  "toeic/p2-sample": 2,
   "toeic/p3-full": 5
  }
 }
