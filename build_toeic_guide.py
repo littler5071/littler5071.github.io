@@ -108,6 +108,16 @@ def body_html():
     口說與寫作（S&amp;W）是<strong>另一場獨立的測驗</strong>（口說 11 題約 20 分鐘、寫作 8 題約 60 分鐘），不包含在 L&amp;R 裡。
   </div>
 
+  <h2><span class="dot"></span>影片版（4 分 44 秒）</h2>
+  <div class="embed">
+    <iframe src="https://www.youtube-nocookie.com/embed/GMyjN9OyK4Y?rel=0" loading="lazy"
+            title="多益聽力與閱讀：Part 1–7 題型分配、答題技巧與考場注意事項"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+  </div>
+  <p class="dim">影片內容就是這一頁：七個部分的題數、各部分技巧與陷阱、考場規則與分數制度。
+    不想用嵌入播放的話，<a href="https://youtu.be/GMyjN9OyK4Y" target="_blank" rel="noopener">直接在 YouTube 看 →</a></p>
+
   <h2><span class="dot"></span>一、題型分配（這是考試的骨架）</h2>
   <div class="scroll"><table>
     <tr><th>部分</th><th>題型</th><th>題數</th><th>題組數</th><th>考科</th><th>時間</th><th>考什麼</th></tr>
@@ -156,6 +166,9 @@ CSS = """  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-d
   article.tip ul{margin:0;padding-left:20px;font-size:15px;color:var(--soft)}
   article.tip ul li{margin:4px 0}
   ul.how{font-size:15.5px} ul.how li{margin:6px 0}
+  .embed{position:relative;width:100%;max-width:820px;aspect-ratio:16/9;margin:10px 0 6px}
+  .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px;background:#000}
+  @supports not (aspect-ratio:16/9){.embed{height:0;padding-bottom:56.25%}}
   .dim{color:var(--soft);font-size:14px}
 """
 

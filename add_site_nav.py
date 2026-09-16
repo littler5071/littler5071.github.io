@@ -43,6 +43,9 @@ NAV_CSS = """  /* hermesnav（共用導覽・密集版：手機單行可橫向�
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
 """
+# 舊版導覽樣式的移除規則：從 "/* hermesnav" 開始，只刪到導覽樣式自己的最後一行為止。
+_NAV_TAIL = re.escape(NAV_CSS.rstrip().splitlines()[-1].strip())
+OLD_CSS_RE = re.compile(r"\n  /\* hermes(?:nav|views)[^\n]*\n?.*?" + _NAV_TAIL, re.S)
 NAV_HTML = """{mark}
 <nav class="hnav">
   <a class="brand{on_home}" href="{base}/">小R 頻道</a>
@@ -75,11 +78,16 @@ def views_html(rel):
 
 
 def strip_old(html):
-    """移除先前注入的導覽列／瀏覽次數與它們的 CSS（讓本腳本可以重複執行）。"""
+    """移除先前注入的導覽列／瀏覽次數與它們的 CSS（讓本腳本可以重複執行）。
+
+    注意：CSS 的移除**只刪到導覽樣式自己的最後一行**（由 NAV_CSS 推算），
+    不能寫成「刪到 </style> 之前」——產生器（build_toeic_guide.py 等）會在導覽樣式
+    之後追加自己的 CSS，那種寫法會把整段頁面樣式一起刪掉（頁面照樣 200，只是樣式全消失）。
+    """
     html = re.sub(r"\n?<!-- hermesnav -->\s*<nav class=\"hnav\">.*?</nav>\s*", "\n", html, flags=re.S)
     html = re.sub(r"\n?<div class=\"viewsline\">.*?</div>\s*", "\n", html, flags=re.S)
     html = re.sub(r"\n?<script defer src=\"[^\"]*counter\.js[^\"]*\"></script>\s*", "\n", html)
-    html = re.sub(r"\n  /\* hermes(nav|views).*?(?=</style>)", "\n", html, flags=re.S)
+    html = OLD_CSS_RE.sub("\n", html)
     return html
 
 
