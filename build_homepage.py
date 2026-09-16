@@ -141,7 +141,8 @@ def build():
             sections.append(SECTION.format(slug=slug, name=name, go=go, n=0, note=note,
                                            card="", extra=""))
             continue
-        top = mine[:2]                                   # 每個分類保留最新 2 則
+        pool = [i for i in mine if "-intraday" not in i["url"]] if name == "股市觀察" else mine
+        top = (pool or mine)[:2]                         # 每個分類保留最新 2 則（股市：盤中快照不佔卡）
         cards = []
         for k, it in enumerate(top):
             cards.append(CARD.format(tag=("最新" if k == 0 else "近期"),
@@ -149,16 +150,14 @@ def build():
                                      url=it["url"], btn=it["btn"], btn2=""))
         card = chr(10).join(cards)
         extra = ""
-        # 同一天的盤中快照：不佔卡片，只給一行連結（同一天排在一起、以最新的一筆收盤紀錄為準）
+        # 盤中快照：不佔卡片，只在同一天的收盤紀錄下面給一行連結（同一天排在一起）
         if name == "股市觀察":
-            closings = [i for i in mine if re.fullmatch(r"stock/\d{8}/", i["url"])]
-            if closings:
-                c0 = closings[0]
-                same = [i for i in mine if "-intraday" in i["url"] and i["sort"][0] == c0["sort"][0]]
-                if same and same[0]["url"] not in [t["url"] for t in top]:
-                    s0 = same[0]
-                    extra = ('    <p class="same-day">同一天另有：'
-                             f'<a href="{s0["url"]}">{html.escape(_txt(s0["title"])[5:])}</a></p>')
+            want = {t["sort"][0] for t in top}
+            intr = [i for i in mine if "-intraday" in i["url"] and i["sort"][0] in want]
+            if intr:
+                s0 = sorted(intr, key=lambda x: x["sort"], reverse=True)[0]
+                extra = ('    <p class="same-day">同一天另有：'
+                         f'<a href="{s0["url"]}">{html.escape(_txt(s0["title"])[5:])}</a></p>')
         sections.append(SECTION.format(slug=slug, name=name, go=go, n=len(mine), note=note,
                                        card=card, extra=extra))
         log.append((name, len(mine), " / ".join(t["title"] for t in top)))
