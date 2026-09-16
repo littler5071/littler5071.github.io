@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""首頁產生器：每個分類只放「最新一則」卡片（使用者定案 2026/09/15）＋ 分類入口連結。
+"""首頁產生器：每個分類放「最新 2 則」卡片（2026/09/16 使用者定案：原本只放 1 則）＋ 分類入口連結。
 
 形狀：三個分類區塊（AI 助理實測 → 股市觀察 → 多益英文，順序與導覽列一致），
-每區＝分類標題（可點）＋一句說明＋最新一則的卡片（標籤／標題／說明／按鈕）＋「全部 N 則 →」。
+每區＝分類標題（可點）＋一句說明＋最新 2 則卡片（標籤＝最新／近期）＋「全部 N 則 →」。
 股市若同一天另有盤中快照，在卡片下方給一行小連結（不要再佔一張卡）。
 
 資料來源
@@ -100,7 +100,7 @@ SECTION = """  <section id="{slug}">
 """
 
 CARD = """    <div class="card">
-      <span class="tag new">最新</span>
+      <span class="tag new">{tag}</span>
       <h3>{title}</h3>
       <p>{note}</p>
       <a class="btn" href="{url}">{btn}</a>{btn2}
@@ -123,7 +123,7 @@ BODY = """<body>
 </html>
 """
 
-EXTRA_CSS = """  /* 首頁：每個分類只放最新一則 */
+EXTRA_CSS = """  /* 首頁：每個分類放最新 2 則 */
   section .hint{color:var(--soft);font-size:14.5px;margin:2px 0 10px}
   .same-day{font-size:13.5px;color:var(--soft);margin:6px 0 0}
   .same-day a{color:var(--blue)}
@@ -141,28 +141,35 @@ def build():
             sections.append(SECTION.format(slug=slug, name=name, go=go, n=0, note=note,
                                            card="", extra=""))
             continue
-        latest = mine[0]
-        card = CARD.format(title=html.escape(latest["title"]), note=html.escape(latest["note"]),
-                           url=latest["url"], btn=latest["btn"], btn2="")
+        top = mine[:2]                                   # 每個分類保留最新 2 則
+        cards = []
+        for k, it in enumerate(top):
+            cards.append(CARD.format(tag=("最新" if k == 0 else "近期"),
+                                     title=html.escape(it["title"]), note=html.escape(it["note"]),
+                                     url=it["url"], btn=it["btn"], btn2=""))
+        card = chr(10).join(cards)
         extra = ""
-        # 同一天的盤中快照：不佔卡片，只給一行連結（同一天排在一起）
+        # 同一天的盤中快照：不佔卡片，只給一行連結（同一天排在一起、以最新的一筆收盤紀錄為準）
         if name == "股市觀察":
-            same = [i for i in mine[1:] if i["sort"][0] == latest["sort"][0] and "-intraday" in i["url"]]
-            if same:
-                s0 = same[0]
-                extra = ('    <p class="same-day">同一天另有：'
-                         f'<a href="{s0["url"]}">{html.escape(_txt(s0["title"])[5:])}</a></p>')
+            closings = [i for i in mine if re.fullmatch(r"stock/\d{8}/", i["url"])]
+            if closings:
+                c0 = closings[0]
+                same = [i for i in mine if "-intraday" in i["url"] and i["sort"][0] == c0["sort"][0]]
+                if same and same[0]["url"] not in [t["url"] for t in top]:
+                    s0 = same[0]
+                    extra = ('    <p class="same-day">同一天另有：'
+                             f'<a href="{s0["url"]}">{html.escape(_txt(s0["title"])[5:])}</a></p>')
         sections.append(SECTION.format(slug=slug, name=name, go=go, n=len(mine), note=note,
                                        card=card, extra=extra))
-        log.append((name, len(mine), latest["title"]))
+        log.append((name, len(mine), " / ".join(t["title"] for t in top)))
     head = open(HEAD_FILE, encoding="utf-8").read()
     if "</style>" in head:
         head = head.replace("</style>", EXTRA_CSS + "</style>", 1)
     body = BODY.replace("{sections}", chr(10).join(sections))
     open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(head + body)
-    print("首頁已產生：每個分類只留最新一則")
+    print("首頁已產生：每個分類保留最新 2 則")
     for name, n, t in log:
-        print("   ", name, "共", n, "則｜最新:", t[:44])
+        print("   ", name, "共", n, "則｜最新 2 則:", t[:70])
 
 
 if __name__ == "__main__":
