@@ -191,6 +191,13 @@ def build_stock():
     <hr class="rule">
   </header>
 """ + "\n".join(cards_ordered) + f"""
+  <h2><span class="dot"></span>方法必讀</h2>
+  <div class="card">
+    <span class="tag">攻略</span>
+    <h3>飆股在線等的技術分析邏輯：一套可以照著做的流程</h3>
+    <p>趨勢（頭頭高、底底高）→ 位置（只有兩個買點）→ 均線與葛蘭碧八法 → 支撐壓力與切線 → 型態與目標價 → 量價 → 指標 → 出場停利，附自製技術圖與進場檢核表。</p>
+    <a class="btn" href="logic/">看完整方法整理 →</a>
+  </div>
   <h2><span class="dot"></span>全部觀察紀錄（{len(rows)} 個交易日）</h2>
   <div class="scroll">
   <table>
