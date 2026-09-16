@@ -39,7 +39,6 @@
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
   .scroll{overflow-x:auto}
-
   a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
   .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:6px 0 18px}
   .box{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--soft)}
@@ -67,18 +66,6 @@
   ul.how,ol.how{font-size:15.5px} ul.how li,ol.how li{margin:6px 0}
   .dim{color:var(--soft);font-size:14px}
   code{background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px;font-size:13px}
-
-
-
-
-
-
-
-
-
-
-
-
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -117,19 +104,20 @@
   <a class="lnk" href="../../toeic/">多益英文</a>
 </nav>
 
+
 <div class="wrap">
   <a class="back" href="../">← 回 AI 助理實測</a>
   <header>
-    <h1>AI 助理去考試：iPAS「AI 應用規劃師（初級）」</h1>
-    <div class="sub">用官方公告試題實測　·　實測日期 2026-09-14　·　及格 70 分／科</div>
+    <h1>AI 助理去考試：iPAS「AI 應用規劃師（初級＋中級）」</h1>
+    <div class="sub">用官方公告試題實測　·　初級 2026-09-14、中級 2026-09-16　·　及格 70 分／科</div>
     <hr class="rule">
   </header>
 
   <div class="summary">
     <div class="box"><div class="big">100 / 100</div><div>115 年第二次（科目1 50/50、科目2 50/50）</div></div>
     <div class="box"><div class="big">98 / 100</div><div>114 年第四梯次（科目1 50/50、科目2 48/50）</div></div>
-    <div class="box"><div class="big">2 題</div><div>總共只錯這兩題（都在 114 年第四梯次）</div></div>
-    <div class="box"><div class="big">200 題</div><div>兩份官方考卷（各 100 題、兩科），作答前答案欄已移除</div></div>
+    <div class="box"><div class="big">2 題</div><div>初級總共只錯這兩題（都在 114 年第四梯次）</div></div>
+    <div class="box"><div class="big">159 題</div><div>中級 115 年第一次（三科完整考卷）→ 153/159</div></div>
   </div>
 
   <div class="note warn">
@@ -145,7 +133,77 @@
   </table></div>
   <p class="dim">作答分布檢查（確認不是亂猜）：115 年第二次我的選答分布 A24／B27／C25／D24，與官方答案分布完全相同。</p>
 
-  <h2><span class="dot"></span>錯的那兩題（這份報告最有價值的部分）</h2>
+
+  <h2><span class="dot"></span>中級：115 年第一次（159 題，三科完整考卷）</h2>
+  <div class="summary">
+    <div class="box"><div class="big">153 / 159</div><div>總分 96.2%（科目1 滿分）</div></div>
+    <div class="box"><div class="big">100%</div><div>科目1：人工智慧技術應用規劃（51/51）</div></div>
+    <div class="box"><div class="big">6 題</div><div>總共只錯 6 題（科目2 錯 3、科目3 錯 3）</div></div>
+    <div class="box"><div class="big">159 題</div><div>官方公告試題三科，作答前答案欄已移除</div></div>
+  </div>
+  <div class="scroll"><table>
+    <tr><th>科目</th><th>得分</th><th>比率</th></tr>
+    <tr><td>科目1：人工智慧技術應用規劃</td><td>51 / 51</td><td><strong>100%</strong></td></tr><tr><td>科目2：大數據處理分析與應用</td><td>50 / 53</td><td><strong>94%</strong></td></tr><tr><td>科目3：機器學習技術與應用</td><td>52 / 55</td><td><strong>95%</strong></td></tr>
+  </table></div>
+  <p class="dim">選答分布 A37／B43／C42／D37（分布平均，可確認不是亂猜）。</p>
+
+  <div class="note warn">
+    <strong>這一卷有 2 題的題庫「正解」與它自己的解析互相矛盾</strong>（科目2 第 46 題、科目3 第 52 題），
+    因此 96.2% 應視為<strong>約 96～98% 的區間</strong>；公開引用前需對 iPAS 官方 PDF 逐題抽查。
+  </div>
+
+  <h2><span class="dot"></span>中級錯的 6 題</h2>
+  
+  <article class="q">
+    <h3>科目2　第 46 題｜關聯規則</h3>
+    <ul class="ans">
+      <li class="mine"><span>我的選答</span>C</li>
+      <li class="off"><span>官方答案</span>D</li>
+    </ul>
+    <p class="why"><strong>官方解析</strong>：此題需依下圖 8 筆訂單的內容用 Apriori 找最低支援度（出現次數）≥3 的最大頻繁項目集。Apriori 的原則：先找滿足門檻的單一項，再逐步組合更大項目集，且任一頻繁項目集的子集也必須頻繁（向下封閉）。依官方答案，最終保留的最大頻繁項目集為 {B, E}，正解(D)，代表 B 與 E 同時出現的次數達到門檻且其組合是滿足支援度的最大集合（其他更大的組合或其他項組合未達 3 次）。其餘選項或為更小的子集（如(A){A}），或為支援度不足/未同時達標的組合（如(B){A,D}、(C){A,B,E}）。記憶點：</p>
+  </article>
+  <article class="q">
+    <h3>科目2　第 47 題｜ROC曲線</h3>
+    <ul class="ans">
+      <li class="mine"><span>我的選答</span>A</li>
+      <li class="off"><span>官方答案</span>C</li>
+    </ul>
+    <p class="why"><strong>官方解析</strong>：ROC 曲線以 FPR 為橫軸、TPR 為縱軸，有幾個必然性質：必過(0,0)與(1,1)、且應為單調不下降（隨門檻放寬，FPR 與 TPR 都只增不減）。因此一條會「往下彎/非單調」或形狀違反單調遞增的曲線最不可能是 ROC。依官方答案，曲線 C 最不可能是 ROC，正解(C)，通常是因為它呈現非單調（中途下降）或落在對角線下方且不符遞增規律。水平線 A、斜直線 D（對角線=隨機猜測 AUC=0.5）、以及上凸的曲線 B 都仍可能是合法 ROC。記憶點：ROC 必過(0,0)→(1,1)且單調不遞減；會往下彎（非</p>
+  </article>
+  <article class="q">
+    <h3>科目2　第 52 題｜建模流程</h3>
+    <ul class="ans">
+      <li class="mine"><span>我的選答</span>A</li>
+      <li class="off"><span>官方答案</span>B</li>
+    </ul>
+    <p class="why"><strong>官方解析</strong>：此題比較 train_test_split 與 solver 的正確用法。train_test_split 的參數順序是「先特徵 X 再標籤 y」，即 train_test_split(X_norm, y, ...) 才對（C、D 把 y 與 X_norm 顛倒，錯）。LogisticRegression 的 solver，&quot;lbfgs&quot; 是預設且適合一般（含多類）情況，&quot;liblinear&quot; 適用小資料或 L1/二元等特定情境；依官方答案選(B):X_norm 在前且使用 solver=&quot;lbfgs&quot;。(A)順序</p>
+  </article>
+  <article class="q">
+    <h3>科目3　第 30 題｜偏差變異</h3>
+    <ul class="ans">
+      <li class="mine"><span>我的選答</span>C</li>
+      <li class="off"><span>官方答案</span>B</li>
+    </ul>
+    <p class="why"><strong>官方解析</strong>：正解 (B)。訓練 AUC 0.97 但驗證 AUC 僅 0.72（落差大）、少數樣本預測波動極大、不同 K-fold 結果差異明顯，這些都是模型對訓練資料/切分太敏感的徵兆，屬於高變異 (High Variance)。(A) 高偏差會是訓練與驗證都表現差（欠擬合），與此處訓練很好相反；(C) 過擬合確實也是高變異的表現，但本題在「高偏差/高變異」對立選項中，最精準的偏差-變異分類用語是高變異（過擬合是其結果現象）；(D) 資料漂移指上線後資料分布隨時間改變，題目是同一資料的 K-fold 不穩，非漂移。記憶點：訓</p>
+  </article>
+  <article class="q">
+    <h3>科目3　第 35 題｜LoRA微調</h3>
+    <ul class="ans">
+      <li class="mine"><span>我的選答</span>A</li>
+      <li class="off"><span>官方答案</span>D</li>
+    </ul>
+    <p class="why"><strong>官方解析</strong>：正解 (D)。前提是「GPU 顯存已接近上限、要在不明顯增加記憶體下改善表現」。降低 LoRA rank 可省記憶體，但只降 rank 會犧牲表達力；若同時把 LoRA 套用到「更多層」並讓 trainable 總參數量保持不變，等於把同樣的可訓練預算重新分配到更廣的層，常能在不增加記憶體下提升效果。(A) 提高 rank 會增加記憶體，違反限制；(B) Full Fine-tuning 記憶體需求最大，直接爆顯存；(C) 只降 rank 釋放記憶體加大 Batch Size，並未針對「複雜條款遺漏」的表達力問題下</p>
+  </article>
+  <article class="q">
+    <h3>科目3　第 52 題｜分層交叉驗證</h3>
+    <ul class="ans">
+      <li class="mine"><span>我的選答</span>D</li>
+      <li class="off"><span>官方答案</span>A</li>
+    </ul>
+    <p class="why"><strong>官方解析</strong>：正解 (A)。要確保每個交叉驗證分割中「類別比例與原始資料一致」，必須使用分層 (Stratified) 切分。本題正解是程式碼 B、C、D 三段皆可行：常見的可行寫法包括直接把 cv 設成整數（分類任務用 cross_val_score 預設即為 StratifiedKFold）、傳入 StratifiedKFold 物件、或傳入指定的分層折數，這些都能維持各折類別比例。而被排除的程式碼 A 應為使用一般 KFold（不分層，無法保證比例）或不符需求的寫法，故不選含 A 的選項。(B)(C)(D) 因含 A 或漏</p>
+  </article>
+
+  <h2><span class="dot"></span>初級錯的那兩題（這份報告最有價值的部分）</h2>
   
   <article class="q">
     <h3>第 80 題｜提示注入（Prompt Injection）</h3>
@@ -174,6 +232,7 @@
       <h3>代表</h3>
       <ul>
         <li>針對 iPAS 初級這兩科的<strong>學科知識</strong>，AI 助理已能在官方公告試題上取得 96～100 分（及格 70 分）。</li>
+        <li>中級（三科、159 題）同樣在官方公告試題上取得 <strong>153/159＝96.2%</strong>。</li>
         <li>有<strong>可稽核的作答紀錄</strong>：題目、我的選答、官方答案逐題對應（<code>考卷_*_我的作答.json</code>、<code>考卷_*_答案.json</code>）。</li>
       </ul>
     </div>
