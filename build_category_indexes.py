@@ -160,17 +160,17 @@ def build_stock():
             '<td>候選池 ' + breadth + '</td>'
             '<td><a href="' + d + '/">盤中逐檔快照 →</a></td></tr>')
 
-    # 把每張卡片依「日期」交錯排列：收盤後 → 同日盤中快照 → 下一天
-    card_by_day = {days[i]: cards[i] for i in range(min(2, len(cards)))}
+    # 建立「日期 → 卡片」對應（同一天：收盤卡在前、盤中快照在後），再依日期「新 → 舊」排出，
+    # 這樣「只有盤中、還沒有收盤頁」的當天（例如排程剛跑完的今天）也會排在最上面。
+    by_day = {}
+    for i, r in enumerate(rows):
+        if i < 2:                                   # 只為最新兩天做收盤卡片
+            by_day.setdefault(r[4], []).append(cards[i])
+    for day, cs in icards_by_day.items():
+        by_day.setdefault(day, []).extend(cs)
     cards_ordered = []
-    for r in rows:
-        day = r[4]
-        if day in card_by_day:
-            cards_ordered.append(card_by_day[day])
-        cards_ordered.extend(icards_by_day.get(day, []))
-    for day, cs in icards_by_day.items():          # 只有盤中、沒有收盤頁的日期也要露出
-        if day not in {r[4] for r in rows}:
-            cards_ordered.extend(cs)
+    for day in sorted(by_day.keys(), reverse=True):
+        cards_ordered.extend(by_day[day])
 
     def _drow(r):
         return (f'    <tr><td class="d">{r[0]}</td><td>{r[1]}</td><td>{r[3] or "—"}</td>'
