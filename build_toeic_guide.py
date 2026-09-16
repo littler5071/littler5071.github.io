@@ -92,7 +92,7 @@ def body_html():
   <a class="back" href="../">← 回多益英文</a>
   <header>
     <h1>TOEIC 聽力與閱讀：題型分配、答題技巧、注意事項</h1>
-    <div class="sub">先回答最常被問的那一句：有 Part 1，也有 Part 4</div>
+    <div class="sub">Part 1–7 的題數、時間分配、答題技巧與考場規則</div>
     <hr class="rule">
   </header>
 
@@ -103,11 +103,9 @@ def body_html():
     <div class="box"><div class="big">4 種口音</div><div>美式・加拿大・英式・澳式</div></div>
   </div>
 
-  <div class="note warn">
-    <strong>直接回答你的問題：</strong>
-    <strong>Part 1「照片描述」有（6 題）</strong>，<strong>Part 4「簡短獨白」也有（30 題／10 組）</strong>。
-    聽力與閱讀測驗（L&amp;R）一共七個部分、200 題、約 2 小時；Part 1 只在聽力最前面出現 6 題，所以「每個 Part 題數都一樣多」是錯的。
-    另外，口說與寫作（S&amp;W）是<strong>另一場獨立的測驗</strong>（口說 11 題約 20 分鐘、寫作 8 題約 60 分鐘），不包含在 L&amp;R 裡。
+  <div class="note">
+    聽力與閱讀測驗（L&amp;R）共七個部分、200 題、約 2 小時，四種口音輪流出現；
+    口說與寫作（S&amp;W）是<strong>另一場獨立的測驗</strong>（口說 11 題約 20 分鐘、寫作 8 題約 60 分鐘），不包含在 L&amp;R 裡。
   </div>
 
   <h2><span class="dot"></span>一、題型分配（這是考試的骨架）</h2>
