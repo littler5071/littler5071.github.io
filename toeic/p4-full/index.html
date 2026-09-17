@@ -27,6 +27,9 @@
   .bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
        background:rgba(246,241,230,.96);border:2px solid var(--line);border-radius:14px;
        padding:10px 14px;margin:18px 0;backdrop-filter:blur(4px)}
+  .bar.hit{border-color:var(--red);background:#fbe3a8;
+       box-shadow:0 0 0 3px rgba(191,74,58,.30);animation:blkflash .55s ease-in-out 3}
+  @keyframes blkflash{0%,100%{background:#fbe3a8}50%{background:#fff6d8}}
   .bar .prog{font-size:15px;color:var(--soft)}
   .bar .prog b{color:var(--ink);font-size:18px}
   button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
@@ -60,6 +63,16 @@
   ul.opts li.bad{background:#fbeae7;border-color:var(--red)}
   ul.opts li.locked{cursor:default}
   .sol{margin-top:4px}
+  .jump{margin:8px 0 2px}
+  button.backjump{font-size:13.5px;min-height:34px;padding:5px 14px;border-radius:999px;
+          border:1.5px solid var(--blue);background:transparent;color:var(--blue);line-height:1.3}
+  button.backjump:hover{background:rgba(54,78,112,.10)}
+  button.backjump:active{background:var(--sel)}
+  .jumpend{margin:30px 0 0;text-align:center}
+  button.gotoscore{font-size:15px;min-height:38px;padding:8px 22px}
+  section.set{scroll-margin-top:96px}
+  section.set.hit{outline:3px solid var(--red);outline-offset:4px;border-radius:14px;
+       box-shadow:0 0 0 6px rgba(191,74,58,.18);animation:blkflash .55s ease-in-out 3}
   .toggle{background:transparent;color:var(--blue);border:0;padding:0;font-size:15px;
           border-bottom:1.5px solid rgba(54,78,112,.5);border-radius:0}
   .solbody{margin-top:10px;background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px}
@@ -69,7 +82,6 @@
   ul.why li.no{color:var(--ink)}
   .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
   .dim{color:var(--soft);font-size:13.5px}
-
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -107,7 +119,6 @@
   <a class="lnk" href="../../stock/">股市觀察</a>
   <a class="lnk on" href="../../toeic/">多益英文</a>
 </nav>
-
 <div class="wrap">
   <a class="back" href="../">← 回多益英文</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
@@ -116,7 +127,9 @@
 
   <div class="box">
     <strong>怎麼做</strong>：① 播放下面「考場節奏版」，<strong>不要暫停</strong>，邊聽邊點選項作答；
-    ② 做完 30 題按「對答案並計分」；③ 錯的題目會自動展開詳解，通車時再聽「中文詳解版」複習。
+    ② 做完 30 題按「對答案並計分」；③ 錯的題目會自動展開詳解，通車時再聽「中文詳解版」複習；
+    ④ 想再看某一組的獨白文字，按該組題目下方的「<strong>↑ 回到第 N 組獨白</strong>」，頁面會滑回該組區塊並閃示約 2 秒；
+    ⑤ 想重新對答案，可按頁面最下方的「<strong>↑ 回到上面評分</strong>」滑回上方計分區。
   </div>
   <div class="box">
     <strong>原創聲明</strong>：題目、獨白、選項與詳解<strong>全部自行撰寫</strong>，語音由<strong>語音合成</strong>產生
@@ -136,7 +149,7 @@
       <audio controls preload="metadata" src="audio/toeic_p4_full_explain.mp3"></audio></div>
   </div>
 
-  <div class="bar">
+  <div class="bar" id="scoring">
     <span class="prog">已作答 <b><span id="done">0</span> / 30</b></span>
     <button id="scoreBtn" type="button">對答案並計分</button>
     <button id="resetBtn" type="button" class="ghost">清除作答</button>
@@ -154,6 +167,8 @@
     <div class="q" data-q="71" data-a="0">
       <div class="qh"><span class="qn">71</span>Why is the speaker calling?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>To inform a customer about a delay</span></li><li data-i="1"><b>B</b><span>To confirm a delivery address</span></li><li data-i="2"><b>C</b><span>To ask for payment on an order</span></li><li data-i="3"><b>D</b><span>To advertise a new line of furniture</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set1">↑ 回到第 1 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -165,6 +180,8 @@
     <div class="q" data-q="72" data-a="2">
       <div class="qh"><span class="qn">72</span>What does the speaker say is available right away?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>A leather sofa</span></li><li data-i="1"><b>B</b><span>A set of dining chairs</span></li><li data-i="2"><b>C</b><span>A walnut table</span></li><li data-i="3"><b>D</b><span>A glass display cabinet</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set1">↑ 回到第 1 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -176,6 +193,8 @@
     <div class="q" data-q="73" data-a="2">
       <div class="qh"><span class="qn">73</span>What is the listener asked to do before Friday?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Return the old table</span></li><li data-i="1"><b>B</b><span>Visit the showroom</span></li><li data-i="2"><b>C</b><span>Call the order desk</span></li><li data-i="3"><b>D</b><span>Pay the delivery fee online</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set1">↑ 回到第 1 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -194,6 +213,8 @@
     <div class="q" data-q="74" data-a="1">
       <div class="qh"><span class="qn">74</span>What is the purpose of the announcement?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>To report that a service has been cancelled</span></li><li data-i="1"><b>B</b><span>To announce a change of platform</span></li><li data-i="2"><b>C</b><span>To introduce a new timetable</span></li><li data-i="3"><b>D</b><span>To explain how to buy tickets</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set2">↑ 回到第 2 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -205,6 +226,8 @@
     <div class="q" data-q="75" data-a="0">
       <div class="qh"><span class="qn">75</span>What is offered to business class passengers?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Complimentary drinks</span></li><li data-i="1"><b>B</b><span>A free newspaper</span></li><li data-i="2"><b>C</b><span>A seat upgrade</span></li><li data-i="3"><b>D</b><span>A taxi to Truro</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set2">↑ 回到第 2 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -216,6 +239,8 @@
     <div class="q" data-q="76" data-a="3">
       <div class="qh"><span class="qn">76</span>What should passengers going to the ferry do?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Move to platform four</span></li><li data-i="1"><b>B</b><span>Buy a new ticket</span></li><li data-i="2"><b>C</b><span>Wait in the upper-level lounge</span></li><li data-i="3"><b>D</b><span>Speak to a member of staff</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set2">↑ 回到第 2 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -234,6 +259,8 @@
     <div class="q" data-q="77" data-a="0">
       <div class="qh"><span class="qn">77</span>What is the advertisement mainly about?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>A shop&#x27;s anniversary sale</span></li><li data-i="1"><b>B</b><span>A guided walking tour</span></li><li data-i="2"><b>C</b><span>A new line of climbing ropes</span></li><li data-i="3"><b>D</b><span>A map-reading course fee</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set3">↑ 回到第 3 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -245,6 +272,8 @@
     <div class="q" data-q="78" data-a="0">
       <div class="qh"><span class="qn">78</span>What will customers receive if they spend over eighty pounds?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>A free pair of socks</span></li><li data-i="1"><b>B</b><span>A discount card</span></li><li data-i="2"><b>C</b><span>A free waterproof jacket</span></li><li data-i="3"><b>D</b><span>A workshop ticket</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set3">↑ 回到第 3 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -256,6 +285,8 @@
     <div class="q" data-q="79" data-a="1">
       <div class="qh"><span class="qn">79</span>What does the speaker say about the map-reading workshops?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>They cost eighty pounds</span></li><li data-i="1"><b>B</b><span>Places must be booked in advance</span></li><li data-i="2"><b>C</b><span>They take place on weekdays</span></li><li data-i="3"><b>D</b><span>They are led by the shop manager</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set3">↑ 回到第 3 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -274,6 +305,8 @@
     <div class="q" data-q="80" data-a="2">
       <div class="qh"><span class="qn">80</span>Who most likely is the speaker?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>A café owner</span></li><li data-i="1"><b>B</b><span>A park ranger</span></li><li data-i="2"><b>C</b><span>A volunteer guide</span></li><li data-i="3"><b>D</b><span>A ticket inspector</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set4">↑ 回到第 4 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -285,6 +318,8 @@
     <div class="q" data-q="81" data-a="2">
       <div class="qh"><span class="qn">81</span>Where will the group finish the tour?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>At the fern gully</span></li><li data-i="1"><b>B</b><span>At the lake</span></li><li data-i="2"><b>C</b><span>At the café</span></li><li data-i="3"><b>D</b><span>At the main entrance</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set4">↑ 回到第 4 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -296,6 +331,8 @@
     <div class="q" data-q="82" data-a="3">
       <div class="qh"><span class="qn">82</span>What does the speaker ask the listeners to do?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Keep their tickets</span></li><li data-i="1"><b>B</b><span>Photograph the swans</span></li><li data-i="2"><b>C</b><span>Bring their own drinks</span></li><li data-i="3"><b>D</b><span>Stay behind her at all times</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set4">↑ 回到第 4 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -314,6 +351,8 @@
     <div class="q" data-q="83" data-a="1">
       <div class="qh"><span class="qn">83</span>What is the purpose of the talk?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>To welcome newly hired staff</span></li><li data-i="1"><b>B</b><span>To announce the expansion of a work arrangement</span></li><li data-i="2"><b>C</b><span>To present the quarterly sales results</span></li><li data-i="3"><b>D</b><span>To explain a customer-service complaint</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set5">↑ 回到第 5 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -325,6 +364,8 @@
     <div class="q" data-q="84" data-a="2">
       <div class="qh"><span class="qn">84</span>What does the speaker say about salaries?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>They will be reduced</span></li><li data-i="1"><b>B</b><span>They will be paid weekly</span></li><li data-i="2"><b>C</b><span>They will stay the same</span></li><li data-i="3"><b>D</b><span>They will depend on output</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set5">↑ 回到第 5 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -336,6 +377,8 @@
     <div class="q" data-q="85" data-a="1">
       <div class="qh"><span class="qn">85</span>What are the listeners asked to do?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Work on Fridays from January</span></li><li data-i="1"><b>B</b><span>Send their questions to the people team</span></li><li data-i="2"><b>C</b><span>Join the design department</span></li><li data-i="3"><b>D</b><span>Complete a survey before Friday</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set5">↑ 回到第 5 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -354,6 +397,8 @@
     <div class="q" data-q="86" data-a="1">
       <div class="qh"><span class="qn">86</span>What is the purpose of the report?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>To advertise a repair service</span></li><li data-i="1"><b>B</b><span>To provide traffic information</span></li><li data-i="2"><b>C</b><span>To report on a water shortage</span></li><li data-i="3"><b>D</b><span>To announce a new bus route</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set6">↑ 回到第 6 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -365,6 +410,8 @@
     <div class="q" data-q="87" data-a="3">
       <div class="qh"><span class="qn">87</span>What is causing the delay on Highway 401?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Road construction</span></li><li data-i="1"><b>B</b><span>A broken-down truck</span></li><li data-i="2"><b>C</b><span>Heavy rain</span></li><li data-i="3"><b>D</b><span>A spilled load</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set6">↑ 回到第 6 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -376,6 +423,8 @@
     <div class="q" data-q="88" data-a="3">
       <div class="qh"><span class="qn">88</span>What does the speaker say about Queen Street?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>It will close on Thursday</span></li><li data-i="1"><b>B</b><span>It has just reopened</span></li><li data-i="2"><b>C</b><span>It is clear this morning</span></li><li data-i="3"><b>D</b><span>It is closed for repairs</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set6">↑ 回到第 6 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -394,6 +443,8 @@
     <div class="q" data-q="89" data-a="0">
       <div class="qh"><span class="qn">89</span>What is the purpose of the talk?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>To introduce a speaker</span></li><li data-i="1"><b>B</b><span>To open a new hospital wing</span></li><li data-i="2"><b>C</b><span>To report on a research budget</span></li><li data-i="3"><b>D</b><span>To thank the conference sponsors</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set7">↑ 回到第 7 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -405,6 +456,8 @@
     <div class="q" data-q="90" data-a="2">
       <div class="qh"><span class="qn">90</span>What is Dr Frost&#x27;s profession?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>A hospital administrator</span></li><li data-i="1"><b>B</b><span>A journalist</span></li><li data-i="2"><b>C</b><span>A cardiologist</span></li><li data-i="3"><b>D</b><span>A novelist</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set7">↑ 回到第 7 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -416,6 +469,8 @@
     <div class="q" data-q="91" data-a="1">
       <div class="qh"><span class="qn">91</span>What will happen tomorrow morning?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Dr Frost will give another talk</span></li><li data-i="1"><b>B</b><span>The slides will be posted online</span></li><li data-i="2"><b>C</b><span>The conference will close</span></li><li data-i="3"><b>D</b><span>Questions will be collected</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set7">↑ 回到第 7 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -434,6 +489,8 @@
     <div class="q" data-q="92" data-a="1">
       <div class="qh"><span class="qn">92</span>What is the speaker&#x27;s job?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>An accountant</span></li><li data-i="1"><b>B</b><span>A podcast host</span></li><li data-i="2"><b>C</b><span>A client manager</span></li><li data-i="3"><b>D</b><span>A sound engineer</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set8">↑ 回到第 8 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -445,6 +502,8 @@
     <div class="q" data-q="93" data-a="2">
       <div class="qh"><span class="qn">93</span>What did the guest stop doing four years ago?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Meeting with clients</span></li><li data-i="1"><b>B</b><span>Hiring new staff</span></li><li data-i="2"><b>C</b><span>Holding early-morning meetings</span></li><li data-i="3"><b>D</b><span>Publishing show summaries</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set8">↑ 回到第 8 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -456,6 +515,8 @@
     <div class="q" data-q="94" data-a="0">
       <div class="qh"><span class="qn">94</span>What does the speaker ask the listeners to do?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Leave a rating</span></li><li data-i="1"><b>B</b><span>Send in questions</span></li><li data-i="2"><b>C</b><span>Buy a subscription</span></li><li data-i="3"><b>D</b><span>Read the show notes aloud</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set8">↑ 回到第 8 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -474,6 +535,8 @@
     <div class="q" data-q="95" data-a="1">
       <div class="qh"><span class="qn">95</span>What time will the offices reopen?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>At eight o&#x27;clock on Saturday</span></li><li data-i="1"><b>B</b><span>At eight o&#x27;clock on Monday</span></li><li data-i="2"><b>C</b><span>At ten o&#x27;clock on Monday</span></li><li data-i="3"><b>D</b><span>At midday on Sunday</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set9">↑ 回到第 9 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -485,6 +548,8 @@
     <div class="q" data-q="96" data-a="3">
       <div class="qh"><span class="qn">96</span>What should listeners do to report an emergency?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Press two</span></li><li data-i="1"><b>B</b><span>Use the menu</span></li><li data-i="2"><b>C</b><span>Book online</span></li><li data-i="3"><b>D</b><span>Press one</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set9">↑ 回到第 9 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -496,6 +561,8 @@
     <div class="q" data-q="97" data-a="0">
       <div class="qh"><span class="qn">97</span>What happens if listeners press four?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>Their call is given priority</span></li><li data-i="1"><b>B</b><span>They receive a written quote</span></li><li data-i="2"><b>C</b><span>A technician arrives within an hour</span></li><li data-i="3"><b>D</b><span>They hear the opening hours again</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set9">↑ 回到第 9 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -514,6 +581,8 @@
     <div class="q" data-q="98" data-a="0">
       <div class="qh"><span class="qn">98</span>What is the purpose of the talk?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>To provide details about a training session</span></li><li data-i="1"><b>B</b><span>To explain a new shift pattern</span></li><li data-i="2"><b>C</b><span>To announce a change of supervisor</span></li><li data-i="3"><b>D</b><span>To ask for volunteers for a project</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set10">↑ 回到第 10 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -525,6 +594,8 @@
     <div class="q" data-q="99" data-a="3">
       <div class="qh"><span class="qn">99</span>Where will the training take place?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>In the loading bay</span></li><li data-i="1"><b>B</b><span>In the main office</span></li><li data-i="2"><b>C</b><span>In the warehouse yard</span></li><li data-i="3"><b>D</b><span>In the staff canteen</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set10">↑ 回到第 10 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -536,6 +607,8 @@
     <div class="q" data-q="100" data-a="3">
       <div class="qh"><span class="qn">100</span>What are the listeners asked to bring?<span class="mark"></span></div>
       <ul class="opts"><li data-i="0"><b>A</b><span>A packed lunch</span></li><li data-i="1"><b>B</b><span>A printed schedule</span></li><li data-i="2"><b>C</b><span>Their forklift licences</span></li><li data-i="3"><b>D</b><span>Their own safety boots</span></li></ul>
+      <div class="jump"><button class="backjump" type="button"
+        data-target="set10">↑ 回到第 10 組獨白</button></div>
       <div class="sol">
         <button class="toggle" type="button">看詳解</button>
         <div class="solbody" hidden>
@@ -546,11 +619,37 @@
     </div>
   </section>
 
+  <div class="jumpend"><button class="backjump gotoscore" type="button"
+    data-target="scoring">↑ 回到上面評分</button></div>
+
   <p class="dim" style="margin-top:34px">題本文字檔：<code>多益_P4完整題組.md</code>（含獨白翻譯、答案表、逐題詳解）</p>
   <a class="back" href="../">← 回多益英文</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
 </div>
 <script src="../quiz.js"></script>
+<script>
+/* 「↑ 回到第 N 組獨白」／「↑ 回到上面評分」：平滑滑到目標並閃示約 2 秒。
+   目標元素由 data-target 指定（該組區塊 set-N 或計分區 scoring），高亮都加 .hit。
+   只是事件監聽，不碰 quiz.js 的作答／計分／詳解狀態。 */
+(function () {
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('.backjump');
+    if (!b) return;
+    var t = document.getElementById(b.getAttribute('data-target'));
+    if (!t) return;
+    try { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    catch (e) { t.scrollIntoView(); }
+    if (t.__hitTimer) clearTimeout(t.__hitTimer);
+    t.classList.remove('hit');
+    void t.offsetWidth;              /* 重新觸發閃示動畫 */
+    t.classList.add('hit');
+    t.__hitTimer = setTimeout(function () {
+      t.classList.remove('hit');
+      t.__hitTimer = null;
+    }, 2000);
+  });
+})();
+</script>
 <div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
