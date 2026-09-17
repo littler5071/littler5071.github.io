@@ -217,7 +217,8 @@ def build_stock():
 
 def build_toeic():
     dirs = [os.path.basename(os.path.dirname(p)) for p in glob.glob(os.path.join(SITE, "toeic", "*", "index.html"))]
-    order = {"p5-full": 0, "p1-full": 1, "p4-full": 2, "p3-full": 3, "p2-sample": 4}
+    order = {"p6-full": 0, "p5-full": 1, "p1-full": 2, "p4-full": 3, "p3-full": 4,
+             "p2-sample": 5}
     dirs = sorted([d for d in dirs if d in order], key=lambda d: order[d])
     rows, cards = [], []
     for i, d in enumerate(dirs):

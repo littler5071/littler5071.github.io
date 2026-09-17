@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多益閱讀 Part 6 短文填空完整題組（4 篇・16 題）｜小R 頻道</title>
+<meta name="description" content="原創多益 Part 6 短文填空完整題組：4 篇短文（商業書信、內部通知、廣告公告、內部備忘錄）、每篇 4 格共 16 題、題號 131–146，含整句填入題型與中文大意；可線上點選作答、對答案計分（滿分 16），答錯自動展開中文詳解。題目全部自行撰寫，未使用官方試題。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.75;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:920px;margin:0 auto;padding:44px 18px 90px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(26px,5vw,38px);margin:6px 0 6px;text-align:center}
+  .sub{text-align:center;color:var(--blue);margin-bottom:18px}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       margin-bottom:10px;font-size:14.5px;color:var(--soft)}
+  .box strong{color:var(--ink)}
+  .bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+       background:rgba(246,241,230,.96);border:2px solid var(--line);border-radius:14px;
+       padding:10px 14px;margin:18px 0;backdrop-filter:blur(4px)}
+  .bar .prog{font-size:15px;color:var(--soft)}
+  .bar .prog b{color:var(--ink);font-size:18px}
+  button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
+         border:2px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--blue)}
+  .result{background:#fffdf6;border:2px solid var(--leaf);border-radius:16px;padding:16px 20px;
+          margin:0 0 20px;display:none}
+  .result.show{display:block}
+  .result .big{font-size:clamp(28px,6vw,40px);color:var(--leaf);line-height:1.2}
+  .result ul{margin:8px 0 0;padding-left:20px;font-size:14.5px;color:var(--soft)}
+  h2{font-size:clamp(19px,3.2vw,24px);margin:38px 0 6px;border-top:2px solid var(--line);padding-top:16px}
+  .meta{font-size:14px;color:var(--soft);font-weight:normal}
+  .plead{font-size:14.5px;color:var(--soft);margin:0 0 8px}
+  article.passage{background:#fffdf6;border:2px solid var(--line);border-radius:14px;
+        padding:16px 20px;font-size:16px;line-height:1.9;margin:0 0 8px}
+  article.passage p{margin:0 0 12px}
+  article.passage p:last-child{margin-bottom:0}
+  details.gist{background:rgba(255,253,246,.6);border:2px dashed var(--line);border-radius:12px;
+        padding:8px 16px;margin:0 0 14px;font-size:14.5px;color:var(--soft)}
+  details.gist summary{cursor:pointer;color:var(--blue)}
+  details.gist p{margin:8px 0 4px}
+  .q{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0}
+  .q.wrong{border-color:var(--red)}
+  .q.right{border-color:var(--leaf)}
+  .qh{font-size:16.5px;margin-bottom:8px;display:flex;gap:10px;align-items:baseline}
+  .qn{font-weight:bold;color:var(--red);flex:none;min-width:38px}
+  .stem{flex:1}
+  .pt{display:inline-block;font-size:12.5px;padding:1px 9px;border-radius:999px;margin-left:8px;
+      border:1.5px solid var(--leaf);color:var(--leaf);vertical-align:2px}
+  .pt-s{border-color:var(--red);color:var(--red)}
+  .blk{display:inline-block;min-width:52px;text-align:center;color:var(--blue);font-weight:bold;
+       border-bottom:2px solid var(--soft)}
+  .blk.cur{background:var(--sel);border-bottom-color:var(--red)}
+  .blk.dash{min-width:74px}
+  .ctx{background:rgba(54,78,112,.06);border-left:4px solid var(--blue);border-radius:0 8px 8px 0;
+       padding:7px 12px;margin:0 0 10px;font-size:15px;color:var(--soft)}
+  .mark{margin-left:auto;flex:none;font-size:16px}
+  ul.opts{list-style:none;margin:0;padding:0}
+  ul.opts li{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;margin:5px 0;
+       border:2px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+  ul.opts li:hover{border-color:#c8bda8}
+  ul.opts li b{flex:none;width:22px;color:var(--blue)}
+  ul.opts li.sel{background:var(--sel);border-color:#c9a94e}
+  ul.opts li.ok{background:#e8f3ea;border-color:var(--leaf)}
+  ul.opts li.bad{background:#fbeae7;border-color:var(--red)}
+  ul.opts li.locked{cursor:default}
+  .sol{margin-top:4px}
+  .toggle{background:transparent;color:var(--blue);border:0;padding:0;font-size:15px;
+          border-bottom:1.5px solid rgba(54,78,112,.5);border-radius:0}
+  .solbody{margin-top:10px;background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px}
+  ul.why{margin:6px 0;padding-left:20px}
+  ul.why li{margin:3px 0;font-size:15px}
+  ul.why li.yes{color:var(--leaf)}
+  ul.why li.no{color:var(--ink)}
+  .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
+  .dim{color:var(--soft);font-size:13.5px}
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body data-quiz-key="p6full_answers_v1">
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk on" href="../../toeic/">多益英文</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>多益閱讀 Part 6 短文填空</h1>
+  <div class="sub">完整題組・4 篇短文 × 每篇 4 格 ＝ 16 題・每題四個選項・滿分 16</div>
+
+  <div class="box">
+    <strong>怎麼做</strong>：① 先讀完一篇短文（空格在文章裡以題號 ［131］ 標示，並用底色標出這一題的格子）；
+    ② 往下看該篇的 4 題，直接點選項作答（作答會自動存在這台裝置，重新整理不會不見）；
+    ③ 做完 16 題按「對答案並計分」；④ 錯的題目會自動展開詳解，看完再按「清除作答」重做一次。
+    這一份是<strong>紙筆閱讀題，沒有音檔</strong>，請直接看題目作答。
+  </div>
+  <div class="box">
+    <strong>Part 6 的兩種題型</strong>：一種是<strong>單句選詞</strong>（詞性、時態與語態、介系詞、連接詞、片語搭配、關係詞），
+    另一種是<strong>整句填入</strong>——四個選項都是完整句子，要選出最適合放在那個位置的一句（本題組共 3 題，
+    以紅色標籤標示）。整句填入的判斷關鍵是「前一句與後一句的主題、語氣是否接得上」。
+  </div>
+  <div class="box">
+    <strong>原創聲明</strong>：題目、選項與詳解<strong>全部自行撰寫</strong>，
+    <strong>沒有使用任何 ETS 的試題或音檔</strong>。真正 TOEIC 試題的著作權屬於 ETS；
+    「TOEIC／多益」是 ETS 的註冊商標，這裡僅為描述性使用（指相同題型結構），不代表 ETS 授權、合作或認可。
+  </div>
+  <div class="box">
+    <strong>題號與考點</strong>：題號 131–146（對應真考 Part 6 的題號範圍），4 篇短文各挖 4 格。
+    考點分布：詞性 4 題、介系詞 3 題、整句填入 3 題、時態與語態 2 題、片語搭配 1 題、詞性與一致 1 題、關係詞 1 題、連接詞 1 題。答案分布：A 4 題、B 4 題、C 4 題、D 4 題（刻意平均分散，避免一直猜同一格）。
+    計分時的「第 N 組」＝ 第 N 篇短文（第 1 組＝第 131–134 題、第 2 組＝135–138、第 3 組＝139–142、第 4 組＝143–146）。
+  </div>
+
+  <div class="bar">
+    <span class="prog">已作答 <b><span id="done">0</span> / 16</b></span>
+    <button id="scoreBtn" type="button">對答案並計分</button>
+    <button id="resetBtn" type="button" class="ghost">清除作答</button>
+    <span class="prog" id="hint">（作答會自動存在這台裝置裡）</span>
+  </div>
+
+  <div class="result" id="result"></div>
+  <section class="set" id="set1" data-set="1">
+  <h2>第 131–134 題　<span class="meta">第 1 篇・商業書信・4 題（第 1 組）</span></h2>
+  <div class="plead">Questions 131–134 refer to the following letter.</div>
+  <article class="passage"><p>Dear Ms. Whitfield,</p><p>Thank you for your interest in our line of commercial espresso machines. As you requested, I am <span class="blk">［131］</span> a detailed quotation for the three models that your hotel is considering.</p><p>Please note that the prices listed are valid for thirty days from the date of this letter. Because the stainless-steel housing is currently in short supply, orders placed after the deadline may be <span class="blk">［132］</span> by two to three weeks. If this would affect your opening schedule, please let me know and I will check whether the white model can be shipped sooner.</p><p>We can also arrange on-site training for your staff at no <span class="blk">［133］</span> charge. If you would like to schedule a session, simply indicate a preferred date on the enclosed form and return it to us <span class="blk">［134］</span> the end of the month.</p><p>Sincerely,</p><p>Daniel Ferro<br>Sales Manager, Northline Equipment</p></article>
+  <details class="gist"><summary>看第 1 篇短文的中文大意</summary><p>中文大意：北線設備公司的業務經理回覆飯店採購詢問——隨信附上三款商用義式咖啡機的詳細報價，並說明報價自發信日起三十天內有效；由於不鏽鋼外殼目前缺料，逾期下單可能被延後二到三週，若會影響飯店的開幕時程，可再洽詢白色機型能否提前出貨；此外公司可免費安排到府教育訓練，有意者只要在附上的表格填妥希望日期，並在月底前寄回即可。</p></details>
+  <div class="q" data-q="131" data-a="1">
+      <div class="qh"><span class="qn">131</span><span class="stem">填入短文的第 131 格<span class="pt ">時態與語態</span></span><span class="mark"></span></div>
+      <div class="ctx">Thank you for your interest in our line of commercial espresso machines. As you requested, I am <span class="blk dash cur">______</span> a detailed quotation for the three models that your hotel is considering.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>enclose</span></li><li data-i="1"><b>B</b><span>enclosing</span></li><li data-i="2"><b>C</b><span>enclosed</span></li><li data-i="3"><b>D</b><span>enclosure</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> enclose 是原形動詞，前面已經有 be 動詞 am，an／is／are 後面不能接原形動詞，會寫成「I am enclose」這種不合文法的句子。</li><li class="yes">✅ <b>(B)</b> 正解。be ＋ V-ing 構成現在進行式，表示「（隨信）附上」這個正在發生的動作；I am enclosing… 是商業書信交代附件的標準寫法。</li><li class="no">❌ <b>(C)</b> enclosed 是過去分詞，be ＋ p.p. 是被動語態，主詞 I 會變成「被附上的東西」，語意不通（是寫信的人把報價附上，不是報價附上寫信的人）。</li><li class="no">❌ <b>(D)</b> enclosure 是名詞「附件」，不能放在 be 動詞後面當主要動詞使用。</li></ul>
+          <p class="tip">🔑 先看 be 動詞後面能接什麼：V-ing（進行式）或 p.p.（被動式）。再問主詞是「做動作的人」還是「被動作的對象」——寫信人主動附上文件，所以選進行式。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="132" data-a="2">
+      <div class="qh"><span class="qn">132</span><span class="stem">填入短文的第 132 格<span class="pt ">時態與語態</span></span><span class="mark"></span></div>
+      <div class="ctx">Please note that the prices listed are valid for thirty days from the date of this letter. Because the stainless-steel housing is currently in short supply, orders placed after the deadline may be <span class="blk dash cur">______</span> by two to three weeks. If this would affect your opening schedule, please let me know and I will check whether the white model can be shipped sooner.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>delay</span></li><li data-i="1"><b>B</b><span>delaying</span></li><li data-i="2"><b>C</b><span>delayed</span></li><li data-i="3"><b>D</b><span>delays</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> delay 是原形動詞，may be 後面不能接原形，必須接過去分詞或現在分詞。</li><li class="no">❌ <b>(B)</b> delaying 是現在分詞，may be delaying 會變成「訂單正在延遲（別人）」，主詞 orders 反而變成延遲別人的人，語意錯誤。</li><li class="yes">✅ <b>(C)</b> 正解。主詞 orders 是「被延後」的對象 → 被動語態 be ＋ p.p.；may be delayed by two to three weeks ＝ 可能被延後二到三週。</li><li class="no">❌ <b>(D)</b> delays 是第三人稱單數動詞，be 後面不能直接接有變化的動詞形式。</li></ul>
+          <p class="tip">🔑 may／might／can 後面接 be ＋ p.p. 就是「可能被…」；主詞是東西（訂單、貨品、申請書）就先想被動語態。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="133" data-a="3">
+      <div class="qh"><span class="qn">133</span><span class="stem">填入短文的第 133 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
+      <div class="ctx">We can also arrange on-site training for your staff at no <span class="blk dash cur">______</span> charge. If you would like to schedule a session, simply indicate a preferred date on the enclosed form and return it to us <span class="blk">［134］</span> the end of the month.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>addition</span></li><li data-i="1"><b>B</b><span>additionally</span></li><li data-i="2"><b>C</b><span>additive</span></li><li data-i="3"><b>D</b><span>additional</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> addition 是名詞，名詞不能直接放在另一個名詞 charge 前面修飾它。</li><li class="no">❌ <b>(B)</b> additionally 是副詞，副詞修飾動詞或形容詞，不能修飾名詞 charge。</li><li class="no">❌ <b>(C)</b> additive 是名詞「添加物」，放在 charge 前面語意不通，也不會產生「額外收費」的意思。</li><li class="yes">✅ <b>(D)</b> 正解。空格後面是名詞 charge，需要形容詞來修飾；additional charge ＝ 額外收費，at no additional charge ＝ 不收額外費用。</li></ul>
+          <p class="tip">🔑 空格後面是名詞就找形容詞。at no additional cost／charge、at no extra charge 是商務書信的固定說法。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="134" data-a="1">
+      <div class="qh"><span class="qn">134</span><span class="stem">填入短文的第 134 格<span class="pt ">介系詞</span></span><span class="mark"></span></div>
+      <div class="ctx">We can also arrange on-site training for your staff at no <span class="blk">［133］</span> charge. If you would like to schedule a session, simply indicate a preferred date on the enclosed form and return it to us <span class="blk dash cur">______</span> the end of the month.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>until</span></li><li data-i="1"><b>B</b><span>by</span></li><li data-i="2"><b>C</b><span>since</span></li><li data-i="3"><b>D</b><span>during</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> until 表示「一直持續到某時間為止」，但 return（寄回）是一次性動作，不能一直持續到月底。</li><li class="yes">✅ <b>(B)</b> 正解。by ＋ 時間點 ＝ 「最晚在那之前完成」，正是回覆期限的意思。</li><li class="no">❌ <b>(C)</b> since 用在完成式的時間起點（since Monday ＝ 從週一以來），不能用來指未來的期限。</li><li class="no">❌ <b>(D)</b> during 後面接「一段期間」（during March／during the meeting），不接 the end of the month 這種時點。</li></ul>
+          <p class="tip">🔑 交件、回覆、付款的期限一律用 by ＋ 時間點；until 留給「持續到…為止」的動作。</p>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="set" id="set2" data-set="2">
+  <h2>第 135–138 題　<span class="meta">第 2 篇・內部通知 Email・4 題（第 2 組）</span></h2>
+  <div class="plead">Questions 135–138 refer to the following e-mail.</div>
+  <article class="passage"><p><b>To:</b> All Staff &nbsp;|&nbsp; <b>From:</b> Facilities Department<br><b>Subject:</b> Changes to the employee shuttle schedule</p><p>Beginning on Monday, March 3, the employee shuttle will depart from the north parking lot <span class="blk">［135］</span> the main entrance. The new pick-up point was chosen because construction on Oak Street is expected to continue for several months, and buses can no longer stop safely in front of the building.</p><p>The morning shuttle will leave at 7:30 and 8:15, and the evening shuttle will run every thirty minutes <span class="blk">［136］</span> 5:00 and 7:00 p.m. Riders should arrive at the lot at least five minutes before departure, since the shuttle cannot wait for late passengers.</p><p>Seats are assigned on a first-come, first-served basis, so employees who <span class="blk">［137］</span> to travel during peak hours are encouraged to reserve a place through the company intranet. Reservations open at noon on the day before travel.</p><p>We appreciate your patience while the construction is under way. Questions about the revised schedule should be directed to the Facilities Department, <span class="blk">［138］</span> will respond within one business day.</p></article>
+  <details class="gist"><summary>看第 2 篇短文的中文大意</summary><p>中文大意：設施部發信通知全體員工接駁車路線異動——3 月 3 日（週一）起改在北側停車場上車，不再從大門前出發，原因是 Oak 街施工預計還要數個月，公車已無法在大樓前安全停靠；早上 7:30 與 8:15 各一班，晚間 5:00 到 7:00 之間每三十分鐘一班，請提早五分鐘到停車場等候；座位先到先得，尖峰時段想搭車的員工可於搭車前一天中午起在公司內部網路預約；對新時刻表有疑問請洽設施部，會在一個工作天內回覆。</p></details>
+  <div class="q" data-q="135" data-a="0">
+      <div class="qh"><span class="qn">135</span><span class="stem">填入短文的第 135 格<span class="pt ">片語搭配</span></span><span class="mark"></span></div>
+      <div class="ctx">Beginning on Monday, March 3, the employee shuttle will depart from the north parking lot <span class="blk dash cur">______</span> the main entrance. The new pick-up point was chosen because construction on Oak Street is expected to continue for several months, and buses can no longer stop safely in front of the building.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>instead of</span></li><li data-i="1"><b>B</b><span>instead</span></li><li data-i="2"><b>C</b><span>in spite of</span></li><li data-i="3"><b>D</b><span>because of</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。instead of ＋ 名詞 ＝ 「而不是…」，表示接駁車改在北側停車場上車、不再從大門前上車。</li><li class="no">❌ <b>(B)</b> instead 是副詞「改為、反而」，後面不能直接接名詞 the main entrance；要接名詞必須用 instead of。</li><li class="no">❌ <b>(C)</b> in spite of ＝ 「儘管」，語意會變成「儘管有大門，仍從北側停車場出發」，邏輯不通。</li><li class="no">❌ <b>(D)</b> because of ＝ 「因為」，會變成「因為大門才改在北側停車場出發」，與上下文（因為施工才改點）矛盾。</li></ul>
+          <p class="tip">🔑 介系詞片語後面才接名詞：instead of／because of／in spite of。不要和副詞 instead、連接詞 because 混用。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="136" data-a="2">
+      <div class="qh"><span class="qn">136</span><span class="stem">填入短文的第 136 格<span class="pt ">介系詞</span></span><span class="mark"></span></div>
+      <div class="ctx">The morning shuttle will leave at 7:30 and 8:15, and the evening shuttle will run every thirty minutes <span class="blk dash cur">______</span> 5:00 and 7:00 p.m. Riders should arrive at the lot at least five minutes before departure, since the shuttle cannot wait for late passengers.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>among</span></li><li data-i="1"><b>B</b><span>during</span></li><li data-i="2"><b>C</b><span>between</span></li><li data-i="3"><b>D</b><span>from</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> among 用於「三者以上之間」，這裡只有 5:00 與 7:00 兩個時間點。</li><li class="no">❌ <b>(B)</b> during 後面接一段期間（during the morning），不接「A and B」兩個時點。</li><li class="yes">✅ <b>(C)</b> 正解。between A and B ＝ 「在 A 與 B 之間」，兩個時間點用 between。</li><li class="no">❌ <b>(D)</b> from 要和 to 搭配（from 5:00 to 7:00）；句中已經出現 and，用 from 會前後不一致。</li></ul>
+          <p class="tip">🔑 兩個 → between；三個以上 → among。看到「A and B」這種兩個時點就是 between。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="137" data-a="3">
+      <div class="qh"><span class="qn">137</span><span class="stem">填入短文的第 137 格<span class="pt ">詞性與一致</span></span><span class="mark"></span></div>
+      <div class="ctx">Seats are assigned on a first-come, first-served basis, so employees who <span class="blk dash cur">______</span> to travel during peak hours are encouraged to reserve a place through the company intranet. Reservations open at noon on the day before travel.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>intends</span></li><li data-i="1"><b>B</b><span>intending</span></li><li data-i="2"><b>C</b><span>intention</span></li><li data-i="3"><b>D</b><span>intend</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> intends 是第三人稱單數，但關係代名詞 who 指的是複數的 employees，動詞必須用複數形。</li><li class="no">❌ <b>(B)</b> intending 是現在分詞，who 子句需要一個真正的動詞，不能只有分詞。</li><li class="no">❌ <b>(C)</b> intention 是名詞，不能當 who 子句的動詞。</li><li class="yes">✅ <b>(D)</b> 正解。關係子句的動詞要和先行詞一致：先行詞 employees 是複數，所以用原形 intend。</li></ul>
+          <p class="tip">🔑 關係代名詞 who 後面的動詞看先行詞單複數：employees who intend／an employee who intends。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="138" data-a="0">
+      <div class="qh"><span class="qn">138</span><span class="stem">填入短文的第 138 格<span class="pt ">關係詞</span></span><span class="mark"></span></div>
+      <div class="ctx">We appreciate your patience while the construction is under way. Questions about the revised schedule should be directed to the Facilities Department, <span class="blk dash cur">______</span> will respond within one business day.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>which</span></li><li data-i="1"><b>B</b><span>that</span></li><li data-i="2"><b>C</b><span>who</span></li><li data-i="3"><b>D</b><span>it</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。逗號後面是「非限定」用法，先行詞是單位（事物），只能用 which，不能用 that。</li><li class="no">❌ <b>(B)</b> that 不能用在逗號後的非限定關係子句。</li><li class="no">❌ <b>(C)</b> who 的先行詞必須是人，Facilities Department 是部門（單位）。</li><li class="no">❌ <b>(D)</b> it 是代名詞，兩個句子之間沒有連接詞，會造成逗號誤接兩個完整句子的錯誤。</li></ul>
+          <p class="tip">🔑 「逗號 ＋ 關係子句」是非限定用法，只能用 which／who；先判斷先行詞是人還是事物。</p>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="set" id="set3" data-set="3">
+  <h2>第 139–142 題　<span class="meta">第 3 篇・廣告／公告・4 題（第 3 組）</span></h2>
+  <div class="plead">Questions 139–142 refer to the following announcement.</div>
+  <article class="passage"><p><b>GRAND OPENING — RIVERSIDE GARDEN CENTER</b></p><p>After six months of renovation, Riverside Garden Center will reopen its doors on Saturday, April 12. <span class="blk">［139］</span> Visitors on opening day will enjoy a 20 percent discount on all outdoor furniture, as well as free delivery within the city limits.</p><p>The celebration will continue through the weekend. Our experienced staff will be on hand to answer questions about plant care and to <span class="blk">［140］</span> customers choose the right tools for their gardens. Members of our loyalty program will receive a complimentary bag of potting soil; to join, simply sign up at the information desk near the front entrance.</p><p>Space in the weekend workshops is limited, <span class="blk">［141］</span> we recommend registering in advance through our website. Anyone who registers before April 5 will be <span class="blk">［142］</span> for a free garden tool set, which can be collected at the information desk on opening day.</p><p>We look forward to welcoming you back to Riverside Garden Center.</p></article>
+  <details class="gist"><summary>看第 3 篇短文的中文大意</summary><p>中文大意：河岸園藝中心結束六個月整修、將於 4 月 12 日（週六）重新開幕——開幕當天戶外家具全面八折、市區內免費配送，新設的咖啡吧要請前五十位客人喝咖啡；慶祝活動整個週末持續，現場有資深員工解答植物照護問題、協助顧客挑選合適的園藝工具，忠誠會員可獲贈一包培養土（在入口附近服務台加入會員即可）；週末工作坊名額有限，建議先上網報名，4 月 5 日前完成報名的人還能獲得免費園藝工具組，開幕當天在服務台領取。</p></details>
+  <div class="q" data-q="139" data-a="1">
+      <div class="qh"><span class="qn">139</span><span class="stem">填入短文的第 139 格<span class="pt pt-s">整句填入</span>（整句填入：四個選項都是完整句子，選出最適合這個位置的一句）</span><span class="mark"></span></div>
+      <div class="ctx">After six months of renovation, Riverside Garden Center will reopen its doors on Saturday, April 12. <span class="blk dash cur">______</span> Visitors on opening day will enjoy a 20 percent discount on all outdoor furniture, as well as free delivery within the city limits.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The renovation was carried out by a local construction company.</span></li><li data-i="1"><b>B</b><span>Our new café will offer complimentary coffee to the first fifty guests.</span></li><li data-i="2"><b>C</b><span>Parking is available in the lot behind the building.</span></li><li data-i="3"><b>D</b><span>We apologize for any inconvenience this may have caused.</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 施工由哪家在地營造公司承作，屬於背景細節；下一句講的是「開幕當天的折扣與免費配送」，接在這裡會讓段落主題中斷。</li><li class="yes">✅ <b>(B)</b> 正解。下一句接著列舉開幕當天的好康（戶外家具八折、市區免費配送），這一句同樣是「開幕當天的新亮點」（新咖啡吧請前五十位客人喝咖啡），前後主題一致、語氣也一致。</li><li class="no">❌ <b>(C)</b> 停車資訊雖然實用，但與接下來「開幕當天的折扣與服務」沒有承接關係，放在這裡會打斷段落主題。</li><li class="no">❌ <b>(D)</b> 道歉句適用在造成顧客不便的情境；本段是慶祝重新開幕，語氣完全相反。</li></ul>
+          <p class="tip">🔑 整句填入要看「前一句」與「後一句」的主題與語氣：空格後面若是一連串開幕優惠，空格本身也要是同一類的好消息；與前後文語氣相反或主題跳開的選項一定錯。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="140" data-a="2">
+      <div class="qh"><span class="qn">140</span><span class="stem">填入短文的第 140 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
+      <div class="ctx">The celebration will continue through the weekend. Our experienced staff will be on hand to answer questions about plant care and to <span class="blk dash cur">______</span> customers choose the right tools for their gardens. Members of our loyalty program will receive a complimentary bag of potting soil; to join, simply sign up at the information desk near the front entrance.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>helps</span></li><li data-i="1"><b>B</b><span>helping</span></li><li data-i="2"><b>C</b><span>help</span></li><li data-i="3"><b>D</b><span>helpful</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> helps 是第三人稱單數動詞，前面已經有 to（不定詞符號），不能再接有變化的動詞形。</li><li class="no">❌ <b>(B)</b> helping 是分詞／動名詞，不能放在 to 後面當不定詞使用。</li><li class="yes">✅ <b>(C)</b> 正解。to ＋ 原形動詞構成不定詞，表示員工會在場「協助」顧客挑選工具；help 的句型是 help ＋ 人 ＋ (to) ＋ 原形動詞，help customers choose 完全正確。</li><li class="no">❌ <b>(D)</b> helpful 是形容詞，不能當 to 後面的動詞。</li></ul>
+          <p class="tip">🔑 看到 to 就找原形動詞。help 的固定句型是 help ＋ 人 ＋ (to) ＋ 原形動詞。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="141" data-a="3">
+      <div class="qh"><span class="qn">141</span><span class="stem">填入短文的第 141 格<span class="pt ">連接詞</span></span><span class="mark"></span></div>
+      <div class="ctx">Space in the weekend workshops is limited, <span class="blk dash cur">______</span> we recommend registering in advance through our website. Anyone who registers before April 5 will be <span class="blk">［142］</span> for a free garden tool set, which can be collected at the information desk on opening day.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>because</span></li><li data-i="1"><b>B</b><span>unless</span></li><li data-i="2"><b>C</b><span>although</span></li><li data-i="3"><b>D</b><span>so</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> because 引導原因子句，會變成「因為我們建議事先報名，所以名額有限」——因果被顛倒了。</li><li class="no">❌ <b>(B)</b> unless ＝ 「除非」，語意變成「除非名額有限，我們才建議事先報名」，與事實相反。</li><li class="no">❌ <b>(C)</b> although ＝ 「雖然」，前後會變成讓步關係，但這兩句其實是「因為名額有限、所以建議事先報名」的因果關係。</li><li class="yes">✅ <b>(D)</b> 正解。so 是對等連接詞「所以」：前句（名額有限）是因，後句（建議事先報名）是果，邏輯正確。</li></ul>
+          <p class="tip">🔑 先判斷兩個子句是因果、讓步還是條件；「前面是原因、後面是建議」就用 so。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="142" data-a="0">
+      <div class="qh"><span class="qn">142</span><span class="stem">填入短文的第 142 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
+      <div class="ctx">Space in the weekend workshops is limited, <span class="blk">［141］</span> we recommend registering in advance through our website. Anyone who registers before April 5 will be <span class="blk dash cur">______</span> for a free garden tool set, which can be collected at the information desk on opening day.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>eligible</span></li><li data-i="1"><b>B</b><span>eligibility</span></li><li data-i="2"><b>C</b><span>eligibly</span></li><li data-i="3"><b>D</b><span>elect</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。be ＋ 形容詞 ＋ for ＝ 「有資格獲得…」，be eligible for 是固定搭配。</li><li class="no">❌ <b>(B)</b> eligibility 是名詞，be 動詞後面接名詞會變成「是…資格」這種不合語意的句子。</li><li class="no">❌ <b>(C)</b> eligibly 是副詞，不能放在 be 動詞後面當主詞補語。</li><li class="no">❌ <b>(D)</b> elect 是動詞「選舉、挑選」，be 後面接原形動詞不成立，語意也不對。</li></ul>
+          <p class="tip">🔑 be 動詞後面接的是形容詞或名詞；be eligible for／be responsible for／be aware of 這類「be ＋ 形容詞 ＋ 介系詞」是常見考點。</p>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="set" id="set4" data-set="4">
+  <h2>第 143–146 題　<span class="meta">第 4 篇・內部備忘錄・4 題（第 4 組）</span></h2>
+  <div class="plead">Questions 143–146 refer to the following memorandum.</div>
+  <article class="passage"><p><b>MEMORANDUM</b><br><b>To:</b> All Department Heads &nbsp;|&nbsp; <b>From:</b> Procurement Office &nbsp;|&nbsp; <b>Date:</b> May 6<br><b>Subject:</b> New procedure for office supply requests</p><p>Effective June 1, all requests for office supplies must be submitted through the online purchasing portal rather than by e-mail. <span class="blk">［143］</span> This change will allow the procurement team to track orders more accurately and to negotiate better prices with suppliers.</p><p>Managers should review their department's current stock before placing an order. Requests submitted after 3:00 p.m. on Friday will not be processed <span class="blk">［144］</span> the following Monday. In addition, any order that exceeds $500 requires the <span class="blk">［145］</span> of a division director.</p><p><span class="blk">［146］</span> A short training session on the new portal will be held on May 28 at 10:00 a.m. in Conference Room B. Attendance is optional, but managers who place orders frequently are strongly encouraged to attend.</p><p>Thank you for your cooperation.</p></article>
+  <details class="gist"><summary>看第 4 篇短文的中文大意</summary><p>中文大意：採購室的內部備忘錄——6 月 1 日起所有辦公用品申請一律改用線上採購入口網站送出，不再用 email（紙本表格也不再受理），這項改變讓採購部能更精確追蹤訂單、並和供應商談到更好的價格；各部門主管下單前請先確認現有庫存，週五下午三點以後送出的申請要等到下週一才會處理，單筆超過 500 美元的訂單還需要事業部總監核准；為協助員工熟悉新系統，5 月 28 日上午 10 點在 B 會議室舉辦訓練課程，自由參加，但常下單的主管請務必出席。</p></details>
+  <div class="q" data-q="143" data-a="1">
+      <div class="qh"><span class="qn">143</span><span class="stem">填入短文的第 143 格<span class="pt pt-s">整句填入</span>（整句填入：四個選項都是完整句子，選出最適合這個位置的一句）</span><span class="mark"></span></div>
+      <div class="ctx">Effective June 1, all requests for office supplies must be submitted through the online purchasing portal rather than by e-mail. <span class="blk dash cur">______</span> This change will allow the procurement team to track orders more accurately and to negotiate better prices with suppliers.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The portal was developed by an outside software company last year.</span></li><li data-i="1"><b>B</b><span>Paper forms will no longer be accepted at the front desk.</span></li><li data-i="2"><b>C</b><span>Employees may continue to send urgent requests by e-mail.</span></li><li data-i="3"><b>D</b><span>The procurement team is currently short-staffed.</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 入口網站是去年由外部軟體公司開發，屬於系統的背景資訊；後面那句講的是「這項改變」帶來的好處，接在這裡無法承接。</li><li class="yes">✅ <b>(B)</b> 正解。這句延續前一句「所有申請一律改走線上入口網站」的規定，補充「紙本表格也不再受理」，接著後面的「這項改變將讓採購部能更精確追蹤…」語氣連貫。</li><li class="no">❌ <b>(C)</b> 這句說緊急需求仍可用 e-mail，與前一句「一律改用線上入口網站、不再用 e-mail」直接矛盾。</li><li class="no">❌ <b>(D)</b> 採購部人手不足是抱怨，與「新流程讓追蹤更準確、議價更有利」的正面說明無關，也接不上後句。</li></ul>
+          <p class="tip">🔑 整句填入要看前後是否同一主題：前句是新規定、後句是這項改變的好處，空格就該是同一規定的補充；與前句矛盾的選項一定錯。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="144" data-a="3">
+      <div class="qh"><span class="qn">144</span><span class="stem">填入短文的第 144 格<span class="pt ">介系詞</span></span><span class="mark"></span></div>
+      <div class="ctx">Managers should review their department's current stock before placing an order. Requests submitted after 3:00 p.m. on Friday will not be processed <span class="blk dash cur">______</span> the following Monday. In addition, any order that exceeds $500 requires the <span class="blk">［145］</span> of a division director.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>since</span></li><li data-i="1"><b>B</b><span>by</span></li><li data-i="2"><b>C</b><span>during</span></li><li data-i="3"><b>D</b><span>until</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> since 用於完成式的時間起點（since Friday ＝ 從週五以來），與這裡的未來時間不符。</li><li class="no">❌ <b>(B)</b> by 是「最晚在（某時間）之前」，用在肯定句表達期限；本句是否定句，英文要用 until 才能表達「一直到…才（開始）處理」。</li><li class="no">❌ <b>(C)</b> during 後面要接一段期間（during the week），不能接 the following Monday 這種單一時點。</li><li class="yes">✅ <b>(D)</b> 正解。not … until ＝ 「直到…才」，表示週五下午三點以後送出的申請，要等到下週一才會被處理。</li></ul>
+          <p class="tip">🔑 否定句 ＋ 期限 → until（直到…才）；肯定句 ＋ 期限 → by（最晚在…之前）。看到 not 就先想 until。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="145" data-a="2">
+      <div class="qh"><span class="qn">145</span><span class="stem">填入短文的第 145 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
+      <div class="ctx">Managers should review their department's current stock before placing an order. Requests submitted after 3:00 p.m. on Friday will not be processed <span class="blk">［144］</span> the following Monday. In addition, any order that exceeds $500 requires the <span class="blk dash cur">______</span> of a division director.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>approve</span></li><li data-i="1"><b>B</b><span>approving</span></li><li data-i="2"><b>C</b><span>approval</span></li><li data-i="3"><b>D</b><span>approved</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> approve 是動詞，the 後面需要名詞，不能放動詞原形。</li><li class="no">❌ <b>(B)</b> approving 是動名詞，但這裡要的是「核准」這個動作的名詞形式；the approving of… 在商務文件裡不是慣用說法。</li><li class="yes">✅ <b>(C)</b> 正解。the ＋ 名詞 ＋ of ＝ 「…的核准」；approval 是 approve 的名詞形，require the approval of a division director 是商務文件常見說法。</li><li class="no">❌ <b>(D)</b> approved 是過去分詞（也可當形容詞），不能當 the 後面的名詞。</li></ul>
+          <p class="tip">🔑 「the ＋ ___ ＋ of」這個框幾乎一定是名詞；動詞轉名詞的常見字尾：-al／-ment／-ance／-tion（approve → approval）。</p>
+        </div>
+      </div>
+    </div>
+  <div class="q" data-q="146" data-a="0">
+      <div class="qh"><span class="qn">146</span><span class="stem">填入短文的第 146 格<span class="pt pt-s">整句填入</span>（整句填入：四個選項都是完整句子，選出最適合這個位置的一句）</span><span class="mark"></span></div>
+      <div class="ctx"><span class="blk dash cur">______</span> A short training session on the new portal will be held on May 28 at 10:00 a.m. in Conference Room B. Attendance is optional, but managers who place orders frequently are strongly encouraged to attend.</div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To help employees adjust to the new system, a series of information sessions has been scheduled.</span></li><li data-i="1"><b>B</b><span>The portal can be accessed from any computer or mobile device.</span></li><li data-i="2"><b>C</b><span>The old e-mail-based procedure will be reviewed again next year.</span></li><li data-i="3"><b>D</b><span>Managers should keep paper copies of every order for three years.</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。下一句正是說明「訓練課程」的時間與地點，這句先點出「已安排一系列說明活動」，再用細節承接，段落才連貫。</li><li class="no">❌ <b>(B)</b> 「可從任何電腦或行動裝置登入」是系統功能說明，和後面「課程在哪裡辦」接不上。</li><li class="no">❌ <b>(C)</b> 「舊流程明年再檢討」與本段主題（如何協助員工適應新系統）無關，也和下一句的訓練課程沒有連結。</li><li class="no">❌ <b>(D)</b> 「每筆訂單保留三年紙本」這項規定前文從未出現，也和訓練課程無關。</li></ul>
+          <p class="tip">🔑 整句填入後，要能讓「下一句」自然承接（人事時地對得上）。若下一句在講某場活動的時間地點，空格就要先提到那場活動。</p>
+        </div>
+      </div>
+    </div>
+</section>
+
+  <p class="dim" style="margin-top:34px">題本文字檔：<code>多益_P6完整題組.md</code>（含答案表、逐題詳解與各篇中文大意）</p>
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+</div>
+<script src="../quiz.js"></script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
