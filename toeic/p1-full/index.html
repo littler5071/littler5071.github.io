@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多益聽力 Part 1 照片描述完整題組（6 題）｜小R 頻道</title>
+<meta name="description" content="原創多益 Part 1 照片描述完整題組：6 張照片、6 題、美英口音輪換；可線上點選作答並計分（滿分 6），附考場節奏音檔與逐題詳解。照片為 CC0／公眾領域素材，題目敘述為原創，未使用官方試題或音檔。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.75;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:920px;margin:0 auto;padding:44px 18px 90px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(26px,5vw,38px);margin:6px 0 6px;text-align:center}
+  .sub{text-align:center;color:var(--blue);margin-bottom:18px}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       margin-bottom:10px;font-size:14.5px;color:var(--soft)}
+  .box strong{color:var(--ink)}
+  .players{display:grid;gap:10px;margin:16px 0 20px}
+  .pl{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 16px}
+  .pl b{display:block;margin-bottom:6px}
+  audio{width:100%}
+  .bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+       background:rgba(246,241,230,.96);border:2px solid var(--line);border-radius:14px;
+       padding:10px 14px;margin:18px 0;backdrop-filter:blur(4px)}
+  .bar .prog{font-size:15px;color:var(--soft)}
+  .bar .prog b{color:var(--ink);font-size:18px}
+  button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
+         border:2px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--blue)}
+  .result{background:#fffdf6;border:2px solid var(--leaf);border-radius:16px;padding:16px 20px;
+          margin:0 0 20px;display:none}
+  .result.show{display:block}
+  .result .big{font-size:clamp(28px,6vw,40px);color:var(--leaf);line-height:1.2}
+  .result ul{margin:8px 0 0;padding-left:20px;font-size:14.5px;color:var(--soft)}
+  h2{font-size:clamp(19px,3.2vw,24px);margin:38px 0 6px;border-top:2px solid var(--line);padding-top:16px}
+  .meta{font-size:14px;color:var(--soft);font-weight:normal}
+  details{margin:8px 0}
+  summary{cursor:pointer;color:var(--blue);font-size:15px}
+  .q{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0}
+  .q.wrong{border-color:var(--red)}
+  .q.right{border-color:var(--leaf)}
+  .qh{font-size:16.5px;margin-bottom:8px;display:flex;gap:10px;align-items:baseline}
+  .qn{font-weight:bold;color:var(--red);flex:none;min-width:34px}
+  .mark{margin-left:auto;flex:none;font-size:16px}
+  figure.pic{margin:8px 0 12px}
+  figure.pic img{width:100%;height:auto;display:block;border:2px solid var(--line);border-radius:10px;
+       background:#fff}
+  figure.pic figcaption{font-size:13.5px;color:var(--soft);margin-top:6px}
+  ul.opts{list-style:none;margin:0;padding:0}
+  ul.opts li{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;margin:5px 0;
+       border:2px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+  ul.opts li:hover{border-color:#c8bda8}
+  ul.opts li b{flex:none;width:22px;color:var(--blue)}
+  ul.opts li.sel{background:var(--sel);border-color:#c9a94e}
+  ul.opts li.ok{background:#e8f3ea;border-color:var(--leaf)}
+  ul.opts li.bad{background:#fbeae7;border-color:var(--red)}
+  ul.opts li.locked{cursor:default}
+  .sol{margin-top:4px}
+  .toggle{background:transparent;color:var(--blue);border:0;padding:0;font-size:15px;
+          border-bottom:1.5px solid rgba(54,78,112,.5);border-radius:0}
+  .solbody{margin-top:10px;background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px}
+  ul.why{margin:6px 0;padding-left:20px}
+  ul.why li{margin:5px 0;font-size:15px}
+  ul.why li.yes{color:var(--leaf)}
+  ul.why li.no{color:var(--ink)}
+  .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
+  .dim{color:var(--soft);font-size:13.5px}
+  table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  td.d{white-space:nowrap;color:var(--soft)}
+  td a{color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(54,78,112,.35)}
+  .scroll{overflow-x:auto}
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body data-quiz-key="p1full_answers_v1">
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk on" href="../../toeic/">多益英文</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>多益聽力 Part 1 照片描述</h1>
+  <div class="sub">6 張照片・6 題・美英口音輪換・可線上作答計分</div>
+
+  <div class="box">
+    <strong>怎麼做</strong>：① 播放下面「考場節奏版」，<strong>不要暫停</strong>，聽到每個敘述的字母就點對應選項；
+    ② 六題做完按「對答案並計分」（滿分 6）；③ 錯的題目會自動展開詳解，看「為什麼錯」比看答案重要。
+  </div>
+  <div class="box">
+    <strong>照片來源與授權</strong>：六張照片都是 <strong>CC0／公眾領域</strong>素材（StockSnap、rawpixel、Wikimedia Commons），
+    可自由使用；<strong>四個敘述、詳解與語音全部原創</strong>（語音為語音合成，非真人錄音）。
+    逐張來源與授權見頁尾「圖片來源」表。
+  </div>
+  <div class="box">
+    <strong>原創聲明</strong>：<strong>沒有使用任何 ETS 的試題、照片或音檔</strong>。真正 TOEIC 試題與音檔的著作權屬於 ETS；
+    「TOEIC／多益」是 ETS 的註冊商標，這裡僅為描述性使用（指相同題型結構），不代表 ETS 授權、合作或認可。
+  </div>
+  <div class="box">
+    <strong>節奏（貼近真考 Part 1）</strong>：每一張照片唸 <strong>Number N</strong> → 四個敘述 A／B／C／D
+    <strong>連續唸完、只唸一次</strong>（中間不停頓）→ 約 <strong>5 秒</strong>作答 → 直接進下一題。
+    真考 Part 1 的敘述不印在題本上；練習版照樣唸出選項字母方便對照。題號比照真考為 <strong>1–6</strong>。
+    （實測：作答停頓 6 段（應為 6）／中位 5.1 秒／總長 00:02:49.97。）
+  </div>
+
+  <div class="players">
+    <div class="pl"><b>① 考場節奏版（6 題・一次做完・約 2 分 50 秒）</b>
+      <audio controls preload="metadata" src="audio/toeic_p1_full.mp3"></audio></div>
+  </div>
+
+  <div class="bar">
+    <span class="prog">已作答 <b><span id="done">0</span> / 6</b></span>
+    <button id="scoreBtn" type="button">對答案並計分</button>
+    <button id="resetBtn" type="button" class="ghost">清除作答</button>
+    <span class="prog" id="hint">（作答會自動存在這台裝置裡）</span>
+  </div>
+
+  <div class="result" id="result"></div>
+  
+  <div class="q" data-q="1" data-a="0">
+    <div class="qh"><span class="qn">1</span>第 1 題<span class="mark"></span></div>
+    <figure class="pic">
+      <img src="img/p1_q1.jpg" alt="第 1 題照片" loading="lazy">
+      <figcaption>照片 1・美式口音朗讀・
+        <span class="dim">CC0／公眾領域素材（StockSnap）</span></figcaption>
+    </figure>
+    <ul class="opts"><li data-i="0"><b>A</b><span>A man is standing and speaking to a group of people.</span></li><li data-i="1"><b>B</b><span>Everyone in the room is seated at the table.</span></li><li data-i="2"><b>C</b><span>A meal is being served in a restaurant.</span></li><li data-i="3"><b>D</b><span>The people are putting on their jackets.</span></li></ul>
+    <div class="sol">
+      <button class="toggle" type="button">看詳解</button>
+      <div class="solbody" hidden>
+        <p class="dim" style="margin:2px 0 8px">畫面：辦公室會議室｜主管向坐著的一群人說明</p>
+        <ul class="why"><li class="yes">✅ <b>(A) A man is standing and speaking to a group of people.</b>　正解。照片裡一位穿背心的男士站著、手勢像在說明，其他四個人坐在桌邊聽。</li><li class="no">❌ <b>(B) Everyone in the room is seated at the table.</b>　只有四個人坐著，那位男士是站著說話的——all／everyone 這種「全部」的字是 Part 1 最常見的量詞陷阱。</li><li class="no">❌ <b>(C) A meal is being served in a restaurant.</b>　場景是會議室（背景看得到大片玻璃窗與辦公空間），桌上也沒有餐點；被動語態 A meal is being served 是憑空生出的動作。</li><li class="no">❌ <b>(D) The people are putting on their jackets.</b>　沒有人穿外套或起身離開，照片裡每個人都維持原本的姿勢。</li></ul>
+        <p class="tip">🔑 看到 all／everyone／both 這種「全部」的字，先回照片確認有沒有一個人例外——只要有一個人不符合，這個選項就是錯的。</p>
+      </div>
+    </div>
+  </div>
+  <div class="q" data-q="2" data-a="2">
+    <div class="qh"><span class="qn">2</span>第 2 題<span class="mark"></span></div>
+    <figure class="pic">
+      <img src="img/p1_q2.jpg" alt="第 2 題照片" loading="lazy">
+      <figcaption>照片 2・英式口音朗讀・
+        <span class="dim">CC0／公眾領域素材（StockSnap）</span></figcaption>
+    </figure>
+    <ul class="opts"><li data-i="0"><b>A</b><span>The customers are seated at a table outside.</span></li><li data-i="1"><b>B</b><span>The chalkboard menu is being taken down.</span></li><li data-i="2"><b>C</b><span>Two employees are working behind the counter.</span></li><li data-i="3"><b>D</b><span>The woman is pouring coffee into a paper cup.</span></li></ul>
+    <div class="sol">
+      <button class="toggle" type="button">看詳解</button>
+      <div class="solbody" hidden>
+        <p class="dim" style="margin:2px 0 8px">畫面：咖啡店｜兩位店員站在吧檯後工作</p>
+        <ul class="why"><li class="no">❌ <b>(A) The customers are seated at a table outside.</b>　照片裡沒有坐在外面的客人，畫面中只有兩位站在吧檯後面的人。</li><li class="no">❌ <b>(B) The chalkboard menu is being taken down.</b>　黑板菜單好好地掛在左邊牆上，也沒有人在動它——把「已經掛著」講成「正在被拿下」是被動語態加動作的雙重錯誤。</li><li class="yes">✅ <b>(C) Two employees are working behind the counter.</b>　正解。一男一女站在吧檯後面：女生低頭看著點餐系統，戴眼鏡的男生在準備飲料。</li><li class="no">❌ <b>(D) The woman is pouring coffee into a paper cup.</b>　女生低頭看的是收銀／點餐螢幕，倒飲料的是旁邊那位男生；把動作和人對調，是這題最主要的陷阱。</li></ul>
+        <p class="tip">🔑 Part 1 很愛把「甲正在做的事」接到「乙」身上——先確認動作落在哪一個人，再判斷這個選項對不對。</p>
+      </div>
+    </div>
+  </div>
+  <div class="q" data-q="3" data-a="1">
+    <div class="qh"><span class="qn">3</span>第 3 題<span class="mark"></span></div>
+    <figure class="pic">
+      <img src="img/p1_q3.jpg" alt="第 3 題照片" loading="lazy">
+      <figcaption>照片 3・美式口音朗讀・
+        <span class="dim">CC0／公眾領域素材（rawpixel）</span></figcaption>
+    </figure>
+    <ul class="opts"><li data-i="0"><b>A</b><span>A worker is climbing the ladder.</span></li><li data-i="1"><b>B</b><span>Boxes are stacked on metal shelves.</span></li><li data-i="2"><b>C</b><span>The shelves have been emptied.</span></li><li data-i="3"><b>D</b><span>The boxes are being loaded onto a truck.</span></li></ul>
+    <div class="sol">
+      <button class="toggle" type="button">看詳解</button>
+      <div class="solbody" hidden>
+        <p class="dim" style="margin:2px 0 8px">畫面：倉庫｜貨架上堆滿紙箱、梯子靠在旁邊</p>
+        <ul class="why"><li class="no">❌ <b>(A) A worker is climbing the ladder.</b>　照片裡完全沒有人；藍色的梯子只是靠在貨架邊，沒有人在使用它。</li><li class="yes">✅ <b>(B) Boxes are stacked on metal shelves.</b>　正解。灰色的金屬貨架上堆滿紙箱，大部分是牛皮色、有些箱頂是紅色的，還貼著白色標籤。</li><li class="no">❌ <b>(C) The shelves have been emptied.</b>　架上是滿的，正好和「被清空」相反——聽到 shelves 就選會掉進陷阱。</li><li class="no">❌ <b>(D) The boxes are being loaded onto a truck.</b>　沒有卡車，也沒有人在搬貨；這是被動語態憑空生出的動作。</li></ul>
+        <p class="tip">🔑 照片裡沒有人的時候，正確答案幾乎都是 is／are＋分詞的狀態描述（stacked、lined、parked），而錯誤選項常出現「有人在搬、在爬」這種動作。</p>
+      </div>
+    </div>
+  </div>
+  <div class="q" data-q="4" data-a="3">
+    <div class="qh"><span class="qn">4</span>第 4 題<span class="mark"></span></div>
+    <figure class="pic">
+      <img src="img/p1_q4.jpg" alt="第 4 題照片" loading="lazy">
+      <figcaption>照片 4・英式口音朗讀・
+        <span class="dim">CC0／公眾領域素材（StockSnap）</span></figcaption>
+    </figure>
+    <ul class="opts"><li data-i="0"><b>A</b><span>Several people are playing a game on the grass.</span></li><li data-i="1"><b>B</b><span>The flowers are being watered by a gardener.</span></li><li data-i="2"><b>C</b><span>A man is riding a bicycle along the path.</span></li><li data-i="3"><b>D</b><span>Some people are sitting on a bench beside the walkway.</span></li></ul>
+    <div class="sol">
+      <button class="toggle" type="button">看詳解</button>
+      <div class="solbody" hidden>
+        <p class="dim" style="margin:2px 0 8px">畫面：公園｜走道旁長椅坐著人、路燈掛著花籃</p>
+        <ul class="why"><li class="no">❌ <b>(A) Several people are playing a game on the grass.</b>　草地上沒有任何人在活動；大家是坐在走道旁的長椅上。</li><li class="no">❌ <b>(B) The flowers are being watered by a gardener.</b>　花是掛在路燈下的花籃裡，畫面中沒有人（更沒有園丁）在澆花。</li><li class="no">❌ <b>(C) A man is riding a bicycle along the path.</b>　整張照片沒有出現腳踏車。</li><li class="yes">✅ <b>(D) Some people are sitting on a bench beside the walkway.</b>　正解。走道右側的長椅坐著幾個人，後方還有行人沿著步道走動。</li></ul>
+        <p class="tip">🔑 「有人在旁邊做別的事」是最常見的錯項（playing／riding／watering）：先掃一遍全圖確定有沒有那個動作，再檢查主詞對不對。</p>
+      </div>
+    </div>
+  </div>
+  <div class="q" data-q="5" data-a="0">
+    <div class="qh"><span class="qn">5</span>第 5 題<span class="mark"></span></div>
+    <figure class="pic">
+      <img src="img/p1_q5.jpg" alt="第 5 題照片" loading="lazy">
+      <figcaption>照片 5・美式口音朗讀・
+        <span class="dim">CC0／公眾領域素材（rawpixel）</span></figcaption>
+    </figure>
+    <ul class="opts"><li data-i="0"><b>A</b><span>A chef is preparing food in a kitchen.</span></li><li data-i="1"><b>B</b><span>The chefs are washing dishes at the sink.</span></li><li data-i="2"><b>C</b><span>The customers are waiting to be served.</span></li><li data-i="3"><b>D</b><span>The lights have been turned off in the kitchen.</span></li></ul>
+    <div class="sol">
+      <button class="toggle" type="button">看詳解</button>
+      <div class="solbody" hidden>
+        <p class="dim" style="margin:2px 0 8px">畫面：餐廳廚房｜戴高帽的廚師在檯面前作業</p>
+        <ul class="why"><li class="yes">✅ <b>(A) A chef is preparing food in a kitchen.</b>　正解。戴白色高帽、穿白制服的廚師站在不鏽鋼檯面前，正在處理托盤上的一排小烤盅，背景還有兩位廚師。</li><li class="no">❌ <b>(B) The chefs are washing dishes at the sink.</b>　沒有任何人洗碗——流理台根本不在畫面裡，這是把 kitchen 直接連到 washing dishes 的想像。</li><li class="no">❌ <b>(C) The customers are waiting to be served.</b>　照片裡沒有客人，只有廚房的工作人員。</li><li class="no">❌ <b>(D) The lights have been turned off in the kitchen.</b>　廚房燈光明亮，正好和「被關燈」相反。</li></ul>
+        <p class="tip">🔑 人物前面加 the（the chefs／the customers）唸起來很順，但照片裡如果沒有那種人，選項就是錯的——先數人數，再確認身分。</p>
+      </div>
+    </div>
+  </div>
+  <div class="q" data-q="6" data-a="2">
+    <div class="qh"><span class="qn">6</span>第 6 題<span class="mark"></span></div>
+    <figure class="pic">
+      <img src="img/p1_q6.jpg" alt="第 6 題照片" loading="lazy">
+      <figcaption>照片 6・英式口音朗讀・
+        <span class="dim">CC0／公眾領域素材（Wikimedia Commons）</span></figcaption>
+    </figure>
+    <ul class="opts"><li data-i="0"><b>A</b><span>The man is boarding the train.</span></li><li data-i="1"><b>B</b><span>Several people are queuing at the ticket counter.</span></li><li data-i="2"><b>C</b><span>A train is waiting at the platform.</span></li><li data-i="3"><b>D</b><span>The platform is completely empty.</span></li></ul>
+    <div class="sol">
+      <button class="toggle" type="button">看詳解</button>
+      <div class="solbody" hidden>
+        <p class="dim" style="margin:2px 0 8px">畫面：火車站月台｜石柱、紅磚地面與停靠的列車</p>
+        <ul class="why"><li class="no">❌ <b>(A) The man is boarding the train.</b>　那位穿深色外套的男士背對鏡頭站著、沒有動作，車門也不在畫面裡，看不出要上車。</li><li class="no">❌ <b>(B) Several people are queuing at the ticket counter.</b>　沒有人排隊，也沒有售票窗口；乘客是分散地站在月台上或坐在長椅上。</li><li class="yes">✅ <b>(C) A train is waiting at the platform.</b>　正解。藍白塗裝的列車停在月台邊（畫面右側）。</li><li class="no">❌ <b>(D) The platform is completely empty.</b>　月台上有人站著、有人坐著，並不是空的。</li></ul>
+        <p class="tip">🔑 「列車 is waiting at the platform」這類狀態句在 Part 1 很常出現；注意 be＋V-ing（正在發生）和 be＋分詞（靜態狀態）的差別——照片是靜止的，多半是狀態。</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>圖片來源<span class="meta">（CC0／公眾領域・可自由使用）</span></h2>
+  <div class="scroll">
+  <table>
+    <tr><th>題</th><th>檔案</th><th>作品／作者・授權</th><th>來源</th></tr>
+    <tr><td class="d">1</td><td class="d">p1_q1.jpg</td><td>Business People／Direct Media<br><span class="dim">CC0（公眾領域貢獻）・StockSnap</span></td><td><a href="https://stocksnap.io/photo/business-people-IS1XRUWYW4" rel="nofollow noopener" target="_blank">來源頁 →</a></td></tr>    <tr><td class="d">2</td><td class="d">p1_q2.jpg</td><td>Restaurant Bar／Afta Putta Gunawan<br><span class="dim">CC0（公眾領域貢獻）・StockSnap</span></td><td><a href="https://stocksnap.io/photo/restaurant-bar-KI4IDLRWIJ" rel="nofollow noopener" target="_blank">來源頁 →</a></td></tr>    <tr><td class="d">3</td><td class="d">p1_q3.jpg</td><td>Rolling warehouse ladder／rawpixel<br><span class="dim">CC0（公眾領域）・rawpixel</span></td><td><a href="https://www.rawpixel.com/image/10995681/rolling-warehouse-ladder" rel="nofollow noopener" target="_blank">來源頁 →</a></td></tr>    <tr><td class="d">4</td><td class="d">p1_q4.jpg</td><td>Park Bench／Tricia Gray<br><span class="dim">CC0（公眾領域貢獻）・StockSnap・原圖為直幅，這裡取中段裁成 4:3 橫幅，讓版面與其他照片一致（人物與長椅都保留）。</span></td><td><a href="https://stocksnap.io/photo/park-bench-OICWWXCJP9" rel="nofollow noopener" target="_blank">來源頁 →</a></td></tr>    <tr><td class="d">5</td><td class="d">p1_q5.jpg</td><td>Restaurant kitchen／rawpixel<br><span class="dim">CC0（公眾領域）・rawpixel</span></td><td><a href="https://www.rawpixel.com/image/6037219/restaurant-kitchen-free-public-domain-cc0-photo" rel="nofollow noopener" target="_blank">來源頁 →</a></td></tr>    <tr><td class="d">6</td><td class="d">p1_q6.jpg</td><td>Ruse Central train station, platform 1／Gymate<br><span class="dim">CC0（公眾領域貢獻）・Wikimedia Commons</span></td><td><a href="https://commons.wikimedia.org/w/index.php?curid=170458200" rel="nofollow noopener" target="_blank">來源頁 →</a></td></tr>
+  </table>
+  </div>
+  <div class="box" style="margin-top:10px">
+    照片為 <strong>CC0／公眾領域素材</strong>（依來源網站標示），<strong>題目敘述為原創</strong>；
+    若原圖作者希望調整標示方式，來信即配合修改。照片僅為練習情境，與 ETS 無關。
+  </div>
+
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+</div>
+<script src="../quiz.js"></script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>

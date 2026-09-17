@@ -45,15 +45,18 @@ def main():
             fail.append(rel)
             continue
         tmpdir = os.path.join(os.environ.get("LOCALAPPDATA", tempfile.gettempdir()), "Temp", "staticrypt_" + str(os.getpid()))
-        os.makedirs(tmpdir, exist_ok=True)
-        tmp_src = os.path.join(tmpdir, os.path.basename(rel))
+        src_dir = os.path.join(tmpdir, "src")       # 輸入與輸出必須分開放：
+        out_dir = os.path.join(tmpdir, "out")       # staticrypt 的輸出檔名＝輸入檔名，同目錄會找不到成品
+        os.makedirs(src_dir, exist_ok=True)
+        os.makedirs(out_dir, exist_ok=True)
+        tmp_src = os.path.join(src_dir, os.path.basename(rel))
         shutil.copy2(src, tmp_src)
-        cmd = f'"{shutil.which("npx") or "npx"}" --yes staticrypt "{tmp_src}" -p "{pw}" -d "{tmpdir}" --remember 30'
+        cmd = f'"{shutil.which("npx") or "npx"}" --yes staticrypt "{tmp_src}" -p "{pw}" -d "{out_dir}" --remember 30'
         r = subprocess.run(cmd, shell=True, capture_output=True, text=True, errors="ignore", timeout=600)
         produced = None
-        for root, _dirs, files in os.walk(tmpdir):
+        for root, _dirs, files in os.walk(out_dir):
             for f in files:
-                if f.lower().endswith(".html") and os.path.join(root, f) != tmp_src:
+                if f.lower().endswith(".html"):
                     produced = os.path.join(root, f)
         if produced:
             shutil.copy2(produced, src)          # 就地覆蓋成加密版
