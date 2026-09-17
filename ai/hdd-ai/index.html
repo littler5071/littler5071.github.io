@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>外接硬碟 × AI：產品發想與可行性評估｜小R 頻道</title>
+<meta name="description" content="外接硬碟 × AI 的產品發想與可行性評估：不靠 NPU、不付第三方授權費的四個產品候選、技術分工、成本與風險、分階段落地路線，附 5 張示意圖。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;--blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    line-height:1.75;background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:34px 22px 80px}
+  header{text-align:center;margin-bottom:6px}
+  h1{font-size:clamp(30px,6vw,44px);margin:0 0 4px;letter-spacing:.05em}
+  .sub{color:var(--blue);font-size:clamp(15px,2.6vw,19px)}
+  .rule{height:6px;width:200px;margin:14px auto 30px;border:0;
+        background:repeating-linear-gradient(90deg,var(--red) 0 12px,transparent 12px 20px);border-radius:3px;opacity:.75}
+  h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  .card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
+        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;
+       border:1.5px solid currentColor;margin-right:8px;vertical-align:2px;color:var(--leaf)}
+  .card h3{margin:6px 0 4px;font-size:clamp(17px,2.9vw,21px)}
+  .card p{margin:0 0 10px;color:var(--soft);font-size:15px}
+  .meta{color:var(--soft);font-size:13.5px}
+  a.btn{display:inline-block;text-decoration:none;color:var(--blue);border-bottom:2px solid var(--blue);
+        padding-bottom:1px;font-size:15.5px}
+  a.btn:hover{color:var(--red);border-color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  td.d{white-space:nowrap;color:var(--soft)}
+  td a{color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(54,78,112,.35)}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
+  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
+  a{color:var(--blue)}
+  .scroll{overflow-x:auto}
+
+  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
+  .meta-line{color:var(--soft);font-size:14px;margin-top:4px}
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:6px 0 18px}
+  .box{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--soft)}
+  .box .big{font-size:23px;color:var(--ink);margin-bottom:2px}
+  .note.warn{border:2px solid #c9a227;background:#fff9e6}
+  h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft)}
+  .scroll{overflow-x:auto}
+  article.prod{background:#fffdf6;border:2px solid var(--line);border-left:5px solid var(--red);border-radius:14px;padding:16px 18px;margin:14px 0}
+  article.prod h3{margin:0 0 8px;font-size:19px;display:flex;align-items:center;gap:10px}
+  article.prod .code{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;
+        border:2px solid var(--blue);border-radius:50%;color:var(--blue);font-size:15px}
+  article.prod dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:8px 0 0;font-size:14.5px}
+  article.prod dt{color:var(--soft);white-space:nowrap}
+  article.prod dd{margin:0}
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .two .col{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:14px 18px}
+  .two .col h3{margin:0 0 6px;font-size:18px}
+  .two .no{border-top:5px solid var(--red)}
+  ul.how,ol.how{font-size:15.5px} ul.how li,ol.how li{margin:6px 0}
+  .dim{color:var(--soft);font-size:14px}
+  figure.fig{margin:16px 0 20px;background:#fffdf6;border:2px solid var(--line);border-radius:16px;
+        padding:10px 12px 4px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  figure.fig svg{display:block;width:100%;min-width:520px;height:auto}
+  figure.fig .figscroll{overflow-x:auto}
+  figure.fig figcaption{margin:8px 2px 6px;font-size:13.5px;color:var(--soft);
+        border-top:1.5px dashed var(--line);padding-top:7px}
+  figure.fig figcaption b{color:var(--ink);font-weight:400}
+  .figtag{display:inline-block;margin-left:4px;font-size:12px;color:#9a8f7d}
+  .figswipe{display:none;font-size:12px;color:#9a8f7d}
+  svg text{font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  @media (max-width:430px){.wrap{padding:22px 14px 60px} article.prod dl{grid-template-columns:1fr;gap:2px 0} article.prod dt{margin-top:6px}}
+  @media (max-width:620px){.figswipe{display:inline}}
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand on" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk" href="../../toeic/">多益英文</a>
+</nav>
+
+
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <header>
+    <h1>外接硬碟 × AI：產品發想與可行性評估</h1>
+    <div class="sub">不靠 NPU、不付第三方授權費 —— 做得到嗎？</div>
+    <div class="meta-line">報告日期 2026/09/17　·　六輪發想 → 四個產品 → 免授權可行性 → 建議順序</div>
+    <hr class="rule">
+  </header>
+
+  <div class="note warn">
+    <strong>先講清楚這份報告是什麼</strong>：這是<strong>產品發想與可行性推估</strong>，
+    不是產品規格保證、不是任何硬碟廠商或軟體公司的<strong>背書</strong>，也不構成投資建議。
+    文中數字為<strong>公開資料整理與推估</strong>，時程（3／6 個月）為<strong>初步評估</strong>，不是承諾。
+    影片連結：<a href="https://youtu.be/sRfQqf2v8IE">https://youtu.be/sRfQqf2v8IE</a>（<strong>目前為私人影片、尚未公開</strong>，審核後會轉公開）。
+  </div>
+
+  <h2><span class="dot"></span>一頁摘要（結論先行）</h2>
+  <div class="summary"><div class="box"><div class="big">4 個</div><div>產品候選（全部不含自家 NPU、不付第三方授權費）</div></div><div class="box"><div class="big">0 元</div><div>第三方授權費（元件全為 MIT／BSD／Apache-2.0）</div></div><div class="box"><div class="big">約 3 個月</div><div>第一個可跑 MVP 的初步評估（不可變備份）</div></div><div class="box"><div class="big">3 個</div><div>自研元件＝真正的差異化來源</div></div><div class="box"><div class="big">0 顆</div><div>自家 NPU：算力向主機端已有的 NPU／GPU 借</div></div></div>
+  <ul class="how">
+    <li><strong>可行，但可行性來自「分工」，不是硬體升級</strong>：硬碟端只做 I/O、索引與可攜性；推論交給主機已有的 NPU／GPU／CPU。</li>
+    <li>四個產品候選<strong>都不需要自家 NPU、也不需要付第三方授權費</strong>就能做出來（初步評估 MVP 3～6 個月）。</li>
+    <li>授權費為 <strong>0 元</strong>，但義務仍在：要保留開源聲明、避開 AGPL／GPL 傳染與非商用權重。</li>
+    <li>真正要付的錢是<strong>程式碼簽章與公證</strong>（約 200～400 美元／年），不是每台 1～5 美元的授權金。</li>
+    <li>差異化在三件<strong>自研元件</strong>：搜尋編排、不可變快照、可攜記憶格式。</li>
+    <li>建議順序：<strong>C 不可變備份 → A 語意搜尋 → B 可攜記憶容器 → D 私有知識庫</strong>；並先寫下停損條件。</li>
+  </ul>
+
+  <div class="note">
+    <strong>四個前提（2026，公開資料整理與推估）</strong>：
+    ① AI PC 已占全球 PC 出貨約 <strong>54.7%</strong>（2025 年約 31%），主機端 NPU 對應用程式是免費算力，且多數應用並未用到。
+    ② 硬碟價格自 2025/9 起上漲約 <strong>46～50%</strong>，只靠每 TB 單價競爭已難拉開差距。
+    ③ 硬碟綁備份軟體一起賣（Seagate／WD 隨附 Acronis）已是<strong>十幾年</strong>的成熟模式。
+    ④ 這一版<strong>先不做 NPU</strong>：把算力留給主機，硬碟專心做它最擅長的事。
+  </div>
+
+  <h2><span class="dot"></span>產品候選清單（4 個）</h2>
+
+  <figure class="fig">
+    <div class="figscroll"><svg viewBox="0 0 560 340" role="img" aria-label="外接硬碟與 AI 軟體層的分工示意圖"><defs><filter id="wob1" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="10" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter><marker id="ar1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#364e70"/></marker></defs><rect x="1" y="1" width="558" height="338" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><g opacity=".7" transform="rotate(-3 70 16)"><rect x="30" y="6" width="86" height="20" fill="#e8dcc0" stroke="#cbbfa4" stroke-width="1.4" filter="url(#wob1)"/></g><text x="130" y="22" font-size="12" fill="#78706a" text-anchor="start">小R 頻道 · 產品發想</text><text x="28" y="52" font-size="17" fill="#364e70" text-anchor="start" font-weight="700">誰負責什麼：硬碟不推論，推論交給主機</text><g filter="url(#wob1)"><rect x="24" y="68" width="238" height="234" rx="12" fill="#fffdf6" stroke="#364e70" stroke-width="2.4"/></g><text x="42" y="96" font-size="16" fill="#364e70" text-anchor="start" font-weight="700">外接硬碟負責</text><text x="42" y="126" font-size="12.5" fill="#4a4640" text-anchor="start">・儲存本體：檔案留在此</text><text x="42" y="151" font-size="12.5" fill="#4a4640" text-anchor="start">・索引檔：向量＋全文</text><text x="42" y="176" font-size="12.5" fill="#4a4640" text-anchor="start">・插上就沿用（跨裝置）</text><text x="42" y="201" font-size="12.5" fill="#4a4640" text-anchor="start">・可攜加密容器</text><text x="42" y="226" font-size="12.5" fill="#4a4640" text-anchor="start">・不可變快照（不可改）</text><text x="42" y="251" font-size="12.5" fill="#4a4640" text-anchor="start">・I/O 與校驗：硬碟專長</text><text x="42" y="286" font-size="13" fill="#bf4a3a" text-anchor="start" font-weight="700">不做推論 → 不需內建 NPU</text><g filter="url(#wob1)"><rect x="298" y="68" width="238" height="234" rx="12" fill="#fffdf6" stroke="#364e70" stroke-width="2.4"/></g><text x="316" y="96" font-size="16" fill="#364e70" text-anchor="start" font-weight="700">AI 軟體層負責（主機上）</text><text x="316" y="126" font-size="12.5" fill="#4a4640" text-anchor="start">・推論：借主機 NPU／GPU</text><text x="316" y="151" font-size="12.5" fill="#4a4640" text-anchor="start">・檢索編排：一句話→查詢</text><text x="316" y="176" font-size="12.5" fill="#4a4640" text-anchor="start">・規則式：檔名、時間、大小</text><text x="316" y="201" font-size="12.5" fill="#4a4640" text-anchor="start">・抽取：PDF／OCR／語音</text><text x="316" y="226" font-size="12.5" fill="#4a4640" text-anchor="start">・問答：本機小模型</text><text x="316" y="251" font-size="12.5" fill="#4a4640" text-anchor="start">・索引：存在硬碟上</text><text x="316" y="286" font-size="13" fill="#bf4a3a" text-anchor="start" font-weight="700">跑在免費算力 → 不付授權費</text><g filter="url(#wob1)" fill="none" stroke="#364e70" stroke-width="2.2"><path d="M270,152 L292,152" marker-end="url(#ar1)"/><path d="M290,208 L268,208" marker-end="url(#ar1)"/></g><text x="280" y="144" font-size="12" fill="#78706a" text-anchor="middle">指令</text><text x="280" y="228" font-size="12" fill="#78706a" text-anchor="middle">結果</text></svg></div>
+    <figcaption><b>圖 1</b>｜外接硬碟與 AI 軟體層的分工：硬碟負責儲存、索引與可攜性；推論與問答在主機上跑。
+      <span class="figtag">示意圖，非實際產品外觀、非規格保證</span><span class="figswipe">（圖較寬，可左右滑動）</span></figcaption>
+  </figure>
+
+  <article class="prod">
+    <h3><span class="code">A</span>AI 檔案管家（AI File Steward）</h3>
+    <dl>
+      <dt>目標客群</dt><dd>所有人：個人、SOHO、小型團隊（客群最廣）</dd>
+      <dt>要解決的問題</dt><dd>找檔案只能靠記憶檔名；「三個月前那份合約」不知道放哪；重複檔與無意義檔名一堆。</dd>
+      <dt>賣點</dt><dd>講一句話就找到、自動分類與命名、圖片文字抽取、影音字幕與摘要；索引檔存在硬碟，換電腦直接沿用。</dd>
+      <dt>為何做得出來</dt><dd>元件全部是 MIT／BSD／Apache-2.0（授權費 0 元）；硬碟端不做推論，算力向主機 NPU／GPU 借；規則式（檔名、時間、大小）承擔多數工作，只有語意分類才動模型。MVP 初步評估約 3 個月。</dd>
+    </dl>
+  </article>
+  <article class="prod">
+    <h3><span class="code">B</span>AI 記憶硬碟（可攜記憶容器）</h3>
+    <dl>
+      <dt>目標客群</dt><dd>個人、創作者、AI 助理重度使用者（差異化最大）</dd>
+      <dt>要解決的問題</dt><dd>換一台電腦就要重新教 AI；對話、向量庫、工作檔散落在各台機器與雲端。</dd>
+      <dt>賣點</dt><dd>換機一鍵還原、不用重教；加密容器可攜；容器格式自己定，等於掌握話語權。</dd>
+      <dt>為何做得出來</dt><dd>容器格式自研（沒有外部授權與格式相依）；向量庫可用 sqlite-vec／FAISS／LanceDB；Windows Recall 快照可用官方匯出與解密範例做備份與索引（只能離線處理，不能即時讀取）。</dd>
+    </dl>
+  </article>
+  <article class="prod">
+    <h3><span class="code">C</span>不可變備份 ＋ 異常偵測</h3>
+    <dl>
+      <dt>目標客群</dt><dd>中小企業、工作室、有勒索病毒風險的團隊（最痛的一刀）</dd>
+      <dt>要解決的問題</dt><dd>備份連同本機一起被加密；還原不回來；沒人發現資料是什麼時候被動過。</dd>
+      <dt>賣點</dt><dd>寫入後不可竄改、異常寫入即告警、還原得回來。</dd>
+      <dt>為何做得出來</dt><dd>純自研、完全不碰模型授權；技術與法遵風險最低，適合當第一個 MVP（初步評估約 3 個月）。</dd>
+    </dl>
+  </article>
+  <article class="prod">
+    <h3><span class="code">D</span>私有知識庫硬碟（本地 RAG）</h3>
+    <dl>
+      <dt>目標客群</dt><dd>中小企業：法務、醫療、會計、研發（單價最高）</dd>
+      <dt>要解決的問題</dt><dd>公司文件不敢上雲；內部問答沒人維護、新人重複問同樣的問題。</dd>
+      <dt>賣點</dt><dd>資料不出門、一鍵建索引與問答、離線可用。</dd>
+      <dt>為何做得出來</dt><dd>llama.cpp ＋ Apache-2.0 開源權重可完全離線推論，抽取用 pdfium／Tesseract；但需要 IT 支援與 6 個月期程，所以排在最後（初步評估）。</dd>
+    </dl>
+  </article>
+
+  <h2><span class="dot"></span>技術可行性：為何「不靠 NPU」仍可實現</h2>
+
+  <figure class="fig">
+    <div class="figscroll"><svg viewBox="0 0 560 484" role="img" aria-label="四層架構與資料流示意圖"><defs><filter id="wob2" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="17" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter><marker id="ar2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#364e70"/></marker></defs><rect x="1" y="1" width="558" height="482" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><text x="26" y="34" font-size="17" fill="#364e70" text-anchor="start" font-weight="700">四層分工：授權費 0 元，算力向主機借</text><g filter="url(#wob2)"><rect x="26" y="52" width="508" height="84" rx="10" fill="#fffdf6" stroke="#364e70" stroke-width="2.2"/></g><text x="44" y="78" font-size="14.5" fill="#364e70" text-anchor="start" font-weight="700">使用者層</text><text x="44" y="102" font-size="11.5" fill="#78706a" text-anchor="start">問一句話（下行）；內容不出門（上行）</text><g filter="url(#wob2)"><rect x="26" y="158" width="508" height="84" rx="10" fill="#fffdf6" stroke="#bf4a3a" stroke-width="2.2"/></g><text x="44" y="184" font-size="14.5" fill="#bf4a3a" text-anchor="start" font-weight="700">主機算力層（免費）</text><text x="44" y="208" font-size="11.5" fill="#78706a" text-anchor="start">NPU／GPU／CPU：主機已有，對應用程式免費</text><text x="44" y="227" font-size="11.5" fill="#78706a" text-anchor="start">AI PC 約占 PC 出貨 54.7%，NPU 多數閒置</text><g filter="url(#wob2)"><rect x="26" y="264" width="508" height="84" rx="10" fill="#fffdf6" stroke="#364e70" stroke-width="2.2"/></g><text x="44" y="290" font-size="14.5" fill="#364e70" text-anchor="start" font-weight="700">開源元件層（MIT／BSD／Apache-2.0）</text><text x="44" y="314" font-size="11.5" fill="#78706a" text-anchor="start">pdfium（PDF）・Tesseract（OCR）・whisper.cpp（語音）</text><text x="44" y="333" font-size="11.5" fill="#78706a" text-anchor="start">llama.cpp＋Qwen2.5（問答）・sqlite-vec（檢索）</text><g filter="url(#wob2)"><rect x="26" y="370" width="508" height="84" rx="10" fill="#fffdf6" stroke="#364e70" stroke-width="2.2"/></g><text x="44" y="396" font-size="14.5" fill="#364e70" text-anchor="start" font-weight="700">外接硬碟自研層</text><text x="44" y="420" font-size="11.5" fill="#78706a" text-anchor="start">索引檔（向量＋全文）・不可變快照</text><text x="44" y="439" font-size="11.5" fill="#78706a" text-anchor="start">可攜加密容器・搜尋編排</text><g filter="url(#wob2)" fill="none" stroke="#bf4a3a" stroke-width="2"><path d="M274,148 L280,139 L286,148"/></g><g filter="url(#wob2)" fill="none" stroke="#bf4a3a" stroke-width="2"><path d="M274,254 L280,245 L286,254"/></g><g filter="url(#wob2)" fill="none" stroke="#bf4a3a" stroke-width="2"><path d="M274,360 L280,351 L286,360"/></g><text x="26" y="472" font-size="12" fill="#bf4a3a" text-anchor="start">授權費 0 元，義務仍在：保留開源聲明、避開 AGPL／GPL 與非商用權重</text></svg></div>
+    <figcaption><b>圖 2</b>｜四層架構與資料流：外接硬碟自研層 → 開源元件層 → 主機免費算力層 → 使用者層；向上的箭頭代表資料由硬碟往上處理（內容不出門，只傳查詢與結果）。
+      <span class="figtag">示意圖，非實際產品外觀、非規格保證</span><span class="figswipe">（圖較寬，可左右滑動）</span></figcaption>
+  </figure>
+  <ol class="how">
+    <li><strong>硬碟端不做推論，只做 I/O 與索引</strong>：向量＋全文索引檔存在硬碟上，插上就能沿用，跨裝置不必重新建。</li>
+    <li><strong>借用主機端已存在的算力</strong>：AI PC 的 NPU 對應用程式是免費算力；多數應用根本沒用到，等於閒置資源。</li>
+    <li><strong>規則式優先、模型為輔</strong>：檔名、副檔名、時間、大小、重複檔先用規則式處理（成本近乎 0）；只有語意分類、摘要、問答才動用模型，把算力需求壓下來。</li>
+    <li><strong>元件全部選寬鬆授權</strong>：MIT／BSD-3／Apache-2.0（見下表）＝授權費 0 元，只要保留聲明與授權文件。</li>
+    <li><strong>三個關鍵元件自研</strong>：搜尋編排、不可變快照、可攜記憶格式 —— 沒有外部授權、也沒有外部格式相依。</li>
+    <li><strong>影音解碼不做</strong>：H.264／HEVC 有專利池，交給作業系統解碼器，把專利風險留在平台端。</li>
+  </ol>
+  <p class="dim">為什麼這一版不內建 NPU（初步評估）：Microsoft Copilot+ 的系統級認證門檻是 40 TOPS，外接盒拿不到那種認證；
+  13 TOPS 級邊緣 NPU 雖可塞進外接盒，但功耗升到 10～20W 就得加風扇，產品會從口袋型變成桌面型；
+  且 USB4 磁吸 AI SSD 已有廠商在展場展示。結論是<strong>先不做，不是永遠不做</strong>。</p>
+
+  <h2><span class="dot"></span>免外部授權：建議元件與授權費</h2>
+  <div class="scroll"><table>
+    <tr><th>功能</th><th>建議元件</th><th>授權</th><th>授權費</th></tr>
+    <tr><td>語意搜尋／向量檢索</td><td>sqlite-vec／FAISS／LanceDB</td><td>MIT／Apache-2.0</td><td><strong>0 元</strong></td></tr><tr><td>內文抽取（PDF）</td><td>pdfium</td><td>BSD-3</td><td><strong>0 元</strong></td></tr><tr><td>OCR（圖片文字）</td><td>Tesseract／PaddleOCR</td><td>Apache-2.0</td><td><strong>0 元</strong></td></tr><tr><td>語音轉錄</td><td>whisper.cpp（權重亦 MIT）</td><td>MIT</td><td><strong>0 元</strong></td></tr><tr><td>本地問答</td><td>llama.cpp ＋ Qwen2.5</td><td>MIT／Apache-2.0</td><td><strong>0 元</strong></td></tr><tr><td>備份／異常偵測／記憶容器</td><td>自研</td><td>自有</td><td><strong>0 元</strong></td></tr>
+  </table></div>
+  <p class="dim">上表為元件<strong>建議</strong>與授權種類整理；實際可用性、版本與條款以各專案官方 repo 與授權文件為準，
+  商用前需逐項由法務確認（尤其是模型權重與資料集的授權）。</p>
+
+  <h2><span class="dot"></span>使用情境：插上硬碟之後發生什麼事</h2>
+
+  <figure class="fig">
+    <div class="figscroll"><svg viewBox="0 0 560 330" role="img" aria-label="插上硬碟後的使用流程示意圖"><defs><filter id="wob3" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="24" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter><marker id="ar3" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#364e70"/></marker></defs><rect x="1" y="1" width="558" height="328" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><text x="26" y="36" font-size="17" fill="#364e70" text-anchor="start" font-weight="700">插上硬碟之後，發生什麼事</text><g filter="url(#wob3)"><circle cx="44" cy="71" r="13" fill="#fffdf6" stroke="#364e70" stroke-width="2.2"/></g><text x="44" y="76" font-size="14" fill="#364e70" text-anchor="middle" font-weight="700">1</text><text x="70" y="76" font-size="14.5" fill="#4a4640" text-anchor="start" font-weight="700">插上硬碟，首次建索引</text><text x="70" y="95" font-size="12" fill="#78706a" text-anchor="start">背景執行、只讀不改；索引檔寫回硬碟</text><path d="M44,86 L44,100" stroke="#d9d1c2" stroke-width="2"/><g filter="url(#wob3)"><circle cx="44" cy="121" r="13" fill="#fffdf6" stroke="#364e70" stroke-width="2.2"/></g><text x="44" y="126" font-size="14" fill="#364e70" text-anchor="middle" font-weight="700">2</text><text x="70" y="126" font-size="14.5" fill="#4a4640" text-anchor="start" font-weight="700">用一句話問它</text><text x="70" y="145" font-size="12" fill="#78706a" text-anchor="start">「三個月前跟王先生談的那份合約」——不必記檔名</text><path d="M44,136 L44,150" stroke="#d9d1c2" stroke-width="2"/><g filter="url(#wob3)"><circle cx="44" cy="171" r="13" fill="#fffdf6" stroke="#364e70" stroke-width="2.2"/></g><text x="44" y="176" font-size="14" fill="#364e70" text-anchor="middle" font-weight="700">3</text><text x="70" y="176" font-size="14.5" fill="#4a4640" text-anchor="start" font-weight="700">硬碟端比對索引</text><text x="70" y="195" font-size="12" fill="#78706a" text-anchor="start">向量＋關鍵字的混合檢索，先挑出候選</text><path d="M44,186 L44,200" stroke="#d9d1c2" stroke-width="2"/><g filter="url(#wob3)"><circle cx="44" cy="221" r="13" fill="#fffdf6" stroke="#364e70" stroke-width="2.2"/></g><text x="44" y="226" font-size="14" fill="#364e70" text-anchor="middle" font-weight="700">4</text><text x="70" y="226" font-size="14.5" fill="#4a4640" text-anchor="start" font-weight="700">主機端抽出內容並摘要</text><text x="70" y="245" font-size="12" fill="#78706a" text-anchor="start">PDF 內文、圖片 OCR、影音轉錄，都在本機完成</text><path d="M44,236 L44,250" stroke="#d9d1c2" stroke-width="2"/><g filter="url(#wob3)"><circle cx="44" cy="271" r="13" fill="#fffdf6" stroke="#bf4a3a" stroke-width="2.2"/></g><text x="44" y="276" font-size="14" fill="#bf4a3a" text-anchor="middle" font-weight="700">5</text><text x="70" y="276" font-size="14.5" fill="#4a4640" text-anchor="start" font-weight="700">得到結果，可以接著問</text><text x="70" y="295" font-size="12" fill="#78706a" text-anchor="start">檔案路徑＋摘要＋引用來源；不上傳雲端</text></svg></div>
+    <figcaption><b>圖 3</b>｜使用流程：插上硬碟 → 背景建索引（只讀不改）→ 一句話查詢 → 硬碟端比對索引 → 主機端抽取與摘要 → 得到檔案路徑與摘要。
+      <span class="figtag">示意圖，非實際產品外觀、非規格保證</span><span class="figswipe">（圖較寬，可左右滑動）</span></figcaption>
+  </figure>
+  <p class="dim">設計上刻意把<strong>「內容」留在本機</strong>：只有查詢與答案在記憶體中流動，檔案與索引都不需要上傳；
+  索引本身含敏感資訊，因此在硬碟上以加密容器存放。</p>
+
+  <h2><span class="dot"></span>成本：還是要付的錢（不是授權費）</h2>
+  <div class="scroll"><table>
+    <tr><th>項目</th><th>金額（公開資料整理，實際以各平台公告為準）</th><th>說明</th></tr>
+    <tr><td>Windows 程式碼簽章（OV）</td><td>約 65～250 美元／年</td><td>沒有簽章，使用者會被系統警告擋下</td></tr><tr><td>Windows 程式碼簽章（EV）</td><td>約 226 美元／年起</td><td>EV 憑證要硬體 token，流程較長</td></tr><tr><td>macOS 公證（Apple Developer）</td><td>99 美元／年</td><td>不上公證，macOS 會被 Gatekeeper 擋下</td></tr><tr><td>合計（每年固定）</td><td>約 200～400 美元／年</td><td>這是固定成本，不是每台抽 1～5 美元的授權金</td></tr>
+  </table></div>
+
+  <figure class="fig">
+    <div class="figscroll"><svg viewBox="0 0 560 330" role="img" aria-label="自建模組與第三方授權金的成本對照圖"><defs><filter id="wob4" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="31" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter><marker id="ar4" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#364e70"/></marker></defs><rect x="1" y="1" width="558" height="328" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><text x="26" y="36" font-size="17" fill="#364e70" text-anchor="start" font-weight="700">授權費 0 元，要付的不是這一筆</text><path d="M110,252 L530,252" stroke="#d9d1c2" stroke-width="2"/><path d="M110.0,246 L110.0,258" stroke="#d9d1c2" stroke-width="2"/><text x="110.0" y="274" font-size="11.5" fill="#78706a" text-anchor="middle">100</text><path d="M212.5,246 L212.5,258" stroke="#d9d1c2" stroke-width="2"/><text x="212.5" y="274" font-size="11.5" fill="#78706a" text-anchor="middle">1 千</text><path d="M315.0,246 L315.0,258" stroke="#d9d1c2" stroke-width="2"/><text x="315.0" y="274" font-size="11.5" fill="#78706a" text-anchor="middle">1 萬</text><path d="M417.5,246 L417.5,258" stroke="#d9d1c2" stroke-width="2"/><text x="417.5" y="274" font-size="11.5" fill="#78706a" text-anchor="middle">10 萬</text><path d="M520.0,246 L520.0,258" stroke="#d9d1c2" stroke-width="2"/><text x="520.0" y="274" font-size="11.5" fill="#78706a" text-anchor="middle">100 萬</text><text x="110" y="294" font-size="11.5" fill="#78706a" text-anchor="start">金額（美元，對數刻度）</text><g filter="url(#wob4)"><rect x="110" y="86" width="61" height="40" rx="5" fill="#364e70" opacity=".85"/></g><text x="181" y="113" font-size="13" fill="#4a4640" text-anchor="start">約 200～400 美元／年</text><text x="110" y="78" font-size="13.5" fill="#364e70" text-anchor="start" font-weight="700">自建模組：簽章＋公證（每年固定）</text><g filter="url(#wob4)"><rect x="110" y="160" width="307" height="40" rx="5" fill="#bf4a3a" opacity=".85"/><rect x="417" y="160" width="72" height="40" rx="5" fill="#bf4a3a" opacity=".4"/></g><text x="110" y="152" font-size="13.5" fill="#bf4a3a" text-anchor="start" font-weight="700">第三方授權金：每台 1～5 美元 × 10 萬台／年</text><text x="497" y="185" font-size="11.5" fill="#bf4a3a" text-anchor="middle">10 萬</text><text x="453" y="218" font-size="12.5" fill="#4a4640" text-anchor="middle">約 10 萬 ～ 50 萬美元／年</text><text x="26" y="316" font-size="12.5" fill="#bf4a3a" text-anchor="start">結論：真正的固定成本在簽章與公證，不在每台的授權金</text></svg></div>
+    <figcaption><b>圖 4</b>｜成本對照：自建模組的每年固定成本（簽章＋公證）與第三方授權金（每台 1～5 美元 × 10 萬台／年）的差距；長條採對數刻度。
+      <span class="figtag">示意圖，非實際產品外觀、非規格保證</span><span class="figswipe">（圖較寬，可左右滑動）</span></figcaption>
+  </figure>
+  <p class="dim">這也是「軟體邊際成本接近 0」這句話的來源：多賣一台硬碟，不會多付一筆授權金，只多一份安裝與支援成本。</p>
+
+  <h2><span class="dot"></span>風險與限制（誠實揭露）</h2>
+  <div class="two">
+    <div class="col no">
+      <h3>三條不能碰的線</h3>
+      <ul>
+        <li><strong>AGPL／GPL 元件會傳染授權</strong>：PDF 一律用 pdfium（BSD-3），不要 MuPDF（AGPL）。</li>
+        <li><strong>非商用的模型權重</strong>：部分學術模型（例：InsightFace 系列）標明非商用，商用即違約。</li>
+        <li><strong>自訂條款的模型</strong>：部分開源權重免費但附條件，需法務看過；選 Apache-2.0 的會乾淨得多。</li>
+        <li><strong>影音編解碼自己做</strong>：H.264／HEVC 專利池風險高，交給作業系統解碼器。</li>
+      </ul>
+    </div>
+    <div class="col no">
+      <h3>其他風險與限制</h3>
+      <ul>
+        <li><strong>市場面</strong>：硬碟漲價 46～50% 的環境下，若只比每 TB 單價，軟體加值會被拿來殺價。</li>
+        <li><strong>商業面</strong>：隨附軟體（ODM／品牌）決策慢，願不願意付授權金是最大未知數。</li>
+        <li><strong>技術面</strong>：索引品質與誤判、加密與金鑰管理、Recall 快照只能離線匯出處理（非即時讀取）。</li>
+        <li><strong>法遵面</strong>：模型權重、資料集、字型與商標都需逐項確認，「免授權費」不等於「無義務」。</li>
+        <li><strong>隱私面</strong>：索引會暴露檔名與內容脈絡，必須加密；企業版還需要權限與稽核設計。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note warn">
+    <strong>停損條件（先寫下來）</strong>：3 個月內，使用者每週使用語意搜尋 <strong>不到 1 次</strong>，
+    或品牌客戶<strong>不願意付 ≥2 美元／台</strong>，就停止把資源投在這個方向。
+  </div>
+
+  <h2><span class="dot"></span>落地路線建議（分階段）</h2>
+
+  <figure class="fig">
+    <div class="figscroll"><svg viewBox="0 0 560 340" role="img" aria-label="三階段落地路線示意圖"><defs><filter id="wob5" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="38" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter><marker id="ar5" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#364e70"/></marker></defs><rect x="1" y="1" width="558" height="338" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><text x="26" y="36" font-size="17" fill="#364e70" text-anchor="start" font-weight="700">建議順序（初步評估，非承諾）</text><g filter="url(#wob5)"><rect x="26" y="56" width="158" height="228" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><rect x="26" y="56" width="158" height="40" rx="10" fill="#bf4a3a" opacity=".12"/></g><text x="38" y="74" font-size="14.5" fill="#bf4a3a" text-anchor="start" font-weight="700">Phase 1</text><text x="38" y="90" font-size="11.5" fill="#78706a" text-anchor="start">0～3 個月</text><text x="38" y="118" font-size="12" fill="#4a4640" text-anchor="start">・不可變備份</text><text x="38" y="148" font-size="12" fill="#4a4640" text-anchor="start">・＋異常寫入偵測</text><text x="38" y="178" font-size="12" fill="#4a4640" text-anchor="start">・純自研：無授權問題</text><text x="38" y="208" font-size="12" fill="#4a4640" text-anchor="start">・風險最低的起點</text><text x="38" y="238" font-size="12" fill="#4a4640" text-anchor="start">・找 3 家企業試用</text><g filter="url(#wob5)"><rect x="196" y="56" width="158" height="228" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><rect x="196" y="56" width="158" height="40" rx="10" fill="#364e70" opacity=".12"/></g><text x="208" y="74" font-size="14.5" fill="#364e70" text-anchor="start" font-weight="700">Phase 2</text><text x="208" y="90" font-size="11.5" fill="#78706a" text-anchor="start">3～6 個月</text><text x="208" y="118" font-size="12" fill="#4a4640" text-anchor="start">・AI 檔案管家</text><text x="208" y="148" font-size="12" fill="#4a4640" text-anchor="start">・語意搜尋、OCR</text><text x="208" y="178" font-size="12" fill="#4a4640" text-anchor="start">・影音字幕摘要</text><text x="208" y="208" font-size="12" fill="#4a4640" text-anchor="start">・索引檔存硬碟</text><text x="208" y="238" font-size="12" fill="#4a4640" text-anchor="start">・驗收：每週使用</text><g filter="url(#wob5)"><rect x="366" y="56" width="158" height="228" rx="10" fill="#fffdf6" stroke="#d9d1c2" stroke-width="2"/><rect x="366" y="56" width="158" height="40" rx="10" fill="#364e70" opacity=".12"/></g><text x="378" y="74" font-size="14.5" fill="#364e70" text-anchor="start" font-weight="700">Phase 3</text><text x="378" y="90" font-size="11.5" fill="#78706a" text-anchor="start">6～12 個月</text><text x="378" y="118" font-size="12" fill="#4a4640" text-anchor="start">・可攜記憶容器</text><text x="378" y="148" font-size="12" fill="#4a4640" text-anchor="start">・格式自訂＝話語權</text><text x="378" y="178" font-size="12" fill="#4a4640" text-anchor="start">・私有知識庫試點</text><text x="378" y="208" font-size="12" fill="#4a4640" text-anchor="start">・需 IT 支援</text><text x="378" y="238" font-size="12" fill="#4a4640" text-anchor="start">・人臉辨識最後談</text><text x="26" y="312" font-size="12" fill="#bf4a3a" text-anchor="start">停損：3 個月內每週語意搜尋 &lt;1 次，或品牌客戶不願付 ≥2 美元／台 → 停</text></svg></div>
+    <figcaption><b>圖 5</b>｜三階段路線：Phase 1 不可變備份（低風險起點）→ Phase 2 AI 檔案管家（體驗最有感）→ Phase 3 可攜記憶容器與私有知識庫。
+      <span class="figtag">示意圖，非實際產品外觀、非規格保證</span><span class="figswipe">（圖較寬，可左右滑動）</span></figcaption>
+  </figure>
+  <ol class="how">
+    <li><strong>Phase 1（0～3 個月）</strong>：先做不可變備份與異常寫入偵測 —— 純自研、無模型授權問題，中小企業最痛的一刀。</li>
+    <li><strong>Phase 2（3～6 個月）</strong>：做 A「AI 檔案管家」的語意搜尋、OCR 與影音摘要 —— 元件全免授權、體驗最有感、客群最廣。</li>
+    <li><strong>Phase 3（6～12 個月）</strong>：做 B 可攜 AI 記憶容器，容器格式自己定；同時試點 D 私有知識庫硬碟（需 IT 支援）。</li>
+    <li><strong>下一步</strong>：先做出能跑的原型，再拿實測數據去談 ODM 隨附與授權金 —— 有能動的東西，談判才有底氣。</li>
+  </ol>
+
+  <div class="note">
+    <strong>誠實揭露</strong><br>
+    1. 本頁是<strong>產品發想與可行性推估</strong>，不是產品規格保證，也不是任何硬碟／軟體公司的背書或任何形式的投資建議。<br>
+    2. 文中數字（AI PC 出貨占比、硬碟漲幅、程式碼簽章與公證費用、開源授權種類、市場規模）為<strong>公開資料整理與推估</strong>，
+    可能與最新官方公告不同，引用前請以官方來源與各專案 repo 為準。<br>
+    3. 時程（3／6／12 個月）與「做得到」屬<strong>初步評估</strong>，未經原型驗證；牽涉授權的判斷需法務複核。<br>
+    4. 頁內所有圖為<strong>示意圖</strong>，非實際產品外觀、非規格保證。<br>
+    5. 影片連結 <a href="https://youtu.be/sRfQqf2v8IE">https://youtu.be/sRfQqf2v8IE</a> 目前為<strong>私人影片（未公開）</strong>。
+  </div>
+
+  <a class="back" href="../">← 回 AI 助理實測</a>
+</div>
+
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
