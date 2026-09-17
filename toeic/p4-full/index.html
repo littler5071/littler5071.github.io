@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多益聽力 Part 4 完整題組（10 組・30 題）｜小R 頻道</title>
+<meta name="description" content="原創多益 Part 4 完整題組：10 段獨白、30 題、美加英澳四種口音；可線上點選作答、最後計分，附考場節奏音檔與中文詳解音檔。題目與語音皆自行製作，未使用官方試題或音檔。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.75;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:920px;margin:0 auto;padding:44px 18px 90px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(26px,5vw,38px);margin:6px 0 6px;text-align:center}
+  .sub{text-align:center;color:var(--blue);margin-bottom:18px}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       margin-bottom:10px;font-size:14.5px;color:var(--soft)}
+  .box strong{color:var(--ink)}
+  .players{display:grid;gap:10px;margin:16px 0 20px}
+  .pl{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 16px}
+  .pl b{display:block;margin-bottom:6px}
+  audio{width:100%}
+  .bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+       background:rgba(246,241,230,.96);border:2px solid var(--line);border-radius:14px;
+       padding:10px 14px;margin:18px 0;backdrop-filter:blur(4px)}
+  .bar .prog{font-size:15px;color:var(--soft)}
+  .bar .prog b{color:var(--ink);font-size:18px}
+  button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
+         border:2px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--blue)}
+  .result{background:#fffdf6;border:2px solid var(--leaf);border-radius:16px;padding:16px 20px;
+          margin:0 0 20px;display:none}
+  .result.show{display:block}
+  .result .big{font-size:clamp(28px,6vw,40px);color:var(--leaf);line-height:1.2}
+  .result ul{margin:8px 0 0;padding-left:20px;font-size:14.5px;color:var(--soft)}
+  h2{font-size:clamp(19px,3.2vw,24px);margin:38px 0 6px;border-top:2px solid var(--line);padding-top:16px}
+  .meta{font-size:14px;color:var(--soft);font-weight:normal}
+  details{margin:8px 0}
+  summary{cursor:pointer;color:var(--blue);font-size:15px}
+  .dlg{list-style:none;padding:0;margin:10px 0;font-size:15px}
+  .dlg li{margin-bottom:8px;padding-left:10px;border-left:3px solid var(--line)}
+  .zh{display:block;color:var(--soft);font-size:14px}
+  .q{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0}
+  .q.wrong{border-color:var(--red)}
+  .q.right{border-color:var(--leaf)}
+  .qh{font-size:16.5px;margin-bottom:8px;display:flex;gap:10px;align-items:baseline}
+  .qn{font-weight:bold;color:var(--red);flex:none;min-width:34px}
+  .mark{margin-left:auto;flex:none;font-size:16px}
+  ul.opts{list-style:none;margin:0;padding:0}
+  ul.opts li{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;margin:5px 0;
+       border:2px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+  ul.opts li:hover{border-color:#c8bda8}
+  ul.opts li b{flex:none;width:22px;color:var(--blue)}
+  ul.opts li.sel{background:var(--sel);border-color:#c9a94e}
+  ul.opts li.ok{background:#e8f3ea;border-color:var(--leaf)}
+  ul.opts li.bad{background:#fbeae7;border-color:var(--red)}
+  ul.opts li.locked{cursor:default}
+  .sol{margin-top:4px}
+  .toggle{background:transparent;color:var(--blue);border:0;padding:0;font-size:15px;
+          border-bottom:1.5px solid rgba(54,78,112,.5);border-radius:0}
+  .solbody{margin-top:10px;background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px}
+  ul.why{margin:6px 0;padding-left:20px}
+  ul.why li{margin:3px 0;font-size:15px}
+  ul.why li.yes{color:var(--leaf)}
+  ul.why li.no{color:var(--ink)}
+  .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
+  .dim{color:var(--soft);font-size:13.5px}
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body data-quiz-key="p4full_answers_v1">
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk on" href="../../toeic/">多益英文</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>多益聽力 Part 4 完整題組</h1>
+  <div class="sub">10 段獨白・30 題・美加英澳四種口音・可線上作答計分</div>
+
+  <div class="box">
+    <strong>怎麼做</strong>：① 播放下面「考場節奏版」，<strong>不要暫停</strong>，邊聽邊點選項作答；
+    ② 做完 30 題按「對答案並計分」；③ 錯的題目會自動展開詳解，通車時再聽「中文詳解版」複習。
+  </div>
+  <div class="box">
+    <strong>原創聲明</strong>：題目、獨白、選項與詳解<strong>全部自行撰寫</strong>，語音由<strong>語音合成</strong>產生
+    （非真人錄音、非官方音檔），<strong>沒有使用任何 ETS 的試題或音檔</strong>。真正 TOEIC 試題與音檔的著作權屬於 ETS；
+    「TOEIC／多益」是 ETS 的註冊商標，這裡僅為描述性使用（指相同題型結構），不代表 ETS 授權、合作或認可。
+  </div>
+  <div class="box">
+    <strong>節奏</strong>：獨白只唸一次；練習版照樣唸出題目與選項（真考是印在題本），題目與選項之間約 2 秒，
+    每題唸完留約 5 秒作答。題號 71–100（對應真考 Part 4 的題號範圍）。
+    作答停頓 30 段（應為 30）／最短 5.08 秒／中位 5.11 秒／最長 5.14 秒；題目→選項 30 段／中位 2.11 秒；總長 00:18:33.91。
+  </div>
+
+  <div class="players">
+    <div class="pl"><b>① 考場節奏版（30 題・一次做完）</b>
+      <audio controls preload="metadata" src="audio/toeic_p4_full.mp3"></audio></div>
+    <div class="pl"><b>② 中文詳解版（通勤聽）</b>
+      <audio controls preload="metadata" src="audio/toeic_p4_full_explain.mp3"></audio></div>
+  </div>
+
+  <div class="bar">
+    <span class="prog">已作答 <b><span id="done">0</span> / 30</b></span>
+    <button id="scoreBtn" type="button">對答案並計分</button>
+    <button id="resetBtn" type="button" class="ghost">清除作答</button>
+    <span class="prog" id="hint">（作答會自動存在這台裝置裡）</span>
+  </div>
+
+  <div class="result" id="result"></div>
+  
+  <section class="set" id="set1" data-set="1">
+    <h2>第 1 組　<span class="meta">客服中心｜訂單延後出貨的語音留言｜美式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Hello, this is Dana Whitfield from Harborline Furniture, calling about your order, number four seven two. I&#x27;m afraid the oak dining table you chose is out of stock at the moment.<span class="zh">哈囉，我是 Harborline 家具的 Dana Whitfield，打來是關於您的訂單，編號四七二。很抱歉，您選的橡木餐桌目前缺貨。</span></li><li>Our supplier tells us the next shipment arrives on the eighteenth, so the earliest we could deliver would be the twenty-first — not the twelfth you asked for.<span class="zh">我們的供應商說下一批貨十八日到，所以最早也要二十一日才能送到——不是您希望的十二日。</span></li><li>If that&#x27;s too long to wait, the same table is in stock in walnut and we can send it straight away, or we can refund you in full. Just call our order desk before Friday, mention that you spoke with me, and we&#x27;ll waive the delivery fee either way. Thank you for your patience.<span class="zh">如果等不了那麼久，同款桌子還有胡桃木色的現貨，我們可以馬上寄出，或者全額退費。只要在週五前打我們的訂購組，說您跟我談過，兩種做法我們都會免收運費。謝謝您的耐心。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="71" data-a="0">
+      <div class="qh"><span class="qn">71</span>Why is the speaker calling?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To inform a customer about a delay</span></li><li data-i="1"><b>B</b><span>To confirm a delivery address</span></li><li data-i="2"><b>C</b><span>To ask for payment on an order</span></li><li data-i="3"><b>D</b><span>To advertise a new line of furniture</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。她一開口就說 calling about your order，接著 I&#x27;m afraid… 之後帶出缺貨與延後出貨。</li><li class="no">❌ <b>(B)</b> 整段留言完全沒有確認地址，這是常見的「相關字」陷阱（delivery 一詞指的是交期，不是地址）。</li><li class="no">❌ <b>(C)</b> 她不但沒有催款，還主動提到可以全額退費，方向和「要錢」正好相反。</li><li class="no">❌ <b>(D)</b> 這是針對既有訂單的客服留言，不是廣告；而且她處理的商品是客人早就訂好的桌子。</li></ul>
+          <p class="tip">🔑 語音留言的前兩句幾乎都會交代「我是誰、我為什麼打來」——I&#x27;m calling about… 後面的名詞就是主旨。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="72" data-a="2">
+      <div class="qh"><span class="qn">72</span>What does the speaker say is available right away?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A leather sofa</span></li><li data-i="1"><b>B</b><span>A set of dining chairs</span></li><li data-i="2"><b>C</b><span>A walnut table</span></li><li data-i="3"><b>D</b><span>A glass display cabinet</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 沙發整段都沒提到，是憑 furniture 這個字想像出來的。</li><li class="no">❌ <b>(B)</b> 她提到的是 dining table（餐桌），不是整組餐椅。</li><li class="yes">✅ <b>(C)</b> 正解。the same table is in stock in walnut and we can send it straight away。</li><li class="no">❌ <b>(D)</b> 展示櫃沒有出現在任何一句話裡。</li></ul>
+          <p class="tip">🔑 問「現在就有什麼」時，答案會黏在 in stock／available／ready 這幾個字附近，先聽到關鍵字再聽品項。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="73" data-a="2">
+      <div class="qh"><span class="qn">73</span>What is the listener asked to do before Friday?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Return the old table</span></li><li data-i="1"><b>B</b><span>Visit the showroom</span></li><li data-i="2"><b>C</b><span>Call the order desk</span></li><li data-i="3"><b>D</b><span>Pay the delivery fee online</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 訂單根本還沒出貨，沒有東西可以退，這句是憑 imagination 補出來的。</li><li class="no">❌ <b>(B)</b> 她提供的是電話與兩種選項，從頭到尾沒有邀請客人到門市。</li><li class="yes">✅ <b>(C)</b> 正解。Just call our order desk before Friday, mention that you spoke with me。</li><li class="no">❌ <b>(D)</b> 運費她說會 waive（免除），所以不可能是要他上網付運費——聽到 fee 就選會掉進陷阱。</li></ul>
+          <p class="tip">🔑 before ＋ 時間 後面通常就是待辦事項；同時要抓「誰要做什麼」，這裡是聽話的人要回電。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set2" data-set="2">
+    <h2>第 2 組　<span class="meta">火車站｜月台變更與轉乘廣播｜加拿大口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Attention, passengers on the eight forty service to Halifax. Because of a signalling problem east of Moncton, this train will now leave from platform eleven instead of platform four. Boarding will begin in about fifteen minutes.<span class="zh">前往 Halifax 的八點四十分班次旅客請注意。由於 Moncton 以東的號誌故障，本班列車改由十一號月台發車，不是原定的四號月台。約十五分鐘後開始上車。</span></li><li>Business class passengers are welcome to wait in the lounge on the upper level, where coffee and tea are complimentary. And if you&#x27;re connecting to the ferry at Truro, please speak to a member of staff at the information counter — we&#x27;ll arrange a shuttle bus for you.<span class="zh">商務艙旅客可以在樓上的貴賓室候車，那裡有免費的咖啡和茶。如果您要轉乘 Truro 的渡輪，請到服務台找我們的站務人員，我們會為您安排接駁車。</span></li><li>We apologize for the delay, and thank you for travelling with us this morning.<span class="zh">造成延誤我們很抱歉，也謝謝您今天早上搭乘我們的列車。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="74" data-a="1">
+      <div class="qh"><span class="qn">74</span>What is the purpose of the announcement?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To report that a service has been cancelled</span></li><li data-i="1"><b>B</b><span>To announce a change of platform</span></li><li data-i="2"><b>C</b><span>To introduce a new timetable</span></li><li data-i="3"><b>D</b><span>To explain how to buy tickets</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 班次沒有取消，只是換月台；聽到 problem／delay 就選 cancelled 會掉進陷阱。</li><li class="yes">✅ <b>(B)</b> 正解。this train will now leave from platform eleven instead of platform four。</li><li class="no">❌ <b>(C)</b> 整段沒有公布新時刻表，發車時間八點四十分不變。</li><li class="no">❌ <b>(D)</b> 購票方式完全沒提，這是車站廣播而不是售票說明。</li></ul>
+          <p class="tip">🔑 廣播開頭先抓「改變了什麼」：instead of／now 出現的地方，往往就是考點。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="75" data-a="0">
+      <div class="qh"><span class="qn">75</span>What is offered to business class passengers?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Complimentary drinks</span></li><li data-i="1"><b>B</b><span>A free newspaper</span></li><li data-i="2"><b>C</b><span>A seat upgrade</span></li><li data-i="3"><b>D</b><span>A taxi to Truro</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。the lounge on the upper level, where coffee and tea are complimentary。</li><li class="no">❌ <b>(B)</b> 報紙沒有提到，這是車站常見的情境詞，但這則廣播裡沒有。</li><li class="no">❌ <b>(C)</b> 沒有升等這回事，商務艙旅客本來就是商務艙。</li><li class="no">❌ <b>(D)</b> 接駁車（shuttle bus）是給要轉乘渡輪的旅客，不是商務艙旅客，也不是計程車。</li></ul>
+          <p class="tip">🔑 Part 4 的「提供什麼」題常把「免費」講成 complimentary，聽到這個字要立刻記下後面接的東西。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="76" data-a="3">
+      <div class="qh"><span class="qn">76</span>What should passengers going to the ferry do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Move to platform four</span></li><li data-i="1"><b>B</b><span>Buy a new ticket</span></li><li data-i="2"><b>C</b><span>Wait in the upper-level lounge</span></li><li data-i="3"><b>D</b><span>Speak to a member of staff</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 四號月台是舊月台、已經不用了，正好是記錯的旅客最容易選的答案。</li><li class="no">❌ <b>(B)</b> 轉乘不需要重新購票，廣播裡也沒有提到票務。</li><li class="no">❌ <b>(C)</b> 貴賓室是商務艙旅客用的，被要求的是去服務台找站務人員。</li><li class="yes">✅ <b>(D)</b> 正解。please speak to a member of staff at the information counter。</li></ul>
+          <p class="tip">🔑 問「該做什麼」時，要抓祈使句（please ＋ 原形動詞）；同時留意對象，答案常常只給某一群人。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set3" data-set="3">
+    <h2>第 3 組　<span class="meta">廣播廣告｜戶外用品店週年慶｜英式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Here at Cotswold Outfitters we&#x27;ve been kitting out walkers and climbers for thirty years, and this month we&#x27;re celebrating with our biggest sale ever. Every waterproof jacket in the shop is twenty-five percent off.<span class="zh">Cotswold Outfitters 三十年來幫登山客和健行客打點裝備，這個月我們要用史上最大折扣來慶祝。店裡每一件防水外套都打七五折。</span></li><li>Spend more than eighty pounds and we&#x27;ll throw in a free pair of walking socks. Our experts are also running free map-reading workshops every Saturday morning at ten — places are limited, so book online or call into the shop on Mill Street.<span class="zh">消費滿八十英鎊，就送您一雙免費的健行襪。我們的專家每週六早上十點還開免費的地圖判讀工作坊——名額有限，請上網預約或直接到 Mill Street 的店面報名。</span></li><li>The sale finishes on the thirtieth of September. And remember, we price-match any item you find cheaper elsewhere.<span class="zh">特賣到九月三十日為止。還有，只要您在其他地方找到更便宜的價格，我們一律跟進。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="77" data-a="0">
+      <div class="qh"><span class="qn">77</span>What is the advertisement mainly about?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A shop&#x27;s anniversary sale</span></li><li data-i="1"><b>B</b><span>A guided walking tour</span></li><li data-i="2"><b>C</b><span>A new line of climbing ropes</span></li><li data-i="3"><b>D</b><span>A map-reading course fee</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。thirty years… we&#x27;re celebrating with our biggest sale ever。</li><li class="no">❌ <b>(B)</b> 有嚮導的行程沒有提到，walkers 只是他們的客群。</li><li class="no">❌ <b>(C)</b> 新的攀岩繩沒有提，提到登山客只是為了說明店家資歷。</li><li class="no">❌ <b>(D)</b> 工作坊是免費的（free map-reading workshops），不是收費課程。</li></ul>
+          <p class="tip">🔑 廣告題先抓 celebrate／sale／discount／anniversary 這組字；「服務對象」不等於「在賣什麼」。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="78" data-a="0">
+      <div class="qh"><span class="qn">78</span>What will customers receive if they spend over eighty pounds?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A free pair of socks</span></li><li data-i="1"><b>B</b><span>A discount card</span></li><li data-i="2"><b>C</b><span>A free waterproof jacket</span></li><li data-i="3"><b>D</b><span>A workshop ticket</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。Spend more than eighty pounds and we&#x27;ll throw in a free pair of walking socks。</li><li class="no">❌ <b>(B)</b> 會員卡沒有提到，這是很好用的想像型陷阱。</li><li class="no">❌ <b>(C)</b> 外套是打七五折、不是免費送；八十英鎊是消費門檻，不是「送外套」。</li><li class="no">❌ <b>(D)</b> 工作坊本來就免費、只要預約，不需要靠消費金額取得。</li></ul>
+          <p class="tip">🔑 滿額贈的題目要分清楚「打折」和「送」：價錢變少的是折扣，另外拿到的才是贈品。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="79" data-a="1">
+      <div class="qh"><span class="qn">79</span>What does the speaker say about the map-reading workshops?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>They cost eighty pounds</span></li><li data-i="1"><b>B</b><span>Places must be booked in advance</span></li><li data-i="2"><b>C</b><span>They take place on weekdays</span></li><li data-i="3"><b>D</b><span>They are led by the shop manager</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 工作坊是免費的；八十英鎊是滿額贈的門檻，兩個數字被放在同一段，很容易互換。</li><li class="yes">✅ <b>(B)</b> 正解。places are limited, so book online or call into the shop。</li><li class="no">❌ <b>(C)</b> 是每週六早上（Saturday morning），週末不是平日。</li><li class="no">❌ <b>(D)</b> 是「我們的專家」帶領，沒有說是店長，這是把不確定的身分說得太具體的陷阱。</li></ul>
+          <p class="tip">🔑 聽活動細節時要一次記三個欄位：什麼時候、多少錢、要不要先報名。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set4" data-set="4">
+    <h2>第 4 組　<span class="meta">植物園｜導覽志工的行前說明｜澳式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Good morning, everyone, and welcome to the Riverside Botanic Gardens. I&#x27;m Kate, one of the volunteer guides, and I&#x27;ll be walking with you for the next hour and a half. Before we set off, just a few housekeeping notes.<span class="zh">大家早安，歡迎來到河濱植物園。我是 Kate，是這裡的導覽志工，接下來一個半小時我會陪著各位走。出發前先交代幾件小事。</span></li><li>The path is flat for most of the way, but there is one steep section near the fern gully, so please take your time there. Do keep an eye out for the black swans on the lake — they&#x27;re nesting at the moment, so we&#x27;ll admire them from a distance.<span class="zh">這條步道大部分都很平，但在蕨類溪谷附近有一段比較陡，請大家在那裡慢慢走。請注意湖上的黑天鵝——牠們現在正在孵蛋，所以我們遠遠欣賞就好。</span></li><li>We&#x27;ll finish at the café, where your ticket includes a cup of tea or coffee. Please stay behind me at all times, and if anyone feels unwell, let me know straight away.<span class="zh">我們會在咖啡館結束，您的門票含一杯茶或咖啡。請各位全程走在我後面，如果有人身體不舒服，請立刻告訴我。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="80" data-a="2">
+      <div class="qh"><span class="qn">80</span>Who most likely is the speaker?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A café owner</span></li><li data-i="1"><b>B</b><span>A park ranger</span></li><li data-i="2"><b>C</b><span>A volunteer guide</span></li><li data-i="3"><b>D</b><span>A ticket inspector</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 咖啡館只是路線終點，她沒有說自己是經營者，這是把「出現的地點」當成「職業」的陷阱。</li><li class="no">❌ <b>(B)</b> 她是志工導覽，不是園區的正式巡查員；這則訊息裡沒有任何職務隸屬的線索。</li><li class="yes">✅ <b>(C)</b> 正解。I&#x27;m Kate, one of the volunteer guides, and I&#x27;ll be walking with you。</li><li class="no">❌ <b>(D)</b> 驗票人員不會帶隊走一個半小時，也不會講解天鵝孵蛋。</li></ul>
+          <p class="tip">🔑 自我介紹那一句直接決定答案；Part 4 的「身分題」幾乎都藏在第一段。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="81" data-a="2">
+      <div class="qh"><span class="qn">81</span>Where will the group finish the tour?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>At the fern gully</span></li><li data-i="1"><b>B</b><span>At the lake</span></li><li data-i="2"><b>C</b><span>At the café</span></li><li data-i="3"><b>D</b><span>At the main entrance</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 蕨類溪谷只是「中間會經過的陡坡」，不是終點。</li><li class="no">❌ <b>(B)</b> 湖是看黑天鵝的地方，也是中途的景點。</li><li class="yes">✅ <b>(C)</b> 正解。We&#x27;ll finish at the café, where your ticket includes a cup of tea or coffee。</li><li class="no">❌ <b>(D)</b> 入口是出發地點，正好和 finish 講反——這是「位置講反」的典型陷阱。</li></ul>
+          <p class="tip">🔑 聽到 finish／end／conclude 就特別留意；路線題最愛把起點和終點對調。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="82" data-a="3">
+      <div class="qh"><span class="qn">82</span>What does the speaker ask the listeners to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Keep their tickets</span></li><li data-i="1"><b>B</b><span>Photograph the swans</span></li><li data-i="2"><b>C</b><span>Bring their own drinks</span></li><li data-i="3"><b>D</b><span>Stay behind her at all times</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 門票只要在咖啡館換飲料就好，她並沒有要求大家收好票根。</li><li class="no">❌ <b>(B)</b> 她說要「遠遠欣賞」，正好相反；拍照完全沒被要求。</li><li class="no">❌ <b>(C)</b> 飲料是門票含的、由咖啡館提供，不需要自己帶。</li><li class="yes">✅ <b>(D)</b> 正解。Please stay behind me at all times。</li></ul>
+          <p class="tip">🔑 祈使句（please ＋ 動詞）就是考點句；選項常常是「她剛剛才叫你不要做的事」。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set5" data-set="5">
+    <h2>第 5 組　<span class="meta">公司｜全員會議的開場宣布｜美式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Good afternoon, everyone, and thank you for coming in person at such short notice. I&#x27;ll keep this brief. As you know, we&#x27;ve been testing a four-day week in the design department since April, and the results have been better than we hoped — output is up eight percent, and sick days are down by nearly a third.<span class="zh">大家下午好，謝謝各位在這麼臨時的通知下還親自到場。我長話短說。各位知道，我們從四月起在設計部試辦週休三日，結果比預期更好——產出提高百分之八，病假少了將近三分之一。</span></li><li>So from January, the arrangement will be extended to all of our offices. Everyone will keep the same salary, and because Fridays are still our busiest day for customer service, customer-facing teams will stay on a five-day schedule for the time being.<span class="zh">所以從一月開始，這項安排會擴大到我們所有辦公室。每個人的薪水不變，而因為週五仍是客服最忙的一天，面對客戶的團隊暫時維持週休二日。</span></li><li>The details are still being worked out. In the meantime, please send any questions to the people team by the end of the week.<span class="zh">細節還在研擬中。在那之前，請各位在本週結束前把問題寄給人資團隊。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="83" data-a="1">
+      <div class="qh"><span class="qn">83</span>What is the purpose of the talk?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To welcome newly hired staff</span></li><li data-i="1"><b>B</b><span>To announce the expansion of a work arrangement</span></li><li data-i="2"><b>C</b><span>To present the quarterly sales results</span></li><li data-i="3"><b>D</b><span>To explain a customer-service complaint</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 沒有任何新進同仁被介紹，這是會議開場最常見的想像答案。</li><li class="yes">✅ <b>(B)</b> 正解。the arrangement will be extended to all of our offices。</li><li class="no">❌ <b>(C)</b> 她引用的是產出與病假數字（試辦成效），不是季度業績；聽到 percent 就選 sales 會掉進陷阱。</li><li class="no">❌ <b>(D)</b> 提到客服只是為了說明哪些團隊暫不適用，不是要處理客訴。</li></ul>
+          <p class="tip">🔑 「目的題」要在第一分鐘內定調：先說「我們試辦了什麼」、再說「所以之後會怎樣」，後半段就是答案。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="84" data-a="2">
+      <div class="qh"><span class="qn">84</span>What does the speaker say about salaries?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>They will be reduced</span></li><li data-i="1"><b>B</b><span>They will be paid weekly</span></li><li data-i="2"><b>C</b><span>They will stay the same</span></li><li data-i="3"><b>D</b><span>They will depend on output</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 完全沒有減薪，這是把「試辦新制度」影射成「要省成本」的陷阱。</li><li class="no">❌ <b>(B)</b> 發薪頻率沒有提到，週休三日談的是天數、不是薪資週期。</li><li class="yes">✅ <b>(C)</b> 正解。Everyone will keep the same salary。</li><li class="no">❌ <b>(D)</b> 產出提高是試辦的結果，不是薪資計算方式；兩件事被她放在不同句，很容易接錯。</li></ul>
+          <p class="tip">🔑 聽到 keep the same…／remain unchanged… 要立刻抓到是「不變」，這在制度變動題裡幾乎必考。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="85" data-a="1">
+      <div class="qh"><span class="qn">85</span>What are the listeners asked to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Work on Fridays from January</span></li><li data-i="1"><b>B</b><span>Send their questions to the people team</span></li><li data-i="2"><b>C</b><span>Join the design department</span></li><li data-i="3"><b>D</b><span>Complete a survey before Friday</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 週五上班是「面對客戶的團隊」的現況，不是對全場的要求，對象被放大了。</li><li class="yes">✅ <b>(B)</b> 正解。please send any questions to the people team by the end of the week。</li><li class="no">❌ <b>(C)</b> 設計部是試辦單位，不是要大家調過去。</li><li class="no">❌ <b>(D)</b> 問卷完全沒提到，這是憑「本週結束前」這個時間點想像出來的。</li></ul>
+          <p class="tip">🔑 要求事項要連「對象」一起記：他要求的是全部人、還是只有某一個團隊？</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set6" data-set="6">
+    <h2>第 6 組　<span class="meta">電台｜晨間交通路況｜加拿大口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>It&#x27;s seven fifteen, and time for your morning traffic update. Highway four oh one westbound is slow from Kingston to the Gananoque exit, because of a load that spilled near the highway forty nine interchange. Expect delays of twenty to twenty-five minutes.<span class="zh">現在是七點十五分，來聽晨間路況。四〇一號公路西向從 Kingston 到 Gananoque 交流道一路壅塞，原因是四十九號公路交流道附近有貨物掉落。請預留二十到二十五分鐘的延誤。</span></li><li>If you&#x27;re heading that way, highway two is clear and will add only about ten minutes to your trip. In the city, Queen Street is closed between Bay and Division while crews repair a water main — that work should be finished by Thursday.<span class="zh">如果您要往那個方向，二號公路順暢，只會多花大約十分鐘。市區方面，Queen Street 在 Bay 與 Division 之間封閉，施工人員正在修自來水主幹管——這項工程預計週四完成。</span></li><li>And finally, a reminder that the bridge on County Road nine reopens this afternoon at three.<span class="zh">最後提醒，九號郡道的橋樑今天下午三點重新開放。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="86" data-a="1">
+      <div class="qh"><span class="qn">86</span>What is the purpose of the report?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To advertise a repair service</span></li><li data-i="1"><b>B</b><span>To provide traffic information</span></li><li data-i="2"><b>C</b><span>To report on a water shortage</span></li><li data-i="3"><b>D</b><span>To announce a new bus route</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 開頭提到由輪胎行贊助（brought to you by），那是冠名、不是廣告內容；這是廣告題最常見的誤判點。</li><li class="yes">✅ <b>(B)</b> 正解。整段就是 morning traffic update：路況、替代道路、封閉與完工時間。</li><li class="no">❌ <b>(C)</b> 自來水主幹管是「施工原因」，不是缺水，方向被講偏了。</li><li class="no">❌ <b>(D)</b> 公車路線完全沒提，這是憑交通兩字延伸出來的答案。</li></ul>
+          <p class="tip">🔑 路況報導的骨架固定：哪條路、什麼原因、要多久、替代道路、何時恢復——聽到一項就在心裡打一個勾。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="87" data-a="3">
+      <div class="qh"><span class="qn">87</span>What is causing the delay on Highway 401?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Road construction</span></li><li data-i="1"><b>B</b><span>A broken-down truck</span></li><li data-i="2"><b>C</b><span>Heavy rain</span></li><li data-i="3"><b>D</b><span>A spilled load</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 施工是市區 Queen Street 的狀況，不是四〇一號公路，兩個事件被交換了。</li><li class="no">❌ <b>(B)</b> 故障車輛沒有提到，這是交通新聞最常見的想像答案。</li><li class="no">❌ <b>(C)</b> 天氣完全沒提到，這是典型的無中生有。</li><li class="yes">✅ <b>(D)</b> 正解。because of a load that spilled near the highway forty nine interchange。</li></ul>
+          <p class="tip">🔑 同一天可能報好幾個路段，每一段的原因要各自記牢，考題很愛把兩段的原因對調。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="88" data-a="3">
+      <div class="qh"><span class="qn">88</span>What does the speaker say about Queen Street?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It will close on Thursday</span></li><li data-i="1"><b>B</b><span>It has just reopened</span></li><li data-i="2"><b>C</b><span>It is clear this morning</span></li><li data-i="3"><b>D</b><span>It is closed for repairs</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 週四是「預計完工」的時間，不是封閉的時間，時間點被講反了。</li><li class="no">❌ <b>(B)</b> 重新開放的是九號郡道的橋，不是 Queen Street。</li><li class="no">❌ <b>(C)</b> 順暢的是二號公路，Queen Street 明明是封閉的。</li><li class="yes">✅ <b>(D)</b> 正解。Queen Street is closed between Bay and Division while crews repair a water main。</li></ul>
+          <p class="tip">🔑 好幾條路名放在同一段時，先寫下「哪條路 ↔ 哪個狀態」，再聽題目問的是哪一條。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set7" data-set="7">
+    <h2>第 7 組　<span class="meta">研討會｜下午場講者介紹｜英式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Ladies and gentlemen, welcome to the second session of the Northern Health Innovation Conference. Our speaker this afternoon is Dr Amelia Frost, a cardiologist at St Bede&#x27;s Hospital and the author of three books on preventive medicine.<span class="zh">各位女士先生，歡迎來到北方健康創新研討會的下午第二場。今天下午的講者是 Amelia Frost 醫師，她是聖比德醫院的心臟科醫師，也寫過三本預防醫學的書。</span></li><li>Over the past ten years she has led a study that followed the heart health of more than forty thousand office workers, and her team&#x27;s findings have changed the way many employers think about break times. Dr Frost will speak for thirty-five minutes, and we&#x27;ve kept ten minutes at the end for your questions.<span class="zh">過去十年她主持一項研究，追蹤了四萬多名上班族的心臟健康，研究結果改變了許多雇主對休息時間的看法。Frost 醫師會講三十五分鐘，最後我們留了十分鐘給各位提問。</span></li><li>Her slides will be posted on the conference website tomorrow morning, so there&#x27;s no need to photograph every page.<span class="zh">她的投影片明天早上會放到研討會網站上，所以不必每一頁都拍照。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="89" data-a="0">
+      <div class="qh"><span class="qn">89</span>What is the purpose of the talk?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To introduce a speaker</span></li><li data-i="1"><b>B</b><span>To open a new hospital wing</span></li><li data-i="2"><b>C</b><span>To report on a research budget</span></li><li data-i="3"><b>D</b><span>To thank the conference sponsors</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。整段都在介紹 Dr Frost 的背景、研究與演講安排。</li><li class="no">❌ <b>(B)</b> 醫院只是她任職的地方，沒有提到新建大樓。</li><li class="no">❌ <b>(C)</b> 研究經費沒有提到，提到的是研究「結果」。</li><li class="no">❌ <b>(D)</b> 贊助單位完全沒提，這是研討會情境的想像答案。</li></ul>
+          <p class="tip">🔑 介紹講者的題目要抓「她是誰、做過什麼、今天要講多久、之後會怎樣」四個資訊點。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="90" data-a="2">
+      <div class="qh"><span class="qn">90</span>What is Dr Frost&#x27;s profession?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A hospital administrator</span></li><li data-i="1"><b>B</b><span>A journalist</span></li><li data-i="2"><b>C</b><span>A cardiologist</span></li><li data-i="3"><b>D</b><span>A novelist</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 她是醫院的醫師，不是行政主管；聽到 Hospital 就選 administrator 會掉進陷阱。</li><li class="no">❌ <b>(B)</b> 完全沒有媒體身分，這是無中生有。</li><li class="yes">✅ <b>(C)</b> 正解。a cardiologist at St Bede&#x27;s Hospital。</li><li class="no">❌ <b>(D)</b> 她寫的是預防醫學的書（非文學），而且題目問的是職業。</li></ul>
+          <p class="tip">🔑 問「職業／身分」時，只採信職稱本身，不要把任職機構當成職業。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="91" data-a="1">
+      <div class="qh"><span class="qn">91</span>What will happen tomorrow morning?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Dr Frost will give another talk</span></li><li data-i="1"><b>B</b><span>The slides will be posted online</span></li><li data-i="2"><b>C</b><span>The conference will close</span></li><li data-i="3"><b>D</b><span>Questions will be collected</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 她只講今天這一場，沒有第二場。</li><li class="yes">✅ <b>(B)</b> 正解。Her slides will be posted on the conference website tomorrow morning。</li><li class="no">❌ <b>(C)</b> 研討會何時結束沒有提到，這是過度推論。</li><li class="no">❌ <b>(D)</b> 提問是今天最後十分鐘的事，不是明天早上。</li></ul>
+          <p class="tip">🔑 「之後會發生什麼」的答案通常在最後兩句；注意時間副詞（tomorrow、next week）就是考點。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set8" data-set="8">
+    <h2>第 8 組　<span class="meta">Podcast｜職場單元開場｜澳式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Welcome back to Working Smarter, the podcast for people who would rather finish on time than stay late. I&#x27;m your host, Ben, and today we&#x27;re talking about something almost everybody gets wrong: the first hour of the working day.<span class="zh">歡迎回到《Working Smarter》，這是給寧願準時下班、也不想留下來加班的人聽的節目。我是主持人 Ben，今天要談一件幾乎每個人都做錯的事：上班的第一個小時。</span></li><li>Our guest is Priya Raman, who runs a small accounting firm in Adelaide and hasn&#x27;t scheduled a meeting before ten o&#x27;clock in four years. She&#x27;ll explain how she persuaded her clients to accept that, and what it cost her at the beginning.<span class="zh">今天的嘉賓是 Priya Raman，她在阿得雷德經營一家小型會計師事務所，四年來沒有排過十點以前的會議。她會說明自己如何說服客戶接受這件事，以及一開始付出了什麼代價。</span></li><li>If you enjoy the episode, please leave us a rating — it really does help other listeners find the show. And if you&#x27;d like the free one-page summary, you&#x27;ll find the link in today&#x27;s show notes.<span class="zh">如果您喜歡這一集，請給我們評分——這真的能幫其他聽眾找到這個節目。如果您想要免費的一頁摘要，連結就在今天的節目說明裡。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="92" data-a="1">
+      <div class="qh"><span class="qn">92</span>What is the speaker&#x27;s job?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>An accountant</span></li><li data-i="1"><b>B</b><span>A podcast host</span></li><li data-i="2"><b>C</b><span>A client manager</span></li><li data-i="3"><b>D</b><span>A sound engineer</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 會計師是今天的嘉賓（Priya 經營會計師事務所），不是主持人。</li><li class="yes">✅ <b>(B)</b> 正解。I&#x27;m your host, Ben。</li><li class="no">❌ <b>(C)</b> 客戶是嘉賓要說服的對象，主持人不處理客戶。</li><li class="no">❌ <b>(D)</b> 音訊工程完全沒提到，這是憑 podcast 聯想出來的。</li></ul>
+          <p class="tip">🔑 自我介紹句一定要聽清楚：I&#x27;m your host／I&#x27;m the manager of… 直接決定身分題。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="93" data-a="2">
+      <div class="qh"><span class="qn">93</span>What did the guest stop doing four years ago?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Meeting with clients</span></li><li data-i="1"><b>B</b><span>Hiring new staff</span></li><li data-i="2"><b>C</b><span>Holding early-morning meetings</span></li><li data-i="3"><b>D</b><span>Publishing show summaries</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 她還是在跟客戶往來，只是改變了開會時間。</li><li class="no">❌ <b>(B)</b> 招募新人完全沒提到。</li><li class="yes">✅ <b>(C)</b> 正解。hasn&#x27;t scheduled a meeting before ten o&#x27;clock in four years。</li><li class="no">❌ <b>(D)</b> 摘要連結是主持人提供的，與嘉賓無關。</li></ul>
+          <p class="tip">🔑 現在完成式 ＋ 時間長度（hasn&#x27;t… in four years）講的就是「一直持續的改變」。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="94" data-a="0">
+      <div class="qh"><span class="qn">94</span>What does the speaker ask the listeners to do?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Leave a rating</span></li><li data-i="1"><b>B</b><span>Send in questions</span></li><li data-i="2"><b>C</b><span>Buy a subscription</span></li><li data-i="3"><b>D</b><span>Read the show notes aloud</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。please leave us a rating。</li><li class="no">❌ <b>(B)</b> 節目沒有開放聽眾提問，提問是上一則研討會的情境。</li><li class="no">❌ <b>(C)</b> 訂閱付費完全沒提到，節目摘要還是免費的。</li><li class="no">❌ <b>(D)</b> 說明欄是「有連結可看」，不是要聽眾唸出來，這是把名詞當成動作的陷阱。</li></ul>
+          <p class="tip">🔑 主持人最後一段通常有兩個要求（評分、看連結），題目問的往往只是其中一個。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set9" data-set="9">
+    <h2>第 9 組　<span class="meta">客服中心｜營業時間外的自動語音｜美式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Thank you for calling Meridian Home Services. Our offices are now closed, and we reopen at eight o&#x27;clock on Monday morning. Please listen carefully to the following options.<span class="zh">感謝您致電 Meridian 居家服務。我們的辦公室現在已經休息，週一早上八點重新開放。請仔細聽取下列選項。</span></li><li>To report a gas leak or any other emergency, press one at any time and your call will be answered immediately — please don&#x27;t use the menu for emergencies. To change an appointment you have already booked, press two. To ask for a repair quote, press three, or visit our website, where you can book online at any hour.<span class="zh">要通報瓦斯外洩或任何緊急狀況，請隨時按一，您的來電會立刻有人接聽——緊急狀況請不要使用選單。要更改已經預約的時段，請按二。要索取維修報價，請按三，或者上我們的網站，任何時間都能線上預約。</span></li><li>If your heating has stopped working and there are children or elderly people in the home, press four and your call will be given priority.<span class="zh">如果您的暖氣故障，而家中有小孩或長者，請按四，您的來電會優先處理。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="95" data-a="1">
+      <div class="qh"><span class="qn">95</span>What time will the offices reopen?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>At eight o&#x27;clock on Saturday</span></li><li data-i="1"><b>B</b><span>At eight o&#x27;clock on Monday</span></li><li data-i="2"><b>C</b><span>At ten o&#x27;clock on Monday</span></li><li data-i="3"><b>D</b><span>At midday on Sunday</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 週六沒有提到，這是把 Monday 換成另一個假的平日。</li><li class="yes">✅ <b>(B)</b> 正解。we reopen at eight o&#x27;clock on Monday morning。</li><li class="no">❌ <b>(C)</b> 十點是上一則 Podcast／火車的例子，這裡是八點，時間被改動。</li><li class="no">❌ <b>(D)</b> 中午與週日都沒有出現，這是無中生有。</li></ul>
+          <p class="tip">🔑 自動語音的第一句就是營業狀態與恢復時間，這種資訊一聽就要寫下來。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="96" data-a="3">
+      <div class="qh"><span class="qn">96</span>What should listeners do to report an emergency?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Press two</span></li><li data-i="1"><b>B</b><span>Use the menu</span></li><li data-i="2"><b>C</b><span>Book online</span></li><li data-i="3"><b>D</b><span>Press one</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 按二是更改已預約的時段。</li><li class="no">❌ <b>(B)</b> 她特別說緊急狀況「不要」使用選單，選項正好講反。</li><li class="no">❌ <b>(C)</b> 線上預約是報價與預約用，緊急狀況要直接按一。</li><li class="yes">✅ <b>(D)</b> 正解。press one at any time and your call will be answered immediately。</li></ul>
+          <p class="tip">🔑 選單題要邊聽邊把「號碼 ↔ 功能」配對；題目最愛把兩個號碼對調。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="97" data-a="0">
+      <div class="qh"><span class="qn">97</span>What happens if listeners press four?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Their call is given priority</span></li><li data-i="1"><b>B</b><span>They receive a written quote</span></li><li data-i="2"><b>C</b><span>A technician arrives within an hour</span></li><li data-i="3"><b>D</b><span>They hear the opening hours again</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。press four and your call will be given priority。</li><li class="no">❌ <b>(B)</b> 報價是按三的功能，號碼被換掉了。</li><li class="no">❌ <b>(C)</b> 「一小時內到府」完全沒提到，這是把 priority 過度具體化的陷阱。</li><li class="no">❌ <b>(D)</b> 營業時間在開頭就講完了，按四不會重播。</li></ul>
+          <p class="tip">🔑 聽到 priority／immediately／within… 這類承諾字眼，要確認它接的是哪一個按鍵。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set10" data-set="10">
+    <h2>第 10 組　<span class="meta">倉庫｜安全訓練的行前廣播｜英式口音</span></h2>
+    <details class="script"><summary>看獨白文字（建議做完再打開）</summary>
+      <ul class="dlg"><li>Morning, everyone. Before your shift starts, three quick points about next week&#x27;s safety training. The session runs from nine until midday on Tuesday, in the staff canteen — not in the loading bay as we first said, because the new shelving is being installed there.<span class="zh">各位早。上班前快速交代下週安全訓練的三件事。課程是週二上午九點到中午，地點在員工餐廳——不是我們一開始說的卸貨區，因為那裡正在裝新的貨架。</span></li><li>Everyone who works with the forklifts must attend. For the rest of you, it&#x27;s optional, but strongly recommended. Please bring your own safety boots, as we still have a shortage of spare pairs.<span class="zh">所有操作堆高機的人都必須參加。其他人是自由參加，但我們強烈建議。請自己帶安全靴，因為我們的備用靴數量還是不夠。</span></li><li>And if you&#x27;re on the early shift that day, don&#x27;t worry — you&#x27;ll be paid for the training hours, and the agency team will cover your shift.<span class="zh">如果那天你上早班，不用擔心——訓練時數照給薪，你的班會由人力派遣的團隊接手。</span></li></ul>
+    </details>
+    
+    <div class="q" data-q="98" data-a="0">
+      <div class="qh"><span class="qn">98</span>What is the purpose of the talk?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To provide details about a training session</span></li><li data-i="1"><b>B</b><span>To explain a new shift pattern</span></li><li data-i="2"><b>C</b><span>To announce a change of supervisor</span></li><li data-i="3"><b>D</b><span>To ask for volunteers for a project</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。three quick points about next week&#x27;s safety training，接下來全是時間、地點與注意事項。</li><li class="no">❌ <b>(B)</b> 班表提到，只是為了說明早班的人不用擔心，不是要改班制。</li><li class="no">❌ <b>(C)</b> 沒有主管人事異動。</li><li class="no">❌ <b>(D)</b> 訓練是必須或建議參加，不是徵求志工。</li></ul>
+          <p class="tip">🔑 廣播型獨白的開頭常直接說出「有幾件事」的數字，那個數字就是後面要聽幾個重點。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="99" data-a="3">
+      <div class="qh"><span class="qn">99</span>Where will the training take place?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>In the loading bay</span></li><li data-i="1"><b>B</b><span>In the main office</span></li><li data-i="2"><b>C</b><span>In the warehouse yard</span></li><li data-i="3"><b>D</b><span>In the staff canteen</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 卸貨區是「原本說的地點」，已經改了，這是最容易中的陷阱。</li><li class="no">❌ <b>(B)</b> 辦公室沒提到，這是隨便給一個合理的室內地點。</li><li class="no">❌ <b>(C)</b> 倉庫外場沒提到，這是由 warehouse 延伸出來的想像答案。</li><li class="yes">✅ <b>(D)</b> 正解。in the staff canteen — not in the loading bay as we first said。</li></ul>
+          <p class="tip">🔑 not… as we first said 這種更正句，被更正掉的那個地點一定是錯的選項。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="100" data-a="3">
+      <div class="qh"><span class="qn">100</span>What are the listeners asked to bring?<span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A packed lunch</span></li><li data-i="1"><b>B</b><span>A printed schedule</span></li><li data-i="2"><b>C</b><span>Their forklift licences</span></li><li data-i="3"><b>D</b><span>Their own safety boots</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 午餐沒有提到，雖然地點在員工餐廳，那是「在哪裡上課」，不是「帶便當」。</li><li class="no">❌ <b>(B)</b> 課表沒有要求列印，時間當場就講了。</li><li class="no">❌ <b>(C)</b> 堆高機操作的人要參加訓練，但沒有要求帶證照。</li><li class="yes">✅ <b>(D)</b> 正解。Please bring your own safety boots。</li></ul>
+          <p class="tip">🔑 bring／take／remember to… 後面接的東西就是答案；注意地點名詞常被拿來當成錯誤選項。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="dim" style="margin-top:34px">題本文字檔：<code>多益_P4完整題組.md</code>（含獨白翻譯、答案表、逐題詳解）</p>
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+</div>
+<script src="../quiz.js"></script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
