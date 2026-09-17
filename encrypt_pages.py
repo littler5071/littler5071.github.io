@@ -8,7 +8,7 @@
 流程：產生頁面（各 build_*.py）→ 跑這支 → git push。
 密碼放在 repo 之外的 .private/site_password.txt（不進版控、不出現在網站）。
 """
-import io, json, os, subprocess, sys, shutil, tempfile
+import io, json, os, subprocess, sys, shutil, tempfile  # noqa
 
 SITE = os.path.dirname(os.path.abspath(__file__))
 PROTECTED = os.path.join(SITE, "protected.json")
@@ -44,7 +44,8 @@ def main():
         if not os.path.exists(src):
             fail.append(rel)
             continue
-        tmpdir = tempfile.mkdtemp(prefix="staticrypt_")
+        tmpdir = os.path.join(os.environ.get("LOCALAPPDATA", tempfile.gettempdir()), "Temp", "staticrypt_" + str(os.getpid()))
+        os.makedirs(tmpdir, exist_ok=True)
         tmp_src = os.path.join(tmpdir, os.path.basename(rel))
         shutil.copy2(src, tmp_src)
         cmd = f'"{shutil.which("npx") or "npx"}" --yes staticrypt "{tmp_src}" -p "{pw}" -d "{tmpdir}" --remember 30'
