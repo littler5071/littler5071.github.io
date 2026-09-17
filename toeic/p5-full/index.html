@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多益閱讀 Part 5 單句填空完整題組（30 題）｜小R 頻道</title>
+<meta name="description" content="原創多益 Part 5 單句填空完整題組：30 題、每題四個選項、滿分 30，可線上點選作答、對答案計分，答錯自動展開中文詳解（詞性、時態、主被動、介系詞、連接詞、片語搭配、易混淆詞）。題目全部自行撰寫，未使用官方試題或音檔。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.75;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:920px;margin:0 auto;padding:44px 18px 90px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(26px,5vw,38px);margin:6px 0 6px;text-align:center}
+  .sub{text-align:center;color:var(--blue);margin-bottom:18px}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       margin-bottom:10px;font-size:14.5px;color:var(--soft)}
+  .box strong{color:var(--ink)}
+  .bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+       background:rgba(246,241,230,.96);border:2px solid var(--line);border-radius:14px;
+       padding:10px 14px;margin:18px 0;backdrop-filter:blur(4px)}
+  .bar .prog{font-size:15px;color:var(--soft)}
+  .bar .prog b{color:var(--ink);font-size:18px}
+  button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
+         border:2px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--blue)}
+  .result{background:#fffdf6;border:2px solid var(--leaf);border-radius:16px;padding:16px 20px;
+          margin:0 0 20px;display:none}
+  .result.show{display:block}
+  .result .big{font-size:clamp(28px,6vw,40px);color:var(--leaf);line-height:1.2}
+  .result ul{margin:8px 0 0;padding-left:20px;font-size:14.5px;color:var(--soft)}
+  h2{font-size:clamp(19px,3.2vw,24px);margin:38px 0 6px;border-top:2px solid var(--line);padding-top:16px}
+  .meta{font-size:14px;color:var(--soft);font-weight:normal}
+  .q{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0}
+  .q.wrong{border-color:var(--red)}
+  .q.right{border-color:var(--leaf)}
+  .qh{font-size:16.5px;margin-bottom:8px;display:flex;gap:10px;align-items:baseline}
+  .qn{font-weight:bold;color:var(--red);flex:none;min-width:38px}
+  .stem{flex:1}
+  .blk{display:inline-block;min-width:74px;text-align:center;border-bottom:2px solid var(--soft);
+        color:var(--blue);font-weight:bold}
+  .mark{margin-left:auto;flex:none;font-size:16px}
+  ul.opts{list-style:none;margin:0;padding:0}
+  ul.opts li{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;margin:5px 0;
+       border:2px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+  ul.opts li:hover{border-color:#c8bda8}
+  ul.opts li b{flex:none;width:22px;color:var(--blue)}
+  ul.opts li.sel{background:var(--sel);border-color:#c9a94e}
+  ul.opts li.ok{background:#e8f3ea;border-color:var(--leaf)}
+  ul.opts li.bad{background:#fbeae7;border-color:var(--red)}
+  ul.opts li.locked{cursor:default}
+  .sol{margin-top:4px}
+  .toggle{background:transparent;color:var(--blue);border:0;padding:0;font-size:15px;
+          border-bottom:1.5px solid rgba(54,78,112,.5);border-radius:0}
+  .solbody{margin-top:10px;background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px}
+  ul.why{margin:6px 0;padding-left:20px}
+  ul.why li{margin:3px 0;font-size:15px}
+  ul.why li.yes{color:var(--leaf)}
+  ul.why li.no{color:var(--ink)}
+  .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
+  .dim{color:var(--soft);font-size:13.5px}
+
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body data-quiz-key="p5full_answers_v1">
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk on" href="../../toeic/">多益英文</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>多益閱讀 Part 5 單句填空</h1>
+  <div class="sub">完整題組・30 題・每題四個選項・可線上作答計分（滿分 30）</div>
+
+  <div class="box">
+    <strong>怎麼做</strong>：① 直接點選項作答（作答會自動存在這台裝置，重新整理不會不見）；
+    ② 做完 30 題按「對答案並計分」；③ 錯的題目會自動展開詳解，看完再按「清除作答」重做一次。
+    這一份是<strong>紙筆閱讀題，沒有音檔</strong>，請直接看題目作答。
+  </div>
+  <div class="box">
+    <strong>原創聲明</strong>：題目、選項與詳解<strong>全部自行撰寫</strong>，
+    <strong>沒有使用任何 ETS 的試題或音檔</strong>。真正 TOEIC 試題的著作權屬於 ETS；
+    「TOEIC／多益」是 ETS 的註冊商標，這裡僅為描述性使用（指相同題型結構），不代表 ETS 授權、合作或認可。
+  </div>
+  <div class="box">
+    <strong>題號與考點</strong>：題號 101–130（對應真考 Part 5 的題號範圍），每題一句英文挖一格、四個選項。
+    考點分布：詞性 6 題、時態 4 題、介系詞 4 題、片語搭配 4 題、易混淆詞 4 題、主被動 2 題、關係代名詞 2 題、主謂一致 2 題、連接詞 1 題、連接副詞 1 題。答案分布：A 8 題、B 7 題、C 8 題、D 7 題（刻意平均分散，避免一直猜同一格）。
+  </div>
+
+  <div class="bar">
+    <span class="prog">已作答 <b><span id="done">0</span> / 30</b></span>
+    <button id="scoreBtn" type="button">對答案並計分</button>
+    <button id="resetBtn" type="button" class="ghost">清除作答</button>
+    <span class="prog" id="hint">（作答會自動存在這台裝置裡）</span>
+  </div>
+
+  <div class="result" id="result"></div>
+  
+  <section class="set" id="set1" data-set="1">
+    <h2>第 101–110 題　<span class="meta">10 題・一組 10 題計分</span></h2>
+    
+    <div class="q" data-q="101" data-a="0">
+      <div class="qh"><span class="qn">101</span><span class="stem">The board approved a <span class="blk">______</span> increase in the research budget for the coming year.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>substantial</span></li><li data-i="1"><b>B</b><span>substance</span></li><li data-i="2"><b>C</b><span>substantially</span></li><li data-i="3"><b>D</b><span>substantiate</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。空格前有冠詞 a、後面是名詞 increase，這裡需要形容詞來修飾名詞。</li><li class="no">❌ <b>(B)</b> 名詞「物質、實質」，名詞不能直接修飾另一個名詞（此處語意也不通）。</li><li class="no">❌ <b>(C)</b> 副詞「大幅地」，副詞修飾動詞或形容詞，不能直接修飾名詞。</li><li class="no">❌ <b>(D)</b> 動詞「證實」，動詞不能放在冠詞與名詞之間修飾名詞。</li></ul>
+          <p class="tip">🔑 看到「a／the ＋ ___ ＋ 名詞」這個框，空格幾乎一定是形容詞：先看空格後面是不是名詞，再看選項的詞性。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="102" data-a="1">
+      <div class="qh"><span class="qn">102</span><span class="stem">Ms. Ortega <span class="blk">______</span> for the company for more than a decade and still enjoys her work.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>works</span></li><li data-i="1"><b>B</b><span>has worked</span></li><li data-i="2"><b>C</b><span>is working</span></li><li data-i="3"><b>D</b><span>will work</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 現在簡單式只能表達習慣或事實，無法搭配 for more than a decade 表示「持續到現在的期間」。</li><li class="yes">✅ <b>(B)</b> 正解。for ＋ 一段時間，而且說話當下她仍在職（still enjoys），用現在完成式表示「從過去持續到現在」。</li><li class="no">❌ <b>(C)</b> 現在進行式表示「此刻正在進行」，不能和 for more than a decade 這種長期期間連用。</li><li class="no">❌ <b>(D)</b> 未來式與「至今已十多年」的語意衝突。</li></ul>
+          <p class="tip">🔑 for ＋ 期間／since ＋ 起點是現在完成式的招牌訊號；再確認動作是否「持續到現在」。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="103" data-a="2">
+      <div class="qh"><span class="qn">103</span><span class="stem">The defective units <span class="blk">______</span> to the manufacturer as soon as the inspection is complete.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>return</span></li><li data-i="1"><b>B</b><span>returns</span></li><li data-i="2"><b>C</b><span>will be returned</span></li><li data-i="3"><b>D</b><span>returning</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> units 是「被送回」的，這裡要用被動語態；而且少了助動詞，時態也不完整。</li><li class="no">❌ <b>(B)</b> 既不是被動語態，單數動詞也和複數主詞 units 不一致。</li><li class="yes">✅ <b>(C)</b> 正解。主詞 units 是動作的接受者（被送回）→ 被動語態；時間點在檢驗完成之後 → 未來式 will be returned。</li><li class="no">❌ <b>(D)</b> 現在分詞不能單獨當主要動詞。</li></ul>
+          <p class="tip">🔑 先問「主詞是自己做，還是被做？」；被做就找 be ＋ p.p.，再看時間決定 be 的時態。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="104" data-a="3">
+      <div class="qh"><span class="qn">104</span><span class="stem">Please submit your expense report <span class="blk">______</span> Friday at the latest.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>until</span></li><li data-i="1"><b>B</b><span>since</span></li><li data-i="2"><b>C</b><span>during</span></li><li data-i="3"><b>D</b><span>by</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> until 指動作「一直持續到」某時間為止，但 submit 是一次性動作，不能持續到週五。</li><li class="no">❌ <b>(B)</b> since 用於完成式的時間起點（since Friday＝從週五以來），與命令句的語氣不符。</li><li class="no">❌ <b>(C)</b> during 後面接「期間名詞」（during the week／during the meeting），不接單一時間點 Friday。</li><li class="yes">✅ <b>(D)</b> 正解。by ＋ 時間＝「最晚在那之前完成」，正是 at the latest（最遲）的意思。</li></ul>
+          <p class="tip">🔑 看到 deadline／at the latest／no later than，答案幾乎就是 by。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="105" data-a="0">
+      <div class="qh"><span class="qn">105</span><span class="stem"><span class="blk">______</span> the weather was severe, the outdoor ceremony proceeded as scheduled.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Although</span></li><li data-i="1"><b>B</b><span>Because</span></li><li data-i="2"><b>C</b><span>Unless</span></li><li data-i="3"><b>D</b><span>Therefore</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。前句（天氣惡劣）與後句（照常舉行）是「讓步」關係，Although 表「雖然」。</li><li class="no">❌ <b>(B)</b> 若填 Because，意思會變成「因為天氣惡劣，所以照常舉行」，前後因果矛盾。</li><li class="no">❌ <b>(C)</b> Unless＝if not「除非」，語意變成「除非天氣惡劣才舉行」，與事實相反。</li><li class="no">❌ <b>(D)</b> Therefore 是副詞「因此」，不能放在句首引導從屬子句，而且方向剛好相反（它是「所以」不是「雖然」）。</li></ul>
+          <p class="tip">🔑 先判斷兩個子句是因果、讓步還是條件；讓步＝although／though／even though。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="106" data-a="2">
+      <div class="qh"><span class="qn">106</span><span class="stem">The manager asked the team to <span class="blk">______</span> the client's complaint before the end of the day.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>look up</span></li><li data-i="1"><b>B</b><span>put off</span></li><li data-i="2"><b>C</b><span>look into</span></li><li data-i="3"><b>D</b><span>take after</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> look up 是「查閱（字典、資料）」，用來查單字或資訊，不搭配 complaint。</li><li class="no">❌ <b>(B)</b> put off 是「延期」，和「當天處理完顧客抱怨」的語意相反。</li><li class="yes">✅ <b>(C)</b> 正解。look into＝investigate「調查、深入了解」，正好接 complaint（客訴）。</li><li class="no">❌ <b>(D)</b> take after 是「（長相）像（家人）」，和客訴完全無關。</li></ul>
+          <p class="tip">🔑 片語動詞考固定意思；complaint／issue／matter 常搭配 look into、deal with。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="107" data-a="1">
+      <div class="qh"><span class="qn">107</span><span class="stem">Applicants must <span class="blk">______</span> that all supporting documents are submitted in the original language.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>assure</span></li><li data-i="1"><b>B</b><span>ensure</span></li><li data-i="2"><b>C</b><span>insure</span></li><li data-i="3"><b>D</b><span>assume</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> assure 是「向某人保證」（assure someone that…），主詞必須是對人說話的一方；這裡是申請人自己確認文件狀態。</li><li class="yes">✅ <b>(B)</b> 正解。ensure＝make certain「確保（某事發生、狀態如此）」，後面可直接接 that 子句。</li><li class="no">❌ <b>(C)</b> insure 是「投保」，用於保險情境。</li><li class="no">❌ <b>(D)</b> assume 是「假設、以為」，語氣是未經確認的認定，和 must（必須確認）衝突。</li></ul>
+          <p class="tip">🔑 assure 對「人」、ensure 對「事」、insure 對「保險」；空格後接 that 子句且不是「向人保證」就用 ensure。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="108" data-a="3">
+      <div class="qh"><span class="qn">108</span><span class="stem">The training session will be led by Dr. Kim, <span class="blk">______</span> has twenty years of experience in the field.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>which</span></li><li data-i="1"><b>B</b><span>whom</span></li><li data-i="2"><b>C</b><span>what</span></li><li data-i="3"><b>D</b><span>who</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> which 的先行詞是「事物」，而 Dr. Kim 是人。</li><li class="no">❌ <b>(B)</b> whom 是受格，但空格後面緊接動詞 has，子句缺的是主詞。</li><li class="no">❌ <b>(C)</b> what 不能當關係代名詞使用（它引導名詞子句，前面不能再有先行詞）。</li><li class="yes">✅ <b>(D)</b> 正解。先行詞是人、且在關係子句中當主詞（has 的主詞）→ who。</li></ul>
+          <p class="tip">🔑 關係代名詞先看「先行詞是人還是物」，再看「子句裡缺主詞還是受詞」；缺主詞就選 who／that。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="109" data-a="0">
+      <div class="qh"><span class="qn">109</span><span class="stem">The new software was <span class="blk">______</span> installed by the IT department last Friday.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>successfully</span></li><li data-i="1"><b>B</b><span>success</span></li><li data-i="2"><b>C</b><span>successful</span></li><li data-i="3"><b>D</b><span>succeed</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。修飾過去分詞 installed（被安裝得如何）要用副詞。</li><li class="no">❌ <b>(B)</b> 名詞「成功」，不能修飾動詞或分詞。</li><li class="no">❌ <b>(C)</b> 形容詞修飾名詞，不能修飾分詞（was successful installed 不合語法）。</li><li class="no">❌ <b>(D)</b> 動詞，兩個動詞直接相連不合語法。</li></ul>
+          <p class="tip">🔑 「be ＋ 副詞 ＋ p.p.」是被動句的常見組合，副詞就放在 be 動詞與過去分詞之間。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="110" data-a="2">
+      <div class="qh"><span class="qn">110</span><span class="stem">If the shipment <span class="blk">______</span> tomorrow, we will be able to meet the deadline.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>arrive</span></li><li data-i="1"><b>B</b><span>arriving</span></li><li data-i="2"><b>C</b><span>arrives</span></li><li data-i="3"><b>D</b><span>will arrive</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 複數動詞，但主詞 the shipment 是單數。</li><li class="no">❌ <b>(B)</b> 現在分詞不能當條件子句的動詞。</li><li class="yes">✅ <b>(C)</b> 正解。「主將從現」——主要子句用未來式，if 條件子句用現在式代替未來；主詞單數要加 -s。</li><li class="no">❌ <b>(D)</b> 條件子句不用 will，will 只出現在主要子句。</li></ul>
+          <p class="tip">🔑 if 條件句的口訣是「主將從現」；子句裡看到 will 幾乎就是陷阱。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set2" data-set="2">
+    <h2>第 111–120 題　<span class="meta">10 題・一組 10 題計分</span></h2>
+    
+    <div class="q" data-q="111" data-a="3">
+      <div class="qh"><span class="qn">111</span><span class="stem">The company has been a leader <span class="blk">______</span> the renewable energy sector for many years.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>on</span></li><li data-i="1"><b>B</b><span>at</span></li><li data-i="2"><b>C</b><span>of</span></li><li data-i="3"><b>D</b><span>in</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> on 用於表面接觸或「關於某主題」（a book on energy）。</li><li class="no">❌ <b>(B)</b> at 用於特定地點或時間點。</li><li class="no">❌ <b>(C)</b> of 表所屬、部分；a leader of the sector 偏「該產業的領導者（人）」，但這裡要表達的是「在某領域之中」，固定用法是 in。</li><li class="yes">✅ <b>(D)</b> 正解。a leader in the ＋ 領域＝「在該領域的領導者」，是固定搭配。</li></ul>
+          <p class="tip">🔑 in the industry／in the field／in the sector 是固定搭配，別被 of 的「所屬」意思帶走。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="112" data-a="1">
+      <div class="qh"><span class="qn">112</span><span class="stem">Customers were <span class="blk">______</span> when the store announced that the sale had been extended.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>pleasing</span></li><li data-i="1"><b>B</b><span>pleased</span></li><li data-i="2"><b>C</b><span>pleasant</span></li><li data-i="3"><b>D</b><span>pleasure</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> pleasing 是「令人愉悅的」，用來形容事物，不能形容人的感受。</li><li class="yes">✅ <b>(B)</b> 正解。修飾人（Customers）的感受，要用過去分詞形的形容詞 pleased。</li><li class="no">❌ <b>(C)</b> pleasant 形容事物「宜人的」（a pleasant evening），不用來說人的心情。</li><li class="no">❌ <b>(D)</b> pleasure 是名詞「愉快」，不能放在 be 動詞後面當形容詞。</li></ul>
+          <p class="tip">🔑 情緒形容詞的分工：人用 -ed（pleased／interested），事物用 -ing（pleasing／interesting）。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="113" data-a="0">
+      <div class="qh"><span class="qn">113</span><span class="stem">The <span class="blk">______</span> of the new safety policy will be explained at the meeting.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>implementation</span></li><li data-i="1"><b>B</b><span>implement</span></li><li data-i="2"><b>C</b><span>implemented</span></li><li data-i="3"><b>D</b><span>implementing</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。空格前有 The、後面有 of，這個位置需要名詞當主詞。</li><li class="no">❌ <b>(B)</b> 動詞，不能放在 The 與 of 之間當主詞。</li><li class="no">❌ <b>(C)</b> 過去分詞／形容詞形，不能當主詞。</li><li class="no">❌ <b>(D)</b> 動名詞雖可當主詞，但 The implementing of… 不是慣用表達，接 of the new policy 也卡住。</li></ul>
+          <p class="tip">🔑 「the ___ of」是名詞缺口的招牌框；優先選對應的名詞形（-tion／-ment／-ance）。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="114" data-a="2">
+      <div class="qh"><span class="qn">114</span><span class="stem">Employees <span class="blk">______</span> wish to change their health plan should contact Human Resources by March 1.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>what</span></li><li data-i="1"><b>B</b><span>which</span></li><li data-i="2"><b>C</b><span>who</span></li><li data-i="3"><b>D</b><span>whose</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> what 不能當關係代名詞，前面已有先行詞 Employees 時不能用。</li><li class="no">❌ <b>(B)</b> 先行詞是「人」，不能用 which。</li><li class="yes">✅ <b>(C)</b> 正解。先行詞 Employees 是人，且在子句裡當主詞（wish 的主詞）→ who。</li><li class="no">❌ <b>(D)</b> whose 表所有格，後面要接名詞（whose plan），不能直接接動詞。</li></ul>
+          <p class="tip">🔑 關係子句「先看先行詞、再看缺什麼」；缺主詞、先行詞是人 → who（或 that）。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="115" data-a="1">
+      <div class="qh"><span class="qn">115</span><span class="stem">By the time the technicians arrived, the power <span class="blk">______</span> out for nearly an hour.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>is</span></li><li data-i="1"><b>B</b><span>had been</span></li><li data-i="2"><b>C</b><span>has been</span></li><li data-i="3"><b>D</b><span>will be</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 現在式與主要子句的過去式 arrived 時間不一致。</li><li class="yes">✅ <b>(B)</b> 正解。在過去某個時間點之前就已持續的狀態 → 過去完成式（By the time ＋ 過去式，另一句用 had ＋ p.p.）。</li><li class="no">❌ <b>(C)</b> 現在完成式指「到現在為止」，但句中的時間基準是過去的 arrived。</li><li class="no">❌ <b>(D)</b> 未來式與過去式的 arrived 衝突。</li></ul>
+          <p class="tip">🔑 By the time ＋ 過去式 → 另一子句用過去完成式；By the time ＋ 現在式 → 另一子句用未來完成式。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="116" data-a="3">
+      <div class="qh"><span class="qn">116</span><span class="stem">The proposal was well written; <span class="blk">______</span>, the committee decided to request more financial details.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>so</span></li><li data-i="1"><b>B</b><span>because</span></li><li data-i="2"><b>C</b><span>unless</span></li><li data-i="3"><b>D</b><span>however</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> so 表「所以」，但「寫得好」和「要求更多財務細節」不是因果關係。</li><li class="no">❌ <b>(B)</b> because 是從屬連接詞，不能放在分號後引導獨立子句，因果方向也不合。</li><li class="no">❌ <b>(C)</b> unless 表條件「除非」，語意不通。</li><li class="yes">✅ <b>(D)</b> 正解。however 是連接副詞，表對比，常與分號連用（; however, …）。</li></ul>
+          <p class="tip">🔑 分號後面接「,」的副詞多半是 however／therefore／moreover 這類連接副詞；先判斷前後是轉折還是因果。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="117" data-a="2">
+      <div class="qh"><span class="qn">117</span><span class="stem">All staff members must <span class="blk">______</span> with the company's safety regulations at all times.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>obey</span></li><li data-i="1"><b>B</b><span>follow</span></li><li data-i="2"><b>C</b><span>comply</span></li><li data-i="3"><b>D</b><span>respect</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> obey 是及物動詞，直接接受詞（obey the rules），不與 with 連用。</li><li class="no">❌ <b>(B)</b> follow 也是及物動詞（follow the rules），後面不接 with。</li><li class="yes">✅ <b>(C)</b> 正解。comply with＝遵守，是固定搭配。</li><li class="no">❌ <b>(D)</b> respect 是及物動詞（respect the rules），不能接 with。</li></ul>
+          <p class="tip">🔑 comply with／adhere to／conform to 是「遵守」的三個固定搭配；空格後面有 with 就先想 comply。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="118" data-a="0">
+      <div class="qh"><span class="qn">118</span><span class="stem">This year's sales figures are <span class="blk">______</span> higher than last year's, thanks to the new campaign.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>significantly</span></li><li data-i="1"><b>B</b><span>significant</span></li><li data-i="2"><b>C</b><span>significance</span></li><li data-i="3"><b>D</b><span>signify</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。修飾比較級 higher（高出多少）要用副詞。</li><li class="no">❌ <b>(B)</b> 形容詞，不能修飾副詞或比較級。</li><li class="no">❌ <b>(C)</b> 名詞，不能修飾比較級。</li><li class="no">❌ <b>(D)</b> 動詞，語法不通。</li></ul>
+          <p class="tip">🔑 修飾比較級（higher／more efficient）的幾乎都是副詞：significantly／substantially／slightly。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="119" data-a="1">
+      <div class="qh"><span class="qn">119</span><span class="stem">Each of the invoices <span class="blk">______</span> to be signed by the department head.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>need</span></li><li data-i="1"><b>B</b><span>needs</span></li><li data-i="2"><b>C</b><span>needing</span></li><li data-i="3"><b>D</b><span>are needed</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 複數動詞，但真正的主詞是 Each（單數）。</li><li class="yes">✅ <b>(B)</b> 正解。Each of ＋ 複數名詞時，真正的主詞是 Each，動詞用單數 needs。</li><li class="no">❌ <b>(C)</b> 分詞不能當主要動詞。</li><li class="no">❌ <b>(D)</b> 複數 be 動詞與單數主詞 Each 不一致。</li></ul>
+          <p class="tip">🔑 each／every／one of ＋ 複數名詞，動詞一律用單數；別被 of 後面的複數名詞騙了。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="120" data-a="3">
+      <div class="qh"><span class="qn">120</span><span class="stem">Mr. Tanaka has been working in the Singapore office <span class="blk">______</span> 2019.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>for</span></li><li data-i="1"><b>B</b><span>from</span></li><li data-i="2"><b>C</b><span>during</span></li><li data-i="3"><b>D</b><span>since</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> for 後面接「一段時間」（for five years），2019 是時間點。</li><li class="no">❌ <b>(B)</b> from 通常搭配 to（from 2019 to 2021），不能單獨用在完成式裡。</li><li class="no">❌ <b>(C)</b> during 接期間名詞（during 2019＝在 2019 年期間），與完成式的「從…以來」不同。</li><li class="yes">✅ <b>(D)</b> 正解。since ＋ 時間起點，搭配現在完成（進行）式。</li></ul>
+          <p class="tip">🔑 時間點配 since、時間長度配 for；2019 是時間點，所以用 since。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="set" id="set3" data-set="3">
+    <h2>第 121–130 題　<span class="meta">10 題・一組 10 題計分</span></h2>
+    
+    <div class="q" data-q="121" data-a="0">
+      <div class="qh"><span class="qn">121</span><span class="stem">The shipment was delayed <span class="blk">______</span> a shortage of raw materials.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>due to</span></li><li data-i="1"><b>B</b><span>despite</span></li><li data-i="2"><b>C</b><span>although</span></li><li data-i="3"><b>D</b><span>in order to</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。due to ＋ 名詞片語，表原因（＝because of）。</li><li class="no">❌ <b>(B)</b> despite 表讓步「儘管」，語意會變成「儘管原料短缺而延誤」，邏輯反了。</li><li class="no">❌ <b>(C)</b> although 是從屬連接詞，後面要接「子句」（主詞＋動詞），不能接名詞片語。</li><li class="no">❌ <b>(D)</b> in order to 表目的，後面要接原形動詞。</li></ul>
+          <p class="tip">🔑 空格後面是名詞片語，只能選介系詞類（due to／because of／owing to）；是子句才用 because／although。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="122" data-a="2">
+      <div class="qh"><span class="qn">122</span><span class="stem">The annual report <span class="blk">______</span> yet, so the budget meeting has been postponed.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>has not completed</span></li><li data-i="1"><b>B</b><span>does not complete</span></li><li data-i="2"><b>C</b><span>has not been completed</span></li><li data-i="3"><b>D</b><span>is not completing</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 主動語態會變成「報告自己去完成某事」，語意不通（報告是被完成的）。</li><li class="no">❌ <b>(B)</b> 現在簡單式的語氣與 yet（還沒）衝突。</li><li class="yes">✅ <b>(C)</b> 正解。yet 配現在完成式，而且報告是「被完成」→ 現在完成被動 has not been completed。</li><li class="no">❌ <b>(D)</b> 進行式強調「正在進行」，與 yet 不合。</li></ul>
+          <p class="tip">🔑 yet 幾乎只和現在完成式一起出現；再確認主詞是「被做完」的 → have／has been ＋ p.p.。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="123" data-a="3">
+      <div class="qh"><span class="qn">123</span><span class="stem">The outdoor event was held as planned, <span class="blk">______</span> the heavy rain.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>because of</span></li><li data-i="1"><b>B</b><span>in spite</span></li><li data-i="2"><b>C</b><span>despite of</span></li><li data-i="3"><b>D</b><span>despite</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> because of 表原因「因為大雨」，但前句說「照計畫舉行」，語意應該是「儘管」。</li><li class="no">❌ <b>(B)</b> in spite 少了 of，in spite of 才是完整的介系詞片語。</li><li class="no">❌ <b>(C)</b> despite 後面不加 of，「despite of」是常見的拼錯。</li><li class="yes">✅ <b>(D)</b> 正解。despite ＋ 名詞片語，表「儘管」。</li></ul>
+          <p class="tip">🔑 despite 後面直接接名詞；「despite of」永遠是錯的，in spite 一定要有 of。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="124" data-a="1">
+      <div class="qh"><span class="qn">124</span><span class="stem">Neither the manager nor the assistants <span class="blk">______</span> available to attend the conference.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>is</span></li><li data-i="1"><b>B</b><span>are</span></li><li data-i="2"><b>C</b><span>was</span></li><li data-i="3"><b>D</b><span>has been</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 單數動詞，不符「就近原則」。</li><li class="yes">✅ <b>(B)</b> 正解。neither A nor B 的動詞依「最近的主詞」決定，這裡最近的 assistants 是複數 → are。</li><li class="no">❌ <b>(C)</b> 不只單複數不符，過去式也與題幹的現在情境不一致。</li><li class="no">❌ <b>(D)</b> 同樣是單數動詞，而且語意（一直以來）不搭。</li></ul>
+          <p class="tip">🔑 either…or／neither…nor 的動詞看「最靠近的那一個主詞」，這就是就近原則。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="125" data-a="2">
+      <div class="qh"><span class="qn">125</span><span class="stem">Customers should read the <span class="blk">______</span> carefully before signing the rental agreement.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>instruct</span></li><li data-i="1"><b>B</b><span>instructed</span></li><li data-i="2"><b>C</b><span>instructions</span></li><li data-i="3"><b>D</b><span>instructing</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> 動詞，不能放在 the 後面當受詞。</li><li class="no">❌ <b>(B)</b> 分詞／形容詞形，不能當 the 的受詞。</li><li class="yes">✅ <b>(C)</b> 正解。the ＋ 複數名詞，read the instructions＝閱讀說明（書）。</li><li class="no">❌ <b>(D)</b> 動名詞在此語意不通（「閱讀正在指示」）。</li></ul>
+          <p class="tip">🔑 read／follow 的受詞通常是 instructions；先看空格前有沒有冠詞 the，缺的多半是名詞。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="126" data-a="0">
+      <div class="qh"><span class="qn">126</span><span class="stem">By the end of this year, the firm <span class="blk">______</span> more than fifty new employees.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>will have hired</span></li><li data-i="1"><b>B</b><span>hires</span></li><li data-i="2"><b>C</b><span>is hiring</span></li><li data-i="3"><b>D</b><span>has hired</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。By the end of ＋ 未來時間點 → 未來完成式（到那時為止將已完成）。</li><li class="no">❌ <b>(B)</b> 現在簡單式無法表達「到年底為止將累積的數量」。</li><li class="no">❌ <b>(C)</b> 現在進行式只說「正在招募」，與「到年底累計超過五十人」的語意不符。</li><li class="no">❌ <b>(D)</b> 現在完成式指「到現在為止」，但題幹的時間設定在未來（By the end of this year）。</li></ul>
+          <p class="tip">🔑 By the end of ＋ 未來 → will have ＋ p.p.；By the time ＋ 過去 → had ＋ p.p.。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="127" data-a="3">
+      <div class="qh"><span class="qn">127</span><span class="stem">The supplier has decided to <span class="blk">______</span> its prices starting next quarter.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>rise</span></li><li data-i="1"><b>B</b><span>arise</span></li><li data-i="2"><b>C</b><span>arouse</span></li><li data-i="3"><b>D</b><span>raise</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> rise 是不及物動詞「上升」，後面不能接受詞 its prices。</li><li class="no">❌ <b>(B)</b> arise 是不及物動詞，指「（問題、情況）發生」，語意不合。</li><li class="no">❌ <b>(C)</b> arouse 是「喚起（情緒、興趣）」，與價格無關。</li><li class="yes">✅ <b>(D)</b> 正解。raise 是及物動詞「提高（某物）」，可接受詞 its prices。</li></ul>
+          <p class="tip">🔑 raise 要接受詞（raise prices），rise 不接受詞（prices rise）——看空格後面有沒有受詞就知道。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="128" data-a="1">
+      <div class="qh"><span class="qn">128</span><span class="stem">The new manager is responsible <span class="blk">______</span> overseeing the daily operations.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>to</span></li><li data-i="1"><b>B</b><span>for</span></li><li data-i="2"><b>C</b><span>of</span></li><li data-i="3"><b>D</b><span>with</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> be responsible to ＋ 人＝「對某人負責」，後面接的是人，不是動名詞。</li><li class="yes">✅ <b>(B)</b> 正解。be responsible for ＋ 動名詞／名詞＝「負責（某事）」。</li><li class="no">❌ <b>(C)</b> 沒有 be responsible of 這種搭配。</li><li class="no">❌ <b>(D)</b> 沒有 be responsible with 這種搭配。</li></ul>
+          <p class="tip">🔑 responsible for ＋ 事、responsible to ＋ 人；看到 overseeing（動名詞）就選 for。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="129" data-a="2">
+      <div class="qh"><span class="qn">129</span><span class="stem">The director asked the staff <span class="blk">______</span> the revised schedule by e-mail.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>circulating</span></li><li data-i="1"><b>B</b><span>circulate</span></li><li data-i="2"><b>C</b><span>to circulate</span></li><li data-i="3"><b>D</b><span>circulated</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="no">❌ <b>(A)</b> ask 後面不接動名詞。</li><li class="no">❌ <b>(B)</b> 少了 to；ask 的句型是 ask someone to do something。</li><li class="yes">✅ <b>(C)</b> 正解。ask ＋ 人 ＋ to ＋ 原形動詞（要求某人做某事）。</li><li class="no">❌ <b>(D)</b> 過去分詞不能當 ask 的補語。</li></ul>
+          <p class="tip">🔑 要求／使役動詞句型：ask／tell／want／expect ＋ 人 ＋ to V；let／make ＋ 人 ＋ V。</p>
+        </div>
+      </div>
+    </div>
+    <div class="q" data-q="130" data-a="0">
+      <div class="qh"><span class="qn">130</span><span class="stem">Please make sure that all equipment is stored in a <span class="blk">______</span> place after use.</span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>secure</span></li><li data-i="1"><b>B</b><span>securely</span></li><li data-i="2"><b>C</b><span>security</span></li><li data-i="3"><b>D</b><span>securing</span></li></ul>
+      <div class="sol">
+        <button class="toggle" type="button">看詳解</button>
+        <div class="solbody" hidden>
+          <ul class="why"><li class="yes">✅ <b>(A)</b> 正解。形容詞修飾名詞 place（安全的地方）。</li><li class="no">❌ <b>(B)</b> 副詞修飾動詞或形容詞，不能修飾名詞。</li><li class="no">❌ <b>(C)</b> 名詞，不能放在 a 與 place 之間（a security place 不自然）。</li><li class="no">❌ <b>(D)</b> 分詞／動名詞不能當 place 的修飾語，語意也不通。</li></ul>
+          <p class="tip">🔑 「a ＋ ___ ＋ 名詞」的框就是形容詞缺口；先看詞性再選。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="dim" style="margin-top:34px">題本文字檔：<code>多益_P5完整題組.md</code>（含答案表與逐題詳解）</p>
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+</div>
+<script src="../quiz.js"></script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>

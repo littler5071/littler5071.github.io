@@ -217,7 +217,7 @@ def build_stock():
 
 def build_toeic():
     dirs = [os.path.basename(os.path.dirname(p)) for p in glob.glob(os.path.join(SITE, "toeic", "*", "index.html"))]
-    order = {"p1-full": 0, "p4-full": 1, "p3-full": 2, "p2-sample": 3}
+    order = {"p5-full": 0, "p1-full": 1, "p4-full": 2, "p3-full": 3, "p2-sample": 4}
     dirs = sorted([d for d in dirs if d in order], key=lambda d: order[d])
     rows, cards = [], []
     for i, d in enumerate(dirs):
@@ -226,13 +226,15 @@ def build_toeic():
         sub = re.search(r'<div class="sub">([^<]+)</div>', h)
         sub_txt = txt(sub.group(1)) if sub else ""
         nq = len(re.findall(r'class="q" data-q=', h))
+        has_audio = "audio/" in h
+        btn = "題目與詳解（可作答計分）→" if not has_audio else "題目、詳解與音檔 →"
         rows.append((t, sub_txt, nq, d))
         if i < 2:
             cards.append(f"""  <div class="card">
     <span class="tag">{'最新' if i == 0 else '已上線'}</span>
     <h3>{t}</h3>
     <p>{sub_txt}（{nq} 題・可線上作答計分）</p>
-    <a class="btn" href="{d}/">題目、詳解與音檔 →</a>
+    <a class="btn" href="{d}/">{btn}</a>
   </div>""")
     table = "\n".join(
         f'    <tr><td class="d">{r[0]}</td><td>{r[1]}</td><td>{r[2]} 題</td>'
