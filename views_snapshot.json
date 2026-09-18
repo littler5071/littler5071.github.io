@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-09-18 21:42:53",
+ "snapshot_at": "2026-09-18 22:43:33",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "ai/exam": 6,
@@ -19,13 +19,14 @@
   "stock/20260918": 11,
   "stock": 28,
   "stock/logic": 2,
-  "toeic/guide": 13,
+  "toeic/guide": 14,
   "toeic": 17,
   "toeic/p1-full": 4,
   "toeic/p2-sample": 3,
   "toeic/p3-full": 12,
   "toeic/p4-full": 5,
   "toeic/p5-full": 3,
-  "toeic/p6-full": 4
+  "toeic/p6-full": 4,
+  "toeic/p7-full": null
  }
 }

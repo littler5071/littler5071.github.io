@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多益閱讀 Part 7 閱讀理解完整題組（單篇 10 篇＋多篇 5 組・54 題）｜小R 頻道</title>
+<meta name="description" content="原創多益 Part 7 閱讀理解完整題組：單篇閱讀 10 篇與多篇閱讀 5 組、題號 147–200 共 54 題，涵蓋主旨、細節、推論、同義字與 NOT 題，含跨文件交叉題與中文大意；可線上點選作答、對答案計分（滿分 54），答錯自動展開中文詳解。題目全部自行撰寫，未使用官方試題。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.75;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:920px;margin:0 auto;padding:44px 18px 90px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(26px,5vw,38px);margin:6px 0 6px;text-align:center}
+  .sub{text-align:center;color:var(--blue);margin-bottom:18px}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       margin-bottom:10px;font-size:14.5px;color:var(--soft)}
+  .box strong{color:var(--ink)}
+  .bar{position:sticky;top:0;z-index:9;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+       background:rgba(246,241,230,.96);border:2px solid var(--line);border-radius:14px;
+       padding:10px 14px;margin:18px 0;backdrop-filter:blur(4px)}
+  .bar .prog{font-size:15px;color:var(--soft)}
+  .bar .prog b{color:var(--ink);font-size:18px}
+  button{font-family:inherit;font-size:15px;padding:6px 14px;border-radius:999px;
+         border:2px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--blue)}
+  .result{background:#fffdf6;border:2px solid var(--leaf);border-radius:16px;padding:16px 20px;
+          margin:0 0 20px;display:none}
+  .result.show{display:block}
+  .result .big{font-size:clamp(28px,6vw,40px);color:var(--leaf);line-height:1.2}
+  .result ul{margin:8px 0 0;padding-left:20px;font-size:14.5px;color:var(--soft)}
+  h2{font-size:clamp(19px,3.2vw,24px);margin:38px 0 6px;border-top:2px solid var(--line);padding-top:16px}
+  .meta{font-size:14px;color:var(--soft);font-weight:normal}
+  .plead{font-size:14.5px;color:var(--soft);margin:0 0 8px}
+  .docs{margin:0 0 8px}
+  .doc{margin:0 0 10px}
+  .dlabel{display:inline-block;font-size:13px;color:#fff;background:var(--blue);
+          border-radius:8px 8px 0 0;padding:2px 12px;margin-left:6px}
+  article.passage{background:#fffdf6;border:2px solid var(--line);border-radius:0 12px 12px 12px;
+        padding:14px 20px;font-size:15.5px;line-height:1.85;margin:0}
+  article.passage p{margin:0 0 9px}
+  article.passage p:last-child{margin-bottom:0}
+  details.gist{background:rgba(255,253,246,.6);border:2px dashed var(--line);border-radius:12px;
+        padding:8px 16px;margin:0 0 14px;font-size:14.5px;color:var(--soft)}
+  details.gist summary{cursor:pointer;color:var(--blue)}
+  details.gist p{margin:8px 0 4px}
+  .q{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0;
+     scroll-margin-top:96px}
+  .q.wrong{border-color:var(--red)}
+  .q.right{border-color:var(--leaf)}
+  .qh{font-size:16.5px;margin-bottom:8px;display:flex;gap:10px;align-items:baseline}
+  .qn{font-weight:bold;color:var(--red);flex:none;min-width:34px}
+  .stem{flex:1}
+  .pt{display:inline-block;font-size:12.5px;padding:1px 9px;border-radius:999px;margin-left:8px;
+      border:1.5px solid var(--leaf);color:var(--leaf);vertical-align:2px}
+  .mark{margin-left:auto;flex:none;font-size:16px}
+  ul.opts{list-style:none;margin:0;padding:0}
+  ul.opts li{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;margin:5px 0;
+       border:2px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+  ul.opts li:hover{border-color:#c8bda8}
+  ul.opts li b{flex:none;width:22px;color:var(--blue)}
+  ul.opts li.sel{background:var(--sel);border-color:#c9a94e}
+  ul.opts li.ok{background:#e8f3ea;border-color:var(--leaf)}
+  ul.opts li.bad{background:#fbeae7;border-color:var(--red)}
+  ul.opts li.locked{cursor:default}
+  .sol{margin-top:4px}
+  .jump{margin:8px 0 2px}
+  button.backjump{font-size:13.5px;min-height:34px;padding:5px 14px;border-radius:999px;
+          border:1.5px solid var(--blue);background:transparent;color:var(--blue);line-height:1.3}
+  button.backjump:hover{background:rgba(54,78,112,.10)}
+  button.backjump:active{background:var(--sel)}
+  .jumpend{margin:30px 0 0;text-align:center}
+  button.gotoscore{font-size:15px;min-height:38px;padding:8px 22px}
+  .toggle{background:transparent;color:var(--blue);border:0;padding:0;font-size:15px;
+          border-bottom:1.5px solid rgba(54,78,112,.5);border-radius:0}
+  .solbody{margin-top:10px;background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px}
+  ul.why{margin:6px 0;padding-left:20px;list-style:none}
+  ul.why li{margin:3px 0;font-size:15px}
+  ul.why li.yes{color:var(--leaf)}
+  ul.why li.no{color:var(--ink)}
+  .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
+  .set .docs{scroll-margin-top:96px}
+  .set.hit > .docs{background:#fbe3a8;border-radius:12px;box-shadow:0 0 0 3px rgba(191,74,58,.30);
+       animation:blkflash .55s ease-in-out 3;transition:background .2s}
+  @keyframes blkflash{0%,100%{background:#fbe3a8}50%{background:#fff6d8}}
+  .dim{color:var(--soft);font-size:13.5px}
+
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body data-quiz-key="p7full_answers_v1">
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk on" href="../../toeic/">多益英文</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>多益閱讀 Part 7 閱讀理解</h1>
+  <div class="sub">完整題組・單篇 10 篇（147–175）＋ 多篇 5 組（176–200）＝ 54 題・每題四個選項・滿分 54</div>
+
+  <div class="box">
+    <strong>怎麼做</strong>：① 先讀完一組的文章（多篇閱讀會依序列出 A／B／C 幾份文件，答案常需要交叉比對）；
+    ② 往下看該組題目，直接點選項作答（作答會自動存在這台裝置，重新整理不會不見）；
+    ③ 想再看一次文章，按題目下方的「<strong>↑ 回到第 N 組文章</strong>」，頁面會滑回文章並閃示約 2 秒；
+    ④ 做完 54 題按「對答案並計分」；⑤ 錯的題目會自動展開詳解，看完再按「清除作答」重做一次；
+    ⑥ 想重新對答案，可按頁面最下方的「<strong>↑ 回到上面評分</strong>」滑回上方計分區。
+    這一份是<strong>紙筆閱讀題，沒有音檔</strong>，請直接看題目作答。
+  </div>
+  <div class="box">
+    <strong>Part 7 的兩種題型</strong>：<strong>單篇閱讀</strong>（一篇文章配 2–4 題：電子郵件、公告、廣告、刊物文章、備忘錄、網頁、規則、帳單、客服對話）與
+    <strong>多篇閱讀</strong>（兩到三份文件一組，常見「信件＋回覆」、「廣告＋報名表」、「公告＋時程表＋詢問信」，
+    要能把不同文件的資訊對起來才選得對）。本題組單篇 10 篇、多篇 5 組。
+  </div>
+  <div class="box">
+    <strong>原創聲明</strong>：題目、文章、選項與詳解<strong>全部自行撰寫</strong>，
+    <strong>沒有使用任何 ETS 的試題或音檔</strong>。真正 TOEIC 試題的著作權屬於 ETS；
+    「TOEIC／多益」是 ETS 的註冊商標，這裡僅為描述性使用（指相同題型結構），不代表 ETS 授權、合作或認可。
+  </div>
+  <div class="box">
+    <strong>題號與考點</strong>：題號 147–200（對應真考 Part 7 的題號範圍），共 15 組、54 題。
+    考點分布：細節 23 題、推論 9 題、目的 5 題、NOT/EXCEPT 4 題、下一步 3 題、細節（跨文件） 2 題、主旨 1 題、同義字 1 題、細節＋推論 1 題、計算 1 題、同義字／細節 1 題、NOT/EXCEPT→細節 1 題、推論（跨文件） 1 題、下一步（跨文件） 1 題。答案分布：A 13 題、B 14 題、C 13 題、D 14 題（平均分散，避免一直猜同一格）。
+    組別對照：第 1 組＝147–149；第 2 組＝150–152；第 3 組＝153–155；第 4 組＝156–158；第 5 組＝159–161；第 6 組＝162–164；第 7 組＝165–167；第 8 組＝168–170；第 9 組＝171–173；第 10 組＝174–175；第 11 組＝176–180；第 12 組＝181–185；第 13 組＝186–190；第 14 組＝191–195；第 15 組＝196–200。
+  </div>
+
+  <div class="bar" id="scoring">
+    <span class="prog">已作答 <b><span id="done">0</span> / 54</b></span>
+    <button id="scoreBtn" type="button">對答案並計分</button>
+    <button id="resetBtn" type="button" class="ghost">清除作答</button>
+    <span class="prog" id="hint">（作答會自動存在這台裝置裡）</span>
+  </div>
+
+  <div class="result" id="result"></div>
+  <section class="set single" id="set1" data-set="1">
+  <h2>第 147–149 題　<span class="meta">第 1 組・電子郵件・3 題</span></h2>
+  <div class="plead">Questions 147–149 refer to the following e-mail.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">E-mail</div><article class="passage"><p>To: All Sales Staff</p><p>From: Denise Alam, Event Coordinator</p><p>Date: 3 May</p><p>Subject: Booth assignments for the Taipei trade show</p><p>&nbsp;</p><p>Dear colleagues,</p><p>&nbsp;</p><p>The Taipei Industrial Trade Show will run from 12 to 15 June at the Nangang Exhibition Center. We have reserved a 90-square-meter booth in Hall 1, which is slightly larger than the space we used last year. Because of the extra room, we will be able to display two additional product lines, the LX-40 sensor and the new desktop scanner.</p><p>&nbsp;</p><p>Please note that the setup crew can only enter the hall between 8:00 A.M. and 6:00 P.M. on 10 June. If you plan to bring demonstration units, label every case with your department code so that the crew can place them correctly.</p><p>&nbsp;</p><p>We also need four staff members to work the booth each day. If you are interested, send your name and preferred shift to me by 20 May. Those who volunteer will receive a free hotel room for the two nights before the opening.</p><p>&nbsp;</p><p>Denise Alam</p></article></div></div>
+  <details class="gist"><summary>看第 1 組的中文大意</summary><p>中文大意：展場協調人 Denise 通知全體業務：6/12–15 在世貿南港展覽館參展，攤位比去年大，可多展示兩條產品線；6/10 只有 08:00–18:00 可進場佈置，示範機台要貼部門代碼；每天需 4 位同仁顧攤，5/20 前報名，志願者可獲開幕前兩晚免費住宿。</p></details>
+  <div class="q" data-q="147" data-a="0">
+      <div class="qh"><span class="qn">147</span><span class="stem">What is the purpose of the e-mail?<span class="pt">目的</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To announce booth details for an upcoming trade show</span></li><li data-i="1"><b>B</b><span>To request additional funding for a product launch</span></li><li data-i="2"><b>C</b><span>To report the results of last year's exhibition</span></li><li data-i="3"><b>D</b><span>To confirm a hotel reservation for a client</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set1">↑ 回到第 1 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 全文都在交代參展攤位的安排（時間、大小、佈置、人力需求），這就是寫信目的。</li><li class="no">❌ 沒有提到任何追加預算或資金申請。</li><li class="no">❌ 去年只是拿來對比攤位大小，並未報告成果。</li><li class="no">❌ 住宿是寫給志願工作同仁的福利，不是幫客戶訂房。</li></ul>
+        <p class="tip">🔑 問「目的」先看開頭與主題句，再看全文在做什麼動作，不要被單一細節吸引。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="148" data-a="1">
+      <div class="qh"><span class="qn">148</span><span class="stem">What is indicated about the booth?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It will be located near the main entrance.</span></li><li data-i="1"><b>B</b><span>It is larger than the one used last year.</span></li><li data-i="2"><b>C</b><span>It will feature only two product lines.</span></li><li data-i="3"><b>D</b><span>It has already been assigned to four employees.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set1">↑ 回到第 1 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 只說在 Hall 1，沒有提到靠近主要入口。</li><li class="yes">✅ 原文 "slightly larger than the space we used last year"，比去年大。</li><li class="no">❌ 是「可以多展示兩條產品線」，不是總共只有兩條。</li><li class="no">❌ 四位是同一天顧攤需要的人數，還沒指派。</li></ul>
+        <p class="tip">🔑 選項常把數字與單位偷換：two additional（再多兩條）不等於 only two（只有兩條）。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="149" data-a="2">
+      <div class="qh"><span class="qn">149</span><span class="stem">What are volunteers asked to do by 20 May?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Design a new product display</span></li><li data-i="1"><b>B</b><span>Pay a registration fee</span></li><li data-i="2"><b>C</b><span>Submit their shift preference</span></li><li data-i="3"><b>D</b><span>Reserve a hotel room themselves</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set1">↑ 回到第 1 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有要人設計展示。</li><li class="no">❌ 免費住宿是由公司提供，沒有報名費。</li><li class="yes">✅ "send your name and preferred shift to me by 20 May"，回覆姓名與想排的班別。</li><li class="no">❌ 住宿由公司安排，不需要自己訂。</li></ul>
+        <p class="tip">🔑 細節題把題目關鍵字（20 May）當座標，回到原文定位那一段再選。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set2" data-set="2">
+  <h2>第 150–152 題　<span class="meta">第 2 組・內部公告・3 題</span></h2>
+  <div class="plead">Questions 150–152 refer to the following notice.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Notice</div><article class="passage"><p>NOTICE TO ALL DEPARTMENTS — OFFICE RELOCATION</p><p>&nbsp;</p><p>Starting 1 September, the Finance and Legal departments will move from the fourth floor to the newly renovated eighth floor. The move affects 62 employees.</p><p>&nbsp;</p><p>What you need to know:</p><p>• Movers will pack and transport labeled boxes on 29 and 30 August. Please put anything you want moved into a box and attach a blue label with your department name. Items without a label will not be moved.</p><p>• Desks, chairs and filing cabinets are the property of the building and will stay in place.</p><p>• Personal items such as plants and framed pictures should be taken home by 28 August.</p><p>&nbsp;</p><p>The eighth floor has two meeting rooms and a small kitchen. Printing services will remain on the fourth floor for the time being, so please allow extra time when you need to print large documents.</p><p>&nbsp;</p><p>Questions about the move should be sent to facilities@northbridge-example.com.</p></article></div></div>
+  <details class="gist"><summary>看第 2 組的中文大意</summary><p>中文大意：公告：財務與法務部門 9/1 起從 4 樓搬到 8 樓（影響 62 人）；8/29–30 由搬家公司搬運，要搬的東西需裝箱並貼藍色部門標籤，沒貼的不搬；桌椅與檔案櫃屬大樓資產留在原地；個人植栽、相框 8/28 前帶回家；8 樓有兩間會議室與小廚房，影印暫留 4 樓。</p></details>
+  <div class="q" data-q="150" data-a="2">
+      <div class="qh"><span class="qn">150</span><span class="stem">What is the notice mainly about?<span class="pt">主旨</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A change in printing services</span></li><li data-i="1"><b>B</b><span>A renovation of the fourth floor</span></li><li data-i="2"><b>C</b><span>A plan to move two departments</span></li><li data-i="3"><b>D</b><span>A new labeling system for packages</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set2">↑ 回到第 2 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 影印只是附帶說明，不是主題。</li><li class="no">❌ 是搬到「新整修的 8 樓」，不是整修 4 樓。</li><li class="yes">✅ 標題就是 OFFICE RELOCATION，全文在交代搬遷細節。</li><li class="no">❌ 藍色標籤是搬遷流程的一部分，不是新的制度本身。</li></ul>
+        <p class="tip">🔑 主旨題的答案通常能涵蓋全文多數段落；只對應一小段的選項要排除。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="151" data-a="0">
+      <div class="qh"><span class="qn">151</span><span class="stem">What are employees asked to do by 28 August?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Remove personal belongings from the office</span></li><li data-i="1"><b>B</b><span>Return their office keys to the building manager</span></li><li data-i="2"><b>C</b><span>Empty their filing cabinets</span></li><li data-i="3"><b>D</b><span>Submit a list of equipment they need</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set2">↑ 回到第 2 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ "Personal items ... should be taken home by 28 August"。</li><li class="no">❌ 全文未提鑰匙。</li><li class="no">❌ 檔案櫃是「留在原地」，不是清空。</li><li class="no">❌ 沒有要求提交設備清單。</li></ul>
+        <p class="tip">🔑 時間點是細節題最可靠的定位座標，先找出 28 August 出現的那一句。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="152" data-a="3">
+      <div class="qh"><span class="qn">152</span><span class="stem">What is NOT indicated about the eighth floor?<span class="pt">NOT/EXCEPT</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It was recently renovated.</span></li><li data-i="1"><b>B</b><span>It contains two meeting rooms.</span></li><li data-i="2"><b>C</b><span>It has a small kitchen.</span></li><li data-i="3"><b>D</b><span>It will house the printing center.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set2">↑ 回到第 2 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 有提到：newly renovated eighth floor。</li><li class="no">❌ 有提到：two meeting rooms。</li><li class="no">❌ 有提到：a small kitchen。</li><li class="yes">✅ 錯：影印「暫時留在 4 樓」（remain on the fourth floor），不會搬到 8 樓。</li></ul>
+        <p class="tip">🔑 NOT／EXCEPT 題三個有提到、一個沒有；先把確定有提到的劃掉，剩下的就是答案。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set3" data-set="3">
+  <h2>第 153–155 題　<span class="meta">第 3 組・廣告・3 題</span></h2>
+  <div class="plead">Questions 153–155 refer to the following advertisement.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Advertisement</div><article class="passage"><p>FITNESS AT YOUR OWN PACE — RIVERSIDE ATHLETIC CLUB</p><p>&nbsp;</p><p>Join before 30 April and pay no enrollment fee — a saving of NT$3,000.</p><p>&nbsp;</p><p>Choose the plan that fits your schedule:</p><p>• Morning Plan — unlimited access before 11:00 A.M. — NT$890 per month</p><p>• Full Access Plan — all hours, including the pool and sauna — NT$1,450 per month</p><p>• Team Plan — five colleagues from the same company, any hours — NT$1,100 per person per month</p><p>&nbsp;</p><p>All plans include one free fitness assessment and a locker. Classes such as yoga, spinning and boxing are charged separately, but members pay half price.</p><p>&nbsp;</p><p>The club is open Monday to Friday from 6:00 A.M. to 11:00 P.M., and on weekends from 8:00 A.M. to 9:00 P.M. The pool closes 45 minutes before the club does.</p><p>&nbsp;</p><p>Visit riverside-example.com/tour to book a free one-day trial.</p></article></div></div>
+  <details class="gist"><summary>看第 3 組的中文大意</summary><p>中文大意：河濱健身俱樂部廣告：4/30 前加入免入會費（省 3,000 元）；三種方案（上午 890／全時段含泳池三溫暖 1,450／五人同公司團報 1,100）；所有方案含一次體適能檢測與置物櫃；課程半價；開放時間與泳池提前 45 分鐘關閉；可上網預約免費一日體驗。</p></details>
+  <div class="q" data-q="153" data-a="1">
+      <div class="qh"><span class="qn">153</span><span class="stem">What can be inferred about the Team Plan?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It is available only on weekends.</span></li><li data-i="1"><b>B</b><span>It costs less per person than the Full Access Plan.</span></li><li data-i="2"><b>C</b><span>It includes private training sessions.</span></li><li data-i="3"><b>D</b><span>It requires a minimum of ten members.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set3">↑ 回到第 3 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 方案並未限制週末，週末限制是俱樂部營業時間的另一段。</li><li class="yes">✅ 團報 1,100 元、全時段 1,450 元，每人確實比較便宜。</li><li class="no">❌ 沒有提到私人教練課；只有體適能檢測。</li><li class="no">❌ 原文是 five colleagues，五人不是十人。</li></ul>
+        <p class="tip">🔑 推論題要把兩個數字放在一起比（1,100 vs 1,450），答案往往是「比較後才知道的關係」。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="154" data-a="2">
+      <div class="qh"><span class="qn">154</span><span class="stem">What is included in all of the plans?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Boxing classes</span></li><li data-i="1"><b>B</b><span>Sauna access</span></li><li data-i="2"><b>C</b><span>One fitness assessment</span></li><li data-i="3"><b>D</b><span>A guest pass for a friend</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set3">↑ 回到第 3 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 拳擊課要另外付費（半價優惠）。</li><li class="no">❌ 三溫暖只在 Full Access Plan 裡。</li><li class="yes">✅ "All plans include one free fitness assessment and a locker"。</li><li class="no">❌ 沒有提到可帶朋友。</li></ul>
+        <p class="tip">🔑 看到 All plans 這種全稱字眼，就是細節題的定位詞，答案一定在那一句裡。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="155" data-a="1">
+      <div class="qh"><span class="qn">155</span><span class="stem">What does the advertisement suggest doing?<span class="pt">下一步</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Calling the club to confirm opening hours</span></li><li data-i="1"><b>B</b><span>Visiting a Web site to schedule a trial</span></li><li data-i="2"><b>C</b><span>Bringing a colleague to the enrollment office</span></li><li data-i="3"><b>D</b><span>Paying the enrollment fee within one week</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set3">↑ 回到第 3 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 營業時間已寫明，不是要你打電話問。</li><li class="yes">✅ 最後一句要大家上網預約免費體驗（book a free one-day trial）。</li><li class="no">❌ 團報是方案選項，不是被要求的動作。</li><li class="no">❌ 4/30 前加入是免入會費，不是一週內繳費。</li></ul>
+        <p class="tip">🔑 問「下一步要做什麼」時，答案常落在最後一句的行動呼籲。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set4" data-set="4">
+  <h2>第 156–158 題　<span class="meta">第 4 組・公司刊物・3 題</span></h2>
+  <div class="plead">Questions 156–158 refer to the following article.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Article</div><article class="passage"><p>FROM THE COMPANY NEWSLETTER — WORKING FROM HOME, ONE YEAR LATER</p><p>&nbsp;</p><p>When Haverton Logistics first allowed its customer service team to work from home, managers expected a drop in productivity. The opposite happened. In the first year, the average time needed to answer a customer inquiry fell from 14 hours to 9 hours, and employee turnover in that team dropped by nearly a third.</p><p>&nbsp;</p><p>The company credits two decisions. First, it gave every remote employee a headset and a second monitor, which cost far less than the rent of the office space it later gave up. Second, it replaced daily check-in meetings with a written summary that each employee posts once a week, leaving managers free to deal with unusual cases.</p><p>&nbsp;</p><p>Not everything worked. A pilot program that let staff choose their own working hours was discontinued after six months, because customers could not reach anyone early in the morning. Beginning in October, remote staff will follow fixed shifts again.</p></article></div></div>
+  <details class="gist"><summary>看第 4 組的中文大意</summary><p>中文大意：Haverton Logistics 的刊物文章：在家工作一年後，客服平均回覆時間由 14 小時降至 9 小時、離職率降約三分之一；歸功兩項決策（提供耳機與第二螢幕、用每週書面摘要取代每日會議）；但讓員工自選工時的試辦在六個月後取消，因為早上聯絡不到人，10 月起恢復固定班表。</p></details>
+  <div class="q" data-q="156" data-a="2">
+      <div class="qh"><span class="qn">156</span><span class="stem">What was the result of allowing the team to work from home?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Customer inquiries became more complicated.</span></li><li data-i="1"><b>B</b><span>Managers had to handle fewer unusual cases.</span></li><li data-i="2"><b>C</b><span>The team answered inquiries more quickly.</span></li><li data-i="3"><b>D</b><span>The company rented additional office space.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set4">↑ 回到第 4 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有提到詢問內容變複雜。</li><li class="no">❌ 是「讓主管有時間處理特殊案件」，不是變少（原文 leaving managers free to deal with unusual cases）。</li><li class="yes">✅ 回覆時間由 14 小時降到 9 小時，確實變快。</li><li class="no">❌ 是退掉辦公室空間，不是加租。</li></ul>
+        <p class="tip">🔑 選項常把敘述反過來（加租 vs 退租、變多 vs 變少），看到與原文相反的動詞要警覺。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="157" data-a="2">
+      <div class="qh"><span class="qn">157</span><span class="stem">The word "credits" in paragraph 2 is closest in meaning to<span class="pt">同義字</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>pays</span></li><li data-i="1"><b>B</b><span>owes</span></li><li data-i="2"><b>C</b><span>attributes</span></li><li data-i="3"><b>D</b><span>lends</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set4">↑ 回到第 4 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ pay 是付錢，句意不合。</li><li class="no">❌ owe 是欠，方向相反。</li><li class="yes">✅ credit A to B＝把 A 歸因於 B，與 attribute 同義。</li><li class="no">❌ lend 是借出。</li></ul>
+        <p class="tip">🔑 同義字題把選項代回原句讀一次，語意通的那個就是答案。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="158" data-a="0">
+      <div class="qh"><span class="qn">158</span><span class="stem">What is indicated about the pilot program?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It was ended because of a scheduling problem.</span></li><li data-i="1"><b>B</b><span>It will be expanded to other departments.</span></li><li data-i="2"><b>C</b><span>It reduced the cost of equipment.</span></li><li data-i="3"><b>D</b><span>It was popular with early-morning customers.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set4">↑ 回到第 4 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 試辦被取消的原因是「顧客一早聯絡不到人」，屬排班問題。</li><li class="no">❌ 是取消，不是擴大。</li><li class="no">❌ 設備成本是另一項決策，與試辦無關。</li><li class="no">❌ 早上的顧客根本找不到人，不可能覺得受歡迎。</li></ul>
+        <p class="tip">🔑 推論題要能從「結果＋原因」推回一個概括說法（scheduling problem）。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set5" data-set="5">
+  <h2>第 159–161 題　<span class="meta">第 5 組・備忘錄・3 題</span></h2>
+  <div class="plead">Questions 159–161 refer to the following memorandum.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Memorandum</div><article class="passage"><p>MEMORANDUM</p><p>To: Sales Representatives</p><p>From: Priya Raman, Regional Manager</p><p>Re: Changes to the client entertainment budget</p><p>&nbsp;</p><p>Effective 1 July, the following rules apply to expenses for entertaining clients:</p><p>&nbsp;</p><p>1. Meals. The limit for a single client meal is NT$2,400 per person, unchanged from last year. Receipts must list every attendee by name.</p><p>2. Gifts. The annual limit per client has been reduced from NT$6,000 to NT$4,000. Gifts above NT$1,500 require my approval in writing before they are purchased.</p><p>3. Sporting and cultural events. Tickets may be purchased for clients only when a representative attends the event with them.</p><p>4. Reporting. Claims must be submitted within 14 days of the event. Claims submitted later will be paid in the following quarter.</p><p>&nbsp;</p><p>The company card may no longer be used for entertainment expenses; please pay personally and request reimbursement.</p></article></div></div>
+  <details class="gist"><summary>看第 5 組的中文大意</summary><p>中文大意：區域經理 Priya 的備忘錄：7/1 起客戶招待費用新規——餐費每人上限 2,400 元（不變）且收據要列所有出席者姓名；年度禮品上限由 6,000 降到 4,000，超過 1,500 需事先書面核准；運動與藝文票券必須有業務代表陪同；14 天內提交請款（逾期順延一季）；不得再用公司卡，改先自付再請款。</p></details>
+  <div class="q" data-q="159" data-a="0">
+      <div class="qh"><span class="qn">159</span><span class="stem">What is the purpose of the memorandum?<span class="pt">目的</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To explain new restrictions on client expenses</span></li><li data-i="1"><b>B</b><span>To introduce a new regional manager to the sales team</span></li><li data-i="2"><b>C</b><span>To announce an increase in the meal allowance</span></li><li data-i="3"><b>D</b><span>To remind staff to return their company cards</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set5">↑ 回到第 5 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 四點全部都是招待費用的新限制（含上限調降、需核准、不得用公司卡）。</li><li class="no">❌ 經理只是署名，不是介紹新人。</li><li class="no">❌ 餐費上限「維持不變」，不是調高。</li><li class="no">❌ 是停用於招待費，不是要大家繳回卡片。</li></ul>
+        <p class="tip">🔑 目的題要抓共同點：四條規則的共通性質就是答案。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="160" data-a="1">
+      <div class="qh"><span class="qn">160</span><span class="stem">What must sales representatives do before buying a gift costing NT$3,000?<span class="pt">細節＋推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Ask the client to sign a receipt</span></li><li data-i="1"><b>B</b><span>Get written approval from the manager</span></li><li data-i="2"><b>C</b><span>Pay for it with the company card</span></li><li data-i="3"><b>D</b><span>Wait until the following quarter</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set5">↑ 回到第 5 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 簽收據是餐費的規定。</li><li class="yes">✅ 3,000 元超過 1,500 元門檻，依規定需事先取得書面核准。</li><li class="no">❌ 招待費已不能用公司卡。</li><li class="no">❌ 隔季支付是逾期請款的後果，不是買禮物的步驟。</li></ul>
+        <p class="tip">🔑 這種題要先把規則的門檻抄出來（1,500／4,000），再判斷題目金額落在哪一級。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="161" data-a="3">
+      <div class="qh"><span class="qn">161</span><span class="stem">What is stated about meal expenses?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The per-person limit has been raised.</span></li><li data-i="1"><b>B</b><span>They no longer require receipts.</span></li><li data-i="2"><b>C</b><span>They must be reported within seven days.</span></li><li data-i="3"><b>D</b><span>The names of all attendees must appear on the receipt.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set5">↑ 回到第 5 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 是維持不變（unchanged）。</li><li class="no">❌ 收據要求更嚴，不是取消。</li><li class="no">❌ 是 14 天，不是七天。</li><li class="yes">✅ "Receipts must list every attendee by name"。</li></ul>
+        <p class="tip">🔑 數字細節（7／14 天、2,400／1,500）是最常見的陷阱，回到原文逐一核對。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set6" data-set="6">
+  <h2>第 162–164 題　<span class="meta">第 6 組・網頁・3 題</span></h2>
+  <div class="plead">Questions 162–164 refer to the following Web page.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Web page</div><article class="passage"><p>KESTREL HOME APPLIANCES — WARRANTY INFORMATION</p><p>&nbsp;</p><p>Every Kestrel small appliance includes a two-year limited warranty. The warranty period begins on the date of purchase, not on the date the product is first used.</p><p>&nbsp;</p><p>To receive full coverage, register your product at kestrel-example.com/register within 30 days of purchase. Products that are not registered are covered for one year only.</p><p>&nbsp;</p><p>What the warranty covers:</p><p>• Manufacturing defects in materials and workmanship</p><p>• Replacement parts, including motors and heating elements</p><p>&nbsp;</p><p>What the warranty does not cover:</p><p>• Damage caused by dropping the appliance or by using it in a commercial kitchen</p><p>• Consumable items such as filters, blades and gaskets</p><p>• Any appliance that has been repaired by an unauthorized service center</p><p>&nbsp;</p><p>To arrange a repair, contact our service desk and request a reference number before shipping the appliance. We cannot process items that arrive without a reference number. Shipping costs are paid by the customer; return shipping is paid by Kestrel.</p></article></div></div>
+  <details class="gist"><summary>看第 6 組的中文大意</summary><p>中文大意：Kestrel 家電保固頁：小家電享兩年有限保固，保固起算日為購買日；購買後 30 天內上網註冊才有完整保固，未註冊只保一年。保固含材料與製造瑕疵、替換零件；不含摔落或商用廚房使用、耗材（濾網、刀片、墊圈）、非授權維修中心修過的機器。送修前須先向客服取得授權編號；運費由客戶負擔，寄回運費由 Kestrel 負擔。</p></details>
+  <div class="q" data-q="162" data-a="1">
+      <div class="qh"><span class="qn">162</span><span class="stem">What is the purpose of the Web page?<span class="pt">目的</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To advertise a new line of kitchen appliances</span></li><li data-i="1"><b>B</b><span>To explain the terms of a product warranty</span></li><li data-i="2"><b>C</b><span>To list authorized service centers</span></li><li data-i="3"><b>D</b><span>To recruit technicians for a service desk</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set6">↑ 回到第 6 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有促銷或產品介紹。</li><li class="yes">✅ 全頁在說明保固範圍、註冊方式與送修流程。</li><li class="no">❌ 提到未授權維修中心會失去保固，但沒有列出授權據點清單。</li><li class="no">❌ 沒有徵才。</li></ul>
+        <p class="tip">🔑 目的題看標題與各段落的共通主題（保固條件）。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="163" data-a="2">
+      <div class="qh"><span class="qn">163</span><span class="stem">What happens if a product is not registered?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It cannot be repaired.</span></li><li data-i="1"><b>B</b><span>It must be returned to the store.</span></li><li data-i="2"><b>C</b><span>It is covered for only one year.</span></li><li data-i="3"><b>D</b><span>It requires an extra shipping fee.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set6">↑ 回到第 6 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 未註冊仍可維修，只是保固期較短。</li><li class="no">❌ 沒有要求回原購買店家。</li><li class="yes">✅ "Products that are not registered are covered for one year only"。</li><li class="no">❌ 運費規則與註冊無關。</li></ul>
+        <p class="tip">🔑 if／not 這種條件句是細節題的常客，答案就在同一句或下一句。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="164" data-a="3">
+      <div class="qh"><span class="qn">164</span><span class="stem">What is NOT covered by the warranty?<span class="pt">NOT/EXCEPT</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A motor that stopped working normally</span></li><li data-i="1"><b>B</b><span>A heating element that failed</span></li><li data-i="2"><b>C</b><span>A defect caused during manufacturing</span></li><li data-i="3"><b>D</b><span>A filter that needs to be replaced</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set6">↑ 回到第 6 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 馬達屬 replacement parts，有保固。</li><li class="no">❌ 加熱元件也明列在保固內。</li><li class="no">❌ 製造瑕疵是保固的核心。</li><li class="yes">✅ 濾網屬 consumable items，明確不在保固範圍。</li></ul>
+        <p class="tip">🔑 NOT／EXCEPT 題多半考「排除條款」，先掃 not cover 的清單。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set7" data-set="7">
+  <h2>第 165–167 題　<span class="meta">第 7 組・使用規則・3 題</span></h2>
+  <div class="plead">Questions 165–167 refer to the following information.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Information</div><article class="passage"><p>CONFERENCE ROOM BOOKING — NORTHBRIDGE BUILDING, 8TH FLOOR</p><p>&nbsp;</p><p>Rooms A and B may be booked by any employee through the online calendar. Room C is reserved for meetings with clients and must be requested through the reception desk.</p><p>&nbsp;</p><p>Rules for use:</p><p>• Bookings are limited to two hours. Meetings that need more time must be approved by a department head before the booking is made.</p><p>• Cancel your booking at least 15 minutes in advance. Employees who fail to cancel three times in one quarter will lose booking privileges for the following month.</p><p>• Equipment such as projectors and speakerphones is kept at the reception desk. Sign the equipment out and return it immediately after the meeting.</p><p>• Rooms are cleaned every evening. Please leave the room tidy, but do not move furniture between rooms.</p><p>&nbsp;</p><p>For technical problems during a meeting, call extension 4100.</p></article></div></div>
+  <details class="gist"><summary>看第 7 組的中文大意</summary><p>中文大意：北橋大樓 8 樓會議室預約規則：A、B 房任何員工可用線上行事曆預約；C 房保留給客戶會議，須向櫃檯申請。使用規則：每次預約上限兩小時，超過需部門主管事先核准；至少提前 15 分鐘取消，一季三次未取消將停權一個月；投影機與會議麥克風在櫃檯簽借並立即歸還；每晚清掃，請保持整潔但不得移動家具；技術問題撥分機 4100。</p></details>
+  <div class="q" data-q="165" data-a="3">
+      <div class="qh"><span class="qn">165</span><span class="stem">What is indicated about Room C?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It is the largest room on the eighth floor.</span></li><li data-i="1"><b>B</b><span>It is available to any employee at any time.</span></li><li data-i="2"><b>C</b><span>It contains its own projector and speakerphone.</span></li><li data-i="3"><b>D</b><span>It can be reserved only through the reception desk.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set7">↑ 回到第 7 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有比較房間大小。</li><li class="no">❌ A、B 房才開放任何員工線上預約，C 房有條件。</li><li class="no">❌ 設備統一放在櫃檯借用，不是各房自備。</li><li class="yes">✅ "Room C ... must be requested through the reception desk"。</li></ul>
+        <p class="tip">🔑 把兩三個對象的對應關係畫清楚（A/B 線上、C 櫃檯），細節題就不會張冠李戴。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="166" data-a="3">
+      <div class="qh"><span class="qn">166</span><span class="stem">What must an employee do to hold a three-hour meeting in Room A?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Pay a fee to the reception desk</span></li><li data-i="1"><b>B</b><span>Move the meeting to Room C</span></li><li data-i="2"><b>C</b><span>Reserve two separate bookings</span></li><li data-i="3"><b>D</b><span>Obtain approval from a department head</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set7">↑ 回到第 7 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 收費沒有提到。</li><li class="no">❌ 換房不是解法，C 房只給客戶會議。</li><li class="no">❌ 拆成兩筆預約仍違反兩小時上限的規定精神。</li><li class="yes">✅ 超過兩小時需事先取得部門主管核准。</li></ul>
+        <p class="tip">🔑 推論題把題目的情境（三小時）套進規則門檻（兩小時）就能得到動作。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="167" data-a="0">
+      <div class="qh"><span class="qn">167</span><span class="stem">What are employees asked to do with borrowed equipment?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Return it right after the meeting</span></li><li data-i="1"><b>B</b><span>Store it in the room overnight</span></li><li data-i="2"><b>C</b><span>Clean it before returning it</span></li><li data-i="3"><b>D</b><span>Report it to extension 4100</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set7">↑ 回到第 7 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ "return it immediately after the meeting"。</li><li class="no">❌ 沒有要放過夜，櫃檯集中保管。</li><li class="no">❌ 清潔是針對房間，不是設備。</li><li class="no">❌ 4100 是會議中技術問題用的。</li></ul>
+        <p class="tip">🔑 同一段出現多個動作時，把「誰對什麼做什麼」對清楚再選。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set8" data-set="8">
+  <h2>第 168–170 題　<span class="meta">第 8 組・電子郵件・3 題</span></h2>
+  <div class="plead">Questions 168–170 refer to the following e-mail.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">E-mail</div><article class="passage"><p>To: service@linemark-example.com</p><p>From: Howard Chiou</p><p>Date: 7 November</p><p>Subject: Order 4482 — wrong item delivered</p><p>&nbsp;</p><p>Dear Linemark Customer Service,</p><p>&nbsp;</p><p>On 2 November we placed order 4482 for 40 boxes of A4 copy paper and 12 toner cartridges. The cartridges arrived yesterday, but instead of the paper we received 40 boxes of letter-size paper, which our printers cannot use.</p><p>&nbsp;</p><p>We have a client presentation on 14 November and need the correct paper well before then. Could you arrange a replacement shipment by 10 November and collect the incorrect boxes at the same time? Our warehouse staff are available on weekday mornings.</p><p>&nbsp;</p><p>I have attached a photograph of the delivery note and the labels on the boxes.</p><p>&nbsp;</p><p>Thank you for your help.</p><p>Howard Chiou, Office Manager, Bright Path Design</p></article></div></div>
+  <details class="gist"><summary>看第 8 組的中文大意</summary><p>中文大意：Bright Path Design 的 Howard 寫信給 Linemark 客服：11/2 下單 4482（40 箱 A4 影印紙＋12 支碳粉匣），碳粉匣到貨但影印紙送成 Letter 尺寸，印表機無法使用。11/14 有客戶簡報，希望 11/10 前補寄正確紙張並同時回收錯誤的箱子，倉庫人員平日上午在；已附上送貨單照片與箱上標籤。</p></details>
+  <div class="q" data-q="168" data-a="3">
+      <div class="qh"><span class="qn">168</span><span class="stem">What problem does Mr. Chiou report?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A shipment arrived later than promised.</span></li><li data-i="1"><b>B</b><span>An invoice contained an incorrect amount.</span></li><li data-i="2"><b>C</b><span>Some items were damaged in transit.</span></li><li data-i="3"><b>D</b><span>The wrong size of paper was delivered.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set8">↑ 回到第 8 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 遲到不是他的抱怨（他關心的是 11/10 前補到）。</li><li class="no">❌ 沒有提到帳單金額。</li><li class="no">❌ 沒有說貨物損壞。</li><li class="yes">✅ "we received 40 boxes of letter-size paper"，尺寸送錯。</li></ul>
+        <p class="tip">🔑 客訴信第一段通常就是問題陳述，答案多半在那裡。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="169" data-a="0">
+      <div class="qh"><span class="qn">169</span><span class="stem">What does Mr. Chiou ask Linemark to do?<span class="pt">目的</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Send a corrected order and pick up the wrong boxes</span></li><li data-i="1"><b>B</b><span>Cancel the order completely</span></li><li data-i="2"><b>C</b><span>Provide a discount on the next purchase</span></li><li data-i="3"><b>D</b><span>Contact the client about the presentation</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set8">↑ 回到第 8 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ "arrange a replacement shipment ... and collect the incorrect boxes at the same time"。</li><li class="no">❌ 他沒有要取消，反而急著要正確的紙。</li><li class="no">❌ 沒有要求折扣。</li><li class="no">❌ 客戶簡報是他自己的事。</li></ul>
+        <p class="tip">🔑 問「要求對方做什麼」時，找信裡的祈使句（Could you ...）。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="170" data-a="1">
+      <div class="qh"><span class="qn">170</span><span class="stem">What is indicated about the warehouse staff?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>They work only on weekends.</span></li><li data-i="1"><b>B</b><span>They are available in the mornings on weekdays.</span></li><li data-i="2"><b>C</b><span>They packed the incorrect boxes.</span></li><li data-i="3"><b>D</b><span>They will deliver the paper personally.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set8">↑ 回到第 8 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 是平日上午，不是週末。</li><li class="yes">✅ "available on weekday mornings"。</li><li class="no">❌ 沒有說錯箱是自家倉庫裝的。</li><li class="no">❌ 由 Linemark 安排配送，不是倉庫人員自己送。</li></ul>
+        <p class="tip">🔑 細節題的時間副詞常被改（weekday mornings → weekends），逐字核對最快。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set9" data-set="9">
+  <h2>第 171–173 題　<span class="meta">第 9 組・帳單明細・3 題</span></h2>
+  <div class="plead">Questions 171–173 refer to the following statement.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Statement</div><article class="passage"><p>TIDEWATER FREIGHT SERVICES — MONTHLY STATEMENT</p><p>Account: Cascade Office Supply (C-2291)</p><p>Billing period: 1–30 September</p><p>&nbsp;</p><p>Shipment   Date        Route                Weight    Charge</p><p>S-1180     04 Sep      Keelung → Taichung   120 kg    NT$2,850</p><p>S-1195     11 Sep      Kaohsiung → Taipei   340 kg    NT$6,400</p><p>S-1203     18 Sep      Taichung → Hsinchu    95 kg    NT$2,100</p><p>S-1211     25 Sep      Taipei → Keelung      480 kg    NT$7,950</p><p>&nbsp;</p><p>Subtotal: NT$19,300</p><p>Fuel surcharge (8%): NT$1,544</p><p>Account handling fee: NT$150</p><p>Total due: NT$20,994</p><p>&nbsp;</p><p>Notes:</p><p>• Shipments weighing more than 400 kg receive a 5% discount on the shipping charge. The discount is applied on the following month's statement.</p><p>• Statements are issued on the first working day of each month. Payment is due within 21 days of the issue date.</p></article></div></div>
+  <details class="gist"><summary>看第 9 組的中文大意</summary><p>中文大意：Tidewater 貨運月結單：Cascade Office Supply 九月運費明細（4 筆、小計 19,300 元）＋8% 燃油附加費 1,544 元＋帳戶處理費 150 元＝應付 20,994 元。備註：超過 400 公斤的貨件可享運費 5% 折扣，折扣於次月帳單折抵；每月第一個上班日寄出帳單，付款期限為寄出後 21 天。</p></details>
+  <div class="q" data-q="171" data-a="2">
+      <div class="qh"><span class="qn">171</span><span class="stem">What is the total amount due?<span class="pt">計算</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>NT$19,300</span></li><li data-i="1"><b>B</b><span>NT$20,844</span></li><li data-i="2"><b>C</b><span>NT$20,994</span></li><li data-i="3"><b>D</b><span>NT$21,150</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set9">↑ 回到第 9 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 19,300 是運費小計，還沒加附加費與處理費。</li><li class="no">❌ 20,844 少算了 150 元處理費。</li><li class="yes">✅ 19,300＋1,544＋150＝20,994，與帳單相符。</li><li class="no">❌ 21,150 沒有任何組合可得出。</li></ul>
+        <p class="tip">🔑 帳單題最常考小計→附加費→總計的加總，把三個數字相加再對選項。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="172" data-a="0">
+      <div class="qh"><span class="qn">172</span><span class="stem">What is indicated about shipment S-1211?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It weighed 480 kg.</span></li><li data-i="1"><b>B</b><span>It traveled from Taichung to Hsinchu.</span></li><li data-i="2"><b>C</b><span>It was shipped on 18 September.</span></li><li data-i="3"><b>D</b><span>It cost less than the average charge.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set9">↑ 回到第 9 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 表上 Weight 欄為 480 kg。</li><li class="no">❌ 那是 S-1203 的路線。</li><li class="no">❌ 那是 S-1203 的日期；S-1211 是 25 Sep。</li><li class="no">❌ 7,950 元是四筆中最高的。</li></ul>
+        <p class="tip">🔑 表格題要「橫著讀」：同一列的日期、路線、重量、費用屬於同一筆貨件。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="173" data-a="3">
+      <div class="qh"><span class="qn">173</span><span class="stem">What will happen to a shipment weighing more than 400 kg?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It must be paid for immediately.</span></li><li data-i="1"><b>B</b><span>It will be charged a higher handling fee.</span></li><li data-i="2"><b>C</b><span>It cannot be sent to Keelung.</span></li><li data-i="3"><b>D</b><span>A discount will appear on the next statement.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set9">↑ 回到第 9 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有特殊付款要求。</li><li class="no">❌ 處理費固定 150 元。</li><li class="no">❌ 沒有路線限制。</li><li class="yes">✅ 5% 折扣「applied on the following month's statement」。</li></ul>
+        <p class="tip">🔑 備註（Notes）幾乎一定會出題，讀帳單時不要跳過。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set single" id="set10" data-set="10">
+  <h2>第 174–175 題　<span class="meta">第 10 組・線上客服對話・2 題</span></h2>
+  <div class="plead">Questions 174–175 refer to the following chat.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Chat</div><article class="passage"><p>Pulse Audio — Live Support</p><p>Visitor: Good afternoon. I bought a pair of Pulse Air headphones last month and the left side has stopped working.</p><p>Agent (Mei): Hello! Sorry to hear that. Could you give me the serial number printed inside the right ear cup?</p><p>Visitor: It is PA-77213-KL.</p><p>Agent (Mei): Thank you. That unit is still within the 12-month warranty, so you can choose either a repair or a replacement. Repairs usually take about ten days; a replacement ships the next business day.</p><p>Visitor: A replacement would be better — I use them for work.</p><p>Agent (Mei): Understood. I have sent a prepaid return label to your e-mail. Please drop the headphones at any convenience store within seven days, and we will ship the new pair as soon as the tracking shows the first scan.</p></article></div></div>
+  <details class="gist"><summary>看第 10 組的中文大意</summary><p>中文大意：Pulse Audio 線上客服：訪客說上月買的 Pulse Air 耳機左邊沒聲音；客服 Mei 請他提供右耳罩內的序號（PA-77213-KL），確認仍在 12 個月保固內，可選維修（約十天）或換新（次一營業日出貨）。客人選換新，客服寄了預付退貨標籤到他的 email，請七天內到便利商店寄回，物流首次掃描後即寄出新耳機。</p></details>
+  <div class="q" data-q="174" data-a="1">
+      <div class="qh"><span class="qn">174</span><span class="stem">What does the agent ask the visitor to provide?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A receipt from the store</span></li><li data-i="1"><b>B</b><span>A serial number</span></li><li data-i="2"><b>C</b><span>A photograph of the headphones</span></li><li data-i="3"><b>D</b><span>A payment method</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set10">↑ 回到第 10 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有索取購買證明。</li><li class="yes">✅ "Could you give me the serial number printed inside the right ear cup?"。</li><li class="no">❌ 對話中沒有要求照片。</li><li class="no">❌ 保固內處理，沒有提到付款。</li></ul>
+        <p class="tip">🔑 問句（Could you ...?）在對話題裡常直接對應答案。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="175" data-a="1">
+      <div class="qh"><span class="qn">175</span><span class="stem">What will happen after the visitor returns the headphones?<span class="pt">下一步</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The headphones will be repaired free of charge.</span></li><li data-i="1"><b>B</b><span>A new pair will be sent once tracking begins.</span></li><li data-i="2"><b>C</b><span>The visitor will receive a store credit.</span></li><li data-i="3"><b>D</b><span>The visitor must pay the shipping cost.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set10">↑ 回到第 10 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 客人選的是換新，不是維修。</li><li class="yes">✅ "we will ship the new pair as soon as the tracking shows the first scan"。</li><li class="no">❌ 沒有提到購物金。</li><li class="no">❌ 標籤是預付的（prepaid），客人不用付運費。</li></ul>
+        <p class="tip">🔑 最後一輪對話通常就是「接下來會怎樣」的答案來源。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set multi" id="set11" data-set="11">
+  <h2>第 176–180 題　<span class="meta">第 11 組・雙篇（電子郵件＋回覆）・5 題（多篇閱讀：2 份文件）</span></h2>
+  <div class="plead">Questions 176–180 refer to the following e-mails.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">E-mail 1</div><article class="passage"><p>To: orders@woodline-example.com</p><p>From: Grace Tan, Facilities Manager, Aster Clinic</p><p>Date: 12 April</p><p>Subject: Delivery of order W-9031</p><p>&nbsp;</p><p>Dear Woodline Team,</p><p>&nbsp;</p><p>We ordered twelve waiting-room chairs and three examination tables on 20 March, and your confirmation showed delivery on 10 April. It is now the 12th and nothing has arrived. Our second clinic opens on 22 April, and the waiting room cannot open without the chairs.</p><p>&nbsp;</p><p>Could you tell me what has happened and when we can expect the furniture? If the delay will be longer than a week, we may need to rent chairs temporarily, and we would expect Woodline to cover that cost.</p><p>&nbsp;</p><p>Grace Tan</p></article></div><div class="doc"><div class="dlabel">E-mail 2</div><article class="passage"><p>To: Grace Tan</p><p>From: Daniel Osei, Woodline Customer Care</p><p>Date: 13 April</p><p>Subject: RE: Delivery of order W-9031</p><p>&nbsp;</p><p>Dear Ms. Tan,</p><p>&nbsp;</p><p>Thank you for writing, and I am sorry for the trouble we have caused. The chairs you ordered are made in our Tainan workshop, which closed for four days after a fire in a neighboring unit. Production resumed on 9 April.</p><p>&nbsp;</p><p>Your chairs will leave our warehouse on 16 April and reach you on 18 April. The three examination tables are in stock and can be delivered on the same day.</p><p>&nbsp;</p><p>I have also arranged for a 15 percent credit on this order, and we will not charge the delivery fee. Please let me know if you would prefer delivery before 10:00 A.M.</p><p>&nbsp;</p><p>Daniel Osei</p></article></div></div>
+  <details class="gist"><summary>看第 11 組的中文大意</summary><p>中文大意：第一篇：Aster 診所的 Grace 追問訂單 W-9031（20 日下單、原定 4/10 到貨，12 日仍未收到），診所 4/22 開幕急需候診椅，若延誤超過一週可能先租椅子並要求 Woodline 負擔費用。第二篇：Woodline 客服 Daniel 道歉並說明原因（台南工坊因鄰居火災停工四天，4/9 復工），椅子 4/16 出貨、4/18 送達，三張診療台有現貨可同日送；另給 15% 折讓、免運費，並詢問是否偏好上午 10 點前送到。</p></details>
+  <div class="q" data-q="176" data-a="0">
+      <div class="qh"><span class="qn">176</span><span class="stem">Why did Ms. Tan write the first e-mail?<span class="pt">目的</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>To ask about an order that has not arrived</span></li><li data-i="1"><b>B</b><span>To cancel an order for twelve chairs</span></li><li data-i="2"><b>C</b><span>To request a copy of an invoice</span></li><li data-i="3"><b>D</b><span>To report damage to an examination table</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set11">↑ 回到第 11 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 全信在追問未到貨的訂單與新的交期。</li><li class="no">❌ 她沒有要取消，反而需要這批椅子。</li><li class="no">❌ 沒有提到發票。</li><li class="no">❌ 沒有任何損壞的敘述。</li></ul>
+        <p class="tip">🔑 交叉題的第一題常問「為什麼寫這封信」，先讀完第一份文件的主旨句。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="177" data-a="1">
+      <div class="qh"><span class="qn">177</span><span class="stem">What caused the delay?<span class="pt">細節（跨文件）</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A shortage of raw materials</span></li><li data-i="1"><b>B</b><span>A temporary closure of a workshop</span></li><li data-i="2"><b>C</b><span>A mistake in the delivery address</span></li><li data-i="3"><b>D</b><span>A strike by delivery drivers</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set11">↑ 回到第 11 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有提到原料短缺。</li><li class="yes">✅ 台南工坊因鄰居火災停工四天。</li><li class="no">❌ 地址沒有出錯。</li><li class="no">❌ 沒有罷工。</li></ul>
+        <p class="tip">🔑 原因通常在第二份文件的第一段，讀回覆信要看「為什麼」。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="178" data-a="2">
+      <div class="qh"><span class="qn">178</span><span class="stem">What does Mr. Osei offer Ms. Tan?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A free upgrade to larger chairs</span></li><li data-i="1"><b>B</b><span>A second delivery at no cost</span></li><li data-i="2"><b>C</b><span>A discount and free shipping</span></li><li data-i="3"><b>D</b><span>An extension of the warranty period</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set11">↑ 回到第 11 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有換貨或升級。</li><li class="no">❌ 是免運費，不是兩次配送免費。</li><li class="yes">✅ "a 15 percent credit ... we will not charge the delivery fee"。</li><li class="no">❌ 家具沒有保固期展延的敘述。</li></ul>
+        <p class="tip">🔑 補償內容常寫成兩件事（折讓＋免運），選項要能同時涵蓋才對。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="179" data-a="3">
+      <div class="qh"><span class="qn">179</span><span class="stem">What is suggested about the examination tables?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>They must be ordered again.</span></li><li data-i="1"><b>B</b><span>They will arrive after the chairs.</span></li><li data-i="2"><b>C</b><span>They were damaged in the workshop fire.</span></li><li data-i="3"><b>D</b><span>They can be delivered right away.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set11">↑ 回到第 11 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 不需要重訂，已經在庫。</li><li class="no">❌ 可與椅子同日送達，不是更晚。</li><li class="no">❌ 火災發生在鄰居單位，且桌子在庫。</li><li class="yes">✅ "are in stock and can be delivered on the same day"，可立即出貨。</li></ul>
+        <p class="tip">🔑 in stock 的意思就是「不用等生產、可以馬上出」，這是最常見的推論考點。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="180" data-a="0">
+      <div class="qh"><span class="qn">180</span><span class="stem">What does Mr. Osei ask Ms. Tan to do?<span class="pt">下一步</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Confirm whether she wants a morning delivery</span></li><li data-i="1"><b>B</b><span>Send photographs of the clinic</span></li><li data-i="2"><b>C</b><span>Pay the delivery fee in advance</span></li><li data-i="3"><b>D</b><span>Choose a different chair model</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set11">↑ 回到第 11 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 最後一句問是否偏好上午 10 點前送到。</li><li class="no">❌ 沒有要求照片。</li><li class="no">❌ 運費已免，沒有預付問題。</li><li class="no">❌ 沒有要換型號。</li></ul>
+        <p class="tip">🔑 回覆信最後一句的請求，幾乎就是「下一步」題的答案。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set multi" id="set12" data-set="12">
+  <h2>第 181–185 題　<span class="meta">第 12 組・雙篇（廣告＋報名表）・5 題（多篇閱讀：2 份文件）</span></h2>
+  <div class="plead">Questions 181–185 refer to the following advertisement and form.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Advertisement</div><article class="passage"><p>SMALL BUSINESS TAX WORKSHOP — ONE DAY, PRACTICAL, NO JARGON</p><p>&nbsp;</p><p>Presented by the Northern Chamber of Commerce</p><p>Date: Saturday, 8 September, 9:30 A.M. – 4:00 P.M.</p><p>Location: Chamber Hall, 2F, 18 Harbour Road</p><p>&nbsp;</p><p>Sessions include: recording daily sales, filing quarterly returns, and what to do when a customer pays late. Bring your own laptop; sample spreadsheets will be provided.</p><p>&nbsp;</p><p>Fee: NT$1,800 per person, including lunch and a printed workbook.</p><p>Early registration: NT$1,500 if payment reaches us by 25 August.</p><p>Members of the Chamber pay NT$1,300 at any time.</p><p>&nbsp;</p><p>Each company may send up to three people. The workshop is limited to 40 participants, and we close registration as soon as the room is full.</p></article></div><div class="doc"><div class="dlabel">Registration Form</div><article class="passage"><p>WORKSHOP REGISTRATION FORM</p><p>&nbsp;</p><p>Company name: ＿＿＿＿＿＿＿＿</p><p>Number of participants: 1 / 2 / 3</p><p>Names of participants: ＿＿＿＿＿＿＿＿</p><p>Chamber member: yes / no</p><p>Lunch: standard / vegetarian  (please choose one)</p><p>Invoice needed: yes / no    Tax ID number: ＿＿＿＿</p><p>&nbsp;</p><p>Payment: bank transfer or credit card. Registrations are confirmed only after payment is received. Cancellations made less than three days before the workshop are not refunded but may be transferred to another employee of the same company.</p><p>&nbsp;</p><p>Return this form to events@northernchamber-example.org.</p></article></div></div>
+  <details class="gist"><summary>看第 12 組的中文大意</summary><p>中文大意：廣告：北區商會 9/8（六）9:30–16:00 小型企業稅務工作坊，四堂課（日常銷售紀錄、季度申報、客戶遲付處理），自備筆電；費用 1,800 元（含午餐與講義），8/25 前早鳥 1,500 元，商會會員一律 1,300 元；每家公司最多 3 人、限額 40 人。報名表：填公司名、人數、姓名、是否會員、午餐葷素、是否需發票與統編；付款方式為轉帳或信用卡，收到款項才算報名完成；活動前三天內取消不退費但可轉讓同公司其他員工。</p></details>
+  <div class="q" data-q="181" data-a="1">
+      <div class="qh"><span class="qn">181</span><span class="stem">What is included in the workshop fee?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>A laptop computer</span></li><li data-i="1"><b>B</b><span>A printed workbook and lunch</span></li><li data-i="2"><b>C</b><span>A one-year Chamber membership</span></li><li data-i="3"><b>D</b><span>Two follow-up online sessions</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set12">↑ 回到第 12 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 要自備筆電（Bring your own laptop）。</li><li class="yes">✅ "including lunch and a printed workbook"。</li><li class="no">❌ 費用不含會員資格；會員另有優惠價。</li><li class="no">❌ 沒有後續線上課程。</li></ul>
+        <p class="tip">🔑 費用包含什麼，答案一定在 Fee 那一行。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="182" data-a="3">
+      <div class="qh"><span class="qn">182</span><span class="stem">How much would a non-member pay to register on 1 September?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>NT$1,300</span></li><li data-i="1"><b>B</b><span>NT$1,500</span></li><li data-i="2"><b>C</b><span>NT$2,100</span></li><li data-i="3"><b>D</b><span>NT$1,800</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set12">↑ 回到第 12 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 1,300 元是商會會員價，非會員不適用。</li><li class="no">❌ 1,500 元是早鳥價，但早鳥只到 8 月 25 日，9 月 1 日已過期限。</li><li class="no">❌ 1,800 元已是全額，沒有額外費用。</li><li class="yes">✅ 早鳥期已過，非會員須付一般價 1,800 元。</li></ul>
+        <p class="tip">🔑 價格題先把「期限」與「身分」兩個條件分開檢查，再決定套哪一個價。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="183" data-a="1">
+      <div class="qh"><span class="qn">183</span><span class="stem">According to the form, when is a registration confirmed?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>When the form is returned</span></li><li data-i="1"><b>B</b><span>When payment has been received</span></li><li data-i="2"><b>C</b><span>When the participant list is approved</span></li><li data-i="3"><b>D</b><span>Three days before the workshop</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set12">↑ 回到第 12 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 寄回表單還不算完成。</li><li class="yes">✅ "Registrations are confirmed only after payment is received"。</li><li class="no">❌ 沒有審核名單的流程。</li><li class="no">❌ 三天前是取消規則，不是確認時點。</li></ul>
+        <p class="tip">🔑 only after 這種強調詞是考點標記。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="184" data-a="1">
+      <div class="qh"><span class="qn">184</span><span class="stem">What should a participant who cannot attend do?<span class="pt">同義字／細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Ask for a full refund at any time</span></li><li data-i="1"><b>B</b><span>Send a replacement from the same company</span></li><li data-i="2"><b>C</b><span>Reschedule to the next workshop</span></li><li data-i="3"><b>D</b><span>Pay a fee to change the participant</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set12">↑ 回到第 12 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 活動前三天內取消不退費。</li><li class="yes">✅ "may be transferred to another employee of the same company"，同公司換人。</li><li class="no">❌ 沒有改期到下一場的規定。</li><li class="no">❌ 沒有換人要付費。</li></ul>
+        <p class="tip">🔑 把 refund（退費）與 transfer（轉讓）分清楚，這是最常見的一組對比。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="185" data-a="2">
+      <div class="qh"><span class="qn">185</span><span class="stem">What is indicated about the workshop?<span class="pt">NOT/EXCEPT→細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It accepts a maximum of three participants.</span></li><li data-i="1"><b>B</b><span>It requires participants to have a tax ID number.</span></li><li data-i="2"><b>C</b><span>It will be held on a weekend.</span></li><li data-i="3"><b>D</b><span>It provides spreadsheets for purchase.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set12">↑ 回到第 12 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 是每家公司最多三人，總名額 40 人。</li><li class="no">❌ 統編只有需要發票時才填。</li><li class="yes">✅ 8 September 為週六，是週末。</li><li class="no">❌ 範例試算表是提供的（provided），不是要購買。</li></ul>
+        <p class="tip">🔑 同一個數字（3）常被換主體（每家三人 vs 總額三人），讀清楚限制對象。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set multi" id="set13" data-set="13">
+  <h2>第 186–190 題　<span class="meta">第 13 組・三篇（公告＋時程表＋電子郵件）・5 題（多篇閱讀：3 份文件）</span></h2>
+  <div class="plead">Questions 186–190 refer to the following notice, schedule and e-mail.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Notice</div><article class="passage"><p>BUILDING NOTICE — ELECTRICAL UPGRADE, WEEK OF 14–18 MAY</p><p>&nbsp;</p><p>To increase the capacity of our laboratories, the electrical system on floors 2 to 5 will be upgraded. During the work, each floor will lose power for one full working day.</p><p>&nbsp;</p><p>Safety rules:</p><p>• Do not use the elevators on the day your floor is affected.</p><p>• Refrigerators containing samples will be connected to a temporary generator on floors 3 and 4 only.</p><p>• Server rooms will switch to backup power automatically; no action is needed.</p><p>&nbsp;</p><p>Please save your work on the evening before your floor's scheduled date.</p></article></div><div class="doc"><div class="dlabel">Schedule</div><article class="passage"><p>ELECTRICAL UPGRADE — FLOOR SCHEDULE</p><p>&nbsp;</p><p>Floor   Date            Time without power</p><p>5th     Monday 14 May   7:00 A.M. – 5:00 P.M.</p><p>4th     Tuesday 15 May  8:00 A.M. – 4:00 P.M.</p><p>3rd     Wednesday 16 May   7:30 A.M. – 3:30 P.M.</p><p>2nd     Thursday 17 May    8:00 A.M. – 6:00 P.M.</p><p>&nbsp;</p><p>Work on Friday 18 May will be limited to testing and will not interrupt power.</p><p>Questions: ext. 2210.</p></article></div><div class="doc"><div class="dlabel">E-mail</div><article class="passage"><p>To: Facilities Office</p><p>From: Wei-Ling Ho, Biology Lab, Room 315</p><p>Date: 10 May</p><p>Subject: Thursday experiments</p><p>&nbsp;</p><p>Hello,</p><p>&nbsp;</p><p>Our group runs a 30-hour experiment that cannot be interrupted. I see that the schedule on our floor is Wednesday, which we can manage, but I would like to confirm one thing: our incubator must stay at 37 degrees the whole time. Does the temporary generator in the notice also cover the third floor?</p><p>&nbsp;</p><p>If not, we will move the incubator to a colleague's room on the fifth floor before Wednesday morning.</p><p>&nbsp;</p><p>Wei-Ling Ho</p></article></div></div>
+  <details class="gist"><summary>看第 13 組的中文大意</summary><p>中文大意：公告：5/14–18 大樓 2–5 樓進行電力升級，每層各停電一個工作日；停電當天不要搭電梯、3 樓與 4 樓樣品冰箱會接臨時發電機、機房自動切換備援；請在前一晚先存檔。時程表：5 樓 5/14、4 樓 5/15、3 樓 5/16、2 樓 5/17（時段各異），5/18 只做測試不停電。信件：3 樓生物實驗室的何小姐有一個不能中斷的 30 小時實驗，想確認 3 樓是否也有臨時發電機；若沒有，會在週三早上前把培養箱搬到 5 樓同事的房間。</p></details>
+  <div class="q" data-q="186" data-a="2">
+      <div class="qh"><span class="qn">186</span><span class="stem">On which day will the third floor lose power?<span class="pt">細節（跨文件）</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Monday 14 May</span></li><li data-i="1"><b>B</b><span>Tuesday 15 May</span></li><li data-i="2"><b>C</b><span>Wednesday 16 May</span></li><li data-i="3"><b>D</b><span>Thursday 17 May</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set13">↑ 回到第 13 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 5/14 是 5 樓。</li><li class="no">❌ 5/15 是 4 樓。</li><li class="yes">✅ 時程表列 3rd floor 為 Wednesday 16 May。</li><li class="no">❌ 5/17 是 2 樓。</li></ul>
+        <p class="tip">🔑 時程表題直接查表，注意題目問的是哪一層樓。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="187" data-a="0">
+      <div class="qh"><span class="qn">187</span><span class="stem">What is Ms. Ho concerned about?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Whether her floor will have backup power</span></li><li data-i="1"><b>B</b><span>Whether the elevators will be working</span></li><li data-i="2"><b>C</b><span>Whether her experiment can be moved</span></li><li data-i="3"><b>D</b><span>Whether the laboratory doors will be locked</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set13">↑ 回到第 13 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 她問的是 3 樓是否也在臨時發電機的範圍內。</li><li class="no">❌ 電梯只是安全規則的一項，不是她的問題。</li><li class="no">❌ 她說實驗可以搬，但想先確認有沒有電。</li><li class="no">❌ 沒有提到門鎖。</li></ul>
+        <p class="tip">🔑 信件題的答案就是問句本身（Does the generator cover the third floor?）。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="188" data-a="3">
+      <div class="qh"><span class="qn">188</span><span class="stem">What does the notice say about the server rooms?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>They will be moved to the fifth floor.</span></li><li data-i="1"><b>B</b><span>They will be closed for the whole week.</span></li><li data-i="2"><b>C</b><span>They must be shut down manually.</span></li><li data-i="3"><b>D</b><span>They will use backup power automatically.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set13">↑ 回到第 13 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 沒有搬移機房。</li><li class="no">❌ 沒有說關閉一週。</li><li class="no">❌ 不需要人工操作（no action is needed）。</li><li class="yes">✅ "switch to backup power automatically"。</li></ul>
+        <p class="tip">🔑 automatically 常與 no action is needed 一起出現，考「需不需要人做什麼」。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="189" data-a="2">
+      <div class="qh"><span class="qn">189</span><span class="stem">What will Ms. Ho probably do if the generator does not cover the third floor?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Postpone the experiment until Friday</span></li><li data-i="1"><b>B</b><span>Ask the facilities office to reschedule her floor</span></li><li data-i="2"><b>C</b><span>Bring the incubator to another floor</span></li><li data-i="3"><b>D</b><span>Run the experiment without the incubator</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set13">↑ 回到第 13 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 實驗不能中斷，延到週五不是她的選項。</li><li class="no">❌ 她沒有要求改時程，而是配合時程。</li><li class="yes">✅ 信裡明說會把培養箱搬到 5 樓同事的房間。</li><li class="no">❌ 培養箱是必要設備，不可能不使用。</li></ul>
+        <p class="tip">🔑 推論題把信裡的條件句（If not, we will ...）直接轉成答案。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="190" data-a="0">
+      <div class="qh"><span class="qn">190</span><span class="stem">What are employees asked to do the evening before their floor's work?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Save their work</span></li><li data-i="1"><b>B</b><span>Turn off the refrigerators</span></li><li data-i="2"><b>C</b><span>Leave the building early</span></li><li data-i="3"><b>D</b><span>Call extension 2210 to confirm</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set13">↑ 回到第 13 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ "Please save your work on the evening before your floor's scheduled date"。</li><li class="no">❌ 冰箱會接發電機，不用關。</li><li class="no">❌ 沒有要求提早離開。</li><li class="no">❌ 2210 是問問題用的，不是要每個人都打。</li></ul>
+        <p class="tip">🔑 公告的最後一句常是給讀者的動作指示。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set multi" id="set14" data-set="14">
+  <h2>第 191–195 題　<span class="meta">第 14 組・三篇（網頁＋評語＋電子郵件）・5 題（多篇閱讀：3 份文件）</span></h2>
+  <div class="plead">Questions 191–195 refer to the following information.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Web page</div><article class="passage"><p>HARBOURVIEW BUSINESS HOTEL — MEETING SPACES</p><p>&nbsp;</p><p>Harbour Room — up to 60 guests. Built-in projector, screen and sound system. Half-day rate NT$18,000; full-day rate NT$30,000.</p><p>Cedar Room — up to 24 guests. Whiteboard and video-conferencing unit. Half-day NT$9,000; full-day NT$15,000.</p><p>Terrace Room — up to 12 guests. Natural light, private entrance, no built-in screen. Half-day NT$6,000; full-day NT$10,000.</p><p>&nbsp;</p><p>All rates include coffee, tea and bottled water. Lunch is NT$680 per person and must be ordered at least five days in advance. Rooms may be reserved from 8:00 A.M.; the hotel charges NT$1,200 for each additional hour after 6:00 P.M.</p></article></div><div class="doc"><div class="dlabel">Review</div><article class="passage"><p>★★★★☆  Reviewed by Mei-Lin Chang, 2 April</p><p>&nbsp;</p><p>We held our annual supplier meeting in the Harbour Room last month. The staff set up the projector exactly as we asked, and the afternoon coffee arrived on time. Two things to note: the room next door was being renovated, so we heard drilling during the morning session, and the parking lot fills up quickly — several of our guests had to park two streets away. I would still book here again for a meeting of this size.</p></article></div><div class="doc"><div class="dlabel">E-mail</div><article class="passage"><p>To: events@harbourview-example.com</p><p>From: Kevin Lai, Sales Director, Sunlake Foods</p><p>Date: 9 April</p><p>Subject: Full-day meeting on 22 May</p><p>&nbsp;</p><p>Dear Events Team,</p><p>&nbsp;</p><p>We would like to hold a full-day sales meeting on Thursday 22 May for about 20 people. We will need video conferencing, and our regional manager will join from overseas for the first hour. We would also like a hot lunch for all attendees.</p><p>&nbsp;</p><p>Could you confirm which room you would recommend, and whether the video equipment can be tested the day before? Please also let me know the total cost, including lunch.</p><p>&nbsp;</p><p>Kevin Lai</p></article></div></div>
+  <details class="gist"><summary>看第 14 組的中文大意</summary><p>中文大意：飯店網頁：三種會議場地（Harbour 60 人／Cedar 24 人／Terrace 12 人）與半日、全日價，含咖啡茶水，午餐每人 680 元須五天前預訂，8:00 起可用、18:00 後每小時加收 1,200 元。評語：張小姐用過 Harbour 房，設備與茶水準時，但隔壁施工有鑽孔聲、停車位難找。信件：Sunlake Foods 的 Kevin 想訂 5/22 全日、約 20 人，需要視訊設備（國外主管參與第一小時）與熱午餐，並問建議場地、能否前一天測試設備、含午餐的總費用。</p></details>
+  <div class="q" data-q="191" data-a="1">
+      <div class="qh"><span class="qn">191</span><span class="stem">Which room would best fit Mr. Lai's group?<span class="pt">推論（跨文件）</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Harbour Room</span></li><li data-i="1"><b>B</b><span>Cedar Room</span></li><li data-i="2"><b>C</b><span>Terrace Room</span></li><li data-i="3"><b>D</b><span>Any room, since they are similar.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set14">↑ 回到第 14 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ Harbour 房可容納 60 人，對 20 人來說過大且最貴。</li><li class="yes">✅ Cedar 房可容納 24 人，符合約 20 人，且內建視訊設備（正是他需要的）。</li><li class="no">❌ Terrace 房只容納 12 人，坐不下 20 人，也沒有內建螢幕。</li><li class="no">❌ 三個場地人數與設備差別很大，不能任選。</li></ul>
+        <p class="tip">🔑 三篇題的關鍵是「把信裡的需求逐項對到網頁規格」：人數→容量、視訊→設備。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="192" data-a="3">
+      <div class="qh"><span class="qn">192</span><span class="stem">What does the review mention as a problem?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>The meeting room was too small for the group.</span></li><li data-i="1"><b>B</b><span>The coffee was served late.</span></li><li data-i="2"><b>C</b><span>The projector did not work.</span></li><li data-i="3"><b>D</b><span>It was difficult to find parking.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set14">↑ 回到第 14 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 評語說「for a meeting of this size」還會再訂，沒有抱怨太小。</li><li class="no">❌ 明確說下午的咖啡準時（on time）。</li><li class="no">❌ 投影機照要求架好，沒有故障。</li><li class="yes">✅ "the parking lot fills up quickly ... had to park two streets away"。</li></ul>
+        <p class="tip">🔑 評語題要分清「稱讚」與「抱怨」兩類句子，題目問 problem 就只找負面句。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="193" data-a="2">
+      <div class="qh"><span class="qn">193</span><span class="stem">What is NOT included in the room rates?<span class="pt">NOT/EXCEPT</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Coffee and tea</span></li><li data-i="1"><b>B</b><span>Bottled water</span></li><li data-i="2"><b>C</b><span>Lunch</span></li><li data-i="3"><b>D</b><span>Use of a screen</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set14">↑ 回到第 14 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 有包含咖啡與茶。</li><li class="no">❌ 有包含瓶裝水。</li><li class="yes">✅ 午餐每人 680 元，須另外加購。</li><li class="no">❌ 螢幕屬房間設備（Harbour、Cedar 內建）。</li></ul>
+        <p class="tip">🔑 rates include 後面列的是含在內；被排除的那一項通常寫在下一句。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="194" data-a="0">
+      <div class="qh"><span class="qn">194</span><span class="stem">What does Mr. Lai ask the events team to confirm?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Which room they recommend and the total cost</span></li><li data-i="1"><b>B</b><span>Whether the hotel can provide a translator</span></li><li data-i="2"><b>C</b><span>Whether the meeting can start before 8:00 A.M.</span></li><li data-i="3"><b>D</b><span>Whether guests can park for free</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set14">↑ 回到第 14 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 信裡要求確認建議場地、能否前一天測試設備，以及含午餐的總費用。</li><li class="no">❌ 沒有提到翻譯人員。</li><li class="no">❌ 沒有要求提早於 8:00 開始。</li><li class="no">❌ 沒有問停車優惠。</li></ul>
+        <p class="tip">🔑 「要求確認什麼」＝信裡的問句清單，逐一對選項。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="195" data-a="3">
+      <div class="qh"><span class="qn">195</span><span class="stem">Why does Mr. Lai most likely mention the video equipment?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Because it costs an extra fee</span></li><li data-i="1"><b>B</b><span>Because the hotel does not own one</span></li><li data-i="2"><b>C</b><span>Because it was broken during a previous stay</span></li><li data-i="3"><b>D</b><span>Because a participant will attend remotely</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set14">↑ 回到第 14 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 網頁沒有說視訊設備要加價。</li><li class="no">❌ Cedar 房內建視訊設備，不是沒有。</li><li class="no">❌ 評語是別家公司寫的，不是他的經驗。</li><li class="yes">✅ 他的區域主管會從國外連線參與第一小時，所以需要視訊。</li></ul>
+        <p class="tip">🔑 問「為什麼提到某件事」時，答案幾乎都在同一句的後半（our regional manager will join from overseas）。</p>
+      </div></div>
+    </div>
+</section>
+<section class="set multi" id="set15" data-set="15">
+  <h2>第 196–200 題　<span class="meta">第 15 組・雙篇（徵才公告＋應徵信）・5 題（多篇閱讀：2 份文件）</span></h2>
+  <div class="plead">Questions 196–200 refer to the following notice and e-mail.</div>
+  <div class="docs"><div class="doc"><div class="dlabel">Job posting</div><article class="passage"><p>GREENFIELD PHARMACY — PHARMACY ASSISTANT (FULL TIME)</p><p>&nbsp;</p><p>Location: Greenfield Plaza branch, near Songshan MRT station</p><p>Hours: Monday to Friday, 9:00 A.M. – 6:00 P.M.; one Saturday morning per month</p><p>&nbsp;</p><p>Requirements:</p><p>• Two years of experience in a retail or medical setting</p><p>• Ability to communicate with customers in Mandarin and English</p><p>• A pharmacy-related certificate is preferred but not required</p><p>&nbsp;</p><p>Duties include receiving deliveries, organizing shelves, assisting customers with over-the-counter products, and keeping daily inventory records.</p><p>&nbsp;</p><p>We offer a starting salary above the local average, a monthly transport allowance, and paid training in our internal system. Applications should be sent to hr@greenfield-example.com by 30 June. Only shortlisted applicants will be contacted for an interview.</p></article></div><div class="doc"><div class="dlabel">E-mail</div><article class="passage"><p>To: hr@greenfield-example.com</p><p>From: Nina Kuo</p><p>Date: 18 June</p><p>Subject: Application — Pharmacy Assistant</p><p>&nbsp;</p><p>Dear Hiring Manager,</p><p>&nbsp;</p><p>I am writing to apply for the pharmacy assistant position advertised on your Web site.</p><p>&nbsp;</p><p>For the past three years I have worked at a medical supply store in Banqiao, where I handled deliveries, stock records and customer questions in both Mandarin and English. I completed a pharmacy technician certificate last year. I live ten minutes from Songshan station, so the location suits me well.</p><p>&nbsp;</p><p>One question: I understand the role is full time. Would it be possible to work from home on the one Saturday morning each month, since most of that time is spent updating inventory records?</p><p>&nbsp;</p><p>I can start on 1 August.</p><p>Nina Kuo</p></article></div></div>
+  <details class="gist"><summary>看第 15 組的中文大意</summary><p>中文大意：徵才公告：Greenfield 藥局徵全職藥局助理，地點松山站附近，週一至週五 9:00–18:00、每月一個週六上午；條件：兩年零售或醫療經驗、中英文溝通、藥學相關證書加分；工作含收貨、排架、協助顧客與每日庫存紀錄；待遇：起薪高於平均、每月交通津貼、內部系統帶薪訓練；6/30 前寄履歷，僅通知入選者面試。應徵信：郭小姐在板橋醫療用品店工作三年，處理收貨、庫存與中英文客服，去年取得藥學技術員證書，住松山站十分鐘；她詢問每月一次的週六上午能否在家工作（因為主要做庫存紀錄），最快 8/1 到職。</p></details>
+  <div class="q" data-q="196" data-a="3">
+      <div class="qh"><span class="qn">196</span><span class="stem">What is indicated about the position?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>It requires a pharmacy certificate.</span></li><li data-i="1"><b>B</b><span>It involves working every Saturday.</span></li><li data-i="2"><b>C</b><span>It is located in Banqiao.</span></li><li data-i="3"><b>D</b><span>It includes paid training.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set15">↑ 回到第 15 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 證書是 preferred but not required（加分非必要）。</li><li class="no">❌ 是每月一個週六上午，不是每週六。</li><li class="no">❌ 板橋是郭小姐現在的工作地點；職缺在松山。</li><li class="yes">✅ "paid training in our internal system"。</li></ul>
+        <p class="tip">🔑 「必要條件 vs 加分條件」與「每週 vs 每月」都是這類題的固定陷阱。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="197" data-a="2">
+      <div class="qh"><span class="qn">197</span><span class="stem">What does Ms. Kuo ask about?<span class="pt">細節</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Whether she can start earlier</span></li><li data-i="1"><b>B</b><span>Whether the salary is negotiable</span></li><li data-i="2"><b>C</b><span>Whether part of the Saturday shift can be done remotely</span></li><li data-i="3"><b>D</b><span>Whether the certificate can be obtained later</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set15">↑ 回到第 15 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 她說 8/1 可到職，沒有要求提早。</li><li class="no">❌ 沒有談薪資。</li><li class="yes">✅ 她問每月一次的週六上午能否在家工作。</li><li class="no">❌ 她已經有證書了。</li></ul>
+        <p class="tip">🔑 應徵信裡的問句通常就是考點，且常考「她問的是什麼」而不是「公司怎麼回答」。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="198" data-a="1">
+      <div class="qh"><span class="qn">198</span><span class="stem">What is NOT part of the duties listed?<span class="pt">NOT/EXCEPT</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Receiving deliveries</span></li><li data-i="1"><b>B</b><span>Preparing prescription medicine</span></li><li data-i="2"><b>C</b><span>Keeping inventory records</span></li><li data-i="3"><b>D</b><span>Helping customers with products</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set15">↑ 回到第 15 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 收貨是職責之一（receiving deliveries）。</li><li class="yes">✅ 公告沒有提到調劑處方藥；且助理職務只寫到成藥與庫存。</li><li class="no">❌ 每日庫存紀錄是明列職責。</li><li class="no">❌ 協助顧客選購成藥是明列職責。</li></ul>
+        <p class="tip">🔑 NOT 題的答案常是「聽起來很像但公告沒寫」的那一項。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="199" data-a="0">
+      <div class="qh"><span class="qn">199</span><span class="stem">What is suggested about Ms. Kuo?<span class="pt">推論</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>She meets the experience requirement.</span></li><li data-i="1"><b>B</b><span>She has worked at Greenfield before.</span></li><li data-i="2"><b>C</b><span>She does not speak English.</span></li><li data-i="3"><b>D</b><span>She will need to move closer to the store.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set15">↑ 回到第 15 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="yes">✅ 她有三年醫療用品店經驗，超過公告要求的兩年。</li><li class="no">❌ 沒有在此工作過的敘述。</li><li class="no">❌ 她明說用中英文處理客服。</li><li class="no">❌ 她住松山站十分鐘，不必搬家。</li></ul>
+        <p class="tip">🔑 推論「符不符合條件」＝把履歷數字與公告門檻並排比較。</p>
+      </div></div>
+    </div>
+  <div class="q" data-q="200" data-a="3">
+      <div class="qh"><span class="qn">200</span><span class="stem">What will most likely happen next?<span class="pt">下一步（跨文件）</span></span><span class="mark"></span></div>
+      <ul class="opts"><li data-i="0"><b>A</b><span>Ms. Kuo will be offered the job immediately.</span></li><li data-i="1"><b>B</b><span>The pharmacy will change the working hours.</span></li><li data-i="2"><b>C</b><span>Ms. Kuo will send her certificate by post.</span></li><li data-i="3"><b>D</b><span>The pharmacy will decide whether to contact her.</span></li></ul>
+      <div class="jump"><button class="backjump" type="button" data-target="set15">↑ 回到第 15 組文章</button></div>
+      <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden>
+        <ul class="why"><li class="no">❌ 不會立刻錄取，公告說只通知入選者面試。</li><li class="no">❌ 公告沒有提到調整工時。</li><li class="no">❌ 沒有要求郵寄證書。</li><li class="yes">✅ 依公告流程，藥局會先篩選，再決定是否通知面試。</li></ul>
+        <p class="tip">🔑 問「接下來最可能發生什麼」時，答案要能被兩份文件的規則支持。</p>
+      </div></div>
+    </div>
+</section>
+
+  <div class="jumpend"><button class="backjump gotoscore" type="button"
+    data-target="scoring">↑ 回到上面評分</button></div>
+
+  <p class="dim" style="margin-top:34px">題本文字檔：<code>多益_P7完整題組.md</code>（含答案表、逐題詳解與各組中文大意）</p>
+  <a class="back" href="../">← 回多益英文</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+</div>
+<script src="../quiz.js"></script>
+<script>
+/* 「↑ 回到第 N 組文章」／「↑ 回到上面評分」：平滑滑到目標並閃示約 2 秒。
+   目標元素由 data-target 指定（組別 set-N 或計分區 scoring），高亮都加 .hit。
+   只是事件監聽，不碰 quiz.js 的作答／計分／詳解狀態。 */
+(function () {
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('.backjump');
+    if (!b) return;
+    var t = document.getElementById(b.getAttribute('data-target'));
+    if (!t) return;
+    try { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    catch (e) { t.scrollIntoView(); }
+    if (t.__hitTimer) clearTimeout(t.__hitTimer);
+    t.classList.remove('hit');
+    void t.offsetWidth;
+    t.classList.add('hit');
+    t.__hitTimer = setTimeout(function () {
+      t.classList.remove('hit');
+      t.__hitTimer = null;
+    }, 2000);
+  });
+})();
+</script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
