@@ -55,54 +55,9 @@
   a.top,a.top2{display:block;text-align:center;margin-top:34px;color:var(--blue)}
   a.top2{margin-top:12px;font-size:13.5px;text-decoration:none;color:var(--soft)}
 
-
-
-
-
-
-
-
-
-
-
-  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
-  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
-        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
-        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
-  .hnav::-webkit-scrollbar{display:none}
-  .hnav a{white-space:nowrap}
-  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
-        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
-  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
-        border:1.5px solid transparent;flex:none}
-  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  @media (max-width:430px){
-    .hnav{padding:4px 8px}
-    .hnav a.brand{font-size:13px;padding:2px 6px}
-    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
-  }
-  /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
-        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  .viewsline .vnum{color:#364e70}
-  .viewsline .vnum.vnum-on{color:#bf4a3a}
-  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
-<script defer src="../../counter.js?v=94ad9679"></script>
 </head>
 <body>
-<!-- hermesnav -->
-<nav class="hnav">
-  <a class="brand" href="../../">小R 頻道</a>
-  <a class="lnk" href="../../ai/">AI 助理實測</a>
-  <a class="lnk on" href="../../stock/">股市觀察</a>
-  <a class="lnk" href="../../toeic/">多益英文</a>
-</nav>
-
 <div class="wrap" id="top">
   <a class="back" href="../">← 回股市觀察</a>
   <h1>盤中觀察 <span class="chip">首次盤中觀察</span></h1>
@@ -125,8 +80,18 @@
     <strong>上市前 35＋上櫃前 15</strong>。漲跌家數是<strong>候選池內</strong>的數字，不是全市場（即時全市場家數證交所沒有開放端點）。<br>
     本頁為公開資料的整理與觀察，<strong>不構成投資建議</strong>，不報牌、不預測、不下買賣決策。
   </div>
-  <div class="note">
-    <strong>時程紀錄（本日盤中分析）</strong>
+  <style>
+    details.sched>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;}
+    details.sched>summary::-webkit-details-marker{display:none;}
+    details.sched>summary .sh{color:#b03a2e;font-size:13px;}
+    details.sched>summary .st{color:#b03a2e;font-size:13px;}
+    details.sched:not([open])>summary .st{display:none;}
+    details.sched[open]>summary .sh{display:none;}
+    details.sched>.sched-body{margin-top:6px;}
+  </style>
+  <details class="note sched">
+    <summary><strong>時程紀錄（本日盤中分析）</strong><span class="sh">▾ 點擊展開</span><span class="st">▴ 點擊收合</span></summary>
+    <div class="sched-body">
     <table>
       <tr><th>階段</th><th>時間</th></tr>
       <tr><td class="d">任務開始</td><td>由 Richard 提出時開始（手動執行）</td></tr>
@@ -135,13 +100,15 @@
       <tr><td class="d">本頁產出</td><td>見頁尾版本時間</td></tr>
     </table>
     逐階段 log：<table><tr><td class='d'>12:40:32</td><td>START 盤中分析開始</td></tr><tr><td class='d'>12:40:32</td><td>① 抓即時指數（tse_t00 / otc_o00）</td></tr><tr><td class='d'>12:40:32</td><td>② 建立候選池（20260914 與 20260911 成交值前段，上市＋上櫃）</td></tr><tr><td class='d'>12:40:32</td><td>   候選池共 411 檔</td></tr><tr><td class='d'>12:40:32</td><td>③ 抓即時候選池行情</td></tr><tr><td class='d'>12:40:54</td><td>   取得即時報價 411 檔</td></tr><tr><td class='d'>12:40:54</td><td>   候選池漲跌：漲 97／跌 291／平盤 23（快照時間 12:40:45）</td></tr><tr><td class='d'>12:40:54</td><td>④ 選出 50 檔（上市 35＋上櫃 15），門檻 27.04 億</td></tr><tr><td class='d'>12:40:54</td><td>⑤ 抓日線歷史並算技術面</td></tr><tr><td class='d'>12:40:54</td><td>⑥ 產出（50 檔）</td></tr></table>
-  </div>
+    </div>
+  </details>
   <div class="note">
     <strong>K 線圖怎麼看</strong>：每一檔都附 K 線圖 —— <strong>黃圈</strong>是轉折低點、<strong>粉圈</strong>是轉折高點（
     虛線圈代表還沒確認的轉折）、<strong>藍線是月線（20 日均線）</strong>；<strong>頸線</strong>取最近兩個轉折低點之間的最高轉折高點，
     突破頸線才會標示。<br>
     紅色 K 棒＝收盤高於開盤、綠色＝收盤低於開盤。
   </div>
+  
   <section id="sec-rank">
     <h2>好條件最多的（前 10）</h2>
     <div class="scroll"><table>
@@ -983,6 +950,5 @@
   </article>
   <a class="top" href="../">← 回股市觀察</a>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="13" data-views>—</span></div>
 </body>
 </html>
