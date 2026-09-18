@@ -54,49 +54,19 @@
   .ylink a{color:var(--blue)}
   a.top,a.top2{display:block;text-align:center;margin-top:34px;color:var(--blue)}
   a.top2{margin-top:12px;font-size:13.5px;text-decoration:none;color:var(--soft)}
-
-
-
-
-
-  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
-  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
-        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
-        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
-  .hnav::-webkit-scrollbar{display:none}
-  .hnav a{white-space:nowrap}
-  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
-        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
-  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
-        border:1.5px solid transparent;flex:none}
-  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  @media (max-width:430px){
-    .hnav{padding:4px 8px}
-    .hnav a.brand{font-size:13px;padding:2px 6px}
-    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
-  }
-  /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
-        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  .viewsline .vnum{color:#364e70}
-  .viewsline .vnum.vnum-on{color:#bf4a3a}
-  .viewsline .vnum.vnum-off{color:#78706a}
+  .mktbox{border:2px solid var(--blue);border-radius:16px;padding:14px 18px;background:rgba(255,253,246,.75);margin:6px 0 10px}
+  .mkstate{font-size:clamp(19px,3.4vw,25px);color:var(--blue);margin:2px 0 4px;font-weight:bold}
+  .mkprev{font-size:13.5px;color:var(--soft);margin:0 0 8px}
+  .mksrc{font-size:13px;color:var(--soft);font-weight:normal;margin-left:8px}
+  .mktbox table{margin:6px 0}
+  .mktbox th[scope],.mktbox tr th{width:26%}
+  .mtgs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+  .mtgs a.tg{text-decoration:none;color:var(--soft)}
+  .mtgs a.tg:hover{color:var(--red);border-color:var(--red)}
+  .mksum{font-size:15.5px;margin:6px 0 0}
 </style>
-<script defer src="../../counter.js?v=94ad9679"></script>
 </head>
 <body>
-<!-- hermesnav -->
-<nav class="hnav">
-  <a class="brand" href="../../">小R 頻道</a>
-  <a class="lnk" href="../../ai/">AI 助理實測</a>
-  <a class="lnk on" href="../../stock/">股市觀察</a>
-  <a class="lnk" href="../../toeic/">多益英文</a>
-</nav>
-
 <div class="wrap" id="top">
   <a class="back" href="../">← 回股市觀察</a>
   <h1>盤中觀察 <span class="chip">每日盤中觀察</span></h1>
@@ -136,6 +106,35 @@
     突破頸線才會標示。<br>
     紅色 K 棒＝收盤高於開盤、綠色＝收盤低於開盤。
   </div>
+  
+  <section id="sec-market">
+    <h2>大盤趨勢快篩（加權指數）（盤中近似） <small class="mksrc">資料日 2026/09/17・來源：證交所公開資料</small></h2>
+    <div class="mktbox">
+      <div class="mkstate">主狀態：站上月線、月線向上</div>
+      <div class="mkprev">前一交易日對照（09/16）：量縮觀望（量比 20 0.78） → 今日站上月線、月線向上（量比 20 1.00）</div>
+      <div class="scroll"><table>
+        <tr><th>指標</th><th>數值</th><th>判定</th></tr>
+        <tr><th>盤中指數（MIS 即時）</th><td>46,461.38</td><td>+1.34%（12:30，盤中近似）</td></tr>
+        <tr><th>收盤指數</th><td>46,288.00</td><td>+439.10 點（+0.96%）</td></tr>
+        <tr id="sec-market-ma"><th>均線位置<br><span class="dim">收盤 vs MA5／10／20／60</span></th>
+          <td>MA5 45,939.15／MA10 46,480.28／MA20 46,159.89／MA60 45,156.82</td><td>站上 3／4｜站上／跌破／站上／站上（+0.76%／-0.41%／+0.28%／+2.51%）</td></tr>
+        <tr><th>均線排列</th><td>MA10 &gt; MA20 &gt; MA5 &gt; MA60</td><td>非標準排列（MA10 &gt; MA20 &gt; MA5 &gt; MA60，糾結度 2.87% → 糾結）</td></tr>
+        <tr><th>月線方向（MA20）</th><td>上彎（比 5 日前 +153.29 點／+0.33%）</td><td>上彎（+30.7 點／日）</td></tr>
+        <tr id="sec-market-neck"><th>多方頸線<br><span class="dim">突破線</span></th>
+          <td>47,578.24（08-25 ~ 09-14 之間的最高轉折高點 09-08）</td><td>未突破，距 -2.71%</td></tr>
+        <tr><th>空方頸線<br><span class="dim">M 頭頸線</span></th><td>44,210.31（08-14 ~ 09-01 之間的最低轉折低點 08-25）</td><td>未跌破，距 +4.70%</td></tr>
+        <tr><th>轉折結構<br><span class="dim">頭頭高／底底高</span></th>
+          <td>高點 46,402.60 → 46,948.72 → 47,578.24（遞增）；低點 44,308.71 → 44,210.31 → 45,398.43（遞增，但僅因 0.5% 容差視為持平）</td><td>頭頭高 ✔、底底高 ✔（容差 0.5%）</td></tr>
+        <tr id="sec-market-pos"><th>位置</th><td>近 20 日高 47,578.24（09-08）／低 44,210.31（08-25）</td><td>距高 -2.71%、距低 +4.70%</td></tr>
+        <tr id="sec-market-vol"><th>成交金額</th><td>8,666.2 億（集中市場總成交金額）</td><td>量比 5 = 1.20、量比 20 = 1.00（量能持平）</td></tr>
+      </table></div>
+      <div class="mtgs"><a class="tg" href="#sec-market-ma">均線糾結</a><a class="tg" href="#sec-market-ma">收盤 &gt; MA60</a><a class="tg" href="#sec-market-ma">收盤 &lt; MA10（短均未收復）</a><a class="tg" href="#sec-market-pos">貼近 20 日高</a><a class="tg" href="#sec-market-vol">量縮上漲（追價意願有限）</a><a class="tg" href="#sec-market-vol">量能回升（量 ≥ 1.2×5 日均量）</a><a class="tg" href="#sec-market-neck">頭頭高</a><a class="tg" href="#sec-market-neck">底底高</a><a class="tg" href="#sec-market-neck">待確認轉折</a></div>
+      <div class="mksum">加權指數 46,288.00（+439.10 點、+0.96%），站上月線 46,159.89（+0.28%），月線比 5 日前高 153.29 點（上彎）。多方頸線 47,578.24（08-25 ~ 09-14）尚未突破，還差 2.71%；空方頸線 44,210.31，還在高檔下方 +4.70%。集中市場總成交金額 8,666.2 億，是 5 日均量的 1.20 倍、20 日均量的 1.00 倍（量能持平）。轉折結構：頭頭高成立、底底高成立。對照前一交易日（09/16）：量縮觀望（量比 20 0.78）→ 今日站上月線、月線向上（量比 20 1.00）。</div>
+      <div class="note" style="margin:10px 0 0">本區塊為公開資料的技術面觀察，<strong>不構成投資建議</strong>，
+        不報牌、不預測、不下買賣決策。成交金額為<strong>集中市場總成交金額</strong>（含 ETF／權證），
+        與頁首摘要的「上市個股成交金額」口徑不同。標籤是統計，不是評分、也不是推薦。</div>
+    </div>
+  </section>
   <section id="sec-rank">
     <h2>好條件最多的（前 10）</h2>
     <div class="scroll"><table>
@@ -977,6 +976,5 @@
   </article>
   <a class="top" href="../">← 回股市觀察</a>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="1" data-views>—</span></div>
 </body>
 </html>
