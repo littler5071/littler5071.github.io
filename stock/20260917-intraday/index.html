@@ -64,6 +64,14 @@
   .mtgs a.tg{text-decoration:none;color:var(--soft)}
   .mtgs a.tg:hover{color:var(--red);border-color:var(--red)}
   .mksum{font-size:15.5px;margin:6px 0 0}
+  .mkchip,.mkotc,.mkhist{border:2px solid var(--line);border-radius:16px;padding:12px 18px;
+    background:rgba(255,253,246,.75);margin:12px 0 0}
+  .mkchip h3,.mkotc h3,.mkhist h3{font-size:17px;margin:2px 0 8px;color:var(--blue)}
+  .mkchip h3 .dim,.mkhist h3 .dim{font-weight:normal;font-size:13.5px}
+  .mkchip table,.mkotc table,.mkhist table{margin:6px 0;font-size:14.5px}
+  .mkchip th[scope],.mkchip tr th,.mkotc tr th,.mkhist tr th{width:auto;white-space:nowrap}
+  .mkchip tr th{width:34%}
+  .mkotcline,.mknote{font-size:13.5px;color:var(--soft);margin:4px 0 0}
 </style>
 </head>
 <body>
@@ -126,7 +134,11 @@
         <tr><th>轉折結構<br><span class="dim">頭頭高／底底高</span></th>
           <td>高點 46,402.60 → 46,948.72 → 47,578.24（遞增）；低點 44,308.71 → 44,210.31 → 45,398.43（遞增，但僅因 0.5% 容差視為持平）</td><td>頭頭高 ✔、底底高 ✔（容差 0.5%）</td></tr>
         <tr id="sec-market-pos"><th>位置</th><td>近 20 日高 47,578.24（09-08）／低 44,210.31（08-25）</td><td>距高 -2.71%、距低 +4.70%</td></tr>
+        <tr id="sec-market-rank"><th>位階<br><span class="dim">近 20／60／120 日區間</span></th>
+          <td>近 120 日高 48,218.87（收盤價高 47,741.51）／低 31,705.99；近 60 日高 47,578.24／低 39,384.85</td><td>收盤位在 120 日區間第 88.3 個百分位（距 120 日高 -4.00%）</td></tr>
         <tr id="sec-market-vol"><th>成交金額</th><td>8,666.2 億（集中市場總成交金額）</td><td>量比 5 = 1.20、量比 20 = 1.00（量能持平）</td></tr>
+        <tr id="sec-market-quad"><th>量價四象限<br><span class="dim">漲跌方向 × 量比 20</span></th>
+          <td>漲＋量平或縮 → 量縮上漲（追價意願有限）</td><td>量比 20 = 1.00（門檻 1.05 判定增／縮）→ 量縮上漲（追價意願有限）</td></tr>
       </table></div>
       <div class="mtgs"><a class="tg" href="#sec-market-ma">均線糾結</a><a class="tg" href="#sec-market-ma">收盤 &gt; MA60</a><a class="tg" href="#sec-market-ma">收盤 &lt; MA10（短均未收復）</a><a class="tg" href="#sec-market-pos">貼近 20 日高</a><a class="tg" href="#sec-market-vol">量縮上漲（追價意願有限）</a><a class="tg" href="#sec-market-vol">量能回升（量 ≥ 1.2×5 日均量）</a><a class="tg" href="#sec-market-neck">頭頭高</a><a class="tg" href="#sec-market-neck">底底高</a><a class="tg" href="#sec-market-neck">待確認轉折</a></div>
       <div class="mksum">加權指數 46,288.00（+439.10 點、+0.96%），站上月線 46,159.89（+0.28%），月線比 5 日前高 153.29 點（上彎）。多方頸線 47,578.24（08-25 ~ 09-14）尚未突破，還差 2.71%；空方頸線 44,210.31，還在高檔下方 +4.70%。集中市場總成交金額 8,666.2 億，是 5 日均量的 1.20 倍、20 日均量的 1.00 倍（量能持平）。轉折結構：頭頭高成立、底底高成立。對照前一交易日（09/16）：量縮觀望（量比 20 0.78）→ 今日站上月線、月線向上（量比 20 1.00）。</div>
@@ -134,6 +146,37 @@
         不報牌、不預測、不下買賣決策。成交金額為<strong>集中市場總成交金額</strong>（含 ETF／權證），
         與頁首摘要的「上市個股成交金額」口徑不同。標籤是統計，不是評分、也不是推薦。</div>
     </div>
+
+      <div class="mkchip" id="sec-market-chip">
+        <h3>籌碼（三大法人／融資餘額）　<span class="dim">資料日 2026-09-17</span></h3>
+        <div class="scroll"><table>
+          <tr><th>項目</th><th>數值</th></tr>
+          <tr><th>外資（不含外資自營商）</th><td>+495,061 張</td></tr><tr><th>投信</th><td>+119,126 張</td></tr><tr><th>自營商</th><td>-227,358 張</td></tr><tr><th>三大法人合計</th><td>+386,829 張</td></tr><tr><th>上市融資餘額</th><td>9,262,322 張（較前一交易日 +13,145 張）</td></tr><tr><th>上市融資金額</th><td>5,893.97 億（較前一交易日 +32.28 億）</td></tr><tr><th>上市融券餘額</th><td>216,288 張</td></tr>
+        </table></div>
+        <div class="mknote">三大法人：證交所 rwd/zh/fund/T86（selectType=ALL）（全市場 17,977 列合計，單位 張（1 張＝1,000 股））；融資餘額：證交所 rwd/zh/marginTrading/MI_MARGN（selectType=ALL）（單位 張（融資交易單位））。法人合計＝外資＋投信＋自營商（同一市場、同一天）。</div>
+      </div>
+
+      <div class="mkotc" id="sec-market-otc">
+        <h3>上市 vs 上櫃（同期快篩）</h3>
+        <div class="mkotcline">加權 +0.96% vs 櫃買 -0.26%（方向相反，大小型股背離）　→　方向相反（大小型股背離）
+          （兩個市場分開寫，不合併成一個數字；櫃買為 TPEX 公開資料）</div>
+        <div class="scroll"><table>
+          <tr><th>指標</th><th>加權（集中市場）</th><th>櫃買（上櫃）</th></tr>
+          <tr><th>收盤／漲跌</th><td>加權 46,288.00（+0.96%）</td><td>櫃買 398.17（-0.26%）</td></tr><tr><th>站上均線數</th><td>加權 3／4</td><td>櫃買 2／4</td></tr><tr><th>月線（MA20）</th><td>加權 站上（+0.28%）／上彎</td><td>櫃買 跌破（-0.27%）／上彎</td></tr><tr><th>多方頸線</th><td>加權 47,578.24｜未突破 -2.71%</td><td>櫃買 414.16｜未突破 -3.86%</td></tr><tr><th>空方頸線</th><td>加權 44,210.31｜未跌破 +4.70%</td><td>櫃買 394.59｜未跌破 +0.91%</td></tr><tr><th>近 120 日區間百分位</th><td>加權 88.3%</td><td>櫃買 59.8%</td></tr><tr><th>主狀態</th><td>加權 站上月線、月線向上</td><td>櫃買 月線爭奪</td></tr>
+        </table></div>
+        <div class="mknote">櫃買歷史：TPEX 逐日回補 130 根；來源：櫃買中心 www/zh-tw/indexInfo/sectinx（逐日，官方；OpenAPI tpex_index 只回當月）
+          （TPEX OpenAPI 只回當月，故逐日回補；歷史不足就不算該條均線並標「資料不足」，不用錯數字）</div>
+      </div>
+
+      <div class="mkhist" id="sec-market-hist">
+        <h3>近 20 個交易日大盤狀態回溯（最新在上）</h3>
+        <div class="scroll"><table>
+          <tr><th>日期</th><th>主狀態</th><th>量比 20</th><th>量價象限</th></tr>
+          <tr><td class="d">09/17</td><td>站上月線、月線向上</td><td class="d">1.00</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/16</td><td>量縮觀望</td><td class="d">0.78</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/15</td><td>量縮觀望</td><td class="d">0.72</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/14</td><td>月線爭奪</td><td class="d">0.74</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/11</td><td>站上月線、月線向上</td><td class="d">0.83</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/10</td><td>站上月線、月線向上</td><td class="d">0.81</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/09</td><td>多頭排列</td><td class="d">0.86</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/08</td><td>多頭排列</td><td class="d">0.97</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/07</td><td>多頭排列</td><td class="d">1.05</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/04</td><td>多頭排列</td><td class="d">0.91</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/03</td><td>站上月線、月線向上</td><td class="d">1.05</td><td class="d">量增下跌（賣壓出籠）</td></tr><tr><td class="d">09/02</td><td>站上月線、月線向上</td><td class="d">1.03</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/01</td><td>多頭排列</td><td class="d">1.24</td><td class="d">量價配合（攻擊）</td></tr><tr><td class="d">08/31</td><td>多頭排列</td><td class="d">1.36</td><td class="d">量增下跌（賣壓出籠）</td></tr><tr><td class="d">08/28</td><td>多頭排列</td><td class="d">1.15</td><td class="d">量價配合（攻擊）</td></tr><tr><td class="d">08/27</td><td>多頭排列</td><td class="d">1.05</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">08/26</td><td>站上月線、月線向上</td><td class="d">0.91</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">08/25</td><td>站上月線、月線向上</td><td class="d">0.77</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">08/24</td><td>站上月線、月線向上</td><td class="d">0.69</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">08/21</td><td>站上月線、月線向上</td><td class="d">0.79</td><td class="d">量縮上漲（追價意願有限）</td></tr>
+        </table></div>
+        <div class="mknote">用同一支程式回算最近 20 個交易日（主狀態 S1~S8 與量比 20 皆為當日收盤當時的判定，
+          不是事後調整）；量比 20 未公布的日子寫「—」。</div>
+      </div>
   </section>
   <section id="sec-rank">
     <h2>好條件最多的（前 10）</h2>
