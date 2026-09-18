@@ -17,6 +17,49 @@ import glob, html, importlib.util, json, os, re, sys
 SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
 HEAD_FILE = os.path.join(SITE, "home_template_head.html")
 
+# 大盤快篩快照（market_screen.py 產出）放在股市觀察工作目錄：首頁只用它產生「一行大盤狀態」
+MARKET_DIR = os.environ.get("XIAOR_MARKET_DIR", r"D:/_Richard/OpenCode/圖片生成/小R頻道_股市觀察")
+
+
+def _minus(t):
+    """負號用 U+2212（跟頁面其他數字一致）；只有正負號那個字會被換掉。"""
+    return t.replace("-", "\u2212")
+
+
+def market_line(day):
+    """首頁股市區塊的一行大盤狀態（讀 out_market_screen_<day>.json）。
+
+    例：09/17 主狀態：站上月線、月線向上｜距多方頸線 −2.71%（量比 20 1.00）
+    找不到快照或快照裡沒有主狀態 → 回空字串（首頁照常產出，不寫猜的數字）。
+    """
+    files = sorted(glob.glob(os.path.join(MARKET_DIR, "out_market_screen_*.json")))
+    if not files:
+        return ""
+    p = os.path.join(MARKET_DIR, f"out_market_screen_{day}.json")
+    if not os.path.exists(p):                      # 沒有當天的就用不晚於當天的最新一份
+        cand = [f for f in files if re.search(r"_(\d{8})\.json$", f).group(1) <= day]
+        if not cand:
+            return ""
+        p = cand[-1]
+    try:
+        d = json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return ""
+    st = d.get("status") or {}
+    dc = d.get("date_compact") or ""
+    if not st.get("label") or len(dc) != 8:
+        return ""
+    txt = f"{dc[4:6]}/{dc[6:]} 主狀態：{st['label']}"
+    up = (d.get("neckline") or {}).get("up") or {}
+    if up.get("dist_pct") is not None:
+        dist = _minus(format(up["dist_pct"], "+.2f"))
+        txt += f"｜距多方頸線 {dist}%"
+    vol = d.get("volume") or {}
+    if vol.get("ratio20") is not None:
+        txt += f"｜量比 20 {vol['ratio20']:.2f}"
+    return txt
+
+
 CATS = [
     ("AI 助理實測", "ai", "把 AI 助理真正做過的事記錄下來。", "全部影片"),
     ("股市觀察", "stock", "只用公開資料，把「熱門」拿去驗證；內容為觀察與記錄，不構成投資建議。", "全部觀察紀錄"),
@@ -95,7 +138,7 @@ SECTION = """  <section id="{slug}">
       <span class="more"><a href="{slug}/">{go}（{n}）→</a></span>
     </h2>
     <p class="hint">{note}</p>
-{card}{extra}
+{mkt}{card}{extra}
   </section>
 """
 
@@ -127,6 +170,9 @@ EXTRA_CSS = """  /* 首頁：每個分類放最新 2 則 */
   section .hint{color:var(--soft);font-size:14.5px;margin:2px 0 10px}
   .same-day{font-size:13.5px;color:var(--soft);margin:6px 0 0}
   .same-day a{color:var(--blue)}
+  /* 首頁：股市區塊的一行大盤狀態（由 market_screen.py 的快篩快照產生） */
+  .mktline{font-size:14.5px;color:var(--blue);margin:2px 0 12px;line-height:1.6}
+  .mktline .dim{color:var(--soft);font-size:13px}
   .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:34px}
 """
 
@@ -139,7 +185,7 @@ def build():
         mine = sorted([i for i in items if i["category"] == name], key=lambda x: x["sort"], reverse=True)
         if not mine:
             sections.append(SECTION.format(slug=slug, name=name, go=go, n=0, note=note,
-                                           card="", extra=""))
+                                           mkt="", card="", extra=""))
             continue
         pool = [i for i in mine if "-intraday" not in i["url"]] if name == "股市觀察" else mine
         top = (pool or mine)[:2]                         # 每個分類保留最新 2 則（股市：盤中快照不佔卡）
@@ -150,6 +196,13 @@ def build():
                                      url=it["url"], btn=it["btn"], btn2=""))
         card = chr(10).join(cards)
         extra = ""
+        # 大盤狀態一行（股市區塊才有）：由 market_screen.py 的快篩快照產生，抓不到就不顯示
+        mkt = ""
+        if name == "股市觀察":
+            line = market_line(top[0]["sort"][0])
+            if line:
+                mkt = (f'    <p class="mktline">大盤（加權指數）{html.escape(line)}'
+                       '<span class="dim">　公開資料技術面統計，不構成投資建議</span></p>' + chr(10))
         # 盤中快照：不佔卡片，只在同一天的收盤紀錄下面給一行連結（同一天排在一起）
         if name == "股市觀察":
             want = {t["sort"][0] for t in top}
@@ -159,7 +212,7 @@ def build():
                 extra = ('    <p class="same-day">同一天另有：'
                          f'<a href="{s0["url"]}">{html.escape(_txt(s0["title"])[5:])}</a></p>')
         sections.append(SECTION.format(slug=slug, name=name, go=go, n=len(mine), note=note,
-                                       card=card, extra=extra))
+                                       mkt=mkt, card=card, extra=extra))
         log.append((name, len(mine), " / ".join(t["title"] for t in top)))
     head = open(HEAD_FILE, encoding="utf-8").read()
     if "</style>" in head:

@@ -73,6 +73,8 @@
   ul.why li.no{color:var(--ink)}
   .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
   .dim{color:var(--soft);font-size:13.5px}
+
+
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -110,6 +112,7 @@
   <a class="lnk" href="../../stock/">股市觀察</a>
   <a class="lnk on" href="../../toeic/">多益英文</a>
 </nav>
+
 <div class="wrap">
   <a class="back" href="../">← 回多益英文</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
@@ -515,6 +518,6 @@
   });
 })();
 </script>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="3" data-views>—</span></div>
 </body>
 </html>

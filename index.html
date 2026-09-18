@@ -68,6 +68,9 @@
   section .hint{color:var(--soft);font-size:14.5px;margin:2px 0 10px}
   .same-day{font-size:13.5px;color:var(--soft);margin:6px 0 0}
   .same-day a{color:var(--blue)}
+  /* 首頁：股市區塊的一行大盤狀態（由 market_screen.py 的快篩快照產生） */
+  .mktline{font-size:14.5px;color:var(--blue);margin:2px 0 12px;line-height:1.6}
+  .mktline .dim{color:var(--soft);font-size:13px}
   .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:34px}
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
@@ -135,9 +138,10 @@
 
   <section id="stock">
     <h2><a class="h2link" href="stock/"><span class="dot"></span>股市觀察</a>
-      <span class="more"><a href="stock/">全部觀察紀錄（9）→</a></span>
+      <span class="more"><a href="stock/">全部觀察紀錄（10）→</a></span>
     </h2>
     <p class="hint">只用公開資料，把「熱門」拿去驗證；內容為觀察與記錄，不構成投資建議。</p>
+    <p class="mktline">大盤（加權指數）09/17 主狀態：站上月線、月線向上｜距多方頸線 −2.71%｜量比 20 1.00<span class="dim">　公開資料技術面統計，不構成投資建議</span></p>
     <div class="card">
       <span class="tag new">最新</span>
       <h3>2026/09/17 收盤後觀察：46288.0　+439.10 點（+0.96%）</h3>
@@ -175,6 +179,6 @@
     頻道：<a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </div>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="41" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="44" data-views>—</span></div>
 </body>
 </html>
