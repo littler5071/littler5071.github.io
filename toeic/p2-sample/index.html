@@ -70,29 +70,22 @@
   .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
   .dim{color:var(--soft);font-size:13.5px}
 
-
-
   .q audio{width:100%;margin:6px 0 2px;height:34px}
   ul.why li.tag{color:var(--soft);font-size:14.5px}
   .qbox{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:10px 14px;margin:10px 0}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  .q audio{scroll-margin-top:96px}
+  .q audio.hit{outline:3px solid var(--red);outline-offset:3px;border-radius:10px;
+        box-shadow:0 0 0 6px rgba(191,74,58,.18);animation:blkflash .55s ease-in-out 3}
+  .jump{margin:8px 0 2px}
+  button.backjump{font-size:13.5px;min-height:34px;padding:5px 14px;border-radius:999px;
+          border:1.5px solid var(--blue);background:transparent;color:var(--blue);line-height:1.3}
+  button.backjump:hover{background:rgba(54,78,112,.10)}
+  button.backjump:active{background:var(--sel)}
+  .jumpend{margin:30px 0 0;text-align:center}
+  button.gotoscore{font-size:15px;min-height:38px;padding:8px 22px}
+  @keyframes blkflash{0%,100%{background:#fbe3a8}50%{background:#fff6d8}}
+  .bar.hit{border-color:var(--red);background:#fbe3a8;
+        box-shadow:0 0 0 3px rgba(191,74,58,.30);animation:blkflash .55s ease-in-out 3}
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -145,7 +138,9 @@
   <div class="box">
     <strong>怎麼用</strong>：① 按「連續聽力」照考場節奏一次做完 25 題，邊聽邊點選項作答；
     ② 做完按「對答案並計分」；③ 錯的題目會自動展開詳解，需要重聽就按該題的播放器；
-    ④ 通車時聽「中文詳解版」複習。
+    ④ 通車時聽「中文詳解版」複習；
+    ⑤ 想重聽某一題，按該題下方的「<strong>↑ 回到第 N 題音檔</strong>」，頁面會滑回那一題的播放器並閃示約 2 秒；
+    ⑥ 想重新對答案，可按頁面最下方的「<strong>↑ 回到上面評分</strong>」滑回上方計分區。
   </div>
   <div class="box">
     <strong>原創聲明</strong>：題目、選項與詳解<strong>全部自行撰寫</strong>，語音由<strong>語音合成</strong>產生
@@ -165,7 +160,7 @@
       <audio controls preload="metadata" src="audio/toeic_p2_full_explain.mp3"></audio></div>
   </div>
 
-  <div class="bar">
+  <div class="bar" id="scoring">
     <span class="prog">已作答 <b><span id="done">0</span> / 25</b></span>
     <button id="scoreBtn" type="button">對答案並計分</button>
     <button id="resetBtn" type="button" class="ghost">清除作答</button>
@@ -178,12 +173,14 @@
 
   <div class="q" data-q="1" data-a="0">
     <div class="qh"><span class="qn">1</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q01.mp3"></audio>
+    <audio id="audio-1" controls preload="none" src="audio/q01.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>They&#x27;re in the folder on your desk.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the shipment arrived late.</span></li>
         <li data-i="2"><b>C</b><span>About forty boxes, I think.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-1">↑ 回到第 1 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -197,12 +194,14 @@
   </div>
   <div class="q" data-q="2" data-a="0">
     <div class="qh"><span class="qn">2</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q02.mp3"></audio>
+    <audio id="audio-2" controls preload="none" src="audio/q02.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>No, we sent it back to them yesterday.</span></li>
         <li data-i="1"><b>B</b><span>The contract is on the third page.</span></li>
         <li data-i="2"><b>C</b><span>At the downtown office.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-2">↑ 回到第 2 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -216,12 +215,14 @@
   </div>
   <div class="q" data-q="3" data-a="0">
     <div class="qh"><span class="qn">3</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q03.mp3"></audio>
+    <audio id="audio-3" controls preload="none" src="audio/q03.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>I&#x27;ll go first, if that&#x27;s all right.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the presentation was clear.</span></li>
         <li data-i="2"><b>C</b><span>Room 305, next to the elevator.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-3">↑ 回到第 3 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -235,12 +236,14 @@
   </div>
   <div class="q" data-q="4" data-a="0">
     <div class="qh"><span class="qn">4</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q04.mp3"></audio>
+    <audio id="audio-4" controls preload="none" src="audio/q04.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>I&#x27;ll order a new cartridge right away.</span></li>
         <li data-i="1"><b>B</b><span>No, I didn&#x27;t copy anything.</span></li>
         <li data-i="2"><b>C</b><span>It&#x27;s on the second floor.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-4">↑ 回到第 4 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -254,12 +257,14 @@
   </div>
   <div class="q" data-q="5" data-a="0">
     <div class="qh"><span class="qn">5</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q05.mp3"></audio>
+    <audio id="audio-5" controls preload="none" src="audio/q05.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>A little more than two hours.</span></li>
         <li data-i="1"><b>B</b><span>In the main conference room.</span></li>
         <li data-i="2"><b>C</b><span>Three people signed up for it.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-5">↑ 回到第 5 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -273,12 +278,14 @@
   </div>
   <div class="q" data-q="6" data-a="0">
     <div class="qh"><span class="qn">6</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q06.mp3"></audio>
+    <audio id="audio-6" controls preload="none" src="audio/q06.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Friday works for me.</span></li>
         <li data-i="1"><b>B</b><span>Because the vendor is in Taipei.</span></li>
         <li data-i="2"><b>C</b><span>I&#x27;ve already met him.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-6">↑ 回到第 6 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -292,12 +299,14 @@
   </div>
   <div class="q" data-q="7" data-a="0">
     <div class="qh"><span class="qn">7</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q07.mp3"></audio>
+    <audio id="audio-7" controls preload="none" src="audio/q07.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>About thirty, including the speakers.</span></li>
         <li data-i="1"><b>B</b><span>It&#x27;s in the workshop manual.</span></li>
         <li data-i="2"><b>C</b><span>The attendance record, please.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-7">↑ 回到第 7 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -311,12 +320,14 @@
   </div>
   <div class="q" data-q="8" data-a="0">
     <div class="qh"><span class="qn">8</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q08.mp3"></audio>
+    <audio id="audio-8" controls preload="none" src="audio/q08.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Ms. Lin took care of it last time.</span></li>
         <li data-i="1"><b>B</b><span>It&#x27;s around the corner.</span></li>
         <li data-i="2"><b>C</b><span>For three weeks.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-8">↑ 回到第 8 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -330,12 +341,14 @@
   </div>
   <div class="q" data-q="9" data-a="0">
     <div class="qh"><span class="qn">9</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q09.mp3"></audio>
+    <audio id="audio-9" controls preload="none" src="audio/q09.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>At the beginning of next month.</span></li>
         <li data-i="1"><b>B</b><span>In the IT department.</span></li>
         <li data-i="2"><b>C</b><span>About two hundred employees.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-9">↑ 回到第 9 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -349,12 +362,14 @@
   </div>
   <div class="q" data-q="10" data-a="0">
     <div class="qh"><span class="qn">10</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q10.mp3"></audio>
+    <audio id="audio-10" controls preload="none" src="audio/q10.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Around four thirty.</span></li>
         <li data-i="1"><b>B</b><span>The courier&#x27;s name is Daniel.</span></li>
         <li data-i="2"><b>C</b><span>By express delivery.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-10">↑ 回到第 10 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -368,12 +383,14 @@
   </div>
   <div class="q" data-q="11" data-a="0">
     <div class="qh"><span class="qn">11</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q11.mp3"></audio>
+    <audio id="audio-11" controls preload="none" src="audio/q11.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Yes, I sent it this morning.</span></li>
         <li data-i="1"><b>B</b><span>No, the report is over there.</span></li>
         <li data-i="2"><b>C</b><span>Yes, the expense was high.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-11">↑ 回到第 11 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -387,12 +404,14 @@
   </div>
   <div class="q" data-q="12" data-a="0">
     <div class="qh"><span class="qn">12</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q12.mp3"></audio>
+    <audio id="audio-12" controls preload="none" src="audio/q12.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Not at all.</span></li>
         <li data-i="1"><b>B</b><span>Yes, I&#x27;d love to.</span></li>
         <li data-i="2"><b>C</b><span>The air conditioning is broken.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-12">↑ 回到第 12 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -406,12 +425,14 @@
   </div>
   <div class="q" data-q="13" data-a="0">
     <div class="qh"><span class="qn">13</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q13.mp3"></audio>
+    <audio id="audio-13" controls preload="none" src="audio/q13.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>I think she&#x27;s still reviewing it.</span></li>
         <li data-i="1"><b>B</b><span>Yes, I know the client well.</span></li>
         <li data-i="2"><b>C</b><span>It&#x27;s a written agreement.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-13">↑ 回到第 13 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -425,12 +446,14 @@
   </div>
   <div class="q" data-q="14" data-a="0">
     <div class="qh"><span class="qn">14</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q14.mp3"></audio>
+    <audio id="audio-14" controls preload="none" src="audio/q14.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>I did, but they asked for a revised version.</span></li>
         <li data-i="1"><b>B</b><span>No, the team is quite large.</span></li>
         <li data-i="2"><b>C</b><span>It arrived by email.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-14">↑ 回到第 14 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -444,12 +467,14 @@
   </div>
   <div class="q" data-q="15" data-a="0">
     <div class="qh"><span class="qn">15</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q15.mp3"></audio>
+    <audio id="audio-15" controls preload="none" src="audio/q15.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>I&#x27;m going through it this afternoon.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the mail room is downstairs.</span></li>
         <li data-i="2"><b>C</b><span>It was a good chance.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-15">↑ 回到第 15 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -463,12 +488,14 @@
   </div>
   <div class="q" data-q="16" data-a="0">
     <div class="qh"><span class="qn">16</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q16.mp3"></audio>
+    <audio id="audio-16" controls preload="none" src="audio/q16.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Once every other month.</span></li>
         <li data-i="1"><b>B</b><span>By high-speed rail.</span></li>
         <li data-i="2"><b>C</b><span>About two hours.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-16">↑ 回到第 16 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -482,12 +509,14 @@
   </div>
   <div class="q" data-q="17" data-a="0">
     <div class="qh"><span class="qn">17</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q17.mp3"></audio>
+    <audio id="audio-17" controls preload="none" src="audio/q17.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>The one with the green label.</span></li>
         <li data-i="1"><b>B</b><span>Yes, I prefer it very much.</span></li>
         <li data-i="2"><b>C</b><span>The package hasn&#x27;t arrived.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-17">↑ 回到第 17 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -501,12 +530,14 @@
   </div>
   <div class="q" data-q="18" data-a="0">
     <div class="qh"><span class="qn">18</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q18.mp3"></audio>
+    <audio id="audio-18" controls preload="none" src="audio/q18.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>The department manager&#x27;s.</span></li>
         <li data-i="1"><b>B</b><span>It requires three copies.</span></li>
         <li data-i="2"><b>C</b><span>On the last page.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-18">↑ 回到第 18 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -520,12 +551,14 @@
   </div>
   <div class="q" data-q="19" data-a="0">
     <div class="qh"><span class="qn">19</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q19.mp3"></audio>
+    <audio id="audio-19" controls preload="none" src="audio/q19.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>That&#x27;s a bit far for me, but all right.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the branch is very old.</span></li>
         <li data-i="2"><b>C</b><span>It lasted about an hour.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-19">↑ 回到第 19 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -539,12 +572,14 @@
   </div>
   <div class="q" data-q="20" data-a="0">
     <div class="qh"><span class="qn">20</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q20.mp3"></audio>
+    <audio id="audio-20" controls preload="none" src="audio/q20.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Sure, I&#x27;ll send it in a minute.</span></li>
         <li data-i="1"><b>B</b><span>No, the price went up.</span></li>
         <li data-i="2"><b>C</b><span>The list is quite long.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-20">↑ 回到第 20 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -558,12 +593,14 @@
   </div>
   <div class="q" data-q="21" data-a="0">
     <div class="qh"><span class="qn">21</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q21.mp3"></audio>
+    <audio id="audio-21" controls preload="none" src="audio/q21.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Actually, it&#x27;s been moved to Friday.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the line was busy.</span></li>
         <li data-i="2"><b>C</b><span>The dead line is over there.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-21">↑ 回到第 21 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -577,12 +614,14 @@
   </div>
   <div class="q" data-q="22" data-a="0">
     <div class="qh"><span class="qn">22</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q22.mp3"></audio>
+    <audio id="audio-22" controls preload="none" src="audio/q22.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Then we&#x27;d better adjust the production schedule.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the supplier called me.</span></li>
         <li data-i="2"><b>C</b><span>The parts are in good condition.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-22">↑ 回到第 22 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -596,12 +635,14 @@
   </div>
   <div class="q" data-q="23" data-a="0">
     <div class="qh"><span class="qn">23</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q23.mp3"></audio>
+    <audio id="audio-23" controls preload="none" src="audio/q23.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Of course, I&#x27;ll print one for you.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the agenda was long.</span></li>
         <li data-i="2"><b>C</b><span>It&#x27;s possible that it rained.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-23">↑ 回到第 23 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -615,12 +656,14 @@
   </div>
   <div class="q" data-q="24" data-a="0">
     <div class="qh"><span class="qn">24</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q24.mp3"></audio>
+    <audio id="audio-24" controls preload="none" src="audio/q24.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>Her flight lands at ten, I believe.</span></li>
         <li data-i="1"><b>B</b><span>Yes, I know her quite well.</span></li>
         <li data-i="2"><b>C</b><span>The interview room is upstairs.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-24">↑ 回到第 24 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -634,12 +677,14 @@
   </div>
   <div class="q" data-q="25" data-a="0">
     <div class="qh"><span class="qn">25</span>請播放本題，選出最適合的回應<span class="mark"></span></div>
-    <audio controls preload="none" src="audio/q25.mp3"></audio>
+    <audio id="audio-25" controls preload="none" src="audio/q25.mp3"></audio>
     <ul class="opts">
         <li data-i="0"><b>A</b><span>No, the lawyer is still preparing it.</span></li>
         <li data-i="1"><b>B</b><span>Yes, the application fee is high.</span></li>
         <li data-i="2"><b>C</b><span>It was filed in the cabinet.</span></li>
         </ul>
+    <div class="jump"><button class="backjump" type="button"
+      data-target="audio-25">↑ 回到第 25 題音檔</button></div>
     <div class="sol">
       <button class="toggle" type="button">看詳解</button>
       <div class="solbody" hidden>
@@ -657,8 +702,34 @@
     ② 選項重複題目裡的字（聽起來最順、通常是錯的）；③ 把疑問詞聽錯（把 How about 聽成 How long）。
     做完把錯的題型記下來，比對「題型」欄位就能看出自己最常被哪一種騙。
   </div>
+
+  <div class="jumpend"><button class="backjump gotoscore" type="button"
+    data-target="scoring">↑ 回到上面評分</button></div>
 </div>
 <script src="../quiz.js"></script>
+<script>
+/* 「↑ 回到第 N 題音檔」／「↑ 回到上面評分」：平滑滑到目標並閃示約 2 秒。
+   目標元素由 data-target 指定（該題播放器 audio-N 或計分區 scoring），高亮都加 .hit。
+   只是事件監聽，不碰 quiz.js 的作答／計分／詳解狀態。 */
+(function () {
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('.backjump');
+    if (!b) return;
+    var t = document.getElementById(b.getAttribute('data-target'));
+    if (!t) return;
+    try { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    catch (e) { t.scrollIntoView(); }
+    if (t.__hitTimer) clearTimeout(t.__hitTimer);
+    t.classList.remove('hit');
+    void t.offsetWidth;              /* 重新觸發閃示動畫 */
+    t.classList.add('hit');
+    t.__hitTimer = setTimeout(function () {
+      t.classList.remove('hit');
+      t.__hitTimer = null;
+    }, 2000);
+  });
+})();
+</script>
 <div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="3" data-views>—</span></div>
 </body>
 </html>
