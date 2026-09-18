@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>當你有一個 AI 助理，最想讓他做的 10 件事｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="我問我的 AI 助理：如果只能交派十件事，你最想被交派哪十件？這是它的答案，每一件都用我們真的做過的案例對照：驗證、長流程、追根因、跨來源對帳、巡檢、把模糊需求變流程、不動原始檔、交付成品、當第二個腦袋、誠實講壞消息。附影片與逐項做法、驗收標準。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  .vid{position:relative;background:#000;border-radius:14px;overflow:hidden;margin:0 0 8px}
+  .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  .item{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 20px;
+        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .ih{display:flex;gap:12px;align-items:baseline}
+  .num{flex:none;width:34px;height:34px;border:3px solid var(--blue);border-radius:50%;
+        display:inline-flex;align-items:center;justify-content:center;font-size:18px;color:var(--blue)}
+  .item h3{margin:0;font-size:clamp(18px,3vw,22px)}
+  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;margin:10px 0 6px;
+       border:1.5px solid var(--leaf);color:var(--leaf)}
+  .story{margin:0 0 12px;color:var(--soft);font-size:15.5px}
+  .how{background:rgba(54,78,112,.05);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;
+       padding:8px 14px;margin:0 0 10px}
+  .hlab{font-size:13px;color:var(--blue);letter-spacing:.08em;margin-bottom:2px}
+  .how ul{margin:0;padding-left:20px;font-size:15px}
+  .how li{margin:3px 0}
+  .check{margin:0;font-size:15px}
+  .check b{color:var(--red)}
+  h2{font-size:clamp(20px,3.4vw,26px);margin:34px 0 12px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  ul.plain{margin:0;padding-left:22px}
+  ul.plain li{margin:8px 0}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       font-size:14.5px;color:var(--soft);margin:0 0 14px}
+  .box strong{color:var(--ink)}
+  .dim{color:var(--soft);font-size:13.5px}
+  footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand on" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk" href="../../toeic/">多益英文</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>當你有一個 AI 助理，<br>最想讓他做的 10 件事</h1>
+  <div class="sub">這不是調查排名——是我問我的 AI 助理：如果只能交派十件事，你最想被交派哪十件</div>
+  <div class="meta">2026/09/19・影片＋文字版</div>
+
+  <div class="vid">
+    <iframe src="https://www.youtube.com/embed/N3SptJAOWNk" title="當你有一個 AI 助理，最想讓他做的 10 件事"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="dim" style="text-align:center">影片看不方便的話，也可以到
+  <a href="https://youtu.be/N3SptJAOWNk">YouTube 看（含章節）</a>；下面是同一份內容的文字版。</p>
+
+  <div class="box">
+    <strong>先講清楚這份清單怎麼來的</strong>：我問的不是「AI 最厲害的是什麼」，而是「哪十件事交出去之後，
+    我驗收得下去」。所以判斷標準只有一個：<strong>做完能不能驗收</strong>。看起來很厲害、卻驗不了的，一概不列入。
+    下面每一件，都附上我們真的做過的案例與數字；沒做過的，我不會寫在這裡。
+  </div>
+
+  <h2><span class="dot"></span>十件事</h2>
+    <div class="item">
+    <div class="ih"><span class="num">1</span><h3>把「驗證」做完，而不是把工作做完</h3></div>
+    <p class="tag">案例｜加速版交出去之後</p>
+    <p class="story">交付檔做完，我不接受「已完成」三個字。那一次它把檔案交給我看大小、修改時間、雜湊值；上傳到雲端之後，不是看那個成功提示，而是打開版本記錄讀回「目前版本」的時間與擁有者，連儲存空間的用量都對了一次（861.8 MB 增加到 1.77 GB，扣掉兩個檔案的大小剛好對得上）。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>交付檔案要驗內容，不是驗檔名：大小、時間、雜湊值三項都對得上才算完成。</li><li>雲端上傳要讀回版本記錄，不是相信提示訊息。</li><li>數字對不起來就當成沒做完，不要往下走。</li></ul></div>
+    <p class="check"><b>驗收</b>：每一個數字都指得出出處，我才不用相信誰。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">2</span><h3>跑那些無聊但必要的長流程</h3></div>
+    <p class="tag">案例｜一百零一分鐘的基準</p>
+    <p class="story">有一次要量一個改動到底有沒有比較快，原版跑一次要 101 分鐘。人盯到第 30 分鐘就分心了，這種事就該交出去：它自己跑完、自己比對兩邊的結果、自己下結論。另外每晚 18:00 的收盤流程也是同一種工作，現在跑完只要 32 秒，但我需要它每天都跑、而且失敗要自己講原因。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>人不會想盯的，正是最該交出去的。</li><li>固定的每日流程全部腳本化：一個指令跑完，失敗會說原因。</li><li>跑完要自己比對、自己下結論，不是丟一份原始輸出給我。</li></ul></div>
+    <p class="check"><b>驗收</b>：跑完之後我只看結論，不用看過程。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">3</span><h3>追根因，不要停在症狀</h3></div>
+    <p class="tag">案例｜資料日期一直停在昨天</p>
+    <p class="story">網頁上的資料日期停在昨天，看起來很像「來源端還沒公布」。追下去才發現不是：來源端早就有了，是我們自己的快取檔案早上八點抓完就沒有再檢查新舊（沒有期限檢查）。修在報表上只會讓下一輪再錯一次，所以要修在原因上——改成每次跑之前先刪掉當月快取、強迫重抓，重跑後數字從 46,288.00 變成 47,180.75。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>先問「這是誰的問題」：來源沒資料，還是我們拿錯？</li><li>症狀最明顯的地方，通常不是原因。</li><li>把證據排出來：檔案時間、內容最後一筆、現場重新抓一次。</li></ul></div>
+    <p class="check"><b>驗收</b>：拿得出證據鏈，而且下一輪不會再錯一次。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">4</span><h3>跨來源對帳，抓「看起來成功」的假象</h3></div>
+    <p class="tag">案例｜三千一百九十六筆逐筆對帳</p>
+    <p class="story">同一件事我會要求用兩個來源各算一次：官方公布的數字，跟它自己統計出來的，要對得上。有一次三千一百九十六筆法人資料全部相符、零筆不符，那我才敢用。反過來也一樣——如果某一欄整欄都是零，那通常不是行情，是解析錯了。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>允許差異，但要說得出為什麼（例如盤後更正，就把差異筆數記下來）。</li><li>不合理的數字先當成 bug，不要先當成新聞。</li><li>對不起來就不要往下走，硬走只會把錯的數字帶進報告。</li></ul></div>
+    <p class="check"><b>驗收</b>：兩邊對得起來才算過。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">5</span><h3>定時巡檢，而且沒事不要吵我</h3></div>
+    <p class="tag">案例｜每輪只做唯讀檢查</p>
+    <p class="story">它每個小時可以做一次巡檢，但原則是：只准看、不准改。讀檔、算指紋、看有沒有殘留的鎖定檔、有沒有沒關掉的程序。全部沒變就不要出聲——每小時報一次「一切正常」等於沒有訊息。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>巡檢只准讀，不准寫。</li><li>全部沒變就安靜；有變動才通知我，而且要說清楚是哪一項變了。</li><li>順手把殘留的鎖定檔與沒關掉的程序收乾淨。</li></ul></div>
+    <p class="check"><b>驗收</b>：只有真的變動才吵我。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">6</span><h3>把我模糊的一句話變成可重跑的流程</h3></div>
+    <p class="tag">案例｜「清除很久」這四個字</p>
+    <p class="story">我曾經只丟一句「清除很久」。它先去量前後秒數：小檔從 5.0 秒變成 3.7 秒，真實規模的大檔只有 11.4 秒變 11.2 秒。也就是說——原本猜的「太慢」根本不是重點，真正的原因是被篩選隱藏的資料根本沒被清掉（清完還殘留 71 列、27,518 格）。找到真因之後，它把整串流程寫成一個腳本，隔天只要一行指令。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>先量，再改：「很久」是幾秒？沒有數字就沒有改善。</li><li>量完常發現兇手不是原本猜的那個。</li><li>把一次性操作沉澱成腳本，而且要能重複執行、結果一樣。</li></ul></div>
+    <p class="check"><b>驗收</b>：下一個人一行指令就能跑。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">7</span><h3>不要亂動我的東西，而且要主動證明沒動</h3></div>
+    <p class="tag">案例｜原始檔從頭到尾沒被寫入</p>
+    <p class="story">所有實驗都在複本上做，原始檔只能讀；要改之前先備份，備份檔名帶時間。每一次收尾，它都會主動回報原始檔的大小、修改時間、雜湊值都沒有變。這件事很容易被忽略，但它其實最值錢——因為出錯的時候，我還找得回來。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>實驗一律在複本上做，原始檔只准讀。</li><li>要改之前先備份，備份檔名帶時間。</li><li>需要用到我的檔案時用唯讀接上，不要另開一份、不要偷偷存檔。</li></ul></div>
+    <p class="check"><b>驗收</b>：我的檔案指紋不變。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">8</span><h3>交付成品，不是交付建議</h3></div>
+    <p class="tag">案例｜可用的檔案與已上線的網頁</p>
+    <p class="story">我要的不是「你可以考慮這樣做」，而是可以直接用的檔案（加速版交付檔、打包好的壓縮檔、原始碼與使用說明）、已經上線的網頁、含圖表的報告。做完的東西要能直接用、能重跑。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>交出來的東西要能直接用。</li><li>能上線的就上線：網頁、圖表、報告都變成連結。</li><li>打包要完整，並留下重跑的方法。</li></ul></div>
+    <p class="check"><b>驗收</b>：拿到就能用。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">9</span><h3>當我的第二個腦袋</h3></div>
+    <p class="tag">案例｜跨工作階段的任務單</p>
+    <p class="story">這些工作常常跨好幾天，甚至會換另一個助理接手。所以它會把踩過的坑寫成任務單：哪個資料來源不能用、哪個欄位要完全相等比對、現在做到哪裡、下一步是什麼；同類的工作還會沉澱成範本，下次不用從零開始。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>把踩過的坑寫下來，包含「目前狀態」與「下一步做什麼」。</li><li>寫給下一個接手的人看，不是寫給自己看。</li><li>同類工作沉澱成範本，換人也能接。</li></ul></div>
+    <p class="check"><b>驗收</b>：換人也能接得上。</p>
+  </div>
+  <div class="item">
+    <div class="ih"><span class="num">10</span><h3>誠實講壞消息與不確定</h3></div>
+    <p class="tag">案例｜只快百分之二，不是十五倍</p>
+    <p class="story">有一次它改完，速度只快了百分之二，不是原本預期的十五倍——它就照實講，還把「哪一種規模有效、哪一種沒效」分開寫。另一件事是資料日期那次：它一開始也以為是來源端沒資料，查清楚之後才說「是我們自己的快取害的」。把假設講成事實，是助理最貴、也最難補救的錯誤。</p>
+    <div class="how"><div class="hlab">做法</div><ul><li>數字要講真的，不要挑最漂亮的那一次報告。</li><li>不確定就說不確定，需要我拍板的地方直接問。</li><li>改了什麼、為什麼改，都寫清楚，錯的也留著。</li></ul></div>
+    <p class="check"><b>驗收</b>：不要把假設講成事實。</p>
+  </div>
+
+  <h2><span class="dot"></span>反過來：我最不希望它做的三件事</h2>
+  <div class="box">這三件比「做不好」更麻煩，因為它們會讓我做錯決定。</div>
+  <ul class="plain"><li><b>幫我做決定</b>——該不該買、要不要發布——這些我自己來，它只要把資料準備好。</li><li><b>在沒授權的時候動我的檔案或帳號</b>——要動之前先問，問完才動，動完要證明。</li><li><b>把「跑過一次沒事」當成「已經驗證過」</b>——一次成功叫做運氣，可重複才算完成。</li></ul>
+
+  <h2><span class="dot"></span>如果只留三件，今天就做這三個</h2>
+  <ul class="plain"><li><b>交派時，第一句話就加上驗收標準</b><br><span class='dim'>把「幫我整理」改成「幫我整理，最後我要能回答這三個問題」。驗收：每個數字都指得出出處。</span></li><li><b>今晚就排一個你不會想盯的長流程</b><br><span class='dim'>找一件每週都在手動做的事交給它，失敗要能講原因。驗收：明天早上看結果就好。</span></li><li><b>要求它「壞消息先講、不確定要說」</b><br><span class='dim'>交派的時候直接寫上這一條。驗收：報告裡看得到限制與未驗證的地方。</span></li></ul>
+
+  <div class="box">
+    <strong>一句話總結</strong>：十件裡面，真正的關鍵只有一個——<strong>把驗收標準講清楚，然後要求它把證據拿出來</strong>。
+  </div>
+
+  <div class="box">
+    <strong>內容說明</strong>：本文提到的案例都來自小R 頻道的 AI 助理實測過程，數字取自當時的執行紀錄；
+    涉及公司或客戶名稱的部分都以去識別化的方式呈現，不含任何帳號、信箱或個人資料。
+    影片與文章內容為製作過程的記錄，不構成任何投資、法律或商業建議。
+  </div>
+  <footer>小R 頻道 · AI 助理實測 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a></footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
