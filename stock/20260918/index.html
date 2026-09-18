@@ -249,6 +249,7 @@
         var el = document.getElementById(id);
         if (!el) return;
         var d = el.closest ? el.closest('details') : null;
+        if (!d && el.querySelector) d = el.querySelector('details');   // 目標是折疊區塊的外層 div 時
         if (d && !d.open) { d.open = true; setTimeout(function () { el.scrollIntoView({ block: 'center' }); }, 30); }
       }
       window.addEventListener('hashchange', openHash);
@@ -1098,6 +1099,6 @@
   </article>
   <a class="top" href="../">← 回股市觀察</a>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="2" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="5" data-views>—</span></div>
 </body>
 </html>
