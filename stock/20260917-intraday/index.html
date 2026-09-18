@@ -64,6 +64,18 @@
   .mtgs a.tg{text-decoration:none;color:var(--soft)}
   .mtgs a.tg:hover{color:var(--red);border-color:var(--red)}
   .mksum{font-size:15.5px;margin:6px 0 0}
+  .mkbrief{margin:12px 0 2px}
+  .mkconcl{font-size:clamp(16.5px,2.4vw,19px);line-height:1.75;margin:0 0 8px;color:var(--ink,#4a4640)}
+  .mkpts{margin:0;padding:0 0 0 1.15em;font-size:15px;line-height:1.8;color:var(--ink,#4a4640)}
+  .mkpts li{margin:0 0 3px}
+  .mkpts b{color:var(--blue)}
+  .mkchart{margin:12px 0 0}
+  .mkchart img{width:100%;height:auto;border-radius:10px;border:1.5px solid var(--line);background:#fff}
+  .mkchart .cap{font-size:13.5px;color:var(--soft);margin:6px 0 0;line-height:1.65}
+  @media (max-width:430px){
+    .mkconcl{font-size:16px}
+    .mkpts{font-size:14.5px}
+  }
   .mkchip,.mkotc,.mkhist{border:2px solid var(--line);border-radius:16px;padding:12px 18px;
     background:rgba(255,253,246,.75);margin:12px 0 0}
   .mkchip h3,.mkotc h3,.mkhist h3{font-size:17px;margin:2px 0 8px;color:var(--blue)}
@@ -151,8 +163,9 @@
         <tr id="sec-market-quad"><th>量價四象限<br><span class="dim">漲跌方向 × 量比 20</span></th>
           <td>漲＋量平或縮 → 量縮上漲（追價意願有限）</td><td>量比 20 = 1.00（門檻 1.05 判定增／縮）→ 量縮上漲（追價意願有限）</td></tr>
       </table></div>
+      <div class="mkbrief"><p class="mkconcl">加權指數今天漲 439.10 點（+0.96%），收 46,288.00、站上月線 46,159.89；月線還在上彎，MA10 這條短均還沒收復，離多方頸線 47,578.24 還差 2.71%。</p><ul class="mkpts"><li><b>均線位置</b>：4 條均線站上 3 條；沒站上的是 MA10 46,480.28（收盤比它低 0.41%）</li><li><b>月線方向</b>：月線 MA20 現在 46,159.89，比 5 個交易日前高 153.29 點 → 上彎</li><li><b>量能</b>：集中市場成交 8,666.2 億，比 5 日均量大不少（1.20 倍）、跟 20 日均量差不多（1.00 倍）</li><li><b>關鍵價位</b>：多方頸線 47,578.24，還差 2.71%；空方頸線 44,210.31，還在下方 4.70%</li><li><b>大小型股</b>：加權 +0.96%、櫃買 -0.26%，方向相反（大型股與小型股不同調）</li></ul></div>
       <div class="mtgs"><a class="tg" href="#sec-market-ma">均線糾結</a><a class="tg" href="#sec-market-ma">收盤 &gt; MA60</a><a class="tg" href="#sec-market-ma">收盤 &lt; MA10（短均未收復）</a><a class="tg" href="#sec-market-pos">貼近 20 日高</a><a class="tg" href="#sec-market-vol">量縮上漲（追價意願有限）</a><a class="tg" href="#sec-market-vol">量能回升（量 ≥ 1.2×5 日均量）</a><a class="tg" href="#sec-market-neck">頭頭高</a><a class="tg" href="#sec-market-neck">底底高</a><a class="tg" href="#sec-market-neck">待確認轉折</a></div>
-      <div class="mksum">加權指數 46,288.00（+439.10 點、+0.96%），站上月線 46,159.89（+0.28%），月線比 5 日前高 153.29 點（上彎）。多方頸線 47,578.24（08-25 ~ 09-14）尚未突破，還差 2.71%；空方頸線 44,210.31，還在高檔下方 +4.70%。集中市場總成交金額 8,666.2 億，是 5 日均量的 1.20 倍、20 日均量的 1.00 倍（量能持平）。轉折結構：頭頭高成立、底底高成立。對照前一交易日（09/16）：量縮觀望（量比 20 0.78）→ 今日站上月線、月線向上（量比 20 1.00）。</div>
+      
       <div class="note" style="margin:10px 0 0">本區塊為公開資料的技術面觀察，<strong>不構成投資建議</strong>，
         不報牌、不預測、不下買賣決策。成交金額為<strong>集中市場總成交金額</strong>（含 ETF／權證），
         與頁首摘要的「上市個股成交金額」口徑不同。標籤是統計，不是評分、也不是推薦。</div>
