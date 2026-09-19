@@ -63,6 +63,15 @@
        box-shadow:0 0 0 3px rgba(191,74,58,.30);animation:blkflash .55s ease-in-out 3}
   @keyframes blkflash{0%,100%{background:#fbe3a8}50%{background:#fff6d8}}
   article.passage .blk{scroll-margin-top:96px}
+  /* 文章裡的題號格子可以直接點：跳到對應題目（現有題目→格子用下方按鈕，兩向互通） */
+  .blk.blkjump{cursor:pointer;border-bottom-style:dotted;transition:background .15s}
+  .blk.blkjump::after{content:"↧";font-size:11px;font-weight:normal;
+       color:var(--red);margin-left:2px;vertical-align:super}
+  .blk.blkjump:hover{background:var(--sel)}
+  .blk.blkjump:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+  .q{scroll-margin-top:96px}
+  .q.hit{border-color:var(--red);box-shadow:0 0 0 3px rgba(191,74,58,.30);
+       animation:blkflash .55s ease-in-out 3}
   .ctx{background:rgba(54,78,112,.06);border-left:4px solid var(--blue);border-radius:0 8px 8px 0;
        padding:7px 12px;margin:0 0 10px;font-size:15px;color:var(--soft)}
   .mark{margin-left:auto;flex:none;font-size:16px}
@@ -92,60 +101,9 @@
   ul.why li.no{color:var(--ink)}
   .tip{margin:8px 0 0;font-size:14.5px;color:var(--blue)}
   .dim{color:var(--soft);font-size:13.5px}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
-  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
-        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
-        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
-  .hnav::-webkit-scrollbar{display:none}
-  .hnav a{white-space:nowrap}
-  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
-        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
-  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
-        border:1.5px solid transparent;flex:none}
-  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  @media (max-width:430px){
-    .hnav{padding:4px 8px}
-    .hnav a.brand{font-size:13px;padding:2px 6px}
-    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
-  }
-  /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
-        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  .viewsline .vnum{color:#364e70}
-  .viewsline .vnum.vnum-on{color:#bf4a3a}
-  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
-<script defer src="../../counter.js?v=94ad9679"></script>
 </head>
 <body data-quiz-key="p6full_answers_v1">
-<!-- hermesnav -->
-<nav class="hnav">
-  <a class="brand" href="../../">小R 頻道</a>
-  <a class="lnk" href="../../ai/">AI 助理實測</a>
-  <a class="lnk" href="../../stock/">股市觀察</a>
-  <a class="lnk on" href="../../toeic/">多益英文</a>
-</nav>
-
 <div class="wrap">
   <a class="back" href="../">← 回多益英文</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
@@ -153,9 +111,9 @@
   <div class="sub">完整題組・4 篇短文 × 每篇 4 格 ＝ 16 題・每題四個選項・滿分 16</div>
 
   <div class="box">
-    <strong>怎麼做</strong>：① 先讀完一篇短文（空格在文章裡以題號 ［131］ 標示，並用底色標出這一題的格子）；
+    <strong>怎麼做</strong>：① 先讀完一篇短文（空格在文章裡以題號 ［131］↧ 標示，並用底色標出這一題的格子）；
     ② 往下看該篇的 4 題，直接點選項作答（作答會自動存在這台裝置，重新整理不會不見）；
-    ③ 想再回頭看文章裡的某個空格，按題目下方的「<strong>↑ 回到文章第 N 格</strong>」，頁面會滑回上方短文並閃示那個空格約 2 秒；
+    ③ <strong>文章裡的題號格子可以直接點</strong>，頁面會滑到對應題目並閃示該題；想回頭看文章裡的某個空格，按題目下方的「<strong>↑ 回到文章第 N 格</strong>」就會滑回上方短文並閃示那個空格約 2 秒（兩向互通，答題、計分後都還能用）；
     ④ 做完 16 題按「對答案並計分」；⑤ 錯的題目會自動展開詳解，看完再按「清除作答」重做一次；
     ⑥ 想重新對答案，可按頁面最下方的「<strong>↑ 回到上面評分</strong>」滑回上方計分區。
     這一份是<strong>紙筆閱讀題，沒有音檔</strong>，請直接看題目作答。
@@ -187,9 +145,9 @@
   <section class="set" id="set1" data-set="1">
   <h2>第 131–134 題　<span class="meta">第 1 篇・商業書信・4 題（第 1 組）</span></h2>
   <div class="plead">Questions 131–134 refer to the following letter.</div>
-  <article class="passage"><p>Dear Ms. Whitfield,</p><p>Thank you for your interest in our line of commercial espresso machines. As you requested, I am <span class="blk" id="blank-131">［131］</span> a detailed quotation for the three models that your hotel is considering.</p><p>Please note that the prices listed are valid for thirty days from the date of this letter. Because the stainless-steel housing is currently in short supply, orders placed after the deadline may be <span class="blk" id="blank-132">［132］</span> by two to three weeks. If this would affect your opening schedule, please let me know and I will check whether the white model can be shipped sooner.</p><p>We can also arrange on-site training for your staff at no <span class="blk" id="blank-133">［133］</span> charge. If you would like to schedule a session, simply indicate a preferred date on the enclosed form and return it to us <span class="blk" id="blank-134">［134］</span> the end of the month.</p><p>Sincerely,</p><p>Daniel Ferro<br>Sales Manager, Northline Equipment</p></article>
+  <article class="passage"><p>Dear Ms. Whitfield,</p><p>Thank you for your interest in our line of commercial espresso machines. As you requested, I am <span class="blk blkjump" id="blank-131" data-target="q-131" role="button" tabindex="0" title="點一下跳到第 131 題">［131］</span> a detailed quotation for the three models that your hotel is considering.</p><p>Please note that the prices listed are valid for thirty days from the date of this letter. Because the stainless-steel housing is currently in short supply, orders placed after the deadline may be <span class="blk blkjump" id="blank-132" data-target="q-132" role="button" tabindex="0" title="點一下跳到第 132 題">［132］</span> by two to three weeks. If this would affect your opening schedule, please let me know and I will check whether the white model can be shipped sooner.</p><p>We can also arrange on-site training for your staff at no <span class="blk blkjump" id="blank-133" data-target="q-133" role="button" tabindex="0" title="點一下跳到第 133 題">［133］</span> charge. If you would like to schedule a session, simply indicate a preferred date on the enclosed form and return it to us <span class="blk blkjump" id="blank-134" data-target="q-134" role="button" tabindex="0" title="點一下跳到第 134 題">［134］</span> the end of the month.</p><p>Sincerely,</p><p>Daniel Ferro<br>Sales Manager, Northline Equipment</p></article>
   <details class="gist"><summary>看第 1 篇短文的中文大意</summary><p>中文大意：北線設備公司的業務經理回覆飯店採購詢問——隨信附上三款商用義式咖啡機的詳細報價，並說明報價自發信日起三十天內有效；由於不鏽鋼外殼目前缺料，逾期下單可能被延後二到三週，若會影響飯店的開幕時程，可再洽詢白色機型能否提前出貨；此外公司可免費安排到府教育訓練，有意者只要在附上的表格填妥希望日期，並在月底前寄回即可。</p></details>
-  <div class="q" data-q="131" data-a="1">
+  <div class="q" id="q-131" data-q="131" data-a="1">
       <div class="qh"><span class="qn">131</span><span class="stem">填入短文的第 131 格<span class="pt ">時態與語態</span></span><span class="mark"></span></div>
       <div class="ctx">Thank you for your interest in our line of commercial espresso machines. As you requested, I am <span class="blk dash cur">______</span> a detailed quotation for the three models that your hotel is considering.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>enclose</span></li><li data-i="1"><b>B</b><span>enclosing</span></li><li data-i="2"><b>C</b><span>enclosed</span></li><li data-i="3"><b>D</b><span>enclosure</span></li></ul>
@@ -202,7 +160,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="132" data-a="2">
+  <div class="q" id="q-132" data-q="132" data-a="2">
       <div class="qh"><span class="qn">132</span><span class="stem">填入短文的第 132 格<span class="pt ">時態與語態</span></span><span class="mark"></span></div>
       <div class="ctx">Please note that the prices listed are valid for thirty days from the date of this letter. Because the stainless-steel housing is currently in short supply, orders placed after the deadline may be <span class="blk dash cur">______</span> by two to three weeks. If this would affect your opening schedule, please let me know and I will check whether the white model can be shipped sooner.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>delay</span></li><li data-i="1"><b>B</b><span>delaying</span></li><li data-i="2"><b>C</b><span>delayed</span></li><li data-i="3"><b>D</b><span>delays</span></li></ul>
@@ -215,7 +173,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="133" data-a="3">
+  <div class="q" id="q-133" data-q="133" data-a="3">
       <div class="qh"><span class="qn">133</span><span class="stem">填入短文的第 133 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
       <div class="ctx">We can also arrange on-site training for your staff at no <span class="blk dash cur">______</span> charge. If you would like to schedule a session, simply indicate a preferred date on the enclosed form and return it to us <span class="blk">［134］</span> the end of the month.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>addition</span></li><li data-i="1"><b>B</b><span>additionally</span></li><li data-i="2"><b>C</b><span>additive</span></li><li data-i="3"><b>D</b><span>additional</span></li></ul>
@@ -228,7 +186,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="134" data-a="1">
+  <div class="q" id="q-134" data-q="134" data-a="1">
       <div class="qh"><span class="qn">134</span><span class="stem">填入短文的第 134 格<span class="pt ">介系詞</span></span><span class="mark"></span></div>
       <div class="ctx">We can also arrange on-site training for your staff at no <span class="blk">［133］</span> charge. If you would like to schedule a session, simply indicate a preferred date on the enclosed form and return it to us <span class="blk dash cur">______</span> the end of the month.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>until</span></li><li data-i="1"><b>B</b><span>by</span></li><li data-i="2"><b>C</b><span>since</span></li><li data-i="3"><b>D</b><span>during</span></li></ul>
@@ -245,9 +203,9 @@
 <section class="set" id="set2" data-set="2">
   <h2>第 135–138 題　<span class="meta">第 2 篇・內部通知 Email・4 題（第 2 組）</span></h2>
   <div class="plead">Questions 135–138 refer to the following e-mail.</div>
-  <article class="passage"><p><b>To:</b> All Staff &nbsp;|&nbsp; <b>From:</b> Facilities Department<br><b>Subject:</b> Changes to the employee shuttle schedule</p><p>Beginning on Monday, March 3, the employee shuttle will depart from the north parking lot <span class="blk" id="blank-135">［135］</span> the main entrance. The new pick-up point was chosen because construction on Oak Street is expected to continue for several months, and buses can no longer stop safely in front of the building.</p><p>The morning shuttle will leave at 7:30 and 8:15, and the evening shuttle will run every thirty minutes <span class="blk" id="blank-136">［136］</span> 5:00 and 7:00 p.m. Riders should arrive at the lot at least five minutes before departure, since the shuttle cannot wait for late passengers.</p><p>Seats are assigned on a first-come, first-served basis, so employees who <span class="blk" id="blank-137">［137］</span> to travel during peak hours are encouraged to reserve a place through the company intranet. Reservations open at noon on the day before travel.</p><p>We appreciate your patience while the construction is under way. Questions about the revised schedule should be directed to the Facilities Department, <span class="blk" id="blank-138">［138］</span> will respond within one business day.</p></article>
+  <article class="passage"><p><b>To:</b> All Staff &nbsp;|&nbsp; <b>From:</b> Facilities Department<br><b>Subject:</b> Changes to the employee shuttle schedule</p><p>Beginning on Monday, March 3, the employee shuttle will depart from the north parking lot <span class="blk blkjump" id="blank-135" data-target="q-135" role="button" tabindex="0" title="點一下跳到第 135 題">［135］</span> the main entrance. The new pick-up point was chosen because construction on Oak Street is expected to continue for several months, and buses can no longer stop safely in front of the building.</p><p>The morning shuttle will leave at 7:30 and 8:15, and the evening shuttle will run every thirty minutes <span class="blk blkjump" id="blank-136" data-target="q-136" role="button" tabindex="0" title="點一下跳到第 136 題">［136］</span> 5:00 and 7:00 p.m. Riders should arrive at the lot at least five minutes before departure, since the shuttle cannot wait for late passengers.</p><p>Seats are assigned on a first-come, first-served basis, so employees who <span class="blk blkjump" id="blank-137" data-target="q-137" role="button" tabindex="0" title="點一下跳到第 137 題">［137］</span> to travel during peak hours are encouraged to reserve a place through the company intranet. Reservations open at noon on the day before travel.</p><p>We appreciate your patience while the construction is under way. Questions about the revised schedule should be directed to the Facilities Department, <span class="blk blkjump" id="blank-138" data-target="q-138" role="button" tabindex="0" title="點一下跳到第 138 題">［138］</span> will respond within one business day.</p></article>
   <details class="gist"><summary>看第 2 篇短文的中文大意</summary><p>中文大意：設施部發信通知全體員工接駁車路線異動——3 月 3 日（週一）起改在北側停車場上車，不再從大門前出發，原因是 Oak 街施工預計還要數個月，公車已無法在大樓前安全停靠；早上 7:30 與 8:15 各一班，晚間 5:00 到 7:00 之間每三十分鐘一班，請提早五分鐘到停車場等候；座位先到先得，尖峰時段想搭車的員工可於搭車前一天中午起在公司內部網路預約；對新時刻表有疑問請洽設施部，會在一個工作天內回覆。</p></details>
-  <div class="q" data-q="135" data-a="0">
+  <div class="q" id="q-135" data-q="135" data-a="0">
       <div class="qh"><span class="qn">135</span><span class="stem">填入短文的第 135 格<span class="pt ">片語搭配</span></span><span class="mark"></span></div>
       <div class="ctx">Beginning on Monday, March 3, the employee shuttle will depart from the north parking lot <span class="blk dash cur">______</span> the main entrance. The new pick-up point was chosen because construction on Oak Street is expected to continue for several months, and buses can no longer stop safely in front of the building.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>instead of</span></li><li data-i="1"><b>B</b><span>instead</span></li><li data-i="2"><b>C</b><span>in spite of</span></li><li data-i="3"><b>D</b><span>because of</span></li></ul>
@@ -260,7 +218,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="136" data-a="2">
+  <div class="q" id="q-136" data-q="136" data-a="2">
       <div class="qh"><span class="qn">136</span><span class="stem">填入短文的第 136 格<span class="pt ">介系詞</span></span><span class="mark"></span></div>
       <div class="ctx">The morning shuttle will leave at 7:30 and 8:15, and the evening shuttle will run every thirty minutes <span class="blk dash cur">______</span> 5:00 and 7:00 p.m. Riders should arrive at the lot at least five minutes before departure, since the shuttle cannot wait for late passengers.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>among</span></li><li data-i="1"><b>B</b><span>during</span></li><li data-i="2"><b>C</b><span>between</span></li><li data-i="3"><b>D</b><span>from</span></li></ul>
@@ -273,7 +231,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="137" data-a="3">
+  <div class="q" id="q-137" data-q="137" data-a="3">
       <div class="qh"><span class="qn">137</span><span class="stem">填入短文的第 137 格<span class="pt ">詞性與一致</span></span><span class="mark"></span></div>
       <div class="ctx">Seats are assigned on a first-come, first-served basis, so employees who <span class="blk dash cur">______</span> to travel during peak hours are encouraged to reserve a place through the company intranet. Reservations open at noon on the day before travel.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>intends</span></li><li data-i="1"><b>B</b><span>intending</span></li><li data-i="2"><b>C</b><span>intention</span></li><li data-i="3"><b>D</b><span>intend</span></li></ul>
@@ -286,7 +244,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="138" data-a="0">
+  <div class="q" id="q-138" data-q="138" data-a="0">
       <div class="qh"><span class="qn">138</span><span class="stem">填入短文的第 138 格<span class="pt ">關係詞</span></span><span class="mark"></span></div>
       <div class="ctx">We appreciate your patience while the construction is under way. Questions about the revised schedule should be directed to the Facilities Department, <span class="blk dash cur">______</span> will respond within one business day.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>which</span></li><li data-i="1"><b>B</b><span>that</span></li><li data-i="2"><b>C</b><span>who</span></li><li data-i="3"><b>D</b><span>it</span></li></ul>
@@ -303,9 +261,9 @@
 <section class="set" id="set3" data-set="3">
   <h2>第 139–142 題　<span class="meta">第 3 篇・廣告／公告・4 題（第 3 組）</span></h2>
   <div class="plead">Questions 139–142 refer to the following announcement.</div>
-  <article class="passage"><p><b>GRAND OPENING — RIVERSIDE GARDEN CENTER</b></p><p>After six months of renovation, Riverside Garden Center will reopen its doors on Saturday, April 12. <span class="blk" id="blank-139">［139］</span> Visitors on opening day will enjoy a 20 percent discount on all outdoor furniture, as well as free delivery within the city limits.</p><p>The celebration will continue through the weekend. Our experienced staff will be on hand to answer questions about plant care and to <span class="blk" id="blank-140">［140］</span> customers choose the right tools for their gardens. Members of our loyalty program will receive a complimentary bag of potting soil; to join, simply sign up at the information desk near the front entrance.</p><p>Space in the weekend workshops is limited, <span class="blk" id="blank-141">［141］</span> we recommend registering in advance through our website. Anyone who registers before April 5 will be <span class="blk" id="blank-142">［142］</span> for a free garden tool set, which can be collected at the information desk on opening day.</p><p>We look forward to welcoming you back to Riverside Garden Center.</p></article>
+  <article class="passage"><p><b>GRAND OPENING — RIVERSIDE GARDEN CENTER</b></p><p>After six months of renovation, Riverside Garden Center will reopen its doors on Saturday, April 12. <span class="blk blkjump" id="blank-139" data-target="q-139" role="button" tabindex="0" title="點一下跳到第 139 題">［139］</span> Visitors on opening day will enjoy a 20 percent discount on all outdoor furniture, as well as free delivery within the city limits.</p><p>The celebration will continue through the weekend. Our experienced staff will be on hand to answer questions about plant care and to <span class="blk blkjump" id="blank-140" data-target="q-140" role="button" tabindex="0" title="點一下跳到第 140 題">［140］</span> customers choose the right tools for their gardens. Members of our loyalty program will receive a complimentary bag of potting soil; to join, simply sign up at the information desk near the front entrance.</p><p>Space in the weekend workshops is limited, <span class="blk blkjump" id="blank-141" data-target="q-141" role="button" tabindex="0" title="點一下跳到第 141 題">［141］</span> we recommend registering in advance through our website. Anyone who registers before April 5 will be <span class="blk blkjump" id="blank-142" data-target="q-142" role="button" tabindex="0" title="點一下跳到第 142 題">［142］</span> for a free garden tool set, which can be collected at the information desk on opening day.</p><p>We look forward to welcoming you back to Riverside Garden Center.</p></article>
   <details class="gist"><summary>看第 3 篇短文的中文大意</summary><p>中文大意：河岸園藝中心結束六個月整修、將於 4 月 12 日（週六）重新開幕——開幕當天戶外家具全面八折、市區內免費配送，新設的咖啡吧要請前五十位客人喝咖啡；慶祝活動整個週末持續，現場有資深員工解答植物照護問題、協助顧客挑選合適的園藝工具，忠誠會員可獲贈一包培養土（在入口附近服務台加入會員即可）；週末工作坊名額有限，建議先上網報名，4 月 5 日前完成報名的人還能獲得免費園藝工具組，開幕當天在服務台領取。</p></details>
-  <div class="q" data-q="139" data-a="1">
+  <div class="q" id="q-139" data-q="139" data-a="1">
       <div class="qh"><span class="qn">139</span><span class="stem">填入短文的第 139 格<span class="pt pt-s">整句填入</span>（整句填入：四個選項都是完整句子，選出最適合這個位置的一句）</span><span class="mark"></span></div>
       <div class="ctx">After six months of renovation, Riverside Garden Center will reopen its doors on Saturday, April 12. <span class="blk dash cur">______</span> Visitors on opening day will enjoy a 20 percent discount on all outdoor furniture, as well as free delivery within the city limits.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>The renovation was carried out by a local construction company.</span></li><li data-i="1"><b>B</b><span>Our new café will offer complimentary coffee to the first fifty guests.</span></li><li data-i="2"><b>C</b><span>Parking is available in the lot behind the building.</span></li><li data-i="3"><b>D</b><span>We apologize for any inconvenience this may have caused.</span></li></ul>
@@ -318,7 +276,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="140" data-a="2">
+  <div class="q" id="q-140" data-q="140" data-a="2">
       <div class="qh"><span class="qn">140</span><span class="stem">填入短文的第 140 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
       <div class="ctx">The celebration will continue through the weekend. Our experienced staff will be on hand to answer questions about plant care and to <span class="blk dash cur">______</span> customers choose the right tools for their gardens. Members of our loyalty program will receive a complimentary bag of potting soil; to join, simply sign up at the information desk near the front entrance.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>helps</span></li><li data-i="1"><b>B</b><span>helping</span></li><li data-i="2"><b>C</b><span>help</span></li><li data-i="3"><b>D</b><span>helpful</span></li></ul>
@@ -331,7 +289,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="141" data-a="3">
+  <div class="q" id="q-141" data-q="141" data-a="3">
       <div class="qh"><span class="qn">141</span><span class="stem">填入短文的第 141 格<span class="pt ">連接詞</span></span><span class="mark"></span></div>
       <div class="ctx">Space in the weekend workshops is limited, <span class="blk dash cur">______</span> we recommend registering in advance through our website. Anyone who registers before April 5 will be <span class="blk">［142］</span> for a free garden tool set, which can be collected at the information desk on opening day.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>because</span></li><li data-i="1"><b>B</b><span>unless</span></li><li data-i="2"><b>C</b><span>although</span></li><li data-i="3"><b>D</b><span>so</span></li></ul>
@@ -344,7 +302,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="142" data-a="0">
+  <div class="q" id="q-142" data-q="142" data-a="0">
       <div class="qh"><span class="qn">142</span><span class="stem">填入短文的第 142 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
       <div class="ctx">Space in the weekend workshops is limited, <span class="blk">［141］</span> we recommend registering in advance through our website. Anyone who registers before April 5 will be <span class="blk dash cur">______</span> for a free garden tool set, which can be collected at the information desk on opening day.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>eligible</span></li><li data-i="1"><b>B</b><span>eligibility</span></li><li data-i="2"><b>C</b><span>eligibly</span></li><li data-i="3"><b>D</b><span>elect</span></li></ul>
@@ -361,9 +319,9 @@
 <section class="set" id="set4" data-set="4">
   <h2>第 143–146 題　<span class="meta">第 4 篇・內部備忘錄・4 題（第 4 組）</span></h2>
   <div class="plead">Questions 143–146 refer to the following memorandum.</div>
-  <article class="passage"><p><b>MEMORANDUM</b><br><b>To:</b> All Department Heads &nbsp;|&nbsp; <b>From:</b> Procurement Office &nbsp;|&nbsp; <b>Date:</b> May 6<br><b>Subject:</b> New procedure for office supply requests</p><p>Effective June 1, all requests for office supplies must be submitted through the online purchasing portal rather than by e-mail. <span class="blk" id="blank-143">［143］</span> This change will allow the procurement team to track orders more accurately and to negotiate better prices with suppliers.</p><p>Managers should review their department's current stock before placing an order. Requests submitted after 3:00 p.m. on Friday will not be processed <span class="blk" id="blank-144">［144］</span> the following Monday. In addition, any order that exceeds $500 requires the <span class="blk" id="blank-145">［145］</span> of a division director.</p><p><span class="blk" id="blank-146">［146］</span> A short training session on the new portal will be held on May 28 at 10:00 a.m. in Conference Room B. Attendance is optional, but managers who place orders frequently are strongly encouraged to attend.</p><p>Thank you for your cooperation.</p></article>
+  <article class="passage"><p><b>MEMORANDUM</b><br><b>To:</b> All Department Heads &nbsp;|&nbsp; <b>From:</b> Procurement Office &nbsp;|&nbsp; <b>Date:</b> May 6<br><b>Subject:</b> New procedure for office supply requests</p><p>Effective June 1, all requests for office supplies must be submitted through the online purchasing portal rather than by e-mail. <span class="blk blkjump" id="blank-143" data-target="q-143" role="button" tabindex="0" title="點一下跳到第 143 題">［143］</span> This change will allow the procurement team to track orders more accurately and to negotiate better prices with suppliers.</p><p>Managers should review their department's current stock before placing an order. Requests submitted after 3:00 p.m. on Friday will not be processed <span class="blk blkjump" id="blank-144" data-target="q-144" role="button" tabindex="0" title="點一下跳到第 144 題">［144］</span> the following Monday. In addition, any order that exceeds $500 requires the <span class="blk blkjump" id="blank-145" data-target="q-145" role="button" tabindex="0" title="點一下跳到第 145 題">［145］</span> of a division director.</p><p><span class="blk blkjump" id="blank-146" data-target="q-146" role="button" tabindex="0" title="點一下跳到第 146 題">［146］</span> A short training session on the new portal will be held on May 28 at 10:00 a.m. in Conference Room B. Attendance is optional, but managers who place orders frequently are strongly encouraged to attend.</p><p>Thank you for your cooperation.</p></article>
   <details class="gist"><summary>看第 4 篇短文的中文大意</summary><p>中文大意：採購室的內部備忘錄——6 月 1 日起所有辦公用品申請一律改用線上採購入口網站送出，不再用 email（紙本表格也不再受理），這項改變讓採購部能更精確追蹤訂單、並和供應商談到更好的價格；各部門主管下單前請先確認現有庫存，週五下午三點以後送出的申請要等到下週一才會處理，單筆超過 500 美元的訂單還需要事業部總監核准；為協助員工熟悉新系統，5 月 28 日上午 10 點在 B 會議室舉辦訓練課程，自由參加，但常下單的主管請務必出席。</p></details>
-  <div class="q" data-q="143" data-a="1">
+  <div class="q" id="q-143" data-q="143" data-a="1">
       <div class="qh"><span class="qn">143</span><span class="stem">填入短文的第 143 格<span class="pt pt-s">整句填入</span>（整句填入：四個選項都是完整句子，選出最適合這個位置的一句）</span><span class="mark"></span></div>
       <div class="ctx">Effective June 1, all requests for office supplies must be submitted through the online purchasing portal rather than by e-mail. <span class="blk dash cur">______</span> This change will allow the procurement team to track orders more accurately and to negotiate better prices with suppliers.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>The portal was developed by an outside software company last year.</span></li><li data-i="1"><b>B</b><span>Paper forms will no longer be accepted at the front desk.</span></li><li data-i="2"><b>C</b><span>Employees may continue to send urgent requests by e-mail.</span></li><li data-i="3"><b>D</b><span>The procurement team is currently short-staffed.</span></li></ul>
@@ -376,7 +334,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="144" data-a="3">
+  <div class="q" id="q-144" data-q="144" data-a="3">
       <div class="qh"><span class="qn">144</span><span class="stem">填入短文的第 144 格<span class="pt ">介系詞</span></span><span class="mark"></span></div>
       <div class="ctx">Managers should review their department's current stock before placing an order. Requests submitted after 3:00 p.m. on Friday will not be processed <span class="blk dash cur">______</span> the following Monday. In addition, any order that exceeds $500 requires the <span class="blk">［145］</span> of a division director.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>since</span></li><li data-i="1"><b>B</b><span>by</span></li><li data-i="2"><b>C</b><span>during</span></li><li data-i="3"><b>D</b><span>until</span></li></ul>
@@ -389,7 +347,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="145" data-a="2">
+  <div class="q" id="q-145" data-q="145" data-a="2">
       <div class="qh"><span class="qn">145</span><span class="stem">填入短文的第 145 格<span class="pt ">詞性</span></span><span class="mark"></span></div>
       <div class="ctx">Managers should review their department's current stock before placing an order. Requests submitted after 3:00 p.m. on Friday will not be processed <span class="blk">［144］</span> the following Monday. In addition, any order that exceeds $500 requires the <span class="blk dash cur">______</span> of a division director.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>approve</span></li><li data-i="1"><b>B</b><span>approving</span></li><li data-i="2"><b>C</b><span>approval</span></li><li data-i="3"><b>D</b><span>approved</span></li></ul>
@@ -402,7 +360,7 @@
         </div>
       </div>
     </div>
-  <div class="q" data-q="146" data-a="0">
+  <div class="q" id="q-146" data-q="146" data-a="0">
       <div class="qh"><span class="qn">146</span><span class="stem">填入短文的第 146 格<span class="pt pt-s">整句填入</span>（整句填入：四個選項都是完整句子，選出最適合這個位置的一句）</span><span class="mark"></span></div>
       <div class="ctx"><span class="blk dash cur">______</span> A short training session on the new portal will be held on May 28 at 10:00 a.m. in Conference Room B. Attendance is optional, but managers who place orders frequently are strongly encouraged to attend.</div>
       <ul class="opts"><li data-i="0"><b>A</b><span>To help employees adjust to the new system, a series of information sessions has been scheduled.</span></li><li data-i="1"><b>B</b><span>The portal can be accessed from any computer or mobile device.</span></li><li data-i="2"><b>C</b><span>The old e-mail-based procedure will be reviewed again next year.</span></li><li data-i="3"><b>D</b><span>Managers should keep paper copies of every order for three years.</span></li></ul>
@@ -426,14 +384,12 @@
 </div>
 <script src="../quiz.js"></script>
 <script>
-/* 「↑ 回到文章第 N 格」／「↑ 回到上面評分」：平滑滑到目標並閃示約 2 秒。
-   目標元素由 data-target 指定（空格 blank-N 或計分區 scoring），高亮都加 .hit。
+/* 雙向跳轉：① 題目下方「↑ 回到文章第 N 格」 ② 文章裡的題號格子「［131］↧」點一下跳到該題。
+   兩者共用同一段邏輯（data-target 指定目標 element id），高亮都加 .hit、閃示約 2 秒。
    只是事件監聽，不碰 quiz.js 的作答／計分／詳解狀態。 */
 (function () {
-  document.addEventListener('click', function (ev) {
-    var b = ev.target.closest && ev.target.closest('.backjump');
-    if (!b) return;
-    var t = document.getElementById(b.getAttribute('data-target'));
+  function go(el) {
+    var t = document.getElementById(el.getAttribute('data-target'));
     if (!t) return;
     try { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
     catch (e) { t.scrollIntoView(); }
@@ -445,9 +401,19 @@
       t.classList.remove('hit');
       t.__hitTimer = null;
     }, 2000);
+  }
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest && ev.target.closest('.backjump, .blkjump');
+    if (el) go(el);
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Enter' && ev.key !== ' ') return;
+    var el = ev.target.closest && ev.target.closest('.blkjump');
+    if (!el) return;
+    ev.preventDefault();
+    go(el);
   });
 })();
 </script>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="4" data-views>—</span></div>
 </body>
 </html>
