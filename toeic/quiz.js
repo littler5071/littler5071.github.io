@@ -15,6 +15,10 @@
   var sel = {};
   try { sel = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { sel = {}; }
   var scored = false;
+  var lastMove = 0;      /* 最近一次捲動時間：滑動/自動捲動時的手指抬起不要當成選答案（防誤觸改答案） */
+  ['touchmove', 'scroll'].forEach(function (ev) {
+    window.addEventListener(ev, function () { lastMove = Date.now(); }, { passive: true });
+  });
   var doneEl = document.getElementById('done');
   var resultEl = document.getElementById('result');
   var hintEl = document.getElementById('hint');
@@ -53,6 +57,7 @@
   document.addEventListener('click', function (ev) {
     var li = ev.target.closest && ev.target.closest('.opts li');
     if (li && !scored && !li.classList.contains('locked')) {
+      if (Date.now() - lastMove < 180) return;   /* 剛捲動完的手指抬起不選答案 */
       var q = li.closest('.q');
       sel[q.getAttribute('data-q')] = Number(li.getAttribute('data-i'));
       save(); paint();
