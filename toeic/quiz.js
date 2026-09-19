@@ -42,6 +42,8 @@
       });
       var body = q.querySelector('.solbody');
       if (body) body.hidden = true;
+      var info = q.querySelector('.pickinfo');
+      if (info && info.parentNode) info.parentNode.removeChild(info);
       var t = q.querySelector('.toggle');
       if (t) t.textContent = '看詳解';
     });
@@ -96,6 +98,22 @@
         if (mark) mark.textContent = '❌';
         if (lis[a]) lis[a].classList.add('ok');
         if (lis[picked]) lis[picked].classList.add('bad');
+        /* 明確寫出「你選誰／正解誰」，避免爭議時無法核對 */
+        var txtOf = function (li) {
+          return li ? li.textContent.replace(/^\s*[A-D]\s*/, '').trim() : '(不明)';
+        };
+        var info = q.querySelector('.pickinfo');
+        if (!info) {
+          info = document.createElement('div');
+          info.className = 'pickinfo';
+          var optsUl = q.querySelector('.opts');
+          if (optsUl && optsUl.parentNode) optsUl.parentNode.insertBefore(info, optsUl.nextSibling);
+          else q.appendChild(info);
+        }
+        info.setAttribute('style', 'margin:6px 0 0;font-size:14px;color:#8a3b2e;' +
+          'background:#fdf0ec;border-left:4px solid #bf4a3a;border-radius:0 8px 8px 0;padding:6px 10px');
+        info.innerHTML = '你選 <b>' + 'ABCD'[picked] + '</b>（' + txtOf(lis[picked]) + '）' +
+          '　→　正解 <b>' + 'ABCD'[a] + '</b>（' + txtOf(lis[a]) + '）';
         var body = q.querySelector('.solbody');
         if (body) { body.hidden = false;
           var t = q.querySelector('.toggle'); if (t) t.textContent = '收起詳解'; }
