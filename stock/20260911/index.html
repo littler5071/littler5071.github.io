@@ -35,6 +35,8 @@
   .hd h3 small{color:var(--soft);font-size:14px;font-weight:normal}
   .px{font-size:20px} .px.up{color:var(--red)} .px.dn{color:var(--leaf)}
   .pat{color:var(--blue);font-size:15px;margin:2px 0 10px} .dim{color:var(--soft)}
+  .bbar{display:flex;height:11px;border-radius:6px;overflow:hidden;margin:6px 0 4px;border:1px solid #d8d2c6}
+  .bbar span{display:block;height:100%} .bup{background:#c0392b} .bdn{background:#2e8c64} .bfl{background:#d8d2c6}
   img{width:100%;height:auto;border-radius:10px;border:1.5px solid var(--line);background:#fff}
   .score{font-size:13.5px;color:var(--soft);border-left:4px solid var(--line);padding:2px 0 2px 10px;margin:0 0 10px}
   .score b{color:var(--ink)}
@@ -77,8 +79,8 @@
   <div class="summary">
     <div class="box"><div class="big dn">46184.85</div>
       <div>加權指數　-755.64 點（-1.61%）</div></div>
-    <div class="box"><div class="big">229 / 779</div><div>上市個股上漲／下跌家數</div>
-      <div class="dim">上漲 22.7%　·　下跌 77.3%（共 1008 檔）</div></div>
+    <div class="box"><div class="big">229 / 779</div><div>上市個股上漲／下跌家數</div><div class="bbar"><span class="bup" style="width:21.28%"></span><span class="bfl" style="width:6.32%"></span><span class="bdn" style="width:72.40%"></span></div><div class="dim">上漲 21.3%　·　下跌 72.4%　·　持平 6.3%（共 1076 檔）</div></div>
+    <div class="box"><div class="big">195 / 600</div><div>上櫃個股上漲／下跌家數</div><div class="bbar"><span class="bup" style="width:22.62%"></span><span class="bfl" style="width:7.77%"></span><span class="bdn" style="width:69.61%"></span></div><div class="dim">上漲 22.6%　·　下跌 69.6%　·　持平 7.8%（共 862 檔）</div></div>
     <div class="box"><div class="big">6,843 億</div><div>上市個股成交金額</div></div>
     <div class="box"><div class="big">1,771 億</div><div>上櫃個股成交金額</div></div>
   </div>
