@@ -79,6 +79,7 @@
   .mkchart{margin:12px 0 0}
   .mkchart img{width:100%;height:auto;border-radius:10px;border:1.5px solid var(--line);background:#fff}
   .mkchart .cap{font-size:13.5px;color:var(--soft);margin:6px 0 0;line-height:1.65}
+  .mkchart .ylink{margin:6px 0 0}
   details.mkfold{margin:8px 0 0;border:1.5px solid var(--line);border-radius:12px;background:rgba(255,255,255,.55)}
   details.mkfold>summary{cursor:pointer;list-style:none;padding:9px 13px;font-size:14.5px;color:var(--blue);font-weight:bold;line-height:1.5}
   details.mkfold>summary::-webkit-details-marker{display:none}
@@ -199,7 +200,7 @@
       </details>
       <div class="mkbrief"><p class="mkconcl">加權指數今天漲 81.33 點（+0.17%），收 47,800.17、站上月線 46,537.07；月線還在上彎，已站上高點頸線 47,308.75。</p><ul class="mkpts"><li><b>均線位置</b>：收盤在 MA5、MA10、MA20、MA60 之上（4 條全部站上）</li><li><b>月線方向</b>：月線 MA20 現在 46,537.07，比 5 個交易日前高 501.38 點 → 上彎</li><li><b>量能</b>：集中市場成交 10,787.8 億，比 5 日均量大不少（1.16 倍）、比 20 日均量大不少（1.17 倍）</li><li><b>關鍵價位</b>：高點頸線 47,308.75已突破；低點頸線 44,592.92，還在下方 7.19%</li><li><b>大小型股</b>：加權 +0.17%、櫃買 +0.63%，兩邊同向</li></ul></div>
       <div class="mtgs"><a class="tg" href="#sec-market-ma">均線多頭排列</a><a class="tg" href="#sec-market-ma">收盤 &gt; MA60</a><a class="tg" href="#sec-market-pos">貼近 20 日高</a><a class="tg" href="#sec-market-vol">量價配合（漲＋量增）</a><a class="tg" href="#sec-market-neck">頭頭高</a><a class="tg" href="#sec-market-neck">底底高</a></div>
-      <div class="mkchart"><img src="charts/market.jpg" alt="加權指數日 K 線圖（黃圈＝轉折低點、粉圈＝轉折高點、藍線＝月線 MA20、水平虛線＝高點／低點頸線）" decoding="async"><div class="cap">圖說：加權指數日 K（與個股圖相同標記）：黃圈＝轉折低點、粉圈＝轉折高點、虛線小圈＝還沒確認的轉折、藍線＝月線 MA20、水平虛線＝高點／低點頸線。最後一根是資料日當天。</div></div>
+      <div class="mkchart"><a class="chartlink" href="https://tw.stock.yahoo.com/quote/%5ETWII/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看加權指數技術分析"><img src="charts/market.jpg" alt="加權指數日 K 線圖（黃圈＝轉折低點、粉圈＝轉折高點、藍線＝月線 MA20、水平虛線＝高點／低點頸線；點圖可看 Yahoo 技術分析）" decoding="async"></a><div class="ylink"><a href="https://tw.stock.yahoo.com/quote/%5ETWII/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看加權指數技術分析</a></div><div class="cap">圖說：加權指數日 K（與個股圖相同標記）：黃圈＝轉折低點、粉圈＝轉折高點、虛線小圈＝還沒確認的轉折、藍線＝月線 MA20、水平虛線＝高點／低點頸線。最後一根是資料日當天。</div></div>
       <div class="note" style="margin:10px 0 0">本區塊為公開資料的技術面觀察，<strong>不構成投資建議</strong>，
         不報牌、不預測、不下買賣決策。成交金額為<strong>集中市場總成交金額</strong>（含 ETF／權證），
         與頁首摘要的「上市個股成交金額」口徑不同。標籤是統計，不是評分、也不是推薦。</div>
@@ -1392,6 +1393,6 @@
   </article>
   <a class="top" href="../">← 回股市觀察</a>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="21" data-views>—</span></div>
 </body>
 </html>
