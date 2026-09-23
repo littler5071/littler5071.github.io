@@ -1,0 +1,192 @@
+# -*- coding: utf-8 -*-
+"""產生 AI 助理被攻擊事件的完整分析報告頁 `/ai/incident/index.html`。
+
+- 版型沿用 `/ai/agent10/`（站內文章＋影片內嵌）：`.vid` 16:9 外層 + iframe。
+- 導覽列／瀏覽次數由 `add_site_nav.py` 事後注入，本產生器不寫導覽。
+- 影片 id 由 `video.txt`（網站根目錄，可選）讀入；沒有檔案時用預設常數，
+  所以重跑本產生器不會改到 id。
+- 隱私：頁面不得出現任何憑證、帳號、email、user id、chat id、本機路徑或第三方識別。
+
+用法：python build_ai_incident.py [網站根目錄]
+"""
+import os, sys
+
+SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+DEFAULT_VIDEO_ID = "W99welO4wwE"
+SLUG = "incident"
+
+
+def video_id():
+    p = os.path.join(SITE, "video.txt")
+    if os.path.exists(p):
+        v = open(p, encoding="utf-8").read().strip().splitlines()[0].strip()
+        if v:
+            return v
+    return DEFAULT_VIDEO_ID
+
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 助理被攻擊的那一晚：有人假冒我來問存款｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="2026/09/22 晚上，我的 AI 助理一度離線。這是完整的事件分析：問題不在密碼被猜到，而是有人拿到了「已經登入的鑰匙」；對方假冒主人身分、一步步問到財務資訊，被拒絕後還改用阿拉伯文字再試。含我們怎麼修、5 條你可以照做的建議，附影片。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  .vid{position:relative;background:#000;border-radius:14px;overflow:hidden;margin:0 0 8px}
+  .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  @supports not (aspect-ratio:16/9){
+    .vid{padding-bottom:56.25%;height:0}
+    .vid iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+  }
+  .item{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 20px;
+        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .item h3{margin:0 0 6px;font-size:clamp(18px,3vw,22px)}
+  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;margin:0 0 8px;
+       border:1.5px solid var(--leaf);color:var(--leaf)}
+  .story{margin:0 0 12px;color:var(--soft);font-size:15.5px}
+  .how{background:rgba(54,78,112,.05);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;
+       padding:8px 14px;margin:0 0 10px}
+  .hlab{font-size:13px;color:var(--blue);letter-spacing:.08em;margin-bottom:2px}
+  .how ul{margin:0;padding-left:20px;font-size:15px}
+  .how li{margin:3px 0}
+  .check{margin:0;font-size:15px}
+  .check b{color:var(--red)}
+  h2{font-size:clamp(20px,3.4vw,26px);margin:34px 0 12px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  ul.plain{margin:0;padding-left:22px}
+  ul.plain li{margin:8px 0}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       font-size:14.5px;color:var(--soft);margin:0 0 14px}
+  .box strong{color:var(--ink)}
+  .dim{color:var(--soft);font-size:13.5px}
+  footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>AI 助理被攻擊的那一晚：<br>有人假冒我，來問我的存款</h1>
+  <div class="sub">一次真實事件的完整分析：問題出在哪、對方怎麼做、我們怎麼修</div>
+  <div class="meta">2026/09/22・文章＋影片（2:37）</div>
+
+  <div class="vid">
+    <iframe src="https://www.youtube.com/embed/__VIDEO_ID__" title="AI 助理被攻擊了？一次假冒身分＋索取財務資訊的實測"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="dim" style="text-align:center">影片看不方便的話，也可以到
+  <a href="https://youtu.be/__VIDEO_ID__">YouTube 看（含章節）</a>；下面是同一份內容的文字版。</p>
+
+  <div class="box">
+    <strong>一句話摘要</strong>：那天晚上助理會離線，不是因為有人猜到了密碼，而是因為有人拿到了「已經登入的鑰匙」。
+    對方還假冒我的身分，一步一步問到存款餘額，被拒絕之後改用阿拉伯文字再試一次。
+    助理把那些話當成「資料」、不當成「指令」，所以一個數字都沒有給出去。
+  </div>
+
+  <h2><span class="dot"></span>先把時間軸講清楚</h2>
+  <ul class="plain">
+    <li><b>09/17–09/19</b>　不明第三方直接使用了助理（當時對外的大門沒關好），還把一張桌面截圖留在公開空間。</li>
+    <li><b>09/22 晚上 10 點多</b>　其中一個通道出現驗證失敗：伺服器直接拒絕這個機器人憑證，連線中斷，助理等於離線。</li>
+    <li><b>同一段時間</b>　有人假冒主人身分，向我索取金融資訊（帳戶與存款）；沒有拿到之後，改用阿拉伯文字再試一次。</li>
+    <li><b>當晚處理</b>　撤銷舊憑證、重新發一組、重啟並確認助理回到線上；收緊誰可以下指令、關掉用不到的通道、把紀錄留下來。</li>
+  </ul>
+
+  <h2><span class="dot"></span>問題點：不是密碼被猜到，是有人拿到了「已登入的鑰匙」</h2>
+  <p>大部分人心裡的「被駭」長這樣：有人一直猜密碼，猜到為止。這次不是。</p>
+  <p>助理對外的連線用的是<strong>機器人憑證</strong>——可以把它想成一把「已經登入的鑰匙」：
+  不用再打帳號密碼，拿著它就能直接用助理的身分說話。這次的問題有兩層：</p>
+  <ul class="plain">
+    <li><b>門沒鎖</b>　助理剛安裝好時，為了測試方便開放了「允許所有人使用」；那只是暫時設定，卻忘了關掉。</li>
+    <li><b>鑰匙因此外流</b>　有人不需要破解任何東西，就能直接用這把鑰匙，冒充機器人說話。</li>
+  </ul>
+  <p>這種外洩最麻煩的地方是：<strong>它不會喊痛</strong>。密碼被猜到，你可能還會看到一堆登入失敗；
+  但一把「已經登入的鑰匙」被複製走，畫面上什麼都不會發生。
+  你唯一會發現的時機，是它被撤銷、或有人拿它做了不該做的事。</p>
+
+  <h2><span class="dot"></span>對方怎麼做（一）：社交工程，一步一步問到財務資訊</h2>
+  <p>他不是一開口就要密碼，而是慢慢來——先聊工作、再問機器，最後才問到錢：</p>
+  <div class="item">
+    <span class="tag">三步試探</span>
+    <div class="how"><div class="hlab">對方的手法</div><ul>
+      <li><b>第一步｜先問專案</b>：假裝是主人在交代事情，用一般的工作問題開場。</li>
+      <li><b>第二步｜再問機器狀態</b>：確認助理能不能動、手上有哪些權限。</li>
+      <li><b>第三步｜最後問存款餘額</b>：假冒主人身分，索取金融帳戶與存款資訊。</li>
+    </ul></div>
+    <p class="check"><b>這是典型的社交工程</b>：用「我是老闆」取代「我有權限」——
+    他賭的是助理會把「說話的語氣」當成「授權的來源」。</p>
+  </div>
+  <p><strong>結果：助理沒有給出任何數字。</strong>它把陌生人的話當成「資料」而不是「指令」：
+  有人問了存款餘額，這件事被記錄下來、被回報，但沒有被執行。</p>
+
+  <h2><span class="dot"></span>對方怎麼做（二）：改用阿拉伯文字再試一次</h2>
+  <p>沒有拿到之後，對方換了語言：改用阿拉伯文字，繼續問助理跟哪些服務連在一起、能不能取得那些資料。</p>
+  <p>研判是想測試一件事——<strong>換一種語言，會不會讓助理的行為跟著改變</strong>，藉此繞過原本的規則。</p>
+  <p>結果一樣沒用。<strong>用什麼語言問，都不會改變「這句話是誰說的」這個判斷</strong>；
+  授權的來源是身分，不是語言。</p>
+
+  <h2><span class="dot"></span>我們怎麼修：四件事，按順序做</h2>
+  <ul class="plain">
+    <li><b>1. 撤銷舊憑證，重新發一組</b>　不是改密碼就好——舊的那一把直接作廢，
+    用官方介面重新發行，然後重啟、確認助理回到線上。</li>
+    <li><b>2. 收緊誰可以下指令</b>　只允許自己的帳號，其餘一律靜默忽略（白名單）。這一步才是真正的修補。</li>
+    <li><b>3. 關掉用不到的通道</b>　少一個入口就少一個風險；已經失效的憑證整段移除。</li>
+    <li><b>4. 留下紀錄</b>　誰在什麼時候說了什麼都留著。出事的時候，紀錄是唯一能重建現場的東西。</li>
+  </ul>
+
+  <h2><span class="dot"></span>你可以照做的 5 件事</h2>
+  <ul class="plain">
+    <li><b>1. 憑證不要外流</b>　不要貼在公開對話、截圖、程式碼或訊息裡。要給別人看的是「怎麼設定」，不是那串字。</li>
+    <li><b>2. 懷疑外洩就用官方介面重發</b>　舊的直接撤銷，不要只是改密碼——已登入的鑰匙不會因為你改了密碼就失效。</li>
+    <li><b>3. 對外開放就要白名單</b>　只允許自己的帳號能對機器人下指令，其他來源一律不回應。</li>
+    <li><b>4. 定期檢查「誰在跟機器人說話」</b>　有沒有不認識的來源、有沒有你沒交代過的指令。</li>
+    <li><b>5. 索取財務資訊的一律當詐騙</b>　不管對方說自己是誰——帳戶、餘額、密碼、驗證碼，在訊息裡問就是詐騙。</li>
+  </ul>
+
+  <h2><span class="dot"></span>結論：防的不是聰明，是授權邊界</h2>
+  <div class="box">
+    這次事件裡，助理「夠不夠聰明」不是關鍵；真正的關鍵是<strong>誰有權下指令</strong>。
+    語言、話術、假身分，都不能改變授權來源的判定——這件事不能靠當下的判斷，必須事先寫死。
+  </div>
+  <ul class="plain">
+    <li>先驗身分，再談內容：先確認「你是誰」，才看「你要什麼」。</li>
+    <li>把「誰能下指令、能碰到什麼」寫進設定，而不是留給當下判斷。</li>
+    <li>預設關門：能用的通道越少，能被濫用的入口就越少。</li>
+  </ul>
+
+  <div class="box">
+    <strong>內容說明</strong>：本文為公開資料的技術觀察，不構成任何安全性保證，也不包含任何個人或憑證資訊。
+    文中提到的不明來源一律以「不明第三方」稱之；涉及金融的部分只描述「對方索取」這件事，沒有任何數字與帳號。
+  </div>
+  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+</div>
+</body>
+</html>
+"""
+
+
+def build():
+    vid = video_id()
+    out = HTML.replace("__VIDEO_ID__", vid)
+    d = os.path.join(SITE, "ai", SLUG)
+    os.makedirs(d, exist_ok=True)
+    p = os.path.join(d, "index.html")
+    open(p, "w", encoding="utf-8").write(out)
+    print("wrote", p, len(out), "chars; video", vid)
+
+
+if __name__ == "__main__":
+    build()
