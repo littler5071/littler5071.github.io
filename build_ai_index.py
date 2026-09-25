@@ -74,6 +74,12 @@ HEAD = """<!DOCTYPE html>
 
 
 ARTICLES = [
+    dict(title="AI 生的圖，是不是真像素畫？我量三個數字就知道（實測＋影片）",
+         date="2026/09/25", length="文章＋影片",
+         url="pixel-art/", video="https://youtu.be/mJNiY8Rl0Js",
+         desc="同一句提示、同樣要 64x64、同樣要求去背，三家的結果是 49 色對上 11,340 色。"
+              "像素畫其實有三個客觀判準：色數、像素格、透明背景——都能用程式量出來，不必用眼睛吵。"
+              "含三家的實測數據、可自行複驗的 numpy 程式碼，以及「通用模型不會給你像素畫」這個坑。"),
     dict(title="AI 助理被攻擊的那一晚：有人假冒我來問存款（完整分析＋影片）",
          date="2026/09/22", length="文章＋影片",
          url="incident/", video="https://youtu.be/W99welO4wwE",

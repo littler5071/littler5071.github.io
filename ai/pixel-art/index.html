@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 生的圖，是不是真像素畫？我量三個數字就知道｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="同一句提示、同樣要 64x64、同樣要求去背，三家的結果是 49 色對上一萬一千三百四十色。像素畫其實有三個客觀判準：色數、像素格、透明背景——都能用程式量出來，不必用眼睛吵。含實測數據與可自行複驗的程式碼。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  .vid{position:relative;background:#000;border-radius:14px;overflow:hidden;margin:0 0 8px}
+  .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  @supports not (aspect-ratio:16/9){
+    .vid{padding-bottom:56.25%;height:0}
+    .vid iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+  }
+  .dim{color:var(--soft);font-size:13.5px}
+  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  h3{font-size:clamp(16px,2.7vw,19px);margin:22px 0 6px;color:var(--blue)}
+  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
+       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .box.red{border-color:#e6c3bc;background:#fdf6f4}
+  .box.green{border-color:#bfdccd;background:#f4fbf7}
+  ul.plain{margin:8px 0;padding-left:22px}
+  ul.plain li{margin:5px 0}
+  .scroll{overflow-x:auto;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  td.num{font-family:"Microsoft JhengHei",system-ui,sans-serif;white-space:nowrap}
+  td.ok{color:var(--leaf);font-weight:700}
+  td.no{color:var(--red);font-weight:700}
+  pre{background:#2f2b28;color:#f0ece4;padding:14px 16px;border-radius:12px;overflow-x:auto;
+      font-size:13px;line-height:1.6;font-family:Consolas,monospace}
+  code{font-family:Consolas,monospace;background:rgba(0,0,0,.05);padding:1px 5px;border-radius:5px;font-size:13.5px}
+  pre code{background:none;padding:0;font-size:13px}
+  .item{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin:0 0 14px}
+  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;
+       border:1.5px solid currentColor;margin-right:8px;vertical-align:2px;color:var(--leaf)}
+  figure{margin:16px 0;text-align:center}
+  figure img{max-width:100%;border:2px solid var(--line);border-radius:12px;background:#fff}
+  figcaption{color:var(--soft);font-size:13.5px;margin-top:6px}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
+  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
+  a{color:var(--blue)}
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand on" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk" href="../../toeic/">多益英文</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+
+  <h1>AI 生的圖，是不是真像素畫？<br>我量三個數字就知道</h1>
+  <div class="sub">同一句提示、同樣要 64×64、同樣要求去背——結果是 49 色 對上 11,340 色</div>
+  <div class="meta">2026/09/25・文章＋影片</div>
+
+  <div class="vid">
+    <iframe src="https://www.youtube.com/embed/mJNiY8Rl0Js" title="AI 生的圖，是不是真像素畫？我量三個數字就知道"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="dim" style="text-align:center">影片看不方便的話，也可以到 <a href="https://youtu.be/mJNiY8Rl0Js">YouTube 上看</a></p>
+
+  <div class="box">
+    <b>一句話說完：</b>我做一個三國題材的像素小遊戲，第一個卡點不是遊戲怎麼寫，而是「AI 生的圖到底能不能用」。
+    用眼睛看，我只能說「不像」，說不出哪裡不對；改成量三個數字之後，答案五分鐘就出來了。
+    這篇把量測方法、三家的實測數據、以及我自己踩到的最大坑寫下來，<b>程式碼可以直接複驗</b>。
+  </div>
+
+  <h2><span class="dot"></span>一、為什麼用眼睛吵不出結果</h2>
+  <ul class="plain">
+    <li>我先用免費的通用生圖服務，請它畫「8-bit 像素畫、限制調色盤、1 像素描邊」。圖回來了，很美——但我盯了很久只覺得<b>「不像」</b>。</li>
+    <li>我接著改了十幾個版本：換提示、換尺寸、把 AI 的底圖降階成像素、自己做調色盤量化、自己描邊。每一版我都只能說「還是怪」。</li>
+    <li>問題不在我眼力差，而是<b>我沒有一個可以驗收的標準</b>。「像不像像素畫」是形容詞，不能當驗收條件。</li>
+  </ul>
+  <div class="box red">
+    <b>踩坑的具體症狀：</b>把寫實／繪畫風的 AI 底圖「降階成像素畫」——用降採樣加調色盤量化加描邊——
+    成品仍然會被讀成「低解析度的照片」。原因不是參數沒調好，是那個來源圖<b>根本沒有像素畫的結構</b>：
+    沒有 sprite 外輪廓、沒有兩三階平面明暗。量化只會把糊的東西變成一塊塊的糊。這條路我試了三輪，三輪都被否。
+  </div>
+
+  <h2><span class="dot"></span>二、像素畫的三個客觀判準</h2>
+  <ul class="plain">
+    <li><b>① 色數要少。</b>真正的像素畫在 64×64 這種尺寸通常是 16～64 色。一萬色就代表它是連續調的插畫。</li>
+    <li><b>② 像素格要是整數倍。</b>像素畫放大時每個方格必須完全相同；用 <code>np.array_equal</code> 就能驗。</li>
+    <li><b>③ 背景要真的透明。</b>alpha 只有 0 和 255（硬透明），不能有半透明的毛邊，否則剪影放在別的底上會出現一圈髒邊。</li>
+  </ul>
+
+  <h2><span class="dot"></span>三、實測：把三家當成同一場考試</h2>
+  <p>條件刻意統一：同一句提示、同樣要求 64×64、同樣勾選去背。</p>
+  <div class="scroll">
+  <table>
+    <tr><th>服務</th><th>實際輸出</th><th>色數</th><th>像素格</th><th>透明</th><th>判定</th></tr>
+    <tr>
+      <td>像素畫專用模型</td><td class="num">256×256<br>= 原生 64×64 的 4×4 放大</td>
+      <td class="num ok">49</td><td class="ok">精確 4×4</td><td class="ok">有（0 / 255）</td>
+      <td class="ok">可用</td>
+    </tr>
+    <tr>
+      <td>PixelLab（Pro Flash）</td><td class="num">256×256</td>
+      <td class="num no">11,340</td><td class="no">沒有</td><td>有</td>
+      <td class="no">平滑插畫</td>
+    </tr>
+    <tr>
+      <td>通用免金鑰服務</td><td class="num">128×128</td>
+      <td class="num no">5,663</td><td class="no">沒有</td><td class="no">沒有</td>
+      <td class="no">縮小的插畫</td>
+    </tr>
+  </table>
+  </div>
+
+  <figure>
+    <img src="evidence_colours.png" alt="三家的色數對照">
+    <figcaption>同一個需求，三種結果。判準不是「好不好看」，是「色數、像素格、透明」。</figcaption>
+  </figure>
+
+  <h2><span class="dot"></span>四、量測方法（你可以自己跑）</h2>
+  <p>整件事的核心只有下面這幾行。丟進任何一張你懷疑的圖，答案就出來了。</p>
+<pre><code>import numpy as np
+from PIL import Image
+
+a = np.asarray(Image.open("suspicious.png").convert("RGB"))
+print("色數:", len(np.unique(a.reshape(-1, 3), axis=0)))
+
+# 像素格是不是整數倍？先餵一張確定正確的圖校準你的檢查器
+for g in (2, 3, 4, 5, 6, 8):
+    if a.shape[0] % g:
+        continue
+    rows = (np.arange(a.shape[0]) // g) * g
+    cols = (np.arange(a.shape[1]) // g) * g
+    print("格 %dx%d:" % (g, g), np.array_equal(a, a[rows][:, cols]))
+
+# 透明是不是硬透明？
+im = Image.open("suspicious.png")
+if im.mode == "RGBA":
+    print("alpha 級數:", np.unique(np.asarray(im)[:, :, 3])[:8])</code></pre>
+  <div class="box">
+    <b>一個容易反過來咬自己的地方：</b>量測函式本身要先餵一個「必然通過」的樣本校準。
+    我用一個寫壞的區塊檢查器，把一張正確的圖判成「全部破格」，害我往錯的方向修了好幾輪。
+    現在的做法是：先拿 <code>np.repeat</code> 產生的圖跑一次，檢查器如果判它不通過，就是檢查器壞了，不是圖壞了。
+  </div>
+
+  <h2><span class="dot"></span>五、最大的坑：通用模型不會給你像素畫</h2>
+  <ul class="plain">
+    <li>我把同一句提示送給免費的通用生圖服務，而且<b>刻意用小尺寸</b>（讓它在最終解析度上作畫，而不是事後縮圖）——結果 128×128 的圖裡有 <b>5,663 色</b>。</li>
+    <li>它還有水印、沒有透明背景，而且邊緣是抗鋸齒的。三項判準全都不過。</li>
+    <li>結論不是「提示寫得不好」，而是<b>模型本來就不是做這個的</b>。換提示、換尺寸、加關鍵字都不會有用。</li>
+    <li>免費額度也值得先查：像素畫專用服務通常有免費試用額度（我用掉的是新帳號額度），單張成本大約新台幣一元上下。</li>
+  </ul>
+
+  <h2><span class="dot"></span>六、結論</h2>
+  <div class="box green">
+    <b>要像素畫，就用像素畫專用模型。</b>省下的不是錢，是你盯著圖、說不出哪裡不對的那幾個小時。
+    <br><br>
+    而且這件事可以驗收：<b>色數、像素格、透明背景</b>，三個數字都能用程式量。
+    從今天起我不再問「這張像不像像素畫」，我問「這張幾色」。
+  </div>
+
+  <h2><span class="dot"></span>你可以照做的三件事</h2>
+  <ul class="plain">
+    <li>拿到任何一張「號稱像素畫」的圖，先跑上面那三行量測，再決定要不要用。</li>
+    <li>選服務時直接問它「輸出幾色、幾乘幾、能不能去背」——答不出來的，通常就不是像素畫模型。</li>
+    <li>要放進遊戲的素材，一律要求<b>原生小尺寸加透明背景</b>；需要放大時只用整數倍，不要用平滑縮放。</li>
+  </ul>
+
+  <div class="note">
+    本文的所有數字都是實測值，不是估計：色數與像素格用 <code>numpy</code> 量、透明通道用 <code>Pillow</code> 讀。
+    文中沒有揭露任何帳號、金鑰或個人資訊；示範用的生成結果皆為原始輸出，未經修圖。
+    本頁為工具與流程的實測紀錄，不構成任何服務的推薦或背書。
+  </div>
+
+  <footer>小R 頻道・AI 助理實測</footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
