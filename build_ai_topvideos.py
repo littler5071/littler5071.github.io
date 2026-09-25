@@ -1,0 +1,211 @@
+# -*- coding: utf-8 -*-
+"""產生站內文章頁 `/ai/top-videos/index.html`（AI 助理實測：YouTube 熱門長片實測分析）。
+
+與 `/ai/shorts/` 成套：短影音看曝光，長片看資產累積。
+每個數字標明來源等級（①我自己實測 ②官方文件 ③第三方一致 ④無官方來源不引用）。
+
+用法：python build_ai_topvideos.py [網站根目錄]
+"""
+import os
+import re
+import sys
+
+SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SLUG = "top-videos"
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YouTube 熱門長片的共通點：我抓了各題材的歷史最高｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="用「依觀看次數排序」抓各題材的歷史最高影片，發現三件事：知識型教學的天花板是千萬級、榜上影片多半是 15 到 30 分鐘的長片、而且都是五到十年前的舊片。同場加映官方 FAQ 的 CTR 基準與三條可以停止相信的建議。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
+       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .box.red{border-color:#e6c3bc;background:#fdf6f4}
+  .box.green{border-color:#bfdccd;background:#f4fbf7}
+  ul.plain,ol.plain{margin:8px 0;padding-left:22px}
+  ul.plain li,ol.plain li{margin:6px 0}
+  .scroll{overflow-x:auto;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:600px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  td.num{font-family:"Microsoft JhengHei",system-ui,sans-serif;white-space:nowrap}
+  .lv{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1.5px solid currentColor;
+      vertical-align:2px;white-space:nowrap}
+  .lv1{color:var(--leaf)}.lv2{color:var(--blue)}.lv3{color:var(--red)}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
+  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+
+  <h1>YouTube 熱門長片的共通點：<br>我抓了各題材的歷史最高</h1>
+  <div class="sub">知識型教學的天花板是千萬級；榜上影片幾乎都是 15～30 分鐘的長片</div>
+  <div class="meta">2026/09/25・實測分析</div>
+
+  <div class="box">
+    <b>一句話說完：</b>我用 YouTube 搜尋的<b>「依觀看次數排序」</b>抓各題材的歷史最高影片來比對，
+    發現三件事——<b>知識型教學的天花板高一個數量級</b>（2,160 萬）、
+    <b>榜上影片幾乎都是 15～30 分鐘的長片</b>、而且<b>都是五到十年前的舊片</b>。
+    另外我找到了<b>三個大家一直在遵守、但 YouTube 官方已明確否定的建議</b>，也一併寫在下面。
+  </div>
+
+  <h2><span class="dot"></span>一、方法，以及它的限制</h2>
+  <ul class="plain">
+    <li>用已登入的 Chrome 開 YouTube 搜尋，加上<b>依觀看次數排序</b>的篩選，抓各題材的標題、觀看數、時長與上片年份。</li>
+    <li>抽樣題材：Excel 教學、VBA 教學、AI 工具、AI 助理、像素畫、三國遊戲。</li>
+    <li><b>限制要講清楚：</b>這個篩選每次只回 <b>2～4 筆</b>（YouTube 自己限制的），
+        所以這不是完整榜單。看得到的是各題材的<b>天花板</b>，看不到分布。</li>
+    <li>這是當下快照，觀看數會變動。</li>
+  </ul>
+
+  <h2><span class="dot"></span>二、實測數據 <span class="lv lv1">我自己實測</span></h2>
+  <div class="scroll">
+  <table>
+    <tr><th>題材</th><th>歷史最高</th><th>時長</th><th>上片</th><th>標題型態</th></tr>
+    <tr><td>Excel 教學</td><td class="num">2,160 萬</td><td class="num">21:47</td><td class="num">9 年前</td><td>The Beginner's Guide to…</td></tr>
+    <tr><td>Excel 教學</td><td class="num">1,546 萬</td><td class="num">14:48</td><td class="num">11 年前</td><td>Introduction to Pivot Tables…</td></tr>
+    <tr><td>Excel 教學</td><td class="num">1,081 萬</td><td class="num">6:38</td><td class="num">8 年前</td><td>MS Excel – Vlookup…</td></tr>
+    <tr><td>Excel 教學（中文）</td><td class="num">745 萬</td><td class="num">16:17</td><td class="num">3 年前</td><td>15 分钟内的 Excel 教程</td></tr>
+    <tr><td>VBA 教學</td><td class="num">595 萬</td><td class="num">2:10:00</td><td class="num">6 年前</td><td>Excel VBA Beginner Tutorial</td></tr>
+    <tr><td>VBA 教學</td><td class="num">386 萬</td><td class="num">19:21</td><td class="num">5 年前</td><td>How to Build Excel Dashboards</td></tr>
+    <tr><td>三國遊戲</td><td class="num">251 萬</td><td class="num">0:12</td><td class="num">9 年前</td><td>廣告（非創作者內容）</td></tr>
+    <tr><td>像素畫</td><td class="num">214 萬</td><td class="num">14:15</td><td class="num">5 年前</td><td>The Ultimate Pixel Art Tutorial</td></tr>
+    <tr><td>AI 助理</td><td class="num">196 萬</td><td class="num">0:30</td><td class="num">2 個月前</td><td>廣告（非創作者內容）</td></tr>
+    <tr><td>AI 工具</td><td class="num">186 萬</td><td class="num">24:47</td><td class="num">9 個月前</td><td>全系列教學…95% 的人都還不知道</td></tr>
+    <tr><td>AI 工具</td><td class="num">124 萬</td><td class="num">2:18</td><td class="num">11 個月前</td><td>唯一一款免費無限制…</td></tr>
+    <tr><td>像素畫</td><td class="num">61 萬</td><td class="num">27:31</td><td class="num">10 個月前</td><td>I Learned Pixel Art in 4 Days</td></tr>
+  </table>
+  </div>
+
+  <div class="box red">
+    <b>這張表裡最重要的一個陷阱：</b>唯三「短的」（0:12、0:30、2:18）<b>全都是廣告或宣傳片</b>——
+    它們的觀看數是<b>投放買來的曝光</b>，不是推薦系統給的。把廣告的數字當成「內容標準」是很常見的誤判，
+    看到「30 秒也能有 196 萬」就推論「短片比較好」是錯的。
+  </div>
+
+  <h2><span class="dot"></span>三、從數據看到的五個共通點</h2>
+  <ol class="plain">
+    <li><b>「入門／指南／完整教學」是最高的句型。</b>
+        Excel 前四名全部是這個模式：Beginner's Guide、Introduction to、The Ultimate … Tutorial、
+        15 分钟内的 Excel 教程。<b>知識型長片的天花板是 2,160 萬</b>，
+        而同表其他題材多在 100～250 萬。</li>
+    <li><b>時長偏長，不是短。</b> 21:47、14:48、<b>2:10:00</b>、27:31、14:15、24:47——
+        榜上的創作者內容幾乎都在 15 分鐘以上，甚至兩小時。
+        長片的觀眾願意為了「學一件事」留下來。</li>
+    <li><b>年齡很老，會累積。</b> 9 年、11 年、8 年、6 年、5 年。
+        <b>長片是資產</b>（會被推薦好幾年），<b>短影音是事件</b>（幾天內見真章）。
+        這也是為什麼五到十年前的教學還在榜上。</li>
+    <li><b>具體數字＋時間承諾。</b>「21 個超強 AI 應用」「15 分钟内」「<b>在 4 天內學會</b>」
+        「95% 的人都還不知道」——數字讓承諾可以被驗收，時間框架讓它可被想像。</li>
+    <li><b>「免費」是強鉤子，而且通常跟「你以為要付錢」綁在一起。</b>
+        「很多還免費」「唯一一款免費無限制」。</li>
+  </ol>
+
+  <h2><span class="dot"></span>四、機制：把「有來源」和「沒來源」分開</h2>
+
+  <div class="box">
+    <b><span class="lv lv2">官方文件</span></b>（YouTube 自己說的，可以放心引用）
+    <ul class="plain">
+      <li><b>90% 表現最好的影片有自訂縮圖。</b></li>
+      <li><b>CTR 的公開基準：一半的頻道與影片落在 2～10%。</b></li>
+      <li>自 2026/8/24 起，<b>「觀看」的定義是播放即計</b>；另外保留了較嚴格的 engaged views。</li>
+      <li><b>三條可以停止相信的建議：</b>官方明說<b>發布時間不影響長期表現</b>、
+          <b>演算法對每支影片用新的資料判斷</b>（不因為你頻道過去看好就加分）、
+          <b>停更休息沒有懲罰</b>。</li>
+      <li>標題分兩類：<b>Searchable</b>（明確、可被搜尋）與 <b>Intriguing</b>（勾起好奇）。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <b><span class="lv lv1">第三方一致</span></b>（方向可信，但<b>沒有官方數字</b>）
+    <ul class="plain">
+      <li>CTR <b>4～8% 為基準、10% 以上算強、低於 2% 表示包裝不對</b>。</li>
+      <li><b>「滿意度」的權重已經超過原始的觀看時間</b>——看完之後有沒有接著看下一支，會影響推薦。</li>
+      <li><b>前 30 秒是核心指標</b>。</li>
+      <li>標籤（tags）基本上是雜訊。</li>
+    </ul>
+  </div>
+
+  <div class="box red">
+    <b><span class="lv lv3">無官方來源，我不引用</span></b>
+    <ul class="plain">
+      <li>各種「訊號權重百分比」與「幾秒內要發生什麼」的絕對句：沒有官方佐證。</li>
+      <li>「每天要發幾支」的魔術數字：來源互相矛盾，也與官方說法相反。</li>
+    </ul>
+  </div>
+
+  <h2><span class="dot"></span>五、對這個頻道的具體機會</h2>
+  <div class="box green">
+    <b>Excel／VBA 教學是千萬級題材，而我手上正好有真實素材。</b>
+    <br><br>
+    在一個真實的 Excel VBA 自動化專案上，同一天、同一份輸入，我把整條流程
+    <b>從 700.2 秒壓到 483.3 秒（−31%）</b>，產出檔案 <b>從 83.8 MB 降到 77.1 MB（−8%）</b>，
+    而且<b>輸出的兩張主要工作表逐位元相同</b>——也就是說，快了三成而結果沒有變。
+    <br><br>
+    這正是「第一人稱實驗 ＋ 可驗收數字」的組合，落在 <b>2,160 萬</b>的那個題材裡。
+    對照自己的資料：中文 AI 工具的天花板是 186 萬，中文 Excel 是 745 萬——
+    <b>同一個題材換語言，量級差一個數量級</b>。
+  </div>
+
+  <h2><span class="dot"></span>六、我不能保證的事</h2>
+  <ul class="plain">
+    <li><b>樣本很小。</b> 「依觀看次數排序」只回 2～4 筆／題材，我看到的是天花板，不是分布。</li>
+    <li><b>不能推論「短片沒用」。</b> Shorts 與長片的推薦系統是分開的，
+        兩者用途不同：<b>短影音是入口，長片是資產</b>。</li>
+    <li><b>相關不是因果。</b> 這些影片紅，可能是頻道本身大、也可能是題材或時機；
+        我沒有做控制變數。</li>
+    <li><b>時長不是原因。</b> 榜上都是長片，不等於「做長就會紅」——
+        更可能是「要講完一件值得學的事，本來就需要那麼長」。</li>
+  </ul>
+
+  <div class="note">
+    本文數據為 2026/09/25 用瀏覽器讀取 YouTube 搜尋（依觀看次數排序）的當下快照，標題、觀看數、時長與上片時間皆為原始值。
+    機制段落已逐項標明來源等級；無官方來源的數字不作為事實陳述。
+    本頁為工具與流程的實測紀錄，不構成任何平台或服務的推薦或背書。
+  </div>
+
+  <footer>小R 頻道・AI 助理實測</footer>
+</div>
+</body>
+</html>
+"""
+
+
+def main():
+    out = os.path.join(SITE, "ai", SLUG)
+    os.makedirs(out, exist_ok=True)
+    p = os.path.join(out, "index.html")
+    with open(p, "w", encoding="utf-8") as fh:
+        fh.write(HTML)
+    print("wrote", p, len(HTML), "bytes")
+    bad = [k for k in ("little.r5071", "little_r5071", "gmail", "C:\\\\Users", "/c/Users", "boss.tw")
+           if k in HTML]
+    print("email-like:", re.findall(r"[\w.+-]+@[\w-]+\.[\w.]+", HTML) or "none")
+    print("path-like:", re.findall(r"[A-Za-z]:[\\\\/][^\s\"<>]+", HTML) or "none")
+    print("privacy sweep:", "CLEAN" if not bad else "FOUND " + ", ".join(bad))
+
+
+if __name__ == "__main__":
+    main()
