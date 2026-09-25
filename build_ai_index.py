@@ -74,6 +74,12 @@ HEAD = """<!DOCTYPE html>
 
 
 ARTICLES = [
+    dict(title="我抓了真實數據看 YouTube Shorts：熱門影片的共通點",
+         date="2026/09/25", length="分析", url="shorts/",
+         desc="同樣是 Shorts，為什麼有人 6,700 萬次、有人只有 800 次？"
+              "我用瀏覽器實際抓下 Pixel Art／三國／遊戲開發三個利基的觀看數與標題比對，"
+              "整理出五個共通點，並把平台機制逐項標明「官方說明／第三方一致報導／無官方來源」——"
+              "網路上流傳的演算法權重百分比其實沒有官方來源，我不拿它當事實。"),
     dict(title="AI 生的圖，是不是真像素畫？我量三個數字就知道（實測＋影片）",
          date="2026/09/25", length="文章＋影片",
          url="pixel-art/", video="https://youtu.be/mJNiY8Rl0Js",

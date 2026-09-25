@@ -1,0 +1,249 @@
+# -*- coding: utf-8 -*-
+"""產生站內文章頁 `/ai/shorts/index.html`（AI 助理實測：Shorts 熱門影片實測分析）。
+
+- 版型沿用 `/ai/incident/`、`/ai/pixel-art/`。
+- 導覽列／瀏覽次數由 `add_site_nav.py` 事後注入，本產生器不寫導覽。
+- 文中每個數字都標明來源等級：①我自己實測 ②第三方一致報導 ③官方說明。
+  沒有官方來源的權重數字一律標為「無官方來源」，不當事實陳述。
+- 隱私：不得出現任何帳號、email、本機路徑。
+
+用法：python build_ai_shorts.py [網站根目錄]
+"""
+import os
+import sys
+
+SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SLUG = "shorts"
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我抓了真實數據看 YouTube Shorts：熱門影片的共通點｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="同樣是 Shorts，為什麼有人 6,700 萬次、有人只有 800 次？我用瀏覽器實際抓了三個利基的 Shorts 觀看數與標題，把觀察到的共通點、平台機制的來源等級、以及可照做的做法寫下來。每個數字都標明是實測、第三方報導還是官方說明。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  h3{font-size:clamp(16px,2.7vw,19px);margin:22px 0 6px;color:var(--blue)}
+  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
+       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .box.red{border-color:#e6c3bc;background:#fdf6f4}
+  .box.green{border-color:#bfdccd;background:#f4fbf7}
+  ul.plain{margin:8px 0;padding-left:22px}
+  ul.plain li{margin:5px 0}
+  .scroll{overflow-x:auto;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  td.num{font-family:"Microsoft JhengHei",system-ui,sans-serif;white-space:nowrap}
+  .lv{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1.5px solid currentColor;
+      vertical-align:2px;white-space:nowrap}
+  .lv1{color:var(--leaf)}.lv2{color:var(--blue)}.lv3{color:var(--red)}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
+  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+
+  <h1>我抓了真實數據看 YouTube Shorts：<br>熱門影片的共通點</h1>
+  <div class="sub">同樣是 Shorts，為什麼有人 6,700 萬次、有人只有 800 次？</div>
+  <div class="meta">2026/09/25・實測分析</div>
+
+  <div class="box">
+    <b>一句話說完：</b>我沒有整理「網路上的說法」，而是用瀏覽器<b>實際抓下</b>三個利基的 Shorts
+    觀看數與標題來比對。熱門影片的共通點是「開頭就是一句你不同意的話或一個你不知道的問題」，
+    而且<b>最多人看的那一批，常常不需要聽得懂語言</b>。
+    這篇把數據攤開來，並且<b>逐項標明每個數字是實測、第三方報導還是官方說明</b>——
+    網路上流傳的「演算法權重百分比」其實<b>沒有官方來源</b>，我不會拿它當事實。
+  </div>
+
+  <h2><span class="dot"></span>一、先講方法，因為方法決定可信度</h2>
+  <ul class="plain">
+    <li>用已登入的 Chrome 開 YouTube 搜尋（<code>hl=zh-TW&amp;gl=TW</code>），讀取搜尋結果裡的
+        <b>Shorts 貨架</b>與影片列，抓標題與「觀看次數」。</li>
+    <li>抽樣四個查詢詞：<b>AI 工具</b>、<b>AI 助理</b>、<b>遊戲開發</b>、<b>Pixel Art</b>、<b>三國</b>。</li>
+    <li>這是<b>當下快照</b>，不是長期統計：觀看數會變動，排序也因人而異。
+        但量級差距（幾百 vs 幾千萬）大到足以看出結構性差異。</li>
+  </ul>
+
+  <h2><span class="dot"></span>二、實測數據 <span class="lv lv1">我自己實測</span></h2>
+
+  <h3>Pixel Art（英文）— 這個利基的量級完全不同</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>標題</th><th>觀看數</th></tr>
+    <tr><td>Oliver Tree🤩 Pixel Art in Minecraft🏆 | Wait For It...</td><td class="num">6,700 萬</td></tr>
+    <tr><td>Marker Pixel Art #artprocess #marker #pixelart</td><td class="num">1,564 萬</td></tr>
+    <tr><td>Hello Kitty pixel idea✨#shorts #art #viral</td><td class="num">274 萬</td></tr>
+    <tr><td>🍒Pixel Art ideas! #pixelarttutorial</td><td class="num">153 萬</td></tr>
+    <tr><td>Noob vs Pro Pixel Art in Aseprite | Coloring Challenge</td><td class="num">122 萬</td></tr>
+    <tr><td>🍊Mini Pixel art ideas!?</td><td class="num">108 萬</td></tr>
+    <tr><td>Minecraft Pixel Art 916 #sandart</td><td class="num">9.1 萬</td></tr>
+  </table>
+  </div>
+
+  <h3>三國（中文）— 標題句型決定量級</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>標題</th><th>觀看數</th><th>標題加了幾個 hashtag</th></tr>
+    <tr><td>【三國史】你知道三國時期的台灣是怎麼樣的嗎？</td><td class="num">93 萬</td><td class="num">0</td></tr>
+    <tr><td>三國的國號到底是怎麼來的！</td><td class="num">27 萬</td><td class="num">9</td></tr>
+    <tr><td>三國演義在騙人，趙雲根本不配跟關羽、張飛並列「五虎上將」！</td><td class="num">5.9 萬</td><td class="num">11</td></tr>
+    <tr><td>三國最有政治智慧的女人！吳國太霸氣怒罵孫權和周瑜</td><td class="num">3.9 萬</td><td class="num">9</td></tr>
+    <tr><td>三国正史巅峰武力前十，吕布只能排第七！</td><td class="num">1.2 萬</td><td class="num">11</td></tr>
+    <tr><td>劉備為何沒有統一三國？</td><td class="num">7,570</td><td class="num">3</td></tr>
+  </table>
+  </div>
+
+  <h3>遊戲開發（中文）— 這個題材在中文圈很小</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>標題</th><th>觀看數</th></tr>
+    <tr><td>製作遊戲太難了……</td><td class="num">3.8 萬</td></tr>
+    <tr><td>為了支付員工薪水忍痛賣車!?</td><td class="num">2.1 萬</td></tr>
+    <tr><td>我在四天內做出了一款遊戲...</td><td class="num">1.1 萬</td></tr>
+    <tr><td>完全用AI寫的Unity遊戲！</td><td class="num">4,121</td></tr>
+    <tr><td>用Unity AI爽做遊戲的下場？侵權責任竟要開發者自己扛！</td><td class="num">3,755</td></tr>
+    <tr><td>開發一個割草遊戲需要多少錢？</td><td class="num">120</td></tr>
+  </table>
+  </div>
+
+  <div class="box red">
+    <b>附上我自己的起點，免得這篇看起來像「專家教你」：</b>
+    同一批搜尋裡，我自己上線一小時的那支影片是 <b>3 次觀看</b>。
+    這篇是「我抓到什麼」，不是「我做到了什麼」。
+  </div>
+
+  <h2><span class="dot"></span>三、從數據看到的五個共通點</h2>
+  <ol class="plain">
+    <li><b>標題本身就是鉤子，而且多半是「問題」或「矛盾」。</b>
+        最高那支是問句：「你知道三國時期的台灣是怎麼樣的嗎？」
+        第二類是直接推翻你的認知：「三國演義在騙人」「趙雲根本不配」。
+        單純陳述（「三國的國號怎麼來的」）量級就掉一階。</li>
+    <li><b>最大量級的那批不需要聽懂語言。</b> Pixel Art 的前七名全部是純視覺：
+        過程縮時、Noob vs Pro 對照、Minecraft 蓋圖。沒有旁白、沒有字幕也能看完——
+        所以它們的觀眾是全世界，不是單一語言圈。</li>
+    <li><b>「對照」與「系列」是現成的格式。</b> Noob vs Pro、ideas 系列、
+        「N 個必備」——這些是可以重複出的模板，觀眾知道會看到什麼，創作者也做得快。</li>
+    <li><b>hashtag 多寡與觀看數沒有正相關。</b> 實測裡觀看數最高的那支（93 萬）
+        <b>一個 hashtag 都沒用</b>；而塞了 9～11 個的那幾支落在 1.2 萬～5.9 萬。
+        這是「觀察」不是「因果」——但至少可以說：<b>hashtag 不是決定因素</b>，
+        別把力氣花在堆 hashtag 上。</li>
+    <li><b>「開發過程」比「成品」有戲。</b> 遊戲開發那批裡，「太難了」「忍痛賣車」
+        這類<b>有情緒、有代價</b>的標題，明顯高於「我做了什麼功能」。</li>
+  </ol>
+
+  <h2><span class="dot"></span>四、平台機制：把「有來源」和「沒來源」分開講</h2>
+  <p>網路上關於 Shorts 的文章非常多，但多數把推測寫成事實。我照來源等級分三類：</p>
+
+  <div class="box">
+    <b><span class="lv lv3">官方說明</span></b>（可以放心引用的）
+    <ul class="plain">
+      <li>豎向、時長在限制內就<b>自動歸類為 Short</b>，<code>#Shorts</code> 標籤<b>不是必要條件</b>。</li>
+      <li>Shorts 的推薦系統<b>與長片分開</b>，Short 的表現不會直接拖累或拉抬長片的觸及。</li>
+      <li>AI 生成的語音或內容需要<b>標示</b>。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <b><span class="lv lv2">第三方一致報導</span></b>（多個獨立來源方向一致，但<b>沒有官方數字</b>）
+    <ul class="plain">
+      <li><b>留存與滑走率是最重的訊號</b>：開頭幾秒決定這支會不會被繼續推。這一項是所有來源<b>一致</b>的。</li>
+      <li><b>甜蜜區約 22～45 秒</b>：太短來不及累積觀看時間，太長拉低完成率。講解型偏 35～45 秒，懸念型偏 22～30 秒。</li>
+      <li><b>要上字幕</b>：多數人靜音觀看，字幕能救回前兩秒。</li>
+      <li><b>循環率</b>：結尾接回開頭的設計會增加重看，而重看算額外觀看時間。</li>
+      <li><b>導流到長片（bridge）</b>：看完 Short 之後點進頻道看長片的人數，是平台最在意的轉換之一。</li>
+      <li><b>有浮水印的轉載會被降權</b>：從別的平台搬過來、帶著對方浮水印的檔案會被判定並降觸及。</li>
+      <li><b>發布後前幾小時是關鍵</b>：早鳥訊號決定要不要放大，之後才慢慢爬的很少見。</li>
+    </ul>
+  </div>
+
+  <div class="box red">
+    <b><span class="lv lv3">無官方來源，我不引用</span></b>
+    <ul class="plain">
+      <li>「滑走率佔 32%、循環率 22%、完成率 15%……」這類<b>權重百分比</b>：<b>沒有官方公布</b>，
+          其中一個來源自己也寫明「大部分流傳的數字是推測」。→ <b>可以拿來做方向，不能當事實引用。</b></li>
+      <li>「幾秒的觀看算負分」「某種開場一律被降權」這類<b>絕對句</b>：沒有任何官方佐證。</li>
+      <li>「每天要發幾支」的魔術數字：來源互相矛盾，而且與「重質不重量」的官方說法相反。</li>
+    </ul>
+  </div>
+
+  <h2><span class="dot"></span>五、套回我們自己的頻道：我打算這樣做</h2>
+  <p>把上面的觀察對照這個頻道的實際狀況（AI 助理實測／像素畫／三國題材），可行的做法是：</p>
+  <ul class="plain">
+    <li><b>做「像素畫過程」的 Shorts，走純視覺路線。</b> 這是實測裡量級最大的格式，
+        而且<b>不需要旁白</b>——正好避開「AI 配音腔」的問題，也跨越語言。
+        素材我本來就有（資產產線、逐格 sprite、動畫幀）。</li>
+    <li><b>用「Noob vs Pro」這種對照格式。</b> 現成的模板：同一張圖，程式硬湊的版本 vs 專用模型生的版本。
+        這正好是上一支影片的內容，可以切成 Short。</li>
+    <li><b>標題寫成問句或矛盾句，不要寫成描述句。</b>
+        「我用程式畫的像素畫，為什麼一看就假？」勝過「像素畫製作流程分享」。</li>
+    <li><b>開頭第一格就給結果</b>，不要放片頭、不要把最好的畫面藏在後面。</li>
+    <li><b>字幕一律燒進畫面</b>，並把每支控制在 <b>30 秒上下</b>。</li>
+    <li><b>不要花時間堆 hashtag。</b> 實測裡最高那支一個都沒用；用 3 個以內、跟內容真的相關的就夠。</li>
+    <li><b>每支 Short 都要有一條通往長片的路</b>：結尾指向完整的實測影片，讓 Short 真的變成入口。</li>
+  </ul>
+
+  <div class="box green">
+    <b>還有一個機會點：</b>實測裡「像素畫」在<b>繁體中文</b>是個近乎空白的利基
+    （長片最高只有 4.7 萬），但 <b>Pixel Art 在英文圈是千萬級</b>。
+    同一批素材，<b>繁中做教學、英文做純視覺 Shorts</b>，是可以同時進行的兩條路。
+  </div>
+
+  <h2><span class="dot"></span>六、我不能保證的事</h2>
+  <ul class="plain">
+    <li><b>這不是演算法公式。</b> 我抓的是「結果的分布」，不是「計分規則」；
+        推論方向可以，當成公式會誤事。</li>
+    <li><b>樣本是一次快照。</b> 觀看數會變，搜尋排序也會因帳號而異。要當長期結論需要定期重抓。</li>
+    <li><b>相關不等於因果。</b> 例如「最高那支沒用 hashtag」，只能說 hashtag 不是必要條件，
+        不能推論「不用 hashtag 就會紅」。</li>
+    <li><b>我自己的頻道還在起點。</b> 這篇是分析，不是成績單；抓數據的方法全部寫在上面，你可以自己複驗。</li>
+  </ul>
+
+  <div class="note">
+    本文的實測數據為 2026/09/25 用瀏覽器讀取 YouTube 搜尋結果的當下快照；標題與觀看數皆為原始值，未經修改。
+    平台機制段落已逐項標明來源等級，「無官方來源」的數字不作為事實陳述。
+    本頁為工具與流程的實測紀錄，不構成任何平台或服務的推薦或背書。
+  </div>
+
+  <footer>小R 頻道・AI 助理實測</footer>
+</div>
+</body>
+</html>
+"""
+
+
+def main():
+    out = os.path.join(SITE, "ai", SLUG)
+    os.makedirs(out, exist_ok=True)
+    p = os.path.join(out, "index.html")
+    with open(p, "w", encoding="utf-8") as fh:
+        fh.write(HTML)
+    print("wrote", p, len(HTML), "bytes")
+    bad = [k for k in ("little.r5071", "little_r5071", "gmail", "C:\\\\Users", "/c/Users", "boss.tw")
+           if k in HTML]
+    import re
+    print("email-like:", re.findall(r"[\w.+-]+@[\w-]+\.[\w.]+", HTML) or "none")
+    print("privacy sweep:", "CLEAN" if not bad else "FOUND " + ", ".join(bad))
+
+
+if __name__ == "__main__":
+    main()
