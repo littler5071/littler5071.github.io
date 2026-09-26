@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """在網站每一頁注入：共用導覽列 ＋ 瀏覽次數（可重複執行：會先移除舊版再注入）。
 
-導覽列＝「小R 頻道」（＝首頁，使用者在首頁時會highlight）＋ AI 助理實測 / 股市觀察 / 多益英文。
+導覽列＝「小R 頻道」（＝首頁，使用者在首頁時會highlight）＋ AI 助理實測 / 股市觀察 / 多益英文 / 程式設計。
 瀏覽次數＝counter.js（abacus.jasoncameron.dev，免註冊、無 cookie），每頁一個 key。
 用法：python add_site_nav.py [網站根目錄]
 """
@@ -52,6 +52,7 @@ NAV_HTML = """{mark}
   <a class="lnk{on_ai}" href="{base}/ai/">AI 助理實測</a>
   <a class="lnk{on_stock}" href="{base}/stock/">股市觀察</a>
   <a class="lnk{on_toeic}" href="{base}/toeic/">多益英文</a>
+  <a class="lnk{on_code}" href="{base}/code/">程式設計</a>
 </nav>
 """
 SNAP = {}
@@ -97,12 +98,13 @@ def inject(path):
     depth = 0 if rel == "." else rel.count("/") + 1
     base = "." if depth == 0 else "/".join([".."] * depth)
     cat = ("stock" if rel.startswith("stock") else "toeic" if rel.startswith("toeic")
-           else "ai" if rel == "ai" else "home")
+           else "ai" if rel == "ai" else "code" if rel.startswith("code") else "home")
     nav = NAV_HTML.format(mark=MARK, base=base,
                           on_home=' on' if cat == "home" else "",
                           on_ai=' on' if cat == "ai" else "",
                           on_stock=' on' if cat == "stock" else "",
-                          on_toeic=' on' if cat == "toeic" else "")
+                          on_toeic=' on' if cat == "toeic" else "",
+                          on_code=' on' if cat == "code" else "")
     if "</style>" in html:
         html = html.replace("</style>", NAV_CSS + "</style>", 1)
     m = re.search(r"<body[^>]*>", html)

@@ -64,6 +64,7 @@ CATS = [
     ("AI 助理實測", "ai", "把 AI 助理真正做過的事記錄下來。", "全部影片"),
     ("股市觀察", "stock", "只用公開資料，把「熱門」拿去驗證；內容為觀察與記錄，不構成投資建議。", "全部觀察紀錄"),
     ("多益英文", "toeic", "題目全部自行撰寫、不使用官方試題；附中文詳解與音檔。", "全部題組"),
+    ("程式設計", "code", "實際寫過、量過、踩過坑的東西；數字指得出出處，做法寫成可以照著做的步驟。", "全部文章"),
 ]
 
 
@@ -117,6 +118,23 @@ def ai_items():
         d = a.get("date", "").replace("-", "/")
         out.append(dict(date=d, sort=(d.replace("/", ""), 3), category="AI 助理實測",   # 同日：報告排在影片前面（更新）
                         title=a["title"], url="ai/" + a["url"], btn="看報告 →", note=a.get("desc", "")))
+    return out
+
+
+def code_items():
+    """程式設計：讀 build_code_index.py 的 ARTICLES（與 ai_items 同一套模式）。"""
+    p = os.path.join(SITE, "build_code_index.py")
+    if not os.path.exists(p):
+        return []
+    spec = importlib.util.spec_from_file_location("bcode", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    out = []
+    for a in getattr(mod, "ARTICLES", []):
+        d = a.get("date", "").replace("-", "/")
+        out.append(dict(date=d, sort=(d.replace("/", ""), 3), category="程式設計",
+                        title=a["title"], url="code/" + a["url"], btn="看文章 →",
+                        note=a.get("desc", "")))
     return out
 
 
@@ -178,7 +196,7 @@ EXTRA_CSS = """  /* 首頁：每個分類放最新 2 則 */
 
 
 def build():
-    items = stock_items() + ai_items() + manifest_items()
+    items = stock_items() + ai_items() + code_items() + manifest_items()
     sections = []
     log = []
     for name, slug, note, go in CATS:
