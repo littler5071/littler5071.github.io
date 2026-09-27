@@ -11,6 +11,13 @@ import sys
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 
 ARTICLES = [
+    dict(title="RPAHelper 播放示範：20 開啟 Excel 並輸入資料",
+         date="2026/09/27", length="示範＋解析",
+         url="rpa-demo/",
+         desc="用一支 43 步驟的示範腳本，看 Windows 鍵鼠自動化工具怎麼播放："
+              "用「等待視窗」取代固定延遲（開得慢會等、開得快不會多等）、"
+              "用迴圈變數產生 1 到 3 月。附完整步驟表與播放動畫，"
+              "以及我把自己誤判成 bug、真的跑一遍才發現是我改壞的過程。"),
     dict(title="GitHub 星星數最高的 20 個專案：我在它們身上看到的三件事",
          date="2026/09/26", length="分析", url="github-top20/",
          desc="依星星數抓下前 20 名並實際分類：12 個是「清單／學習資源」、"
