@@ -241,36 +241,9 @@
     <tr class="off"><td class="num">43</td><td>停止播放</td><td>結束播放（標示為成功）</td><td>停用</td></tr>
   </table>
   </div>
-
-  <h2><span class="dot"></span>範例 21 的全部 20 個動作</h2>
-  <div class="scroll">
-  <table>
-    <tr><th>#</th><th>動作</th><th>內容</th><th>狀態</th></tr>
-    <tr><td class="num">1</td><td>註解</td><td>開啟notepad</td><td>啟用</td></tr>
-    <tr><td class="num">2</td><td>執行外部程式</td><td>啟動 notepad.exe（不等待）</td><td>啟用</td></tr>
-    <tr><td class="num">3</td><td>等待視窗</td><td>等到「notepad.exe」（行程名稱）逾時 15000 ms</td><td>啟用</td></tr>
-    <tr class="off"><td class="num">4</td><td>固定等待</td><td>等待 500 ms</td><td>停用</td></tr>
-    <tr><td class="num">5</td><td>鍵盤按鍵</td><td>按鍵 VK 164</td><td>啟用</td></tr>
-    <tr><td class="num">6</td><td>鍵盤按鍵</td><td>按鍵 Tab</td><td>啟用</td></tr>
-    <tr><td class="num">7</td><td>鍵盤按鍵</td><td>按鍵 Tab</td><td>啟用</td></tr>
-    <tr><td class="num">8</td><td>鍵盤按鍵</td><td>按鍵 VK 164</td><td>啟用</td></tr>
-    <tr><td class="num">9</td><td>固定等待</td><td>等待 200 ms</td><td>啟用</td></tr>
-    <tr><td class="num">10</td><td>鍵盤按鍵</td><td>按鍵 VK 162</td><td>啟用</td></tr>
-    <tr><td class="num">11</td><td>鍵盤按鍵</td><td>按鍵 VK 36</td><td>啟用</td></tr>
-    <tr><td class="num">12</td><td>鍵盤按鍵</td><td>按鍵 VK 36</td><td>啟用</td></tr>
-    <tr><td class="num">13</td><td>鍵盤按鍵</td><td>按鍵 VK 162</td><td>啟用</td></tr>
-    <tr><td class="num">14</td><td>固定等待</td><td>等待 200 ms</td><td>啟用</td></tr>
-    <tr><td class="num">15</td><td>迴圈起點</td><td>For 1..4（每輪把索引寫入「row」）</td><td>啟用</td></tr>
-    <tr><td class="num">16</td><td>迴圈起點</td><td>For 1..2（每輪把索引寫入「i」）</td><td>啟用</td></tr>
-    <tr><td class="num">17</td><td>巨集引用</td><td>執行巨集：複製貼上一格資料.rpa</td><td>啟用</td></tr>
-    <tr><td class="num">18</td><td>迴圈終點</td><td>迴圈結束</td><td>啟用</td></tr>
-    <tr><td class="num">19</td><td>巨集引用</td><td>執行巨集：下一行開頭.rpa</td><td>啟用</td></tr>
-    <tr><td class="num">20</td><td>迴圈終點</td><td>迴圈結束</td><td>啟用</td></tr>
-  </table>
-  </div>
   <div class="note">
-    兩張表都由程式直接讀腳本檔產生，不是手打的。灰色列是停用的步驟；「執行巨集」那幾列就是呼叫子腳本的地方，
-    所以在表裡看到迴圈包著兩個「執行巨集」，就是範例 21 的兩層迴圈。
+    表格由程式直接讀腳本檔產生，不是手打的：每一列就是腳本裡的一個動作，灰色列是停用的步驟。
+    範例 21 的做法已經寫在上一段（兩個子巨集與兩層迴圈），就不另外再列一份清單。
   </div>
 
   <div class="note">

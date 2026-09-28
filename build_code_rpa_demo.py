@@ -105,20 +105,12 @@ def main():
     else:
         print("⚠ 找不到範例21錄影：", VIDEO21_SRC)
 
-    # 範例 21 的步驟表（同樣由腳本檔產生）
+    # 範例 21 的動作統計（只取數字；步驟清單已不列，做法寫在說明段）
     d21 = json.load(io.open(SRC21, encoding="utf-8"))
     A21 = d21["Actions"]
     n21 = len(A21)
     n21en = sum(1 for a in A21 if a.get("Enabled", True))
     n21eff = sum(1 for a in A21 if a.get("Enabled", True) and a.get("Type") != 12)
-    rows21 = []
-    for i, a in enumerate(A21, 1):
-        en = a.get("Enabled", True)
-        cls = ' class="off"' if not en else ""
-        rows21.append('    <tr%s><td class="num">%d</td><td>%s</td><td>%s</td><td>%s</td></tr>'
-                      % (cls, i, TYPE.get(a.get("Type"), "?"), detail(a),
-                         "啟用" if en else "停用"))
-    rows21 = "\n".join(rows21)
 
     HTML = """<!DOCTYPE html>
 <html lang="zh-Hant">
@@ -285,17 +277,9 @@ def main():
 __ROWS__
   </table>
   </div>
-
-  <h2><span class="dot"></span>範例 21 的全部 __N21__ 個動作</h2>
-  <div class="scroll">
-  <table>
-    <tr><th>#</th><th>動作</th><th>內容</th><th>狀態</th></tr>
-__ROWS21__
-  </table>
-  </div>
   <div class="note">
-    兩張表都由程式直接讀腳本檔產生，不是手打的。灰色列是停用的步驟；「執行巨集」那幾列就是呼叫子腳本的地方，
-    所以在表裡看到迴圈包著兩個「執行巨集」，就是範例 21 的兩層迴圈。
+    表格由程式直接讀腳本檔產生，不是手打的：每一列就是腳本裡的一個動作，灰色列是停用的步驟。
+    範例 21 的做法已經寫在上一段（兩個子巨集與兩層迴圈），就不另外再列一份清單。
   </div>
 
   <div class="note">
@@ -309,7 +293,7 @@ __ROWS21__
 </html>
 """
     html = (HTML.replace("__N21__", str(n21)).replace("__N21EN__", str(n21en))
-                .replace("__N21EFF__", str(n21eff)).replace("__ROWS21__", rows21)
+                .replace("__N21EFF__", str(n21eff))
                 .replace("__TOT__", str(n_tot)).replace("__EN__", str(n_en))
                 .replace("__COM__", str(n_com)).replace("__EFF__", str(n_eff))
                 .replace("__ROWS__", rows)
