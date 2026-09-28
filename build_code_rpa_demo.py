@@ -14,7 +14,8 @@ import sys
 
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 SRC = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\20_開啟Excel並輸入資料.rpa.json"
-VIDEO_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_20.mp4"
+VIDEO_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_20.mp4"          # 逐步動畫
+REAL_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_real.mp4"        # 實際操作錄影＋旁白
 
 TYPE = {0: "滑鼠移動", 1: "滑鼠按鍵", 2: "滑鼠滾輪", 3: "鍵盤按鍵", 4: "文字輸入", 5: "找圖點擊",
         6: "切換視窗", 7: "巨集引用", 8: "固定等待", 32: "隨機等待", 10: "等待視窗",
@@ -81,9 +82,14 @@ def main():
     os.makedirs(out, exist_ok=True)
     if os.path.exists(VIDEO_SRC):
         shutil.copy2(VIDEO_SRC, os.path.join(out, "demo.mp4"))
-        print("影片複製：", os.path.getsize(VIDEO_SRC), "bytes")
+        print("動畫複製：", os.path.getsize(VIDEO_SRC), "bytes")
     else:
-        print("⚠ 找不到影片：", VIDEO_SRC)
+        print("⚠ 找不到動畫：", VIDEO_SRC)
+    if os.path.exists(REAL_SRC):
+        shutil.copy2(REAL_SRC, os.path.join(out, "real-run.mp4"))
+        print("實際錄影複製：", os.path.getsize(REAL_SRC), "bytes")
+    else:
+        print("⚠ 找不到實際錄影：", REAL_SRC)
 
     HTML = """<!DOCTYPE html>
 <html lang="zh-Hant">
@@ -141,15 +147,27 @@ def main():
     實際會執行的 __EFF__ 個），全部由「錄製一次」加上幾步流程控制組起來，沒有寫任何程式碼。
   </div>
 
-  <h2><span class="dot"></span>播放示範（動畫）</h2>
-  <video controls preload="metadata" poster="">
+  <h2><span class="dot"></span>實際操作錄影</h2>
+  <video controls preload="metadata">
+    <source src="real-run.mp4" type="video/mp4">
+    你的瀏覽器不支援影片播放，<a href="real-run.mp4">點此下載</a>。
+  </video>
+  <div class="note" style="margin-top:14px">
+    這段是<b>真的跑一遍的螢幕錄影</b>：先看工具裡載入的這支腳本與它的步驟，按播放之後畫面切到 Excel，
+    表頭與三列資料被一列一列打進去。錄影從整台桌面擷取，所以有幾處處理：
+    <br>・<b>開頭那幾秒切掉了</b>——腳本會按 Win 鍵搜尋應用程式，那個畫面會列出最近用過的檔案（含本機檔名），不適合公開。
+    <br>・<b>畫面頂端裁掉一條</b>——Office 的標題列會顯示登入的帳號名稱。
+    <br>・螢幕是 1920×1080 但系統縮放 150%，所以錄下來的實際像素是 1920×1080（不是某些程式回報的 1280×720）。
+  </div>
+
+  <h2><span class="dot"></span>逐步動畫（含每一句說明）</h2>
+  <video controls preload="metadata">
     <source src="demo.mp4" type="video/mp4">
     你的瀏覽器不支援影片播放，<a href="demo.mp4">點此下載</a>。
   </video>
   <div class="note" style="margin-top:14px">
     這段是<b>依腳本內容產生的動畫</b>：左邊是那 __TOT__ 個步驟（跟著播放游標走、目前步驟高亮、停用的標灰），
-    右邊是螢幕模擬。畫面與旁白都是<b>直接從腳本檔讀出來</b>的，所以它與腳本一致。
-    <br><b>它不是螢幕錄影。</b>為什麼不直接用錄影，寫在下面「我犯的錯」那一段。
+    右邊是螢幕模擬。畫面與旁白都是<b>直接從腳本檔讀出來</b>的，所以它與腳本一致，適合看每一個步驟的細節。
   </div>
 
   <h2><span class="dot"></span>三個值得看的設計</h2>
@@ -190,11 +208,12 @@ def main():
     記錄裡三輪都是「月份 = 1」，我就知道是我的問題，不是腳本的問題。
     已從備份還原，確認檔案雜湊與修改前完全相同。
     <br><br>
-    這也是為什麼這段示範最後用的是<b>動畫</b>而不是螢幕錄影：我在那台機器上真的跑過，
-    但錄到的畫面大半是 Excel 的開始畫面與登入提示（那台機器還沒登入 Microsoft 帳號），
-    而且錄影會把 Excel 最近檔案清單一起錄進去——<b>那裡面是你的檔案名稱</b>，不該公開。
-    要看得出「工具真的能跑」，執行紀錄的數字（0 到 3 輪、亂數金額）比一段看不清楚的錄影可靠。
-  </div>
+    這件事也直接影響到示範怎麼拍。第一次嘗試螢幕錄影時，錄到的畫面大半是 Excel 的開始畫面與登入提示，
+    而且 Excel 的最近檔案清單一起入了鏡——<b>那裡面是本機的檔案名稱</b>。後來把錄影環境整理乾淨
+    （先開好一個空白活頁簿、清掉會露出檔名的畫面、裁掉顯示帳號名稱的標題列）才錄成上面那段。
+    在這之前，能不能看出「工具真的能跑」，靠的是執行紀錄的數字：三輪的變數值、亂數金額、
+    以及輸入完成後的儲存格內容。
+    </div>
 
   <h2><span class="dot"></span>全部 __TOT__ 個步驟</h2>
   <div class="scroll">
