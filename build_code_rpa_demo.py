@@ -16,6 +16,8 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/
 SRC = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\20_開啟Excel並輸入資料.rpa.json"
 VIDEO_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_20.mp4"          # 逐步動畫
 REAL_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_real.mp4"        # 實際操作錄影＋旁白
+SRC21 = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\21_開啟Notepad並模擬從excel複製多筆資料貼上.rpa.json"
+VIDEO21_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_21.mp4"       # 範例 21 實際錄影＋旁白
 
 TYPE = {0: "滑鼠移動", 1: "滑鼠按鍵", 2: "滑鼠滾輪", 3: "鍵盤按鍵", 4: "文字輸入", 5: "找圖點擊",
         6: "切換視窗", 7: "巨集引用", 8: "固定等待", 32: "隨機等待", 10: "等待視窗",
@@ -38,6 +40,13 @@ def detail(a):
         return "按鍵 %s" % KEYS.get(a.get("VkCode"), "VK %s" % a.get("VkCode"))
     if t == 4:
         return "輸入「%s」" % h(a.get("Text") or "")
+    if t == 23:
+        return "啟動 %s（不等待）" % h(a.get("RunFileName") or "")
+    if t == 7:
+        return "執行巨集：%s" % h(a.get("MacroName") or "")
+    if t == 1:
+        return "%s (%s, %s)" % ("雙擊" if a.get("IsDoubleClick") else "點擊",
+                                a.get("X"), a.get("Y"))
     if t == 8:
         return "等待 %s ms" % a.get("WaitMs")
     if t == 10:
@@ -90,14 +99,34 @@ def main():
         print("實際錄影複製：", os.path.getsize(REAL_SRC), "bytes")
     else:
         print("⚠ 找不到實際錄影：", REAL_SRC)
+    if os.path.exists(VIDEO21_SRC):
+        shutil.copy2(VIDEO21_SRC, os.path.join(out, "ex21.mp4"))
+        print("範例21錄影複製：", os.path.getsize(VIDEO21_SRC), "bytes")
+    else:
+        print("⚠ 找不到範例21錄影：", VIDEO21_SRC)
+
+    # 範例 21 的步驟表（同樣由腳本檔產生）
+    d21 = json.load(io.open(SRC21, encoding="utf-8"))
+    A21 = d21["Actions"]
+    n21 = len(A21)
+    n21en = sum(1 for a in A21 if a.get("Enabled", True))
+    n21eff = sum(1 for a in A21 if a.get("Enabled", True) and a.get("Type") != 12)
+    rows21 = []
+    for i, a in enumerate(A21, 1):
+        en = a.get("Enabled", True)
+        cls = ' class="off"' if not en else ""
+        rows21.append('    <tr%s><td class="num">%d</td><td>%s</td><td>%s</td><td>%s</td></tr>'
+                      % (cls, i, TYPE.get(a.get("Type"), "?"), detail(a),
+                         "啟用" if en else "停用"))
+    rows21 = "\n".join(rows21)
 
     HTML = """<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RPAHelper 播放示範：20 開啟 Excel 並輸入資料｜程式設計｜小R 頻道</title>
-<meta name="description" content="用一支 43 步驟的示範腳本，看 Windows 鍵鼠自動化工具怎麼播放：用「等待視窗」取代固定延遲、用迴圈變數產生 1 到 3 月、以及我把自己誤判成 bug 的過程。">
+<title>RPAHelper 播放示範：範例 20 開 Excel 輸入資料、範例 21 貼進記事本｜程式設計｜小R 頻道</title>
+<meta name="description" content="兩支示範腳本的實際操作錄影：範例 20 用「等待視窗」取代固定延遲、用迴圈變數產生 1 到 3 月；範例 21 把 Excel 的資料一筆一筆複製貼進記事本，同樣的做法可以套用到其他程式或網頁。附完整步驟表。">
 <style>
   :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
         --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
@@ -137,14 +166,15 @@ def main():
   <a class="back" href="../">← 回程式設計</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
 
-  <h1>RPAHelper 播放示範：<br>20 開啟 Excel 並輸入資料</h1>
-  <div class="sub">用「等待視窗」代替猜時間，用迴圈變數產生 1 到 3 月</div>
-  <div class="meta">__DATE__・示範動畫＋步驟解析</div>
+  <h1>RPAHelper 播放示範：<br>範例 20 開 Excel 輸入資料、範例 21 貼進記事本</h1>
+  <div class="sub">用「等待視窗」代替猜時間，用迴圈把多筆資料送進另一個程式</div>
+  <div class="meta">__DATE__・兩支腳本的實際操作錄影＋步驟解析</div>
 
   <div class="box">
-    <b>這支腳本在示範什麼：</b>它按下 Windows 鍵、用搜尋開啟 Excel、等到 Excel 的視窗真的出現才往下走，
-    然後輸入表頭與三列資料。整支 <b>__TOT__ 個動作</b>（__EN__ 個啟用、__COM__ 個是註解、
-    實際會執行的 __EFF__ 個），全部由「錄製一次」加上幾步流程控制組起來，沒有寫任何程式碼。
+    <b>兩個範例的關係：</b>範例 20 把資料打進 Excel，示範的是「開啟程式、等到視窗出現、用迴圈產生每一筆」；
+    範例 21 接著把 Excel 裡的資料<b>一筆一筆複製貼到另一個程式</b>（這裡是記事本），
+    做法對任何能貼上的地方都通用——其他應用程式、網頁表單都一樣。
+    兩支腳本都沒有寫任何程式碼，是「錄製一次」加幾步流程控制組起來的。
   </div>
 
   <h2><span class="dot"></span>實際操作錄影</h2>
@@ -170,7 +200,39 @@ def main():
     右邊是螢幕模擬。畫面與旁白都是<b>直接從腳本檔讀出來</b>的，所以它與腳本一致，適合看每一個步驟的細節。
   </div>
 
-  <h2><span class="dot"></span>三個值得看的設計</h2>
+  <h2><span class="dot"></span>範例 21：把 Excel 的資料貼進記事本</h2>
+  <video controls preload="metadata">
+    <source src="ex21.mp4" type="video/mp4">
+    你的瀏覽器不支援影片播放，<a href="ex21.mp4">點此下載</a>。
+  </video>
+  <div class="note" style="margin-top:14px">
+    <b>這段是實際操作錄影。</b>先看程式裡載入的範例 21，然後切到 Excel（四筆資料、游標停在 A1），
+    按播放之後畫面就在 Excel 與記事本之間來回：複製一格 → 切過去貼上 → 切回來換下一格。
+    <br>中間的執行過程以 <b>2 倍速</b>播放，否則光是來回切換就要近四十秒。
+    <br>錄影前要先讓記事本「空白開場」——Windows 11 的記事本會還原上次的內容，不清掉的話上一次的字會留在裡面。
+  </div>
+
+  <div class="box green">
+    <b>它怎麼做到的：兩個子巨集。</b><br>
+    範例 21 本身只有 <b>__N21__ 個動作</b>（__N21EN__ 個啟用、實際會執行 __N21EFF__ 個），
+    真正做事的內容放在兩個可以重複呼叫的子腳本裡：
+    <br><br>
+    <b>1.「複製貼上一格資料」</b>：Ctrl+C 複製目前這一格 → Alt+Tab 切到記事本 → 貼上 →
+    Alt+Tab 切回 Excel → 右移一格。
+    <br>
+    <b>2.「下一行開頭」</b>：往下移一列，再回到那一列的第一欄。
+    <br><br>
+    主腳本只用兩層迴圈把它們串起來：外層跑 4 次（每一列），內層跑 2 次（每一欄），
+    總共 8 個儲存格被搬過去。
+  </div>
+
+  <div class="box">
+    <b>為什麼這個模式好用：</b>「資料在哪個程式」和「要貼到哪裡」是<b>兩件可以分開換掉的事</b>。
+    把「複製貼上一格資料」裡切換目標的那幾個步驟改掉，同一套迴圈就能把資料送進別的應用程式或網頁表單；
+    要動的地方只有子巨集，主腳本不用改。
+  </div>
+
+  <h2><span class="dot"></span>三個值得看的設計（範例 20）</h2>
 
   <div class="box green">
     <b>1. 用「等待視窗」取代固定延遲。</b><br>
@@ -215,16 +277,24 @@ def main():
     以及輸入完成後的儲存格內容。
     </div>
 
-  <h2><span class="dot"></span>全部 __TOT__ 個步驟</h2>
+  <h2><span class="dot"></span>範例 20 的全部 __TOT__ 個步驟</h2>
   <div class="scroll">
   <table>
     <tr><th>#</th><th>動作</th><th>內容</th><th>狀態</th></tr>
 __ROWS__
   </table>
   </div>
+
+  <h2><span class="dot"></span>範例 21 的全部 __N21__ 個動作</h2>
+  <div class="scroll">
+  <table>
+    <tr><th>#</th><th>動作</th><th>內容</th><th>狀態</th></tr>
+__ROWS21__
+  </table>
+  </div>
   <div class="note">
-    表格由程式直接讀腳本檔產生，不是手打的。灰色列是停用的步驟（示範腳本會把「示範用但先關掉」的步驟留著，
-    例如最後的「顯示訊息」與「停止播放」）。
+    兩張表都由程式直接讀腳本檔產生，不是手打的。灰色列是停用的步驟；「執行巨集」那幾列就是呼叫子腳本的地方，
+    所以在表裡看到迴圈包著兩個「執行巨集」，就是範例 21 的兩層迴圈。
   </div>
 
   <div class="note">
@@ -237,10 +307,12 @@ __ROWS__
 </body>
 </html>
 """
-    html = (HTML.replace("__TOT__", str(n_tot)).replace("__EN__", str(n_en))
+    html = (HTML.replace("__N21__", str(n21)).replace("__N21EN__", str(n21en))
+                .replace("__N21EFF__", str(n21eff)).replace("__ROWS21__", rows21)
+                .replace("__TOT__", str(n_tot)).replace("__EN__", str(n_en))
                 .replace("__COM__", str(n_com)).replace("__EFF__", str(n_eff))
                 .replace("__ROWS__", rows)
-                .replace("__DATE__", "2026/09/27"))
+                .replace("__DATE__", "2026/09/28"))
     open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(html)
     print("wrote", os.path.join(out, "index.html"), len(html), "chars")
     print("  步驟 %d｜啟用 %d｜註解 %d｜實際執行 %d" % (n_tot, n_en, n_com, n_eff))
