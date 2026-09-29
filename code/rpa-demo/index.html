@@ -192,58 +192,9 @@
     以及輸入完成後的儲存格內容。
     </div>
 
-  <h2><span class="dot"></span>範例 20 的全部 43 個步驟</h2>
-  <div class="scroll">
-  <table>
-    <tr><th>#</th><th>動作</th><th>內容</th><th>狀態</th></tr>
-    <tr><td class="num">1</td><td>註解</td><td>【開啟 Excel】按下 Win 鍵 → 輸入 excel → Enter（等同你原本錄製的做法）</td><td>啟用</td></tr>
-    <tr><td class="num">2</td><td>鍵盤按鍵</td><td>按鍵 Win</td><td>啟用</td></tr>
-    <tr><td class="num">3</td><td>固定等待</td><td>等待 200 ms</td><td>啟用</td></tr>
-    <tr><td class="num">4</td><td>鍵盤按鍵</td><td>按鍵 Win</td><td>啟用</td></tr>
-    <tr><td class="num">5</td><td>固定等待</td><td>等待 200 ms</td><td>啟用</td></tr>
-    <tr><td class="num">6</td><td>文字輸入</td><td>輸入「Excel」</td><td>啟用</td></tr>
-    <tr><td class="num">7</td><td>固定等待</td><td>等待 400 ms</td><td>啟用</td></tr>
-    <tr><td class="num">8</td><td>鍵盤按鍵</td><td>按鍵 Enter</td><td>啟用</td></tr>
-    <tr><td class="num">9</td><td>鍵盤按鍵</td><td>按鍵 Enter</td><td>啟用</td></tr>
-    <tr><td class="num">10</td><td>註解</td><td>【等待 Excel 視窗】用等待視窗取代固定延遲：開得慢也會等，開得快也不會多等</td><td>啟用</td></tr>
-    <tr><td class="num">11</td><td>註解</td><td>Excel 的視窗標題通常是「活頁簿1 - Excel」之類，因此用「包含 Excel」比對</td><td>啟用</td></tr>
-    <tr><td class="num">12</td><td>等待視窗</td><td>等到「excel.exe」（行程名稱）逾時 10000 ms</td><td>啟用</td></tr>
-    <tr class="off"><td class="num">13</td><td>固定等待</td><td>等待 5000 ms</td><td>停用</td></tr>
-    <tr><td class="num">14</td><td>註解</td><td>【若出現開始畫面】Excel 有時會先顯示範本畫面，可按 Esc 跳過</td><td>啟用</td></tr>
-    <tr><td class="num">15</td><td>鍵盤按鍵</td><td>按鍵 Esc</td><td>啟用</td></tr>
-    <tr><td class="num">16</td><td>鍵盤按鍵</td><td>按鍵 Esc</td><td>啟用</td></tr>
-    <tr class="off"><td class="num">17</td><td>固定等待</td><td>等待 800 ms</td><td>停用</td></tr>
-    <tr><td class="num">18</td><td>註解</td><td>【切換輸入法】輸入數字前先確保是英文模式，避免中文輸入法干擾</td><td>啟用</td></tr>
-    <tr class="off"><td class="num">19</td><td>輸入法</td><td>切換輸入法</td><td>停用</td></tr>
-    <tr><td class="num">20</td><td>固定等待</td><td>等待 300 ms</td><td>啟用</td></tr>
-    <tr><td class="num">21</td><td>註解</td><td>【輸入表頭】使用 Tab 換到下一個欄位、Enter 換到下一列</td><td>啟用</td></tr>
-    <tr><td class="num">22</td><td>文字輸入</td><td>輸入「月份」</td><td>啟用</td></tr>
-    <tr><td class="num">23</td><td>鍵盤按鍵</td><td>按鍵 Tab</td><td>啟用</td></tr>
-    <tr><td class="num">24</td><td>鍵盤按鍵</td><td>按鍵 Tab</td><td>啟用</td></tr>
-    <tr><td class="num">25</td><td>文字輸入</td><td>輸入「金額」</td><td>啟用</td></tr>
-    <tr><td class="num">26</td><td>鍵盤按鍵</td><td>按鍵 Enter</td><td>啟用</td></tr>
-    <tr><td class="num">27</td><td>鍵盤按鍵</td><td>按鍵 Enter</td><td>啟用</td></tr>
-    <tr><td class="num">28</td><td>註解</td><td>【輸入資料列】用迴圈輸入 3 個月份（示範變數＋迴圈＋文字輸入的組合）</td><td>啟用</td></tr>
-    <tr><td class="num">29</td><td>迴圈起點</td><td>For 1..3（每輪把索引寫入「月份」）</td><td>啟用</td></tr>
-    <tr><td class="num">30</td><td>文字輸入</td><td>輸入「${月份} 月」</td><td>啟用</td></tr>
-    <tr><td class="num">31</td><td>鍵盤按鍵</td><td>按鍵 Tab</td><td>啟用</td></tr>
-    <tr><td class="num">32</td><td>鍵盤按鍵</td><td>按鍵 Tab</td><td>啟用</td></tr>
-    <tr><td class="num">33</td><td>設定變數</td><td>變數「金額」← 亂數</td><td>啟用</td></tr>
-    <tr><td class="num">34</td><td>文字輸入</td><td>輸入「${金額}」</td><td>啟用</td></tr>
-    <tr><td class="num">35</td><td>鍵盤按鍵</td><td>按鍵 Enter</td><td>啟用</td></tr>
-    <tr><td class="num">36</td><td>鍵盤按鍵</td><td>按鍵 Enter</td><td>啟用</td></tr>
-    <tr><td class="num">37</td><td>迴圈終點</td><td>迴圈結束</td><td>啟用</td></tr>
-    <tr><td class="num">38</td><td>註解</td><td>【存檔】Ctrl+S 會跳出「另存新檔」對話框，這裡只示範按鍵，不處理對話框</td><td>啟用</td></tr>
-    <tr><td class="num">39</td><td>註解</td><td>若要完整自動化存檔，可以再加：輸入檔名 → Enter，或改用「執行外部程式」叫用其他工具</td><td>啟用</td></tr>
-    <tr><td class="num">40</td><td>註解</td><td>（示範腳本刻意不停在對話框，避免卡住）</td><td>啟用</td></tr>
-    <tr><td class="num">41</td><td>註解</td><td>【完成】保留 Excel 開著讓使用者確認結果；要關閉請自行處理</td><td>啟用</td></tr>
-    <tr class="off"><td class="num">42</td><td>顯示訊息</td><td></td><td>停用</td></tr>
-    <tr class="off"><td class="num">43</td><td>停止播放</td><td>結束播放（標示為成功）</td><td>停用</td></tr>
-  </table>
-  </div>
   <div class="note">
-    表格由程式直接讀腳本檔產生，不是手打的：每一列就是腳本裡的一個動作，灰色列是停用的步驟。
-    範例 21 的做法已經寫在上一段（兩個子巨集與兩層迴圈），就不另外再列一份清單。
+    兩支腳本的步驟與說明都在上面的影片裡。想做的人可以照著子巨集的切法，
+    把「資料在哪裡」和「要送到哪裡」拆成兩段，換掉後半段就能套用到自己的流程。
   </div>
 
   <div class="note">

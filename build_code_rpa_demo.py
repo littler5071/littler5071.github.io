@@ -2,8 +2,9 @@
 """產生 code/rpa-demo/index.html：「RPAHelper 播放示範：20 開啟 Excel 並輸入資料」
 
 內容全部由程式產生：
-  - 步驟表：直接讀腳本 JSON（43 個動作，標示型別與啟用狀態）
-  - 內嵌示範動畫（mp4 放在同目錄，由 make_rpa_demo.py 產出後複製過來）
+  - 兩支示範影片（實際錄影＋逐步動畫）複製到頁面目錄
+  - 動作數統計（讀腳本 JSON；步驟清單本身不列在頁面上）
+  - 影片由 make_rpa_demo.py／add_narration21.py 產生後複製過來
 用法：python build_code_rpa_demo.py [網站根目錄]
 """
 import io
@@ -73,19 +74,12 @@ def detail(a):
 def main():
     d = json.load(io.open(SRC, encoding="utf-8"))
     A = d["Actions"]
+    # 步驟清單不再列在頁面上（使用者定案：讀者要的是做法，不是全部動作）；
+    # TYPE／detail() 留著當動作型別的對照表，統計數字仍用得到。
     n_tot = len(A)
     n_en = sum(1 for a in A if a.get("Enabled", True))
     n_com = sum(1 for a in A if a.get("Type") == 12)
     n_eff = sum(1 for a in A if a.get("Enabled", True) and a.get("Type") != 12)
-
-    rows = []
-    for i, a in enumerate(A, 1):
-        en = a.get("Enabled", True)
-        cls = ' class="off"' if not en else ""
-        rows.append('    <tr%s><td class="num">%d</td><td>%s</td><td>%s</td><td>%s</td></tr>'
-                    % (cls, i, TYPE.get(a.get("Type"), "?"), detail(a),
-                       "啟用" if en else "停用"))
-    rows = "\n".join(rows)
 
     out = os.path.join(SITE, "code", "rpa-demo")
     os.makedirs(out, exist_ok=True)
@@ -270,16 +264,9 @@ def main():
     以及輸入完成後的儲存格內容。
     </div>
 
-  <h2><span class="dot"></span>範例 20 的全部 __TOT__ 個步驟</h2>
-  <div class="scroll">
-  <table>
-    <tr><th>#</th><th>動作</th><th>內容</th><th>狀態</th></tr>
-__ROWS__
-  </table>
-  </div>
   <div class="note">
-    表格由程式直接讀腳本檔產生，不是手打的：每一列就是腳本裡的一個動作，灰色列是停用的步驟。
-    範例 21 的做法已經寫在上一段（兩個子巨集與兩層迴圈），就不另外再列一份清單。
+    兩支腳本的步驟與說明都在上面的影片裡。想做的人可以照著子巨集的切法，
+    把「資料在哪裡」和「要送到哪裡」拆成兩段，換掉後半段就能套用到自己的流程。
   </div>
 
   <div class="note">
@@ -294,9 +281,7 @@ __ROWS__
 """
     html = (HTML.replace("__N21__", str(n21)).replace("__N21EN__", str(n21en))
                 .replace("__N21EFF__", str(n21eff))
-                .replace("__TOT__", str(n_tot)).replace("__EN__", str(n_en))
-                .replace("__COM__", str(n_com)).replace("__EFF__", str(n_eff))
-                .replace("__ROWS__", rows)
+                .replace("__TOT__", str(n_tot))
                 .replace("__DATE__", "2026/09/28"))
     open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(html)
     print("wrote", os.path.join(out, "index.html"), len(html), "chars")
