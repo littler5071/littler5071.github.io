@@ -2,7 +2,7 @@
 """產生 code/rpa-demo/index.html：「RPAHelper 播放示範：20 開啟 Excel 並輸入資料」
 
 內容全部由程式產生：
-  - 兩支示範影片（實際錄影＋逐步動畫）複製到頁面目錄
+  - 兩支示範影片（實際錄影）複製到頁面目錄
   - 動作數統計（讀腳本 JSON；步驟清單本身不列在頁面上）
   - 影片由 make_rpa_demo.py／add_narration21.py 產生後複製過來
 用法：python build_code_rpa_demo.py [網站根目錄]
@@ -15,10 +15,8 @@ import sys
 
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 SRC = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\20_開啟Excel並輸入資料.rpa.json"
-VIDEO_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_20.mp4"          # 逐步動畫
 REAL_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_real.mp4"        # 實際操作錄影＋旁白
 SRC21 = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\21_開啟Notepad並模擬從excel複製多筆資料貼上.rpa.json"
-VIDEO21_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_21.mp4"       # 範例 21 實際錄影＋旁白
 
 TYPE = {0: "滑鼠移動", 1: "滑鼠按鍵", 2: "滑鼠滾輪", 3: "鍵盤按鍵", 4: "文字輸入", 5: "找圖點擊",
         6: "切換視窗", 7: "巨集引用", 8: "固定等待", 32: "隨機等待", 10: "等待視窗",
@@ -83,21 +81,11 @@ def main():
 
     out = os.path.join(SITE, "code", "rpa-demo")
     os.makedirs(out, exist_ok=True)
-    if os.path.exists(VIDEO_SRC):
-        shutil.copy2(VIDEO_SRC, os.path.join(out, "demo.mp4"))
-        print("動畫複製：", os.path.getsize(VIDEO_SRC), "bytes")
-    else:
-        print("⚠ 找不到動畫：", VIDEO_SRC)
     if os.path.exists(REAL_SRC):
         shutil.copy2(REAL_SRC, os.path.join(out, "real-run.mp4"))
         print("實際錄影複製：", os.path.getsize(REAL_SRC), "bytes")
     else:
         print("⚠ 找不到實際錄影：", REAL_SRC)
-    if os.path.exists(VIDEO21_SRC):
-        shutil.copy2(VIDEO21_SRC, os.path.join(out, "ex21.mp4"))
-        print("範例21錄影複製：", os.path.getsize(VIDEO21_SRC), "bytes")
-    else:
-        print("⚠ 找不到範例21錄影：", VIDEO21_SRC)
 
     # 範例 21 的動作統計（只取數字；步驟清單已不列，做法寫在說明段）
     d21 = json.load(io.open(SRC21, encoding="utf-8"))
@@ -112,7 +100,7 @@ def main():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>不用寫程式，讓電腦自己批次輸入多筆資料｜程式設計｜小R 頻道</title>
-<meta name="description" content="兩支腳本的實際錄影：範例 20 先在 Excel 裡把整批資料準備好（用「等待視窗」取代固定延遲、用迴圈產生每一筆）；範例 21 再把這些資料批次送進另一個程式，換行時自動回到下一列開頭。同一套迴圈換掉目標程式，就能套用到其他應用程式或網頁表單。附兩支腳本的完整步驟表。">
+<meta name="description" content="兩支實際錄影：範例 20 先在 Excel 裡把整批資料準備好（用「等待視窗」取代固定延遲、用迴圈產生每一筆）；範例 21 再把這些資料批次送進另一個程式，換行時自動回到下一列開頭。同一套迴圈換掉目標程式，就能套用到其他應用程式或網頁表單。附兩支腳本的完整步驟說明。">
 <style>
   :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
         --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
@@ -176,15 +164,7 @@ def main():
     <br>・螢幕是 1920×1080 但系統縮放 150%，所以錄下來的實際像素是 1920×1080（不是某些程式回報的 1280×720）。
   </div>
 
-  <h2><span class="dot"></span>逐步動畫（含每一句說明）</h2>
-  <video controls preload="metadata">
-    <source src="demo.mp4" type="video/mp4">
-    你的瀏覽器不支援影片播放，<a href="demo.mp4">點此下載</a>。
-  </video>
-  <div class="note" style="margin-top:14px">
-    這段是<b>依腳本內容產生的動畫</b>：左邊是那 __TOT__ 個步驟（跟著播放游標走、目前步驟高亮、停用的標灰），
-    右邊是螢幕模擬。畫面與旁白都是<b>直接從腳本檔讀出來</b>的，所以它與腳本一致，適合看每一個步驟的細節。
-  </div>
+
 
   <h2><span class="dot"></span>範例 21：把 Excel 的多筆資料批次送進另一個程式</h2>
   <video controls preload="metadata">
