@@ -11,6 +11,14 @@ import sys
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 
 ARTICLES = [
+    dict(title="把重複的電腦操作，變成自己會跑的流程",
+         date="2026/10/01", length="功能總覽",
+         url="rpa-overview/",
+         desc="一套 Windows 自動化工具的功能總覽：錄一次、補上判斷與迴圈，再讓它排程自己跑。"
+              "「步驟」選單分成四類、共 31 個可以自己加的動作；內建 14 支示範腳本"
+              "（其中 9 支不需要操作視窗，可以直接用命令列執行）。"
+              "也一併寫清楚它不適合哪些情況：需要桌面的腳本不能無人值守、"
+              "找圖對畫面變化敏感、防毒軟體可能誤判。"),
     dict(title="不用寫程式，讓電腦自己批次輸入多筆資料",
          date="2026/09/28", length="示範＋解析",
          url="rpa-demo/",

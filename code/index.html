@@ -38,11 +38,6 @@
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
   .scroll{overflow-x:auto}
-
-
-
-
-
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -89,7 +84,13 @@
     <hr class="rule">
   </header>
   <div class="card">
-    <span class="tag">最新</span><span class="tag" style="color:var(--soft)">示範＋解析</span>
+    <span class="tag">最新</span><span class="tag" style="color:var(--soft)">功能總覽</span>
+    <h3>把重複的電腦操作，變成自己會跑的流程</h3>
+    <p>一套 Windows 自動化工具的功能總覽：錄一次、補上判斷與迴圈，再讓它排程自己跑。「步驟」選單分成四類、共 31 個可以自己加的動作；內建 14 支示範腳本（其中 9 支不需要操作視窗，可以直接用命令列執行）。也一併寫清楚它不適合哪些情況：需要桌面的腳本不能無人值守、找圖對畫面變化敏感、防毒軟體可能誤判。</p>
+    <a class="btn" href="rpa-overview/">看文章 →</a>
+  </div>
+  <div class="card">
+    <span class="tag">已上線</span><span class="tag" style="color:var(--soft)">示範＋解析</span>
     <h3>不用寫程式，讓電腦自己批次輸入多筆資料</h3>
     <p>兩支腳本的實際錄影：一支先在 Excel 裡把整批資料準備好（用「等待視窗」取代固定延遲：開得慢會等、開得快不會多等）；另一支把這些資料批次送進另一個程式，換行時自動回到下一列開頭。同一套迴圈換掉目標程式，就能套用到其他應用程式或網頁表單。附兩支腳本的完整步驟表。</p>
     <a class="btn" href="rpa-demo/">看文章 →</a>
@@ -100,10 +101,11 @@
     <p>依星星數抓下前 20 名並實際分類：12 個是「清單／學習資源」、5 個是 2025 年之後才出現的 AI 助理專案、只有 2 個是真正會被執行的軟體。結論是星星數量的不是使用量，而是「有多少人想收藏」——所以不要用星星數挑工具。</p>
     <a class="btn" href="github-top20/">看文章 →</a>
   </div>
-  <h2><span class="dot"></span>全部文章（2）</h2>
+  <h2><span class="dot"></span>全部文章（3）</h2>
   <div class="scroll">
   <table>
     <tr><th>日期</th><th>標題</th><th>類型</th><th></th></tr>
+    <tr><td class="d">2026/10/01</td><td>把重複的電腦操作，變成自己會跑的流程</td><td class="d">功能總覽</td><td><a href="rpa-overview/">看文章 →</a></td></tr>
     <tr><td class="d">2026/09/28</td><td>不用寫程式，讓電腦自己批次輸入多筆資料</td><td class="d">示範＋解析</td><td><a href="rpa-demo/">看文章 →</a></td></tr>
     <tr><td class="d">2026/09/26</td><td>GitHub 星星數最高的 20 個專案：我在它們身上看到的三件事</td><td class="d">分析</td><td><a href="github-top20/">看文章 →</a></td></tr>
   </table>
