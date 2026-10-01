@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>讓電腦自己動滑鼠、打字，還會在畫面上找按鈕｜程式設計｜小R 頻道</title>
+<meta name="description" content="RPA 工具的基本操作類 8 個動作：滑鼠點擊與文字輸入、找圖點擊（不必知道座標、可跨程式找到別的應用程式的按鈕並點擊）、等待圖片出現、切換與等待視窗、啟動程式、加入巨集流程。含找圖會壞掉的四種情況與「何時該用找圖、何時用座標」。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(24px,4.4vw,34px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
+       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .box.red{border-color:#e6c3bc;background:#fdf6f4}
+  .box.green{border-color:#bfdccd;background:#f4fbf7}
+  .box.blue{border-color:#c3cddd;background:#f5f7fb}
+  ul.plain,ol.plain{margin:8px 0;padding-left:22px}
+  ul.plain li,ol.plain li{margin:7px 0}
+  figure{margin:16px 0 20px}
+  img.shot{width:100%;display:block;border:2px solid var(--line);border-radius:14px;background:#fff}
+  figcaption{color:var(--soft);font-size:13.5px;margin-top:8px;text-align:center}
+  code{background:rgba(54,78,112,.07);border:1px solid var(--line);border-radius:6px;padding:1px 6px;
+       font-size:14px;font-family:Consolas,"Courier New",monospace}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
+  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
+  a{color:var(--blue)}
+
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk" href="../../toeic/">多益英文</a>
+  <a class="lnk on" href="../../code/">程式設計</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回程式設計</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+
+  <h1>讓電腦自己動滑鼠、打字，<br>還會在畫面上找按鈕</h1>
+  <div class="sub">基本操作 8 個動作：找圖點擊可以跨程式找到別的程式的按鈕（連開始按鈕都行）</div>
+  <div class="meta">2026/10/01・系列 2／5：基本操作</div>
+
+
+  <div class="box">
+    <b>這一類管的是「手」和「眼睛」：</b>動滑鼠、打鍵盤、在畫面上找東西、把視窗叫出來。
+    錄製能產生的大部分動作都在這裡，也是整個工具最直覺的部分——
+    <b>錄一次就能重播，但要它穩定，靠的是下面「等待」與「找圖」這幾個動作。</b>
+    這一類共 8 個動作：滑鼠點擊／拖曳、文字輸入、找圖點擊、等待圖片出現、切換視窗、等待視窗、
+    啟動程式或開網址、加入巨集流程。
+  </div>
+
+  <figure>
+    <img class="shot" src="menu.png" alt="「步驟」選單的「基本操作」分類，展開後是 8 個動作">
+    <figcaption>「步驟」選單的「基本操作」分類。下面挑其中兩個最有價值的講：<b>找圖點擊</b>與<b>等待視窗</b>。</figcaption>
+  </figure>
+
+  <h2><span class="dot"></span>找圖點擊：不必知道座標，找到才按</h2>
+  <div class="box green">
+    <b>怎麼用：</b>按 <code>F12</code>（或從選單選「找圖點擊…」），畫面會變暗讓你<b>框選一個目標</b>——
+    一個按鈕、一個圖示、一段文字都行。播放時它會在畫面裡搜尋這塊目標，<b>找到才點下去</b>，
+    不是死記上一次錄下來的座標。
+    <br><br>
+    <b>它可以跨程式。</b>這是我最常用它、也最想推薦的一點：<b>別的應用程式裡的按鈕、
+    甚至是 Windows 的「開始」按鈕，它都找得到、按得下去</b>——
+    不需要知道座標，也不需要那個程式提供任何自動化介面。遇到「只能靠人看著畫面點」的老系統，
+    這是最省事的一條路。
+  </div>
+  <div class="box">
+    <b>幾個讓它更穩的設定：</b>
+    <ul class="plain">
+      <li><b>限定搜尋區域</b>：只在你框的範圍裡找，快很多，也避免畫面其他地方有長得像的東西時誤點。</li>
+      <li><b>點擊位置</b>：預設點在樣板中心；需要偏一點就用自訂位移。也支援右鍵與雙擊。</li>
+      <li><b>容差與重試</b>：設定裡有預設容差與重試次數／間隔；畫面有抗鋸齒或半透明時把它放寬一點。</li>
+      <li><b>找不到時</b>：逾時可以「跳過」或「中止」。示範腳本裡故意用了畫面上不會出現的假圖，
+          並設成「跳過」，讓你看到逾時後腳本怎麼繼續。</li>
+    </ul>
+  </div>
+  <div class="box red">
+    <b>它會壞掉的幾種情況（先知道省得踩）：</b>
+    <ul class="plain">
+      <li><b>解析度、系統縮放、佈景主題或字型改變</b>：目標長相就變了，要重新框選一次。</li>
+      <li><b>目標程式改版、按鈕搬位置</b>：要找的東西還在，但可能被收進選單或換了圖示——重新框一次就好。</li>
+      <li><b>目標被別的視窗蓋住</b>：螢幕上找不到它就找不到；所以腳本裡常要先「切換視窗」把它叫到前景。</li>
+      <li><b>動畫中的按鈕</b>：淡入、位移中的元件，等它停下再找（前面加一個「固定等待」或改用「等待圖片出現」）。</li>
+    </ul>
+  </div>
+  <div class="box">
+    <b>「等待圖片出現」是它的搭擋：</b>找圖點擊是「找到了就點」，等待圖片出現是「等到它出現才繼續」，
+    常用在「按下送出之後，等結果畫面跑出來」。逾時同樣可以選跳過或中止。
+    <br><br>
+    <b>什麼時候該用找圖、什麼時候直接用座標？</b>位置固定、每次都在同一個地方的，用座標最快；
+    <b>位置會變的（視窗大小會變、清單順序會動、程式的版面會被使用者拉大拉小）就用找圖</b>——
+    這也是同一支腳本能不能換到別人電腦上跑的关键。
+  </div>
+
+  <h2><span class="dot"></span>等待視窗：把「等 5 秒」換成「等到它出現」</h2>
+  <div class="box">
+    錄製出來的腳本常常長這樣：點一下、等個幾秒、再點下一個。問題是那幾秒是<b>當下那台電腦</b>需要的時間——
+    換一台慢一點的機器就不夠，快一點的機器又白白浪費。
+    <br><br>
+    「等待視窗」是「等到符合條件的視窗出現才往下走」，比對方式有四種：<b>完全相同／包含關鍵字／
+    正規式／行程名稱</b>。實務上最常用「行程名稱」（例如等 <code>excel.exe</code> 的視窗出現）或
+    「包含關鍵字」（例如標題含 Excel）。<b>開得慢它會等、開得快它不會多等。</b>
+    <br><br>
+    小提醒：視窗標題會隨檔案變動（未儲存的檔案前面會有 <code>*</code>），所以「標題完全相同」很容易失敗，
+    用「包含關鍵字」比較保險。
+  </div>
+
+  <h2><span class="dot"></span>文字輸入、鍵盤與視窗</h2>
+  <div class="box">
+    <b>文字輸入</b>支援中文與多行，換行會自動轉成 Enter；連續打字在錄製時會合併成一個步驟。
+    少數程式對「直接注入文字」不理會，設定裡可以改成「剪貼簿貼上」或「逐鍵掃描碼」；
+    中文輸入法干擾的話，有一個「播放前自動切換輸入法為英文」的選項。
+    <br><br>
+    <b>鍵盤按鍵</b>含方向鍵這類延伸鍵；組合鍵（例如 <code>Ctrl+Shift+End</code>）就是按下、放開的序列。
+    <br><br>
+    <b>切換視窗</b>把目標視窗叫到前景（常常是「找圖或點擊之前」要先做的一步）；
+    <b>啟動程式 / 開網址</b>可以開執行檔、文件、資料夾或網址。
+  </div>
+
+  <h2><span class="dot"></span>加入巨集流程：把做過的事變成積木</h2>
+  <div class="box">
+    「加入巨集流程」是<b>把另一支腳本當成一個步驟</b>來執行：可以設定它自己的重複次數與速度，
+    路徑存成相對於 Scripts 資料夾（整包複製到別台電腦也能用）。
+    <br><br>
+    <b>它和變數是連在一起的</b>：被呼叫的子腳本用的是<b>同一份變數</b>，
+    所以主流程先設好的值，子腳本直接就能用；子腳本自己宣告的初始變數也會併進來，呼叫端要覆寫也可以。
+    同一支子巨集就能給很多支主流程重複使用——換掉參數就是另一件事，不必複製整份腳本。
+    （這是「變數與流程」那篇會講的細節。）
+  </div>
+
+  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>01 滑鼠鍵盤與文字、02 找圖與等待影像。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>
+
+  <div class="note">
+    這是「四類動作」系列的其中一篇。系列第一篇是功能總覽（三種自動化方式、31 個動作、內建示範腳本與限制）：
+    <a href="../rpa-overview/">把重複的電腦操作，變成自己會跑的流程 →</a>
+  </div>
+  <div class="note">
+    本文是工具實作與流程的記錄，不構成任何軟體或服務的推薦。
+    頁面上的畫面都是實際操作時擷取，未經合成。
+  </div>
+
+  <footer>小R 頻道・程式設計</footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>

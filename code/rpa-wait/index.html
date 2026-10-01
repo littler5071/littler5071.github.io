@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>等對地方，腳本才換得了電腦｜程式設計｜小R 頻道</title>
+<meta name="description" content="RPA 工具的等待與訊息類 4 個動作：固定與隨機等待、顯示訊息（唯一真的需要人在旁邊的動作）、停止播放並指定成功或失敗；含步驟失敗時的兩種行為與排程該選哪一種。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(24px,4.4vw,34px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
+       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .box.red{border-color:#e6c3bc;background:#fdf6f4}
+  .box.green{border-color:#bfdccd;background:#f4fbf7}
+  .box.blue{border-color:#c3cddd;background:#f5f7fb}
+  ul.plain,ol.plain{margin:8px 0;padding-left:22px}
+  ul.plain li,ol.plain li{margin:7px 0}
+  figure{margin:16px 0 20px}
+  img.shot{width:100%;display:block;border:2px solid var(--line);border-radius:14px;background:#fff}
+  figcaption{color:var(--soft);font-size:13.5px;margin-top:8px;text-align:center}
+  code{background:rgba(54,78,112,.07);border:1px solid var(--line);border-radius:6px;padding:1px 6px;
+       font-size:14px;font-family:Consolas,"Courier New",monospace}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
+  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
+  a{color:var(--blue)}
+
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk" href="../../toeic/">多益英文</a>
+  <a class="lnk on" href="../../code/">程式設計</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回程式設計</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+
+  <h1>等對地方，<br>腳本才換得了電腦</h1>
+  <div class="sub">等待與訊息 4 個動作：能用「等條件」就不要用「等時間」</div>
+  <div class="meta">2026/10/01・系列 5／5：等待與訊息</div>
+
+
+  <div class="box">
+    <b>這一類只有 4 個動作，但它們決定腳本是「能跑」還是「跑得穩」：</b>
+    固定等待、隨機等待、顯示訊息 / 確認 / 輸入、停止播放（指定成功或失敗）。
+  </div>
+
+  <figure>
+    <img class="shot" src="menu.png" alt="「步驟」選單的「等待與訊息」分類，展開後是 4 個動作">
+    <figcaption>「步驟」選單的「等待與訊息」分類。相關示範腳本是 10（錯誤處理與結束代碼）。</figcaption>
+  </figure>
+
+  <h2><span class="dot"></span>等待：先求穩，再求快</h2>
+  <div class="box green">
+    <b>固定等待</b>是等固定的毫秒數；<b>隨機等待</b>是在一個範圍內隨機（例如 300～900 毫秒），
+    讓節奏不那麼機械。
+    <br><br>
+    <b>最重要的一句：能用「等待視窗／等待圖片／等待程序」就不要用固定等待。</b>
+    固定等待是在賭那台電腦的速度，換一台機器就可能不夠或浪費；
+    等條件的動作是「條件到了就走」，慢的機器會等、快的機器不會多等，
+    同一支腳本才換得了機器。
+    <br><br>
+    實測上的經驗值：需要「讓畫面喘一下」時用 200～500 毫秒的隨機等待就夠，
+    真正不確定的等待交給條件類的動作。
+  </div>
+
+  <h2><span class="dot"></span>顯示訊息：需要人看一眼的時候</h2>
+  <div class="box">
+    三種形式：<b>提示</b>（只是告知）、<b>是／否確認</b>（結果存變數）、<b>輸入文字</b>（結果存變數）。
+    <br><br>
+    這是<b>唯一真的需要有人在旁邊的動作</b>。所以它同時是「無人值守」的分界線：
+    腳本裡有它，就要有人在；沒有的話，桌面開著讓它自己跑就好。
+    <br><br>
+    常見用法：執行到一半要人工判斷的地方停下來問一句；或是拿來當「這支腳本的用法說明」
+    （執行前先顯示一句「請先把報表開好」）。
+  </div>
+
+  <h2><span class="dot"></span>停止播放與結束代碼：讓排程看得出成敗</h2>
+  <div class="box">
+    <b>停止播放</b>可以主動結束，並指定這次是<b>成功還是失敗</b>；
+    這個結果會變成命令列的<b>結束代碼</b>（<code>0</code> 完成、<code>1</code> 失敗或被停止、
+    <code>2</code> 參數錯誤、<code>3</code> 找不到腳本）。
+    <br><br>
+    為什麼重要：交給排程或別的程式呼叫時，<b>結束代碼是唯一的判斷依據</b>。
+    腳本自己知道「這次的結果不對」時，用「停止播放（失敗）」收尾，呼叫端才看得出來。
+  </div>
+
+  <h2><span class="dot"></span>步驟失敗時的行為（示範腳本 10）</h2>
+  <div class="box">
+    每個步驟都可以各自指定<b>找不到／逾時時要怎麼做</b>，只有兩種選擇：
+    <ul class="plain">
+      <li><b>跳過並繼續</b>：記錄訊息後直接執行下一步。</li>
+      <li><b>中止整個播放</b>：停止並回報失敗。</li>
+    </ul>
+    <b>排程執行時建議用「中止」</b>，這樣失敗會回傳非 0 的結束代碼，排程器才看得出異常；
+    純示範或探索性的腳本才用「跳過」。
+    <br><br>
+    舊版的「暫停並詢問我」已經移除——播放中不會再跳出詢問視窗，所以不會有「沒人理它就卡在那裡」的狀況。
+    舊腳本還留著這個設定值的話，載入時會自動視為「跳過」。
+  </div>
+
+  <h2><span class="dot"></span>除錯時看哪裡</h2>
+  <div class="box">
+    播放紀錄（<code>Logs\playback.log</code>）與錯誤紀錄（<code>Logs\error.log</code>）會記下每一步的結果與變數值；
+    播放中「變數」分頁也會即時更新。播放到一半停住時，最有效的一步是<b>真的跑一遍、讀紀錄</b>，
+    而不是猜。
+  </div>
+
+  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>10 錯誤處理與結束代碼。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>
+
+  <div class="note">
+    這是「四類動作」系列的其中一篇。系列第一篇是功能總覽（三種自動化方式、31 個動作、內建示範腳本與限制）：
+    <a href="../rpa-overview/">把重複的電腦操作，變成自己會跑的流程 →</a>
+  </div>
+  <div class="note">
+    本文是工具實作與流程的記錄，不構成任何軟體或服務的推薦。
+    頁面上的畫面都是實際操作時擷取，未經合成。
+  </div>
+
+  <footer>小R 頻道・程式設計</footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>從照順序重播，變成會判斷、會重複的流程｜程式設計｜小R 頻道</title>
+<meta name="description" content="RPA 工具的變數與流程類 11 個動作：變數與修飾詞（可跨腳本共用）、設定剪貼簿、正規式解析、條件判斷（含檔案存在／視窗存在／程序執行中）、標籤與跳躍、For 迴圈與 Break／Continue。">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(24px,4.4vw,34px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
+       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .box.red{border-color:#e6c3bc;background:#fdf6f4}
+  .box.green{border-color:#bfdccd;background:#f4fbf7}
+  .box.blue{border-color:#c3cddd;background:#f5f7fb}
+  ul.plain,ol.plain{margin:8px 0;padding-left:22px}
+  ul.plain li,ol.plain li{margin:7px 0}
+  figure{margin:16px 0 20px}
+  img.shot{width:100%;display:block;border:2px solid var(--line);border-radius:14px;background:#fff}
+  figcaption{color:var(--soft);font-size:13.5px;margin-top:8px;text-align:center}
+  code{background:rgba(54,78,112,.07);border:1px solid var(--line);border-radius:6px;padding:1px 6px;
+       font-size:14px;font-family:Consolas,"Courier New",monospace}
+  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
+        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
+  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
+  a{color:var(--blue)}
+
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<!-- hermesnav -->
+<nav class="hnav">
+  <a class="brand" href="../../">小R 頻道</a>
+  <a class="lnk" href="../../ai/">AI 助理實測</a>
+  <a class="lnk" href="../../stock/">股市觀察</a>
+  <a class="lnk" href="../../toeic/">多益英文</a>
+  <a class="lnk on" href="../../code/">程式設計</a>
+</nav>
+
+<div class="wrap">
+  <a class="back" href="../">← 回程式設計</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+
+  <h1>從照順序重播，<br>變成會判斷、會重複的流程</h1>
+  <div class="sub">變數與流程 11 個動作：變數可以跨腳本共用，條件判斷還能檢查檔案與視窗狀態</div>
+  <div class="meta">2026/10/01・系列 3／5：變數與流程</div>
+
+
+  <div class="box">
+    <b>這一類是「判斷」與「重複」：</b>錄製只能照順序重播，加上這一類的 11 個動作之後，
+    腳本才有辦法「看情況做事」。共 11 個：註解、設定變數、設定剪貼簿、正規式解析、條件判斷、
+    標籤、跳躍、迴圈開始／結束、跳出迴圈、下一輪。
+  </div>
+
+  <figure>
+    <img class="shot" src="menu.png" alt="「步驟」選單的「變數與流程」分類，展開後是 11 個動作">
+    <figcaption>「步驟」選單的「變數與流程」分類。示範腳本是 03（變數與剪貼簿）、04（條件判斷與跳躍）、05（迴圈）。</figcaption>
+  </figure>
+
+  <h2><span class="dot"></span>變數：可以跨腳本共用</h2>
+  <div class="box green">
+    任何文字欄位都可以用 <code>${名稱}</code>。變數的來源除了常數，還有<b>剪貼簿、日期時間、游標位置、
+    前景視窗、隨機數、環境變數、檔案內容</b>⋯⋯所以「讀進來的資料」可以直接餵給後面的步驟。
+    <br><br>
+    <b>它可以跨腳本共用。</b>用「加入巨集流程」呼叫另一個腳本時，子腳本用的是同一份變數：
+    主流程先設好的值，子腳本直接就能用；子腳本自己宣告的初始變數也會併進來，呼叫端要覆寫也可以。
+    所以同一支子巨集能給很多支主流程重複使用。
+  </div>
+  <div class="box">
+    <b>修飾詞與預設值</b>（寫在變數名稱後面，用冒號串接，由左到右依序套用）：
+    <ul class="plain">
+      <li><code>${原文:trim}</code> 去頭尾空白；<code>:upper</code>／<code>:lower</code> 轉大小寫；<code>:length</code> 取長度。</li>
+      <li><code>${價格:int}</code> 轉整數、<code>:float</code> 轉小數、<code>:0.00</code> 數字格式化（也有 <code>#,##0</code> 千分位、日期格式）。</li>
+      <li><code>${代號|未設定}</code>：變數不存在時使用預設值，<b>而且不會中斷流程</b>；找不到的變數會展開成空字串並在播放紀錄留一行警告。</li>
+    </ul>
+    變數名稱不分大小寫，可含中英文、數字與底線。初始變數可以存在腳本裡（適合把腳本參數化），
+    命令列再用 <code>--var 月份=9</code> 覆寫；播放期間「變數」分頁會即時顯示每一個變數的值。
+  </div>
+  <div class="box">
+    <b>設定剪貼簿</b>把變數或文字放進剪貼簿（給那些不吃模擬輸入的程式用）；
+    <b>正規式解析</b>用正規表示式從變數或文字裡取出資料，可以指定第 N 個群組。
+    這兩步加上變數，就能把「網頁或報表上的一小段文字」變成後面流程可以判斷的資料。
+  </div>
+
+  <h2><span class="dot"></span>條件判斷：成立時可以做三件事</h2>
+  <div class="box">
+    條件成立時可以：<b>跳到某個標籤</b>、<b>略過下一步</b>、<b>中止整個播放</b>。
+    搭配「標籤」與「跳躍」就能組成 if / else；<code>SkipNextWhenTrue</code> 是「成立時跳過下一步」，
+    也就是 if 的相反寫法。
+    <br><br>
+    <b>比較方式不只等於／大於</b>，還有：包含、不包含、開頭是、結尾是、符合正規式、是空的、是數字，
+    以及很實用的狀態檢查——<b>檔案存在、視窗存在、程序執行中</b>。
+    所以「等那個程式跑完才繼續」「檔案生出來了才往下做」這種事，不需要寫程式。
+    <br><br>
+    一個容易踩的小地方：<b>兩邊都是數字時用數值比較</b>（所以 9 不會被當成比 10 大）；
+    一邊是文字時用字串比較（不分大小寫）。
+  </div>
+
+  <h2><span class="dot"></span>迴圈：重複、巢狀、提早結束</h2>
+  <div class="box">
+    迴圈寫在「迴圈開始」與「迴圈結束」之間，可以巢狀。開始那一步要設定<b>起始、結束、遞增</b>，
+    以及<b>把當下的索引寫進哪個變數</b>——那一步的欄位就是「輪數變數」，之後用
+    <code>${i}</code> 就能拿到它。
+    <br><br>
+    <b>跳出迴圈（Break）</b>提早結束整個迴圈；<b>下一輪（Continue）</b>跳過這一輪剩下的步驟、直接進下一輪。
+    實務上「遇到某一筆資料格式不對就跳過」就是這兩個動作用起來的。
+    <br><br>
+    安全機制：播放設定裡有「單次播放最多執行幾個動作」的上限，會自動攔住寫錯的無限迴圈；
+    流程跑不完時，先把「重複次數」改成 1，並檢查迴圈範圍。
+  </div>
+
+  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>03 變數與剪貼簿、04 條件判斷與跳躍、05 迴圈。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>
+
+  <div class="note">
+    這是「四類動作」系列的其中一篇。系列第一篇是功能總覽（三種自動化方式、31 個動作、內建示範腳本與限制）：
+    <a href="../rpa-overview/">把重複的電腦操作，變成自己會跑的流程 →</a>
+  </div>
+  <div class="note">
+    本文是工具實作與流程的記錄，不構成任何軟體或服務的推薦。
+    頁面上的畫面都是實際操作時擷取，未經合成。
+  </div>
+
+  <footer>小R 頻道・程式設計</footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
