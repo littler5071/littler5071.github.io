@@ -40,27 +40,8 @@
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
-  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
-  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
-        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
-        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
-  .hnav::-webkit-scrollbar{display:none}
-  .hnav a{white-space:nowrap}
-  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
-        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
-  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
-        border:1.5px solid transparent;flex:none}
-  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  @media (max-width:430px){
-    .hnav{padding:4px 8px}
-    .hnav a.brand{font-size:13px;padding:2px 6px}
-    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
-  }
-  /* hermesviews（瀏覽次數） */
+</style>
+<style>/* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
@@ -69,8 +50,6 @@
 </style>
 <script defer src="../../counter.js?v=94ad9679"></script>
 </head>
-<body>
-<!-- hermesnav -->
 <nav class="hnav">
   <a class="brand" href="../../">小R 頻道</a>
   <a class="lnk" href="../../ai/">AI 助理實測</a>
@@ -78,7 +57,7 @@
   <a class="lnk" href="../../toeic/">多益英文</a>
   <a class="lnk on" href="../../code/">程式設計</a>
 </nav>
-
+<body>
 <div class="wrap">
   <a class="back" href="../">← 回程式設計</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
@@ -100,8 +79,9 @@
     <b>1. 錄製</b>：按 <code>F9</code> 開始錄、照平常的方式操作、再按一次停止；播放是 <code>F10</code>，
     暫停／單步是 <code>F8</code>，停止是 <code>F11</code>。手動做一次就好的流程用這個最快。
     <br><br>
-    <b>2. 找圖點擊</b>：目標位置不固定時（視窗大小會變、清單順序會動），按 <code>F12</code> 框選畫面上的目標，
-    播放時是先搜尋到才點，不是死記座標。
+    <b>2. 找圖點擊</b>：按 <code>F12</code> 框選畫面上的一塊目標，播放時會先在畫面裡搜尋它、找到才點下去。
+    這是它最實用的一招：<b>可以跨程式</b>——別的應用程式裡的按鈕，甚至是 Windows 的「開始」按鈕，
+    它都找得到、按得下去，不需要知道座標，也不需要那個程式提供任何自動化介面。
     <br><br>
     <b>3. 程式化流程</b>：需要判斷、迴圈、變數或整合外部程式時，從「步驟」選單自己加動作。
     <br><br>
@@ -137,17 +117,20 @@
     工具列的「＋ 新增步驟」是常用的那幾個，其餘都在這個選單裡。</figcaption>
   </figure>
 
-  <h2><span class="dot"></span>變數：同一支腳本換個參數就是另一件事</h2>
+  <h2><span class="dot"></span>變數：可以跨腳本共用</h2>
   <div class="box">
     任何文字欄位都可以用 <code>${名稱}</code>。變數的來源除了常數，還有剪貼簿、日期時間、
-    游標位置、前景視窗、亂數、環境變數、檔案內容⋯⋯所以「讀進來的資料」可以直接餵給後面的步驟。
+    游標位置、前景視窗、隨機數、環境變數、檔案內容⋯⋯所以「讀進來的資料」可以直接餵給後面的步驟。
     <br><br>
-    它也有修飾詞與預設值：<code>${原文:trim:upper}</code> 會由左到右依序套用，
-    <code>${代號|未設定}</code> 在變數不存在時給預設值（<b>不會中斷流程</b>）。
-    數字則有 <code>${價格:int}</code>、<code>${價格:0.00}</code> 這類轉換與格式化。
+    <b>重點是它可以跨腳本共用。</b>用「加入巨集流程」呼叫另一個腳本時（例如把「複製貼上一格資料」
+    這種動作抽成子巨集），子腳本用的是<b>同一份變數</b>：主流程先設好的值，被呼叫的子腳本直接就能用；
+    子腳本自己宣告的初始變數也會併進來，呼叫端要覆寫也可以。
+    所以同一支子巨集能給很多支主流程重複使用——換掉參數就是另一件事，不必複製整份腳本。
     <br><br>
-    這讓同一支腳本可以重複用：初始變數可以存在腳本裡，命令列再用
-    <code>--var 月份=9</code> 覆寫；播放期間「變數」分頁會即時顯示每個變數的值，除錯時很有用。
+    它也有修飾詞與預設值：<code>${原文:trim:upper}</code> 由左到右依序套用；
+    <code>${代號|未設定}</code> 在變數不存在時給預設值（<b>不會中斷流程</b>）；
+    <code>${價格:int}</code>、<code>${價格:0.00}</code> 是轉換與格式化。
+    命令列也能覆寫初始值（<code>--var 月份=9</code>）；播放期間「變數」分頁會即時顯示每個變數的值，除錯時很有用。
   </div>
 
   <h2><span class="dot"></span>什麼情況適合，什麼情況不適合</h2>
@@ -159,7 +142,10 @@
   <div class="box red">
     <b>要先知道的限制：</b>
     <ul class="plain">
-      <li><b>會操作視窗的腳本需要有一個人在的桌面</b>，不能無人值守（要找圖或點擊的都需要畫面）。</li>
+      <li><b>它要的不是「一個人」，而是「一個開著、已登入的桌面」。</b>
+          要找圖或點擊就得有畫面，所以跑的時候桌面不能鎖定、程式視窗要在；
+          但<b>放著讓它自己跑完就好，不需要有人在旁邊看</b>——每天固定時間做的那種事就是這樣跑的。
+          真正需要人的，只有腳本裡放了「顯示訊息／確認／輸入」這種要人判斷的步驟。</li>
       <li><b>找圖對畫面變化敏感</b>：解析度、系統縮放、佈景主題或字型改變，都可能要重新框選一次。</li>
       <li><b>目標程式改版就要重錄那幾步</b>（按鈕搬了位置，腳本不知道）。</li>
       <li><b>步驟失敗只有兩種選擇：跳過並繼續、或中止整個播放。</b>
