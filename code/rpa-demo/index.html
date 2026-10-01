@@ -24,7 +24,11 @@
        margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
   .box.red{border-color:#e6c3bc;background:#fdf6f4}
   .box.green{border-color:#bfdccd;background:#f4fbf7}
-  video{width:100%;border:2px solid var(--line);border-radius:14px;background:#000;display:block}
+  .embed{position:relative;aspect-ratio:16/9;border:2px solid var(--line);border-radius:14px;
+         overflow:hidden;background:#000}
+  .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  @supports not (aspect-ratio:16/9){.embed{height:0;padding-bottom:56.25%}}
+  .vidlink{margin-top:10px;font-size:14px;color:var(--soft)}
   ul.plain,ol.plain{margin:8px 0;padding-left:22px}
   ul.plain li,ol.plain li{margin:6px 0}
   .scroll{overflow-x:auto;margin:12px 0}
@@ -37,33 +41,6 @@
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
-
-  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
-  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
-        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
-        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
-  .hnav::-webkit-scrollbar{display:none}
-  .hnav a{white-space:nowrap}
-  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
-        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
-  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
-        border:1.5px solid transparent;flex:none}
-  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
-  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
-  @media (max-width:430px){
-    .hnav{padding:4px 8px}
-    .hnav a.brand{font-size:13px;padding:2px 6px}
-    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
-  }
-  /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
-        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  .viewsline .vnum{color:#364e70}
-  .viewsline .vnum.vnum-on{color:#bf4a3a}
-  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <style>/* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
@@ -82,15 +59,6 @@
   <a class="lnk on" href="../../code/">程式設計</a>
 </nav>
 <body>
-<!-- hermesnav -->
-<nav class="hnav">
-  <a class="brand" href="../../">小R 頻道</a>
-  <a class="lnk" href="../../ai/">AI 助理實測</a>
-  <a class="lnk" href="../../stock/">股市觀察</a>
-  <a class="lnk" href="../../toeic/">多益英文</a>
-  <a class="lnk on" href="../../code/">程式設計</a>
-</nav>
-
 <div class="wrap">
   <a class="back" href="../">← 回程式設計</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
@@ -107,10 +75,8 @@
   </div>
 
   <h2><span class="dot"></span>批次資料準備</h2>
-  <video controls preload="metadata">
-    <source src="real-run.mp4" type="video/mp4">
-    你的瀏覽器不支援影片播放，<a href="real-run.mp4">點此下載</a>。
-  </video>
+<div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/XODeZ45T27Y" title="不用寫程式，讓電腦自己開啟 Excel 並把資料一列一列打進去（RPA 實測）" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="vidlink">看不方便的話，也可以<a href="https://youtu.be/XODeZ45T27Y" target="_blank" rel="noopener">直接在 YouTube 看</a>。</div>
   <div class="note" style="margin-top:14px">
     這段是<b>真的跑一遍的螢幕錄影</b>——電腦自己開啟 Excel，把整批資料準備好：先看工具裡載入的這支腳本與它的步驟，
     按播放之後畫面切到 Excel，表頭與三列資料被一列一列打進去。錄影從整台桌面擷取，所以有幾處處理：
@@ -122,10 +88,8 @@
 
 
   <h2><span class="dot"></span>範例 21：把 Excel 的多筆資料批次送進另一個程式</h2>
-  <video controls preload="metadata">
-    <source src="ex21.mp4" type="video/mp4">
-    你的瀏覽器不支援影片播放，<a href="ex21.mp4">點此下載</a>。
-  </video>
+<div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/eT4CtrjUM3Q" title="不用寫程式，讓電腦自己批次輸入多筆資料｜RPA 實測" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="vidlink">看不方便的話，也可以<a href="https://youtu.be/eT4CtrjUM3Q" target="_blank" rel="noopener">直接在 YouTube 看</a>。</div>
   <div class="note" style="margin-top:14px">
     <b>這段是批次輸入的實際錄影。</b>先看程式裡載入的範例 21，然後切到 Excel（多筆資料、游標停在 A1），
     按播放之後畫面就在 Excel 與目標程式之間來回：<b>複製一格 → 切過去貼上 → 切回來換下一格</b>，

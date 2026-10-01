@@ -15,8 +15,30 @@ import sys
 
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 SRC = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\20_開啟Excel並輸入資料.rpa.json"
-REAL_SRC = r"C:\Users\Summer\banner\ep_rpa\out\rpa_demo_real.mp4"        # 實際操作錄影＋旁白
 SRC21 = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\21_開啟Notepad並模擬從excel複製多筆資料貼上.rpa.json"
+VIDS_JSON = "C:/Users/Summer/banner/ep_rpa/out/rpa_video_ids.json"   # 頻道影片 id（不寫死在產生器裡）
+
+
+def video_ids():
+    """影片 id 從工作檔讀；換版本（重傳）只改那個檔，產生器不用動。"""
+    try:
+        return json.load(io.open(VIDS_JSON, encoding="utf-8"))
+    except Exception as e:
+        print("⚠ 讀不到影片 id 檔（%s）：%s" % (VIDS_JSON, e))
+        return {}
+
+
+def embed(vid, title):
+    """頻道影片的內嵌（youtube-nocookie）＋一個「直接在 YouTube 看」的備援連結。"""
+    if not vid:
+        return '<div class="note" style="margin-top:14px">影片連結建置中（找不到 video id）。</div>'
+    return ('<div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/%s" '
+            'title="%s" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; '
+            'gyroscope; picture-in-picture" allowfullscreen></iframe></div>\n'
+            '  <div class="vidlink">看不方便的話，也可以'
+            '<a href="https://youtu.be/%s" target="_blank" rel="noopener">直接在 YouTube 看</a>。</div>'
+            % (vid, h(title), vid))
+
 
 TYPE = {0: "滑鼠移動", 1: "滑鼠按鍵", 2: "滑鼠滾輪", 3: "鍵盤按鍵", 4: "文字輸入", 5: "找圖點擊",
         6: "切換視窗", 7: "巨集引用", 8: "固定等待", 32: "隨機等待", 10: "等待視窗",
@@ -81,11 +103,10 @@ def main():
 
     out = os.path.join(SITE, "code", "rpa-demo")
     os.makedirs(out, exist_ok=True)
-    if os.path.exists(REAL_SRC):
-        shutil.copy2(REAL_SRC, os.path.join(out, "real-run.mp4"))
-        print("實際錄影複製：", os.path.getsize(REAL_SRC), "bytes")
-    else:
-        print("⚠ 找不到實際錄影：", REAL_SRC)
+    # 影片改為頻道內嵌（公開），頁面目錄不再複製 mp4
+    ids = video_ids()
+    for k in ("rpa_demo_20", "rpa_demo_21"):
+        print("影片 id %s：%s" % (k, ids.get(k) or "（缺）"))
 
     # 範例 21 的動作統計（只取數字；步驟清單已不列，做法寫在說明段）
     d21 = json.load(io.open(SRC21, encoding="utf-8"))
@@ -120,7 +141,11 @@ def main():
        margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
   .box.red{border-color:#e6c3bc;background:#fdf6f4}
   .box.green{border-color:#bfdccd;background:#f4fbf7}
-  video{width:100%;border:2px solid var(--line);border-radius:14px;background:#000;display:block}
+  .embed{position:relative;aspect-ratio:16/9;border:2px solid var(--line);border-radius:14px;
+         overflow:hidden;background:#000}
+  .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  @supports not (aspect-ratio:16/9){.embed{height:0;padding-bottom:56.25%}}
+  .vidlink{margin-top:10px;font-size:14px;color:var(--soft)}
   ul.plain,ol.plain{margin:8px 0;padding-left:22px}
   ul.plain li,ol.plain li{margin:6px 0}
   .scroll{overflow-x:auto;margin:12px 0}
@@ -152,10 +177,7 @@ def main():
   </div>
 
   <h2><span class="dot"></span>批次資料準備</h2>
-  <video controls preload="metadata">
-    <source src="real-run.mp4" type="video/mp4">
-    你的瀏覽器不支援影片播放，<a href="real-run.mp4">點此下載</a>。
-  </video>
+__EMBED20__
   <div class="note" style="margin-top:14px">
     這段是<b>真的跑一遍的螢幕錄影</b>——電腦自己開啟 Excel，把整批資料準備好：先看工具裡載入的這支腳本與它的步驟，
     按播放之後畫面切到 Excel，表頭與三列資料被一列一列打進去。錄影從整台桌面擷取，所以有幾處處理：
@@ -167,10 +189,7 @@ def main():
 
 
   <h2><span class="dot"></span>範例 21：把 Excel 的多筆資料批次送進另一個程式</h2>
-  <video controls preload="metadata">
-    <source src="ex21.mp4" type="video/mp4">
-    你的瀏覽器不支援影片播放，<a href="ex21.mp4">點此下載</a>。
-  </video>
+__EMBED21__
   <div class="note" style="margin-top:14px">
     <b>這段是批次輸入的實際錄影。</b>先看程式裡載入的範例 21，然後切到 Excel（多筆資料、游標停在 A1），
     按播放之後畫面就在 Excel 與目標程式之間來回：<b>複製一格 → 切過去貼上 → 切回來換下一格</b>，
@@ -259,7 +278,11 @@ def main():
 </body>
 </html>
 """
-    html = (HTML.replace("__N21__", str(n21)).replace("__N21EN__", str(n21en))
+    html = (HTML.replace("__EMBED20__", embed(ids.get("rpa_demo_20"),
+                        "不用寫程式，讓電腦自己開啟 Excel 並把資料一列一列打進去（RPA 實測）"))
+                .replace("__EMBED21__", embed(ids.get("rpa_demo_21"),
+                        "不用寫程式，讓電腦自己批次輸入多筆資料｜RPA 實測"))
+                .replace("__N21__", str(n21)).replace("__N21EN__", str(n21en))
                 .replace("__N21EFF__", str(n21eff))
                 .replace("__TOT__", str(n_tot))
                 .replace("__DATE__", "2026/09/28"))
