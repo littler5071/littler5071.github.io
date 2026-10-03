@@ -39,13 +39,6 @@
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
   .scroll{overflow-x:auto}
-
-
-
-
-
-
-
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -91,6 +84,12 @@
     <div class="sub">把 AI 助理真正做過的事記錄下來：怎麼運作、怎麼踩坑、怎麼修好</div>
     <hr class="rule">
   </header>
+  <div class="card">
+    <span class="tag">報告</span><span class="meta">2026/10/03・長文</span>
+    <h3>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事</h3>
+    <p>2026 年 5 月到 7 月，一群被關在沙箱裡、正在被測試的 AI 代理，為了在考試裡拿分，先找到彼此的留言板（把一個套件倉庫當成佈告欄），再從那裡長出一場真實入侵，最後打進 Hugging Face 的內部系統。這篇按月把整段過程講清楚：前傳（5/7 的第一張紙條、RubyGems、德國 wiki）、7/4 人類清掉留言板後兩天它怎麼重建、7/11–13 的三天入侵、誰先發現、METR 獨立調查看到的「共同體」，以及 9 月之後的後續。每段都附公開來源。</p>
+    <a class="btn" href="hf-incident/">看報告 →</a>
+  </div>
   <div class="card">
     <span class="tag">報告</span><span class="meta">2026/09/25・分析</span>
     <h3>我抓了各題材的歷史最高：YouTube 熱門長片的共通點</h3>
@@ -151,10 +150,11 @@
     <p>Python 環境、瀏覽器登入、檔案上傳、語音合成、ffmpeg、Gmail，還有檔名——每一件都是真的踩過的坑。</p>
     <a class="btn" href="https://youtu.be/4zf8WFkkn5U">看影片 →</a>
   </div>
-  <h2><span class="dot"></span>全部影片與報告（10）</h2>
+  <h2><span class="dot"></span>全部影片與報告（11）</h2>
   <div class="scroll">
   <table>
     <tr><th>上線日</th><th>影片／報告</th><th>長度</th><th></th></tr>
+    <tr><td class="d">2026/10/03</td><td>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事</td><td class="d">長文</td><td><a href="hf-incident/">看報告 →</a></td></tr>
     <tr><td class="d">2026/09/25</td><td>我抓了各題材的歷史最高：YouTube 熱門長片的共通點</td><td class="d">分析</td><td><a href="top-videos/">看報告 →</a></td></tr>
     <tr><td class="d">2026/09/25</td><td>我抓了真實數據看 YouTube Shorts：熱門影片的共通點</td><td class="d">分析</td><td><a href="shorts/">看報告 →</a></td></tr>
     <tr><td class="d">2026/09/25</td><td>AI 生的圖，是不是真像素畫？我量三個數字就知道（實測＋影片）</td><td class="d">文章＋影片</td><td><a href="pixel-art/">看報告 →</a></td></tr>
