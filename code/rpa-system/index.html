@@ -32,12 +32,15 @@
   figcaption{color:var(--soft);font-size:13.5px;margin-top:8px;text-align:center}
   code{background:rgba(54,78,112,.07);border:1px solid var(--line);border-radius:6px;padding:1px 6px;
        font-size:14px;font-family:Consolas,"Courier New",monospace}
+  .embed{position:relative;margin:10px 0 8px;border:2px solid var(--line);border-radius:14px;overflow:hidden;background:#000}
+  .embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  @supports not (aspect-ratio:16/9){.embed{padding-bottom:56.25%;height:0}
+    .embed iframe{position:absolute;top:0;left:0;width:100%;height:100%}}
+  .vidlink{color:var(--soft);font-size:14px;margin:0 0 6px}
   .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
-
-
 
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
@@ -148,6 +151,12 @@
     <b>循環引用會被擋下來</b>：巨集引用有深度上限，互相呼叫的錯誤會直接停止播放並回報，
     不會無限遞迴把電腦卡死。
   </div>
+
+  <h2><span class="dot"></span>影片：這一類的優點在畫面上看得到</h2>
+  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/MPbPfzoD6hw" title="讓腳本去執行別的程式、讀寫檔案、抓下畫面"
+      loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe></div>
+  <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/MPbPfzoD6hw">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上同時看得到動作清單，播放後由程式自己跑完，全程沒有人碰鍵盤滑鼠。</p>
 
   <div class="box blue"><b>對應的示範腳本（工具內建）：</b>06 執行外部程式、07 檔案讀寫、11 螢幕擷取。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>
 

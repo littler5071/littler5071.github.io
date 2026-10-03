@@ -49,6 +49,11 @@ CSS = """
   figcaption{color:var(--soft);font-size:13.5px;margin-top:8px;text-align:center}
   code{background:rgba(54,78,112,.07);border:1px solid var(--line);border-radius:6px;padding:1px 6px;
        font-size:14px;font-family:Consolas,"Courier New",monospace}
+  .embed{position:relative;margin:10px 0 8px;border:2px solid var(--line);border-radius:14px;overflow:hidden;background:#000}
+  .embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  @supports not (aspect-ratio:16/9){.embed{padding-bottom:56.25%;height:0}
+    .embed iframe{position:absolute;top:0;left:0;width:100%;height:100%}}
+  .vidlink{color:var(--soft);font-size:14px;margin:0 0 6px}
   .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
@@ -123,6 +128,33 @@ def demos_box(names):
 
 def check_demos(names):
     return [n for n in names if os.path.exists(os.path.join(DEMOS, n + ".rpa.json"))]
+
+
+IDS_JSON = r"C:\Users\Summer\banner\ep_rpa\out\rpa_video_ids.json"
+
+
+def video_ids():
+    """影片 id 一律從 JSON 讀，不寫死（換版本只改那個檔）。"""
+    try:
+        import json as _json
+        return _json.load(io.open(IDS_JSON, encoding="utf-8"))
+    except Exception as e:
+        print("⚠ 讀不到影片 id：", e)
+        return {}
+
+
+def embed(key, title):
+    """每篇最後的說明影片：youtube-nocookie 內嵌 ＋ 一條備援連結。"""
+    vid = video_ids().get(key)
+    if not vid:
+        return ""
+    return ('\n  <h2><span class="dot"></span>影片：這一類的優點在畫面上看得到</h2>\n'
+            '  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/%s" title="%s"\n'
+            '      loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"\n'
+            '      allowfullscreen></iframe></div>\n'
+            '  <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/%s">直接在 YouTube 看</a>。'
+            '這支是 RPAHelper 的實際執行錄影：畫面上同時看得到動作清單，播放後由程式自己跑完，'
+            '全程沒有人碰鍵盤滑鼠。</p>\n' % (vid, title, vid))
 
 
 # ---------------------------------------------------------------- 各篇內容
@@ -418,7 +450,7 @@ PAGES = [
          title="讓電腦自己動滑鼠、打字，還會在畫面上找按鈕",
          h1="讓電腦自己動滑鼠、打字，<br>還會在畫面上找按鈕",
          sub="基本操作 8 個動作：找圖點擊可以跨程式找到別的程式的按鈕（連開始按鈕都行）",
-         kind="系列 2／5：基本操作",
+         kind="系列 2／5：基本操作", video="rpa_cat_basic",
          desc="RPA 工具的基本操作類 8 個動作：滑鼠點擊與文字輸入、找圖點擊（不必知道座標、可跨程式找到別的應用程式的按鈕並點擊）、"
               "等待圖片出現、切換與等待視窗、啟動程式、加入巨集流程。含找圖會壞掉的四種情況與「何時該用找圖、何時用座標」。",
          demos=["01_滑鼠鍵盤與文字", "02_找圖與等待影像"],
@@ -427,7 +459,7 @@ PAGES = [
          title="從照順序重播，變成會判斷、會重複的流程",
          h1="從照順序重播，<br>變成會判斷、會重複的流程",
          sub="變數與流程 11 個動作：變數可以跨腳本共用，條件判斷還能檢查檔案與視窗狀態",
-         kind="系列 3／5：變數與流程",
+         kind="系列 3／5：變數與流程", video="rpa_cat_flow",
          desc="RPA 工具的變數與流程類 11 個動作：變數與修飾詞（可跨腳本共用）、設定剪貼簿、正規式解析、"
               "條件判斷（含檔案存在／視窗存在／程序執行中）、標籤與跳躍、For 迴圈與 Break／Continue。",
          demos=["03_變數與剪貼簿", "04_條件判斷與跳躍", "05_迴圈"],
@@ -436,7 +468,7 @@ PAGES = [
          title="讓腳本去執行別的程式、讀寫檔案、抓下畫面",
          h1="讓腳本去執行別的程式、<br>讀寫檔案、抓下畫面",
          sub="系統與檔案 8 個動作：外部程式的輸出與結束代碼可以直接拿來判斷",
-         kind="系列 4／5：系統與檔案",
+         kind="系列 4／5：系統與檔案", video="rpa_cat_system",
          desc="RPA 工具的系統與檔案類 8 個動作：執行外部程式（等待、取得輸出、結束代碼）、讀取與寫入檔案、"
               "螢幕擷取、視窗操作、等待視窗關閉與等待程序、輸入法控制，以及把腳本當積木的巨集呼叫。",
          demos=["06_執行外部程式", "07_檔案讀寫", "11_螢幕擷取"],
@@ -445,7 +477,7 @@ PAGES = [
          title="等對地方，腳本才換得了電腦",
          h1="等對地方，<br>腳本才換得了電腦",
          sub="等待與訊息 4 個動作：能用「等條件」就不要用「等時間」",
-         kind="系列 5／5：等待與訊息",
+         kind="系列 5／5：等待與訊息", video="rpa_cat_wait",
          desc="RPA 工具的等待與訊息類 4 個動作：固定與隨機等待、顯示訊息（唯一真的需要人在旁邊的動作）、"
               "停止播放並指定成功或失敗；含步驟失敗時的兩種行為與排程該選哪一種。",
          demos=["10_錯誤處理與結束代碼"],
@@ -465,7 +497,7 @@ def main():
                     .replace("__SUB__", p["sub"])
                     .replace("__KIND__", p["kind"])
                     .replace("__DATE__", DATE)
-                    .replace("__BODY__", p["body"] + demos_box(p["demos"])))
+                    .replace("__BODY__", p["body"] + embed(p["video"], p["title"]) + demos_box(p["demos"])))
         open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(html)
         print("wrote %s (%d chars)" % (os.path.join(out, "index.html"), len(html)))
         bad = re.findall(r"__[A-Z]+__", html)
