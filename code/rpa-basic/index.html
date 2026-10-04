@@ -36,6 +36,10 @@
   .embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
   @supports not (aspect-ratio:16/9){.embed{padding-bottom:56.25%;height:0}
     .embed iframe{position:absolute;top:0;left:0;width:100%;height:100%}}
+  table.scope{width:100%;border-collapse:collapse;margin:12px 0 4px;font-size:15px;line-height:1.75}
+  table.scope th{text-align:left;padding:8px 10px;background:#f2f5f9;border-bottom:2px solid var(--line);font-weight:700}
+  table.scope td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.scope td.sc-step{width:44%;font-weight:600;color:#1a4f8a}
   .vidlink{color:var(--soft);font-size:14px;margin:0 0 6px}
   .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
@@ -179,12 +183,24 @@
   </div>
 
   <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>
+  <div class="box"><b>這支影片示範的是上面哪一段：</b>這支影片只示範「啟動程式 → 輸入文字 → 全選複製 → 存成變數」這條最基本的路線。</div>
+  <table class="scope">
+    <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>
+    <tbody>
+          <tr><td class="sc-step">啟動 notepad.exe</td><td>腳本自己去啟動程式，你不用先手動開。</td></tr>
+          <tr><td class="sc-step">等待「記事本」視窗出現</td><td>等視窗真的跑出來才往下走，不是硬等固定秒數。</td></tr>
+          <tr><td class="sc-step">程式自己輸入這段文字</td><td>中文也沒問題，而且換成任何一段文字都行。</td></tr>
+          <tr><td class="sc-step">Ctrl+A 全選、Ctrl+C 複製</td><td>用鍵盤步驟把選到的內容放進剪貼簿。</td></tr>
+          <tr><td class="sc-step">複製到的內容存成一個變數</td><td>存成變數之後，後面的步驟隨時可以再拿出來用。</td></tr>
+    </tbody>
+  </table>
+  <div class="box"><b>這支影片沒有示範的（文章有講、影片沒帶）：</b><ul><li>找圖點擊（跨程式找按鈕）</li><li>滑鼠移動、點擊、滾輪</li><li>等待視窗關閉、等待程序結束</li><li>呼叫其他巨集</li></ul></div>
   <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/HggcHRxBKIQ" title="讓電腦自己動滑鼠、打字，還會在畫面上找按鈕"
       loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe></div>
   <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/HggcHRxBKIQ">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，工具視窗以外的畫面都已經塗黑。</p>
 
-  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>01 滑鼠鍵盤與文字、02 找圖與等待影像。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>
+  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>01 滑鼠鍵盤與文字、02 找圖與等待影像。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。<b>但影片裡跑的是另一份</b>：示範副本放在 Scripts\Demo_影片\，內容跟這幾支相同，只是把播放速度調慢一點、每個步驟之間多停一下，方便看清楚程式在做什麼。你要自己試，直接用工具內建的那幾支就可以。</div>
 
   <div class="note">
     這是「四類動作」系列的其中一篇。系列第一篇是功能總覽（三種自動化方式、31 個動作、內建示範腳本與限制）：

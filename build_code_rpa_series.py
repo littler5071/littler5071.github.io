@@ -53,6 +53,10 @@ CSS = """
   .embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
   @supports not (aspect-ratio:16/9){.embed{padding-bottom:56.25%;height:0}
     .embed iframe{position:absolute;top:0;left:0;width:100%;height:100%}}
+  table.scope{width:100%;border-collapse:collapse;margin:12px 0 4px;font-size:15px;line-height:1.75}
+  table.scope th{text-align:left;padding:8px 10px;background:#f2f5f9;border-bottom:2px solid var(--line);font-weight:700}
+  table.scope td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.scope td.sc-step{width:44%;font-weight:600;color:#1a4f8a}
   .vidlink{color:var(--soft);font-size:14px;margin:0 0 6px}
   .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
@@ -123,7 +127,7 @@ def demos_box(names):
     txt = "、".join(n.replace("_", " ") for n in have) if have else "（無）"
     extra = ("　⚠ 找不到：" + "、".join(miss)) if miss else ""
     return ('\n  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>' + txt + "。" + extra +
-            " 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>\n")
+            " 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。<b>但影片裡跑的是另一份</b>：示範副本放在 Scripts\Demo_影片\，內容跟這幾支相同，只是把播放速度調慢一點、每個步驟之間多停一下，方便看清楚程式在做什麼。你要自己試，直接用工具內建的那幾支就可以。</div>\n")
 
 
 def check_demos(names):
@@ -143,19 +147,102 @@ def video_ids():
         return {}
 
 
+# ★ 影片實際示範的範圍（照 RPAHelper\Scripts\Demo_影片 裡腳本的真实流程整理）
+#   影片只示範這些步驟，上面文章講的是完整的功能分類 —— 兩者不是同一件事，必須講清楚。
+VIDEO_SCOPE = {
+    "rpa_cat_basic": {
+        "intro": "這支影片只示範「啟動程式 → 輸入文字 → 全選複製 → 存成變數」這條最基本的路線。",
+        "steps": [
+            ("啟動 notepad.exe", "腳本自己去啟動程式，你不用先手動開。"),
+            ("等待「記事本」視窗出現", "等視窗真的跑出來才往下走，不是硬等固定秒數。"),
+            ("程式自己輸入這段文字", "中文也沒問題，而且換成任何一段文字都行。"),
+            ("Ctrl+A 全選、Ctrl+C 複製", "用鍵盤步驟把選到的內容放進剪貼簿。"),
+            ("複製到的內容存成一個變數", "存成變數之後，後面的步驟隨時可以再拿出來用。"),
+        ],
+        "not_in_video": [
+            "找圖點擊（跨程式找按鈕）",
+            "滑鼠移動、點擊、滾輪",
+            "等待視窗關閉、等待程序結束",
+            "呼叫其他巨集",
+        ],
+    },
+    "rpa_cat_flow": {
+        "intro": "這支影片示範變數、字串處理、迴圈，還有條件成立的時候程式會跳過哪一段。",
+        "steps": [
+            ("先存兩個變數：姓名、產品", "值的內容會直接帶進後面的訊息裡。"),
+            ("把姓名和產品帶進訊息", "訊息視窗裡看到的是程式真正代入後的結果。"),
+            ("用關鍵字把一段文字去空白再轉成大寫", "關鍵字加在變數名後面就好。"),
+            ("迴圈從一到四，每輪都把累積值往上加", "影片裡可以看到每一輪的累積值都不一樣。"),
+            ("條件成立的時候，程式跳過中間那一段", "跳過之後會接在標籤後面繼續走。"),
+            ("把結果寫成一個檔案", "寫檔之後可以在別的流程再讀回來。"),
+        ],
+        "not_in_video": [
+            "剪貼簿的讀取與寫入（03 的示範有，這支沒帶）",
+            "巢狀迴圈（迴圈裡再放迴圈）",
+            "迴圈的提早結束",
+        ],
+    },
+    "rpa_cat_system": {
+        "intro": "這支影片示範執行外部程式、寫檔讀檔，還有把畫面擷取下來。",
+        "steps": [
+            ("設定一個變數，記住要存檔的位置", "先決定輸出要放哪裡。"),
+            ("腳本自己去執行 cmd", "執行完會把結束代碼記下來，這支回報結束代碼 0 代表成功。"),
+            ("把剛才的內容寫成一個文字檔", "寫檔路徑用剛才那個變數。"),
+            ("再把這個檔案讀回來", "讀進來的內容就變成一個變數，訊息裡看得到讀到的文字。"),
+            ("把整個畫面擷取下來存成圖片", "畫面擷取會存成 png。"),
+            ("把剛才的檔案用系統預設程式打開", "讓你直接看到輸出結果。"),
+        ],
+        "not_in_video": [
+            "視窗操作（最大化／最小化／關閉／搬移）",
+            "等待視窗關閉、等待程序啟動結束",
+            "以正規表示式解析文字",
+            "呼叫其他巨集",
+        ],
+    },
+    "rpa_cat_wait": {
+        "intro": "這支影片示範出錯的時候怎麼處理，成功的時候怎麼回報。",
+        "steps": [
+            ("腳本要去讀一個檔案，可是這個檔案不存在", "這是故意的，讓你看得到出錯時的樣子。"),
+            ("讀不到就跳出訊息視窗", "內容是腳本裡寫好的文字，不是程式亂寫的。"),
+            ("按一下確定，腳本就跳過這一段", "訊息視窗是阻塞的，沒按就不會往下走。"),
+            ("接著腳本去執行外部程式", "執行完檢查結束代碼。"),
+            ("結束代碼等於零，就跳出執行成功的訊息", "同一支影片裡訊息視窗被用了兩次：一次出錯提示、一次成功回報。"),
+        ],
+        "not_in_video": [
+            "固定等待與隨機等待的差異",
+            "停止播放（標示成功或失敗）",
+            "除錯時該看哪幾個檔案",
+        ],
+    },
+}
+
+
 def embed(key, title):
-    """每篇最後的說明影片：youtube-nocookie 內嵌 ＋ 一條備援連結。"""
+    """每篇最後的說明影片：youtube-nocookie 內嵌 ＋ 一條備援連結 ＋ 示範範圍對照。"""
     vid = video_ids().get(key)
     if not vid:
         return ""
+    sc = VIDEO_SCOPE.get(key, {})
+    rows = "\n".join(
+        '          <tr><td class="sc-step">%s</td><td>%s</td></tr>' % (a, b)
+        for a, b in sc.get("steps", []))
+    nico = "".join("<li>%s</li>" % x for x in sc.get("not_in_video", []))
     return ('\n  <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>\n'
+            '  <div class="box"><b>這支影片示範的是上面哪一段：</b>%s</div>\n'
+            '  <table class="scope">\n'
+            '    <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>\n'
+            '    <tbody>\n%s\n    </tbody>\n  </table>\n'
+            '%s'
             '  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/%s" title="%s"\n'
             '      loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"\n'
             '      allowfullscreen></iframe></div>\n'
             '  <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/%s">直接在 YouTube 看</a>。'
             '這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，'
             '全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，'
-            '工具視窗以外的畫面都已經塗黑。</p>\n' % (vid, title, vid))
+            '工具視窗以外的畫面都已經塗黑。</p>\n'
+            % (sc.get("intro", ""), rows,
+               ('  <div class="box"><b>這支影片沒有示範的（文章有講、影片沒帶）：</b><ul>%s</ul></div>\n' % nico) if nico else "",
+               vid, title, vid))
 
 
 # ---------------------------------------------------------------- 各篇內容

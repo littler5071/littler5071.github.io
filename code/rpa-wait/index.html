@@ -36,6 +36,10 @@
   .embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
   @supports not (aspect-ratio:16/9){.embed{padding-bottom:56.25%;height:0}
     .embed iframe{position:absolute;top:0;left:0;width:100%;height:100%}}
+  table.scope{width:100%;border-collapse:collapse;margin:12px 0 4px;font-size:15px;line-height:1.75}
+  table.scope th{text-align:left;padding:8px 10px;background:#f2f5f9;border-bottom:2px solid var(--line);font-weight:700}
+  table.scope td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.scope td.sc-step{width:44%;font-weight:600;color:#1a4f8a}
   .vidlink{color:var(--soft);font-size:14px;margin:0 0 6px}
   .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
@@ -157,12 +161,24 @@
   </div>
 
   <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>
+  <div class="box"><b>這支影片示範的是上面哪一段：</b>這支影片示範出錯的時候怎麼處理，成功的時候怎麼回報。</div>
+  <table class="scope">
+    <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>
+    <tbody>
+          <tr><td class="sc-step">腳本要去讀一個檔案，可是這個檔案不存在</td><td>這是故意的，讓你看得到出錯時的樣子。</td></tr>
+          <tr><td class="sc-step">讀不到就跳出訊息視窗</td><td>內容是腳本裡寫好的文字，不是程式亂寫的。</td></tr>
+          <tr><td class="sc-step">按一下確定，腳本就跳過這一段</td><td>訊息視窗是阻塞的，沒按就不會往下走。</td></tr>
+          <tr><td class="sc-step">接著腳本去執行外部程式</td><td>執行完檢查結束代碼。</td></tr>
+          <tr><td class="sc-step">結束代碼等於零，就跳出執行成功的訊息</td><td>同一支影片裡訊息視窗被用了兩次：一次出錯提示、一次成功回報。</td></tr>
+    </tbody>
+  </table>
+  <div class="box"><b>這支影片沒有示範的（文章有講、影片沒帶）：</b><ul><li>固定等待與隨機等待的差異</li><li>停止播放（標示成功或失敗）</li><li>除錯時該看哪幾個檔案</li></ul></div>
   <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/Kudq7LPe-aM" title="等對地方，腳本才換得了電腦"
       loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe></div>
   <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/Kudq7LPe-aM">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，工具視窗以外的畫面都已經塗黑。</p>
 
-  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>10 錯誤處理與結束代碼。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>
+  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>10 錯誤處理與結束代碼。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。<b>但影片裡跑的是另一份</b>：示範副本放在 Scripts\Demo_影片\，內容跟這幾支相同，只是把播放速度調慢一點、每個步驟之間多停一下，方便看清楚程式在做什麼。你要自己試，直接用工具內建的那幾支就可以。</div>
 
   <div class="note">
     這是「四類動作」系列的其中一篇。系列第一篇是功能總覽（三種自動化方式、31 個動作、內建示範腳本與限制）：

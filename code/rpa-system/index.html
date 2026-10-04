@@ -36,6 +36,10 @@
   .embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
   @supports not (aspect-ratio:16/9){.embed{padding-bottom:56.25%;height:0}
     .embed iframe{position:absolute;top:0;left:0;width:100%;height:100%}}
+  table.scope{width:100%;border-collapse:collapse;margin:12px 0 4px;font-size:15px;line-height:1.75}
+  table.scope th{text-align:left;padding:8px 10px;background:#f2f5f9;border-bottom:2px solid var(--line);font-weight:700}
+  table.scope td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.scope td.sc-step{width:44%;font-weight:600;color:#1a4f8a}
   .vidlink{color:var(--soft);font-size:14px;margin:0 0 6px}
   .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
@@ -153,12 +157,25 @@
   </div>
 
   <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>
+  <div class="box"><b>這支影片示範的是上面哪一段：</b>這支影片示範執行外部程式、寫檔讀檔，還有把畫面擷取下來。</div>
+  <table class="scope">
+    <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>
+    <tbody>
+          <tr><td class="sc-step">設定一個變數，記住要存檔的位置</td><td>先決定輸出要放哪裡。</td></tr>
+          <tr><td class="sc-step">腳本自己去執行 cmd</td><td>執行完會把結束代碼記下來，這支回報結束代碼 0 代表成功。</td></tr>
+          <tr><td class="sc-step">把剛才的內容寫成一個文字檔</td><td>寫檔路徑用剛才那個變數。</td></tr>
+          <tr><td class="sc-step">再把這個檔案讀回來</td><td>讀進來的內容就變成一個變數，訊息裡看得到讀到的文字。</td></tr>
+          <tr><td class="sc-step">把整個畫面擷取下來存成圖片</td><td>畫面擷取會存成 png。</td></tr>
+          <tr><td class="sc-step">把剛才的檔案用系統預設程式打開</td><td>讓你直接看到輸出結果。</td></tr>
+    </tbody>
+  </table>
+  <div class="box"><b>這支影片沒有示範的（文章有講、影片沒帶）：</b><ul><li>視窗操作（最大化／最小化／關閉／搬移）</li><li>等待視窗關閉、等待程序啟動結束</li><li>以正規表示式解析文字</li><li>呼叫其他巨集</li></ul></div>
   <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/QIh3jj6vnOg" title="讓腳本去執行別的程式、讀寫檔案、抓下畫面"
       loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe></div>
   <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/QIh3jj6vnOg">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，工具視窗以外的畫面都已經塗黑。</p>
 
-  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>06 執行外部程式、07 檔案讀寫、11 螢幕擷取。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。</div>
+  <div class="box blue"><b>對應的示範腳本（工具內建）：</b>06 執行外部程式、07 檔案讀寫、11 螢幕擷取。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。<b>但影片裡跑的是另一份</b>：示範副本放在 Scripts\Demo_影片\，內容跟這幾支相同，只是把播放速度調慢一點、每個步驟之間多停一下，方便看清楚程式在做什麼。你要自己試，直接用工具內建的那幾支就可以。</div>
 
   <div class="note">
     這是「四類動作」系列的其中一篇。系列第一篇是功能總覽（三種自動化方式、31 個動作、內建示範腳本與限制）：
