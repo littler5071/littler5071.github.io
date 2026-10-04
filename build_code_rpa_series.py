@@ -148,13 +148,14 @@ def embed(key, title):
     vid = video_ids().get(key)
     if not vid:
         return ""
-    return ('\n  <h2><span class="dot"></span>影片：這一類的優點在畫面上看得到</h2>\n'
+    return ('\n  <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>\n'
             '  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/%s" title="%s"\n'
             '      loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"\n'
             '      allowfullscreen></iframe></div>\n'
             '  <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/%s">直接在 YouTube 看</a>。'
-            '這支是 RPAHelper 的實際執行錄影：畫面上同時看得到動作清單，播放後由程式自己跑完，'
-            '全程沒有人碰鍵盤滑鼠。</p>\n' % (vid, title, vid))
+            '這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，'
+            '全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，'
+            '工具視窗以外的畫面都已經塗黑。</p>\n' % (vid, title, vid))
 
 
 # ---------------------------------------------------------------- 各篇內容
