@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>讓電腦自己開程式、打字，再把內容複製下來｜程式設計｜小R 頻道</title>
-<meta name="description" content="RPA 工具的基本操作類 8 個動作：滑鼠點擊與文字輸入、找圖點擊（不必知道座標、可跨程式找到別的應用程式的按鈕並點擊）、等待圖片出現、切換與等待視窗、啟動程式、加入巨集流程。含找圖會壞掉的四種情況與「何時該用找圖、何時用座標」。">
+<title>讓電腦自己開程式、打字，還會「看畫面」找按鈕點下去｜程式設計｜小R 頻道</title>
+<meta name="description" content="RPA 工具的基本操作示範：啟動程式、等待視窗出現、文字輸入（含中文）、鍵盤快捷鍵全選與複製、把複製到的內容存成變數，最後示範找圖點擊——拿畫面截下來的一小塊去比對整個畫面，找到就點下去，全程沒有輸入任何滑鼠座標。附容差與搜尋區域怎麼調、何時該用找圖、何時該用座標。">
 <style>
   :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
         --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
@@ -45,7 +45,6 @@
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
-
 
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
@@ -90,8 +89,8 @@
   <a class="back" href="../">← 回程式設計</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
 
-  <h1>讓電腦自己開程式、打字，<br>再把內容複製下來</h1>
-  <div class="sub">一支示範腳本：啟動記事本、輸入文字、全選複製、存成變數</div>
+  <h1>讓電腦自己開程式、打字，<br>還會「看畫面」找按鈕點下去</h1>
+  <div class="sub">一支示範腳本：啟動記事本、輸入文字、全選複製、存成變數，最後不用座標就點到粗體鈕</div>
   <div class="meta">2026/10/01・系列 2／5：基本操作</div>
 
 
@@ -128,22 +127,39 @@
     所以 Ctrl+A 這種動作會拆成三個鍵盤步驟記錄下來。
   </div>
 
+  <h2><span class="dot"></span>找圖點擊：不知道座標也能點到按鈕</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>文字全選之後，腳本拿「工具列上那個粗體鈕」的畫面，
+    去<b>整個畫面裡比對</b>，找到就直接點下去——<b>全程沒有輸入任何滑鼠座標</b>。
+    點完之後你會看到整段文字真的變粗。
+    <br><br>
+    <b>什麼時候該用找圖？</b>當目標的位置是程式事先不知道的時候。像是
+    <b>位置會移動的面板</b>、<b>隨視窗大小改變的按鈕</b>、<b>別的程式裡的元素</b>——
+    這些用死座標點，換一台電腦、視窗拉大一點就點錯了。
+    <br>找圖的作法是：先 F12 框選畫面上的目標存成樣板，播放時拿樣板去比對整個畫面。
+    <b>容差</b>控制要多像才算同一個目標（太小找不到、太大會點錯，建議 20～40）；
+    <b>搜尋區域</b>可以限定只在某個範圍裡找，速度更快也避免點到相似的錯誤目標。
+    <br><b>容差與搜尋區域這兩個參數，示範腳本裡都設定好了</b>：
+    你在影片裡看到它一次就找成功，就是因為限定了搜尋範圍、又把容差收到 12。
+  </div>
+
   <h2><span class="dot"></span>影片：這支示範腳本實際跑一遍</h2>
-  <div class="box"><b>一支示範腳本，從頭到尾沒有人碰鍵盤滑鼠。</b></div>
+  <div class="box"><b>一支示範腳本，從頭到尾沒有人碰鍵盤滑鼠；最後還示範了不用座標的找圖點擊。</b></div>
   <table class="scope">
     <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>
     <tbody>
           <tr><td class="sc-step">啟動 notepad.exe</td><td>腳本自己去啟動程式，你不用先手動開。</td></tr>
           <tr><td class="sc-step">等待「記事本」視窗出現</td><td>等視窗真的跑出來才往下走，不是硬等固定秒數。</td></tr>
-          <tr><td class="sc-step">程式自己輸入這段文字</td><td>中文也沒問題，換成任何一段文字都行。</td></tr>
+          <tr><td class="sc-step">程式自己輸入這段文字</td><td>中文、換行都沒問題，換成任何一段文字都行。</td></tr>
           <tr><td class="sc-step">Ctrl+A 全選、Ctrl+C 複製</td><td>用鍵盤步驟把選到的內容放進剪貼簿。</td></tr>
           <tr><td class="sc-step">複製到的內容存成一個變數</td><td>存成變數之後，後面的步驟隨時可以再拿出來用。</td></tr>
+          <tr><td class="sc-step">★找圖點擊：把文字變成粗體</td><td>拿粗體鈕的畫面去比對整個畫面，找到就點下去——不用座標。</td></tr>
     </tbody>
   </table>
-  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/S9v3r3TpJAs" title="讓電腦自己開程式、打字，再把內容複製下來"
+  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/LoCpFoT1ZFk" title="讓電腦自己開程式、打字，還會「看畫面」找按鈕點下去"
       loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe></div>
-  <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/S9v3r3TpJAs">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，工具視窗以外的畫面都已經塗黑。</p>
+  <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/LoCpFoT1ZFk">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，工具視窗以外的畫面都已經塗黑。</p>
 
   <div class="box blue"><b>對應的示範腳本（工具內建）：</b>01 滑鼠鍵盤與文字、02 找圖與等待影像。 每支都用註解步驟寫清楚在做什麼，可以開啟來對照本文。<b>但影片裡跑的是另一份</b>：示範副本放在 Scripts\Demo_影片\，內容跟這幾支相同，只是把播放速度調慢一點、每個步驟之間多停一下，方便看清楚程式在做什麼。你要自己試，直接用工具內建的那幾支就可以。</div>
 
