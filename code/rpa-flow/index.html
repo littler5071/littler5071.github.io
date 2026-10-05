@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>從照順序重播，變成會判斷、會重複的流程｜程式設計｜小R 頻道</title>
+<title>會存資料、會改字串，還會讓同一段流程重複跑｜程式設計｜小R 頻道</title>
 <meta name="description" content="RPA 工具的變數與流程類 11 個動作：變數與修飾詞（可跨腳本共用）、設定剪貼簿、正規式解析、條件判斷（含檔案存在／視窗存在／程序執行中）、標籤與跳躍、For 迴圈與 Break／Continue。">
 <style>
   :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
@@ -45,7 +45,6 @@
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
-
 
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
@@ -90,89 +89,76 @@
   <a class="back" href="../">← 回程式設計</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
 
-  <h1>從照順序重播，<br>變成會判斷、會重複的流程</h1>
-  <div class="sub">變數與流程 11 個動作：變數可以跨腳本共用，條件判斷還能檢查檔案與視窗狀態</div>
+  <h1>會存資料、會改字串，<br>還會讓同一段流程重複跑</h1>
+  <div class="sub">一支示範腳本：存變數、處理字串、迴圈累加，條件成立就跳過那一段</div>
   <div class="meta">2026/10/01・系列 3／5：變數與流程</div>
 
 
   <div class="box">
-    <b>這一類是「判斷」與「重複」：</b>錄製只能照順序重播，加上這一類的 11 個動作之後，
-    腳本才有辦法「看情況做事」。共 11 個：註解、設定變數、設定剪貼簿、正規式解析、條件判斷、
-    標籤、跳躍、迴圈開始／結束、跳出迴圈、下一輪。
+    <b>這支示範的是「會存資料、會改字串、會重複做事」：</b>
+    有了這些，腳本才不只是照順序重播，而是能看情況做事。
   </div>
 
   <figure>
-    <img class="shot" src="menu.png" alt="「步驟」選單的「變數與流程」分類，展開後是 11 個動作">
+    <img class="shot" src="menu.png" alt="「步驟」選單的「變數與流程」分類">
     <figcaption>「步驟」選單的「變數與流程」分類。示範腳本是 03（變數與剪貼簿）、04（條件判斷與跳躍）、05（迴圈）。</figcaption>
   </figure>
 
-  <h2><span class="dot"></span>變數：可以跨腳本共用</h2>
+  <h2><span class="dot"></span>變數：先存起來，之後帶進任何地方</h2>
   <div class="box green">
-    任何文字欄位都可以用 <code>${名稱}</code>。變數的來源除了常數，還有<b>剪貼簿、日期時間、游標位置、
-    前景視窗、隨機數、環境變數、檔案內容</b>⋯⋯所以「讀進來的資料」可以直接餵給後面的步驟。
-    <br><br>
-    <b>它可以跨腳本共用。</b>用「加入巨集流程」呼叫另一個腳本時，子腳本用的是同一份變數：
-    主流程先設好的值，子腳本直接就能用；子腳本自己宣告的初始變數也會併進來，呼叫端要覆寫也可以。
-    所以同一支子巨集能給很多支主流程重複使用。
-  </div>
-  <div class="box">
-    <b>修飾詞與預設值</b>（寫在變數名稱後面，用冒號串接，由左到右依序套用）：
-    <ul class="plain">
-      <li><code>${原文:trim}</code> 去頭尾空白；<code>:upper</code>／<code>:lower</code> 轉大小寫；<code>:length</code> 取長度。</li>
-      <li><code>${價格:int}</code> 轉整數、<code>:float</code> 轉小數、<code>:0.00</code> 數字格式化（也有 <code>#,##0</code> 千分位、日期格式）。</li>
-      <li><code>${代號|未設定}</code>：變數不存在時使用預設值，<b>而且不會中斷流程</b>；找不到的變數會展開成空字串並在播放紀錄留一行警告。</li>
-    </ul>
-    變數名稱不分大小寫，可含中英文、數字與底線。初始變數可以存在腳本裡（適合把腳本參數化），
-    命令列再用 <code>--var 月份=9</code> 覆寫；播放期間「變數」分頁會即時顯示每一個變數的值。
-  </div>
-  <div class="box">
-    <b>設定剪貼簿</b>把變數或文字放進剪貼簿（給那些不吃模擬輸入的程式用）；
-    <b>正規式解析</b>用正規表示式從變數或文字裡取出資料，可以指定第 N 個群組。
-    這兩步加上變數，就能把「網頁或報表上的一小段文字」變成後面流程可以判斷的資料。
+    <b>影片裡的做法：</b>一開始先存兩個變數——姓名跟產品。接著顯示訊息的時候把變數放進去，
+    程式會<b>把值直接帶進去</b>，所以你在影片裡看到的訊息視窗是
+    「你好 王小明，歡迎使用 RPAHelper！」，不是模板。
+    <br>變數名不分大小寫，可以跨腳本共用；同一支腳本重複執行時，
+    變數的初始值也可以在「腳本 → 變數」裡設定。
   </div>
 
-  <h2><span class="dot"></span>條件判斷：成立時可以做三件事</h2>
-  <div class="box">
-    條件成立時可以：<b>跳到某個標籤</b>、<b>略過下一步</b>、<b>中止整個播放</b>。
-    搭配「標籤」與「跳躍」就能組成 if / else；<code>SkipNextWhenTrue</code> 是「成立時跳過下一步」，
-    也就是 if 的相反寫法。
-    <br><br>
-    <b>比較方式不只等於／大於</b>，還有：包含、不包含、開頭是、結尾是、符合正規式、是空的、是數字，
-    以及很實用的狀態檢查——<b>檔案存在、視窗存在、程序執行中</b>。
-    所以「等那個程式跑完才繼續」「檔案生出來了才往下做」這種事，不需要寫程式。
-    <br><br>
-    一個容易踩的小地方：<b>兩邊都是數字時用數值比較</b>（所以 9 不會被當成比 10 大）；
-    一邊是文字時用字串比較（不分大小寫）。
+  <h2><span class="dot"></span>字串處理：關鍵字寫在變數名後面</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>把一段帶空白的文字，去空白再轉成大寫。
+    寫法是把關鍵字接在變數名後面（例如大括號加變數名再加去空白、轉大寫），
+    不用另外寫程式。
+    <br>可以用的處理包含去空白、轉大寫或小寫、取長度、數字格式化、日期格式化。
   </div>
 
-  <h2><span class="dot"></span>迴圈：重複、巢狀、提早結束</h2>
-  <div class="box">
-    迴圈寫在「迴圈開始」與「迴圈結束」之間，可以巢狀。開始那一步要設定<b>起始、結束、遞增</b>，
-    以及<b>把當下的索引寫進哪個變數</b>——那一步的欄位就是「輪數變數」，之後用
-    <code>${i}</code> 就能拿到它。
-    <br><br>
-    <b>跳出迴圈（Break）</b>提早結束整個迴圈；<b>下一輪（Continue）</b>跳過這一輪剩下的步驟、直接進下一輪。
-    實務上「遇到某一筆資料格式不對就跳過」就是這兩個動作用起來的。
-    <br><br>
-    安全機制：播放設定裡有「單次播放最多執行幾個動作」的上限，會自動攔住寫錯的無限迴圈；
-    流程跑不完時，先把「重複次數」改成 1，並檢查迴圈範圍。
+  <h2><span class="dot"></span>迴圈：讓同一段流程重複跑</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>迴圈寫在「迴圈開始」與「迴圈結束」之間。開始那一步要設定
+    <b>起始、結束、遞增</b>，以及<b>把當下的索引寫進哪個變數</b>。
+    <br>示範腳本讓迴圈從 1 跑到 4，每一輪都把累積值往上加，所以訊息視窗裡的數字
+    每一輪都不一樣：0+1、0+1+2、0+1+2+3、0+1+2+3+4。這是程式真的算出來的。
+    <br><b>安全機制：</b>播放設定裡有「單次播放最多執行幾個動作」的上限，
+    會自動攔住寫錯的無限迴圈。
   </div>
 
-  <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>
-  <div class="box"><b>這支影片示範的是上面哪一段：</b>這支影片示範變數、字串處理、迴圈，還有條件成立的時候程式會跳過哪一段。</div>
+  <h2><span class="dot"></span>條件判斷：成立時就跳過該跑的</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>用一個判斷式決定後面該不該跑。條件成立的話就<b>跳過中間那一段</b>，
+    直接接到標籤後面繼續——所以影片裡會出現「這條路走不到」的訊息被略過，
+    接著是「程式跳過中間那段」。
+    <br>搭配「標籤」與「跳到標籤」就能做出分支：條件不成立走 A 路，成立走 B 路。
+  </div>
+
+  <h2><span class="dot"></span>把結果寫成檔案</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>迴圈與判斷跑完之後，把累積結果寫成一個文字檔，
+    並回報寫到哪裡。寫檔之後可以在別的流程再讀回來。
+  </div>
+
+  <h2><span class="dot"></span>影片：這支示範腳本實際跑一遍</h2>
+  <div class="box"><b>一支示範腳本：存變數、處理字串、讓流程重複跑，條件成立就跳過該跑的。</b></div>
   <table class="scope">
     <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>
     <tbody>
           <tr><td class="sc-step">先存兩個變數：姓名、產品</td><td>值的內容會直接帶進後面的訊息裡。</td></tr>
-          <tr><td class="sc-step">把姓名和產品帶進訊息</td><td>訊息視窗裡看到的是程式真正代入後的結果。</td></tr>
-          <tr><td class="sc-step">用關鍵字把一段文字去空白再轉成大寫</td><td>關鍵字加在變數名後面就好。</td></tr>
-          <tr><td class="sc-step">迴圈從一到四，每輪都把累積值往上加</td><td>影片裡可以看到每一輪的累積值都不一樣。</td></tr>
-          <tr><td class="sc-step">條件成立的時候，程式跳過中間那一段</td><td>跳過之後會接在標籤後面繼續走。</td></tr>
+          <tr><td class="sc-step">把變數帶進訊息顯示</td><td>訊息視窗裡看到的是程式真正代入後的結果，不是模板。</td></tr>
+          <tr><td class="sc-step">把一段文字去空白再轉成大寫</td><td>關鍵字寫在變數名後面，整理完再拿來用。</td></tr>
+          <tr><td class="sc-step">迴圈從 1 跑到 4</td><td>每一輪都把累積值往上加，訊息裡的數字每輪都不一樣。</td></tr>
+          <tr><td class="sc-step">條件成立就跳過中間那一段</td><td>搭配標籤與跳到標籤，就做出分支。</td></tr>
           <tr><td class="sc-step">把結果寫成一個檔案</td><td>寫檔之後可以在別的流程再讀回來。</td></tr>
     </tbody>
   </table>
-  <div class="box"><b>這支影片沒有示範的（文章有講、影片沒帶）：</b><ul><li>剪貼簿的讀取與寫入（03 的示範有，這支沒帶）</li><li>巢狀迴圈（迴圈裡再放迴圈）</li><li>迴圈的提早結束</li></ul></div>
-  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/hIlxlluVEqw" title="從照順序重播，變成會判斷、會重複的流程"
+  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/hIlxlluVEqw" title="會存資料、會改字串，還會讓同一段流程重複跑"
       loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe></div>
   <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/hIlxlluVEqw">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，工具視窗以外的畫面都已經塗黑。</p>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>讓腳本去執行別的程式、讀寫檔案、抓下畫面｜程式設計｜小R 頻道</title>
+<title>執行外部程式、讀寫檔案，還把畫面擷取下來｜程式設計｜小R 頻道</title>
 <meta name="description" content="RPA 工具的系統與檔案類 8 個動作：執行外部程式（等待、取得輸出、結束代碼）、讀取與寫入檔案、螢幕擷取、視窗操作、等待視窗關閉與等待程序、輸入法控制，以及把腳本當積木的巨集呼叫。">
 <style>
   :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
@@ -45,7 +45,6 @@
         color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
-
 
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
@@ -90,88 +89,65 @@
   <a class="back" href="../">← 回程式設計</a>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
 
-  <h1>讓腳本去執行別的程式、<br>讀寫檔案、抓下畫面</h1>
-  <div class="sub">系統與檔案 8 個動作：外部程式的輸出與結束代碼可以直接拿來判斷</div>
+  <h1>執行外部程式、讀寫檔案，<br>還把畫面擷取下來</h1>
+  <div class="sub">一支示範腳本：執行 cmd 看結束代碼、把內容寫成檔案再讀回來、擷取畫面存檔</div>
   <div class="meta">2026/10/01・系列 4／5：系統與檔案</div>
 
 
   <div class="box">
-    <b>這一類是「跟外面的世界打交道」：</b>執行別的程式並拿它的輸出、讀寫檔案、抓畫面、
-    控制視窗、切輸入法。共 8 個：執行外部程式、讀取檔案、寫入檔案、螢幕擷取、視窗操作、
-    等待視窗關閉、等待程序、輸入法。
+    <b>這支示範的是「跟電腦上其他東西打交道」：</b>執行外部程式、把內容寫成檔案再讀回來，
+    以及把畫面擷取下來。
   </div>
 
   <figure>
-    <img class="shot" src="menu.png" alt="「步驟」選單的「系統與檔案」分類，展開後是 8 個動作">
+    <img class="shot" src="menu.png" alt="「步驟」選單的「系統與檔案」分類">
     <figcaption>「步驟」選單的「系統與檔案」分類。示範腳本是 06（執行外部程式）、07（檔案讀寫）、11（螢幕擷取）。</figcaption>
   </figure>
 
-  <h2><span class="dot"></span>執行外部程式：拿它的輸出當下一步的輸入</h2>
+  <h2><span class="dot"></span>執行外部程式：把它的輸出當下一步的輸入</h2>
   <div class="box green">
-    三種執行方式：<b>不等待</b>（丟出去就繼續）、<b>等待完成</b>、<b>取得輸出</b>。
-    路徑與參數都可以用變數；<b>輸出與結束代碼都能存進變數</b>，所以「跑完之後根據結果決定下一步」是可行的。
-    <br><br>
-    參數用變數代入，同一支腳本就能重複使用；輸出要修掉前後空白可以勾選。
-    它也可以呼叫 PowerShell 或命令列工具——腳本本身沒有寫程式，但可以借用系統既有的能力。
-  </div>
-  <div class="box">
-    <b>三個實務設定：</b>
-    <ul class="plain">
-      <li><b>結束代碼</b>：非 0 通常代表失敗；可以只靠它判斷成敗，不必解析輸出文字。</li>
-      <li><b>輸出編碼</b>：拿到亂碼時把它改成正確的編碼（預設跟隨主機命令列）。</li>
-      <li><b>隱藏視窗</b>：排程執行時不彈出黑窗，畫面比較乾淨。</li>
-    </ul>
+    <b>影片裡的做法：</b>腳本自己去執行 <code>cmd</code>，執行完會把<b>結束代碼</b>記下來。
+    <b>結束代碼等於 0 代表成功，非 0 代表失敗</b>——這是判斷「那件事到底有沒有做成」
+    最可靠的線索，比事後看畫面猜好得多。
+    <br>也可以把外部程式的<b>輸出</b>存成變數，當成下一步的輸入。
   </div>
 
-  <h2><span class="dot"></span>檔案讀寫與螢幕擷取</h2>
-  <div class="box">
-    <b>讀取檔案</b>把整個檔案讀進變數（可選擇是否修掉前後空白）；
-    <b>寫入檔案</b>有覆寫與附加模式，自動建立不存在的資料夾，編碼支援 UTF-8 與 Big5。
-    加上變數與正規式，就能做出「讀一份清單 → 每筆查一次 → 把結果寫成一份報表」這種流程。
-    <br><br>
-    <b>螢幕擷取</b>可以全螢幕、自訂區域，或只擷取目標視窗，存成 PNG 或 JPG；
-    檔名路徑可以用變數組合，<b>加上時間戳記就不會覆蓋前一次</b>——
-    這對「定時截圖留存」或「失敗時留證據」很有用。
+  <h2><span class="dot"></span>寫檔、讀檔：讓資料能在流程之間流動</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>先設定一個變數記住要存檔的位置，接著把內容<b>寫成一個文字檔</b>，
+    然後<b>再把同一個檔案讀回來</b>——讀進來的內容就變成一個變數。
+    <br>你在影片訊息視窗裡看到的「讀回來的內容」，就是剛才寫進檔案的那幾行字，
+    不是寫死的文字。資料夾不存在的話，工具可以自動建立。
   </div>
 
-  <h2><span class="dot"></span>視窗與程序：等到該關的關完</h2>
-  <div class="box">
-    <b>視窗操作</b>包含叫到前景、最大化、最小化、還原、關閉、搬移、置頂，
-    以及<b>把視窗資訊讀進變數</b>（標題、行程、位置、大小）——讀出來之後可以用正規式再解析。
-    <br><br>
-    <b>等待視窗關閉</b>與<b>等待程序</b>是兩個很常被忽略、但能救命的動作：
-    例如「等 Excel 完全關閉」再繼續，否則下一步會找到一個正在關閉的視窗。
-    <br><br>
-    <b>輸入法</b>可以讀取目前狀態、切換中／英模式、切到指定輸入法。
-    打字前先切成英文，可以避免中文輸入法攔截按鍵；查詢系統有哪些輸入法可以用命令列
-    <code>--ime-status</code>。要注意輸入法狀態是<b>每個視窗各自</b>的，少數程式不支援控制。
+  <h2><span class="dot"></span>螢幕擷取：把當下的畫面存成圖片</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>一個動作就把整個畫面擷取下來存成 png，
+    訊息視窗會回報「畫面已擷取存檔」，也可以自己指定存檔路徑。
+    <br>用途是留下「當時畫面長什麼樣」的證據：出錯時要回頭看當時畫面上的哪個按鈕被按了，
+    存一張圖比事後描述清楚得多。
   </div>
 
-  <h2><span class="dot"></span>把腳本當積木：呼叫其他巨集</h2>
-  <div class="box">
-    示範腳本 12 講的是子流程與<b>參數共用</b>：把「複製貼上一格資料」「下一行開頭」這種動作抽成子巨集，
-    主流程只負責組織。子巨集有它自己的重複次數、速度與目標視窗，路徑存成相對於 Scripts 資料夾，
-    整包複製到別台電腦也能用。
-    <br><br>
-    <b>循環引用會被擋下來</b>：巨集引用有深度上限，互相呼叫的錯誤會直接停止播放並回報，
-    不會無限遞迴把電腦卡死。
+  <h2><span class="dot"></span>把產出的檔案打開來看</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>最後用「啟動程式」把剛才產出的檔案用系統預設程式打開，
+    直接看到輸出結果，不用自己去資料夾裡找。
   </div>
 
-  <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>
-  <div class="box"><b>這支影片示範的是上面哪一段：</b>這支影片示範執行外部程式、寫檔讀檔，還有把畫面擷取下來。</div>
+  <h2><span class="dot"></span>影片：這支示範腳本實際跑一遍</h2>
+  <div class="box"><b>一支示範腳本：執行外部程式、寫檔讀檔、把畫面擷取下來。</b></div>
   <table class="scope">
     <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>
     <tbody>
-          <tr><td class="sc-step">設定一個變數，記住要存檔的位置</td><td>先決定輸出要放哪裡。</td></tr>
-          <tr><td class="sc-step">腳本自己去執行 cmd</td><td>執行完會把結束代碼記下來，這支回報結束代碼 0 代表成功。</td></tr>
-          <tr><td class="sc-step">把剛才的內容寫成一個文字檔</td><td>寫檔路徑用剛才那個變數。</td></tr>
-          <tr><td class="sc-step">再把這個檔案讀回來</td><td>讀進來的內容就變成一個變數，訊息裡看得到讀到的文字。</td></tr>
-          <tr><td class="sc-step">把整個畫面擷取下來存成圖片</td><td>畫面擷取會存成 png。</td></tr>
-          <tr><td class="sc-step">把剛才的檔案用系統預設程式打開</td><td>讓你直接看到輸出結果。</td></tr>
+          <tr><td class="sc-step">設定一個變數記住存檔位置</td><td>先決定輸出要放哪裡。</td></tr>
+          <tr><td class="sc-step">腳本自己去執行 cmd</td><td>執行完把結束代碼記下來，0 代表成功。</td></tr>
+          <tr><td class="sc-step">把內容寫成一個文字檔</td><td>寫檔路徑用剛才那個變數。</td></tr>
+          <tr><td class="sc-step">再把這個檔案讀回來</td><td>讀進來的內容變成一個變數，訊息裡看得到讀到的字。</td></tr>
+          <tr><td class="sc-step">把整個畫面擷取存檔</td><td>留下「當時畫面長什麼樣」的證據。</td></tr>
+          <tr><td class="sc-step">把產出的檔案用程式打開</td><td>直接看到輸出結果，不用自己去資料夾找。</td></tr>
     </tbody>
   </table>
-  <div class="box"><b>這支影片沒有示範的（文章有講、影片沒帶）：</b><ul><li>視窗操作（最大化／最小化／關閉／搬移）</li><li>等待視窗關閉、等待程序啟動結束</li><li>以正規表示式解析文字</li><li>呼叫其他巨集</li></ul></div>
-  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/QIh3jj6vnOg" title="讓腳本去執行別的程式、讀寫檔案、抓下畫面"
+  <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/QIh3jj6vnOg" title="執行外部程式、讀寫檔案，還把畫面擷取下來"
       loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe></div>
   <p class="vidlink">看不方便的話，也可以 <a href="https://youtu.be/QIh3jj6vnOg">直接在 YouTube 看</a>。這支是 RPAHelper 的實際執行錄影：畫面上看得到工具視窗和動作清單，程式自己跑完，全程沒有人碰鍵盤滑鼠；程式跳出的訊息視窗也一起入鏡，訊息裡的內容是變數真正代入後的值，工具視窗以外的畫面都已經塗黑。</p>

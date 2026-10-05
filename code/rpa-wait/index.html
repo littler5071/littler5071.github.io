@@ -46,7 +46,6 @@
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
 
-
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -91,89 +90,51 @@
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
 
   <h1>等對地方，<br>腳本才換得了電腦</h1>
-  <div class="sub">等待與訊息 4 個動作：能用「等條件」就不要用「等時間」</div>
+  <div class="sub">一支示範腳本：讀不到檔案就跳訊息說明，執行完看結束代碼決定回報成功還是失敗</div>
   <div class="meta">2026/10/01・系列 5／5：等待與訊息</div>
 
 
   <div class="box">
-    <b>這一類只有 4 個動作，但它們決定腳本是「能跑」還是「跑得穩」：</b>
-    固定等待、隨機等待、顯示訊息 / 確認 / 輸入、停止播放（指定成功或失敗）。
+    <b>這支示範的是「出錯的時候怎麼處理，成功的時候怎麼回報」：</b>
+    腳本做錯事，也要讓人知道發生什麼。
   </div>
 
   <figure>
-    <img class="shot" src="menu.png" alt="「步驟」選單的「等待與訊息」分類，展開後是 4 個動作">
-    <figcaption>「步驟」選單的「等待與訊息」分類。相關示範腳本是 10（錯誤處理與結束代碼）。</figcaption>
+    <img class="shot" src="menu.png" alt="「步驟」選單的「等待與訊息」分類">
+    <figcaption>「步驟」選單的「等待與訊息」分類。示範腳本是 10（錯誤處理與結束代碼）。</figcaption>
   </figure>
 
-  <h2><span class="dot"></span>等待：先求穩，再求快</h2>
+  <h2><span class="dot"></span>讀不到檔案：跳一個訊息視窗出來</h2>
   <div class="box green">
-    <b>固定等待</b>是等固定的毫秒數；<b>隨機等待</b>是在一個範圍內隨機（例如 300～900 毫秒），
-    讓節奏不那麼機械。
-    <br><br>
-    <b>最重要的一句：能用「等待視窗／等待圖片／等待程序」就不要用固定等待。</b>
-    固定等待是在賭那台電腦的速度，換一台機器就可能不夠或浪費；
-    等條件的動作是「條件到了就走」，慢的機器會等、快的機器不會多等，
-    同一支腳本才換得了機器。
-    <br><br>
-    實測上的經驗值：需要「讓畫面喘一下」時用 200～500 毫秒的隨機等待就夠，
-    真正不確定的等待交給條件類的動作。
+    <b>影片裡的做法：</b>腳本要去讀一個檔案，而這個檔案不存在。
+    讀不到就<b>跳出訊息視窗</b>，內容是腳本裡先寫好的文字，不是程式亂寫的。
+    <br>訊息視窗是<b>阻塞</b>的：畫面上跳出來之後，腳本就停在那裡等你按。
+    你按「確定」，它才知道可以往下走——這也是為什麼影片裡的訊息視窗都會停留幾秒，
+    讓觀眾看得清楚內容。
+    <br>訊息還有三種型態：單純顯示、是／否確認（結果存成變數）、以及請人輸入文字。
   </div>
 
-  <h2><span class="dot"></span>顯示訊息：需要人看一眼的時候</h2>
-  <div class="box">
-    三種形式：<b>提示</b>（只是告知）、<b>是／否確認</b>（結果存變數）、<b>輸入文字</b>（結果存變數）。
-    <br><br>
-    這是<b>唯一真的需要有人在旁邊的動作</b>。所以它同時是「無人值守」的分界線：
-    腳本裡有它，就要有人在；沒有的話，桌面開著讓它自己跑就好。
-    <br><br>
-    常見用法：執行到一半要人工判斷的地方停下來問一句；或是拿來當「這支腳本的用法說明」
-    （執行前先顯示一句「請先把報表開好」）。
+  <h2><span class="dot"></span>結束代碼：分辨成功還是失敗</h2>
+  <div class="box green">
+    <b>影片裡的做法：</b>跳過那一段之後，腳本繼續去執行外部程式，並檢查它的結束代碼。
+    <br><b>結束代碼等於 0 就跳出「執行成功」的訊息；不等於 0 就跳到另一個標籤、
+    顯示「結束代碼不是 0，代表失敗」。</b>
+    <br>同一支影片裡訊息視窗被用了兩次：一次是出錯提示、一次是成功回報——
+    這就是腳本自己決定要回報什麼。要讓排程看得出成敗，最後再用「停止播放」指定成功或失敗。
   </div>
 
-  <h2><span class="dot"></span>停止播放與結束代碼：讓排程看得出成敗</h2>
-  <div class="box">
-    <b>停止播放</b>可以主動結束，並指定這次是<b>成功還是失敗</b>；
-    這個結果會變成命令列的<b>結束代碼</b>（<code>0</code> 完成、<code>1</code> 失敗或被停止、
-    <code>2</code> 參數錯誤、<code>3</code> 找不到腳本）。
-    <br><br>
-    為什麼重要：交給排程或別的程式呼叫時，<b>結束代碼是唯一的判斷依據</b>。
-    腳本自己知道「這次的結果不對」時，用「停止播放（失敗）」收尾，呼叫端才看得出來。
-  </div>
-
-  <h2><span class="dot"></span>步驟失敗時的行為（示範腳本 10）</h2>
-  <div class="box">
-    每個步驟都可以各自指定<b>找不到／逾時時要怎麼做</b>，只有兩種選擇：
-    <ul class="plain">
-      <li><b>跳過並繼續</b>：記錄訊息後直接執行下一步。</li>
-      <li><b>中止整個播放</b>：停止並回報失敗。</li>
-    </ul>
-    <b>排程執行時建議用「中止」</b>，這樣失敗會回傳非 0 的結束代碼，排程器才看得出異常；
-    純示範或探索性的腳本才用「跳過」。
-    <br><br>
-    舊版的「暫停並詢問我」已經移除——播放中不會再跳出詢問視窗，所以不會有「沒人理它就卡在那裡」的狀況。
-    舊腳本還留著這個設定值的話，載入時會自動視為「跳過」。
-  </div>
-
-  <h2><span class="dot"></span>除錯時看哪裡</h2>
-  <div class="box">
-    播放紀錄（<code>Logs\playback.log</code>）與錯誤紀錄（<code>Logs\error.log</code>）會記下每一步的結果與變數值；
-    播放中「變數」分頁也會即時更新。播放到一半停住時，最有效的一步是<b>真的跑一遍、讀紀錄</b>，
-    而不是猜。
-  </div>
-
-  <h2><span class="dot"></span>影片：實際執行錄影，看得到程式自己跑</h2>
-  <div class="box"><b>這支影片示範的是上面哪一段：</b>這支影片示範出錯的時候怎麼處理，成功的時候怎麼回報。</div>
+  <h2><span class="dot"></span>影片：這支示範腳本實際跑一遍</h2>
+  <div class="box"><b>一支示範腳本：出錯的時候怎麼處理，成功的時候怎麼回報。</b></div>
   <table class="scope">
     <thead><tr><th>影片裡看到的步驟</th><th>說明</th></tr></thead>
     <tbody>
-          <tr><td class="sc-step">腳本要去讀一個檔案，可是這個檔案不存在</td><td>這是故意的，讓你看得到出錯時的樣子。</td></tr>
-          <tr><td class="sc-step">讀不到就跳出訊息視窗</td><td>內容是腳本裡寫好的文字，不是程式亂寫的。</td></tr>
-          <tr><td class="sc-step">按一下確定，腳本就跳過這一段</td><td>訊息視窗是阻塞的，沒按就不會往下走。</td></tr>
-          <tr><td class="sc-step">接著腳本去執行外部程式</td><td>執行完檢查結束代碼。</td></tr>
-          <tr><td class="sc-step">結束代碼等於零，就跳出執行成功的訊息</td><td>同一支影片裡訊息視窗被用了兩次：一次出錯提示、一次成功回報。</td></tr>
+          <tr><td class="sc-step">腳本要去讀一個不存在的檔案</td><td>這是故意的，讓你看得到出錯時的樣子。</td></tr>
+          <tr><td class="sc-step">讀不到就跳出訊息視窗</td><td>內容是腳本裡先寫好的文字。</td></tr>
+          <tr><td class="sc-step">按一下確定，腳本才繼續</td><td>訊息視窗是阻塞的，沒按就不會往下走。</td></tr>
+          <tr><td class="sc-step">跳過那一段，繼續執行外部程式</td><td>執行完檢查結束代碼。</td></tr>
+          <tr><td class="sc-step">結束代碼 0 就回報成功</td><td>不為 0 就跳到另一個標籤、回報失敗。</td></tr>
     </tbody>
   </table>
-  <div class="box"><b>這支影片沒有示範的（文章有講、影片沒帶）：</b><ul><li>固定等待與隨機等待的差異</li><li>停止播放（標示成功或失敗）</li><li>除錯時該看哪幾個檔案</li></ul></div>
   <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/Kudq7LPe-aM" title="等對地方，腳本才換得了電腦"
       loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe></div>
