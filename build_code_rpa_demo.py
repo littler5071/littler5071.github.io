@@ -122,25 +122,9 @@ def main():
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>不用寫程式，讓電腦自己批次輸入多筆資料｜程式設計｜小R 頻道</title>
 <meta name="description" content="兩支實際錄影：範例 20 先在 Excel 裡把整批資料準備好（用「等待視窗」取代固定延遲、用迴圈產生每一筆）；範例 21 再把這些資料批次送進另一個程式，換行時自動回到下一列開頭。同一套迴圈換掉目標程式，就能套用到其他應用程式或網頁表單。附兩支腳本的完整步驟說明。">
+<link rel="stylesheet" href="../../css/code.css">
 <style>
-  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
-        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
-  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
-         border-bottom:1.5px solid currentColor;color:var(--blue)}
   h1{font-size:clamp(24px,4.4vw,34px);margin:8px 0 6px;text-align:center;line-height:1.4}
-  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
-  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
-  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
-  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
-  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
-       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
-  .box.red{border-color:#e6c3bc;background:#fdf6f4}
-  .box.green{border-color:#bfdccd;background:#f4fbf7}
   .embed{position:relative;aspect-ratio:16/9;border:2px solid var(--line);border-radius:14px;
          overflow:hidden;background:#000}
   .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
