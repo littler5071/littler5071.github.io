@@ -27,40 +27,10 @@ HEAD = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 助理實測｜小R 頻道</title>
 <meta name="description" content="小R 頻道的 AI 助理實測：把 AI 助理真正做過的事記錄下來——怎麼運作、怎麼踩坑、怎麼修好，並附公開資料與實測數據。">
+<link rel="stylesheet" href="..css/index.css">
 <style>
-  :root{{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;--blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}}
-  *{{box-sizing:border-box}}
-  body{{margin:0;background:var(--paper);color:var(--ink);
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    line-height:1.75;background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}}
-  .wrap{{max-width:900px;margin:0 auto;padding:34px 22px 80px}}
-  header{{text-align:center;margin-bottom:6px}}
-  h1{{font-size:clamp(30px,6vw,44px);margin:0 0 4px;letter-spacing:.05em}}
-  .sub{{color:var(--blue);font-size:clamp(15px,2.6vw,19px)}}
-  .rule{{height:6px;width:200px;margin:14px auto 30px;border:0;
-        background:repeating-linear-gradient(90deg,var(--red) 0 12px,transparent 12px 20px);border-radius:3px;opacity:.75}}
   h2{{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}}
-  h2 .dot{{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}}
-  .card{{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
-        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}}
-  .tag{{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;
-       border:1.5px solid currentColor;margin-right:8px;vertical-align:2px;color:var(--leaf)}}
-  .card h3{{margin:6px 0 4px;font-size:clamp(17px,2.9vw,21px)}}
-  .card p{{margin:0 0 10px;color:var(--soft);font-size:15px}}
   .meta{{color:var(--soft);font-size:13.5px}}
-  a.btn{{display:inline-block;text-decoration:none;color:var(--blue);border-bottom:2px solid var(--blue);
-        padding-bottom:1px;font-size:15.5px}}
-  a.btn:hover{{color:var(--red);border-color:var(--red)}}
-  table{{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:14.5px}}
-  th,td{{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}}
-  th{{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}}
-  td.d{{white-space:nowrap;color:var(--soft)}}
-  td a{{color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(54,78,112,.35)}}
-  .note{{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
-        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}}
-  footer{{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}}
-  a{{color:var(--blue)}}
-  .scroll{{overflow-x:auto}}
 </style>
 </head>
 <body>
