@@ -37,6 +37,15 @@
   opacity:.75;
 }
 .scroll{overflow-x:auto}
+.lead{
+  max-width:780px;
+  margin:14px auto 6px;
+  color:var(--soft);
+  font-size:15px;
+  line-height:1.9;
+  text-align:left;
+}
+.lead b{color:var(--ink);font-weight:600}
 .sub{color:var(--blue);font-size:clamp(15px,2.6vw,19px)}
 .tag{
   display:inline-block;

@@ -159,7 +159,13 @@ def build_stock():
     <h1>股市觀察</h1>
     <div class="sub">公開資料的觀察與記錄・不構成投資建議</div>
     <hr class="rule">
-  </header>
+      <p class="lead">
+      每個交易日把成交金額前段班的個股逐檔做技術面觀察（上市前 35 名 ＋ 上櫃前 15 名），
+      只用證交所、櫃買中心與 Yahoo 股市的公開資料。<br>
+      <b>第一次來</b>建議先看〈方法必讀〉：那是一整套判讀流程與進場檢核表；
+      要追蹤某一天，直接從下面的觀察紀錄挑日期。這裡只做觀察與記錄，不預測、不報牌，也不構成投資建議。
+    </p>
+</header>
 """ + "\n".join(cards_ordered) + f"""
   <h2><span class="dot"></span>方法必讀</h2>
   <div class="card">
@@ -216,7 +222,13 @@ def build_toeic():
     <h1>多益英文</h1>
     <div class="sub">題目自行撰寫・語音合成・節奏依實際考場</div>
     <hr class="rule">
-  </header>
+      <p class="lead">
+      七個 Part 都做成可以真的作答、當場計分的完整題組；節奏照實際考場
+      （四種口音、題目到選項 2 秒、作答 5 秒），另外附一個「用唸的」詳解音檔，通車時可以聽。<br>
+      <b>第一次來</b>先看〈考前必讀〉（題型分配、時間、考場規則一頁看完）；
+      已經知道要練哪個 Part，就直接從下面的題組進去。
+    </p>
+</header>
   <h2><span class="dot"></span>考前必讀</h2>
   <div class="card">
     <span class="tag">攻略</span>

@@ -24,7 +24,9 @@
   .wrap{max-width:920px;margin:0 auto;padding:56px 22px 80px}
   header{text-align:center;margin-bottom:14px}
   h1{font-size:clamp(34px,7vw,56px);margin:0 0 6px;letter-spacing:.06em}
-  .sub{color:var(--blue);font-size:clamp(15px,2.6vw,19px)}
+    .lead{max-width:780px;margin:14px auto 6px;color:var(--soft);font-size:15px;line-height:1.9;text-align:left}
+  .lead b{color:var(--ink);font-weight:600}
+.sub{color:var(--blue);font-size:clamp(15px,2.6vw,19px)}
   .rule{height:6px;width:220px;margin:16px auto 40px;border:0;
         background:repeating-linear-gradient(90deg,var(--red) 0 12px,transparent 12px 20px);
         border-radius:3px;opacity:.75}
@@ -89,7 +91,11 @@
 <div class="wrap">
   <header>
     <h1>小R 頻道</h1>
-    <div class="sub">影片索引 · 分類入口</div>
+    <div class="sub">四個分類的入口：AI 助理實測、股市觀察、多益英文、程式設計</div>
+    <p class="lead">
+      每一區都是我自己做過、量過的東西，數字指得出出處。
+      <b>第一次來</b>可以先看各區說明再挑一篇；想找特定主題，直接從分類進去最快。
+    </p>
     <hr class="rule">
   </header>
 
@@ -97,7 +103,7 @@
     <h2><a class="h2link" href="ai/"><span class="dot"></span>AI 助理實測</a>
       <span class="more"><a href="ai/">全部影片（12）→</a></span>
     </h2>
-    <p class="hint">把 AI 助理真正做過的事記錄下來。</p>
+    <p class="hint">真的拿 AI 助理來做事的紀錄：實測影片、踩過的坑、用公開來源寫成的長文。</p>
     <div class="card">
       <span class="tag new">最新</span>
       <h3>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析</h3>
@@ -116,7 +122,7 @@
     <h2><a class="h2link" href="stock/"><span class="dot"></span>股市觀察</a>
       <span class="more"><a href="stock/">全部觀察紀錄（32）→</a></span>
     </h2>
-    <p class="hint">只用公開資料，把「熱門」拿去驗證；內容為觀察與記錄，不構成投資建議。</p>
+    <p class="hint">每個交易日成交金額前段班的逐檔技術面觀察，只用公開資料；不預測、不報牌。</p>
     <p class="mktline">大盤（加權指數）10/07 主狀態：突破頸線且帶量｜距多方頸線 +5.11%｜量比 20 1.12<span class="dim">　公開資料技術面統計，不構成投資建議</span></p>
     <div class="card">
       <span class="tag new">最新</span>
@@ -136,7 +142,7 @@
     <h2><a class="h2link" href="toeic/"><span class="dot"></span>多益英文</a>
       <span class="more"><a href="toeic/">全部題組（7）→</a></span>
     </h2>
-    <p class="hint">題目全部自行撰寫、不使用官方試題；附中文詳解與音檔。</p>
+    <p class="hint">七個 Part 都能真的作答計分；節奏照考場，附「用唸的」詳解音檔。</p>
     <div class="card">
       <span class="tag new">最新</span>
       <h3>Part 6 短文填空完整題組：4 篇 × 4 格 ＝ 16 題（滿分 16）</h3>
@@ -155,7 +161,7 @@
     <h2><a class="h2link" href="code/"><span class="dot"></span>程式設計</a>
       <span class="more"><a href="code/">全部文章（7）→</a></span>
     </h2>
-    <p class="hint">實際寫過、量過、踩過坑的東西；數字指得出出處，做法寫成可以照著做的步驟。</p>
+    <p class="hint">不用寫程式的 Windows 自動化：操作錄一次就能重複跑；附四類動作示範影片。</p>
     <div class="card">
       <span class="tag new">最新</span>
       <h3>讓電腦自己開程式、打字，還會「看畫面」找按鈕點下去</h3>
