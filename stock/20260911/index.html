@@ -5,98 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>股市觀察 2026/09/11 · 上市前 50＋上櫃前 20 逐檔技術線型 · 小R 頻道</title>
 <meta name="description" content="2026/09/11 成交金額上市前 50 名與上櫃前 20 名個股的技術線型逐檔分析：月線位置、底底高、頭頭高、頸線突破與三大法人籌碼。公開資料整理，不構成投資建議。">
+<link rel="stylesheet" href="../../css/stock-report.css">
 <style>
-  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;--blue:#364e70;--leaf:#2f8f63;}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.7;
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:1000px;margin:0 auto;padding:44px 18px 80px}
-  h1{font-size:clamp(26px,5vw,40px);margin:0 0 6px;text-align:center}
   .sub{text-align:center;color:var(--blue);margin-bottom:20px}
-  .back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;border-bottom:1.5px solid currentColor;color:var(--blue)}
-  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:6px 0 18px}
-  .box{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--soft)}
-  .box .big{font-size:23px;color:var(--ink);margin-bottom:2px}
-  .big.up{color:var(--red)} .big.dn{color:var(--leaf)}
-  .note{border:2px dashed var(--line);border-radius:14px;padding:14px 18px;color:var(--soft);font-size:14px;background:rgba(255,253,246,.6);margin-bottom:26px}
-  section h2{font-size:clamp(18px,3vw,24px);margin:34px 0 8px}
-  .nl{display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:8px}
-  .nl a{color:var(--blue);text-decoration:none;border-bottom:1.5px solid rgba(54,78,112,.35);font-size:15px}
-  .nl a:hover{color:var(--red);border-color:var(--red)}
-  .nl a i{font-style:normal;font-size:11px;margin-left:4px;vertical-align:1px;
-        border:1.2px solid currentColor;border-radius:999px;padding:0 5px;opacity:.85}
-  .nl a i.mk-l{color:var(--blue)} .nl a i.mk-o{color:#8a6d1f}
-  .mk{display:inline-block;font-size:11.5px;padding:0 7px;border-radius:999px;border:1.5px solid currentColor;vertical-align:2px}
-  .mk-l{color:var(--blue)} .mk-o{color:#8a6d1f}
-  article.card{background:#fffdf6;border:2px solid var(--line);border-radius:16px;padding:16px 18px;margin:16px 0;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
   .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-  .hd h3{margin:0;font-size:22px}
-  .hd h3 small{color:var(--soft);font-size:14px;font-weight:normal}
-  .px{font-size:20px} .px.up{color:var(--red)} .px.dn{color:var(--leaf)}
-  .pat{color:var(--blue);font-size:15px;margin:2px 0 10px} .dim{color:var(--soft)}
   .bbar{display:flex;height:11px;border-radius:6px;overflow:hidden;margin:6px 0 4px;border:1px solid #d8d2c6}
   .bbar span{display:block;height:100%} .bup{background:#c0392b} .bdn{background:#2e8c64} .bfl{background:#d8d2c6}
-  img{width:100%;height:auto;border-radius:10px;border:1.5px solid var(--line);background:#fbf7ef;min-height:120px}
-  .score{font-size:13.5px;color:var(--soft);border-left:4px solid var(--line);padding:2px 0 2px 10px;margin:0 0 10px}
-  .score b{color:var(--ink)}
-  table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
-  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
-  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
-  td.d{white-space:nowrap;color:var(--soft)}
   .scroll{overflow-x:auto}
-  a.chartlink{display:block;line-height:0}
-  a.chartlink:hover img{border-color:var(--red)}
-  .ylink{margin:6px 0 2px;font-size:13.5px}
-  .ylink a{color:var(--blue)}
-  .anbrief{margin:10px 0 2px}
-  .anconcl{font-size:clamp(16.5px,2.4vw,19px);line-height:1.75;margin:0 0 8px;color:var(--ink)}
-  .anpts{margin:0;padding:0 0 0 1.15em;font-size:15px;line-height:1.8;color:var(--ink)}
-  .anpts li{margin:0 0 3px}
-  .anpts b{color:var(--blue)}
-  @media (max-width:430px){
-    .anconcl{font-size:16px}
-    .anpts{font-size:14.5px}
-  }
-  .tgs{display:flex;flex-wrap:wrap;gap:6px}
   .tg{font-size:12.5px;color:var(--soft);border:1.5px solid var(--line);border-radius:999px;padding:1px 9px}
   a.top{display:block;text-align:center;margin-top:34px;color:var(--blue)}
-
 
   a.tg{text-decoration:none;color:var(--soft)}
   a.tg:hover{color:var(--red);border-color:var(--red)}
   a.toplink{display:inline-block;margin-top:8px;font-size:13.5px;color:var(--blue);text-decoration:none;
             border-bottom:1.5px solid rgba(54,78,112,.4)}
   a.toplink:hover{color:var(--red);border-color:var(--red)}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   /* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
