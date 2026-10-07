@@ -1,0 +1,100 @@
+/* css/ai-analysis.css ── ai-analysis 家族共用樣式
+   由 extract_family_css.py 產生；要改外觀改這裡，全家族頁面立刻跟著變。
+   ★ 產生器（gen_web_report_c.py／gen_web_report_intraday.py）的 CSS 常數
+     已同步移除這幾條，所以下次重生也不會吐回來。 */
+
+*{box-sizing:border-box}
+.box{
+  background:var(--card);
+  border:2px solid var(--line);
+  border-radius:16px;
+  padding:18px 20px;
+  margin:0 0 18px;
+  box-shadow:2px 3px 0 rgba(74,70,64,.06);
+}
+.box.green{border-color:#bfdccd;background:#f4fbf7}
+.box.red{border-color:#e6c3bc;background:#fdf6f4}
+.meta{
+  text-align:center;
+  color:var(--soft);
+  font-size:13.5px;
+  margin-bottom:20px;
+}
+.note{
+  margin-top:34px;
+  padding:15px 18px;
+  border:2px dashed var(--line);
+  border-radius:14px;
+  color:var(--soft);
+  font-size:14px;
+  background:rgba(255,253,246,.6);
+}
+.scroll{overflow-x:auto;margin:12px 0}
+.sub{
+  text-align:center;
+  color:var(--blue);
+  margin-bottom:6px;
+}
+.wrap{
+  max-width:900px;
+  margin:0 auto;
+  padding:38px 20px 80px;
+}
+a{color:var(--blue)}
+a.back{
+  display:inline-block;
+  margin-bottom:8px;
+  font-size:14.5px;
+  text-decoration:none;
+  border-bottom:1.5px solid currentColor;
+  color:var(--blue);
+}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.8;
+  font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+  background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);
+  background-size:26px 26px;
+}
+footer{
+  margin-top:30px;
+  text-align:center;
+  color:var(--soft);
+  font-size:13.5px;
+}
+h1{
+  font-size:clamp(25px,4.6vw,36px);
+  margin:8px 0 6px;
+  text-align:center;
+  line-height:1.4;
+}
+h2{
+  font-size:clamp(19px,3.3vw,25px);
+  margin:36px 0 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  line-height:1.4;
+}
+h2 .dot{
+  width:14px;
+  height:14px;
+  border:3px solid var(--red);
+  border-radius:50%;
+  flex:none;
+}
+td.num{font-family:"Microsoft JhengHei",system-ui,sans-serif;white-space:nowrap}
+th{
+  background:rgba(255,253,246,.9);
+  font-weight:400;
+  color:var(--soft);
+  white-space:nowrap;
+}
+th,td{
+  border:1px solid var(--line);
+  padding:9px 11px;
+  text-align:left;
+  vertical-align:top;
+}

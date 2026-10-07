@@ -20,39 +20,16 @@ HTML = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YouTube 熱門長片的共通點：我抓了各題材的歷史最高｜AI 助理實測｜小R 頻道</title>
 <meta name="description" content="用「依觀看次數排序」抓各題材的歷史最高影片，發現三件事：知識型教學的天花板是千萬級、榜上影片多半是 15 到 30 分鐘的長片、而且都是五到十年前的舊片。同場加映官方 FAQ 的 CTR 基準與三條可以停止相信的建議。">
+<link rel="stylesheet" href="../../css/ai-analysis.css">
 <style>
   :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
         --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
-  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
-         border-bottom:1.5px solid currentColor;color:var(--blue)}
-  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
-  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
-  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
-  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
-  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
-  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
-       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
-  .box.red{border-color:#e6c3bc;background:#fdf6f4}
-  .box.green{border-color:#bfdccd;background:#f4fbf7}
   ul.plain,ol.plain{margin:8px 0;padding-left:22px}
   ul.plain li,ol.plain li{margin:6px 0}
-  .scroll{overflow-x:auto;margin:12px 0}
   table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:600px}
-  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
-  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
-  td.num{font-family:"Microsoft JhengHei",system-ui,sans-serif;white-space:nowrap}
   .lv{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1.5px solid currentColor;
       vertical-align:2px;white-space:nowrap}
   .lv1{color:var(--leaf)}.lv2{color:var(--blue)}.lv3{color:var(--red)}
-  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
-        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
-  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
-  a{color:var(--blue)}
 </style>
 </head>
 <body>

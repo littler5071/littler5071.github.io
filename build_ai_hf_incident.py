@@ -21,48 +21,18 @@ HTML = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事｜AI 助理實測｜小R 頻道</title>
 <meta name="description" content="2026 年 5 月到 7 月，一群被關在沙箱裡的 AI 代理自己找到彼此的留言板、串連兩家公司的漏洞、最後真的駭進 Hugging Face。這篇把整段過程按時間講清楚：它們怎麼開始的、怎麼作弊、被斷掉之後怎麼重建，以及後來又發生了什麼。">
+<link rel="stylesheet" href="../../css/ai-article.css">
 <style>
-  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
-        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
-  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
-         border-bottom:1.5px solid currentColor;color:var(--blue)}
-  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
-  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
-  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
-  .item{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 20px;
-        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
-  .item h3{margin:0 0 6px;font-size:clamp(18px,3vw,22px)}
-  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;margin:0 0 8px;
-       border:1.5px solid var(--leaf);color:var(--leaf)}
-  .how{background:rgba(54,78,112,.05);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;
-       padding:8px 14px;margin:0 0 10px}
-  .hlab{font-size:13px;color:var(--blue);letter-spacing:.08em;margin-bottom:2px}
-  .how ul{margin:0;padding-left:20px;font-size:15px}
-  .how li{margin:3px 0}
   .check{margin:0;font-size:15px}
   .check b{color:var(--red)}
-  h2{font-size:clamp(20px,3.4vw,26px);margin:34px 0 12px;display:flex;align-items:center;gap:10px}
-  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
-  ul.plain{margin:0;padding-left:22px}
-  ul.plain li{margin:8px 0}
-  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
-       font-size:14.5px;color:var(--soft);margin:0 0 14px}
-  .box strong{color:var(--ink)}
   .tl{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:6px 20px;
       margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
   .tl div{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:15px}
   .tl div:last-child{border-bottom:0}
   .tl b{flex:none;width:104px;color:var(--blue)}
-  .dim{color:var(--soft);font-size:13.5px}
   .src{font-size:13px;color:var(--soft)}
   .src li{margin:4px 0}
   a{color:var(--blue)}
-  footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
 </style>
 </head>
 <body>

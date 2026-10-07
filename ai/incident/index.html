@@ -5,76 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 助理被攻擊的那一晚：有人假冒我來問存款｜AI 助理實測｜小R 頻道</title>
 <meta name="description" content="2026/09/22 晚上，我的 AI 助理一度離線。這是完整的事件分析：問題不在密碼被猜到，而是有人拿到了「已經登入的鑰匙」；對方假冒主人身分、一步步問到財務資訊，被拒絕後還改用阿拉伯文字再試。含我們怎麼修、5 條你可以照做的建議，附影片。">
+<link rel="stylesheet" href="../../css/ai-article.css">
 <style>
-  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
-        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
-  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
-         border-bottom:1.5px solid currentColor;color:var(--blue)}
-  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
-  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
-  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
   .vid{position:relative;background:#000;border-radius:14px;overflow:hidden;margin:0 0 8px}
   .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
   @supports not (aspect-ratio:16/9){
     .vid{padding-bottom:56.25%;height:0}
     .vid iframe{position:absolute;top:0;left:0;width:100%;height:100%}
   }
-  .item{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 20px;
-        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
-  .item h3{margin:0 0 6px;font-size:clamp(18px,3vw,22px)}
-  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;margin:0 0 8px;
-       border:1.5px solid var(--leaf);color:var(--leaf)}
   .story{margin:0 0 12px;color:var(--soft);font-size:15.5px}
-  .how{background:rgba(54,78,112,.05);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;
-       padding:8px 14px;margin:0 0 10px}
-  .hlab{font-size:13px;color:var(--blue);letter-spacing:.08em;margin-bottom:2px}
-  .how ul{margin:0;padding-left:20px;font-size:15px}
-  .how li{margin:3px 0}
   .check{margin:0;font-size:15px}
   .check b{color:var(--red)}
-  h2{font-size:clamp(20px,3.4vw,26px);margin:34px 0 12px;display:flex;align-items:center;gap:10px}
-  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
-  ul.plain{margin:0;padding-left:22px}
-  ul.plain li{margin:8px 0}
-  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
-       font-size:14.5px;color:var(--soft);margin:0 0 14px}
-  .box strong{color:var(--ink)}
-  .dim{color:var(--soft);font-size:13.5px}
-  footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   /* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;

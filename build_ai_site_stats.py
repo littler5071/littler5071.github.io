@@ -24,37 +24,8 @@ HTML = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析｜AI 助理實測｜小R 頻道</title>
 <meta name="description" content="我讓 AI 助理把頻道網站 61 個頁面的瀏覽次數全部撈出來做分析：58 頁有人看過、合計 833 人次。發現四成的流量停在目錄頁、前 10 頁就吃掉七成、股市系列佔全站近一半、盤中快照只有日報的四成——含完整排行、逐分類交叉分析、這份數據的六個限制。"">
+<link rel="stylesheet" href="../../css/ai-article.css">
 <style>
-  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
-        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
-  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
-         border-bottom:1.5px solid currentColor;color:var(--blue)}
-  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
-  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
-  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
-  .item{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 20px;
-        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
-  .item h3{margin:0 0 6px;font-size:clamp(18px,3vw,22px)}
-  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;margin:0 0 8px;
-       border:1.5px solid var(--leaf);color:var(--leaf)}
-  .how{background:rgba(54,78,112,.05);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;
-       padding:8px 14px;margin:0 0 10px}
-  .hlab{font-size:13px;color:var(--blue);letter-spacing:.08em;margin-bottom:2px}
-  .how ul{margin:0;padding-left:20px;font-size:15px}
-  .how li{margin:3px 0}
-  h2{font-size:clamp(20px,3.4vw,26px);margin:34px 0 12px;display:flex;align-items:center;gap:10px}
-  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
-  ul.plain{margin:0;padding-left:22px}
-  ul.plain li{margin:8px 0}
-  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
-       font-size:14.5px;color:var(--soft);margin:0 0 14px}
-  .box strong{color:var(--ink)}
-  .dim{color:var(--soft);font-size:13.5px}
   .tw{overflow-x:auto;margin:0 0 16px}
   table.bd{width:100%;min-width:520px;border-collapse:collapse;font-size:14.5px;
     background:var(--card);border:2px solid var(--line);border-radius:14px;overflow:hidden}
@@ -71,7 +42,6 @@ HTML = """<!DOCTYPE html>
            padding:10px 14px;text-align:center}
   .kpi b{display:block;font-size:clamp(22px,4vw,30px);color:var(--blue);line-height:1.25}
   .kpi span{font-size:13px;color:var(--soft)}
-  footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
 </style>
 </head>
 <body>

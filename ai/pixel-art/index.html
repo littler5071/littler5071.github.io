@@ -5,19 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 生的圖，是不是真像素畫？我量三個數字就知道｜AI 助理實測｜小R 頻道</title>
 <meta name="description" content="同一句提示、同樣要 64x64、同樣要求去背，三家的結果是 49 色對上一萬一千三百四十色。像素畫其實有三個客觀判準：色數、像素格、透明背景——都能用程式量出來，不必用眼睛吵。含實測數據與可自行複驗的程式碼。">
+<link rel="stylesheet" href="../../css/ai-analysis.css">
 <style>
   :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
         --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
-    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
-    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
-  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
-  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
-         border-bottom:1.5px solid currentColor;color:var(--blue)}
-  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
-  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
-  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
   .vid{position:relative;background:#000;border-radius:14px;overflow:hidden;margin:0 0 8px}
   .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
   @supports not (aspect-ratio:16/9){
@@ -25,20 +16,10 @@
     .vid iframe{position:absolute;top:0;left:0;width:100%;height:100%}
   }
   .dim{color:var(--soft);font-size:13.5px}
-  h2{font-size:clamp(19px,3.3vw,25px);margin:36px 0 12px;display:flex;align-items:center;gap:10px;line-height:1.4}
-  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
   h3{font-size:clamp(16px,2.7vw,19px);margin:22px 0 6px;color:var(--blue)}
-  .box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 20px;
-       margin:0 0 18px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
-  .box.red{border-color:#e6c3bc;background:#fdf6f4}
-  .box.green{border-color:#bfdccd;background:#f4fbf7}
   ul.plain{margin:8px 0;padding-left:22px}
   ul.plain li{margin:5px 0}
-  .scroll{overflow-x:auto;margin:12px 0}
   table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
-  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
-  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
-  td.num{font-family:"Microsoft JhengHei",system-ui,sans-serif;white-space:nowrap}
   td.ok{color:var(--leaf);font-weight:700}
   td.no{color:var(--red);font-weight:700}
   pre{background:#2f2b28;color:#f0ece4;padding:14px 16px;border-radius:12px;overflow-x:auto;
@@ -51,34 +32,6 @@
   figure{margin:16px 0;text-align:center}
   figure img{max-width:100%;border:2px solid var(--line);border-radius:12px;background:#fff}
   figcaption{color:var(--soft);font-size:13.5px;margin-top:6px}
-  .note{margin-top:34px;padding:15px 18px;border:2px dashed var(--line);border-radius:14px;
-        color:var(--soft);font-size:14px;background:rgba(255,253,246,.6)}
-  footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
-  a{color:var(--blue)}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   /* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
