@@ -27,7 +27,7 @@ HEAD = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 助理實測｜小R 頻道</title>
 <meta name="description" content="小R 頻道的 AI 助理實測：把 AI 助理真正做過的事記錄下來——怎麼運作、怎麼踩坑、怎麼修好，並附公開資料與實測數據。">
-<link rel="stylesheet" href="..css/index.css">
+<link rel="stylesheet" href="../css/index.css">
 <style>
   h2{{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}}
   .meta{{color:var(--soft);font-size:13.5px}}

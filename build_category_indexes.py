@@ -18,7 +18,7 @@ HEAD = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="..css/index.css">
+<link rel="stylesheet" href="../css/index.css">
 <style>
   h2{{font-size:clamp(19px,3.2vw,25px);margin:38px 0 10px;display:flex;align-items:center;gap:10px}}
   td a:hover{{color:var(--red);border-color:var(--red)}}
