@@ -39,21 +39,6 @@
   footer{margin-top:30px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
   .scroll{overflow-x:auto}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -80,6 +65,7 @@
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
+
 </style>
 <script defer src="../counter.js?v=94ad9679"></script>
 </head>
@@ -92,13 +78,18 @@
   <a class="lnk" href="../toeic/">多益英文</a>
   <a class="lnk" href="../code/">程式設計</a>
 </nav>
-
 <div class="wrap">
   <header>
     <h1>AI 助理實測</h1>
     <div class="sub">把 AI 助理真正做過的事記錄下來：怎麼運作、怎麼踩坑、怎麼修好</div>
     <hr class="rule">
   </header>
+  <div class="card">
+    <span class="tag">報告</span><span class="meta">2026/10/07・分析</span>
+    <h3>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析</h3>
+    <p>頻道網站 61 頁，58 頁有人打開過、合計 833 人次。但流量非常集中：前 10 頁就佔了 70%，而四個分類目錄頁＋首頁拿走四成——代表多數人是「先逛目錄再挑一篇」。含完整前 10 名排行、逐分類交叉分析、盤中快照與日報的落差、三頁從沒被打開，以及這份數據的六個限制（不知道來源、不知道停留時間、小樣本）。</p>
+    <a class="btn" href="site-stats/">看報告 →</a>
+  </div>
   <div class="card">
     <span class="tag">報告</span><span class="meta">2026/10/03・長文</span>
     <h3>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事</h3>
@@ -165,10 +156,11 @@
     <p>Python 環境、瀏覽器登入、檔案上傳、語音合成、ffmpeg、Gmail，還有檔名——每一件都是真的踩過的坑。</p>
     <a class="btn" href="https://youtu.be/4zf8WFkkn5U">看影片 →</a>
   </div>
-  <h2><span class="dot"></span>全部影片與報告（11）</h2>
+  <h2><span class="dot"></span>全部影片與報告（12）</h2>
   <div class="scroll">
   <table>
     <tr><th>上線日</th><th>影片／報告</th><th>長度</th><th></th></tr>
+    <tr><td class="d">2026/10/07</td><td>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析</td><td class="d">分析</td><td><a href="site-stats/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/03</td><td>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事</td><td class="d">長文</td><td><a href="hf-incident/">看報告 →</a></td></tr>
     <tr><td class="d">2026/09/25</td><td>我抓了各題材的歷史最高：YouTube 熱門長片的共通點</td><td class="d">分析</td><td><a href="top-videos/">看報告 →</a></td></tr>
     <tr><td class="d">2026/09/25</td><td>我抓了真實數據看 YouTube Shorts：熱門影片的共通點</td><td class="d">分析</td><td><a href="shorts/">看報告 →</a></td></tr>

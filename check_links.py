@@ -8,7 +8,7 @@ START = ["", "stock/", "stock/logic/", "stock/20260916-intraday/", "stock/202609
          "toeic/", "toeic/guide/", "toeic/p2-sample/", "toeic/p3-full/", "toeic/p4-full/",
          "toeic/p1-full/", "toeic/p5-full/", "toeic/p6-full/", "toeic/p7-full/",
          "ai/", "ai/exam/", "ai/hdd-ai/", "ai/agent10/", "ai/incident/", "ai/hf-incident/", "ai/pixel-art/", "ai/shorts/",
-         "ai/top-videos/", "code/", "code/github-top20/", "code/rpa-demo/", "code/rpa-overview/",
+         "ai/top-videos/", "ai/site-stats/", "code/", "code/github-top20/", "code/rpa-demo/", "code/rpa-overview/",
          "code/rpa-basic/", "code/rpa-flow/", "code/rpa-system/", "code/rpa-wait/"]
 
 

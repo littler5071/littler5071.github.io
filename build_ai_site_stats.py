@@ -1,0 +1,266 @@
+# -*- coding: utf-8 -*-
+"""產生網站流量完整分析文章頁 `/ai/site-stats/index.html`。
+
+- 版型沿用 `/ai/incident/`（同一套 :root 色票、.item／.how／.box／h2 .dot）。
+- 這篇**沒有影片**，所以拿掉 .vid 的 iframe、「看不方便就去 YouTube」那段、
+  以及 .vid 的 CSS（skill 說的「沒有數位影片的長文」變體）。
+- 導覽列／瀏覽次數由 add_site_nav.py 事後注入，本產生器不寫導覽。
+- 隱私：頁面不得出現憑證、帳號、email、user id、chat id、本機路徑或第三方識別。
+- 數字來源：out/site_views.json（用 abacus 的 **get** 端點取得，不會把計數灌大），
+  統計日 2026/10/07。
+
+用法：python build_ai_site_stats.py [網站根目錄]
+"""
+import os
+import sys
+
+SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SLUG = "site-stats"
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="我讓 AI 助理把頻道網站 61 個頁面的瀏覽次數全部撈出來做分析：58 頁有人看過、合計 833 人次。發現四成的流量停在目錄頁、前 10 頁就吃掉七成、股市系列佔全站近一半、盤中快照只有日報的四成——含完整排行、逐分類交叉分析、這份數據的六個限制。"">
+<style>
+  :root{--paper:#f6f1e6;--ink:#4a4640;--soft:#78706a;--line:#d9d1c2;--red:#bf4a3a;
+        --blue:#364e70;--leaf:#2f8f63;--card:#fffdf6;--sel:#f4e2b8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.8;
+    font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif;
+    background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:900px;margin:0 auto;padding:38px 20px 80px}
+  a.back{display:inline-block;margin-bottom:8px;font-size:14.5px;text-decoration:none;
+         border-bottom:1.5px solid currentColor;color:var(--blue)}
+  h1{font-size:clamp(25px,4.6vw,36px);margin:8px 0 6px;text-align:center;line-height:1.4}
+  .sub{text-align:center;color:var(--blue);margin-bottom:6px}
+  .meta{text-align:center;color:var(--soft);font-size:13.5px;margin-bottom:20px}
+  .item{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 20px;
+        margin:0 0 16px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .item h3{margin:0 0 6px;font-size:clamp(18px,3vw,22px)}
+  .tag{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:999px;margin:0 0 8px;
+       border:1.5px solid var(--leaf);color:var(--leaf)}
+  .how{background:rgba(54,78,112,.05);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;
+       padding:8px 14px;margin:0 0 10px}
+  .hlab{font-size:13px;color:var(--blue);letter-spacing:.08em;margin-bottom:2px}
+  .how ul{margin:0;padding-left:20px;font-size:15px}
+  .how li{margin:3px 0}
+  h2{font-size:clamp(20px,3.4vw,26px);margin:34px 0 12px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  ul.plain{margin:0;padding-left:22px}
+  ul.plain li{margin:8px 0}
+  .box{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:14px 18px;
+       font-size:14.5px;color:var(--soft);margin:0 0 14px}
+  .box strong{color:var(--ink)}
+  .dim{color:var(--soft);font-size:13.5px}
+  .tw{overflow-x:auto;margin:0 0 16px}
+  table.bd{width:100%;min-width:520px;border-collapse:collapse;font-size:14.5px;
+    background:var(--card);border:2px solid var(--line);border-radius:14px;overflow:hidden}
+  table.bd th,table.bd td{padding:8px 11px;border-bottom:1px solid var(--line);text-align:left}
+  table.bd th{background:rgba(54,78,112,.07);color:var(--blue);font-size:13.5px;font-weight:600}
+  table.bd tr:last-child td{border-bottom:0}
+  table.bd td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+  table.bd td.pg{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:var(--soft)}
+  table.bd tr.hi td{background:rgba(191,74,58,.055)}
+  .bar{display:inline-block;height:9px;border-radius:5px;background:var(--blue);
+       opacity:.5;vertical-align:middle;margin-left:8px}
+  .kpi{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 18px}
+  .kpi div{flex:1 1 150px;background:var(--card);border:2px solid var(--line);border-radius:14px;
+           padding:10px 14px;text-align:center}
+  .kpi b{display:block;font-size:clamp(22px,4vw,30px);color:var(--blue);line-height:1.25}
+  .kpi span{font-size:13px;color:var(--soft)}
+  footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>我把網站的瀏覽次數<br>全部撈出來看</h1>
+  <div class="sub">61 個頁面的完整流量分析：833 人次背後的六個發現</div>
+  <div class="meta">2026/10/07・純數據分析長文（無影片）</div>
+
+  <div class="box">
+    <strong>一句話摘要</strong>：頻道網站一共 61 頁，其中 58 頁有人打開過、合計 833 人次。
+    但流量非常集中——<strong>前 10 頁就佔了整整 70%</strong>，
+    而<strong>四個分類目錄頁＋首頁就拿走四成</strong>。
+    換句話說：多數人是「先逛目錄再挑一篇」，不是從外部直接點進某一篇文章。
+  </div>
+
+  <div class="kpi">
+    <div><b>833</b><span>總人次（58 頁）</span></div>
+    <div><b>61</b><span>網站總頁數</span></div>
+    <div><b>58</b><span>有人看過的頁</span></div>
+    <div><b>3</b><span>從沒被打開</span></div>
+  </div>
+
+  <h2><span class="dot"></span>先講方法：這份數字怎麼來的</h2>
+  <p>網站每一頁最下面都有一行「瀏覽次數」。那行數字不是我自己記在資料庫裡的，而是接了一個
+  <strong>免註冊、不用 cookie 的公開計數服務</strong>：頁面載入時去問它「這一頁被看過幾次」。</p>
+  <ul class="plain">
+    <li><b>一個瀏覽階段只算一次</b>　同一個人同一個分頁，重複整理頁面不會一直往上加。
+    所以這是<strong>人次</strong>，不是「瀏覽量」。</li>
+    <li><b>我這次是「只讀不寫」</b>　查詢用的是讀取端點，不會讓任何一頁的數字增加。
+    這點很重要：如果誤用了累加端點，我這篇分析本身就先把數據弄髒了。</li>
+    <li><b>網站沒被瀏覽過的頁面，計數服務會直接回「查無此頁」</b>　這也是我怎麼知道
+    「有 3 頁從來沒人打開」的方法——不是靠猜。</li>
+    <li><b>統計時間</b>　2026/10/07 當下的數字。</li>
+  </ul>
+  <p class="dim">另外，頁面本身有做保護：如果計數服務連不上（被廣告封鎖外掛擋掉之類），
+  它會改顯示「上次統計」的舊數字，真的完全取不到時就整行收起來，
+  不會留一個破折號在那裡。<strong>所以看不到數字不等於沒人看</strong>，這一點後面會再提。</p>
+
+  <h2><span class="dot"></span>完整排行：前 10 名</h2>
+  <div class="tw"><table class="bd">
+    <tr><th>#</th><th>頁面</th><th>類型</th><th class="n">人次</th></tr>
+    <tr class="hi"><td>1</td><td>盤中觀察快照（最新）<span class="pg">/stock/latest/</span></td><td>股市內頁</td><td class="n">118<span class="bar" style="width:118px"></span></td></tr>
+    <tr class="hi"><td>2</td><td>股市觀察（分類頁）<span class="pg">/stock/</span></td><td>目錄頁</td><td class="n">104<span class="bar" style="width:104px"></span></td></tr>
+    <tr class="hi"><td>3</td><td>首頁・影片索引<span class="pg">/</span></td><td>目錄頁</td><td class="n">82<span class="bar" style="width:82px"></span></td></tr>
+    <tr class="hi"><td>4</td><td>AI 助理實測（分類頁）<span class="pg">/ai/</span></td><td>目錄頁</td><td class="n">71<span class="bar" style="width:71px"></span></td></tr>
+    <tr><td>5</td><td>股市觀察 09/18（逐檔線型）<span class="pg">/stock/20260918/</span></td><td>股市內頁</td><td class="n">51<span class="bar" style="width:51px"></span></td></tr>
+    <tr class="hi"><td>6</td><td>程式設計（分類頁）<span class="pg">/code/</span></td><td>目錄頁</td><td class="n">43<span class="bar" style="width:43px"></span></td></tr>
+    <tr class="hi"><td>7</td><td>多益英文（分類頁）<span class="pg">/toeic/</span></td><td>目錄頁</td><td class="n">38<span class="bar" style="width:38px"></span></td></tr>
+    <tr><td>8</td><td>批次輸入多筆資料<span class="pg">/code/rpa-demo/</span></td><td>程式內頁</td><td class="n">36<span class="bar" style="width:36px"></span></td></tr>
+    <tr><td>9</td><td>股市觀察 09/15<span class="pg">/stock/20260915/</span></td><td>股市內頁</td><td class="n">20<span class="bar" style="width:20px"></span></td></tr>
+    <tr><td>10</td><td>TOEIC 題型分配與答題技巧<span class="pg">/toeic/guide/</span></td><td>多益內頁</td><td class="n">20<span class="bar" style="width:20px"></span></td></tr>
+  </table></div>
+  <p class="dim">第 9、10 名同分。<strong>前 10 名裡有 5 頁是目錄頁</strong>——這件事本身就是第一個發現。</p>
+
+  <h2><span class="dot"></span>發現一：四成的流量，停在「目錄頁」就停了</h2>
+  <p>四個分類頁加上首頁，只有 5 個頁面，卻吃掉 <strong>338 人次（全站 40.6%）</strong>。</p>
+  <div class="tw"><table class="bd">
+    <tr><th>頁面</th><th class="n">人次</th><th>佔全站</th></tr>
+    <tr><td>股市觀察 目錄</td><td class="n">104</td><td>12.5%</td></tr>
+    <tr><td>首頁</td><td class="n">82</td><td>9.8%</td></tr>
+    <tr><td>AI 助理實測 目錄</td><td class="n">71</td><td>8.5%</td></tr>
+    <tr><td>程式設計 目錄</td><td class="n">43</td><td>5.2%</td></tr>
+    <tr><td>多益英文 目錄</td><td class="n">38</td><td>4.6%</td></tr>
+    <tr class="hi"><td><b>合計（5 頁）</b></td><td class="n">338</td><td><b>40.6%</b></td></tr>
+  </table></div>
+  <p>背後的意義是：<strong>多數訪客是「先進目錄、再挑一篇」</strong>，而不是從搜尋或分享直接落在某篇文章上。</p>
+  <div class="box">
+    <strong>這代表目錄頁的「介紹文案」比什麼都重要。</strong>
+    因為那是四成人看到的第一個畫面——他們是靠那一頁的分類說明決定要不要點進去的。
+  </div>
+
+  <h2><span class="dot"></span>發現二：股市系列吃掉全站近一半</h2>
+  <div class="tw"><table class="bd">
+    <tr><th>分類</th><th class="n">頁數</th><th class="n">合計人次</th><th class="n">佔全站</th><th class="n">每頁平均</th></tr>
+    <tr class="hi"><td>股市觀察</td><td class="n">31</td><td class="n">394</td><td class="n">47.3%</td><td class="n">12.7</td></tr>
+    <tr><td>程式設計</td><td class="n">8</td><td class="n">147</td><td class="n">17.6%</td><td class="n">18.4</td></tr>
+    <tr><td>AI 助理實測</td><td class="n">8</td><td class="n">109</td><td class="n">13.1%</td><td class="n">13.6</td></tr>
+    <tr><td>多益英文</td><td class="n">9</td><td class="n">100</td><td class="n">12.0%</td><td class="n">11.1</td></tr>
+    <tr><td>首頁</td><td class="n">1</td><td class="n">82</td><td class="n">9.8%</td><td class="n">82.0</td></tr>
+    <tr><td>未公開頁</td><td class="n">1</td><td class="n">1</td><td class="n">0.1%</td><td class="n">1.0</td></tr>
+  </table></div>
+  <p>股市系列<strong>頁數最多（31 頁）、流量也最多（394 人次）</strong>，而且是每天新增的——
+  它同時是「最大的分類」與「最穩定的流量來源」。</p>
+
+  <h2><span class="dot"></span>發現三：前 10 頁吃掉七成，長尾非常長</h2>
+  <p>這是最典型的一種分布：<strong>少數頁面扛幾乎所有流量，剩下的一大串幾乎沒人看。</strong></p>
+  <div class="tw"><table class="bd">
+    <tr><th>瀏覽次數區間</th><th class="n">頁數</th><th>說明</th></tr>
+    <tr><td>20 以上</td><td class="n">10</td><td>主力頁</td></tr>
+    <tr><td>10–19</td><td class="n">7</td><td>次要頁</td></tr>
+    <tr><td>5–9</td><td class="n">11</td><td>剛起步</td></tr>
+    <tr class="hi"><td>1–4</td><td class="n">30</td><td><b>一半的頁面擠在這裡</b></td></tr>
+  </table></div>
+  <ul class="plain">
+    <li><b>前 10 頁 ＝ 583 人次 ＝ 全站 70.0%</b></li>
+    <li><b>30 頁（51.7%）只有 1～4 次</b>：其中大多是單日的股市觀察頁或盤中快照</li>
+    <li><b>單頁平均 14.4 次，中位數只有 4 次</b>　平均被少數熱門頁拉高，
+    中位數才是「一般頁面」的真實處境</li>
+  </ul>
+
+  <h2><span class="dot"></span>發現四：盤中快照，只有日報的四成</h2>
+  <p>股市那 31 頁裡其實有兩種東西：<strong>收盤後的日報</strong>（逐檔線型）與
+  <strong>盤中快照</strong>。兩者的表現差很多：</p>
+  <div class="tw"><table class="bd">
+    <tr><th>類型</th><th class="n">頁數</th><th class="n">合計</th><th class="n">每頁平均</th></tr>
+    <tr class="hi"><td>收盤日報（逐檔線型）</td><td class="n">15</td><td class="n">123</td><td class="n">8.2</td></tr>
+    <tr><td>盤中快照</td><td class="n">13</td><td class="n">45</td><td class="n">3.5</td></tr>
+  </table></div>
+  <p>盤中快照的每頁平均<strong>只有日報的 43%</strong>。合理的解釋是：
+  盤中的東西<strong>只有「當下」有用</strong>，過了那個時間點就沒人回頭看了；
+  而日報（逐檔技術線型）是有留存價值的參考資料。</p>
+
+  <h2><span class="dot"></span>發現五：程式設計的「每頁效率」最高</h2>
+  <p>程式設計只有 8 頁，卻拿到 147 人次——<strong>平均每頁 18.4 次，是四個分類裡最高的</strong>。
+  它沒有股市那種「每天新增」的產量優勢，可是單頁表現最好。</p>
+  <p>裡面表現最好的是剛剛完成的 RPA 系列（四篇分別是 36／18／16／13 次）——
+  <strong>四篇全部擠進前 15 名</strong>。這是純粹靠內容本身的效果，不是靠數量堆出來的。</p>
+
+  <h2><span class="dot"></span>發現六：AI 助理實測的內頁最弱</h2>
+  <p>AI 助理實測的目錄頁有 71 人次（全站第 4），
+  但<strong>7 個內頁加起來只有 38 人次、平均每頁 5.4 次</strong>——四個分類中最低。</p>
+  <div class="box">
+    <strong>這個落差值得注意</strong>：目錄頁很多人看，點進去的比例卻偏低。
+    可能的原因有兩個：一是文章偏長、二是標題還沒讓人在那一秒決定「值得點」。
+    這是下一輪要處理的問題，不是這篇文章能回答的。
+  </div>
+
+  <h2><span class="dot"></span>有三頁，從來沒有人打開過</h2>
+  <ul class="plain">
+    <li><b>AI 生的圖是不是真像素畫</b> —— 計數服務回報「查無此頁」，代表一次都沒被觸發</li>
+    <li><b>股市觀察 10/06</b></li>
+    <li><b>盤中快照 10/06</b></li>
+  </ul>
+  <p>10/06 那兩頁同一天、同時沒人看，所以比較像是<strong>那天沒有把連結發出去</strong>，
+  而不是頁面有問題。像素畫那篇則是真的完全沒有被引流到。</p>
+
+  <h2><span class="dot"></span>這份數據的六個限制</h2>
+  <p>數字能說的就這麼多。以下這些是它<strong>做不到</strong>的事，我不想讓它看起來比實際更權威：</p>
+  <ul class="plain">
+    <li><b>1. 不知道人從哪裡來</b>　沒有來源（referrer）資料，所以分不出哪些是搜尋、哪些是分享、哪些是自己看的。</li>
+    <li><b>2. 不知道停留多久</b>　只有「有沒有被打開」，沒有閱讀時間。</li>
+    <li><b>3. 「一人次」的定義很粗</b>　同一個瀏覽階段只算一次，所以看十次也只記一次；
+    但換裝置、換瀏覽器就會各算一次。</li>
+    <li><b>4. 擋廣告外掛會讓數字偏低</b>　連不上計數服務時，那一頁就只是顯示舊數字或整行收起來，
+    連帶讓真實訪客沒被計到。</li>
+    <li><b>5. 頁數基準會浮動</b>　股市每天新增頁面，所以「平均每頁」會被新頁拉低；
+    這篇的比例是 10/07 當下的快照，不是固定值。</li>
+    <li><b>6. 樣本很小</b>　833 人次是足以看趨勢的量，但不足以做統計推論——
+    任何一頁的數字再變動幾次，排名就可能洗牌。</li>
+  </ul>
+
+  <h2><span class="dot"></span>我從這份數據學到的 5 件事</h2>
+  <ul class="plain">
+    <li><b>1. 目錄頁就是門面</b>　四成人只看到目錄頁。分類說明寫得好不好，直接決定他們要不要點進去。</li>
+    <li><b>2. 產量會累積，但不一定會轉換</b>　股市靠每天新增堆出 31 頁，流量第一大；
+    程式設計只有 8 頁，單頁表現卻最好。兩種路線都成立，但成長方式不同。</li>
+    <li><b>3. 有時效性的內容會過期，有留存價值的會活著</b>　盤中快照只有日報的四成。</li>
+    <li><b>4. 上線不等於有人看</b>　有三頁是完全零。發佈的動作要配一個「把連結送出去」的動作，不然等於沒發。</li>
+    <li><b>5. 量測本身要小心別弄髒數據</b>　查詢時如果誤用累加端點，分析這件事本身就改變了被分析的對象。</li>
+  </ul>
+
+  <h2><span class="dot"></span>下一步</h2>
+  <ul class="plain">
+    <li>把 AI 助理實測的內頁標題重新檢視一輪，找出「目錄頁很多人看、內頁很少人點」的那段落差。</li>
+    <li>零瀏覽的那三頁，確認是漏了引流還是內容要調整。</li>
+    <li>把這份統計做成固定流程，之後每個月重跑一次，就能看出趨勢而不是單點快照。</li>
+  </ul>
+
+  <div class="box">
+    <strong>內容說明</strong>：本文的數字來自頻道網站頁面下方的公開瀏覽次數，
+    以只讀方式取得，未對任何計數做寫入。文中不包含任何帳號、憑證、個人識別或本機資訊。
+    這是公開數據的整理與觀察，不構成任何成效保證。
+  </div>
+  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+</div>
+</body>
+</html>
+"""
+
+
+def build():
+    d = os.path.join(SITE, "ai", SLUG)
+    os.makedirs(d, exist_ok=True)
+    p = os.path.join(d, "index.html")
+    open(p, "w", encoding="utf-8", newline="\n").write(HTML)
+    print("wrote", p, len(HTML), "chars")
+
+
+if __name__ == "__main__":
+    build()

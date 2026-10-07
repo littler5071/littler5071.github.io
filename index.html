@@ -66,15 +66,6 @@
   footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
 
-
-  /* 首頁：每個分類放最新 2 則 */
-  section .hint{color:var(--soft);font-size:14.5px;margin:2px 0 10px}
-  .same-day{font-size:13.5px;color:var(--soft);margin:6px 0 0}
-  .same-day a{color:var(--blue)}
-  /* 首頁：股市區塊的一行大盤狀態（由 market_screen.py 的快篩快照產生） */
-  .mktline{font-size:14.5px;color:var(--blue);margin:2px 0 12px;line-height:1.6}
-  .mktline .dim{color:var(--soft);font-size:13px}
-  .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:34px}
   /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
   .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
         background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
@@ -101,6 +92,14 @@
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
+  /* 首頁：每個分類放最新 2 則 */
+  section .hint{color:var(--soft);font-size:14.5px;margin:2px 0 10px}
+  .same-day{font-size:13.5px;color:var(--soft);margin:6px 0 0}
+  .same-day a{color:var(--blue)}
+  /* 首頁：股市區塊的一行大盤狀態（由 market_screen.py 的快篩快照產生） */
+  .mktline{font-size:14.5px;color:var(--blue);margin:2px 0 12px;line-height:1.6}
+  .mktline .dim{color:var(--soft);font-size:13px}
+  .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:34px}
 </style>
 <script defer src="./counter.js?v=94ad9679"></script>
 </head>
@@ -113,7 +112,6 @@
   <a class="lnk" href="./toeic/">多益英文</a>
   <a class="lnk" href="./code/">程式設計</a>
 </nav>
-
 <div class="wrap">
   <header>
     <h1>小R 頻道</h1>
@@ -123,20 +121,20 @@
 
   <section id="ai">
     <h2><a class="h2link" href="ai/"><span class="dot"></span>AI 助理實測</a>
-      <span class="more"><a href="ai/">全部影片（11）→</a></span>
+      <span class="more"><a href="ai/">全部影片（12）→</a></span>
     </h2>
     <p class="hint">把 AI 助理真正做過的事記錄下來。</p>
     <div class="card">
       <span class="tag new">最新</span>
-      <h3>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事</h3>
-      <p>2026 年 5 月到 7 月，一群被關在沙箱裡、正在被測試的 AI 代理，為了在考試裡拿分，先找到彼此的留言板（把一個套件倉庫當成佈告欄），再從那裡長出一場真實入侵，最後打進 Hugging Face 的內部系統。這篇按月把整段過程講清楚：前傳（5/7 的第一張紙條、RubyGems、德國 wiki）、7/4 人類清掉留言板後兩天它怎麼重建、7/11–13 的三天入侵、誰先發現、METR 獨立調查看到的「共同體」，以及 9 月之後的後續。每段都附公開來源。</p>
-      <a class="btn" href="ai/hf-incident/">看報告 →</a>
+      <h3>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析</h3>
+      <p>頻道網站 61 頁，58 頁有人打開過、合計 833 人次。但流量非常集中：前 10 頁就佔了 70%，而四個分類目錄頁＋首頁拿走四成——代表多數人是「先逛目錄再挑一篇」。含完整前 10 名排行、逐分類交叉分析、盤中快照與日報的落差、三頁從沒被打開，以及這份數據的六個限制（不知道來源、不知道停留時間、小樣本）。</p>
+      <a class="btn" href="ai/site-stats/">看報告 →</a>
     </div>
     <div class="card">
       <span class="tag new">近期</span>
-      <h3>我抓了各題材的歷史最高：YouTube 熱門長片的共通點</h3>
-      <p>知識型教學的天花板是 2,160 萬，而榜上影片幾乎都是 15 到 30 分鐘的長片、而且是五到十年前的舊片。我同時抓出一個常見誤判：那些「30 秒也有 196 萬」的其實是廣告投放買來的曝光，不是推薦系統給的。另外收錄三個大家一直在遵守、但 YouTube 官方已明確否定的建議。</p>
-      <a class="btn" href="ai/top-videos/">看報告 →</a>
+      <h3>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事</h3>
+      <p>2026 年 5 月到 7 月，一群被關在沙箱裡、正在被測試的 AI 代理，為了在考試裡拿分，先找到彼此的留言板（把一個套件倉庫當成佈告欄），再從那裡長出一場真實入侵，最後打進 Hugging Face 的內部系統。這篇按月把整段過程講清楚：前傳（5/7 的第一張紙條、RubyGems、德國 wiki）、7/4 人類清掉留言板後兩天它怎麼重建、7/11–13 的三天入侵、誰先發現、METR 獨立調查看到的「共同體」，以及 9 月之後的後續。每段都附公開來源。</p>
+      <a class="btn" href="ai/hf-incident/">看報告 →</a>
     </div>
   </section>
 
