@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-10-08 12:32:37",
+ "snapshot_at": "2026-10-08 18:16:42",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "ai/agent10": 3,
@@ -20,7 +20,7 @@
   "code/rpa-overview": 8,
   "code/rpa-system": 10,
   "code/rpa-wait": 16,
-  ".": 90,
+  ".": 91,
   "private/demo": 1,
   "stock/20260911": 1,
   "stock/20260914": 3,
@@ -53,7 +53,8 @@
   "stock/20261006": null,
   "stock/20261007-intraday": null,
   "stock/20261007": null,
-  "stock/20261008-intraday": null,
+  "stock/20261008-intraday": 1,
+  "stock/20261008": null,
   "stock": 110,
   "stock/latest": 129,
   "stock/logic": 4,
