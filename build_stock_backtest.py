@@ -218,6 +218,10 @@ def main():
                   "<title>%s：多頭、空頭分開算，只有 4 個訊號兩期都有效｜小R 頻道</title>" % TITLE,
                   head, count=1)
     head = head.replace("</style>", CSS + "</style>", 1)
+    # ★ 連結深度：head 是從 stock/index.html（一層深）取得的，本頁是兩層深 → 站台連結要加一層
+    head = head.replace('href="../nav.css', 'href="../../nav.css')
+    head = head.replace('src="../nav.js', 'src="../../nav.js')
+    head = head.replace('src="../counter.js', 'src="../../counter.js')
     os.makedirs(OUT, exist_ok=True)
     html_out = head + "<body>\n" + body() + "\n</body>\n</html>\n"
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(html_out)

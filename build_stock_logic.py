@@ -251,6 +251,10 @@ def main():
                   "<title>飆股在線等的技術分析邏輯：趨勢、位置、均線、型態、量價到進出場｜小R 頻道</title>",
                   head, count=1)
     head = head.replace("</style>", CSS + "</style>", 1)
+    # ★ 連結深度：head 來自 stock/index.html（一層深），本頁兩層深 → 站台連結加一層
+    head = head.replace('href="../nav.css', 'href="../../nav.css')
+    head = head.replace('src="../nav.js', 'src="../../nav.js')
+    head = head.replace('src="../counter.js', 'src="../../counter.js')
     os.makedirs(OUT, exist_ok=True)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(head + "<body>\n" + html_body() + "\n</body>\n</html>\n")
     figs = len([f for f in os.listdir(FIG_DST) if f.endswith(".png")])
