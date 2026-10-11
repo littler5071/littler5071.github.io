@@ -219,6 +219,8 @@ def main():
                   head, count=1)
     head = head.replace("</style>", CSS + "</style>", 1)
     # ★ 連結深度：head 是從 stock/index.html（一層深）取得的，本頁是兩層深 → 站台連結要加一層
+    #（只針對站台層資產；href="../" 與 ../20260915/ 這種同層連結要保持原樣）
+    head = head.replace('href="../css/', 'href="../../css/')
     head = head.replace('href="../nav.css', 'href="../../nav.css')
     head = head.replace('src="../nav.js', 'src="../../nav.js')
     head = head.replace('src="../counter.js', 'src="../../counter.js')

@@ -252,6 +252,7 @@ def main():
                   head, count=1)
     head = head.replace("</style>", CSS + "</style>", 1)
     # ★ 連結深度：head 來自 stock/index.html（一層深），本頁兩層深 → 站台連結加一層
+    head = head.replace('href="../css/', 'href="../../css/')
     head = head.replace('href="../nav.css', 'href="../../nav.css')
     head = head.replace('src="../nav.js', 'src="../../nav.js')
     head = head.replace('src="../counter.js', 'src="../../counter.js')
