@@ -3,7 +3,7 @@
 import re, subprocess, urllib.parse
 
 BASE = "https://littler5071.github.io/"
-START = ["", "stock/", "stock/logic/", "stock/20260916-intraday/", "stock/20260915/",
+START = ["", "stock/", "stock/logic/", "stock/backtest/", "stock/20260916-intraday/", "stock/20260915/",
          "stock/20260915-intraday/", "stock/20260914/", "stock/20260911/",
          "toeic/", "toeic/guide/", "toeic/p2-sample/", "toeic/p3-full/", "toeic/p4-full/",
          "toeic/p1-full/", "toeic/p5-full/", "toeic/p6-full/", "toeic/p7-full/",

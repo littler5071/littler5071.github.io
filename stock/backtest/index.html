@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>訊號回測：正向 vs 反向對照：多頭、空頭分開算，只有 4 個訊號兩期都有效｜小R 頻道</title>
+<meta name="description" content="小R 頻道的股市觀察：每個交易日成交金額上市前 35 名與上櫃前 15 名的技術線型逐檔分析，只用公開資料。">
+<link rel="stylesheet" href="../css/index.css">
+<style>
+  h2{font-size:clamp(19px,3.2vw,25px);margin:38px 0 10px;display:flex;align-items:center;gap:10px}
+  td a:hover{color:var(--red);border-color:var(--red)}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:6px 0 18px}
+  .summary .box{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--soft)}
+  .summary .big{font-size:23px;color:var(--ink);margin-bottom:2px}
+  section{margin:0 0 6px}
+  h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  .scroll{overflow-x:auto}
+  ul.how{font-size:15.5px} ul.how li{margin:7px 0}
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:10px 0}
+  .two .box{background:#fffdf6;border:2px solid var(--line);border-left:5px solid var(--blue);border-radius:14px;padding:12px 14px;font-size:14.5px}
+  .dim{color:var(--soft);font-size:14px}
+  .embed{position:relative;aspect-ratio:16/9;margin:12px 0 6px;background:#000;border:2px solid var(--line);border-radius:14px;overflow:hidden}
+  .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  @supports not (aspect-ratio:16/9){.embed{height:0;padding-bottom:56.25%}}
+  .vidlink{font-size:14.5px;margin-top:4px}
+</style>
+<link rel="stylesheet" href="../nav.css?v=73b4d013">
+<script defer src="../nav.js?v=10b45848"></script>
+<script defer src="../counter.js?v=94ad9679"></script>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="back" href="../">← 回股市觀察</a>
+
+  <header>
+    <h1>訊號回測：正向 vs 反向對照</h1>
+    <div class="sub">把 30 個技術訊號放進 2 年歷史，分成多頭與空頭，各自比「有出現」和「沒出現」</div>
+    <hr class="rule">
+  </header>
+
+  <div class="box">
+    <strong>一句話</strong>：把「感覺有效」換成「量出來有效」。30 個訊號裡，
+    只有 <strong>4 個在多頭與空頭期間都是正的</strong>，<strong>6 個兩期都負（建議淘汰）</strong>，
+    其餘 20 個只在單邊期間有效 —— 其中「底部進貨量」是<strong>反指標</strong>。
+  </div>
+
+  <div class="summary">
+    <div class="box"><div class="big">2 年</div><div>2024-09 ~ 2026-09，494 個交易日</div></div>
+    <div class="box"><div class="big">993,806 筆</div><div>日 K，涵蓋 2,059 檔</div></div>
+    <div class="box"><div class="big">30 個訊號</div><div>每個都算有／對照／差距／t 值</div></div>
+    <div class="box"><div class="big">4 個有效</div><div>多頭空頭兩期都正</div></div>
+  </div>
+
+  <section id="why">
+    <h2><span class="dot"></span>① 為什麼要「反向驗證」</h2>
+    <p>只算「訊號出現後漲多少」不能證明有用。如果一個訊號出現後 20 日平均 +1.4%，
+    聽起來不錯；但同一段時間裡，<strong>沒出現這個訊號的股票平均也漲了 +1.2%</strong>，
+    差距只有 +0.2% —— 那就只是市場本身在漲，不是訊號的功勞。</p>
+    <p>所以每個訊號都要算 <strong>「有出現」減「沒出現（對照組）」的差距</strong>，再看 t 值。
+    差距不顯著，等於雜訊。</p>
+  </section>
+
+  <section id="method">
+    <h2><span class="dot"></span>② 方法：四個關鍵字</h2>
+    <div class="two">
+      <div class="box"><strong>兩年</strong><br>2024-09 到 2026-09，共 494 個交易日、2,059 檔、993,806 筆日 K。</div>
+      <div class="box"><strong>去重</strong><br>同一檔股票連續出現的訊號只算第一天。不去重會嚴重高估顯著性
+      （例：底部進貨量 672,887 筆 → 55,703 筆）。</div>
+      <div class="box"><strong>分段</strong><br>多頭期間（342 天）與空頭期間（152 天）分開計算。
+      市場狀態＝等權指數與其 60 日均線，含 1% 緩衝避免天天翻。</div>
+      <div class="box"><strong>對照</strong><br>每個訊號都和「同期間沒出現」那一組比，報酬為後 20 個交易日收盤對收盤。</div>
+    </div>
+  </section>
+
+  <section id="f1">
+    <h2><span class="dot"></span>③ 發現一：對照組本身就是正的</h2>
+    <p>沒出現任何訊號的股票，20 日平均報酬也是 <strong>+0.6%</strong>（多頭期間），因為這兩年整體偏多。
+    所以判讀任何訊號的「+N%」時，都要先扣掉對照組。<strong>訊號的 +1% 如果對照組也是 +1%，就等於沒用。</strong></p>
+  </section>
+
+  <section id="f2">
+    <h2><span class="dot"></span>④ 發現二：只有 4 個訊號兩期都正</h2>
+    <div class="scroll"><table>
+      <tr><th>訊號</th><th>多頭期間</th><th>空頭期間</th></tr>
+      <tr><td><strong>朱-爆量二根</strong></td><td>+0.33%</td><td>+1.26%（t=4.7）</td></tr>
+      <tr><td><strong>朱-早晨之星</strong></td><td>+0.47%</td><td>+0.89%（t=6.5）</td></tr>
+      <tr><td><strong>跳空缺口 FD3</strong></td><td>+0.17%</td><td>+0.47%（t=8.0）</td></tr>
+      <tr><td><strong>朱-MACD 柱翻揚</strong></td><td>+0.26%</td><td>+0.38%</td></tr>
+    </table></div>
+    <p class="dim">「兩期都正」才是不管市場怎麼走都站得住的訊號。其餘 6 個兩期都負（建議淘汰），20 個只有單邊有效。</p>
+  </section>
+
+  <section id="f3">
+    <h2><span class="dot"></span>⑤ 發現三：同一個訊號會換方向</h2>
+    <p>這是整份回測最重要的發現。<strong>把它們混在一起算平均，兩邊會互相抵消，得到「沒用」的錯誤結論。</strong></p>
+    <div class="two">
+      <div class="box"><strong>多頭期間有效（追強型）</strong><br>
+        朱-長紅破 40 日高 +2.43%（t=13.0）<br>
+        朱-缺口破 60 日高 +2.43%（t=11.0）<br>
+        MACD 頂背離 +2.20%（t=14.1）<br>
+        RSI 超買 +1.18%<br>
+        均線多頭排列 +0.80%</div>
+      <div class="box"><strong>空頭期間有效（抄底型）</strong><br>
+        朱-爆量二根 +1.26%（t=4.7）<br>
+        KD 低檔交叉 +0.99%（t=8.0）<br>
+        朱-早晨之星 +0.89%（t=6.5）<br>
+        RSI 超賣 +0.75%（t=6.6）<br>
+        跳空缺口 FD3 +0.47%（t=8.0）</div>
+    </div>
+    <p>所以本站的排行頁已經改成<strong>依市場狀態分流計分</strong>：多頭只看追強型、空頭只看抄底型
+    （2026-09-11 狀態：空頭，因此只用 6 個抄底型訊號）。</p>
+  </section>
+
+  <section id="f4">
+    <h2><span class="dot"></span>⑥ 發現四：突破的窗口越長越強</h2>
+    <div class="scroll"><table>
+      <tr><th>突破窗口</th><th>差距（多頭期間）</th><th>t 值</th><th>勝率</th></tr>
+      <tr><td>破 10 日高</td><td>+2.08%</td><td>10.96</td><td>45.6%</td></tr>
+      <tr><td>破 20 日高</td><td>+2.70%</td><td>11.63</td><td>46.6%</td></tr>
+      <tr><td>破 40 日高</td><td>+3.37%</td><td>11.90</td><td>48.1%</td></tr>
+      <tr><td><strong>破 60 日高</strong></td><td><strong>+3.95%</strong></td><td>12.21</td><td>49.4%</td></tr>
+    </table></div>
+    <p>突破更長時間的壓力，才是真正的轉折。另外實測發現<strong>加量能條件反而變差</strong>
+    （缺口＋破 40 日＋量 &gt; 1.2 倍 → +2.86%，不加是 +3.37%），所以量能條件已移除。</p>
+  </section>
+
+  <section id="f5">
+    <h2><span class="dot"></span>⑦ 發現五：「底部進貨量」是反指標</h2>
+    <p>舊版定義：多頭期間 <strong>-0.84%</strong>（t = -9.9）、空頭期間 <strong>-2.60%</strong>（t = -24.4）。
+    <strong>有這個訊號的股票，後續表現比沒有的還差</strong>，而且統計上非常顯著。</p>
+    <p>如果只算正向，會看到 <strong>+1.76%</strong>，然後誤以為它有效 —— 這是這一整份回測最好的例子：
+    <strong>方向算錯，結論就完全相反。</strong></p>
+  </section>
+
+  <section id="limits">
+    <h2><span class="dot"></span>⑧ 三個必須誠實說的限制</h2>
+    <ul class="how">
+      <li><strong>t 值仍然偏高</strong>：去重只解決「連續出現」，有些訊號（如紅K站上均線）本來就間歇性大量出現，
+      樣本仍高度重疊。請當方向性參考，不要當精確的顯著性檢定。</li>
+      <li><strong>這是過去的統計，不是未來的保證</strong>：市場結構改變，有效的方法也會改變。</li>
+      <li><strong>沒有計算交易成本</strong>：報酬用收盤價計算，實際進出還會扣手續費與證交稅。</li>
+    </ul>
+  </section>
+
+
+  <section id="howto">
+    <h2><span class="dot"></span>⑨ 想看完整數字</h2>
+    <ul class="how">
+      <li><a href="https://littler5071.infinityfree.io/bt.html">互動版表格</a>：全部 30 個訊號的「有／對照／差距／t 值」，
+      可以點欄位排序，也標了哪幾個建議淘汰。顏色為台股慣例（紅＝上漲、綠＝下跌）。</li>
+      <li><a href="../">股市觀察首頁</a>：每個交易日收盤後的逐檔技術條件觀察。</li>
+      <li>本站排行頁已套用本頁結論：依市場狀態（多頭／空頭）只用對應的訊號計分。</li>
+    </ul>
+  </section>
+
+  <div class="box">
+    <strong>來源與聲明</strong>：本頁數字來自<strong>公開資料的統計回測</strong>
+    （臺灣證券交易所公開資料；訊號的技術定義取自公開報導與公開著作的描述）。
+    所有結果都是<strong>歷史統計</strong>，不代表未來表現。
+    本頁<strong>不構成投資建議、不報牌、不預測行情、不提供買賣決策</strong>；
+    投資有風險，請自行判斷並自負盈虧。
+  </div>
+  <a class="back" href="../">← 回股市觀察</a>
+</div>
+
+</body>
+</html>
