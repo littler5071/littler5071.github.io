@@ -166,7 +166,6 @@ def build_stock():
       要追蹤某一天，直接從下面的觀察紀錄挑日期。這裡只做觀察與記錄，不預測、不報牌，也不構成投資建議。
     </p>
 </header>
-""" + "\n".join(cards_ordered) + f"""
   <h2><span class="dot"></span>方法必讀</h2>
   <div class="card">
     <span class="tag">攻略</span>
@@ -180,6 +179,8 @@ def build_stock():
     <p>把 30 個技術訊號放進 2 年歷史，多頭與空頭分開算，每個訊號都比「有出現」與「沒出現」兩組的後 20 日報酬。結論：只有 4 個訊號兩期都正、6 個兩期都負（其中「底部進貨量」是反指標）。附可排序的互動表格。</p>
     <a class="btn" href="backtest/">看完整數字 →</a>
   </div>
+  <h2><span class="dot"></span>每日觀察紀錄</h2>
+""" + "\n".join(cards_ordered) + f"""
   <h2><span class="dot"></span>全部觀察紀錄（{len(rows)} 個交易日）</h2>
   <div class="scroll">
   <table>
