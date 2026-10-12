@@ -200,6 +200,8 @@ def build_stock():
 
 def build_toeic():
     dirs = [os.path.basename(os.path.dirname(p)) for p in glob.glob(os.path.join(SITE, "toeic", "*", "index.html"))]
+    # 分題型練習的 15 個題組頁與總表頁由 practice/ 索引頁統一入口，不列進分類頁表格（否則表格會多 16 列）
+    dirs = [d for d in dirs if not re.match(r"p7-s\d+$", d) and d != "practice"]
     order = {"p7-full": 0, "p6-full": 1, "p5-full": 2, "p1-full": 3, "p4-full": 4,
              "p3-full": 5, "p2-sample": 6}
     dirs = sorted([d for d in dirs if d in order], key=lambda d: order[d])
@@ -242,6 +244,12 @@ def build_toeic():
     <h3>TOEIC 聽力與閱讀：題型分配、答題技巧、注意事項</h3>
     <p>七個部分的題數、時間分配、常見陷阱與考場規則一次整理（四種口音與分數制度也一起說明）。</p>
     <a class="btn" href="guide/">看完整攻略 →</a>
+  </div>
+  <div class="card">
+    <span class="tag">分題型練習</span>
+    <h3>Part 7 題組練習總表：15 個題組、按題型找弱點</h3>
+    <p>54 題拆成 15 個題組，每一組都能線上作答、送出計分，並顯示你在各題型的正確率，詳解預設隱藏。推論題有 9 組、目的題 5 組、NOT/EXCEPT 4 組 —— 就從你弱的那一型開始練。</p>
+    <a class="btn" href="practice/">按題型找弱點 →</a>
   </div>
 """ + "\n".join(cards) + f"""
   <h2><span class="dot"></span>全部題組（{len(rows)}）</h2>

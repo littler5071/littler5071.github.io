@@ -1,0 +1,474 @@
+{
+  "updated": "2026-10-12",
+  "scheme": {
+    "id": "p<Part>-s<兩位題組序號>",
+    "example": "p7-s03 = Part 7（閱讀理解）第 3 個題組",
+    "url": "https://littler5071.github.io/toeic/p7-s03/",
+    "why": "題組是混合題型（一組含 2~5 種題型），用題型當 ID 會把 10/15 支都歸成「細節題」。改用題組序號當 ID，題型改為標籤，並在索引頁按題型分組。",
+    "title_rule": "文章與影片共用同一個 ID：文章用「短時練習」、影片用「連續實測」"
+  },
+  "type_codes": {
+    "細節": "D",
+    "細節（跨文件）": "D",
+    "細節＋推論": "D",
+    "推論": "I",
+    "推論（跨文件）": "I",
+    "主旨": "M",
+    "目的": "P",
+    "NOT/EXCEPT": "N",
+    "NOT/EXCEPT→細節": "N",
+    "同義字": "S",
+    "同義字／細節": "S",
+    "計算": "C",
+    "下一步": "X",
+    "下一步（跨文件）": "X"
+  },
+  "type_index": {
+    "細節": [
+      "p7-s01",
+      "p7-s02",
+      "p7-s03",
+      "p7-s04",
+      "p7-s05",
+      "p7-s06",
+      "p7-s07",
+      "p7-s08",
+      "p7-s09",
+      "p7-s10",
+      "p7-s11",
+      "p7-s12",
+      "p7-s13",
+      "p7-s14",
+      "p7-s15"
+    ],
+    "推論": [
+      "p7-s03",
+      "p7-s04",
+      "p7-s07",
+      "p7-s09",
+      "p7-s11",
+      "p7-s12",
+      "p7-s13",
+      "p7-s14",
+      "p7-s15"
+    ],
+    "目的": [
+      "p7-s01",
+      "p7-s05",
+      "p7-s06",
+      "p7-s08",
+      "p7-s11"
+    ],
+    "NOT/EXCEPT": [
+      "p7-s02",
+      "p7-s06",
+      "p7-s14",
+      "p7-s15"
+    ],
+    "下一步": [
+      "p7-s03",
+      "p7-s10",
+      "p7-s11"
+    ],
+    "細節（跨文件）": [
+      "p7-s11",
+      "p7-s13"
+    ],
+    "主旨": [
+      "p7-s02"
+    ],
+    "同義字": [
+      "p7-s04"
+    ],
+    "細節＋推論": [
+      "p7-s05"
+    ],
+    "計算": [
+      "p7-s09"
+    ],
+    "NOT/EXCEPT→細節": [
+      "p7-s12"
+    ],
+    "同義字／細節": [
+      "p7-s12"
+    ],
+    "推論（跨文件）": [
+      "p7-s14"
+    ],
+    "下一步（跨文件）": [
+      "p7-s15"
+    ]
+  },
+  "items": [
+    {
+      "id": "p7-s01",
+      "slug": "p7-s01",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 1,
+      "questions": [
+        147,
+        148,
+        149
+      ],
+      "question_range": "第 147-149 題",
+      "types": [
+        "細節",
+        "目的"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s01/",
+      "article_title": "多益 P7 閱讀題組 S01｜細節＋目的（第 147-149 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S01｜細節＋目的 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s02",
+      "slug": "p7-s02",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 2,
+      "questions": [
+        150,
+        151,
+        152
+      ],
+      "question_range": "第 150-152 題",
+      "types": [
+        "細節",
+        "主旨",
+        "NOT/EXCEPT"
+      ],
+      "main_type": "主旨",
+      "url": "/toeic/p7-s02/",
+      "article_title": "多益 P7 閱讀題組 S02｜細節＋主旨＋NOT/EXCEPT（第 150-152 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S02｜細節＋主旨＋NOT/EXCEPT 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s03",
+      "slug": "p7-s03",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 3,
+      "questions": [
+        153,
+        154,
+        155
+      ],
+      "question_range": "第 153-155 題",
+      "types": [
+        "細節",
+        "推論",
+        "下一步"
+      ],
+      "main_type": "推論",
+      "url": "/toeic/p7-s03/",
+      "article_title": "多益 P7 閱讀題組 S03｜細節＋推論＋下一步（第 153-155 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S03｜細節＋推論＋下一步 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s04",
+      "slug": "p7-s04",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 4,
+      "questions": [
+        156,
+        157,
+        158
+      ],
+      "question_range": "第 156-158 題",
+      "types": [
+        "細節",
+        "推論",
+        "同義字"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s04/",
+      "article_title": "多益 P7 閱讀題組 S04｜細節＋推論＋同義字（第 156-158 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S04｜細節＋推論＋同義字 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s05",
+      "slug": "p7-s05",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 5,
+      "questions": [
+        159,
+        160,
+        161
+      ],
+      "question_range": "第 159-161 題",
+      "types": [
+        "細節",
+        "細節＋推論",
+        "目的"
+      ],
+      "main_type": "目的",
+      "url": "/toeic/p7-s05/",
+      "article_title": "多益 P7 閱讀題組 S05｜細節＋細節＋推論＋目的（第 159-161 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S05｜細節＋細節＋推論＋目的 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s06",
+      "slug": "p7-s06",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 6,
+      "questions": [
+        162,
+        163,
+        164
+      ],
+      "question_range": "第 162-164 題",
+      "types": [
+        "細節",
+        "NOT/EXCEPT",
+        "目的"
+      ],
+      "main_type": "目的",
+      "url": "/toeic/p7-s06/",
+      "article_title": "多益 P7 閱讀題組 S06｜細節＋NOT/EXCEPT＋目的（第 162-164 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S06｜細節＋NOT/EXCEPT＋目的 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s07",
+      "slug": "p7-s07",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 7,
+      "questions": [
+        165,
+        166,
+        167
+      ],
+      "question_range": "第 165-167 題",
+      "types": [
+        "細節",
+        "推論"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s07/",
+      "article_title": "多益 P7 閱讀題組 S07｜細節＋推論（第 165-167 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S07｜細節＋推論 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s08",
+      "slug": "p7-s08",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 8,
+      "questions": [
+        168,
+        169,
+        170
+      ],
+      "question_range": "第 168-170 題",
+      "types": [
+        "細節",
+        "目的"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s08/",
+      "article_title": "多益 P7 閱讀題組 S08｜細節＋目的（第 168-170 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S08｜細節＋目的 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s09",
+      "slug": "p7-s09",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 9,
+      "questions": [
+        171,
+        172,
+        173
+      ],
+      "question_range": "第 171-173 題",
+      "types": [
+        "計算",
+        "細節",
+        "推論"
+      ],
+      "main_type": "計算",
+      "url": "/toeic/p7-s09/",
+      "article_title": "多益 P7 閱讀題組 S09｜計算＋細節＋推論（第 171-173 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S09｜計算＋細節＋推論 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s10",
+      "slug": "p7-s10",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 10,
+      "questions": [
+        174,
+        175
+      ],
+      "question_range": "第 174-175 題",
+      "types": [
+        "細節",
+        "下一步"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s10/",
+      "article_title": "多益 P7 閱讀題組 S10｜細節＋下一步（第 174-175 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S10｜細節＋下一步 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s11",
+      "slug": "p7-s11",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 11,
+      "questions": [
+        176,
+        177,
+        178,
+        179,
+        180
+      ],
+      "question_range": "第 176-180 題",
+      "types": [
+        "細節",
+        "細節（跨文件）",
+        "推論",
+        "目的",
+        "下一步"
+      ],
+      "main_type": "目的",
+      "url": "/toeic/p7-s11/",
+      "article_title": "多益 P7 閱讀題組 S11｜細節＋細節（跨文件）＋推論（第 176-180 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S11｜細節＋細節（跨文件）＋推論 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s12",
+      "slug": "p7-s12",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 12,
+      "questions": [
+        181,
+        182,
+        183,
+        184,
+        185
+      ],
+      "question_range": "第 181-185 題",
+      "types": [
+        "細節",
+        "推論",
+        "NOT/EXCEPT→細節",
+        "同義字／細節"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s12/",
+      "article_title": "多益 P7 閱讀題組 S12｜細節＋推論＋NOT/EXCEPT→細節（第 181-185 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S12｜細節＋推論＋NOT/EXCEPT→細節 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s13",
+      "slug": "p7-s13",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 13,
+      "questions": [
+        186,
+        187,
+        188,
+        189,
+        190
+      ],
+      "question_range": "第 186-190 題",
+      "types": [
+        "細節",
+        "細節（跨文件）",
+        "推論"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s13/",
+      "article_title": "多益 P7 閱讀題組 S13｜細節＋細節（跨文件）＋推論（第 186-190 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S13｜細節＋細節（跨文件）＋推論 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s14",
+      "slug": "p7-s14",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 14,
+      "questions": [
+        191,
+        192,
+        193,
+        194,
+        195
+      ],
+      "question_range": "第 191-195 題",
+      "types": [
+        "細節",
+        "推論",
+        "推論（跨文件）",
+        "NOT/EXCEPT"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s14/",
+      "article_title": "多益 P7 閱讀題組 S14｜細節＋推論＋推論（跨文件）（第 191-195 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S14｜細節＋推論＋推論（跨文件） 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    },
+    {
+      "id": "p7-s15",
+      "slug": "p7-s15",
+      "part": "P7",
+      "part_name": "閱讀理解",
+      "set_no": 15,
+      "questions": [
+        196,
+        197,
+        198,
+        199,
+        200
+      ],
+      "question_range": "第 196-200 題",
+      "types": [
+        "細節",
+        "推論",
+        "NOT/EXCEPT",
+        "下一步（跨文件）"
+      ],
+      "main_type": "細節",
+      "url": "/toeic/p7-s15/",
+      "article_title": "多益 P7 閱讀題組 S15｜細節＋推論＋NOT/EXCEPT（第 196-200 題）短時練習",
+      "video_title": "多益 P7 閱讀題組 S15｜細節＋推論＋NOT/EXCEPT 連續實測（附中文詳解）",
+      "youtube_id": null,
+      "status": "draft"
+    }
+  ]
+}
