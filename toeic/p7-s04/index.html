@@ -30,7 +30,8 @@ h1{font-size:25px;margin:10px 0 4px;font-family:"DFKai-SB","BiauKai",serif}
 .opts li.correct{border-color:var(--green);background:#eaf7ef}
 .opts li.wrong{border-color:var(--red);background:#fdecea}
 .sol{margin:6px 0 2px}
-.toggle{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+.toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+body.scored .toggle{display:inline-block}
 .solbody{background:#fbf7ee;border-left:3px solid #c9bda6;border-radius:0 10px 10px 0;padding:10px 14px;margin-top:8px;font-size:14px}
 .solbody .yes{color:var(--green);font-weight:700}
 .solbody .tag2{color:var(--soft);font-size:13px;margin-top:6px}
@@ -47,6 +48,9 @@ button.ghost{background:#fff;color:var(--soft);border:1px solid var(--line);bord
 .related{margin:22px 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
 .related h3{margin:0 0 8px;font-size:17px;font-family:"DFKai-SB","BiauKai",serif}
 .related a{color:var(--blue);text-decoration:none;border-bottom:1px dotted #b9c6d8;font-size:14.5px;display:block;padding:4px 0}
+details.gist{margin:12px 0 4px;background:#f2f6fb;border:1px solid #cfdcea;border-radius:10px;padding:10px 14px;font-size:14px}
+details.gist summary{cursor:pointer;color:var(--blue);font-weight:700}
+details.gist p{margin:8px 0 0;color:#4a463f}
 footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
 .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px}
 .viewsline .vnum{color:#364e70;font-weight:700}
@@ -62,7 +66,7 @@ footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;bord
 <div class="sub">第 156-158 題｜3 題｜可作答・計分・詳解預設隱藏</div>
 <div class="tags"><span class="tag">細節</span><span class="tag">推論</span><span class="tag">同義字</span></div>
 <div class="hintbar">
-  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」看你在<b>各題型</b>的正確率 → 需要時再按每題「<b>看詳解</b>」。
+  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」。<b>詳解與正解在計分前不會出現</b>，避免還沒作答就先看到答案；計分後每一題的「看詳解」才會出現。文章的中文大意收在該組最下方，預設不展開，作答後再看。
 </div>
 <section class="set"><h2>第 156-158 題</h2>
 <div class="doc">Article
@@ -72,9 +76,7 @@ When Haverton Logistics first allowed its customer service team to work from hom
 
 The company credits two decisions. First, it gave every remote employee a headset and a second monitor, which cost far less than the rent of the office space it later gave up. Second, it replaced daily check-in meetings with a written summary that each employee posts once a week, leaving managers free to deal with unusual cases.
 
-Not everything worked. A pilot program that let staff choose their own working hours was discontinued after six months, because customers could not reach anyone early in the morning. Beginning in October, remote staff will follow fixed shifts again.
-
-  看第 4 組的中文大意中文大意：Haverton Logistics 的刊物文章：在家工作一年後，客服平均回覆時間由 14 小時降至 9 小時、離職率降約三分之一；歸功兩項決策（提供耳機與第二螢幕、用每週書面摘要取代每日會議）；但讓員工自選工時的試辦在六個月後取消，因為早上聯絡不到人，10 月起恢復固定班表。</div>
+Not everything worked. A pilot program that let staff choose their own working hours was discontinued after six months, because customers could not reach anyone early in the morning. Beginning in October, remote staff will follow fixed shifts again.</div>
 <div class="q" data-q="156" data-a="2" data-type="細節">
   <div class="qh"><span class="qn">156</span>What was the result of allowing the team to work from home?</div>
   <ul class="opts">
@@ -105,6 +107,7 @@ Not everything worked. A pilot program that let staff choose their own working h
   </ul>
   <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden><div class="yes">✅ 試辦被取消的原因是「顧客一早聯絡不到人」，屬排班問題。</div><div class="tag2">題型：推論</div></div></div>
 </div>
+<details class="gist"><summary>看這一組的中文大意（建議作答後再看）</summary><p>中文大意：Haverton Logistics 的刊物文章：在家工作一年後，客服平均回覆時間由 14 小時降至 9 小時、離職率降約三分之一；歸功兩項決策（提供耳機與第二螢幕、用每週書面摘要取代每日會議）；但讓員工自選工時的試辦在六個月後取消，因為早上聯絡不到人，10 月起恢復固定班表。</p></details>
 </section>
 <div class="videobox">
   <h3>搭配影片</h3>
@@ -159,6 +162,7 @@ Not everything worked. A pilot program that let staff choose their own working h
       h+='<div class="typerow"><span>'+t+'</span><span>'+o.ok+' / '+o.n+'　'+Math.round(o.ok/o.n*100)+'%</span></div>';
     });
     h+='</div>';
+    document.body.classList.add('scored');
     var r=document.getElementById('result'); r.innerHTML=h; r.style.display='block';
     window.scrollTo({top:r.offsetTop-80,behavior:'smooth'});
   });
@@ -170,6 +174,7 @@ Not everything worked. A pilot program that let staff choose their own working h
       q.querySelectorAll('.solbody').forEach(function(b){b.hidden=true;});
       q.querySelectorAll('.toggle').forEach(function(b){b.textContent='看詳解';});
     });
+    document.body.classList.remove('scored');
     document.getElementById('result').style.display='none'; upd();
   });
   upd();

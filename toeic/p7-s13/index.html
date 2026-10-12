@@ -30,7 +30,8 @@ h1{font-size:25px;margin:10px 0 4px;font-family:"DFKai-SB","BiauKai",serif}
 .opts li.correct{border-color:var(--green);background:#eaf7ef}
 .opts li.wrong{border-color:var(--red);background:#fdecea}
 .sol{margin:6px 0 2px}
-.toggle{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+.toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+body.scored .toggle{display:inline-block}
 .solbody{background:#fbf7ee;border-left:3px solid #c9bda6;border-radius:0 10px 10px 0;padding:10px 14px;margin-top:8px;font-size:14px}
 .solbody .yes{color:var(--green);font-weight:700}
 .solbody .tag2{color:var(--soft);font-size:13px;margin-top:6px}
@@ -47,6 +48,9 @@ button.ghost{background:#fff;color:var(--soft);border:1px solid var(--line);bord
 .related{margin:22px 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
 .related h3{margin:0 0 8px;font-size:17px;font-family:"DFKai-SB","BiauKai",serif}
 .related a{color:var(--blue);text-decoration:none;border-bottom:1px dotted #b9c6d8;font-size:14.5px;display:block;padding:4px 0}
+details.gist{margin:12px 0 4px;background:#f2f6fb;border:1px solid #cfdcea;border-radius:10px;padding:10px 14px;font-size:14px}
+details.gist summary{cursor:pointer;color:var(--blue);font-weight:700}
+details.gist p{margin:8px 0 0;color:#4a463f}
 footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
 .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px}
 .viewsline .vnum{color:#364e70;font-weight:700}
@@ -62,7 +66,7 @@ footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;bord
 <div class="sub">第 186-190 題｜5 題｜可作答・計分・詳解預設隱藏</div>
 <div class="tags"><span class="tag">細節</span><span class="tag">細節（跨文件）</span><span class="tag">推論</span></div>
 <div class="hintbar">
-  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」看你在<b>各題型</b>的正確率 → 需要時再按每題「<b>看詳解</b>」。
+  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」。<b>詳解與正解在計分前不會出現</b>，避免還沒作答就先看到答案；計分後每一題的「看詳解」才會出現。文章的中文大意收在該組最下方，預設不展開，作答後再看。
 </div>
 <section class="set"><h2>第 186-190 題</h2>
 <div class="doc">Notice
@@ -112,9 +116,7 @@ Our group runs a 30-hour experiment that cannot be interrupted. I see that the s
 
 If not, we will move the incubator to a colleague&#x27;s room on the fifth floor before Wednesday morning.
 
-Wei-Ling Ho
-
-  看第 13 組的中文大意中文大意：公告：5/14–18 大樓 2–5 樓進行電力升級，每層各停電一個工作日；停電當天不要搭電梯、3 樓與 4 樓樣品冰箱會接臨時發電機、機房自動切換備援；請在前一晚先存檔。時程表：5 樓 5/14、4 樓 5/15、3 樓 5/16、2 樓 5/17（時段各異），5/18 只做測試不停電。信件：3 樓生物實驗室的何小姐有一個不能中斷的 30 小時實驗，想確認 3 樓是否也有臨時發電機；若沒有，會在週三早上前把培養箱搬到 5 樓同事的房間。</div>
+Wei-Ling Ho</div>
 <div class="q" data-q="186" data-a="2" data-type="細節（跨文件）">
   <div class="qh"><span class="qn">186</span>On which day will the third floor lose power?</div>
   <ul class="opts">
@@ -165,6 +167,7 @@ Wei-Ling Ho
   </ul>
   <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden><div class="yes">✅ &quot;Please save your work on the evening before your floor&#x27;s scheduled date&quot;。</div><div class="tag2">題型：細節</div></div></div>
 </div>
+<details class="gist"><summary>看這一組的中文大意（建議作答後再看）</summary><p>中文大意：公告：5/14–18 大樓 2–5 樓進行電力升級，每層各停電一個工作日；停電當天不要搭電梯、3 樓與 4 樓樣品冰箱會接臨時發電機、機房自動切換備援；請在前一晚先存檔。時程表：5 樓 5/14、4 樓 5/15、3 樓 5/16、2 樓 5/17（時段各異），5/18 只做測試不停電。信件：3 樓生物實驗室的何小姐有一個不能中斷的 30 小時實驗，想確認 3 樓是否也有臨時發電機；若沒有，會在週三早上前把培養箱搬到 5 樓同事的房間。</p></details>
 </section>
 <div class="videobox">
   <h3>搭配影片</h3>
@@ -219,6 +222,7 @@ Wei-Ling Ho
       h+='<div class="typerow"><span>'+t+'</span><span>'+o.ok+' / '+o.n+'　'+Math.round(o.ok/o.n*100)+'%</span></div>';
     });
     h+='</div>';
+    document.body.classList.add('scored');
     var r=document.getElementById('result'); r.innerHTML=h; r.style.display='block';
     window.scrollTo({top:r.offsetTop-80,behavior:'smooth'});
   });
@@ -230,6 +234,7 @@ Wei-Ling Ho
       q.querySelectorAll('.solbody').forEach(function(b){b.hidden=true;});
       q.querySelectorAll('.toggle').forEach(function(b){b.textContent='看詳解';});
     });
+    document.body.classList.remove('scored');
     document.getElementById('result').style.display='none'; upd();
   });
   upd();

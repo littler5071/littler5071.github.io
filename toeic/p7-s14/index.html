@@ -30,7 +30,8 @@ h1{font-size:25px;margin:10px 0 4px;font-family:"DFKai-SB","BiauKai",serif}
 .opts li.correct{border-color:var(--green);background:#eaf7ef}
 .opts li.wrong{border-color:var(--red);background:#fdecea}
 .sol{margin:6px 0 2px}
-.toggle{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+.toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+body.scored .toggle{display:inline-block}
 .solbody{background:#fbf7ee;border-left:3px solid #c9bda6;border-radius:0 10px 10px 0;padding:10px 14px;margin-top:8px;font-size:14px}
 .solbody .yes{color:var(--green);font-weight:700}
 .solbody .tag2{color:var(--soft);font-size:13px;margin-top:6px}
@@ -47,6 +48,9 @@ button.ghost{background:#fff;color:var(--soft);border:1px solid var(--line);bord
 .related{margin:22px 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
 .related h3{margin:0 0 8px;font-size:17px;font-family:"DFKai-SB","BiauKai",serif}
 .related a{color:var(--blue);text-decoration:none;border-bottom:1px dotted #b9c6d8;font-size:14.5px;display:block;padding:4px 0}
+details.gist{margin:12px 0 4px;background:#f2f6fb;border:1px solid #cfdcea;border-radius:10px;padding:10px 14px;font-size:14px}
+details.gist summary{cursor:pointer;color:var(--blue);font-weight:700}
+details.gist p{margin:8px 0 0;color:#4a463f}
 footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
 .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px}
 .viewsline .vnum{color:#364e70;font-weight:700}
@@ -62,7 +66,7 @@ footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;bord
 <div class="sub">第 191-195 題｜5 題｜可作答・計分・詳解預設隱藏</div>
 <div class="tags"><span class="tag">細節</span><span class="tag">推論</span><span class="tag">推論（跨文件）</span><span class="tag">NOT/EXCEPT</span></div>
 <div class="hintbar">
-  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」看你在<b>各題型</b>的正確率 → 需要時再按每題「<b>看詳解</b>」。
+  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」。<b>詳解與正解在計分前不會出現</b>，避免還沒作答就先看到答案；計分後每一題的「看詳解」才會出現。文章的中文大意收在該組最下方，預設不展開，作答後再看。
 </div>
 <section class="set"><h2>第 191-195 題</h2>
 <div class="doc">Web page
@@ -96,9 +100,7 @@ We would like to hold a full-day sales meeting on Thursday 22 May for about 20 p
 
 Could you confirm which room you would recommend, and whether the video equipment can be tested the day before? Please also let me know the total cost, including lunch.
 
-Kevin Lai
-
-  看第 14 組的中文大意中文大意：飯店網頁：三種會議場地（Harbour 60 人／Cedar 24 人／Terrace 12 人）與半日、全日價，含咖啡茶水，午餐每人 680 元須五天前預訂，8:00 起可用、18:00 後每小時加收 1,200 元。評語：張小姐用過 Harbour 房，設備與茶水準時，但隔壁施工有鑽孔聲、停車位難找。信件：Sunlake Foods 的 Kevin 想訂 5/22 全日、約 20 人，需要視訊設備（國外主管參與第一小時）與熱午餐，並問建議場地、能否前一天測試設備、含午餐的總費用。</div>
+Kevin Lai</div>
 <div class="q" data-q="191" data-a="1" data-type="推論（跨文件）">
   <div class="qh"><span class="qn">191</span>Which room would best fit Mr. Lai&#x27;s group?</div>
   <ul class="opts">
@@ -149,6 +151,7 @@ Kevin Lai
   </ul>
   <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden><div class="yes">✅ 他的區域主管會從國外連線參與第一小時，所以需要視訊。</div><div class="tag2">題型：推論</div></div></div>
 </div>
+<details class="gist"><summary>看這一組的中文大意（建議作答後再看）</summary><p>中文大意：飯店網頁：三種會議場地（Harbour 60 人／Cedar 24 人／Terrace 12 人）與半日、全日價，含咖啡茶水，午餐每人 680 元須五天前預訂，8:00 起可用、18:00 後每小時加收 1,200 元。評語：張小姐用過 Harbour 房，設備與茶水準時，但隔壁施工有鑽孔聲、停車位難找。信件：Sunlake Foods 的 Kevin 想訂 5/22 全日、約 20 人，需要視訊設備（國外主管參與第一小時）與熱午餐，並問建議場地、能否前一天測試設備、含午餐的總費用。</p></details>
 </section>
 <div class="videobox">
   <h3>搭配影片</h3>
@@ -203,6 +206,7 @@ Kevin Lai
       h+='<div class="typerow"><span>'+t+'</span><span>'+o.ok+' / '+o.n+'　'+Math.round(o.ok/o.n*100)+'%</span></div>';
     });
     h+='</div>';
+    document.body.classList.add('scored');
     var r=document.getElementById('result'); r.innerHTML=h; r.style.display='block';
     window.scrollTo({top:r.offsetTop-80,behavior:'smooth'});
   });
@@ -214,6 +218,7 @@ Kevin Lai
       q.querySelectorAll('.solbody').forEach(function(b){b.hidden=true;});
       q.querySelectorAll('.toggle').forEach(function(b){b.textContent='看詳解';});
     });
+    document.body.classList.remove('scored');
     document.getElementById('result').style.display='none'; upd();
   });
   upd();

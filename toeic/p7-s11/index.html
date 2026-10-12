@@ -30,7 +30,8 @@ h1{font-size:25px;margin:10px 0 4px;font-family:"DFKai-SB","BiauKai",serif}
 .opts li.correct{border-color:var(--green);background:#eaf7ef}
 .opts li.wrong{border-color:var(--red);background:#fdecea}
 .sol{margin:6px 0 2px}
-.toggle{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+.toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--soft)}
+body.scored .toggle{display:inline-block}
 .solbody{background:#fbf7ee;border-left:3px solid #c9bda6;border-radius:0 10px 10px 0;padding:10px 14px;margin-top:8px;font-size:14px}
 .solbody .yes{color:var(--green);font-weight:700}
 .solbody .tag2{color:var(--soft);font-size:13px;margin-top:6px}
@@ -47,6 +48,9 @@ button.ghost{background:#fff;color:var(--soft);border:1px solid var(--line);bord
 .related{margin:22px 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
 .related h3{margin:0 0 8px;font-size:17px;font-family:"DFKai-SB","BiauKai",serif}
 .related a{color:var(--blue);text-decoration:none;border-bottom:1px dotted #b9c6d8;font-size:14.5px;display:block;padding:4px 0}
+details.gist{margin:12px 0 4px;background:#f2f6fb;border:1px solid #cfdcea;border-radius:10px;padding:10px 14px;font-size:14px}
+details.gist summary{cursor:pointer;color:var(--blue);font-weight:700}
+details.gist p{margin:8px 0 0;color:#4a463f}
 footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
 .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px}
 .viewsline .vnum{color:#364e70;font-weight:700}
@@ -62,7 +66,7 @@ footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;bord
 <div class="sub">第 176-180 題｜5 題｜可作答・計分・詳解預設隱藏</div>
 <div class="tags"><span class="tag">細節</span><span class="tag">細節（跨文件）</span><span class="tag">推論</span><span class="tag">目的</span><span class="tag">下一步</span></div>
 <div class="hintbar">
-  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」看你在<b>各題型</b>的正確率 → 需要時再按每題「<b>看詳解</b>」。
+  <b>怎麼用</b>：先讀文件 → 點選每題答案 → 按「<b>對答案並計分</b>」。<b>詳解與正解在計分前不會出現</b>，避免還沒作答就先看到答案；計分後每一題的「看詳解」才會出現。文章的中文大意收在該組最下方，預設不展開，作答後再看。
 </div>
 <section class="set"><h2>第 176-180 題</h2>
 <div class="doc">E-mail 1
@@ -99,9 +103,7 @@ Your chairs will leave our warehouse on 16 April and reach you on 18 April. The 
 
 I have also arranged for a 15 percent credit on this order, and we will not charge the delivery fee. Please let me know if you would prefer delivery before 10:00 A.M.
 
-Daniel Osei
-
-  看第 11 組的中文大意中文大意：第一篇：Aster 診所的 Grace 追問訂單 W-9031（20 日下單、原定 4/10 到貨，12 日仍未收到），診所 4/22 開幕急需候診椅，若延誤超過一週可能先租椅子並要求 Woodline 負擔費用。第二篇：Woodline 客服 Daniel 道歉並說明原因（台南工坊因鄰居火災停工四天，4/9 復工），椅子 4/16 出貨、4/18 送達，三張診療台有現貨可同日送；另給 15% 折讓、免運費，並詢問是否偏好上午 10 點前送到。</div>
+Daniel Osei</div>
 <div class="q" data-q="176" data-a="0" data-type="目的">
   <div class="qh"><span class="qn">176</span>Why did Ms. Tan write the first e-mail?</div>
   <ul class="opts">
@@ -152,6 +154,7 @@ Daniel Osei
   </ul>
   <div class="sol"><button class="toggle" type="button">看詳解</button><div class="solbody" hidden><div class="yes">✅ 最後一句問是否偏好上午 10 點前送到。</div><div class="tag2">題型：下一步</div></div></div>
 </div>
+<details class="gist"><summary>看這一組的中文大意（建議作答後再看）</summary><p>中文大意：第一篇：Aster 診所的 Grace 追問訂單 W-9031（20 日下單、原定 4/10 到貨，12 日仍未收到），診所 4/22 開幕急需候診椅，若延誤超過一週可能先租椅子並要求 Woodline 負擔費用。第二篇：Woodline 客服 Daniel 道歉並說明原因（台南工坊因鄰居火災停工四天，4/9 復工），椅子 4/16 出貨、4/18 送達，三張診療台有現貨可同日送；另給 15% 折讓、免運費，並詢問是否偏好上午 10 點前送到。</p></details>
 </section>
 <div class="videobox">
   <h3>搭配影片</h3>
@@ -206,6 +209,7 @@ Daniel Osei
       h+='<div class="typerow"><span>'+t+'</span><span>'+o.ok+' / '+o.n+'　'+Math.round(o.ok/o.n*100)+'%</span></div>';
     });
     h+='</div>';
+    document.body.classList.add('scored');
     var r=document.getElementById('result'); r.innerHTML=h; r.style.display='block';
     window.scrollTo({top:r.offsetTop-80,behavior:'smooth'});
   });
@@ -217,6 +221,7 @@ Daniel Osei
       q.querySelectorAll('.solbody').forEach(function(b){b.hidden=true;});
       q.querySelectorAll('.toggle').forEach(function(b){b.textContent='看詳解';});
     });
+    document.body.classList.remove('scored');
     document.getElementById('result').style.display='none'; upd();
   });
   upd();
