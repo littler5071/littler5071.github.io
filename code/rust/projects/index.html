@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>有哪些公司在用 Rust？公司清單＋熱門專案排行（附官方來源）｜程式設計｜小R 頻道</title>
+<meta name="description" content="Linux 核心、Windows、Android、Chrome、AWS、Cloudflare、Discord、Meta、1Password、Shopify、Figma 採用 Rust 的官方數字與來源，以及 15 個熱門 Rust 開源專案的 GitHub 星星數排行。">
+<style>
+:root{--ink:#3b3733;--soft:#6b635a;--line:#ddd3c4;--paper:#f6f2e9;--card:#fffdf8;--red:#c0392b;--green:#1e8e4f;--blue:#365070}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Microsoft JhengHei","PingFang TC",system-ui,sans-serif;line-height:1.9}
+.wrap{max-width:820px;margin:0 auto;padding:26px 18px 70px}
+h1{font-size:27px;line-height:1.45;margin:12px 0 6px;font-family:"DFKai-SB","BiauKai",serif}
+.sub{color:var(--soft);font-size:14px;margin-bottom:8px}
+hr.rule{border:0;border-top:2px solid var(--line);margin:16px 0 20px}
+h2{font-size:20px;margin:34px 0 10px;font-family:"DFKai-SB","BiauKai",serif}
+h3{font-size:17px;margin:22px 0 8px}
+p{margin:12px 0}
+ul,ol{margin:12px 0;padding-left:22px}
+li{margin:6px 0}
+.lead{background:#fff6de;border:1px solid #e8d59a;border-radius:12px;padding:14px 16px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:20px 0}
+.whocard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin:14px 0}
+.whocard h3{margin:0 0 6px;font-size:18px;font-family:"DFKai-SB","BiauKai",serif}
+.whocard .num{color:var(--blue);font-weight:700}
+.whocard .why{font-size:15px}
+.whocard .src{color:var(--soft);font-size:12.5px;word-break:break-all;margin-top:6px}
+.whocard .warn{color:var(--red);font-size:13.5px;margin-top:6px}
+.num{display:flex;align-items:baseline;gap:10px;margin:14px 0}
+.num b{font-size:30px;color:var(--blue);font-family:"DFKai-SB","BiauKai",serif;line-height:1}
+.num span{font-size:14px;color:var(--soft)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14.5px;margin:16px 0}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid #eee4d4;vertical-align:top}
+th{background:#f2ebdd;font-size:13.5px;color:#5b5348}
+td.rk{color:var(--soft);font-family:"DFKai-SB","BiauKai",serif;font-size:16px;width:42px}
+td.st{text-align:right;font-family:"DFKai-SB","BiauKai",serif;color:var(--blue);font-weight:700;white-space:nowrap}
+td a{word-break:break-all}
+code{background:#f1ece1;border:1px solid #e2d8c8;border-radius:5px;padding:1px 6px;font-size:13.5px;word-break:break-all}
+pre{background:#f1ece1;border:1px solid #e2d8c8;border-radius:10px;padding:12px 14px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+.warn{background:#fdf1ef;border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:12px 15px;margin:18px 0}
+.ok{background:#eef7f1;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:12px 15px;margin:18px 0}
+.src{color:var(--soft);font-size:13px;margin-top:6px}
+.viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px;border-top:2px dashed #d9d1c2}
+.viewsline .vnum{color:#364e70;font-weight:700}
+footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+<link rel="stylesheet" href="../../../nav.css?v=73b4d013">
+<script defer src="../../../nav.js?v=10b45848"></script>
+<script defer src="../../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<div class="wrap">
+<h1>有哪些公司在用 Rust？我把它查成一張清單</h1>
+<div class="sub">程式設計・2026/10/13</div>
+<hr class="rule">
+
+<div class="lead">
+  <b>先講結論</b>：Rust 不是「有人開始試試看」而已——作業系統核心、雲端骨幹、加密與驗證元件這些<b>最不能出錯的地方</b>，
+  早就換過去或正在換。下面每一項都附<b>官方來源</b>；查不到具體數字的，我直接寫「查無」而不是拿別人的轉述來湊。
+</div>
+
+<p>這頁是 <a href="../">〈Rust：最受推崇的語言，卻只有 14.8% 的人在用〉</a> 的延伸。
+那篇談的是「落差」，這頁談的是「<b>那 14.8% 是誰</b>」。</p>
+
+<h2>作業系統與平台</h2>
+<div class="whocard">
+  <h3>Linux 核心</h3>
+  <div class="why">Rust 支援於 2022 年 12 月的 <b>v6.1</b> 併入主線（官方文件原文「merged in v6.1」）。陸續併入的 Rust 驅動包含 Android Binder、null block 的 rnull、Arm Mali 的 Tyr GPU 驅動。維護者是 <b>Miguel Ojeda</b>，在官方 MAINTAINERS 檔掛名「RUST [GENERAL SUPPORT]」。</div>
+  <div class="num"><b>重點數字：</b><span class="num">核心程式碼逾 3000 萬行；策略是「新程式碼用 Rust」而不是改寫舊的</span></div>
+  <div class="warn">⚠️ 核心仍以 C 為主，Rust 是增量新增；兩種語言互通的成本高。</div>
+  <div class="src">官方來源：<a href="https://docs.kernel.org/rust/index.html">https://docs.kernel.org/rust/index.html</a></div>
+</div>
+<div class="whocard">
+  <h3>Microsoft Windows</h3>
+  <div class="why">微軟每年指派的 CVE 裡<b>約 70% 是記憶體安全問題</b>。官方自述曾用 Rust 實驗性重寫一個 Windows 低階系統元件（未具名），2024 年起推動讓 Rust 成為驅動開發的 first-class 語言（cargo-wdk 上架 crates.io）。</div>
+  <div class="num"><b>重點數字：</b><span class="num">約 70% 的 CVE 屬記憶體安全問題</span></div>
+  <div class="warn">⚠️ 官方沒有公布「已改寫哪些具體元件」的完整清單。</div>
+  <div class="src">官方來源：<a href="https://www.microsoft.com/en-us/msrc/blog/2019/11/using-rust-in-windows">https://www.microsoft.com/en-us/msrc/blog/2019/11/using-rust-in-windows</a></div>
+</div>
+<div class="whocard">
+  <h3>Google Android</h3>
+  <div class="why">作業系統程式碼從 C/C++ 轉向 Rust。<b>2025 年記憶體安全漏洞占比首度降到 20% 以下</b>；Rust 程式碼的記憶體安全漏洞密度比 C/C++ <b>低約 1000 倍</b>；Rust 改動的 rollback 率低 4 倍、code review 時間少 25%。</div>
+  <div class="num"><b>重點數字：</b><span class="num">76% → 24%（六年）→ 2025 首度低於 20%；漏洞密度差約 1000 倍</span></div>
+  <div class="warn">⚠️ 這是 Android 的數字，不等於所有專案都會有同樣效果。</div>
+  <div class="src">官方來源：<a href="https://blog.google/security/rust-in-android-move-fast-fix-things">https://blog.google/security/rust-in-android-move-fast-fix-things</a></div>
+</div>
+<div class="whocard">
+  <h3>Google Chrome</h3>
+  <div class="why">官方分析 2015 年以來 912 個 high／critical 漏洞，發現<b>約 70% 是記憶體安全問題、其中一半是 use-after-free</b>。2023 年起正式支援在 Chromium 引入第三方 Rust 函式庫。</div>
+  <div class="num"><b>重點數字：</b><span class="num">70% 高嚴重性漏洞是記憶體安全問題（912 個的樣本）</span></div>
+  <div class="warn">⚠️ 目前是「可以引入」而不是整包重寫。</div>
+  <div class="src">官方來源：<a href="https://www.chromium.org/Home/chromium-security/memory-safety/">https://www.chromium.org/Home/chromium-security/memory-safety/</a></div>
+</div>
+<h2>雲端、網路與協作</h2>
+<div class="whocard">
+  <h3>Cloudflare（Pingora）</h3>
+  <div class="why">自己用 Rust 寫了 HTTP proxy 取代 NGINX。官方數字是這份清單裡最有說服力的：<b>每秒服務逾 1 兆次請求</b>，同流量下 <b>CPU 少約 70%、記憶體少約 67%</b>；某大客戶的連線重用率從 87.1% 提升到 99.92%，對來源站的新連線減少 160 倍；每天為客戶省下 434 年的 handshake 時間。</div>
+  <div class="num"><b>重點數字：</b><span class="num">每秒 1 兆請求；CPU −70%、記憶體 −67%</span></div>
+  <div class="warn">⚠️ Rust 的非同步生態複雜、學習曲線陡，不是每個服務都值得。</div>
+  <div class="src">官方來源：<a href="https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/">https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/</a></div>
+</div>
+<div class="whocard">
+  <h3>AWS（Firecracker / S3 ShardStore）</h3>
+  <div class="why">微 VM 服務 Firecracker 從 2017 年就用 Rust 寫；S3 的儲存節點 ShardStore 也是 Rust，官方說自動化推理驗證「只需多約 13% 程式碼」（傳統形式證明常要多達 10 倍成本）。</div>
+  <div class="num"><b>重點數字：</b><span class="num">ShardStore：驗證只多約 13% 程式碼</span></div>
+  <div class="warn">⚠️ S3 由 300+ 個微服務組成，Rust 只是其中一部分。</div>
+  <div class="src">官方來源：<a href="https://aws.amazon.com/blogs/storage/how-automated-reasoning-helps-us-innovate-at-s3-scale/">https://aws.amazon.com/blogs/storage/how-automated-reasoning-helps-us-innovate-at-s3-scale/</a></div>
+</div>
+<div class="whocard">
+  <h3>Discord</h3>
+  <div class="why">Read States 服務從 Go 改寫成 Rust。Go 版每隔幾分鐘就會出現延遲與 CPU 尖峰（因為 Go 至少每 2 分鐘強制觸發 GC）；改寫後尖峰消失，快取容量提升到 <b>800 萬筆 Read States</b>。</div>
+  <div class="num"><b>重點數字：</b><span class="num">快取容量 800 萬筆；延遲尖峰消失</span></div>
+  <div class="warn">⚠️ 毫秒級的延遲對比官方只有圖表、沒有文字數字，所以這裡不寫具體毫秒。</div>
+  <div class="src">官方來源：<a href="https://discord.com/blog/why-discord-is-switching-from-go-to-rust">https://discord.com/blog/why-discord-is-switching-from-go-to-rust</a></div>
+</div>
+<div class="whocard">
+  <h3>Dropbox</h3>
+  <div class="why">桌面同步引擎（代號 Nucleus）整個重寫，花了約 4 年，已對全體用戶上線。</div>
+  <div class="num"><b>重點數字：</b><span class="num">歷時約 4 年，全體用戶已上線</span></div>
+  <div class="warn">⚠️ 官方沒有提供效能數字，所以這裡不寫。</div>
+  <div class="src">官方來源：<a href="https://dropbox.tech/infrastructure/rewriting-the-heart-of-our-sync-engine">https://dropbox.tech/infrastructure/rewriting-the-heart-of-our-sync-engine</a></div>
+</div>
+<div class="whocard">
+  <h3>Meta</h3>
+  <div class="why">原始碼版本控制系統 Mononoke 自 2019 年起是 monorepo 的正式後端、以 Rust 撰寫。2019 年內部 Rust 開發者超過 100 人，官方說有「數百名開發者寫下數百萬行 Rust」。</div>
+  <div class="num"><b>重點數字：</b><span class="num">100+ 位開發者；後來開源的 Sapling 也是 Rust</span></div>
+  <div class="warn">⚠️ 是內部系統，外面看不到完整規模。</div>
+  <div class="src">官方來源：<a href="https://engineering.fb.com/2021/04/29/developer-tools/rust/">https://engineering.fb.com/2021/04/29/developer-tools/rust/</a></div>
+</div>
+<h2>產品與工具</h2>
+<div class="whocard">
+  <h3>1Password</h3>
+  <div class="why">1Password 8 的跨平台核心框架<b>完全以 Rust 撰寫</b>，包含業務邏輯、資料模型與密鑰管理。</div>
+  <div class="num"><b>重點數字：</b><span class="num">核心框架完全 Rust（官方確認）</span></div>
+  <div class="warn">⚠️ 網路常引用的「50 萬行 Rust、600 個 crate」查無官方出處，本頁不引用。</div>
+  <div class="src">官方來源：<a href="https://blog.1password.com/1password-8-the-story-so-far/">https://blog.1password.com/1password-8-the-story-so-far/</a></div>
+</div>
+<div class="whocard">
+  <h3>Shopify</h3>
+  <div class="why">採用 Rust 作為官方系統程式語言並加入 Rust Foundation。也把 CRuby 的 JIT 編譯器 <b>YJIT 從 C 改寫成 Rust</b>（原本 C 版約 11,000 行），隨 Ruby 3.2 上游化。</div>
+  <div class="num"><b>重點數字：</b><span class="num">YJIT 原 C 版約 11,000 行，改寫後上游進 Ruby 3.2</span></div>
+  <div class="warn">⚠️ 是「系統層採用」，不是整個電商平台都用 Rust。</div>
+  <div class="src">官方來源：<a href="https://shopify.engineering/shopify-rust-systems-programming">https://shopify.engineering/shopify-rust-systems-programming</a></div>
+</div>
+<div class="whocard">
+  <h3>Figma</h3>
+  <div class="why">多人協作的同步伺服器改寫成 Rust。<b>序列化時間快逾 10 倍</b>；Rust 記憶體用量極低，可以為每一份文件各開一個獨立的 Rust 子程序。官方也提到舊的 TypeScript 伺服器有 GC 造成的延遲尖峰。</div>
+  <div class="num"><b>重點數字：</b><span class="num">序列化快逾 10 倍</span></div>
+  <div class="warn">⚠️ 前端仍然是 TypeScript，改的是同步伺服器。</div>
+  <div class="src">官方來源：<a href="https://www.figma.com/blog/rust-in-production-at-figma/">https://www.figma.com/blog/rust-in-production-at-figma/</a></div>
+</div>
+
+<h2>熱門開源專案排行（GitHub 星星數）</h2>
+<p>上面是公司，這裡是<b>專案</b>。星星數是我用 GitHub API 實際查的，不是憑印象寫的（資料截至 <b>2026-10-13</b>，之後會變動）。</p>
+<div class="scroll">
+<table>
+  <tr><th>#</th><th>專案</th><th style="text-align:right">星星數</th></tr>
+    <tr><td class="rk">1</td><td><a href="https://github.com/tauri-apps/tauri">Tauri</a><br><span style="color:var(--soft);font-size:13px">用網頁技術寫桌面 App 的輕量框架，Electron 的 Rust 替代品</span></td><td class="st">111,812</td></tr>
+    <tr><td class="rk">2</td><td><a href="https://github.com/denoland/deno">Deno</a><br><span style="color:var(--soft);font-size:13px">Node.js 原作者打造的現代 JavaScript／TypeScript 執行環境</span></td><td class="st">108,768</td></tr>
+    <tr><td class="rk">3</td><td><a href="https://github.com/zed-industries/zed">Zed</a><br><span style="color:var(--soft);font-size:13px">主打高效能、多人協作的新世代程式編輯器</span></td><td class="st">91,631</td></tr>
+    <tr><td class="rk">4</td><td><a href="https://github.com/astral-sh/uv">uv</a><br><span style="color:var(--soft);font-size:13px">極快的 Python 套件與環境管理器（取代 pip／poetry）</span></td><td class="st">90,664</td></tr>
+    <tr><td class="rk">5</td><td><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a><br><span style="color:var(--soft);font-size:13px">超快的程式碼全文搜尋工具，grep 的現代替代品</span></td><td class="st">69,102</td></tr>
+    <tr><td class="rk">6</td><td><a href="https://github.com/alacritty/alacritty">Alacritty</a><br><span style="color:var(--soft);font-size:13px">主打速度的 GPU 加速終端機模擬器</span></td><td class="st">65,944</td></tr>
+    <tr><td class="rk">7</td><td><a href="https://github.com/sharkdp/bat">bat</a><br><span style="color:var(--soft);font-size:13px">有語法高亮與 Git 標示的 cat 替代品</span></td><td class="st">60,781</td></tr>
+    <tr><td class="rk">8</td><td><a href="https://github.com/starship/starship">Starship</a><br><span style="color:var(--soft);font-size:13px">跨 shell 的極簡命令提示字元</span></td><td class="st">60,237</td></tr>
+    <tr><td class="rk">9</td><td><a href="https://github.com/meilisearch/meilisearch">Meilisearch</a><br><span style="color:var(--soft);font-size:13px">開箱即用的高速全文搜尋引擎</span></td><td class="st">59,552</td></tr>
+    <tr><td class="rk">10</td><td><a href="https://github.com/astral-sh/ruff">Ruff</a><br><span style="color:var(--soft);font-size:13px">用 Rust 寫的超快 Python linter／formatter</span></td><td class="st">50,030</td></tr>
+    <tr><td class="rk">11</td><td><a href="https://github.com/bevyengine/bevy">Bevy</a><br><span style="color:var(--soft);font-size:13px">資料驅動的 Rust 遊戲引擎</span></td><td class="st">48,940</td></tr>
+    <tr><td class="rk">12</td><td><a href="https://github.com/helix-editor/helix">Helix</a><br><span style="color:var(--soft);font-size:13px">模態（Vim 風格）的終端機程式編輯器</span></td><td class="st">46,563</td></tr>
+    <tr><td class="rk">13</td><td><a href="https://github.com/sharkdp/fd">fd</a><br><span style="color:var(--soft);font-size:13px">簡單又快的 find 替代品</span></td><td class="st">44,773</td></tr>
+    <tr><td class="rk">14</td><td><a href="https://github.com/nushell/nushell">Nushell</a><br><span style="color:var(--soft);font-size:13px">把資料當結構化物件處理的現代 shell</span></td><td class="st">40,656</td></tr>
+    <tr><td class="rk">15</td><td><a href="https://github.com/pola-rs/polars">Polars</a><br><span style="color:var(--soft);font-size:13px">高效能 DataFrame 資料分析函式庫（pandas 的 Rust 對手）</span></td><td class="st">40,108</td></tr>
+</table>
+</div>
+<p class="src">沒進前 15 名的：Qdrant（向量資料庫）35,050、Tokio（非同步執行環境）33,423、Hyperfine（指令效能量測）29,078。</p>
+
+<div class="card">
+  <h3>要覆核我的數字？這樣跑</h3>
+  <pre>for r in tauri-apps/tauri denoland/deno zed-industries/zed astral-sh/uv \
+         BurntSushi/ripgrep alacritty/alacritty sharkdp/bat starship/starship \
+         meilisearch/meilisearch astral-sh/ruff bevyengine/bevy helix-editor/helix \
+         sharkdp/fd nushell/nushell pola-rs/polars; do
+  echo "$r -> $(curl -s https://api.github.com/repos/$r | python -c \
+    "import sys,json;print(json.load(sys.stdin)['stargazers_count'])")"
+done</pre>
+  <p class="src">我自己在寫這頁之前也重跑過一次覆核：6 個抽查裡 5 個完全一致，<code>uv</code> 差 1（查詢之間有人按了星星），API 回 HTTP 200 沒有被限流。</p>
+</div>
+
+<div class="warn">
+  <h3 style="margin-top:0">我查不到的部分（照實說）</h3>
+  <ul>
+    <li><b>Discord</b>：毫秒級的延遲對比，官方只有圖表、沒有文字數字 → 這頁不寫具體毫秒。</li>
+    <li><b>Dropbox</b>：同步引擎重寫後，官方沒有提供效能數字 → 不寫。</li>
+    <li><b>1Password</b>：網路常見的「50 萬行 Rust、600 個 crate」找不到官方出處 → 不引用。</li>
+    <li><b>Apple</b>：記憶體安全走的是硬體 MTE ＋ 安全配置器（Memory Integrity Enforcement，iPhone 17 全面開啟、涵蓋逾 70 個用戶態程序），<b>不是用 Rust</b>。放在這裡是為了對照，不是說 Apple 也用。</li>
+  </ul>
+</div>
+
+<p>想知道「那我自己該不該用」→ 看下一頁：<a href="../best-for/">〈Rust 最擅長什麼？9 個場景與該用／不該用對照〉</a></p>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views="auto">—</span></div>
+<footer>小R 頻道・只用公開資料，數據都附來源｜本頁與 <a href="../">Rust 完整分析</a> 搭配看</footer>
+</body>
+</html>

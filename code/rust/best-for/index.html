@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rust 最擅長什麼？9 個開發場景與該用／不該用對照（附官方來源）｜程式設計｜小R 頻道</title>
+<meta name="description" content="Rust 最適合的九個開發場景：系統核心、TLS/DNS、高併發服務、命令列工具、WebAssembly、資料庫引擎、遊戲引擎、資料處理、AI 基礎設施，每個都附官方來源與不適合的情況。">
+<style>
+:root{--ink:#3b3733;--soft:#6b635a;--line:#ddd3c4;--paper:#f6f2e9;--card:#fffdf8;--red:#c0392b;--green:#1e8e4f;--blue:#365070}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Microsoft JhengHei","PingFang TC",system-ui,sans-serif;line-height:1.9}
+.wrap{max-width:820px;margin:0 auto;padding:26px 18px 70px}
+h1{font-size:27px;line-height:1.45;margin:12px 0 6px;font-family:"DFKai-SB","BiauKai",serif}
+.sub{color:var(--soft);font-size:14px;margin-bottom:8px}
+hr.rule{border:0;border-top:2px solid var(--line);margin:16px 0 20px}
+h2{font-size:20px;margin:34px 0 10px;font-family:"DFKai-SB","BiauKai",serif}
+h3{font-size:17px;margin:22px 0 8px}
+p{margin:12px 0}
+ul,ol{margin:12px 0;padding-left:22px}
+li{margin:6px 0}
+.lead{background:#fff6de;border:1px solid #e8d59a;border-radius:12px;padding:14px 16px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:20px 0}
+.whocard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin:14px 0}
+.whocard h3{margin:0 0 6px;font-size:18px;font-family:"DFKai-SB","BiauKai",serif}
+.whocard .num{color:var(--blue);font-weight:700}
+.whocard .why{font-size:15px}
+.whocard .src{color:var(--soft);font-size:12.5px;word-break:break-all;margin-top:6px}
+.whocard .warn{color:var(--red);font-size:13.5px;margin-top:6px}
+.num{display:flex;align-items:baseline;gap:10px;margin:14px 0}
+.num b{font-size:30px;color:var(--blue);font-family:"DFKai-SB","BiauKai",serif;line-height:1}
+.num span{font-size:14px;color:var(--soft)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14.5px;margin:16px 0}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid #eee4d4;vertical-align:top}
+th{background:#f2ebdd;font-size:13.5px;color:#5b5348}
+td.rk{color:var(--soft);font-family:"DFKai-SB","BiauKai",serif;font-size:16px;width:42px}
+td.st{text-align:right;font-family:"DFKai-SB","BiauKai",serif;color:var(--blue);font-weight:700;white-space:nowrap}
+td a{word-break:break-all}
+code{background:#f1ece1;border:1px solid #e2d8c8;border-radius:5px;padding:1px 6px;font-size:13.5px;word-break:break-all}
+pre{background:#f1ece1;border:1px solid #e2d8c8;border-radius:10px;padding:12px 14px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+.warn{background:#fdf1ef;border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:12px 15px;margin:18px 0}
+.ok{background:#eef7f1;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:12px 15px;margin:18px 0}
+.src{color:var(--soft);font-size:13px;margin-top:6px}
+.viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px;border-top:2px dashed #d9d1c2}
+.viewsline .vnum{color:#364e70;font-weight:700}
+footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+<link rel="stylesheet" href="../../../nav.css?v=73b4d013">
+<script defer src="../../../nav.js?v=10b45848"></script>
+<script defer src="../../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<div class="wrap">
+<h1>Rust 最擅長什麼？9 個場景與該用／不該用對照</h1>
+<div class="sub">程式設計・2026/10/13</div>
+<hr class="rule">
+
+<div class="lead">
+  <b>先講結論</b>：Rust 不是「比較好的 C++」，也不是萬靈丹。它是一把<b>用開發速度換取記憶體安全</b>的工具，
+  而且這筆交易在「解析器、網路協定、系統底層」這類魔鬼細節多的地方特別划算。
+  這頁把 9 個場景攤開，<b>每個場景都附來源，也附「什麼情況不適合」</b>。
+</div>
+
+<p>搭配看：<a href="../projects/">〈有哪些公司在用 Rust？〉</a>（誰在用、熱門專案排行）與 <a href="../">〈Rust 完整分析〉</a>。</p>
+
+<h2>九個場景</h2>
+<div class="whocard">
+  <h3>1. 作業系統核心與底層</h3>
+  <div class="why">核心程式的記憶體錯誤往往直接變成高風險漏洞，Rust 在<b>編譯期</b>就擋掉 use-after-free、空指標、緩衝區溢位，而且不犧牲 C 的效能特性（沒有 GC、行為可預測）。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>Linux 核心 Rust 支援、Android Binder 驅動</p>
+  <div class="src">來源：<a href="https://docs.kernel.org/rust/index.html">https://docs.kernel.org/rust/index.html</a></div>
+  <div class="warn">⚠️ 注意：核心仍以 C 為主，Rust 是增量新增不是重寫；兩種語言互通的成本很高。</div>
+</div>
+<div class="whocard">
+  <h3>2. 記憶體安全的關鍵基礎設施</h3>
+  <div class="why">這類元件「處理來路不明的網路資料」，是攻擊面最大的地方，歷史上卻多為 C/C++ 寫的。Prossimo 統計指出 60–70% 的 iOS／macOS 漏洞屬於記憶體安全漏洞。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>Firefox 的 Quantum CSS（Stylo）、Rustls（TLS）、Hickory（DNS）、sudo／su、curl 可選 Rustls</p>
+  <div class="src">來源：<a href="https://www.memorysafety.org/">https://www.memorysafety.org/</a></div>
+  <div class="warn">⚠️ 注意：不是所有元件都值得重寫——curl 的 HTTP（Hyper）整合就已終止支援，只剩 TLS 用 Rustls。</div>
+</div>
+<div class="whocard">
+  <h3>3. 高併發網路服務與代理</h3>
+  <div class="why">非同步、多執行緒、沒有 GC → 高併發下延遲穩定、資源用量低，同時降低對外服務的攻擊面。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>Cloudflare Pingora（每秒逾 1 兆請求，CPU −70%、記憶體 −67%）</p>
+  <div class="src">來源：<a href="https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/">https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/</a></div>
+  <div class="warn">⚠️ 注意：Rust 的 async 生態複雜、學習曲線陡；流量不大、團隊不熟 async 時，Go／Python／Node 的總成本可能更低。</div>
+</div>
+<div class="whocard">
+  <h3>4. 命令列工具</h3>
+  <div class="why">這類工具是「CPU 密集的批次處理」：掃大量檔案、解析、比對。Rust 編成原生機器碼、沒有 GC、沒有直譯器啟動開銷，加上成熟的平行處理，又快又能編成<b>單一靜態執行檔</b>（安裝不必裝依賴）。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>ripgrep（比 GNU grep 約快 10 倍）、uv（比 pip 快 8–10 倍，有快取 80–115 倍）、Ruff（比 Flake8／Black 快 10–100 倍）</p>
+  <div class="src">來源：<a href="https://astral.sh/blog/uv">https://astral.sh/blog/uv</a></div>
+  <div class="warn">⚠️ 注意：只有「經常執行、對速度敏感」的工具才值得重寫；Rust 編譯時間較長，迭代開發體感較慢。</div>
+</div>
+<div class="whocard">
+  <h3>5. WebAssembly</h3>
+  <div class="why">Rust 原生可編成 wasm32，<b>輸出小、啟動快、沒有 GC</b>，適合把高效能邏輯（影像、解析、加密、邊緣運算）搬到瀏覽器。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>Rust and WebAssembly 官方書、wasm-pack、HuggingFace Candle 的純瀏覽器 WASM 範例</p>
+  <div class="src">來源：<a href="https://rustwasm.github.io/docs/book/">https://rustwasm.github.io/docs/book/</a></div>
+  <div class="warn">⚠️ 注意：wasm32-unknown-unknown 之下部分標準函式庫不可用（println! 沒作用、std::fs 會出錯、不能開執行緒）；複雜 DOM 操作仍得靠 JS 橋接。</div>
+</div>
+<div class="whocard">
+  <h3>6. 資料庫與儲存引擎</h3>
+  <div class="why">儲存引擎是「極度效能敏感 ＋ 資料正確性關鍵」的元件，Rust 的零成本抽象、可控制記憶體佈局與並行安全很契合。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>TiKV（分散式 KV）、sled（嵌入式）、Qdrant</p>
+  <div class="src">來源：<a href="https://tikv.org/">https://tikv.org/</a></div>
+  <div class="warn">⚠️ 注意：主流資料庫（PostgreSQL、SQLite、MySQL）仍以 C/C++ 為主，並未改用 Rust；TiKV 仍高度依賴 C 寫的 RocksDB，是「Rust 外殼 ＋ C 核心」。「Rust 資料庫已全面超越傳統資料庫」查無權威來源支持。</div>
+</div>
+<div class="whocard">
+  <h3>7. 遊戲引擎</h3>
+  <div class="why">遊戲對效能與記憶體佈局極度敏感。Rust 的 ECS（資料導向設計）快取友善、易於大規模平行；沒有 GC 就不會有垃圾回收造成的畫面卡頓。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>Bevy（官方建議設定後約 0.8–3.0 秒完成編譯，對比其他 Rust 引擎「改一個換行要 30 秒以上」）</p>
+  <div class="src">來源：<a href="https://bevy.org/">https://bevy.org/</a></div>
+  <div class="warn">⚠️ 注意：Bevy 仍是早期階段引擎，編輯器、資產工具鏈、第三方生態遠不如 Unity／Unreal；3A 專案目前仍以 C++ 引擎為主。</div>
+</div>
+<div class="whocard">
+  <h3>8. 資料處理與大數據</h3>
+  <div class="why">資料分析是「大量資料 ＋ 大量平行計算」。Rust 核心能做到多核心自動平行、向量化查詢，還能處理超過記憶體大小的資料（out-of-core 串流），並以 Apache Arrow 欄式模型提高快取效率。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>Polars（官方列舉 Out of Core、Parallel、Vectorized Query Engine、GPU 支援）</p>
+  <div class="src">來源：<a href="https://docs.pola.rs/">https://docs.pola.rs/</a></div>
+  <div class="warn">⚠️ 注意：Pandas 生態成熟、教學資源多，Polars 的 API 不完全相容，遷移有學習成本；而且常是「Rust 核心 ＋ Python 介面」，使用者寫的還是 Python。</div>
+</div>
+<div class="whocard">
+  <h3>9. AI／機器學習（誠實版）</h3>
+  <div class="why">Rust 的價值<b>不是取代 Python 做訓練</b>，而是在三個地方：① 資料前處理與 tokenization；② 推論與部署；③ 訓練框架裡的高效能元件。</div>
+  <p style="margin:8px 0 0"><b>代表專案：</b>HuggingFace tokenizers（Rust 實作再包成 Python）、Candle（Rust ML 框架，可編到 WASM）</p>
+  <div class="src">來源：<a href="https://github.com/huggingface/tokenizers">https://github.com/huggingface/tokenizers</a></div>
+  <div class="warn">⚠️ 注意：模型<b>訓練</b>目前仍以 Python／PyTorch 為絕對主流，Rust 訓練工具相對年輕；「Rust 已能取代 PyTorch 做主流訓練」查無權威來源支持——網路上那種個人報告屬非權威來源，本頁不引用。</div>
+</div>
+
+<h2>該用 Rust vs 不該用 Rust</h2>
+<table>
+  <tr><th>該用（✓）</th><th>不該用（✗）</th></tr>
+  <tr>
+    <td>對記憶體安全極度敏感的基礎設施：OS 核心、TLS、DNS、瀏覽器引擎、代理</td>
+    <td>想「整體重寫」既有大型 C/C++ 專案——互通成本高、風險大，通常只做局部替換</td>
+  </tr>
+  <tr>
+    <td>高頻執行的原生命令列工具：ripgrep、uv、Ruff（快 10–100 倍、單一靜態檔免依賴）</td>
+    <td>一次性小工具或雛形驗證——用 Python 腳本更快寫完，Rust 開發與編譯成本不划算</td>
+  </tr>
+  <tr>
+    <td>CPU 密集、需要平行與可預測延遲的高併發網路服務</td>
+    <td>團隊不熟 async／Rust，而且流量不大的服務——Go／Python／Node 總成本可能更低</td>
+  </tr>
+  <tr>
+    <td>需要編到 WebAssembly 的高效能元件（影像、解析、加密、邊緣運算）</td>
+    <td>想快速迭代的專案——Rust 編譯時間較長、生態較小，開發迭代體感較慢</td>
+  </tr>
+  <tr>
+    <td>資料分析引擎層（Polars）、推論與 tokenization 等 AI 基礎設施層</td>
+    <td>模型研究與訓練——目前仍以 Python／PyTorch 生態為主，別用 Rust 重新造輪子</td>
+  </tr>
+</table>
+
+<div class="warn">
+  <h3 style="margin-top:0">查無明確來源的部分（照實說）</h3>
+  <ul>
+    <li>資料庫場景：<b>查無</b>官方來源支持「Rust 資料庫已全面超越傳統資料庫」，主流資料庫仍以 C/C++ 為主。</li>
+    <li>AI 場景：<b>查無</b>權威來源支持「Rust 已能取代 PyTorch 做主流訓練」。</li>
+    <li>所有數字都取自官方部落格或官方文件（Cloudflare、Astral、Mozilla、Google、HuggingFace、Linux kernel docs、Polars、Bevy、Prossimo）。</li>
+  </ul>
+</div>
+
+<div class="ok">
+  <h3 style="margin-top:0">一句話帶走</h3>
+  如果你的程式<b>會碰到別人給你的資料</b>（圖片、壓縮檔、網路封包、指令輸入），而且<b>跑得夠頻繁</b>，
+  那 Rust 值得學；如果你只是想快點把功能做出來、流量也不大，先用手上順的那個語言就好。
+</div>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views="auto">—</span></div>
+<footer>小R 頻道・只用公開資料，數據都附來源｜本頁與 <a href="../">Rust 完整分析</a> 搭配看</footer>
+</body>
+</html>

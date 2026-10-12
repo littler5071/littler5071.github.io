@@ -11,6 +11,16 @@ import sys
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 
 ARTICLES = [
+    dict(title="有哪些公司在用 Rust？公司清單＋熱門專案排行",
+         date="2026/10/13", length="清單",
+         url="rust/projects/",
+         desc="Linux 核心、Windows、Android、Chrome、AWS、Cloudflare、Discord、Meta、1Password、Shopify、Figma "
+              "採用 Rust 的官方數字與來源，加上 15 個熱門 Rust 開源專案的 GitHub 星星數排行（附覆核指令）。"),
+    dict(title="Rust 最擅長什麼？9 個場景與該用／不該用對照",
+         date="2026/10/13", length="整理",
+         url="rust/best-for/",
+         desc="九個最適合 Rust 的場景：系統核心、TLS/DNS、高併發網路服務、命令列工具、WebAssembly、儲存引擎、"
+              "遊戲引擎、資料處理、AI 基礎設施。每個都附官方來源，也附「什麼情況不適合」。"),
     dict(title="Rust：最受推崇的語言，卻只有 14.8% 的人在用——我把數據攤開看",
          date="2026/10/12", length="分析",
          url="rust/",
