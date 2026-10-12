@@ -173,5 +173,51 @@ if rows:
 else:
     print("② 瀏覽次數：✗ 抓不到資料（計數服務可能掛了）")
 print()
+
+# ── ③ 內容完整性（2026-10-12 加：防止排程改版把該有的卡片洗掉、或把區塊順序改跑掉）
+def check_content():
+    """檢查線上關鍵卡片與區塊順序。這些東西以前是手動補的 HTML，會被每日排程洗掉。"""
+    import urllib.request
+    UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/141.0"}
+    problems = []
+
+    def fetch(url):
+        req = urllib.request.Request(url + "?cb=%d" % int(time.time()), headers=UA)
+        return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+
+    try:
+        s = fetch("https://littler5071.github.io/stock/")
+        if 'href="backtest/"' not in s:
+            problems.append("股市觀察頁少了「訊號回測」卡片（href=\"backtest/\"）")
+        if 'href="logic/"' not in s:
+            problems.append("股市觀察頁少了「技術分析邏輯」卡片（href=\"logic/\"）")
+        p_fang = s.find('<h2><span class="dot"></span>方法必讀')
+        p_day = s.find('<h2><span class="dot"></span>每日觀察紀錄')
+        if p_fang < 0:
+            problems.append("股市觀察頁找不到「方法必讀」區塊標題")
+        elif p_day > 0 and p_fang > p_day:
+            problems.append("「方法必讀」被排到日報卡片後面（順序錯了：應在每日觀察紀錄之前）")
+    except Exception as e:
+        problems.append("抓股市觀察頁失敗: %s: %s" % (type(e).__name__, str(e)[:60]))
+
+    try:
+        h = fetch("https://littler5071.github.io/")
+        if "stock/backtest/" not in h:
+            problems.append("首頁少了「訊號回測」卡片（stock/backtest/）")
+    except Exception as e:
+        problems.append("抓首頁失敗: %s: %s" % (type(e).__name__, str(e)[:60]))
+
+    return problems
+
+
+content_bad = check_content()
+if content_bad:
+    print("③ 內容完整性：✗ 有 %d 項不對" % len(content_bad))
+    for p in content_bad:
+        print("　✗ %s" % p)
+else:
+    print("③ 內容完整性：關鍵卡片都在、區塊順序正確 ✓")
+print()
+
 if chart:
     print("MEDIA:%s" % chart[0])
