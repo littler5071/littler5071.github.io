@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>股市觀察 2026/10/12 · 上市前 50＋上櫃前 20 逐檔技術線型 · 小R 頻道</title>
+<meta name="description" content="2026/10/12 成交金額上市前 50 名與上櫃前 20 名個股的技術線型逐檔分析：月線位置、底底高、頭頭高、頸線突破與三大法人籌碼。公開資料整理，不構成投資建議。">
+<link rel="stylesheet" href="../../css/stock-report.css">
+<style>
+  .sub{text-align:center;color:var(--blue);margin-bottom:20px}
+  .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .bbar{display:flex;height:11px;border-radius:6px;overflow:hidden;margin:6px 0 4px;border:1px solid #d8d2c6}
+  .bbar span{display:block;height:100%} .bup{background:#c0392b} .bdn{background:#2e8c64} .bfl{background:#d8d2c6}
+  .scroll{overflow-x:auto}
+  @media (max-width:430px){
+    .anconcl{font-size:16px}
+    .anpts{font-size:14.5px}
+  }
+  .tg{font-size:12.5px;color:var(--soft);border:1.5px solid var(--line);border-radius:999px;padding:1px 9px}
+  a.top{display:block;text-align:center;margin-top:34px;color:var(--blue)}
+  .mktbox{border:2px solid var(--blue);border-radius:16px;padding:14px 18px;background:rgba(255,253,246,.75);margin:6px 0 10px}
+  .mkstate{font-size:clamp(19px,3.4vw,25px);color:var(--blue);margin:2px 0 4px;font-weight:bold}
+  .mkprev{font-size:13.5px;color:var(--soft);margin:0 0 8px}
+  .mksrc{font-size:13px;color:var(--soft);font-weight:normal;margin-left:8px}
+  .mktbox table{margin:6px 0}
+  .mktbox th[scope],.mktbox tr th{width:26%}
+  .mtgs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+  .mtgs a.tg{text-decoration:none;color:var(--soft)}
+  .mtgs a.tg:hover{color:var(--red);border-color:var(--red)}
+  .mksum{font-size:15.5px;margin:6px 0 0}
+  .mkbrief{margin:12px 0 2px}
+  .mkconcl{font-size:clamp(16.5px,2.4vw,19px);line-height:1.75;margin:0 0 8px;color:var(--ink,#4a4640)}
+  .mkpts{margin:0;padding:0 0 0 1.15em;font-size:15px;line-height:1.8;color:var(--ink,#4a4640)}
+  .mkpts li{margin:0 0 3px}
+  .mkpts b{color:var(--blue)}
+  .mkchart{margin:12px 0 0}
+  .mkchart img{width:100%;height:auto;border-radius:10px;border:1.5px solid var(--line);background:#fff}
+  .mkchart .cap{font-size:13.5px;color:var(--soft);margin:6px 0 0;line-height:1.65}
+  .mkchart .ylink{margin:6px 0 0}
+  details.mkfold{margin:8px 0 0;border:1.5px solid var(--line);border-radius:12px;background:rgba(255,255,255,.55)}
+  details.mkfold>summary{cursor:pointer;list-style:none;padding:9px 13px;font-size:14.5px;color:var(--blue);font-weight:bold;line-height:1.5}
+  details.mkfold>summary::-webkit-details-marker{display:none}
+  details.mkfold>summary::before{content:"▶ ";font-size:11px;color:var(--soft)}
+  details.mkfold[open]>summary::before{content:"▼ "}
+  details.mkfold[open]>summary{border-bottom:1px dashed var(--line)}
+  details.mkfold>.scroll{padding:4px 8px 2px}
+  details.mkfold>.mknote{padding:0 13px 10px}
+  #sec-market-chiptrend svg{display:block}
+  .mkchip h3 .dim{font-weight:normal;font-size:13px;color:var(--soft)}
+  @media (max-width:430px){
+    .mkconcl{font-size:16px}
+    .mkpts{font-size:14.5px}
+  }
+  .mkchip,.mkotc,.mkhist{border:2px solid var(--line);border-radius:16px;padding:12px 18px;
+    background:rgba(255,253,246,.75);margin:12px 0 0}
+  .mkchip h3,.mkotc h3,.mkhist h3{font-size:17px;margin:2px 0 8px;color:var(--blue)}
+  .mkchip h3 .dim,.mkhist h3 .dim{font-weight:normal;font-size:13.5px}
+  .mkchip table,.mkotc table,.mkhist table{margin:6px 0;font-size:14.5px}
+  .mkchip th[scope],.mkchip tr th,.mkotc tr th,.mkhist tr th{width:auto;white-space:nowrap}
+  .mkchip tr th{width:34%}
+  .mkotcline,.mknote{font-size:13.5px;color:var(--soft);margin:4px 0 0}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=10b45848"></script>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回股市觀察</a>
+  <h1>逐檔技術線型分析</h1>
+  <div class="sub">2026/10/12 · 成交金額上市前 50 名 ＋ 上櫃前 20 名（共 70 檔）· 公開資料整理</div>
+  
+  <div class="summary">
+    <div class="box"><div class="big dn">49301.96</div>
+      <div>加權指數　-11.48 點（-0.02%）</div></div>
+    <div class="box"><div class="big">538 / 451</div><div>上市個股上漲／下跌家數</div><div class="bbar"><span class="bup" style="width:50.05%"></span><span class="bfl" style="width:8.00%"></span><span class="bdn" style="width:41.95%"></span></div><div class="dim">上漲 50.0%　·　下跌 42.0%　·　持平 8.0%（共 1075 檔）</div></div>
+    <div class="box"><div class="big">330 / 466</div><div>上櫃個股上漲／下跌家數</div><div class="bbar"><span class="bup" style="width:38.02%"></span><span class="bfl" style="width:8.29%"></span><span class="bdn" style="width:53.69%"></span></div><div class="dim">上漲 38.0%　·　下跌 53.7%　·　持平 8.3%（共 868 檔）</div></div>
+    <div class="box"><div class="big">8,245 億</div><div>上市個股成交金額</div></div>
+    <div class="box"><div class="big">2,100 億</div><div>上櫃個股成交金額</div></div>
+  </div>
+  <div class="note" style="border-style:solid">
+    <strong>統計範圍</strong>：當日成交金額<strong>上市前 50 名 ＋ 上櫃前 20 名</strong>（共 70 檔，皆為 4 位數代號的個股，不含 ETF／權證）。
+    兩個市場<strong>各自取前 N 名</strong>後合併呈現，卡片上標示市場別（<span class="mk mk-l">上市</span>／<span class="mk mk-o">上櫃</span>），清單也附市場分布。<br>
+    <strong>條件統計</strong>：上市 上升趨勢：底底高 ＋ 頭頭高 10 檔、突破頸線 17 檔、底底高 14 檔、頭頭高 35 檔、站上月線 42 檔、月線向上 39 檔、外資買超 17 檔、量價攻擊（收紅＋大量） 15 檔、跌破前低（線型轉弱） 5 檔；上櫃 上升趨勢：底底高 ＋ 頭頭高 4 檔、突破頸線 8 檔、底底高 5 檔、頭頭高 12 檔、站上月線 17 檔、月線向上 16 檔、外資買超 6 檔、量價攻擊（收紅＋大量） 5 檔、跌破前低（線型轉弱） 2 檔。<br>
+    <strong>五項全滿足</strong>（底底高＋頭頭高＋站上月線＋月線向上＋5 日線向上）：上市 創意、華通、臻鼎-KY、日月光投控、南電、華新科、禾伸堂、台表科、台塑化；上櫃 頎邦、光頡、富喬、金山電。<br>
+    資料日 2026/10/12。籌碼：上市為證交所三大法人、上櫃為櫃買中心三大法人；上櫃另附融資餘額。
+  </div>
+  <div class="note">
+    每一檔都附上 K 線圖與線型說明：黃圈是轉折低點、粉圈是轉折高點、藍線是月線。
+    圖上兩條水平虛線、左側標數值：<strong>高點頸線</strong>（紅，連到最多「轉折高點」的那條水平線，代表上方壓力帶；收盤站上就算突破）與
+    <strong>低點頸線</strong>（綠，連到最多「轉折低點」的那條水平線，代表下方支撐帶；收盤跌破就算跌破）；
+    兩條線都只看最近 6 個轉折點、容忍同一價位帶 4%，連不到 2 個轉折點就不畫。
+    卡片的標籤可以點回上方對應清單，清單裡的股名也可以點到該檔。
+    本頁為公開資料（證交所每日收盤行情與三大法人、櫃買中心每日收盤行情與三大法人、Yahoo 股市日線）的整理與觀察，
+    <strong>不構成投資建議</strong>，不報牌、不預測、不下買賣決策。
+  </div>
+  
+  <section id="sec-market">
+    <h2>大盤趨勢快篩（加權指數） <small class="mksrc">資料日 2026/10/12・來源：證交所公開資料</small></h2>
+    <div class="mktbox">
+      <div class="mkstate">主狀態：突破頸線且帶量</div>
+      <div class="mkprev">前一交易日對照（10/08）：突破頸線且帶量（量比 20 1.05） → 今日突破頸線且帶量（量比 20 1.01）</div>
+      <details class="mkfold">
+        <summary>指標、數值、判定（點開看 12 項明細：均線位置／排列、月線方向、頸線、轉折結構、位階、量價…）</summary>
+        <div class="scroll"><table>
+        <tr><th>指標</th><th>數值</th><th>判定</th></tr>
+        
+        <tr><th>收盤指數</th><td>49,301.96</td><td>-11.48 點（-0.02%）</td></tr>
+        <tr id="sec-market-ma"><th>均線位置<br><span class="dim">收盤 vs MA5／10／20／60</span></th>
+          <td>MA5 49,591.27／MA10 48,838.23／MA20 47,793.78／MA60 45,787.96</td><td>站上 3／4｜跌破／站上／站上／站上（-0.58%／+0.95%／+3.16%／+7.67%）</td></tr>
+        <tr><th>均線排列</th><td>MA5 &gt; MA10 &gt; MA20 &gt; MA60</td><td>多頭排列（MA5 &gt; MA10 &gt; MA20 &gt; MA60，糾結度 7.96% → 發散）</td></tr>
+        <tr><th>月線方向（MA20）</th><td>上彎（比 5 日前 +696.61 點／+1.48%）</td><td>上彎（+139.3 點／日）</td></tr>
+        <tr id="sec-market-neck"><th>高點頸線<br><span class="dim">壓力帶</span></th>
+          <td>49,285.22（連到 2 個轉折高點：48,601.53 ~ 49,968.92）</td><td>已突破</td></tr>
+        <tr><th>低點頸線<br><span class="dim">支撐帶</span></th><td>44,639.15（連到 3 個轉折低點：44,210.31 ~ 45,398.43）</td><td>未跌破，距 +10.45%</td></tr>
+        <tr><th>轉折結構<br><span class="dim">頭頭高／底底高</span></th>
+          <td>高點 47,578.24 → 48,601.53 → 49,968.92（遞增）；低點 44,210.31 → 45,398.43 → 47,573.09（遞增）</td><td>頭頭高 ✔、底底高 ✔（容差 0.5%）</td></tr>
+        <tr id="sec-market-pos"><th>位置</th><td>近 20 日高 49,968.92（10-06）／低 45,398.43（09-14）</td><td>距高 -1.33%、距低 +8.60%</td></tr>
+        <tr id="sec-market-rank"><th>位階<br><span class="dim">近 20／60／120 日區間</span></th>
+          <td>近 120 日高 49,968.92（收盤價高 49,822.55）／低 36,850.24；近 60 日高 49,968.92／低 39,384.85</td><td>收盤位在 120 日區間第 94.9 個百分位（距 120 日高 -1.33%）</td></tr>
+        <tr id="sec-market-vol"><th>成交金額</th><td>8,945.2 億（集中市場總成交金額）</td><td>量比 5 = 0.89、量比 20 = 1.01（量能持平）</td></tr>
+        <tr id="sec-market-quad"><th>量價四象限<br><span class="dim">漲跌方向 × 量比 20</span></th>
+          <td>跌＋量平或縮 → 量縮回檔（賣壓不重）</td><td>量比 20 = 1.01（門檻 1.05 判定增／縮）→ 量縮回檔（賣壓不重）</td></tr>
+        </table></div>
+      </details>
+      <div class="mkbrief"><p class="mkconcl">加權指數今天跌 11.48 點（-0.02%），收 49,301.96、站上月線 47,793.78；月線還在上彎，MA5 這條短均還沒收復，已站上高點頸線 49,285.22。</p><ul class="mkpts"><li><b>均線位置</b>：4 條均線站上 3 條；沒站上的是 MA5 49,591.27（收盤比它低 0.58%）</li><li><b>月線方向</b>：月線 MA20 現在 47,793.78，比 5 個交易日前高 696.61 點 → 上彎</li><li><b>量能</b>：集中市場成交 8,945.2 億，比 5 日均量少一些（0.89 倍）、跟 20 日均量差不多（1.01 倍）</li><li><b>關鍵價位</b>：高點頸線 49,285.22已突破；低點頸線 44,639.15，還在下方 10.45%</li><li><b>大小型股</b>：加權 -0.02%、櫃買 +0.28%，方向相反（大型股與小型股不同調）</li></ul></div>
+      <div class="mtgs"><a class="tg" href="#sec-market-ma">均線多頭排列</a><a class="tg" href="#sec-market-ma">收盤 &gt; MA60</a><a class="tg" href="#sec-market-pos">貼近 20 日高</a><a class="tg" href="#sec-market-vol">量縮回檔（賣壓不重）</a><a class="tg" href="#sec-market-neck">頭頭高</a><a class="tg" href="#sec-market-neck">底底高</a><a class="tg" href="#sec-market-neck">待確認轉折</a></div>
+      <div class="mkchart"><a class="chartlink" href="https://tw.stock.yahoo.com/quote/%5ETWII/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看加權指數技術分析"><img src="charts/market.jpg" alt="加權指數日 K 線圖（黃圈＝轉折低點、粉圈＝轉折高點、藍線＝月線 MA20、水平虛線＝高點／低點頸線；點圖可看 Yahoo 技術分析）" decoding="async"></a><div class="ylink"><a href="https://tw.stock.yahoo.com/quote/%5ETWII/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看加權指數技術分析</a></div><div class="cap">圖說：加權指數日 K（與個股圖相同標記）：黃圈＝轉折低點、粉圈＝轉折高點、虛線小圈＝還沒確認的轉折、藍線＝月線 MA20、水平虛線＝高點／低點頸線。最後一根是資料日當天。</div></div>
+      <div class="note" style="margin:10px 0 0">本區塊為公開資料的技術面觀察，<strong>不構成投資建議</strong>，
+        不報牌、不預測、不下買賣決策。成交金額為<strong>集中市場總成交金額</strong>（含 ETF／權證），
+        與頁首摘要的「上市個股成交金額」口徑不同。標籤是統計，不是評分、也不是推薦。</div>
+    </div>
+
+
+      <div class="mkotc" id="sec-market-otc">
+        <h3>上市 vs 上櫃（同期快篩）</h3>
+        <div class="mkotcline">加權 -0.02% vs 櫃買 +0.28%（方向相反，大小型股背離）　→　方向相反（大小型股背離）
+          （兩個市場分開寫，不合併成一個數字；櫃買為 TPEX 公開資料）</div>
+        <div class="scroll"><table>
+          <tr><th>指標</th><th>加權（集中市場）</th><th>櫃買（上櫃）</th></tr>
+          <tr><th>收盤／漲跌</th><td>加權 49,301.96（-0.02%）</td><td>櫃買 427.90（+0.28%）</td></tr><tr><th>站上均線數</th><td>加權 3／4</td><td>櫃買 3／4</td></tr><tr><th>月線（MA20）</th><td>加權 站上（+3.16%）／上彎</td><td>櫃買 站上（+3.46%）／上彎</td></tr><tr><th>高點頸線</th><td>加權 49,285.22｜已突破</td><td>櫃買 412.11｜已突破</td></tr><tr><th>低點頸線</th><td>加權 44,639.15｜未跌破 +10.45%</td><td>櫃買 381.45｜未跌破 +12.18%</td></tr><tr><th>近 120 日區間百分位</th><td>加權 94.9%</td><td>櫃買 76.9%</td></tr><tr><th>主狀態</th><td>加權 突破頸線且帶量</td><td>櫃買 站上月線、月線向上</td></tr>
+        </table></div>
+        <div class="mknote">櫃買歷史：TPEX 逐日回補 130 根；來源：櫃買中心 www/zh-tw/indexInfo/sectinx（逐日，官方；OpenAPI tpex_index 只回當月）
+          （TPEX OpenAPI 只回當月，故逐日回補；歷史不足就不算該條均線並標「資料不足」，不用錯數字）</div>
+      </div>
+
+      <div class="mkhist" id="sec-market-hist">
+        <details class="mkfold">
+          <summary>近 20 個交易日大盤狀態回溯（最新在上）（點開看逐日主狀態／量比／量價象限）</summary>
+          <div class="scroll"><table>
+            <tr><th>日期</th><th>主狀態</th><th>量比 20</th><th>量價象限</th></tr>
+            <tr><td class="d">10/12</td><td>突破頸線且帶量</td><td class="d">1.01</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">10/08</td><td>突破頸線且帶量</td><td class="d">1.05</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">10/07</td><td>突破頸線且帶量</td><td class="d">1.12</td><td class="d">量增下跌（賣壓出籠）</td></tr><tr><td class="d">10/06</td><td>突破頸線且帶量</td><td class="d">1.16</td><td class="d">量價配合（攻擊）</td></tr><tr><td class="d">10/05</td><td>突破頸線且帶量</td><td class="d">1.38</td><td class="d">量價配合（攻擊）</td></tr><tr><td class="d">10/02</td><td>多頭排列</td><td class="d">1.09</td><td class="d">量價配合（攻擊）</td></tr><tr><td class="d">10/01</td><td>多頭排列</td><td class="d">1.01</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/30</td><td>多頭排列</td><td class="d">1.05</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/29</td><td>站上月線、月線向上</td><td class="d">0.93</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/24</td><td>多頭排列</td><td class="d">0.85</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/23</td><td>多頭排列</td><td class="d">0.97</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/22</td><td>多頭排列</td><td class="d">1.17</td><td class="d">量價配合（攻擊）</td></tr><tr><td class="d">09/21</td><td>站上月線、月線向上</td><td class="d">0.96</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/18</td><td>站上月線、月線向上</td><td class="d">1.28</td><td class="d">量價配合（攻擊）</td></tr><tr><td class="d">09/17</td><td>站上月線、月線向上</td><td class="d">1.00</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/16</td><td>量縮觀望</td><td class="d">0.78</td><td class="d">量縮上漲（追價意願有限）</td></tr><tr><td class="d">09/15</td><td>量縮觀望</td><td class="d">0.72</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/14</td><td>月線爭奪</td><td class="d">0.74</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/11</td><td>站上月線、月線向上</td><td class="d">0.83</td><td class="d">量縮回檔（賣壓不重）</td></tr><tr><td class="d">09/10</td><td>站上月線、月線向上</td><td class="d">0.81</td><td class="d">量縮回檔（賣壓不重）</td></tr>
+          </table></div>
+          <div class="mknote">用同一支程式回算最近 20 個交易日（主狀態 S1~S8 與量比 20 皆為當日收盤當時的判定，
+            不是事後調整）；量比 20 未公布的日子寫「—」。</div>
+        </details>
+      </div>
+    <script>
+    /* 標籤連結（#sec-market-…）若指向折疊區塊內的列，先自動展開再跳過去，否則點了看不到東西 */
+    (function () {
+      function openHash() {
+        var id = (location.hash || '').slice(1);
+        if (!id) return;
+        var el = document.getElementById(id);
+        if (!el) return;
+        var d = el.closest ? el.closest('details') : null;
+        if (!d && el.querySelector) d = el.querySelector('details');   // 目標是折疊區塊的外層 div 時
+        if (d && !d.open) { d.open = true; setTimeout(function () { el.scrollIntoView({ block: 'center' }); }, 30); }
+      }
+      window.addEventListener('hashchange', openHash);
+      if (document.readyState !== 'loading') setTimeout(openHash, 80);
+      else document.addEventListener('DOMContentLoaded', openHash);
+    })();
+    </script>
+  </section>
+  <section id="sec-rank">
+    <h2>好條件最多的（前 10）</h2>
+    <div class="scroll"><table>
+      <tr><th>#</th><th>股票</th><th>好／不好</th><th>收盤漲跌</th><th>相對大盤</th><th>符合的好條件</th></tr>
+      <tr><td class="d">1</td><td><a href="#2603">長榮</a> <small>2603</small> <span class="mk mk-l">上市</span></td><td class="d">8／0</td><td class="d up">255.5（+9.89%）</td><td class="d">+9.91</td><td>站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">2</td><td><a href="#6278">台表科</a> <small>6278</small> <span class="mk mk-l">上市</span></td><td class="d">8／0</td><td class="d up">272.5（+9.88%）</td><td class="d">+9.90</td><td>站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">3</td><td><a href="#3711">日月光投控</a> <small>3711</small> <span class="mk mk-l">上市</span></td><td class="d">8／0</td><td class="d up">762（+2.42%）</td><td class="d">+2.44</td><td>站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">4</td><td><a href="#6223">旺矽</a> <small>6223</small> <span class="mk mk-o">上櫃</span></td><td class="d">7／0</td><td class="d up">6130（+9.96%）</td><td class="d">+9.98</td><td>站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">5</td><td><a href="#6187">萬潤</a> <small>6187</small> <span class="mk mk-o">上櫃</span></td><td class="d">7／0</td><td class="d up">1675（+9.84%）</td><td class="d">+9.86</td><td>站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">6</td><td><a href="#2609">陽明</a> <small>2609</small> <span class="mk mk-l">上市</span></td><td class="d">7／0</td><td class="d up">63.6（+6.53%）</td><td class="d">+6.55</td><td>站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">7</td><td><a href="#3264">欣銓</a> <small>3264</small> <span class="mk mk-o">上櫃</span></td><td class="d">7／0</td><td class="d up">272.5（+6.45%）</td><td class="d">+6.47</td><td>站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">8</td><td><a href="#8042">金山電</a> <small>8042</small> <span class="mk mk-o">上櫃</span></td><td class="d">7／1</td><td class="d up">144（+3.97%）</td><td class="d">+3.99</td><td>站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">9</td><td><a href="#2313">華通</a> <small>2313</small> <span class="mk mk-l">上市</span></td><td class="d">7／0</td><td class="d up">252（+1.61%）</td><td class="d">+1.63</td><td>站上月線、月線向上、底底高、頭頭高、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+      <tr><td class="d">10</td><td><a href="#4938">和碩</a> <small>4938</small> <span class="mk mk-l">上市</span></td><td class="d">6／1</td><td class="d up">98.6（+9.92%）</td><td class="d">+9.94</td><td>站上月線、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）</td></tr>
+    </table></div>
+    <h2>不好條件最多的（前 10）</h2>
+    <div class="scroll"><table>
+      <tr><th>#</th><th>股票</th><th>好／不好</th><th>收盤漲跌</th><th>相對大盤</th><th>符合的不好條件</th></tr>
+      <tr><td class="d">1</td><td><a href="#3363">上詮</a> <small>3363</small> <span class="mk mk-o">上櫃</span></td><td class="d">0／8</td><td class="d dn">602（-9.75%）</td><td class="d">-9.73</td><td>跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">2</td><td><a href="#2317">鴻海</a> <small>2317</small> <span class="mk mk-l">上市</span></td><td class="d">1／8</td><td class="d dn">244.5（-1.81%）</td><td class="d">-1.79</td><td>跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">3</td><td><a href="#2059">川湖</a> <small>2059</small> <span class="mk mk-l">上市</span></td><td class="d">0／8</td><td class="d dn">10580（-0.33%）</td><td class="d">-0.31</td><td>跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">4</td><td><a href="#2454">聯發科</a> <small>2454</small> <span class="mk mk-l">上市</span></td><td class="d">2／7</td><td class="d dn">4625（-1.39%）</td><td class="d">-1.37</td><td>跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">5</td><td><a href="#6805">富世達</a> <small>6805</small> <span class="mk mk-l">上市</span></td><td class="d">2／6</td><td class="d dn">2270（-4.22%）</td><td class="d">-4.20</td><td>跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">6</td><td><a href="#6531">愛普*</a> <small>6531</small> <span class="mk mk-l">上市</span></td><td class="d">1／6</td><td class="d dn">947（-3.37%）</td><td class="d">-3.35</td><td>今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">7</td><td><a href="#2301">光寶科</a> <small>2301</small> <span class="mk mk-l">上市</span></td><td class="d">2／6</td><td class="d dn">288（-3.19%）</td><td class="d">-3.17</td><td>今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">8</td><td><a href="#2303">聯電</a> <small>2303</small> <span class="mk mk-l">上市</span></td><td class="d">2／6</td><td class="d dn">145.5（-1.36%）</td><td class="d">-1.34</td><td>跌破前低、今日下跌、相對大盤弱、在月線之下、外資賣超、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">9</td><td><a href="#2308">台達電</a> <small>2308</small> <span class="mk mk-l">上市</span></td><td class="d">3／5</td><td class="d dn">1900（-3.31%）</td><td class="d">-3.29</td><td>今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超、收盤跌破前一日低點</td></tr>
+      <tr><td class="d">10</td><td><a href="#2344">華邦電</a> <small>2344</small> <span class="mk mk-l">上市</span></td><td class="d">2／5</td><td class="d dn">174（-1.69%）</td><td class="d">-1.67</td><td>今日下跌、相對大盤弱、外資賣超、月線下彎、收盤跌破前一日低點</td></tr>
+    </table></div>
+    <div class="note" style="margin-top:14px">
+      <strong>好條件（8 項）</strong>：站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）。<br>
+      <strong>不好條件（8 項）</strong>：跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點。<br>
+      兩邊都是同一組資料（日線結構＋當日收盤量價籌碼）算出來的「符合項目數」，只是方向相反；
+      條件數<strong>不是評分、也不是推薦</strong>，不構成投資建議。
+    </div>
+  </section>
+  <a id="lists"></a><section id="sec-up"><h2>上升趨勢：底底高 ＋ 頭頭高（14　上市 10／上櫃 4）</h2><div class="nl"><a href="#3443">創意<i class="mk-l">上市</i></a><a href="#2313">華通<i class="mk-l">上市</i></a><a href="#4958">臻鼎-KY<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#8046">南電<i class="mk-l">上市</i></a><a href="#2492">華新科<i class="mk-l">上市</i></a><a href="#3026">禾伸堂<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#6505">台塑化<i class="mk-l">上市</i></a><a href="#6147">頎邦<i class="mk-o">上櫃</i></a><a href="#3624">光頡<i class="mk-o">上櫃</i></a><a href="#1815">富喬<i class="mk-o">上櫃</i></a><a href="#8042">金山電<i class="mk-o">上櫃</i></a></div></section><section id="sec-neck"><h2>突破頸線（25　上市 17／上櫃 8）</h2><div class="nl"><a href="#2330">台積電<i class="mk-l">上市</i></a><a href="#3008">大立光<i class="mk-l">上市</i></a><a href="#1303">南亞<i class="mk-l">上市</i></a><a href="#1301">台塑<i class="mk-l">上市</i></a><a href="#2368">金像電<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#3037">欣興<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#2345">智邦<i class="mk-l">上市</i></a><a href="#2492">華新科<i class="mk-l">上市</i></a><a href="#2609">陽明<i class="mk-l">上市</i></a><a href="#6257">矽格<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#4938">和碩<i class="mk-l">上市</i></a><a href="#6442">光聖<i class="mk-l">上市</i></a><a href="#2340">台亞<i class="mk-l">上市</i></a><a href="#6505">台塑化<i class="mk-l">上市</i></a><a href="#3105">穩懋<i class="mk-o">上櫃</i></a><a href="#6488">環球晶<i class="mk-o">上櫃</i></a><a href="#3264">欣銓<i class="mk-o">上櫃</i></a><a href="#3624">光頡<i class="mk-o">上櫃</i></a><a href="#6187">萬潤<i class="mk-o">上櫃</i></a><a href="#6223">旺矽<i class="mk-o">上櫃</i></a><a href="#6510">精測<i class="mk-o">上櫃</i></a><a href="#8042">金山電<i class="mk-o">上櫃</i></a></div></section><section id="sec-hl"><h2>底底高（19　上市 14／上櫃 5）</h2><div class="nl"><a href="#2454">聯發科<i class="mk-l">上市</i></a><a href="#3443">創意<i class="mk-l">上市</i></a><a href="#2303">聯電<i class="mk-l">上市</i></a><a href="#2317">鴻海<i class="mk-l">上市</i></a><a href="#2313">華通<i class="mk-l">上市</i></a><a href="#4958">臻鼎-KY<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#8046">南電<i class="mk-l">上市</i></a><a href="#2492">華新科<i class="mk-l">上市</i></a><a href="#2344">華邦電<i class="mk-l">上市</i></a><a href="#3026">禾伸堂<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#6505">台塑化<i class="mk-l">上市</i></a><a href="#6147">頎邦<i class="mk-o">上櫃</i></a><a href="#3624">光頡<i class="mk-o">上櫃</i></a><a href="#1815">富喬<i class="mk-o">上櫃</i></a><a href="#8042">金山電<i class="mk-o">上櫃</i></a><a href="#3374">精材<i class="mk-o">上櫃</i></a></div></section><section id="sec-hh"><h2>頭頭高（47　上市 35／上櫃 12）</h2><div class="nl"><a href="#3008">大立光<i class="mk-l">上市</i></a><a href="#2308">台達電<i class="mk-l">上市</i></a><a href="#1303">南亞<i class="mk-l">上市</i></a><a href="#2327">國巨*<i class="mk-l">上市</i></a><a href="#3661">世芯-KY<i class="mk-l">上市</i></a><a href="#2408">南亞科<i class="mk-l">上市</i></a><a href="#1301">台塑<i class="mk-l">上市</i></a><a href="#3443">創意<i class="mk-l">上市</i></a><a href="#2383">台光電<i class="mk-l">上市</i></a><a href="#2313">華通<i class="mk-l">上市</i></a><a href="#2368">金像電<i class="mk-l">上市</i></a><a href="#4958">臻鼎-KY<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#3037">欣興<i class="mk-l">上市</i></a><a href="#2409">友達<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#2345">智邦<i class="mk-l">上市</i></a><a href="#8046">南電<i class="mk-l">上市</i></a><a href="#2492">華新科<i class="mk-l">上市</i></a><a href="#2449">京元電子<i class="mk-l">上市</i></a><a href="#3406">玉晶光<i class="mk-l">上市</i></a><a href="#2301">光寶科<i class="mk-l">上市</i></a><a href="#2609">陽明<i class="mk-l">上市</i></a><a href="#2615">萬海<i class="mk-l">上市</i></a><a href="#1802">台玻<i class="mk-l">上市</i></a><a href="#6257">矽格<i class="mk-l">上市</i></a><a href="#3026">禾伸堂<i class="mk-l">上市</i></a><a href="#3665">貿聯-KY<i class="mk-l">上市</i></a><a href="#8039">台虹<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#3481">群創<i class="mk-l">上市</i></a><a href="#4938">和碩<i class="mk-l">上市</i></a><a href="#3653">健策<i class="mk-l">上市</i></a><a href="#2340">台亞<i class="mk-l">上市</i></a><a href="#6505">台塑化<i class="mk-l">上市</i></a><a href="#3264">欣銓<i class="mk-o">上櫃</i></a><a href="#6147">頎邦<i class="mk-o">上櫃</i></a><a href="#3624">光頡<i class="mk-o">上櫃</i></a><a href="#6187">萬潤<i class="mk-o">上櫃</i></a><a href="#6274">台燿<i class="mk-o">上櫃</i></a><a href="#1815">富喬<i class="mk-o">上櫃</i></a><a href="#6223">旺矽<i class="mk-o">上櫃</i></a><a href="#3081">聯亞<i class="mk-o">上櫃</i></a><a href="#8086">宏捷科<i class="mk-o">上櫃</i></a><a href="#8042">金山電<i class="mk-o">上櫃</i></a><a href="#3324">雙鴻<i class="mk-o">上櫃</i></a><a href="#4991">環宇-KY<i class="mk-o">上櫃</i></a></div></section><section id="sec-ma"><h2>站上月線（59　上市 42／上櫃 17）</h2><div class="nl"><a href="#2330">台積電<i class="mk-l">上市</i></a><a href="#3008">大立光<i class="mk-l">上市</i></a><a href="#2308">台達電<i class="mk-l">上市</i></a><a href="#1303">南亞<i class="mk-l">上市</i></a><a href="#2327">國巨*<i class="mk-l">上市</i></a><a href="#3661">世芯-KY<i class="mk-l">上市</i></a><a href="#2408">南亞科<i class="mk-l">上市</i></a><a href="#1301">台塑<i class="mk-l">上市</i></a><a href="#3443">創意<i class="mk-l">上市</i></a><a href="#2383">台光電<i class="mk-l">上市</i></a><a href="#2313">華通<i class="mk-l">上市</i></a><a href="#2368">金像電<i class="mk-l">上市</i></a><a href="#4958">臻鼎-KY<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#7769">鴻勁<i class="mk-l">上市</i></a><a href="#3037">欣興<i class="mk-l">上市</i></a><a href="#2409">友達<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#2345">智邦<i class="mk-l">上市</i></a><a href="#8046">南電<i class="mk-l">上市</i></a><a href="#2492">華新科<i class="mk-l">上市</i></a><a href="#2449">京元電子<i class="mk-l">上市</i></a><a href="#3406">玉晶光<i class="mk-l">上市</i></a><a href="#2344">華邦電<i class="mk-l">上市</i></a><a href="#2301">光寶科<i class="mk-l">上市</i></a><a href="#3189">景碩<i class="mk-l">上市</i></a><a href="#2609">陽明<i class="mk-l">上市</i></a><a href="#6669">緯穎<i class="mk-l">上市</i></a><a href="#2615">萬海<i class="mk-l">上市</i></a><a href="#1802">台玻<i class="mk-l">上市</i></a><a href="#6257">矽格<i class="mk-l">上市</i></a><a href="#3231">緯創<i class="mk-l">上市</i></a><a href="#3026">禾伸堂<i class="mk-l">上市</i></a><a href="#3665">貿聯-KY<i class="mk-l">上市</i></a><a href="#8039">台虹<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#3481">群創<i class="mk-l">上市</i></a><a href="#4938">和碩<i class="mk-l">上市</i></a><a href="#6442">光聖<i class="mk-l">上市</i></a><a href="#3653">健策<i class="mk-l">上市</i></a><a href="#2340">台亞<i class="mk-l">上市</i></a><a href="#6505">台塑化<i class="mk-l">上市</i></a><a href="#3105">穩懋<i class="mk-o">上櫃</i></a><a href="#6488">環球晶<i class="mk-o">上櫃</i></a><a href="#3264">欣銓<i class="mk-o">上櫃</i></a><a href="#6147">頎邦<i class="mk-o">上櫃</i></a><a href="#3624">光頡<i class="mk-o">上櫃</i></a><a href="#6187">萬潤<i class="mk-o">上櫃</i></a><a href="#6274">台燿<i class="mk-o">上櫃</i></a><a href="#1815">富喬<i class="mk-o">上櫃</i></a><a href="#6223">旺矽<i class="mk-o">上櫃</i></a><a href="#6510">精測<i class="mk-o">上櫃</i></a><a href="#3081">聯亞<i class="mk-o">上櫃</i></a><a href="#8086">宏捷科<i class="mk-o">上櫃</i></a><a href="#8042">金山電<i class="mk-o">上櫃</i></a><a href="#3374">精材<i class="mk-o">上櫃</i></a><a href="#3324">雙鴻<i class="mk-o">上櫃</i></a><a href="#6182">合晶<i class="mk-o">上櫃</i></a><a href="#4991">環宇-KY<i class="mk-o">上櫃</i></a></div></section><section id="sec-maup"><h2>月線向上（55　上市 39／上櫃 16）</h2><div class="nl"><a href="#2330">台積電<i class="mk-l">上市</i></a><a href="#2454">聯發科<i class="mk-l">上市</i></a><a href="#2308">台達電<i class="mk-l">上市</i></a><a href="#1303">南亞<i class="mk-l">上市</i></a><a href="#2327">國巨*<i class="mk-l">上市</i></a><a href="#3661">世芯-KY<i class="mk-l">上市</i></a><a href="#2408">南亞科<i class="mk-l">上市</i></a><a href="#1301">台塑<i class="mk-l">上市</i></a><a href="#3443">創意<i class="mk-l">上市</i></a><a href="#2303">聯電<i class="mk-l">上市</i></a><a href="#2383">台光電<i class="mk-l">上市</i></a><a href="#2313">華通<i class="mk-l">上市</i></a><a href="#2368">金像電<i class="mk-l">上市</i></a><a href="#4958">臻鼎-KY<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#3037">欣興<i class="mk-l">上市</i></a><a href="#2409">友達<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#2345">智邦<i class="mk-l">上市</i></a><a href="#8046">南電<i class="mk-l">上市</i></a><a href="#2492">華新科<i class="mk-l">上市</i></a><a href="#2449">京元電子<i class="mk-l">上市</i></a><a href="#3406">玉晶光<i class="mk-l">上市</i></a><a href="#3017">奇鋐<i class="mk-l">上市</i></a><a href="#3189">景碩<i class="mk-l">上市</i></a><a href="#2609">陽明<i class="mk-l">上市</i></a><a href="#1802">台玻<i class="mk-l">上市</i></a><a href="#6257">矽格<i class="mk-l">上市</i></a><a href="#3026">禾伸堂<i class="mk-l">上市</i></a><a href="#3665">貿聯-KY<i class="mk-l">上市</i></a><a href="#8039">台虹<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#3481">群創<i class="mk-l">上市</i></a><a href="#6442">光聖<i class="mk-l">上市</i></a><a href="#6531">愛普*<i class="mk-l">上市</i></a><a href="#3653">健策<i class="mk-l">上市</i></a><a href="#2340">台亞<i class="mk-l">上市</i></a><a href="#6805">富世達<i class="mk-l">上市</i></a><a href="#6505">台塑化<i class="mk-l">上市</i></a><a href="#3105">穩懋<i class="mk-o">上櫃</i></a><a href="#6488">環球晶<i class="mk-o">上櫃</i></a><a href="#3264">欣銓<i class="mk-o">上櫃</i></a><a href="#6147">頎邦<i class="mk-o">上櫃</i></a><a href="#3624">光頡<i class="mk-o">上櫃</i></a><a href="#6187">萬潤<i class="mk-o">上櫃</i></a><a href="#6274">台燿<i class="mk-o">上櫃</i></a><a href="#1815">富喬<i class="mk-o">上櫃</i></a><a href="#6223">旺矽<i class="mk-o">上櫃</i></a><a href="#8086">宏捷科<i class="mk-o">上櫃</i></a><a href="#8042">金山電<i class="mk-o">上櫃</i></a><a href="#3374">精材<i class="mk-o">上櫃</i></a><a href="#3324">雙鴻<i class="mk-o">上櫃</i></a><a href="#6182">合晶<i class="mk-o">上櫃</i></a><a href="#8299">群聯<i class="mk-o">上櫃</i></a><a href="#4991">環宇-KY<i class="mk-o">上櫃</i></a></div></section><section id="sec-flow"><h2>外資買超（23　上市 17／上櫃 6）</h2><div class="nl"><a href="#3661">世芯-KY<i class="mk-l">上市</i></a><a href="#3443">創意<i class="mk-l">上市</i></a><a href="#2313">華通<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#7769">鴻勁<i class="mk-l">上市</i></a><a href="#3037">欣興<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#8046">南電<i class="mk-l">上市</i></a><a href="#3017">奇鋐<i class="mk-l">上市</i></a><a href="#3189">景碩<i class="mk-l">上市</i></a><a href="#2609">陽明<i class="mk-l">上市</i></a><a href="#6515">穎崴<i class="mk-l">上市</i></a><a href="#3231">緯創<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#3481">群創<i class="mk-l">上市</i></a><a href="#4938">和碩<i class="mk-l">上市</i></a><a href="#6805">富世達<i class="mk-l">上市</i></a><a href="#6488">環球晶<i class="mk-o">上櫃</i></a><a href="#3264">欣銓<i class="mk-o">上櫃</i></a><a href="#6187">萬潤<i class="mk-o">上櫃</i></a><a href="#6223">旺矽<i class="mk-o">上櫃</i></a><a href="#8086">宏捷科<i class="mk-o">上櫃</i></a><a href="#5274">信驊<i class="mk-o">上櫃</i></a></div></section><section id="sec-vol"><h2>量價攻擊（收紅＋大量）（20　上市 15／上櫃 5）</h2><div class="nl"><a href="#3008">大立光<i class="mk-l">上市</i></a><a href="#3661">世芯-KY<i class="mk-l">上市</i></a><a href="#2383">台光電<i class="mk-l">上市</i></a><a href="#2313">華通<i class="mk-l">上市</i></a><a href="#3711">日月光投控<i class="mk-l">上市</i></a><a href="#7769">鴻勁<i class="mk-l">上市</i></a><a href="#2603">長榮<i class="mk-l">上市</i></a><a href="#2345">智邦<i class="mk-l">上市</i></a><a href="#3406">玉晶光<i class="mk-l">上市</i></a><a href="#2609">陽明<i class="mk-l">上市</i></a><a href="#6515">穎崴<i class="mk-l">上市</i></a><a href="#2615">萬海<i class="mk-l">上市</i></a><a href="#6257">矽格<i class="mk-l">上市</i></a><a href="#6278">台表科<i class="mk-l">上市</i></a><a href="#4938">和碩<i class="mk-l">上市</i></a><a href="#3264">欣銓<i class="mk-o">上櫃</i></a><a href="#6187">萬潤<i class="mk-o">上櫃</i></a><a href="#6223">旺矽<i class="mk-o">上櫃</i></a><a href="#6510">精測<i class="mk-o">上櫃</i></a><a href="#8042">金山電<i class="mk-o">上櫃</i></a></div></section><section id="sec-weak"><h2>跌破前低（線型轉弱）（7　上市 5／上櫃 2）</h2><div class="nl"><a href="#2454">聯發科<i class="mk-l">上市</i></a><a href="#2303">聯電<i class="mk-l">上市</i></a><a href="#2317">鴻海<i class="mk-l">上市</i></a><a href="#2059">川湖<i class="mk-l">上市</i></a><a href="#6805">富世達<i class="mk-l">上市</i></a><a href="#8299">群聯<i class="mk-o">上櫃</i></a><a href="#3363">上詮<i class="mk-o">上櫃</i></a></div></section>
+  <h2 style="margin-top:40px">逐檔分析（70 檔）</h2>
+  
+  <article class="card" id="2330">
+    <div class="hd">
+      <h3>台積電 <small>2330</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">2540　-10.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 596 億・全榜第 1 名（上市第 1 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、突破頸線<br>
+      不好條件 <b>5/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2330.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台積電 的技術線">
+      <img src="charts/2330.jpg" alt="台積電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2330.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2330.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 2480.25，已站上高點頸線 2483，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 2540 在月線 2480.25 之上；5 日線 2567 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.17 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 2483 已站上；最近轉折高點 2590（低於 1.9%）；最近轉折低點 2375（高於 6.9%）</li><li><b>轉折結構</b>：低點 2350、2375、2375 與高點 2505、2510、2590 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-24 2470、10-12 2510；還沒確認的轉折高點 09-30 2510（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3008">
+    <div class="hd">
+      <h3>大立光 <small>3008</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">7325　+665.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 408.91 億・全榜第 2 名（上市第 2 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、頭頭高、突破頸線、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>2/8</b>：外資賣超、月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3008.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 大立光 的技術線">
+      <img src="charts/3008.jpg" alt="大立光 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3008.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3008.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 6411，已站上高點頸線 6860，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 7325 在月線 6411 之上；5 日線 6883 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 3.10 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 6860 已站上；最近轉折高點 6750（高於 8.5%）；最近轉折低點 5740（高於 27.6%）</li><li><b>轉折結構</b>：高點 4770、7995、6750 墊高 8.5%（頭頭高），但低點 6350、5930、5740 沒有同步墊高；還沒確認的轉折低點 09-29 5940、10-12 6355；還沒確認的轉折高點 10-07 6970、10-12 7325（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2454">
+    <div class="hd">
+      <h3>聯發科 <small>2454</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">4625　-65.0</div>
+    </div>
+    <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 362.42 億・全榜第 3 名（上市第 3 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：月線向上、底底高<br>
+      不好條件 <b>7/8</b>：跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2454.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 聯發科 的技術線">
+      <img src="charts/2454.jpg" alt="聯發科 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2454.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2454.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、跌破月線 4834.5，跌破前一個轉折低點（高點頸線 5420 還在收盤上方），底部還在墊高（但高點沒同步創高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 4625 在月線 4834.5 之下；5 日線 4847 也在月線之上（短均在上）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 1.15 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 5420 還沒突破、還在收盤上方 14.7%；最近轉折高點 5165（低於 10.5%）；最近轉折低點 4875（低於 5.1%）</li><li><b>轉折結構</b>：低點 3655、4430、4875 墊高 33.4%（底底高），但高點 4855、5480、5165 沒有同步創高；還沒確認的轉折低點 09-29 4890、10-12 4545；還沒確認的轉折高點 09-24 5360（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2308">
+    <div class="hd">
+      <h3>台達電 <small>2308</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">1900　-65.0</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 226.83 億・全榜第 4 名（上市第 4 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>5/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2308.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台達電 的技術線">
+      <img src="charts/2308.jpg" alt="台達電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2308.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2308.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 1836.25，離高點頸線 1910 還差 0.5%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1900 在月線 1836.25 之上；5 日線 1982 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.09 倍，比 20 日均量大一些；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 1910 還沒突破，差 0.5%；最近轉折高點 2115（低於 10.2%）；最近轉折低點 1810（高於 5.0%）</li><li><b>轉折結構</b>：高點 1885、1965、2115 墊高 12.2%（頭頭高），但低點 1725、1560、1810 沒有同步墊高；還沒確認的轉折低點 10-01 1860、10-12 1855；還沒確認的轉折高點 09-29 1950、10-01 1935（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="1303">
+    <div class="hd">
+      <h3>南亞 <small>1303</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">303　-7.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 220.31 億・全榜第 5 名（上市第 5 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、頭頭高、突破頸線<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/1303.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 南亞 的技術線">
+      <img src="charts/1303.jpg" alt="南亞 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/1303.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（1303.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、站上月線 254.55，已站上高點頸線 249，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 303 在月線 254.55 之上；5 日線 301.2 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.00 倍，跟 20 日均量差不多</li><li><b>關鍵價位</b>：高點頸線 249 已站上；最近轉折高點 251.5（高於 20.5%）；最近轉折低點 223（高於 35.9%）</li><li><b>轉折結構</b>：高點 250、245.5、251.5 墊高 28.0%（頭頭高），但低點 220.5、223、223 沒有同步墊高；還沒確認的轉折低點 10-12 300；還沒確認的轉折高點 09-30 265、10-07 322（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2327">
+    <div class="hd">
+      <h3>國巨* <small>2327</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">636　+1.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 165.27 億・全榜第 6 名（上市第 6 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、頭頭高、相對大盤強<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2327.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 國巨* 的技術線">
+      <img src="charts/2327.jpg" alt="國巨* K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2327.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2327.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、但成交量比平均少、站上月線 579.35，離高點頸線 670.67 還差 5.2%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 636 在月線 579.35 之上；5 日線 633.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.64 倍，比 20 日均量少很多；收紅但量縮，量價背離</li><li><b>關鍵價位</b>：高點頸線 670.67 還沒突破，差 5.2%；最近轉折高點 601（高於 5.8%）；最近轉折低點 548（高於 16.1%）</li><li><b>轉折結構</b>：高點 610、605、601 墊高 14.1%（頭頭高），但低點 520、548、548 沒有同步墊高；還沒確認的轉折低點 10-08 619、10-12 619；還沒確認的轉折高點 10-05 658、10-07 686（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3661">
+    <div class="hd">
+      <h3>世芯-KY <small>3661</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">4395　+50.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 152.12 億・全榜第 7 名（上市第 7 名）</span></div>
+    <div class="score">好條件 <b>6/8</b>：站上月線、月線向上、頭頭高、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3661.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 世芯-KY 的技術線">
+      <img src="charts/3661.jpg" alt="世芯-KY K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3661.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3661.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 3790，離高點頸線 4456.67 還差 1.4%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 4395 在月線 3790 之上；5 日線 4212 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.42 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 4456.67 還沒突破，差 1.4%；最近轉折高點 3950（高於 11.3%）；最近轉折低點 3260（高於 34.8%）</li><li><b>轉折結構</b>：高點 4530、4350、3950 墊高 13.7%（頭頭高），但低點 2630、3585、3260 沒有同步墊高；還沒確認的轉折低點 09-29 3675、10-06 3850；還沒確認的轉折高點 10-12 4490（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2408">
+    <div class="hd">
+      <h3>南亞科 <small>2408</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">527　-5.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 148.12 億・全榜第 8 名（上市第 8 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2408.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 南亞科 的技術線">
+      <img src="charts/2408.jpg" alt="南亞科 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2408.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2408.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 509.05，離高點頸線 535.8 還差 1.6%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 527 在月線 509.05 之上；5 日線 525.6 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.67 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 535.8 還沒突破，差 1.6%；最近轉折高點 533（低於 1.1%）；最近轉折低點 488（高於 8.0%）</li><li><b>轉折結構</b>：高點 569、540、533 墊高 0.8%（頭頭高），但低點 470、465.5、488 沒有同步墊高；還沒確認的轉折低點 10-07 514、10-12 520；還沒確認的轉折高點 10-06 535、10-08 537（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="1301">
+    <div class="hd">
+      <h3>台塑 <small>1301</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">80.7　-0.6</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 143.17 億・全榜第 9 名（上市第 9 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、頭頭高、突破頸線<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/1301.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台塑 的技術線">
+      <img src="charts/1301.jpg" alt="台塑 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/1301.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（1301.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 67.32，已站上高點頸線 70.13，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 80.7 在月線 67.32 之上；5 日線 74.9 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 4.45 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 70.13 已站上；最近轉折高點 71.2（高於 13.3%）；最近轉折低點 62（高於 30.2%）</li><li><b>轉折結構</b>：高點 57.2、61.8、71.2 墊高 24.5%（頭頭高），但低點 64.1、61.2、62 沒有同步墊高；還沒確認的轉折低點 10-06 67.5；還沒確認的轉折高點 10-05 69.6、10-12 84（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3443">
+    <div class="hd">
+      <h3>創意 <small>3443</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">8100　-260.0</div>
+    </div>
+    <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 143.16 億・全榜第 10 名（上市第 10 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、底底高、頭頭高、外資買超<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3443.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 創意 的技術線">
+      <img src="charts/3443.jpg" alt="創意 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3443.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3443.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 7558，離高點頸線 8647.5 還差 6.3%，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 8100 在月線 7558 之上；5 日線 8379 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.21 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 8647.5 還沒突破，差 6.3%；最近轉折高點 8545（低於 5.2%）；最近轉折低點 7730（高於 4.8%）</li><li><b>轉折結構</b>：低點 5680、5850、7730 一路墊高 36.1%、高點 5990、6490、8545 也一路墊高 42.7%，是底底高＋頭頭高；還沒確認的轉折低點 10-06 8110、10-12 7820；還沒確認的轉折高點 10-07 8750（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2303">
+    <div class="hd">
+      <h3>聯電 <small>2303</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">145.5　-2.0</div>
+    </div>
+    <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 142.09 億・全榜第 11 名（上市第 11 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：月線向上、底底高<br>
+      不好條件 <b>6/8</b>：跌破前低、今日下跌、相對大盤弱、在月線之下、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2303.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 聯電 的技術線">
+      <img src="charts/2303.jpg" alt="聯電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2303.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2303.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、跌破月線 150.65，跌破前一個轉折低點（高點頸線 147.75 還在收盤上方），底部還在墊高（但高點沒同步創高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 145.5 在月線 150.65 之下；5 日線 148.3 也在月線之下（短均在下）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 0.56 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 147.75 還沒突破、還在收盤上方 1.5%；最近轉折高點 165（低於 11.8%）；最近轉折低點 151.5（低於 4.0%）</li><li><b>轉折結構</b>：低點 123、135、151.5 墊高 23.2%（底底高），但高點 145.5、168.5、165 沒有同步創高；還沒確認的轉折低點 10-07 145.5、10-12 144；還沒確認的轉折高點 10-07 150（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2383">
+    <div class="hd">
+      <h3>台光電 <small>2383</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">6150　+150.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 140.15 億・全榜第 12 名（上市第 12 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、頭頭高、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2383.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台光電 的技術線">
+      <img src="charts/2383.jpg" alt="台光電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2383.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2383.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 5275.25，離高點頸線 6328.33 還差 2.8%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 6150 在月線 5275.25 之上；5 日線 5959 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.13 倍，比 20 日均量大一些；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 6328.33 還沒突破，差 2.8%；最近轉折高點 5170（高於 19.0%）；最近轉折低點 4855（高於 26.7%）</li><li><b>轉折結構</b>：高點 5960、5645、5170 墊高 22.3%（頭頭高），但低點 5255、4635、4855 沒有同步墊高；還沒確認的轉折低點 09-29 4870、10-08 5745；還沒確認的轉折高點 10-07 6325、10-12 6190（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2317">
+    <div class="hd">
+      <h3>鴻海 <small>2317</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">244.5　-4.5</div>
+    </div>
+    <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 128.16 億・全榜第 13 名（上市第 13 名）</span></div>
+    <div class="score">好條件 <b>1/8</b>：底底高<br>
+      不好條件 <b>8/8</b>：跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2317.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 鴻海 的技術線">
+      <img src="charts/2317.jpg" alt="鴻海 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2317.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2317.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、跌破月線 250.75，跌破前一個轉折低點（高點頸線 255.6 還在收盤上方），底部還在墊高（但高點沒同步創高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 244.5 在月線 250.75 之下；5 日線 251.1 也在月線之上（短均在上）；月線走平或向下、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 1.60 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 255.6 還沒突破、還在收盤上方 4.3%；最近轉折高點 266.5（低於 8.3%）；最近轉折低點 247（低於 1.0%）</li><li><b>轉折結構</b>：低點 238、243.5、247 墊高 3.8%（底底高），但高點 259、257、266.5 沒有同步創高；還沒確認的轉折低點 10-02 250.5、10-12 243.5；還沒確認的轉折高點 09-30 254、10-01 254（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2313">
+    <div class="hd">
+      <h3>華通 <small>2313</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">252　+4.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 127.25 億・全榜第 14 名（上市第 14 名）</span></div>
+    <div class="score">好條件 <b>7/8</b>：站上月線、月線向上、底底高、頭頭高、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2313.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 華通 的技術線">
+      <img src="charts/2313.jpg" alt="華通 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2313.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2313.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 229.925，離高點頸線 259.67 還差 3.0%，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 252 在月線 229.925 之上；5 日線 249.3 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 2.16 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 259.67 還沒突破，差 3.0%；最近轉折高點 235（高於 7.2%）；最近轉折低點 219（高於 15.1%）</li><li><b>轉折結構</b>：低點 205.5、213、219 一路墊高 6.6%、高點 260、258、235 也一路墊高 11.1%，是底底高＋頭頭高；還沒確認的轉折低點 10-01 223、10-08 242.5；還沒確認的轉折高點 10-07 261、10-12 260（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2368">
+    <div class="hd">
+      <h3>金像電 <small>2368</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">1235　-50.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 124.33 億・全榜第 15 名（上市第 15 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、頭頭高、突破頸線<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2368.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 金像電 的技術線">
+      <img src="charts/2368.jpg" alt="金像電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2368.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2368.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 1101.95，已站上高點頸線 1151.67，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1235 在月線 1101.95 之上；5 日線 1248 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.06 倍，比 20 日均量大一些；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 1151.67 已站上；最近轉折高點 1085（高於 13.8%）；最近轉折低點 950（高於 30.0%）</li><li><b>轉折結構</b>：高點 1245、1145、1085 墊高 20.7%（頭頭高），但低點 915、1030、950 沒有同步墊高；還沒確認的轉折低點 10-08 1210、10-12 1210；還沒確認的轉折高點 09-30 1160、10-07 1310（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="4958">
+    <div class="hd">
+      <h3>臻鼎-KY <small>4958</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">581　-11.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 122.9 億・全榜第 16 名（上市第 16 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、底底高、頭頭高<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/4958.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 臻鼎-KY 的技術線">
+      <img src="charts/4958.jpg" alt="臻鼎-KY K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/4958.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（4958.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 515.05，離高點頸線 608.5 還差 4.5%，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 581 在月線 515.05 之上；5 日線 583.6 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.68 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 608.5 還沒突破，差 4.5%；最近轉折高點 505（高於 15.0%）；最近轉折低點 463.5（高於 25.4%）</li><li><b>轉折結構</b>：低點 421.5、446.5、463.5 一路墊高 10.0%、高點 522、550、505 也一路墊高 21.4%，是底底高＋頭頭高；還沒確認的轉折低點 09-23 470、10-12 578；還沒確認的轉折高點 10-06 604、10-08 613（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3711">
+    <div class="hd">
+      <h3>日月光投控 <small>3711</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">762　+18.0</div>
+    </div>
+    <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 120.35 億・全榜第 17 名（上市第 17 名）</span></div>
+    <div class="score">好條件 <b>8/8</b>：站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3711.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 日月光投控 的技術線">
+      <img src="charts/3711.jpg" alt="日月光投控 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3711.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3711.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 680.7，已站上高點頸線 761.5，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 762 在月線 680.7 之上；5 日線 744.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.12 倍，比 20 日均量大一些；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 761.5 已站上；最近轉折高點 758（高於 0.5%）；最近轉折低點 678（高於 12.4%）</li><li><b>轉折結構</b>：低點 578、592、678 一路墊高 17.3%、高點 653、711、758 也一路墊高 16.1%，是底底高＋頭頭高；還沒確認的轉折低點 10-01 693、10-08 715；還沒確認的轉折高點 09-30 723、10-12 765（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="7769">
+    <div class="hd">
+      <h3>鴻勁 <small>7769</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">6490　+565.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 113.36 億・全榜第 18 名（上市第 18 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>1/8</b>：月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/7769.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 鴻勁 的技術線">
+      <img src="charts/7769.jpg" alt="鴻勁 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/7769.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（7769.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 6000.25，離高點頸線 6556.67 還差 1.0%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 6490 在月線 6000.25 之上；5 日線 6004 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 2.19 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 6556.67 還沒突破，差 1.0%；最近轉折高點 6615（低於 1.9%）；最近轉折低點 5380（高於 20.6%）</li><li><b>轉折結構</b>：低點 6060、5620、5380 與高點 6540、7160、6615 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-12 5870；還沒確認的轉折高點 10-06 6115、10-12 6515（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3037">
+    <div class="hd">
+      <h3>欣興 <small>3037</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">1255　-15.0</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 111.07 億・全榜第 19 名（上市第 19 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、頭頭高、突破頸線、外資買超<br>
+      不好條件 <b>2/8</b>：今日下跌、相對大盤弱</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3037.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 欣興 的技術線">
+      <img src="charts/3037.jpg" alt="欣興 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3037.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3037.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 1129.2，已站上高點頸線 1005，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1255 在月線 1129.2 之上；5 日線 1293 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.62 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 1005 已站上；最近轉折高點 1420（低於 11.6%）；最近轉折低點 932（高於 34.7%）</li><li><b>轉折結構</b>：高點 1005、1200、1420 墊高 41.3%（頭頭高），但低點 1030、873、932 沒有同步墊高；還沒確認的轉折低點 10-06 1285、10-12 1240；還沒確認的轉折高點 10-07 1345（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2409">
+    <div class="hd">
+      <h3>友達 <small>2409</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">35.55　-1.1</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 109.66 億・全榜第 20 名（上市第 20 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2409.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 友達 的技術線">
+      <img src="charts/2409.jpg" alt="友達 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2409.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2409.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 34.28，離高點頸線 36.65 還差 3.0%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 35.55 在月線 34.28 之上；5 日線 37.32 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.55 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 36.65 還沒突破，差 3.0%；最近轉折高點 43.55（低於 18.4%）；最近轉折低點 27.75（高於 28.1%）</li><li><b>轉折結構</b>：高點 32.2、36.65、43.55 墊高 35.2%（頭頭高），但低點 25.25、24.6、27.75 沒有同步墊高；還沒確認的轉折低點 09-23 33.4、10-12 34.45；還沒確認的轉折高點 09-23 36.65（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2059">
+    <div class="hd">
+      <h3>川湖 <small>2059</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">10580　-35.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 107.99 億・全榜第 22 名（上市第 21 名）</span></div>
+    <div class="score">好條件 <b>0/8</b>：無<br>
+      不好條件 <b>8/8</b>：跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2059.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 川湖 的技術線">
+      <img src="charts/2059.jpg" alt="川湖 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2059.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2059.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、跌破月線 12151，跌破前一個轉折低點（高點頸線 13196.7 還在收盤上方），轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 10580 在月線 12151 之下；5 日線 11888 也在月線之下（短均在下）；月線走平或向下、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 2.31 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 13196.7 還沒突破、還在收盤上方 19.8%；最近轉折高點 13500（低於 21.6%）；最近轉折低點 11700（低於 9.6%）</li><li><b>轉折結構</b>：低點 13310、11665、11700 與高點 14200、13305、13500 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-29 11900、10-12 10120；還沒確認的轉折高點 09-30 12785（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2603">
+    <div class="hd">
+      <h3>長榮 <small>2603</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">255.5　+23.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 100.1 億・全榜第 24 名（上市第 22 名）</span></div>
+    <div class="score">好條件 <b>8/8</b>：站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2603.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 長榮 的技術線">
+      <img src="charts/2603.jpg" alt="長榮 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2603.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2603.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 238.775，已站上高點頸線 241.3，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 255.5 在月線 238.775 之上；5 日線 238.3 也在月線之下（短均在下）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 5.38 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 241.3 已站上；最近轉折高點 244（高於 4.7%）；最近轉折低點 227（高於 12.6%）</li><li><b>轉折結構</b>：低點 211、225.5、227 一路墊高 7.6%、高點 240、245.5、244 也一路墊高 4.7%，是底底高＋頭頭高；還沒確認的轉折低點 10-01 235.5、10-08 231；還沒確認的轉折高點 10-07 238、10-12 255.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2345">
+    <div class="hd">
+      <h3>智邦 <small>2345</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">2130　+60.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 96.47 億・全榜第 25 名（上市第 23 名）</span></div>
+    <div class="score">好條件 <b>6/8</b>：站上月線、月線向上、頭頭高、突破頸線、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2345.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 智邦 的技術線">
+      <img src="charts/2345.jpg" alt="智邦 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2345.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2345.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 1919.5，已站上高點頸線 2126.67，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 2130 在月線 1919.5 之上；5 日線 2068 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.17 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 2126.67 已站上；最近轉折高點 1955（高於 9.0%）；最近轉折低點 1770（高於 20.3%）</li><li><b>轉折結構</b>：高點 2385、2235、1955 墊高 9.5%（頭頭高），但低點 1950、1790、1770 沒有同步墊高；還沒確認的轉折低點 09-23 1845、10-08 1970；還沒確認的轉折高點 10-07 2140、10-12 2130（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="8046">
+    <div class="hd">
+      <h3>南電 <small>8046</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">1440　-35.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 95.71 億・全榜第 26 名（上市第 24 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、底底高、頭頭高、外資買超<br>
+      不好條件 <b>2/8</b>：今日下跌、相對大盤弱</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/8046.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 南電 的技術線">
+      <img src="charts/8046.jpg" alt="南電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/8046.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（8046.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 1256，離高點頸線 1555 還差 7.4%，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1440 在月線 1256 之上；5 日線 1479 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.62 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 1555 還沒突破，差 7.4%；最近轉折高點 1125（高於 28.0%）；最近轉折低點 1050（高於 37.1%）</li><li><b>轉折結構</b>：低點 1010、1025、1050 一路墊高 4.0%、高點 1380、1335、1125 也一路墊高 38.7%，是底底高＋頭頭高；還沒確認的轉折低點 10-12 1410；還沒確認的轉折高點 10-05 1550、10-07 1560（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2492">
+    <div class="hd">
+      <h3>華新科 <small>2492</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">418　-2.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 94.34 億・全榜第 27 名（上市第 25 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、底底高、頭頭高、突破頸線<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2492.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 華新科 的技術線">
+      <img src="charts/2492.jpg" alt="華新科 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2492.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2492.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 335.9，已站上高點頸線 321.33，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 418 在月線 335.9 之上；5 日線 404.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.62 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 321.33 已站上；最近轉折高點 326（高於 28.2%）；最近轉折低點 298.5（高於 40.0%）</li><li><b>轉折結構</b>：低點 270、291、298.5 一路墊高 10.6%、高點 317、344、326 也一路墊高 32.4%，是底底高＋頭頭高；還沒確認的轉折低點 10-06 362.5；還沒確認的轉折高點 10-05 396、10-08 431.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2449">
+    <div class="hd">
+      <h3>京元電子 <small>2449</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">300　-4.5</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 93.92 億・全榜第 28 名（上市第 26 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2449.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 京元電子 的技術線">
+      <img src="charts/2449.jpg" alt="京元電子 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2449.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2449.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 289.05，離高點頸線 306.75 還差 2.2%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 300 在月線 289.05 之上；5 日線 299.2 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.21 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 306.75 還沒突破，差 2.2%；最近轉折高點 330（低於 9.1%）；最近轉折低點 253（高於 18.6%）</li><li><b>轉折結構</b>：高點 262、283.5、330 墊高 26.0%（頭頭高），但低點 225、259、253 沒有同步墊高；還沒確認的轉折低點 10-06 288.5、10-08 284；還沒確認的轉折高點 10-05 303.5、10-08 310（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3406">
+    <div class="hd">
+      <h3>玉晶光 <small>3406</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">1070　+10.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 81.13 億・全榜第 31 名（上市第 27 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、頭頭高、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3406.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 玉晶光 的技術線">
+      <img src="charts/3406.jpg" alt="玉晶光 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3406.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3406.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 981，離高點頸線 1108.33 還差 3.5%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1070 在月線 981 之上；5 日線 1063 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.26 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 1108.33 還沒突破，差 3.5%；最近轉折高點 1045（高於 2.4%）；最近轉折低點 869（高於 23.1%）</li><li><b>轉折結構</b>：高點 1090、1140、1045 墊高 7.2%（頭頭高），但低點 961、906、869 沒有同步墊高；還沒確認的轉折低點 10-01 871、10-12 1010；還沒確認的轉折高點 10-07 1120、10-12 1115（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3017">
+    <div class="hd">
+      <h3>奇鋐 <small>3017</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">3385　-55.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 80.85 億・全榜第 32 名（上市第 28 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：月線向上、外資買超<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、在月線之下、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3017.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 奇鋐 的技術線">
+      <img src="charts/3017.jpg" alt="奇鋐 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3017.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3017.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、跌破月線 3415，離高點頸線 3617.5 還差 6.4%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 3385 在月線 3415 之下；5 日線 3528 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.86 倍，比 20 日均量少一些</li><li><b>關鍵價位</b>：高點頸線 3617.5 還沒突破，差 6.4%；最近轉折高點 3700（低於 8.5%）；最近轉折低點 3285（高於 3.0%）</li><li><b>轉折結構</b>：低點 3100、3100、3285 與高點 3595、3600、3700 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-01 3300、10-12 3330；還沒確認的轉折高點 09-30 3575（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2344">
+    <div class="hd">
+      <h3>華邦電 <small>2344</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">174　-3.0</div>
+    </div>
+    <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 80.71 億・全榜第 33 名（上市第 29 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：站上月線、底底高<br>
+      不好條件 <b>5/8</b>：今日下跌、相對大盤弱、外資賣超、月線下彎、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2344.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 華邦電 的技術線">
+      <img src="charts/2344.jpg" alt="華邦電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2344.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2344.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 173.975，離高點頸線 182.38 還差 4.6%，底部還在墊高（但高點沒同步創高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 174 在月線 173.975 之上；5 日線 177.8 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.56 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 182.38 還沒突破，差 4.6%；最近轉折高點 184（低於 5.4%）；最近轉折低點 174（高於 0.0%）</li><li><b>轉折結構</b>：低點 158.5、166、174 墊高 9.8%（底底高），但高點 192、180.5、184 沒有同步創高；還沒確認的轉折低點 10-07 175、10-12 172；還沒確認的轉折高點 10-06 183、10-08 182（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-hl">底底高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2301">
+    <div class="hd">
+      <h3>光寶科 <small>2301</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">288　-9.5</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 78.19 億・全榜第 34 名（上市第 30 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：站上月線、頭頭高<br>
+      不好條件 <b>6/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2301.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 光寶科 的技術線">
+      <img src="charts/2301.jpg" alt="光寶科 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2301.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2301.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 285.45，離高點頸線 302 還差 4.6%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 288 在月線 285.45 之上；5 日線 296.5 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.81 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 302 還沒突破，差 4.6%；最近轉折高點 299.5（低於 3.8%）；最近轉折低點 278（高於 3.6%）</li><li><b>轉折結構</b>：高點 286.5、328、299.5 墊高 1.7%（頭頭高），但低點 271、278、278 沒有同步墊高；還沒確認的轉折低點 10-12 282；還沒確認的轉折高點 10-01 285、10-07 304.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3189">
+    <div class="hd">
+      <h3>景碩 <small>3189</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">1060　-15.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 70.24 億・全榜第 36 名（上市第 31 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、外資買超<br>
+      不好條件 <b>2/8</b>：今日下跌、相對大盤弱</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3189.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 景碩 的技術線">
+      <img src="charts/3189.jpg" alt="景碩 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3189.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3189.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 934.4，離高點頸線 1147.5 還差 7.6%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1060 在月線 934.4 之上；5 日線 1080 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.37 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 1147.5 還沒突破，差 7.6%；最近轉折高點 1150（低於 7.8%）；最近轉折低點 784（高於 35.2%）</li><li><b>轉折結構</b>：低點 766、766、784 與高點 835、835、1150 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-30 937、10-08 1040；還沒確認的轉折高點 09-24 996、10-07 1145（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2609">
+    <div class="hd">
+      <h3>陽明 <small>2609</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">63.6　+3.9</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 69.78 億・全榜第 37 名（上市第 32 名）</span></div>
+    <div class="score">好條件 <b>7/8</b>：站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2609.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 陽明 的技術線">
+      <img src="charts/2609.jpg" alt="陽明 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2609.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2609.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 59.835，已站上高點頸線 61.08，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 63.6 在月線 59.835 之上；5 日線 60.06 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 4.14 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 61.08 已站上；最近轉折高點 59.9（高於 6.2%）；最近轉折低點 58.3（高於 9.1%）</li><li><b>轉折結構</b>：高點 60.5、63.1、59.9 墊高 8.3%（頭頭高），但低點 56.5、58.1、58.3 沒有同步墊高；還沒確認的轉折低點 10-02 58.5、10-08 58.8；還沒確認的轉折高點 10-06 59.9、10-12 64.9（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6515">
+    <div class="hd">
+      <h3>穎崴 <small>6515</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">6025　+410.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 66.61 億・全榜第 40 名（上市第 33 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>2/8</b>：在月線之下、月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6515.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 穎崴 的技術線">
+      <img src="charts/6515.jpg" alt="穎崴 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6515.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6515.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、跌破月線 6105.25，離高點頸線 6150 還差 2.0%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 6025 在月線 6105.25 之下；5 日線 5899 也在月線之下（短均在下）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.79 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 6150 還沒突破，差 2.0%；最近轉折高點 6285（低於 4.1%）；最近轉折低點 5530（高於 9.0%）</li><li><b>轉折結構</b>：低點 5955、5890、5530 與高點 7370、8260、6285 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-29 5650、10-08 5445；還沒確認的轉折高點 09-23 6070、10-12 6095（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6669">
+    <div class="hd">
+      <h3>緯穎 <small>6669</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">2275　+35.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 65.78 億・全榜第 41 名（上市第 34 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：站上月線、相對大盤強<br>
+      不好條件 <b>2/8</b>：外資賣超、月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6669.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 緯穎 的技術線">
+      <img src="charts/6669.jpg" alt="緯穎 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6669.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6669.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、但成交量比平均少、站上月線 2187.25，離高點頸線 2301.54 還差 1.2%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 2275 在月線 2187.25 之上；5 日線 2239 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.87 倍，比 20 日均量少一些；收紅但量縮，量價背離</li><li><b>關鍵價位</b>：高點頸線 2301.54 還沒突破，差 1.2%；最近轉折高點 2335（低於 2.6%）；最近轉折低點 2080（高於 9.4%）</li><li><b>轉折結構</b>：低點 2085、2075、2080 與高點 2259.63、2875、2335 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-22 2090、10-08 2200；還沒確認的轉折高點 09-30 2145、10-12 2310（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2615">
+    <div class="hd">
+      <h3>萬海 <small>2615</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">121　+9.5</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 64.29 億・全榜第 43 名（上市第 35 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、頭頭高、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>2/8</b>：外資賣超、月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2615.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 萬海 的技術線">
+      <img src="charts/2615.jpg" alt="萬海 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2615.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2615.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 114.125，離高點頸線 123.75 還差 2.2%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 121 在月線 114.125 之上；5 日線 113.2 也在月線之下（短均在下）；月線走平或向下、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 3.89 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 123.75 還沒突破，差 2.2%；最近轉折高點 114（高於 6.1%）；最近轉折低點 111（高於 9.0%）</li><li><b>轉折結構</b>：高點 118.5、125、114 墊高 7.5%（頭頭高），但低點 108.5、106.5、111 沒有同步墊高；還沒確認的轉折低點 10-06 110.5、10-08 110；還沒確認的轉折高點 09-29 116.5、10-12 122.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="1802">
+    <div class="hd">
+      <h3>台玻 <small>1802</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">63.5　-0.4</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 63.45 億・全榜第 44 名（上市第 36 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/1802.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台玻 的技術線">
+      <img src="charts/1802.jpg" alt="台玻 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/1802.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（1802.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 59.515，離高點頸線 66.8 還差 4.9%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 63.5 在月線 59.515 之上；5 日線 62.44 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 3.48 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 66.8 還沒突破，差 4.9%；最近轉折高點 61.7（高於 2.9%）；最近轉折低點 56.6（高於 12.2%）</li><li><b>轉折結構</b>：高點 64、61.7、61.7 墊高 8.3%（頭頭高），但低點 57.5、56、56.6 沒有同步墊高；還沒確認的轉折低點 10-06 58.8、10-12 62.3；還沒確認的轉折高點 10-08 66.8、10-12 66.8（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6257">
+    <div class="hd">
+      <h3>矽格 <small>6257</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">287　+4.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 58.65 億・全榜第 46 名（上市第 37 名）</span></div>
+    <div class="score">好條件 <b>6/8</b>：站上月線、月線向上、頭頭高、突破頸線、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6257.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 矽格 的技術線">
+      <img src="charts/6257.jpg" alt="矽格 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6257.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6257.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 245.55，已站上高點頸線 261.5，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 287 在月線 245.55 之上；5 日線 278.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.19 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 261.5 已站上；最近轉折高點 263（高於 9.1%）；最近轉折低點 235（高於 22.1%）</li><li><b>轉折結構</b>：高點 228、225、263 墊高 11.6%（頭頭高），但低點 207.5、204、235 沒有同步墊高；還沒確認的轉折高點 09-30 260、10-07 293.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3231">
+    <div class="hd">
+      <h3>緯創 <small>3231</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">189.5　+1.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 58.53 億・全榜第 47 名（上市第 38 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、相對大盤強、外資買超<br>
+      不好條件 <b>1/8</b>：月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3231.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 緯創 的技術線">
+      <img src="charts/3231.jpg" alt="緯創 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3231.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3231.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、但成交量比平均少、站上月線 185.525，離高點頸線 191.3 還差 0.9%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 189.5 在月線 185.525 之上；5 日線 188.4 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.78 倍，比 20 日均量少很多；收紅但量縮，量價背離</li><li><b>關鍵價位</b>：高點頸線 191.3 還沒突破，差 0.9%；最近轉折高點 194.5（低於 2.6%）；最近轉折低點 178（高於 6.5%）</li><li><b>轉折結構</b>：低點 174、179.5、178 與高點 200.5、190.5、194.5 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-08 182.5；還沒確認的轉折高點 10-01 191.5、10-12 192（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3026">
+    <div class="hd">
+      <h3>禾伸堂 <small>3026</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">840　-37.0</div>
+    </div>
+    <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 56.24 億・全榜第 49 名（上市第 39 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、底底高、頭頭高<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3026.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 禾伸堂 的技術線">
+      <img src="charts/3026.jpg" alt="禾伸堂 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3026.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3026.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 796.25，離高點頸線 875 還差 4.0%，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 840 在月線 796.25 之上；5 日線 833.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.61 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 875 還沒突破，差 4.0%；最近轉折高點 881（低於 4.7%）；最近轉折低點 796（高於 5.5%）</li><li><b>轉折結構</b>：低點 717、760、796 一路墊高 11.0%、高點 826、856、881 也一路墊高 6.7%，是底底高＋頭頭高；還沒確認的轉折高點 09-24 820、10-08 888（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3665">
+    <div class="hd">
+      <h3>貿聯-KY <small>3665</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">2355　-5.0</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 55.95 億・全榜第 50 名（上市第 40 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3665.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 貿聯-KY 的技術線">
+      <img src="charts/3665.jpg" alt="貿聯-KY K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3665.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3665.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 2257.75，離高點頸線 2373.33 還差 0.8%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 2355 在月線 2257.75 之上；5 日線 2368 也在月線之上（短均在上）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 0.68 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 2373.33 還沒突破，差 0.8%；最近轉折高點 2685（低於 12.3%）；最近轉折低點 1810（高於 30.1%）</li><li><b>轉折結構</b>：高點 2360、2375、2685 墊高 13.8%（頭頭高），但低點 2095、1930、1810 沒有同步墊高；還沒確認的轉折低點 10-06 2260、10-12 2250；還沒確認的轉折高點 10-02 2670、10-08 2400（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="8039">
+    <div class="hd">
+      <h3>台虹 <small>8039</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">296　-9.5</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 53.53 億・全榜第 53 名（上市第 41 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/8039.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台虹 的技術線">
+      <img src="charts/8039.jpg" alt="台虹 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/8039.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（8039.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 279.925，離高點頸線 329.5 還差 10.2%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 296 在月線 279.925 之上；5 日線 301 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.81 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 329.5 還沒突破，差 10.2%；最近轉折高點 327.5（低於 9.6%）；最近轉折低點 253（高於 17.0%）</li><li><b>轉折結構</b>：高點 254、364、327.5 墊高 1.2%（頭頭高），但低點 291、256.5、253 沒有同步墊高；還沒確認的轉折低點 10-07 288、10-12 296；還沒確認的轉折高點 10-05 308、10-08 331.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6278">
+    <div class="hd">
+      <h3>台表科 <small>6278</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">272.5　+24.5</div>
+    </div>
+    <div class="pat">上升趨勢（底底高＋頭頭高）　<span class="dim">成交金額 52.62 億・全榜第 54 名（上市第 42 名）</span></div>
+    <div class="score">好條件 <b>8/8</b>：站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6278.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台表科 的技術線">
+      <img src="charts/6278.jpg" alt="台表科 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6278.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6278.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 211.425，已站上高點頸線 214，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 272.5 在月線 211.425 之上；5 日線 245 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 2.41 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 214 已站上；最近轉折高點 223（高於 22.2%）；最近轉折低點 211.5（高於 28.8%）</li><li><b>轉折結構</b>：低點 172、179.5、211.5 一路墊高 23.0%、高點 181.5、210、223 也一路墊高 22.9%，是底底高＋頭頭高；還沒確認的轉折低點 09-24 204.5；還沒確認的轉折高點 09-23 218、10-12 272.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3481">
+    <div class="hd">
+      <h3>群創 <small>3481</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">51.3　+0.3</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 51.72 億・全榜第 55 名（上市第 43 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、頭頭高、相對大盤強、外資買超<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3481.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 群創 的技術線">
+      <img src="charts/3481.jpg" alt="群創 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3481.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3481.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、但成交量比平均少、站上月線 50.237，離高點頸線 55.85 還差 8.1%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 51.3 在月線 50.237 之上；5 日線 51.64 也在月線之上（短均在上）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 0.47 倍，比 20 日均量少很多；收紅但量縮，量價背離</li><li><b>關鍵價位</b>：高點頸線 55.85 還沒突破，差 8.1%；最近轉折高點 56.2（低於 8.7%）；最近轉折低點 48.55（高於 5.7%）</li><li><b>轉折結構</b>：高點 51.6、52.2、56.2 墊高 8.9%（頭頭高），但低點 48、46.25、48.55 沒有同步墊高；還沒確認的轉折低點 10-07 50.7、10-12 49.5；還沒確認的轉折高點 10-01 55.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="4938">
+    <div class="hd">
+      <h3>和碩 <small>4938</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px up">98.6　+8.9</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 50.76 億・全榜第 56 名（上市第 44 名）</span></div>
+    <div class="score">好條件 <b>6/8</b>：站上月線、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>1/8</b>：月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/4938.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 和碩 的技術線">
+      <img src="charts/4938.jpg" alt="和碩 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/4938.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（4938.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 90.53，已站上高點頸線 92.76，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 98.6 在月線 90.53 之上；5 日線 91.4 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 7.29 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 92.76 已站上；最近轉折高點 95（高於 3.8%）；最近轉折低點 88.7（高於 11.2%）</li><li><b>轉折結構</b>：高點 100.5、95.6、95 墊高 3.8%（頭頭高），但低點 88.3、88.3、88.7 沒有同步墊高；還沒確認的轉折高點 10-06 90.3、10-12 98.6（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6442">
+    <div class="hd">
+      <h3>光聖 <small>6442</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">1725　-60.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 50.62 億・全榜第 57 名（上市第 45 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、突破頸線<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6442.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 光聖 的技術線">
+      <img src="charts/6442.jpg" alt="光聖 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6442.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6442.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 1604.25，已站上高點頸線 1718.33，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1725 在月線 1604.25 之上；5 日線 1736 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.34 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 1718.33 已站上；最近轉折高點 1920（低於 10.2%）；最近轉折低點 1465（高於 17.7%）</li><li><b>轉折結構</b>：低點 1560、1495、1465 與高點 1705、1695、1920 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-08 1715、10-12 1715；還沒確認的轉折高點 10-05 1755、10-07 1815（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6531">
+    <div class="hd">
+      <h3>愛普* <small>6531</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">947　-33.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 49.71 億・全榜第 59 名（上市第 46 名）</span></div>
+    <div class="score">好條件 <b>1/8</b>：月線向上<br>
+      不好條件 <b>6/8</b>：今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6531.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 愛普* 的技術線">
+      <img src="charts/6531.jpg" alt="愛普* K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6531.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6531.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、跌破月線 969.25，離高點頸線 1077.5 還差 12.1%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 947 在月線 969.25 之下；5 日線 1005.4 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.50 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 1077.5 還沒突破，差 12.1%；最近轉折高點 1090（低於 13.1%）；最近轉折低點 914（高於 3.6%）</li><li><b>轉折結構</b>：低點 901、887、914 與高點 1065、1005、1090 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-29 916、10-12 928（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3653">
+    <div class="hd">
+      <h3>健策 <small>3653</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">7160　-5.0</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 49.69 億・全榜第 60 名（上市第 47 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3653.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 健策 的技術線">
+      <img src="charts/3653.jpg" alt="健策 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3653.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3653.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 6327，離高點頸線 7281.67 還差 1.7%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 7160 在月線 6327 之上；5 日線 7083 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.60 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 7281.67 還沒突破，差 1.7%；最近轉折高點 7440（低於 3.8%）；最近轉折低點 5210（高於 37.4%）</li><li><b>轉折結構</b>：高點 5920、7160、7440 墊高 25.7%（頭頭高），但低點 4910、5480、5210 沒有同步墊高；還沒確認的轉折低點 10-05 6760、10-07 6760；還沒確認的轉折高點 10-08 7245（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="2340">
+    <div class="hd">
+      <h3>台亞 <small>2340</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">51.4　-1.5</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 46.07 億・全榜第 62 名（上市第 48 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、頭頭高、突破頸線<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/2340.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台亞 的技術線">
+      <img src="charts/2340.jpg" alt="台亞 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/2340.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（2340.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 39.125，已站上高點頸線 35.5，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 51.4 在月線 39.125 之上；5 日線 50.01 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 4.93 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 35.5 已站上；最近轉折高點 35.3（高於 45.6%）；最近轉折低點 30.7（高於 67.4%）</li><li><b>轉折結構</b>：高點 32.7、35.7、35.3 墊高 60.3%（頭頭高），但低點 30.5、29.25、30.7 沒有同步墊高；還沒確認的轉折低點 09-24 34.15、10-07 43.5；還沒確認的轉折高點 10-06 50.4、10-12 56.6（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6805">
+    <div class="hd">
+      <h3>富世達 <small>6805</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">2270　-100.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 44.83 億・全榜第 63 名（上市第 49 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：月線向上、外資買超<br>
+      不好條件 <b>6/8</b>：跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6805.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 富世達 的技術線">
+      <img src="charts/6805.jpg" alt="富世達 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6805.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6805.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、跌破月線 2331.75，跌破前一個轉折低點（高點頸線 2485 還在收盤上方），轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 2270 在月線 2331.75 之下；5 日線 2392 也在月線之上（短均在上）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 1.25 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 2485 還沒突破、還在收盤上方 8.7%；最近轉折高點 2750（低於 17.5%）；最近轉折低點 2300（低於 1.3%）</li><li><b>轉折結構</b>：低點 2010、2010、2300 與高點 2435、2325、2750 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-29 2420、10-12 2225；還沒確認的轉折高點 10-05 2510、10-07 2510（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-weak">跌破前低</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6505">
+    <div class="hd">
+      <h3>台塑化 <small>6505</small> <span class="mk mk-l">上市</span></h3>
+      <div class="px dn">108.5　-2.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 44.56 億・全榜第 64 名（上市第 50 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、底底高、頭頭高、突破頸線<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6505.TW/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台塑化 的技術線">
+      <img src="charts/6505.jpg" alt="台塑化 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6505.TW/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6505.TW）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 92.54，已站上高點頸線 90.2，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 108.5 在月線 92.54 之上；5 日線 105.22 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.42 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 90.2 已站上；最近轉折高點 89.8（高於 20.8%）；最近轉折低點 80（高於 35.6%）</li><li><b>轉折結構</b>：低點 65.4、68.6、80 一路墊高 22.3%、高點 76.5、90.6、89.8 也一路墊高 26.9%，是底底高＋頭頭高；還沒確認的轉折低點 10-06 97.7、10-12 105；還沒確認的轉折高點 10-02 103、10-08 114（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3105">
+    <div class="hd">
+      <h3>穩懋 <small>3105</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">580　-1.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 108.09 億・全榜第 21 名（上櫃第 1 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、突破頸線<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3105.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 穩懋 的技術線">
+      <img src="charts/3105.jpg" alt="穩懋 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3105.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3105.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 517.55，已站上高點頸線 487.33，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 580 在月線 517.55 之上；5 日線 591.2 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.68 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 487.33 已站上；最近轉折高點 630（低於 7.9%）；最近轉折低點 482（高於 20.3%）</li><li><b>轉折結構</b>：低點 438.5、420、482 與高點 492、478、630 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-08 566；還沒確認的轉折高點 09-23 518、10-12 604（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6488">
+    <div class="hd">
+      <h3>環球晶 <small>6488</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">1115　-15.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 106.67 億・全榜第 23 名（上櫃第 2 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、突破頸線、外資買超<br>
+      不好條件 <b>2/8</b>：今日下跌、相對大盤弱</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6488.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 環球晶 的技術線">
+      <img src="charts/6488.jpg" alt="環球晶 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6488.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6488.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 1016.3，已站上高點頸線 1018.75，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1115 在月線 1016.3 之上；5 日線 1169 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.79 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 1018.75 已站上；最近轉折高點 1260（低於 11.5%）；最近轉折低點 872（高於 27.9%）</li><li><b>轉折結構</b>：低點 931、875、872 與高點 1015、1010、1260 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-06 1145、10-12 1090（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3264">
+    <div class="hd">
+      <h3>欣銓 <small>3264</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">272.5　+16.5</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 90.52 億・全榜第 29 名（上櫃第 3 名）</span></div>
+    <div class="score">好條件 <b>7/8</b>：站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3264.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 欣銓 的技術線">
+      <img src="charts/3264.jpg" alt="欣銓 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3264.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3264.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 247.75，已站上高點頸線 245.17，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 272.5 在月線 247.75 之上；5 日線 253.2 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 2.24 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 245.17 已站上；最近轉折高點 289.5（低於 5.9%）；最近轉折低點 238（高於 14.5%）</li><li><b>轉折結構</b>：高點 239.5、251.5、289.5 墊高 20.9%（頭頭高），但低點 220、238、238 沒有同步墊高；還沒確認的轉折低點 10-05 239.5、10-08 243；還沒確認的轉折高點 10-05 249、10-12 277（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6147">
+    <div class="hd">
+      <h3>頎邦 <small>6147</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">229　+3.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 85.73 億・全榜第 30 名（上櫃第 4 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、底底高、頭頭高、相對大盤強<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6147.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 頎邦 的技術線">
+      <img src="charts/6147.jpg" alt="頎邦 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6147.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6147.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、但成交量比平均少、站上月線 213.15，離高點頸線 232.8 還差 1.6%，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 229 在月線 213.15 之上；5 日線 223.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.84 倍，比 20 日均量少很多；收紅但量縮，量價背離</li><li><b>關鍵價位</b>：高點頸線 232.8 還沒突破，差 1.6%；最近轉折高點 233（低於 1.7%）；最近轉折低點 211（高於 8.5%）</li><li><b>轉折結構</b>：低點 171、208、211 一路墊高 23.4%、高點 203、203、233 也一路墊高 2.1%，是底底高＋頭頭高；還沒確認的轉折高點 10-07 238、10-12 238（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3624">
+    <div class="hd">
+      <h3>光頡 <small>3624</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">166.5　-8.5</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 70.82 億・全榜第 35 名（上櫃第 5 名）</span></div>
+    <div class="score">好條件 <b>5/8</b>：站上月線、月線向上、底底高、頭頭高、突破頸線<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3624.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 光頡 的技術線">
+      <img src="charts/3624.jpg" alt="光頡 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3624.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3624.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 137.475，已站上高點頸線 160.25，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 166.5 在月線 137.475 之上；5 日線 158.3 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.41 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 160.25 已站上；最近轉折高點 98.9（高於 68.4%）；最近轉折低點 115（高於 44.8%）</li><li><b>轉折結構</b>：低點 81.8、84.8、115 一路墊高 40.6%、高點 163、99.4、98.9 也一路墊高 82.5%，是底底高＋頭頭高；還沒確認的轉折低點 09-30 134、10-06 144；還沒確認的轉折高點 10-02 157.5、10-12 180.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6187">
+    <div class="hd">
+      <h3>萬潤 <small>6187</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">1675　+150.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 68.4 億・全榜第 38 名（上櫃第 6 名）</span></div>
+    <div class="score">好條件 <b>7/8</b>：站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6187.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 萬潤 的技術線">
+      <img src="charts/6187.jpg" alt="萬潤 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6187.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6187.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 1325.5，已站上高點頸線 1427.5，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1675 在月線 1325.5 之上；5 日線 1552 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.97 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 1427.5 已站上；最近轉折高點 1270（高於 31.9%）；最近轉折低點 1180（高於 41.9%）</li><li><b>轉折結構</b>：高點 1455、1435、1270 墊高 31.9%（頭頭高），但低點 1185、1180、1180 沒有同步墊高；還沒確認的轉折低點 10-01 1260、10-08 1490；還沒確認的轉折高點 10-06 1590、10-12 1675（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6274">
+    <div class="hd">
+      <h3>台燿 <small>6274</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">1735　-5.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 66.92 億・全榜第 39 名（上櫃第 7 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6274.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 台燿 的技術線">
+      <img src="charts/6274.jpg" alt="台燿 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6274.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6274.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 1518.25，離高點頸線 1807.5 還差 4.0%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1735 在月線 1518.25 之上；5 日線 1746 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.45 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 1807.5 還沒突破，差 4.0%；最近轉折高點 1460（高於 18.8%）；最近轉折低點 1275（高於 36.1%）</li><li><b>轉折結構</b>：高點 1565、1430、1460 墊高 25.7%（頭頭高），但低點 1395、1295、1275 沒有同步墊高；還沒確認的轉折低點 10-06 1680、10-08 1645；還沒確認的轉折高點 10-05 1780、10-07 1835（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="1815">
+    <div class="hd">
+      <h3>富喬 <small>1815</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">133　-2.0</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 64.39 億・全榜第 42 名（上櫃第 8 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、底底高、頭頭高<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/1815.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 富喬 的技術線">
+      <img src="charts/1815.jpg" alt="富喬 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/1815.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（1815.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 122.1，離高點頸線 137.25 還差 3.1%，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 133 在月線 122.1 之上；5 日線 131.2 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.89 倍，比 20 日均量少一些</li><li><b>關鍵價位</b>：高點頸線 137.25 還沒突破，差 3.1%；最近轉折高點 129.5（高於 2.7%）；最近轉折低點 113（高於 17.7%）</li><li><b>轉折結構</b>：低點 108.571、111、113 一路墊高 4.1%、高點 89.4284、135、129.5 也一路墊高 7.7%，是底底高＋頭頭高；還沒確認的轉折低點 10-01 113.5；還沒確認的轉折高點 10-08 139.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6223">
+    <div class="hd">
+      <h3>旺矽 <small>6223</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">6130　+555.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 61.86 億・全榜第 45 名（上櫃第 9 名）</span></div>
+    <div class="score">好條件 <b>7/8</b>：站上月線、月線向上、頭頭高、突破頸線、相對大盤強、外資買超、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>0/8</b>：無</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6223.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 旺矽 的技術線">
+      <img src="charts/6223.jpg" alt="旺矽 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6223.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6223.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 5506.25，已站上高點頸線 5842.5，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 6130 在月線 5506.25 之上；5 日線 5685 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.54 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 5842.5 已站上；最近轉折高點 5860（高於 4.6%）；最近轉折低點 4995（高於 22.7%）</li><li><b>轉折結構</b>：高點 5585、6060、5860 墊高 4.6%（頭頭高），但低點 5365、5090、4995 沒有同步墊高；還沒確認的轉折低點 10-08 5450；還沒確認的轉折高點 10-07 5725、10-12 6130（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6510">
+    <div class="hd">
+      <h3>精測 <small>6510</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">3420　+100.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 58.45 億・全榜第 48 名（上櫃第 10 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、突破頸線、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>2/8</b>：外資賣超、月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6510.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 精測 的技術線">
+      <img src="charts/6510.jpg" alt="精測 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6510.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6510.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 3294.75，已站上高點頸線 3140，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 3420 在月線 3294.75 之上；5 日線 3184 也在月線之下（短均在下）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.92 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 3140 已站上；最近轉折高點 3775（低於 9.4%）；最近轉折低點 2960（高於 15.5%）</li><li><b>轉折結構</b>：低點 2570、3165、2960 與高點 3100、3935、3775 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 09-29 3055、10-08 3000；還沒確認的轉折高點 10-05 3180、10-12 3580（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3081">
+    <div class="hd">
+      <h3>聯亞 <small>3081</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">3025　+65.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 54.44 億・全榜第 51 名（上櫃第 11 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、頭頭高、相對大盤強<br>
+      不好條件 <b>2/8</b>：外資賣超、月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3081.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 聯亞 的技術線">
+      <img src="charts/3081.jpg" alt="聯亞 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3081.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3081.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、但成交量比平均少、站上月線 2826，離高點頸線 3157.5 還差 4.2%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 3025 在月線 2826 之上；5 日線 3009 也在月線之上（短均在上）；月線走平或向下、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.62 倍，比 20 日均量少很多；收紅但量縮，量價背離</li><li><b>關鍵價位</b>：高點頸線 3157.5 還沒突破，差 4.2%；最近轉折高點 2950（高於 2.5%）；最近轉折低點 2585（高於 17.0%）</li><li><b>轉折結構</b>：高點 3600、2930、2950 墊高 8.8%（頭頭高），但低點 1450、2650、2585 沒有同步墊高；還沒確認的轉折低點 10-01 2605、10-12 2890；還沒確認的轉折高點 10-05 3105、10-07 3210（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="8086">
+    <div class="hd">
+      <h3>宏捷科 <small>8086</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">148.5　-5.5</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 53.8 億・全榜第 52 名（上櫃第 12 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、頭頭高、外資買超<br>
+      不好條件 <b>3/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/8086.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 宏捷科 的技術線">
+      <img src="charts/8086.jpg" alt="宏捷科 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/8086.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（8086.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 117.55，離高點頸線 154 還差 3.6%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 148.5 在月線 117.55 之上；5 日線 139.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 6.04 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 154 還沒突破，差 3.6%；最近轉折高點 112.5（高於 32.0%）；最近轉折低點 107.5（高於 38.1%）</li><li><b>轉折結構</b>：高點 126、114.5、112.5 墊高 36.9%（頭頭高），但低點 109、103.5、107.5 沒有同步墊高；還沒確認的轉折高點 10-08 154、10-12 154（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="8042">
+    <div class="hd">
+      <h3>金山電 <small>8042</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">144　+5.5</div>
+    </div>
+    <div class="pat">底部墊高、突破前高　<span class="dim">成交金額 50.32 億・全榜第 58 名（上櫃第 13 名）</span></div>
+    <div class="score">好條件 <b>7/8</b>：站上月線、月線向上、底底高、頭頭高、突破頸線、相對大盤強、量價攻擊（收紅＋大量）<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/8042.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 金山電 的技術線">
+      <img src="charts/8042.jpg" alt="金山電 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/8042.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（8042.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收紅、站上月線 117.191，已站上高點頸線 125，轉折結構仍是底底高＋頭頭高。</p><ul class="anpts"><li><b>月線位置</b>：收盤 144 在月線 117.191 之上；5 日線 128.8 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 5.54 倍，比 20 日均量大不少；收紅又量增，量價配合</li><li><b>關鍵價位</b>：高點頸線 125 已站上；最近轉折高點 117.177（高於 22.9%）；最近轉折低點 110（高於 30.9%）</li><li><b>轉折結構</b>：低點 100、107.5、110 一路墊高 10.0%、高點 115、123.5、117.177 也一路墊高 29.7%，是底底高＋頭頭高；還沒確認的轉折低點 09-22 111.5、10-06 117；還沒確認的轉折高點 10-05 126.5、10-12 152（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a><a class="tg" href="#sec-hh">頭頭高</a><a class="tg" href="#sec-neck">突破頸線</a><a class="tg" href="#sec-vol">量價攻擊</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3374">
+    <div class="hd">
+      <h3>精材 <small>3374</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">481.5　-15.5</div>
+    </div>
+    <div class="pat">底部墊高、未過前高　<span class="dim">成交金額 47.34 億・全榜第 61 名（上櫃第 14 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、底底高<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3374.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 精材 的技術線">
+      <img src="charts/3374.jpg" alt="精材 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3374.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3374.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 461.625，離高點頸線 521 還差 7.6%，底部還在墊高（但高點沒同步創高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 481.5 在月線 461.625 之上；5 日線 492.3 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.05 倍，比 20 日均量大一些；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 521 還沒突破，差 7.6%；最近轉折高點 530（低於 9.2%）；最近轉折低點 436.5（高於 10.3%）</li><li><b>轉折結構</b>：低點 289、407、436.5 墊高 51.0%（底底高），但高點 496、487、530 沒有同步創高；還沒確認的轉折低點 10-07 475.5、10-12 478；還沒確認的轉折高點 09-30 462、10-08 512（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hl">底底高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3324">
+    <div class="hd">
+      <h3>雙鴻 <small>3324</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">1540　+20.0</div>
+    </div>
+    <div class="pat">高點墊高、底部不穩　<span class="dim">成交金額 38.74 億・全榜第 65 名（上櫃第 15 名）</span></div>
+    <div class="score">好條件 <b>4/8</b>：站上月線、月線向上、頭頭高、相對大盤強<br>
+      不好條件 <b>1/8</b>：外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3324.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 雙鴻 的技術線">
+      <img src="charts/3324.jpg" alt="雙鴻 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3324.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3324.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、但成交量比平均少、站上月線 1493.5，離高點頸線 1591.67 還差 3.2%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 1540 在月線 1493.5 之上；5 日線 1533 也在月線之上（短均在上）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 0.72 倍，比 20 日均量少很多；收紅但量縮，量價背離</li><li><b>關鍵價位</b>：高點頸線 1591.67 還沒突破，差 3.2%；最近轉折高點 1750（低於 12.0%）；最近轉折低點 1480（高於 4.1%）</li><li><b>轉折結構</b>：高點 1080、1505、1750 墊高 62.0%（頭頭高），但低點 1300、1240、1480 沒有同步墊高；還沒確認的轉折低點 10-05 1490、10-08 1395；還沒確認的轉折高點 10-05 1575、10-08 1570（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="6182">
+    <div class="hd">
+      <h3>合晶 <small>6182</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">124　-5.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 38.31 億・全榜第 66 名（上櫃第 16 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：站上月線、月線向上<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、外資賣超、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/6182.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 合晶 的技術線">
+      <img src="charts/6182.jpg" alt="合晶 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/6182.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（6182.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、站上月線 119.85，離高點頸線 138.5 還差 10.5%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 124 在月線 119.85 之上；5 日線 129.5 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 0.42 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 138.5 還沒突破，差 10.5%；最近轉折高點 140（低於 11.4%）；最近轉折低點 100（高於 24.0%）</li><li><b>轉折結構</b>：低點 103.5、104、100 與高點 125、140、140 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-06 126.5、10-12 123；還沒確認的轉折高點 09-23 125、10-07 135.5（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="8299">
+    <div class="hd">
+      <h3>群聯 <small>8299</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">2055　-5.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 37.76 億・全榜第 67 名（上櫃第 17 名）</span></div>
+    <div class="score">好條件 <b>1/8</b>：月線向上<br>
+      不好條件 <b>5/8</b>：跌破前低、今日下跌、相對大盤弱、在月線之下、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/8299.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 群聯 的技術線">
+      <img src="charts/8299.jpg" alt="群聯 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/8299.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（8299.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收黑、成交量也比平均少、跌破月線 2075.75，跌破前一個轉折低點（高點頸線 2180 還在收盤上方），轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 2055 在月線 2075.75 之下；5 日線 2073 也在月線之下（短均在下）；月線向上、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 0.67 倍，比 20 日均量少很多</li><li><b>關鍵價位</b>：高點頸線 2180 還沒突破、還在收盤上方 5.7%；最近轉折高點 2350（低於 12.6%）；最近轉折低點 2080（低於 1.2%）</li><li><b>轉折結構</b>：低點 1970、1900、2080 與高點 2195、2160、2350 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-05 2055、10-12 2030；還沒確認的轉折高點 09-30 2215、10-12 2115（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="5274">
+    <div class="hd">
+      <h3>信驊 <small>5274</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px up">17695　+210.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 37.23 億・全榜第 68 名（上櫃第 18 名）</span></div>
+    <div class="score">好條件 <b>2/8</b>：相對大盤強、外資買超<br>
+      不好條件 <b>2/8</b>：在月線之下、月線下彎</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/5274.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 信驊 的技術線">
+      <img src="charts/5274.jpg" alt="信驊 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/5274.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（5274.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天收紅、跌破月線 18810，離高點頸線 18340 還差 3.5%，轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 17695 在月線 18810 之下；5 日線 18287 也在月線之下（短均在下）；月線走平或向下、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 0.96 倍，跟 20 日均量差不多</li><li><b>關鍵價位</b>：高點頸線 18340 還沒突破，差 3.5%；最近轉折高點 19895（低於 11.1%）；最近轉折低點 17170（高於 3.1%）</li><li><b>轉折結構</b>：低點 15930、14600、17170 與高點 19795、21800、19895 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-02 18355、10-08 15975；還沒確認的轉折高點 10-12 18080（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-flow">外資買超</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="3363">
+    <div class="hd">
+      <h3>上詮 <small>3363</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">602　-65.0</div>
+    </div>
+    <div class="pat">區間或轉弱　<span class="dim">成交金額 36.35 億・全榜第 69 名（上櫃第 19 名）</span></div>
+    <div class="score">好條件 <b>0/8</b>：無<br>
+      不好條件 <b>8/8</b>：跌破前低、今日下跌、相對大盤弱、在月線之下、量增下跌（出貨）、外資賣超、月線下彎、收盤跌破前一日低點</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/3363.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 上詮 的技術線">
+      <img src="charts/3363.jpg" alt="上詮 K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/3363.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（3363.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、跌破月線 661.55，跌破前一個轉折低點（高點頸線 677 還在收盤上方），轉折還沒走出明顯方向。</p><ul class="anpts"><li><b>月線位置</b>：收盤 602 在月線 661.55 之下；5 日線 652.4 也在月線之下（短均在下）；月線走平或向下、5 日線走平或向下</li><li><b>量能</b>：成交量是 20 日均量的 2.32 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 677 還沒突破、還在收盤上方 11.1%；最近轉折高點 699（低於 13.9%）；最近轉折低點 629（低於 4.3%）</li><li><b>轉折結構</b>：低點 647、647、629 與高點 656、850、699 都沒有明顯遞增，屬於區間震盪或轉弱；還沒確認的轉折低點 10-06 645、10-12 601；還沒確認的轉折高點 10-05 688、10-07 693（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-weak">跌破前低</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <article class="card" id="4991">
+    <div class="hd">
+      <h3>環宇-KY <small>4991</small> <span class="mk mk-o">上櫃</span></h3>
+      <div class="px dn">510　-1.0</div>
+    </div>
+    <div class="pat">剛突破前高　<span class="dim">成交金額 34.21 億・全榜第 70 名（上櫃第 20 名）</span></div>
+    <div class="score">好條件 <b>3/8</b>：站上月線、月線向上、頭頭高<br>
+      不好條件 <b>4/8</b>：今日下跌、相對大盤弱、量增下跌（出貨）、外資賣超</div>
+    <a class="chartlink" href="https://tw.stock.yahoo.com/quote/4991.TWO/technical-analysis" target="_blank" rel="noopener" title="在 Yahoo 股市看 環宇-KY 的技術線">
+      <img src="charts/4991.jpg" alt="環宇-KY K 線圖（點圖看 Yahoo 技術分析）" decoding="async">
+    </a>
+    <div class="ylink"><a href="https://tw.stock.yahoo.com/quote/4991.TWO/technical-analysis" target="_blank" rel="noopener">在 Yahoo 股市看技術線（4991.TWO）↗</a></div>
+    <div class="anbrief"><p class="anconcl">今天帶量收黑、站上月線 478.225，離高點頸線 544.33 還差 6.3%，高點還在墊高（但底部沒同步墊高）。</p><ul class="anpts"><li><b>月線位置</b>：收盤 510 在月線 478.225 之上；5 日線 513.6 也在月線之上（短均在上）；月線向上、5 日線向上</li><li><b>量能</b>：成交量是 20 日均量的 1.45 倍，比 20 日均量大不少；收黑卻量增，量價背離</li><li><b>關鍵價位</b>：高點頸線 544.33 還沒突破，差 6.3%；最近轉折高點 508（高於 0.4%）；最近轉折低點 436（高於 17.0%）</li><li><b>轉折結構</b>：高點 560、520、508 墊高 8.7%（頭頭高），但低點 418.5、417、436 沒有同步墊高；還沒確認的轉折低點 10-06 503、10-08 498；還沒確認的轉折高點 10-07 552、10-12 534（圖上虛線小圈）</li></ul></div>
+    <div class="tgs"><a class="tg" href="#sec-ma">站上月線</a><a class="tg" href="#sec-maup">月線向上</a><a class="tg" href="#sec-hh">頭頭高</a></div>
+    <a class="toplink" href="#lists">↑ 回上方清單</a>
+  </article>
+  <a class="top" href="../">← 回股市觀察</a>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
