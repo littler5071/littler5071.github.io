@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rust：最受推崇的語言，卻只有 14.8% 的人在用——我把數據攤開看｜程式設計｜小R 頻道</title>
+<meta name="description" content="Rust 連續多年拿下 Stack Overflow 最受推崇語言，卻只有 14.8% 的人實際使用。這篇把官方數據攤開：記憶體安全的 1000 倍差距、Android 的實測、以及學習曲線的真實成本。">
+<style>
+:root{--ink:#3b3733;--soft:#6b635a;--line:#ddd3c4;--paper:#f6f2e9;--card:#fffdf8;--red:#c0392b;--green:#1e8e4f;--blue:#365070}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Microsoft JhengHei","PingFang TC",system-ui,sans-serif;line-height:1.9}
+.wrap{max-width:820px;margin:0 auto;padding:26px 18px 70px}
+h1{font-size:27px;line-height:1.45;margin:12px 0 6px;font-family:"DFKai-SB","BiauKai",serif}
+.sub{color:var(--soft);font-size:14px;margin-bottom:8px}
+hr.rule{border:0;border-top:2px solid var(--line);margin:16px 0 20px}
+h2{font-size:20px;margin:34px 0 10px;font-family:"DFKai-SB","BiauKai",serif}
+h3{font-size:17px;margin:22px 0 8px}
+p{margin:12px 0}
+ul,ol{margin:12px 0;padding-left:22px}
+li{margin:6px 0}
+.lead{background:#fff6de;border:1px solid #e8d59a;border-radius:12px;padding:14px 16px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:20px 0}
+.num{display:flex;align-items:baseline;gap:10px;margin:14px 0}
+.num b{font-size:30px;color:var(--blue);font-family:"DFKai-SB","BiauKai",serif;line-height:1}
+.num span{font-size:14px;color:var(--soft)}
+.bar{margin:6px 0 14px}
+.bar .lbl{font-size:13.5px;color:var(--soft);margin-bottom:3px}
+.bar .t{background:#e9e2d4;border-radius:8px;height:22px;position:relative;overflow:hidden}
+.bar .f{height:100%;border-radius:8px}
+.bar .f.blue{background:var(--blue)}
+.bar .f.red{background:var(--red)}
+.bar .f.green{background:var(--green)}
+.bar .v{font-size:13px;color:var(--soft);margin-top:3px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14.5px;margin:16px 0}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #eee4d4;vertical-align:top}
+th{background:#f2ebdd;font-size:14px;color:#5b5348}
+code{background:#f1ece1;border:1px solid #e2d8c8;border-radius:5px;padding:1px 6px;font-size:13.5px}
+.warn{background:#fdf1ef;border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:12px 15px;margin:18px 0}
+.ok{background:#eef7f1;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:12px 15px;margin:18px 0}
+.src{color:var(--soft);font-size:13px;margin-top:6px}
+.viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px}
+.viewsline .vnum{color:#364e70;font-weight:700}
+footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=10b45848"></script>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<div class="wrap">
+<h1>Rust：最受推崇的語言，卻只有 14.8% 的人在用——我把數據攤開看</h1>
+<div class="sub">程式設計・2026/10/12</div>
+<hr class="rule">
+
+<div class="lead">
+  <b>先講結論</b>：Rust 不是「比較好的 C++」，也不是萬靈丹。它是一把<b>用開發速度換取記憶體安全</b>的工具——
+  而且這筆交易在「解析器、網路協定、系統底層」這類魔鬼細節多的地方特別划算。這篇只擺官方數據，最後給一張「什麼情況該用／不該用」的對照表。
+</div>
+
+<h2>一、先看那個很奇怪的數字</h2>
+<p>Stack Overflow 每年問全球開發者一個問題：「你今年用過的語言裡，明年還想繼續用哪些？」</p>
+<p>Rust 在這一題<b>連續多年第一名</b>，2025 年是 <b>72%</b>（2024 年 83%）。聽起來像全民運動。但同一份調查裡，<b>實際使用 Rust 的人只有 14.8%</b>。</p>
+
+<div class="card">
+  <div class="bar">
+    <div class="lbl">用過且「明年還想用」的比例（2025）</div>
+    <div class="t"><div class="f blue" style="width:72%"></div></div>
+    <div class="v">72%　← 連續多年第一</div>
+  </div>
+  <div class="bar">
+    <div class="lbl">實際有在用 Rust 的比例（2025）</div>
+    <div class="t"><div class="f red" style="width:14.8%"></div></div>
+    <div class="v">14.8%</div>
+  </div>
+  <div class="src">來源：Stack Overflow Developer Survey 2025（49,000+ 位開發者）。注意 2025 的 72% 比 2024 的 83% 低，第一名沒變，但比例是下降的。</div>
+</div>
+
+<p>這個落差本身就是 Rust 最有意思的地方：<b>大家想要它，但多數人的公司還沒真的用它。</b>原因不在技術，在成本——後面第五節會講。</p>
+
+<h2>二、Rust 到底是什麼</h2>
+<p>一句話：<b>跑得和 C／C++ 一樣快，但在編譯階段就把記憶體錯誤擋掉的語言。</b></p>
+<ul>
+  <li><b>2006 年</b>由 Mozilla 的工程師開始做，<b>2015 年</b>發布 1.0。</li>
+  <li>沒有垃圾回收器（GC），所以不會像 Java／Go 那樣偶爾停下來等 GC。</li>
+  <li>靠一套叫「所有權（ownership）」的規則，在編譯時檢查「這塊記憶體誰負責、什麼時候釋放」。</li>
+  <li>現在用在：Amazon、Google、Microsoft、Meta、Mozilla，以及 <b>Linux 核心</b>。</li>
+</ul>
+<p class="src">來源：CISA〈The Urgent Need for Memory Safety in Software Products〉。</p>
+
+<h2>三、優點：三個有數字的理由</h2>
+
+<h3>① 記憶體安全：不是口號，是 1000 倍</h3>
+<p>先看問題有多大。三家公司的官方說法幾乎一樣：</p>
+<div class="card">
+  <div class="num"><b>~70%</b><span>微軟每年被指派 CVE 的漏洞中，屬於記憶體安全問題的比例</span></div>
+  <div class="num"><b>~70%</b><span>Google Chromium 專案「嚴重安全漏洞」中，記憶體安全問題的比例</span></div>
+  <div class="num"><b>67%</b><span>Mozilla 某年 58 個漏洞裡，39 個屬記憶體損毀</span></div>
+  <div class="src">來源：CISA 官方文章（引述微軟、Google、Mozilla 的報告）。</div>
+</div>
+
+<p>那 Rust 能改善多少？Google 的 Android 團隊 2025 年公布的數字最直接：</p>
+<div class="card">
+  <div class="bar">
+    <div class="lbl">每百萬行程式碼的記憶體安全缺陷數</div>
+    <div class="t"><div class="f red" style="width:100%"></div></div>
+    <div class="v">C／C++（歷史資料）：約 <b>1000</b> 個</div>
+  </div>
+  <div class="bar">
+    <div class="t" style="background:#eee"><div class="f green" style="width:0.4%"></div></div>
+    <div class="v">Rust（約 500 萬行）：<b>0.2</b> 個　← 差距約 1000 倍</div>
+  </div>
+  <div class="src">來源：Google Android 團隊 2025 年報告（Jeff Vander Stoep 公布）。同報告指出 Android 的記憶體安全漏洞占比<b>首次降到 20% 以下</b>（四年前超過 75%）。</div>
+</div>
+
+<h3>② 意外的副作用：開發效率也變好</h3>
+<p>Google 用業界標準的 DORA 指標衡量，發現 Rust 的<b>程式碼回滾率只有 C++ 的四分之一</b>、<b>程式碼審查時間少約 25%</b>。也就是說「更安全」沒有犧牲速度，反而少掉很多返工。</p>
+
+<h3>③ 工具鏈是公認最好用的（71%）</h3>
+<p>Cargo（Rust 的套件管理與建置工具）在同一份調查裡是<b>最受推崇的開發工具，71%</b>——一個「建置工具」能拿到這種分數很少見。另外 Python 生態的 <code>uv</code>（把 pip 換掉的那個）本身也是 Rust 寫的，拿下「最受推崇新技術」74.2%。</p>
+
+<h2>四、缺點：也一樣要有數字</h2>
+
+<h3>① 學習曲線是真的陡</h3>
+<p>同一年度的 Rust 官方調查裡，<b>45.2% 的人把「複雜度」列為障礙</b>；<b>45.5% 擔心產業採用不足</b>（比前一年 42.5% 更高）。有分析指出，團隊導入後的<b>前 3～6 個月，開發速度會下降 30～50%</b>——因為資深工程師在跟生命週期標註奮戰，而不是在寫功能。</p>
+
+<h3>② 改造成本比學語言更貴</h3>
+<p>問題往往不是「學 Rust」，而是「你現有的程式不是 Rust」。要嘛翻譯、要嘛新舊並存慢慢換——兩條路都很貴。這也是 14.8% 與 72% 落差的主因：<b>技術吸引力高，但切換成本也高。</b></p>
+
+<h3>③ 編譯時間、async 生態仍未成熟</h3>
+<p>編譯比直譯式語言慢是常態；非同步（async）的錯誤訊息與生態在社群裡也一直被抱怨。</p>
+
+<div class="warn">
+  <b>⚠️ 誠實講：Rust 也會有漏洞</b><br>
+  Google 自己公布了一個在 <b>unsafe Rust</b> 裡寫出的線性緩衝區溢位（CVE-2025-48530，CVSS 8.1，在 CrabbyAVIF 元件）。它沒有被實際利用，是因為 Android 的記憶體配置器把「靜默損毀」變成「可偵測的崩潰」而提早抓到。<br>
+  <b>兩個結論</b>：① 語言安全不是萬靈丹，<code>unsafe</code> 區塊與 FFI 邊界仍是風險集中處；② 語言安全 ＋ 配置器／模糊測試的縱深防禦，比只靠語言可靠。
+</div>
+
+<h2>五、什麼情況該用、什麼情況不該用</h2>
+<table>
+  <tr><th>情境</th><th>建議</th><th>理由</th></tr>
+  <tr><td>解析器（圖片／字型／JSON／壓縮）</td><td><b>值得</b></td><td>這類是 CVE 磁鐵；Chromium 已把 PNG、JSON、字型解析器換成 Rust</td></tr>
+  <tr><td>網路協定、系統底層、長時執行的服務</td><td><b>值得</b></td><td>記憶體洩漏與競態在這裡代價最高</td></tr>
+  <tr><td>需要榨效能又要安全性（金融交易、遊戲引擎）</td><td><b>值得</b></td><td>願付 6～12 個月導入期</td></tr>
+  <tr><td>現有 C／C++ 專案想「全部重寫」</td><td><b>先不要</b></td><td>成本極高；建議只換高風險模組（解析器、協定）</td></tr>
+  <tr><td>寫網站後端、內部工具、資料分析</td><td><b>不必</b></td><td>這些情境本來就少有記憶體安全問題，Python／Go／TypeScript 更快出貨</td></tr>
+  <tr><td>團隊完全沒人有系統程式經驗</td><td><b>先不要</b></td><td>前 3～6 個月速度下降 30～50% 是真的</td></tr>
+</table>
+
+<h2>六、我的看法（以及我怎麼查證的）</h2>
+<p>Rust 的熱度不是炒作，但也不是「該學不然會被淘汰」。真實狀況比較像：<b>在它擅長的那一小塊，它幾乎沒有對手；在那一塊之外，它通常不是最划算的選擇。</b></p>
+<p>如果你的工作會碰到<b>別人丟給你的二進位資料</b>（圖片、壓縮檔、網路封包），那 Rust 值回票價。如果只是做內部工具或網站，先把手上的東西做完比較實在。</p>
+<div class="ok">
+  <b>本篇所有數字都來自公開來源</b>：CISA 官方文章（微軟／Google／Mozilla 的漏洞統計）、Google Android 團隊 2025 年報告、Stack Overflow Developer Survey 2025（49,000+ 位開發者）、Rust 官方 State of Rust 調查。數字有分歧或下降的地方（例如推崇度 83%→72%、受訪者 65,000→49,000）我都照實寫出，沒有挑好看的那個講。
+</div>
+
+<footer>小R 頻道・程式設計｜資料來源皆為公開可查證，未經任何廠商贊助或審稿</footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
