@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1,500 星的離線 AI 工作室實測：配音比實時慢，字幕卻快 2 倍｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="同一台 i7 文書機上實測一個 1,500 星的離線 AI 工作室：Kokoro 中文配音 RTF 1.30（比實時慢）、edge-tts 0.10（快 13 倍）、faster-whisper 0.48（比實時快 2 倍，7 段時間軸幾乎不用重做）。含體檢數字、三個引擎的完整數據、辨識錯誤清單與使用建議。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .tw{overflow-x:auto;margin:0 0 16px}
+  table.bd{width:100%;min-width:520px;border-collapse:collapse;font-size:14.5px;
+    background:var(--card);border:2px solid var(--line);border-radius:14px;overflow:hidden}
+  table.bd th,table.bd td{padding:8px 11px;border-bottom:1px solid var(--line);text-align:left}
+  table.bd th{background:rgba(54,78,112,.07);color:var(--blue);font-size:13.5px;font-weight:600}
+  table.bd tr:last-child td{border-bottom:0}
+  table.bd td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+  table.bd td.ok{color:var(--leaf);font-weight:600}
+  table.bd td.no{color:var(--red);font-weight:600}
+  table.bd tr.hi td{background:rgba(191,74,58,.055)}
+  pre.code{overflow-x:auto;margin:0 0 16px;padding:12px 14px;background:#2f2b26;color:#f0e9da;
+    border-radius:12px;font-family:ui-monospace,Consolas,monospace;font-size:13px;line-height:1.75}
+  pre.code b{color:#f0b26b;font-weight:600}
+  pre.plainbox{overflow-x:auto;margin:0 0 16px;padding:12px 14px;background:var(--card);
+    border:2px solid var(--line);border-radius:12px;
+    font-family:ui-monospace,Consolas,monospace;font-size:13px;line-height:1.75}
+  .chart{background:var(--card);border:2px solid var(--line);border-radius:16px;
+    padding:16px 18px 10px;margin:0 0 10px;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .chart .crow{display:grid;grid-template-columns:170px 1fr 96px;gap:12px;
+    align-items:center;margin:0 0 14px}
+  .chart .crow:last-child{margin-bottom:6px}
+  .chart .cname{font-size:13.5px;line-height:1.45}
+  .chart .cname b{display:block;font-size:14.5px;color:var(--ink)}
+  .chart .cname span{color:var(--soft);font-size:12.5px}
+  .chart .ctrack{position:relative;height:22px;background:rgba(54,78,112,.06);border-radius:8px}
+  .chart .cbar{height:22px;border-radius:8px}
+  .chart .cbar.red{background:var(--red)}
+  .chart .cbar.blue{background:var(--blue)}
+  .chart .cbar.green{background:var(--leaf)}
+  .chart .cth{position:absolute;top:-6px;bottom:-6px;left:76.92%;width:0;
+    border-left:2px dashed var(--ink);opacity:.55}
+  .chart .cval{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:15px}
+  .chart .cval.red{color:var(--red)}
+  .chart .cval.blue{color:var(--blue)}
+  .chart .cval.green{color:var(--leaf)}
+  .chart .cval span{display:block;font-size:11.5px;color:var(--soft);font-weight:400}
+  .chart .cax{position:relative;height:20px;font-size:12px;color:var(--soft);margin:0 0 6px}
+  .chart .cax b{position:absolute;left:76.92%;transform:translateX(-50%);
+    color:var(--ink);white-space:nowrap;font-size:12.5px}
+  @media (max-width:430px){
+    .chart .crow{grid-template-columns:1fr auto;gap:6px 10px}
+    .chart .cname{grid-column:1 / -1}
+    .chart .cval{font-size:14px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=10b45848"></script>
+<script defer src="../../counter.js?v=94ad9679"></script>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>1,500 星的離線 AI 工作室實測：<br>配音比實時慢，字幕卻快 2 倍</h1>
+  <div class="sub">同一台文書機，把它裡面兩個引擎單獨拿出來量：哪些值得留、哪些不值得裝</div>
+  <div class="meta">2026/10/13・實測報告（無影片）</div>
+
+  <div class="box">
+    <strong>這套 GUI 不用裝</strong>；但它裡面有兩個引擎值得單獨拿出來用，
+    其中一個（<strong>faster-whisper</strong>）我實測之後會繼續用。
+    同一句話、同一台沒有獨立顯示晶片的文書機上：
+    中文配音 <strong>RTF 1.30（比實時慢）</strong>、
+    雲端語音 <strong>0.10</strong>、
+    語音轉文字 <strong>0.48（比實時快 2 倍）</strong>。
+  </div>
+
+  <h2><span class="dot"></span>先看速度：三個引擎的實時倍率（RTF）</h2>
+  <p>把這次實測的三個引擎放在同一把尺上比。單位是
+  <b>RTF（Real-Time Factor）＝ 合成或辨識耗時 ÷ 音訊長度</b>——
+  <b>小於 1 才叫「比實時快」</b>。長條越短表示越快。</p>
+
+  <div class="chart">
+    <div class="crow">
+      <div class="cname"><b>Kokoro 中文配音</b><span>完全離線・ONNX</span></div>
+      <div class="ctrack"><div class="cbar red" style="width:100%"></div><span class="cth"></span></div>
+      <div class="cval red">1.30<span>慢於實時</span></div>
+    </div>
+    <div class="crow">
+      <div class="cname"><b>edge-tts 中文語音</b><span>連微軟雲端</span></div>
+      <div class="ctrack"><div class="cbar blue" style="width:7.7%"></div><span class="cth"></span></div>
+      <div class="cval blue">0.10<span>快 13 倍</span></div>
+    </div>
+    <div class="crow">
+      <div class="cname"><b>faster-whisper 中文辨識</b><span>small・int8・CPU</span></div>
+      <div class="ctrack"><div class="cbar green" style="width:36.9%"></div><span class="cth"></span></div>
+      <div class="cval green">0.48<span>快 2 倍</span></div>
+    </div>
+    <div class="cax"><b>↑ 1.0＝實時分界（虛線）</b></div>
+  </div>
+  <p class="dim">長條越短表示越快；<b>1.0</b> 是在這台機器上「比實時慢」的分界。
+  Kokoro 的 1.30 是四個中文聲音的代表值（實測範圍 1.25～1.35）；
+  edge-tts 的 0.10 來自同一句話的對照組。三個數字都是同一台機器、同一段文字。</p>
+
+  <h2><span class="dot"></span>先講結論：四個功能，我只留一個</h2>
+  <div class="tw"><table class="bd">
+    <tr><th>它的四個功能</th><th>在這台機器上</th><th>我的判斷</th></tr>
+    <tr><td>圖片生成（Stable Diffusion）</td>
+      <td>未實測（推估：SDXL 每張 10～30 分鐘、SD1.5 每張 2～5 分鐘）</td>
+      <td class="no">✗ 不用裝</td></tr>
+    <tr><td>文字對話（GGUF LLM）</td>
+      <td>未實測（CPU 可跑但慢）</td>
+      <td class="no">✗ 已有更好的</td></tr>
+    <tr><td>文字轉語音（Kokoro-82M）</td>
+      <td>實測完成：比實時慢 1.25～1.35 倍</td>
+      <td>⚠ 可當第二個聲音，不是主力</td></tr>
+    <tr class="hi"><td>語音轉文字（Whisper）</td>
+      <td>實測完成：1 秒語音只花 0.48 秒辨識，且 7 段全對上</td>
+      <td class="ok">✓ 這個我會繼續用</td></tr>
+  </table></div>
+  <p><strong>要裝那整套嗎？不用。</strong>那兩個引擎直接從官方 PyPI 安裝（約 1 GB、
+  不碰它附的 <code>.bat</code>）就能跑，而且同一件事的速度快得多。</p>
+
+  <h2><span class="dot"></span>它是什麼</h2>
+  <p>一個<strong>完全離線</strong>的 AI 工作室，把四件事包進一個圖形介面，
+  Windows／Linux／macOS 都能跑。特色是<strong>零安裝</strong>：
+  雙擊它附的批次檔，它會自己下載一份可攜的 Node.js 與 GPU 後端，
+  裝完打開本機的 <code>localhost:1420</code> 就能用。標榜 100% 離線、
+  不上傳、不用登入、不用 API key。</p>
+  <ul class="plain">
+    <li>圖片生成走 <code>stable-diffusion.cpp</code>（吃 <code>.safetensors</code>／<code>.ckpt</code>，SD1.5 與 SDXL 單檔模型）</li>
+    <li>文字對話走 <code>llama.cpp</code>（吃 <code>.gguf</code>）</li>
+    <li>語音轉文字走 <code>whisper.cpp</code></li>
+    <li>文字轉語音走 <strong>Kokoro-82M（ONNX）</strong></li>
+  </ul>
+  <p>受測的是 <a href="https://github.com/techjarves/Portable-Local-Studio">Portable AI Studio</a>
+  （<code>techjarves/Portable-Local-Studio</code>）。</p>
+  <div class="box">
+    <strong>要提醒一點</strong>：它的安裝方式是<strong>雙擊批次檔，腳本會自己下載 Node 與 GPU 後端二進位檔</strong>。
+    這種來路不是官方發行版的東西，要跑之前最好先把它的安裝腳本讀過一遍，
+    或是像我一樣只裝引擎、不跑那個檔。
+  </div>
+
+  <h2><span class="dot"></span>這個專案的體檢（實查 GitHub API）</h2>
+  <pre class="plainbox">星星      1,507        fork 378        watch 41
+授權      MIT
+建立      2026-06-04（約 4 個月大）
+最後 push 2026-09-17
+開著的 issue 16
+語言      JavaScript</pre>
+  <p><strong>1,500 星不算少，但這個專案很年輕</strong>（4 個月），社群驗證還在累積。
+  另外它對外的定位是「Uncensored AI Studio」——圖片模型可以生成 NSFW 內容，
+  <strong>跟頻道的調性不合</strong>，這也是我建議「只取引擎、不裝整套 GUI」的原因之一。</p>
+
+  <h2><span class="dot"></span>受測機器（這台）</h2>
+  <pre class="plainbox">CPU      Intel i7-8565U（2018 年 4 核，文書機等級）
+顯示晶片  Intel UHD Graphics 620（內顯，無 NVIDIA／AMD 獨顯）
+記憶體   15.9 GB
+CUDA / ROCm  都不能用（無獨顯）→ 只剩 Vulkan 或純 CPU</pre>
+  <p><strong>這台沒有獨顯這件事是整份報告的關鍵</strong>——它決定了哪個功能能用、哪個用不了。</p>
+
+  <h2><span class="dot"></span>實測結果（全部跑在同一台、同一段文字）</h2>
+  <p>測試文字（跟一支 Rust 主題短片用的那句一樣）：</p>
+  <div class="box">
+    Rust 是什麼？跑得跟 C 加加一樣快，但編譯階段就把記憶體錯誤擋掉。想知道更多，搜尋小R頻道。
+  </div>
+
+  <h3>① Kokoro 中文文字轉語音</h3>
+  <p><strong>載入模型：32.02 秒</strong>（含第一次下載）</p>
+  <div class="tw"><table class="bd">
+    <tr><th>聲音</th><th class="n">音長</th><th class="n">合成耗時</th><th class="n">RTF</th><th class="n">RMS</th></tr>
+    <tr><td><code>zf_xiaobei</code>（女）</td><td class="n">10.10 秒</td><td class="n">13.58 秒</td><td class="n">1.34</td><td class="n">0.066</td></tr>
+    <tr><td><code>zf_xiaoni</code>（女）</td><td class="n">8.95 秒</td><td class="n">11.15 秒</td><td class="n">1.25</td><td class="n">0.077</td></tr>
+    <tr class="hi"><td><code>zf_xiaoxiao</code>（女）</td><td class="n">8.47 秒</td><td class="n">11.41 秒</td><td class="n">1.35</td><td class="n">0.100</td></tr>
+    <tr><td><code>zm_yunjian</code>（男）</td><td class="n">8.50 秒</td><td class="n">10.86 秒</td><td class="n">1.28</td><td class="n">0.063</td></tr>
+  </table></div>
+  <p class="dim">RTF（Real-Time Factor）＝ 合成耗時 ÷ 音訊長度。<b>小於 1 才是「比實時快」。</b></p>
+  <p><strong>結論</strong>：Kokoro 的中文聲音確實可用，但在這台上 <strong>RTF 1.25～1.35，
+  意思是生成 1 秒的聲音要等 1.3 秒</strong>。換算成實際工作：
+  <strong>一支 54 秒的影片旁白，要等約 70 秒</strong>——等得起，但明顯比 edge-tts 慢。</p>
+
+  <h3>② 對照組：edge-tts（同一句話）</h3>
+  <div class="tw"><table class="bd">
+    <tr><th>引擎</th><th class="n">音長</th><th class="n">合成耗時</th><th class="n">RTF</th></tr>
+    <tr class="hi"><td>edge-tts HsiaoChen</td><td class="n">10.87 秒</td><td class="n">1.05 秒</td><td class="n">0.10</td></tr>
+    <tr><td>Kokoro <code>zf_xiaoxiao</code></td><td class="n">8.47 秒</td><td class="n">11.41 秒</td><td class="n">1.35</td></tr>
+  </table></div>
+  <p><strong>edge-tts 快 13 倍</strong>（同樣一句話，1 秒對上 11 秒），
+  而且實測音量也比較飽（對照 Kokoro 的 RMS 0.063～0.100）。</p>
+  <div class="box">
+    但要注意：edge-tts <strong>是連到微軟雲端的服務</strong>（所以快），
+    而 Kokoro <strong>完全離線</strong>。兩者取向不同：
+    <strong>要快要自然 → edge-tts；要斷網也能用、不想連外 → Kokoro。</strong>
+  </div>
+
+  <h3>③ faster-whisper 中文辨識</h3>
+  <p>拿當天剛做好的一支 54 秒短片直接轉字幕：</p>
+  <pre class="plainbox">模型           small（int8，CPU）
+模型載入       42.7 秒
+辨識耗時       26.1 秒（54 秒的音訊）
+RTF            0.48  ← 1 秒語音只花 0.48 秒辨識，比實時快 2 倍
+語言判斷       zh（信心 1.00）
+切出段數       7 段</pre>
+  <p><strong>最讓我意外的是切段</strong>：它切出來的 <strong>7 段時間，跟我影片設計的 7 格幾乎完全吻合</strong>
+  （0-9／9-16／16-22.5／22.5-31.5／31.5-38.4／38.4-42.9／42.9-50.7 秒），
+  等於<strong>可以直接拿來上字幕，時間軸不用重做</strong>。</p>
+
+  <h3>辨識錯誤清單（照實列，這決定了它能不能無人值守）</h3>
+  <div class="tw"><table class="bd">
+    <tr><th>它聽成</th><th>正確</th><th>類型</th></tr>
+    <tr><td>Rus由Marzela…</td><td><strong>Rust 由 Mozilla</strong></td><td>英文專有名詞</td></tr>
+    <tr><td>希加加</td><td><strong>C 加加（C++）</strong></td><td>單一字母＋疊字</td></tr>
+    <tr><td>每百萬型</td><td>每百萬<strong>行</strong></td><td>同音字</td></tr>
+    <tr><td>Rus0.2個</td><td><strong>Rust</strong> 0.2 個</td><td>英文專有名詞</td></tr>
+    <tr><td>灰滾率</td><td><strong>回滾率</strong></td><td>同音字</td></tr>
+    <tr><td>自己也有缺陷</td><td>自己也有 <strong>CVE</strong></td><td>英文縮寫</td></tr>
+    <tr><td>搜尋小兒頻道</td><td>搜尋<strong>小R</strong>頻道</td><td>頻道名</td></tr>
+  </table></div>
+  <p><strong>中文一般詞句幾乎全對</strong>（「最有趣的是這個落差」「不只更安全」這些都對），
+  <strong>錯的都集中在英文專有名詞與縮寫</strong>。
+  → <strong>用法建議：拿它做第一版字幕，再人工校對英文詞</strong>
+  （我這 7 段裡大約 7 處要改）。<strong>不能完全放手不管。</strong></p>
+
+  <h2><span class="dot"></span>我的建議</h2>
+  <ul class="plain">
+    <li><b>1. 不要裝那整套 GUI</b>　圖片生成在這台沒有獨立顯示晶片、跑不動
+    （還要另外下載 2～7 GB 的模型）；文字對話我們已經有更好的。
+    為了兩個引擎去裝一整套、又跑一個來源不明的批次檔，不划算。</li>
+    <li><b>2. 要裝就只裝引擎</b>（我就是這樣測的，約 1 GB，全部來自官方 PyPI）：
+    <pre class="code"><b># 語音轉文字（推薦）</b>
+uv pip install --python &lt;venv&gt; faster-whisper soundfile
+<b># 中文語音（可選）</b>
+uv pip install --python &lt;venv&gt; kokoro "misaki[zh]"</pre>
+    <strong><code>faster-whisper</code> 是這次最值得的收穫</strong>——
+    以後做影片可以<strong>自動上字幕</strong>（RTF 0.48，54 秒影片 26 秒轉完）。</li>
+    <li><b>3. Kokoro 當第二個聲音選項</b>，不要當主力。它的價值是<strong>完全離線</strong>
+    （edge-tts 要連微軟）＋聲音比較沈穩。等哪天 edge-tts 又掛掉，它就是備援。</li>
+    <li><b>4. 順帶一提</b>：裝 Kokoro 時它把 <code>transformers</code> 從 4.48 升到 <strong>5.19</strong>（跨大版本）。
+    測完確認影片流程沒有依賴它（edge-tts／numpy／PIL／soundfile 全部正常），所以沒有影響，
+    但這種跨版本升級值得每次都檢查一次。</li>
+  </ul>
+
+  <h2><span class="dot"></span>附錄：可重現的做法</h2>
+  <p>測試腳本與原始數據保存在本機，以下是兩個引擎的最小可重現範例。</p>
+  <pre class="code"><b># Kokoro 中文</b>
+from kokoro import KPipeline
+import soundfile as sf
+import numpy as np
+
+pipe = KPipeline(lang_code="z")
+chunks = [a for _, _, a in pipe("要唸的中文", voice="zf_xiaoxiao")]
+sf.write("out.wav", np.concatenate(chunks), 24000)   # 24000 Hz
+
+<b># faster-whisper 中文辨識</b>
+from faster_whisper import WhisperModel
+
+m = WhisperModel("small", device="cpu", compute_type="int8")
+segs, info = m.transcribe("audio.wav", language="zh", beam_size=5, vad_filter=True)
+for s in segs:
+    print("[%.2f-%.2f] %s" % (s.start, s.end, s.text.strip()))</pre>
+  <p class="dim">Kokoro 的中文聲音一覽：女聲 <code>zf_xiaobei</code>／<code>zf_xiaoni</code>／
+  <code>zf_xiaoxiao</code>／<code>zf_xiaoyi</code>，男聲 <code>zm_yunjian</code>／<code>zm_yunxi</code>／
+  <code>zm_yunxia</code>／<code>zm_yunyang</code>。</p>
+
+  <h2><span class="dot"></span>一句話收尾</h2>
+  <div class="box">
+    這套 GUI 不用裝。真正值錢的是它裡面選的引擎——
+    <strong>faster-whisper 我實測後會繼續用來上字幕</strong>，
+    Kokoro 則留著當離線備援。至於圖片生成與文字對話，這台沒有獨顯就先不用想了。
+  </div>
+
+  <div class="box">
+    <strong>內容說明</strong>：本文所有數字都是在同一台機器上實測得到，不是規格表抄來的；
+    圖片生成與文字對話兩項<strong>未實測</strong>，只給推估並標明。
+    文中不包含任何帳號、憑證、email 或本機路徑，測試腳本與原始數據保存在本機；
+    這是公開資料的技術觀察，不構成任何採購或成效建議。
+  </div>
+  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
