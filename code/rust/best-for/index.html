@@ -43,6 +43,12 @@ pre{background:#f1ece1;border:1px solid #e2d8c8;border-radius:10px;padding:12px 
 .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#6b635a;font-size:14px;border-top:2px dashed #d9d1c2}
 .viewsline .vnum{color:#364e70;font-weight:700}
 footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <link rel="stylesheet" href="../../../nav.css?v=73b4d013">
 <script defer src="../../../nav.js?v=10b45848"></script>
@@ -167,7 +173,7 @@ footer{color:var(--soft);font-size:12.5px;text-align:center;margin-top:26px;bord
   那 Rust 值得學；如果你只是想快點把功能做出來、流量也不大，先用手上順的那個語言就好。
 </div>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views="auto">—</span></div>
 <footer>小R 頻道・只用公開資料，數據都附來源｜本頁與 <a href="../">Rust 完整分析</a> 搭配看</footer>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>

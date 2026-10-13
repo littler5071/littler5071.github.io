@@ -8,7 +8,16 @@
 <link rel="stylesheet" href="../css/index.css">
 <style>
   h2{font-size:clamp(19px,3.2vw,25px);margin:38px 0 10px;display:flex;align-items:center;gap:10px}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<link rel="stylesheet" href="../nav.css?v=73b4d013">
+<script defer src="../nav.js?v=10b45848"></script>
+<script defer src="../counter.js?v=94ad9679"></script>
 </head>
 <body>
 <div class="wrap">
@@ -108,5 +117,6 @@
     小R 頻道 · 程式設計 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
 </div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="51" data-views>—</span></div>
 </body>
 </html>
