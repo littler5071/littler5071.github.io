@@ -25,7 +25,8 @@
     { label: 'AI 助理實測', path: 'ai/'     },
     { label: '股市觀察',   path: 'stock/'  },
     { label: '多益英文',   path: 'toeic/'  },
-    { label: '程式設計',   path: 'code/'   }
+    { label: '程式設計',   path: 'code/'   },
+    { label: '段考複習',   path: 'study/'  }
   ];
 
   var CLASS = 'hnav';          // 由 nav.css 決定長相

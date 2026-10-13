@@ -9,7 +9,7 @@ START = ["", "stock/", "stock/logic/", "stock/backtest/", "stock/20260916-intrad
          "toeic/p1-full/", "toeic/p5-full/", "toeic/p6-full/", "toeic/p7-full/",
          "ai/", "ai/exam/", "ai/hdd-ai/", "ai/agent10/", "ai/incident/", "ai/hf-incident/", "ai/pixel-art/", "ai/shorts/",
          "ai/top-videos/", "ai/site-stats/", "ai/portable-ai-studio/", "code/", "code/github-top20/", "code/rpa-demo/", "code/rpa-overview/",
-         "code/rpa-basic/", "code/rpa-flow/", "code/rpa-system/", "code/rpa-wait/"]
+         "code/rpa-basic/", "code/rpa-flow/", "code/rpa-system/", "code/rpa-wait/", "study/"]
 
 
 def code_of(u):
