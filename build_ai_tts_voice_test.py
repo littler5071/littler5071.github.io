@@ -31,6 +31,8 @@ HTML = """<!DOCTYPE html>
 <title>免費中文語音實測：七種聲音並排試聽｜AI 助理實測｜小R 頻道</title>
 <meta name="description" content="做影片旁白要用的中文語音，哪些免費方案真的能聽？同一句話七種聲音並排試聽：本機執行的 Kokoro、雲端 edge、翻譯服務朗讀、作業系統內建語音，並寫清楚哪些方案行得通、哪些裝不起來、為什麼。">
 <link rel="stylesheet" href="../../css/ai-article.css">
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=79c7521e"></script>
 <style>
   .voice{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:12px 14px;margin:0 0 12px}
   .voice b{display:block;margin-bottom:4px}
