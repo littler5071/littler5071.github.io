@@ -1,0 +1,148 @@
+# -*- coding: utf-8 -*-
+"""產生 `/ai/tts-voice-test/`：免費中文語音合成（TTS）實測頁。
+
+同一句話、七種聲音／引擎並排試聽，並寫清楚哪些行得通、哪些行不通與為什麼。
+導覽列／瀏覽次數由站台注入工具事後補（本產生器不寫導覽）。
+隱私：頁面不得出現憑證、帳號、email、本機路徑。
+
+用法：python build_ai_tts_voice_test.py [網站根目錄]
+"""
+import os
+import sys
+
+SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SLUG = "tts-voice-test"
+
+SAMPLES = [
+    ("v1-kokoro-xiaoxiao.mp3", "① Kokoro · 女聲（目前採用）", "本機執行、完全離線、免費。語調有起伏、斷句最像人在講話。這支影片的旁白就是用它。"),
+    ("v2-kokoro-yunjian.mp3", "② Kokoro · 男聲", "同一個引擎的另一個聲音。適合想要低沉一點的題材。"),
+    ("v3-edge-hsiaochen.mp3", "③ edge 雲端語音 · 女聲", "台灣腔、自然，免費且不用金鑰。語調比 Kokoro 平一些、停頓比較固定。"),
+    ("v4-edge-yunjhe.mp3", "④ edge 雲端語音 · 男聲", "同上，男聲版本。"),
+    ("v5-gtts.mp3", "⑤ 翻譯服務的朗讀 · 台灣腔", "免費、不用金鑰，台灣腔明顯。停頓規則化，聽起來比前兩者更像「唸稿」。"),
+    ("v7-sapi-hanhan.mp3", "⑥ 作業系統內建語音", "不用安裝任何東西就能用，但字與字黏在一起、機器感最重——實測最不適合當正式交付。"),
+    ("v6-kokoro-final-1.2x.mp3", "⑦ 實際用在影片裡的成品（1.2 倍速）", "這是影片第一句的實際成品：同一句話，加速 1.2 倍、音量已正規化。加速不會讓聲音變尖（保留音高）。"),
+]
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>免費中文語音實測：七種聲音並排試聽｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="做影片旁白要用的中文語音，哪些免費方案真的能聽？同一句話七種聲音並排試聽：本機執行的 Kokoro、雲端 edge、翻譯服務朗讀、作業系統內建語音，並寫清楚哪些方案行得通、哪些裝不起來、為什麼。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .voice{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+  .voice b{display:block;margin-bottom:4px}
+  .voice p{margin:0 0 8px;font-size:14.5px;color:var(--soft)}
+  .voice audio{width:100%;height:36px;display:block}
+  table.data{width:100%;border-collapse:collapse;margin:12px 0 6px;font-size:15px}
+  table.data th,table.data td{border-bottom:1px solid rgba(0,0,0,.09);padding:9px 6px;text-align:left}
+  table.data th{font-weight:700;font-size:14px;color:var(--soft)}
+  .ok{color:#1a7f37;font-weight:700}
+  .no{color:var(--red);font-weight:700}
+  .scroll{overflow-x:auto}
+  code{background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>免費中文語音實測：<br>七種聲音並排試聽</h1>
+  <div class="sub">同一句話、同一個講者語氣，差別在哪裡一聽就知道</div>
+  <div class="meta">2026/10/14・文章＋試聽音檔（7 段）</div>
+
+  <div class="box">
+    <strong>一句話摘要</strong>：做影片旁白不需要付費，本機就能跑出自然的台灣中文——但不同引擎的差距很大。
+    同一句話我做了七個版本，其中<strong>最自然的是本機執行的 Kokoro</strong>；
+    作業系統內建的那個最方便、卻也最像機器。這頁的每一段都可以直接播放比較。
+  </div>
+
+  <h2><span class="dot"></span>試聽：同一句話、七個版本</h2>
+  <p class="dim">大家唸的都是同一句：「這台筆電沒有獨立顯卡。它能不能自己生成圖片？我實測了四種方式，
+  結果一個免費的雲端服務，用十二秒就打敗它五分鐘。」</p>
+__SAMPLES__
+
+  <h2><span class="dot"></span>總表：哪一種值得用</h2>
+  <div class="scroll">
+  <table class="data">
+    <tr><th>方案</th><th>要付費嗎</th><th>要連網嗎</th><th>實測結果</th></tr>
+    <tr><td>Kokoro（本機）</td><td>免費</td><td>不用</td><td class="ok">最自然，目前採用</td></tr>
+    <tr><td>edge 雲端語音</td><td>免費</td><td>要</td><td>自然，但語調較平</td></tr>
+    <tr><td>翻譯服務朗讀</td><td>免費</td><td>要</td><td>可用，台灣腔明顯</td></tr>
+    <tr><td>作業系統內建語音</td><td>免費</td><td>不用</td><td class="no">機器感最重，不建議交付</td></tr>
+    <tr><td>另一個開源引擎（包裝檔壞掉）</td><td>免費</td><td>不用</td><td class="no">官方發佈的安裝包本身有問題，裝不起來</td></tr>
+    <tr><td>另一個對話式引擎</td><td>免費</td><td>不用</td><td class="no">能裝，但會把共用的相依套件升級到不相容版本，把原本能用的引擎弄壞</td></tr>
+    <tr><td>助理軟體內建朗讀</td><td>免費</td><td>要</td><td class="no">走的是已經停用的舊端點，實測被拒絕</td></tr>
+  </table>
+  </div>
+  <p class="dim">同一句的量化對照：Kokoro 的樣本音量（RMS）約 <code>0.103</code>、
+    edge 約 <code>0.09</code>、內建語音約 <code>0.055</code>——內建的最小聲，
+    實際使用時要再壓縮／正規化才聽得清楚。</p>
+
+  <h2><span class="dot"></span>三個踩到的坑（都真的發生過）</h2>
+  <ul class="plain">
+    <li><b>1. 免費不代表裝得起來</b>　有一個開源引擎的官方安裝包在發佈時漏了檔案，
+      安裝直接失敗；改從原始碼安裝才行。所以「能不能裝」要另外驗，不能只看它有名。</li>
+    <li><b>2. 裝新引擎可能會弄壞舊的</b>　另一個引擎安裝時把共用的相依套件升級到不相容的版本，
+      結果<strong>原本可以用的引擎立刻壞掉</strong>。這件事是實測踩到的，後來把版本降回去才修好。</li>
+    <li><b>3. 串接服務要看端點有沒有搬家</b>　有一個朗讀服務把連線位址換了，舊位址一律被拒絕；
+      換到新位址才通。這種事會突然發生，所以語音管線要有備援。</li>
+  </ul>
+
+  <h2><span class="dot"></span>把它放進影片的四個規矩</h2>
+  <ul class="plain">
+    <li><b>1. 先寫句子，再量長度</b>　合成語音唸得比預期慢，憑感覺寫一定爆長；
+      每一句都要量秒數，並確認「語音長度 ≤ 該格時間 − 0.5 秒」。</li>
+    <li><b>2. 數字一律寫成中文讀法</b>　「301」寫成「三百零一」、「0.2」寫成「零點二」、
+      「14.8%」寫成「十四點八趴」，否則唸出來的東西會很奇怪。</li>
+    <li><b>3. 太長就加速，不要重寫</b>　統一加速 1.2～1.3 倍對講解型影片剛好，
+      而且加速保留音高、不會變成花栗鼠。</li>
+    <li><b>4. 交付前驗每一格都有聲音</b>　把成品抽音軌、逐格算音量，
+      任何一格只有幾十（幾乎無聲）就是漏了。</li>
+  </ul>
+
+  <h2><span class="dot"></span>結論</h2>
+  <div class="box">
+    免費要做到「像人在講話」，本機執行的 Kokoro 是目前最穩的選擇：
+    離線、不用金鑰、沒有額度限制，斷句與語調最自然。
+    需要台灣腔或不想在自己電腦跑，雲端那兩套也夠用。
+    <strong>唯一不建議的是作業系統內建的語音</strong>——它最方便，但一聽就知道是機器，
+    拿來做正式內容會直接被聽出來。
+  </div>
+
+  <div class="box">
+    <strong>內容說明</strong>：本文為免費／開源工具的實測紀錄，不含任何帳號、憑證或個人資料；
+    試聽音檔為工具產物，內容為本頻道的示範句子。
+  </div>
+  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+</div>
+</body>
+</html>
+"""
+
+
+def main():
+    out_dir = os.path.join(SITE, "ai", SLUG)
+    os.makedirs(out_dir, exist_ok=True)
+    blocks = []
+    for fn, title, desc in SAMPLES:
+        p = os.path.join(out_dir, "audio", fn)
+        if not os.path.exists(p):
+            print("   [跳過] 找不到 %s" % p)
+            continue
+        blocks.append(
+            '  <div class="voice">\n    <b>%s</b>\n    <p>%s</p>\n'
+            '    <audio controls preload="none" src="audio/%s"></audio>\n  </div>'
+            % (title, desc, fn)
+        )
+    html = HTML.replace("__SAMPLES__", "\n".join(blocks))
+    out = os.path.join(out_dir, "index.html")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("✓ 產出 %s（%d bytes，%d 段試聽）" % (out, len(html.encode("utf-8")), len(blocks)))
+
+
+if __name__ == "__main__":
+    main()

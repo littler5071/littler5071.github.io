@@ -85,7 +85,7 @@
   .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <link rel="stylesheet" href="./nav.css?v=73b4d013">
-<script defer src="./nav.js?v=b4402e7b"></script>
+<script defer src="./nav.js?v=79c7521e"></script>
 <script defer src="./counter.js?v=94ad9679"></script>
 </head>
 <body>
@@ -102,20 +102,20 @@
 
   <section id="ai">
     <h2><a class="h2link" href="ai/"><span class="dot"></span>AI 助理實測</a>
-      <span class="more"><a href="ai/">全部影片（13）→</a></span>
+      <span class="more"><a href="ai/">全部影片（15）→</a></span>
     </h2>
     <p class="hint">真的拿 AI 助理來做事的紀錄：實測影片、踩過的坑、用公開來源寫成的長文。</p>
     <div class="card">
       <span class="tag new">最新</span>
-      <h3>1,500 星的離線 AI 工作室實測：配音比實時慢，字幕卻快 2 倍</h3>
-      <p>同一台 i7 文書機（無獨顯）上實測一個 1,500 星的離線 AI 工作室：Kokoro 中文配音 RTF 1.30（比實時慢，54 秒旁白要等約 70 秒）、edge-tts 0.10（快 13 倍）、faster-whisper 0.48（1 秒語音只花 0.48 秒，切出的 7 段時間軸跟影片設計幾乎完全吻合）。含 GitHub 體檢數字、受測機器、三組完整數據、辨識錯誤清單（錯的都集中在英文專有名詞與縮寫）與「只裝引擎、不裝整套 GUI」的建議。</p>
-      <a class="btn" href="ai/portable-ai-studio/">看報告 →</a>
+      <h3>免費中文語音實測：七種聲音並排試聽</h3>
+      <p>做影片旁白要用的中文語音，哪些免費方案真的能聽？同一句話做了七個版本並排試聽：本機執行的 Kokoro 最自然（語調有起伏、斷句像人）、雲端 edge 台灣腔自然但語調較平、翻譯服務朗讀可用、作業系統內建的最方便卻也最像機器。含三個實際踩到的坑（官方安裝包壞掉、裝新引擎把舊的弄壞、串接服務端點搬家）與放進影片的四個規矩（先量長度、數字寫中文讀法、統一加速 1.2～1.3 倍、逐格驗有聲音）。</p>
+      <a class="btn" href="ai/tts-voice-test/">看報告 →</a>
     </div>
     <div class="card">
       <span class="tag new">近期</span>
-      <h3>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析</h3>
-      <p>頻道網站 61 頁，58 頁有人打開過、合計 833 人次。但流量非常集中：前 10 頁就佔了 70%，而四個分類目錄頁＋首頁拿走四成——代表多數人是「先逛目錄再挑一篇」。含完整前 10 名排行、逐分類交叉分析、盤中快照與日報的落差、三頁從沒被打開，以及這份數據的六個限制（不知道來源、不知道停留時間、小樣本）。</p>
-      <a class="btn" href="ai/site-stats/">看報告 →</a>
+      <h3>沒有獨立顯卡的筆電，能自己生成圖片嗎？四種方式實測</h3>
+      <p>沒有獨顯的筆電能不能自己跑 AI 生圖？四種設定都真的跑一次：本機 CPU 301 秒、換上 9.8 MB 的迷你解碼器 94 秒、改用內顯 219 秒，免費雲端 12.4 秒完成而且畫質更好（1024×1024、7.5/10 對本機 5/10）。關鍵發現：慢的不是取樣，是解碼——單獨佔掉 160 秒；換掉解碼器就快 17.7 倍。含四張實際產出、素材配方（簡報底圖／插圖／直式素材）與「AI 畫不出精確符號」的實測結論。</p>
+      <a class="btn" href="ai/local-image-gen/">看報告 →</a>
     </div>
   </section>
 

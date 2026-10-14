@@ -1,0 +1,222 @@
+# -*- coding: utf-8 -*-
+"""產生 `/ai/local-image-gen/`：沒有獨顯的筆電能不能自己生圖的實測報告頁。
+
+- 版型沿用 `/ai/incident/`（站內文章＋影片內嵌）：`.vid` 16:9 外層 + iframe。
+- 導覽列／瀏覽次數由 `add_site_nav.py` 或不跑整站時的 `_inject_site_blocks.py` 事後注入。
+- 影片 id 寫在本檔常數（主影片／Shorts 各一），不在對話裡重用；產生器自己驗 oembed，
+  不能內嵌（私人／草稿）就自動略過 iframe，不會在頁面上留一片黑。
+- 隱私：頁面不得出現憑證、帳號、email、本機路徑。
+
+用法：python build_ai_local_image_gen.py [網站根目錄]
+"""
+import json
+import os
+import sys
+import urllib.parse
+import urllib.request
+
+SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SLUG = "local-image-gen"
+VIDEO_MAIN = "x7wCUXFse-4"
+VIDEO_SHORT = "BjG3aAkDpE8"
+
+
+def embeddable(vid):
+    """oembed 200 且帶 title 才代表可以內嵌（私人／草稿會失敗）。"""
+    try:
+        u = "https://www.youtube.com/oembed?url=%s&format=json" % urllib.parse.quote(
+            "https://youtu.be/" + vid, safe=""
+        )
+        with urllib.request.urlopen(u, timeout=15) as r:
+            if r.status != 200:
+                return False
+            return bool(json.loads(r.read().decode("utf-8")).get("title"))
+    except Exception:
+        return False
+
+
+def vid_block(vid, title):
+    if not vid or not embeddable(vid):
+        print("   oembed 失敗 → 不內嵌 %s" % vid)
+        return ""
+    print("   oembed 200 → 內嵌 %s" % vid)
+    return """    <div class="vid">
+      <iframe src="https://www.youtube-nocookie.com/embed/%(id)s" title="%(t)s"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p class="dim" style="text-align:center">看不方便也可以直接到
+    <a href="https://youtu.be/%(id)s">YouTube 看</a>。</p>
+""" % {"id": vid, "t": title}
+
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>沒有獨立顯卡的筆電，能自己生成圖片嗎？四種方式實測｜AI 助理實測｜小R 頻道</title>
+<meta name="description" content="沒有獨顯的筆電能不能自己跑 AI 生圖？實測 stable-diffusion.cpp 四種設定：本機 CPU 301 秒、開迷你解碼器 94 秒、換內顯 219 秒，免費雲端 12.4 秒完成而且畫質更好。含為什麼慢（VAE 解碼佔一半）、一招收掉的做法，與誠實的畫質評價。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .vid{position:relative;background:#000;border-radius:14px;overflow:hidden;margin:0 0 8px}
+  .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  @supports not (aspect-ratio:16/9){
+    .vid{padding-bottom:56.25%;height:0}
+    .vid iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+  }
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 6px}
+  .grid2 figure{margin:0}
+  .grid2 img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid rgba(0,0,0,.08)}
+  .grid2 figcaption{font-size:13px;color:var(--soft);margin-top:6px;text-align:center}
+  .num{font-variant-numeric:tabular-nums;font-weight:700}
+  .win{color:var(--red)}
+  table.data{width:100%;border-collapse:collapse;margin:12px 0 6px;font-size:15px}
+  table.data th,table.data td{border-bottom:1px solid rgba(0,0,0,.09);padding:9px 6px;text-align:left}
+  table.data th{font-weight:700;font-size:14px;color:var(--soft)}
+  table.data td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .scroll{overflow-x:auto}
+  @media (max-width:430px){ .grid2{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>沒有獨立顯卡的筆電，<br>能自己生成圖片嗎？</h1>
+  <div class="sub">實測四種方式：本機 301 秒、加速後 94 秒、內顯 219 秒，免費雲端 12.4 秒</div>
+  <div class="meta">2026/10/14・文章＋影片（1:18）＋ Shorts（0:27）</div>
+
+__VIDEO_MAIN__
+__VIDEO_SHORT__
+
+  <div class="box">
+    <strong>一句話摘要</strong>：這台筆電沒有獨顯，還是可以把 AI 生圖跑起來——但很慢。
+    真正拖慢的不是取樣，是<strong>解碼</strong>；換一個 9.8 MB 的迷你解碼器就把解碼從 160 秒壓到 9 秒。
+    不過同樣的提示詞，一個免費的雲端服務用 12.4 秒、四倍像素、畫質還更好。
+    所以本機生圖值得留著的場合是：<strong>完全離線、不想被額度限制、要拿來做簡報底圖或草圖</strong>。
+  </div>
+
+  <h2><span class="dot"></span>測試條件：同一個提示詞、同一個種子</h2>
+  <ul class="plain">
+    <li><b>提示詞</b>　一張木桌上的紅蘋果，柔和自然光，照片風格</li>
+    <li><b>尺寸與步數</b>　本機 512×512、4 步蒸餾模型；雲端 1024×1024</li>
+    <li><b>機器</b>　i7 筆電（4 核心）、16 GB 記憶體、Intel 內顯、沒有任何獨立顯卡</li>
+    <li><b>本機工具</b>　stable-diffusion.cpp（純 C++ 的推論引擎，量化 GGUF 模型）</li>
+  </ul>
+
+  <div class="grid2">
+    <figure><img src="img/local-4step.png" alt="本機產出的紅蘋果"><figcaption>本機 sd.cpp 產出（512×512）</figcaption></figure>
+    <figure><img src="img/cloud-flux.png" alt="免費雲端產出的紅蘋果"><figcaption>免費雲端產出（1024×1024）</figcaption></figure>
+  </div>
+
+  <h2><span class="dot"></span>四種方式差 24 倍</h2>
+  <div class="scroll">
+  <table class="data">
+    <tr><th>方式</th><th style="text-align:right">總時間</th><th style="text-align:right">取樣</th><th style="text-align:right">解碼</th></tr>
+    <tr><td>本機 CPU（完整解碼）</td><td class="n">301 秒</td><td class="n">138.8 秒</td><td class="n">160.4 秒</td></tr>
+    <tr><td>本機 CPU + 迷你解碼器</td><td class="n win">94 秒</td><td class="n">84.2 秒</td><td class="n win">9.0 秒</td></tr>
+    <tr><td>本機改用內顯（Vulkan）</td><td class="n">219 秒</td><td class="n">114.7 秒</td><td class="n">102.0 秒</td></tr>
+    <tr><td>免費雲端（flux.1-schnell）</td><td class="n win">12.4 秒</td><td class="n">—</td><td class="n">—</td></tr>
+  </table>
+  </div>
+  <p class="dim">取樣＝模型逐步去雜訊的時間；解碼＝把潛在向量還原成圖片（VAE）。同一個種子下，
+  本機 CPU 與內顯產出的檔案<strong>完全相同</strong>（位元組一致），代表兩條路算的是同一件事。</p>
+
+  <h2><span class="dot"></span>為什麼慢：慢的不是取樣，是解碼</h2>
+  <p>把 301 秒拆開來看就很清楚：取樣只佔 139 秒，<strong>解碼單獨吃掉 160 秒</strong>，超過一半。</p>
+  <ul class="plain">
+    <li><b>取樣 4 步（138.8 秒）</b>　每一歩都要跑一次大模型，這是蒸餾模型已經壓到最少的步數。</li>
+    <li><b>解碼（160.4 秒）</b>　只有一次，但要把整張圖從潛在空間還原成像素，在 CPU 上非常重。</li>
+  </ul>
+  <p>知道這件事就有明確的下手處：<strong>取樣步數已經壓無可壓，但解碼可以換掉</strong>。</p>
+
+  <h2><span class="dot"></span>一招收掉：換上 9.8 MB 的迷你解碼器</h2>
+  <p>迷你解碼器（Tiny VAE / TAESD）是專門用來快速預覽的解碼器，模型只有 <span class="num">9.8 MB</span>。</p>
+  <ul class="plain">
+    <li><b>解碼：160.4 秒 → 9.0 秒</b>　快了將近 17.7 倍</li>
+    <li><b>整張圖：301 秒 → 94 秒</b>　從五分鐘縮到一分半，一段短片還沒播完就好了</li>
+    <li><b>代價</b>　細節略微流失（見下面的畫質誠實說）</li>
+  </ul>
+  <div class="grid2">
+    <figure><img src="img/local-4step.png" alt="完整解碼"><figcaption>完整解碼（301 秒）</figcaption></figure>
+    <figure><img src="img/local-taesd.png" alt="迷你解碼器"><figcaption>迷你解碼器（94 秒）</figcaption></figure>
+  </div>
+
+  <h2><span class="dot"></span>跟免費雲端比：12.4 秒、四倍像素、畫質更好</h2>
+  <p>同一個提示詞、同一個種子送進免費雲端服務，用的是 flux.1-schnell（由回傳檔案的 EXIF 欄位確認，
+  不是猜的）：</p>
+  <ul class="plain">
+    <li><b>12.4 秒</b>　比本機最快的設定再快 7.6 倍</li>
+    <li><b>1024×1024</b>　是本機 512×512 的四倍像素</li>
+    <li><b>畫質 7.5/10</b>　同一顆蘋果，本機四步大約 5/10</li>
+    <li><b>不佔你的電腦</b>　不用下載 1.9 GB 的模型、也不會把 CPU 吃滿</li>
+  </ul>
+  <p>所以真正的判斷很簡單：<strong>有網路、要快、要畫質，就走雲端</strong>；
+  本機只在三種情況才划算——完全離線、要大量產出不想被額度限制、要掛 LoRA／ControlNet 這類本機才有的控制。</p>
+
+  <h2><span class="dot"></span>畫質誠實說：五分與七點五分，都不夠當主視覺</h2>
+  <ul class="plain">
+    <li><b>本機四步（約 5/10）</b>　遠看像商品攝影，近看蘋果切面幾何怪、木紋重複、有塑膠感。</li>
+    <li><b>迷你解碼器（約 5.5/10）</b>　更糊、顏色偏暖，細節被抹平。</li>
+    <li><b>免費雲端（約 7.5/10）</b>　光影與材質明顯自然，遠看已經像照片。</li>
+  </ul>
+  <div class="box">
+    <strong>可以拿去用</strong>：簡報底圖、插圖、影片素材、草稿、縮圖、概念示意。<br>
+    <strong>不要拿去用</strong>：印刷品、商品圖、主視覺大圖，以及任何需要細節或文字的地方。
+  </div>
+
+  <h2><span class="dot"></span>拿來做素材的實際配方</h2>
+  <ul class="plain">
+    <li><b>簡報／影片底圖（16:9）</b>　768×432、4 步，提示詞寫「極簡柔和漸層背景、很淡、沒有物件」，
+      並且一定要加負向提示詞（<code>glow, flare, bokeh, text, watermark, noise</code>）——
+      實測不加會在角落出現一圈光暈，底圖就不能用了。</li>
+    <li><b>插圖</b>　512×512、白底，提示詞加「扁平插畫、不要文字」，白底比較好去背。</li>
+    <li><b>直式素材</b>　比例要跟影片一致（直式 9:16 就用 432×768 產，再放大）。</li>
+    <li><b>要一整組風格一致</b>　固定同一個模型 + 同一組步數，只換種子與提示詞。</li>
+  </ul>
+  <div class="grid2">
+    <figure><img src="img/ppt-bg.png" alt="用本機產生的簡報底圖"><figcaption>實測產出的 16:9 簡報底圖（109 秒）</figcaption></figure>
+    <figure><img src="img/ill-slide.png" alt="插圖"><figcaption>本機產的插圖（示意用）</figcaption></figure>
+  </div>
+
+  <h2><span class="dot"></span>一件要誠實說的事：AI 畫不出精確符號</h2>
+  <p>這次也試著用本機生圖做影片插圖。結果是：<strong>它擅長氣氛、不擅長符號</strong>。</p>
+  <ul class="plain">
+    <li><b>可以用的</b>　雲朵、漸層底圖、空白的簡報框這種「沒有精確語意」的圖。</li>
+    <li><b>不能用的</b>　打勾、打叉、儀表指針、晶片接腳這類需要精確的圖示——四步的模型會畫歪或直接畫錯。</li>
+    <li><b>結論</b>　影片裡需要精確符號的地方，用向量自己畫；AI 生圖負責氛圍與底圖。</li>
+  </ul>
+
+  <h2><span class="dot"></span>四個可以帶走的結論</h2>
+  <ul class="plain">
+    <li><b>1. 沒有獨顯也能生圖</b>　但要接受「分鐘」等級的速度，適合少量、離線、當素材。</li>
+    <li><b>2. 慢的通常是解碼，不是取樣</b>　先量時間拆解，再決定要優化哪一段，不要憑感覺。</li>
+    <li><b>3. 免費雲端常常是更好的選擇</b>　同一個題目，12.4 秒對 301 秒，還比較好看。</li>
+    <li><b>4. 畫質要照實說</b>　5/10 就是 5/10；把它用在適合的地方，比誇大畫質有用。</li>
+  </ul>
+
+  <div class="box">
+    <strong>內容說明</strong>：本文是公開工具的實測紀錄，數字為本機環境的單次量測值，
+    不同機器與設定會不一樣。文中不含任何帳號、憑證或個人資料。
+  </div>
+  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+</div>
+</body>
+</html>
+"""
+
+
+def main():
+    out_dir = os.path.join(SITE, "ai", SLUG)
+    os.makedirs(out_dir, exist_ok=True)
+    html = HTML.replace("__VIDEO_MAIN__", vid_block(VIDEO_MAIN, "沒有獨立顯卡的筆電，能自己生成圖片嗎？四種方式實測"))
+    html = html.replace("__VIDEO_SHORT__", vid_block(VIDEO_SHORT, "同一顆蘋果、同一個種子：本機 5 分鐘 vs 免費雲端 12 秒"))
+    p = os.path.join(out_dir, "index.html")
+    with open(p, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("✓ 產出 %s（%d bytes）" % (p, len(html.encode("utf-8"))))
+
+
+if __name__ == "__main__":
+    main()
