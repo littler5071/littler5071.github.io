@@ -21,7 +21,7 @@
   /* ── 要改選單就改這裡 ─────────────────────────────────────────
      brand: true 的那一項＝首頁；path 是「相對於網站根目錄」的路徑。 */
   var ITEMS = [
-    { label: '小R 頻道',   path: '',        brand: true },
+    { label: '小R頻道',   path: '',        brand: true },
     { label: 'AI 助理實測', path: 'ai/'     },
     { label: '股市觀察',   path: 'stock/'  },
     { label: '多益英文',   path: 'toeic/'  },
