@@ -95,10 +95,9 @@ HTML = """<!DOCTYPE html>
   <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
   <h1>沒有獨立顯卡的筆電，<br>能自己生成圖片嗎？</h1>
   <div class="sub">實測四種方式：本機 301 秒、加速後 94 秒、內顯 219 秒，免費雲端 12.4 秒</div>
-  <div class="meta">2026/10/14・文章＋影片（1:18）＋ Shorts（0:27）</div>
+  <div class="meta">2026/10/14・文章＋影片（1:18）</div>
 
 __VIDEO_MAIN__
-__VIDEO_SHORT__
 
   <div class="box">
     <strong>一句話摘要</strong>：這台筆電沒有獨顯，還是可以把 AI 生圖跑起來——但很慢。
@@ -227,7 +226,6 @@ def main():
     out_dir = os.path.join(SITE, "ai", SLUG)
     os.makedirs(out_dir, exist_ok=True)
     html = HTML.replace("__VIDEO_MAIN__", vid_block(VIDEO_MAIN, "沒有獨立顯卡的筆電，能自己生成圖片嗎？四種方式實測"))
-    html = html.replace("__VIDEO_SHORT__", vid_block(VIDEO_SHORT, "同一顆蘋果、同一個種子：本機 5 分鐘 vs 免費雲端 12 秒"))
     p = os.path.join(out_dir, "index.html")
     with open(p, "w", encoding="utf-8") as f:
         f.write(html)
