@@ -25,8 +25,8 @@ HEAD = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 助理實測｜小R 頻道</title>
-<meta name="description" content="小R 頻道的 AI 助理實測：把 AI 助理真正做過的事記錄下來——怎麼運作、怎麼踩坑、怎麼修好，並附公開資料與實測數據。">
+<title>AI 助理實測｜小R頻道</title>
+<meta name="description" content="小R頻道的 AI 助理實測：把 AI 助理真正做過的事記錄下來——怎麼運作、怎麼踩坑、怎麼修好，並附公開資料與實測數據。">
 <link rel="stylesheet" href="../css/index.css">
 <style>
   h2{{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}}
@@ -164,7 +164,7 @@ def build():
     有做錯的地方也會留在影片裡（例：AI 助理考 iPAS 錯的那一題）。
   </div>
   <footer>
-    小R 頻道 · AI 助理實測 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
+    小R頻道 · AI 助理實測 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
 </div>
 </body>

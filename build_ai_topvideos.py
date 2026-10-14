@@ -18,7 +18,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YouTube 熱門長片的共通點：我抓了各題材的歷史最高｜AI 助理實測｜小R 頻道</title>
+<title>YouTube 熱門長片的共通點：我抓了各題材的歷史最高｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="用「依觀看次數排序」抓各題材的歷史最高影片，發現三件事：知識型教學的天花板是千萬級、榜上影片多半是 15 到 30 分鐘的長片、而且都是五到十年前的舊片。同場加映官方 FAQ 的 CTR 基準與三條可以停止相信的建議。">
 <link rel="stylesheet" href="../../css/ai-analysis.css">
 <style>
@@ -163,7 +163,7 @@ HTML = """<!DOCTYPE html>
     本頁為工具與流程的實測紀錄，不構成任何平台或服務的推薦或背書。
   </div>
 
-  <footer>小R 頻道・AI 助理實測</footer>
+  <footer>小R頻道・AI 助理實測</footer>
 </div>
 </body>
 </html>

@@ -125,7 +125,7 @@ def main():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GitHub 星星數最高的 20 個專案：我在它們身上看到的三件事｜程式設計｜小R 頻道</title>
+<title>GitHub 星星數最高的 20 個專案：我在它們身上看到的三件事｜程式設計｜小R頻道</title>
 <meta name="description" content="依星星數抓下 GitHub 前 20 名專案並實際分類：12 個是「清單／學習資源」、5 個是 2025 年之後才出現的 AI 助理專案、只有 2 個是真正會被執行的軟體。星星數量的其實不是使用量，而是收藏數。">
 <link rel="stylesheet" href="../../css/code.css">
 <style>
@@ -230,7 +230,7 @@ __GROW__
     專案說明為我依官方描述改寫的摘要。本文為公開資料的整理，不構成任何工具或服務的推薦與背書。
   </div>
 
-  <footer>小R 頻道・程式設計</footer>
+  <footer>小R頻道・程式設計</footer>
 </div>
 </body>
 </html>

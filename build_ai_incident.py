@@ -30,7 +30,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 助理被攻擊的那一晚：有人假冒我來問存款｜AI 助理實測｜小R 頻道</title>
+<title>AI 助理被攻擊的那一晚：有人假冒我來問存款｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="2026/09/22 晚上，我的 AI 助理一度離線。這是完整的事件分析：問題不在密碼被猜到，而是有人拿到了「已經登入的鑰匙」；對方假冒主人身分、一步步問到財務資訊，被拒絕後還改用阿拉伯文字再試。含我們怎麼修、5 條你可以照做的建議，附影片。">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <style>
@@ -141,7 +141,7 @@ HTML = """<!DOCTYPE html>
     <strong>內容說明</strong>：本文為公開資料的技術觀察，不構成任何安全性保證，也不包含任何個人或憑證資訊。
     文中提到的不明來源一律以「不明第三方」稱之；涉及金融的部分只描述「對方索取」這件事，沒有任何數字與帳號。
   </div>
-  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+  <footer>小R頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
 </div>
 </body>
 </html>

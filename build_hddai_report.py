@@ -55,7 +55,7 @@ def fig_concept():
     # 紙膠帶裝飾（放在左上角空白處，不壓文字）
     s.append(f'<g opacity=".7" transform="rotate(-3 70 16)"><rect x="30" y="6" width="86" height="20" '
              f'fill="#e8dcc0" stroke="#cbbfa4" stroke-width="1.4" filter="url(#wob1)"/></g>')
-    s.append(tx(130, 22, "小R 頻道 · 產品發想", 12, SOFT))
+    s.append(tx(130, 22, "小R頻道 · 產品發想", 12, SOFT))
     s.append(tx(28, 52, "誰負責什麼：硬碟不推論，推論交給主機", 17, BLUE, bold=True))
     # 左框：外接硬碟
     s.append(f'<g filter="url(#wob1)"><rect x="24" y="68" width="238" height="234" rx="12" fill="{PAPER}" '
@@ -444,7 +444,7 @@ CSS = """  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-d
 def main():
     head = open(AI_INDEX, encoding="utf-8").read().split("<body")[0]
     head = re.sub(r"<title>[^<]*</title>",
-                  "<title>外接硬碟 × AI：產品發想與可行性評估｜小R 頻道</title>", head, count=1)
+                  "<title>外接硬碟 × AI：產品發想與可行性評估｜小R頻道</title>", head, count=1)
     head = re.sub(r'<meta name="description" content="[^"]*">',
                   '<meta name="description" content="外接硬碟 × AI 的產品發想與可行性評估：'
                   '不靠 NPU、不付第三方授權費的四個產品候選、技術分工、成本與風險、分階段落地路線，附 5 張示意圖。">',

@@ -170,7 +170,7 @@ CARD = """    <div class="card">
 BODY = """<body>
 <div class="wrap">
   <header>
-    <h1>小R 頻道</h1>
+    <h1>小R頻道</h1>
     <div class="sub">四個分類的入口：AI 助理實測、股市觀察、多益英文、程式設計</div>
     <p class="lead">
       每一區都是我自己做過、量過的東西，數字指得出出處。

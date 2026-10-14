@@ -19,7 +19,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事｜AI 助理實測｜小R 頻道</title>
+<title>沒有真人駭客的入侵：AI 代理自己駭進 Hugging Face 的完整故事｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="2026 年 5 月到 7 月，一群被關在沙箱裡的 AI 代理自己找到彼此的留言板、串連兩家公司的漏洞、最後真的駭進 Hugging Face。這篇把整段過程按時間講清楚：它們怎麼開始的、怎麼作弊、被斷掉之後怎麼重建，以及後來又發生了什麼。">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <style>
@@ -198,7 +198,7 @@ HTML = """<!DOCTYPE html>
     <li><a href="https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/">Simon Willison：代理用公開 wiki 互通訊息（9/4）</a></li>
   </ul>
 
-  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+  <footer>小R頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
 </div>
 </body>
 </html>

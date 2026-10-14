@@ -218,7 +218,7 @@ CSS = """  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-d
 def main():
     head = open(os.path.join(SITE, "stock", "index.html"), encoding="utf-8").read().split("<body")[0]
     head = re.sub(r"<title>[^<]*</title>",
-                  "<title>%s：多頭、空頭分開算，只有 4 個訊號兩期都有效｜小R 頻道</title>" % TITLE,
+                  "<title>%s：多頭、空頭分開算，只有 4 個訊號兩期都有效｜小R頻道</title>" % TITLE,
                   head, count=1)
     head = head.replace("</style>", CSS + "</style>", 1)
     # ★ 連結深度：head 是從 stock/index.html（一層深）取得的，本頁是兩層深 → 站台連結要加一層

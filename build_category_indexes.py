@@ -30,7 +30,7 @@ HEAD = """<!DOCTYPE html>
 
 FOOT = """
   <footer>
-    小R 頻道 · {cat} ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
+    小R頻道 · {cat} ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
 </div>
 </body>
@@ -153,8 +153,8 @@ def build_stock():
         idx_by_day[r[4]] = (parts[0], parts[1] if len(parts) > 1 else "", r[3])
     # 首頁改由 build_homepage.py 產生（見檔尾 __main__）
 
-    body = HEAD.format(title="股市觀察｜小R 頻道",
-                       desc="小R 頻道的股市觀察：每個交易日成交金額上市前 35 名與上櫃前 15 名的技術線型逐檔分析，只用公開資料。")
+    body = HEAD.format(title="股市觀察｜小R頻道",
+                       desc="小R頻道的股市觀察：每個交易日成交金額上市前 35 名與上櫃前 15 名的技術線型逐檔分析，只用公開資料。")
     body += """  <header>
     <h1>股市觀察</h1>
     <div class="sub">公開資料的觀察與記錄・不構成投資建議</div>
@@ -225,8 +225,8 @@ def build_toeic():
     table = "\n".join(
         f'    <tr><td class="d">{r[0]}</td><td>{r[1]}</td><td>{r[2]} 題</td>'
         f'<td><a href="{r[3]}/">進入 →</a></td></tr>' for r in rows)
-    body = HEAD.format(title="多益英文｜小R 頻道",
-                       desc="小R 頻道的多益英文練習：題目自行撰寫、聲音為語音合成，未使用 ETS 的試題或音檔；附中文詳解與音檔。")
+    body = HEAD.format(title="多益英文｜小R頻道",
+                       desc="小R頻道的多益英文練習：題目自行撰寫、聲音為語音合成，未使用 ETS 的試題或音檔；附中文詳解與音檔。")
     body += """  <header>
     <h1>多益英文</h1>
     <div class="sub">題目自行撰寫・語音合成・節奏依實際考場</div>

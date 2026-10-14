@@ -1,4 +1,4 @@
-/* 小R 頻道｜多益題本頁共用互動：點選作答 → 對答案計分（P2／P3 共用）
+/* 小R頻道｜多益題本頁共用互動：點選作答 → 對答案計分（P2／P3 共用）
    需要的 HTML 結構：
      <div class="q" data-q="32" data-a="0"> … <ul class="opts"><li data-i="0">…</li></ul>
        <div class="sol"><button class="toggle">看詳解</button><div class="solbody" hidden>…</div></div>

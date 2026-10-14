@@ -248,7 +248,7 @@ def main():
             shutil.copy(os.path.join(FIG_SRC, f), os.path.join(FIG_DST, f))
     head = open(os.path.join(SITE, "stock", "index.html"), encoding="utf-8").read().split("<body")[0]
     head = re.sub(r"<title>[^<]*</title>",
-                  "<title>飆股在線等的技術分析邏輯：趨勢、位置、均線、型態、量價到進出場｜小R 頻道</title>",
+                  "<title>飆股在線等的技術分析邏輯：趨勢、位置、均線、型態、量價到進出場｜小R頻道</title>",
                   head, count=1)
     head = head.replace("</style>", CSS + "</style>", 1)
     # ★ 連結深度：head 來自 stock/index.html（一層深），本頁兩層深 → 站台連結加一層

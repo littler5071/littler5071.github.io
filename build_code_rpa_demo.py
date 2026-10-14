@@ -120,7 +120,7 @@ def main():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>不用寫程式，讓電腦自己批次輸入多筆資料｜程式設計｜小R 頻道</title>
+<title>不用寫程式，讓電腦自己批次輸入多筆資料｜程式設計｜小R頻道</title>
 <meta name="description" content="兩支實際錄影：範例 20 先在 Excel 裡把整批資料準備好（用「等待視窗」取代固定延遲、用迴圈產生每一筆）；範例 21 再把這些資料批次送進另一個程式，換行時自動回到下一列開頭。同一套迴圈換掉目標程式，就能套用到其他應用程式或網頁表單。附兩支腳本的完整步驟說明。">
 <link rel="stylesheet" href="../../css/code.css">
 <style>
@@ -257,7 +257,7 @@ __EMBED21__
     錄影與動畫都只在實際操作過的那台機器上產生。
   </div>
 
-  <footer>小R 頻道・程式設計</footer>
+  <footer>小R頻道・程式設計</footer>
 </div>
 </body>
 </html>

@@ -214,7 +214,7 @@ CSS = """  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-d
 
 def main():
     head = open(AI_INDEX, encoding="utf-8").read().split("<body")[0]
-    head = re.sub(r"<title>[^<]*</title>", "<title>AI 助理去考試：iPAS「AI 應用規劃師（初級）」實測結果｜小R 頻道</title>", head, count=1)
+    head = re.sub(r"<title>[^<]*</title>", "<title>AI 助理去考試：iPAS「AI 應用規劃師（初級）」實測結果｜小R頻道</title>", head, count=1)
     head = head.replace("</style>", CSS + "</style>", 1)
     os.makedirs(OUT, exist_ok=True)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(head + "<body>\n" + body_html() + "\n</body>\n</html>\n")

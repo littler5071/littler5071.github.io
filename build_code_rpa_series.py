@@ -51,7 +51,7 @@ HEAD = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>__TITLE__｜程式設計｜小R 頻道</title>
+<title>__TITLE__｜程式設計｜小R頻道</title>
 <meta name="description" content="__DESC__">
 <link rel="stylesheet" href="../../css/code.css">
 <style>__CSS__
@@ -76,7 +76,7 @@ __BODY__
     頁面上的畫面都是實際操作時擷取，未經合成。
   </div>
 
-  <footer>小R 頻道・程式設計</footer>
+  <footer>小R頻道・程式設計</footer>
 </div>
 </body>
 </html>

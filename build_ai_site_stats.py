@@ -22,7 +22,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析｜AI 助理實測｜小R 頻道</title>
+<title>我把網站的瀏覽次數全部撈出來：61 頁的完整流量分析｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="我讓 AI 助理把頻道網站 61 個頁面的瀏覽次數全部撈出來做分析：58 頁有人看過、合計 833 人次。發現四成的流量停在目錄頁、前 10 頁就吃掉七成、股市系列佔全站近一半、盤中快照只有日報的四成——含完整排行、逐分類交叉分析、這份數據的六個限制。"">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <style>
@@ -217,7 +217,7 @@ HTML = """<!DOCTYPE html>
     以只讀方式取得，未對任何計數做寫入。文中不包含任何帳號、憑證、個人識別或本機資訊。
     這是公開數據的整理與觀察，不構成任何成效保證。
   </div>
-  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+  <footer>小R頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
 </div>
 </body>
 </html>

@@ -55,7 +55,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>沒有獨立顯卡的筆電，能自己生成圖片嗎？四種方式實測｜AI 助理實測｜小R 頻道</title>
+<title>沒有獨立顯卡的筆電，能自己生成圖片嗎？四種方式實測｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="沒有獨顯的筆電能不能自己跑 AI 生圖？實測 stable-diffusion.cpp 四種設定：本機 CPU 301 秒、開迷你解碼器 94 秒、換內顯 219 秒，免費雲端 12.4 秒完成而且畫質更好。含為什麼慢（VAE 解碼佔一半）、一招收掉的做法，與誠實的畫質評價。">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <link rel="stylesheet" href="../../nav.css?v=73b4d013">
@@ -215,7 +215,7 @@ __VIDEO_MAIN__
     <strong>內容說明</strong>：本文是公開工具的實測紀錄，數字為本機環境的單次量測值，
     不同機器與設定會不一樣。文中不含任何帳號、憑證或個人資料。
   </div>
-  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+  <footer>小R頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
 </div>
 </body>
 </html>

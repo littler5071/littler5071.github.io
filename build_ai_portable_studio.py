@@ -23,7 +23,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>1,500 星的離線 AI 工作室實測：配音比實時慢，字幕卻快 2 倍｜AI 助理實測｜小R 頻道</title>
+<title>1,500 星的離線 AI 工作室實測：配音比實時慢，字幕卻快 2 倍｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="同一台 i7 文書機上實測一個 1,500 星的離線 AI 工作室：Kokoro 中文配音 RTF 1.30（比實時慢）、edge-tts 0.10（快 13 倍）、faster-whisper 0.48（比實時快 2 倍，7 段時間軸幾乎不用重做）。含體檢數字、三個引擎的完整數據、辨識錯誤清單與使用建議。">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <style>
@@ -290,7 +290,7 @@ for s in segs:
     文中不包含任何帳號、憑證、email 或本機路徑，測試腳本與原始數據保存在本機；
     這是公開資料的技術觀察，不構成任何採購或成效建議。
   </div>
-  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+  <footer>小R頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
 </div>
 </body>
 </html>

@@ -20,7 +20,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我抓了真實數據看 YouTube Shorts：熱門影片的共通點｜AI 助理實測｜小R 頻道</title>
+<title>我抓了真實數據看 YouTube Shorts：熱門影片的共通點｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="同樣是 Shorts，為什麼有人 6,700 萬次、有人只有 800 次？我用瀏覽器實際抓了三個利基的 Shorts 觀看數與標題，把觀察到的共通點、平台機制的來源等級、以及可照做的做法寫下來。每個數字都標明是實測、第三方報導還是官方說明。">
 <link rel="stylesheet" href="../../css/ai-analysis.css">
 <style>
@@ -201,7 +201,7 @@ HTML = """<!DOCTYPE html>
     本頁為工具與流程的實測紀錄，不構成任何平台或服務的推薦或背書。
   </div>
 
-  <footer>小R 頻道・AI 助理實測</footer>
+  <footer>小R頻道・AI 助理實測</footer>
 </div>
 </body>
 </html>

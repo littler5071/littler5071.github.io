@@ -73,7 +73,7 @@ def main():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>把重複的電腦操作，變成自己會跑的流程｜程式設計｜小R 頻道</title>
+<title>把重複的電腦操作，變成自己會跑的流程｜程式設計｜小R頻道</title>
 <meta name="description" content="一套 Windows 自動化工具的功能總覽：錄製、找圖點擊、變數與流程控制到定時排程。四類共 31 個可以自己加的動作、__NB__ 支內建示範腳本（其中 __NU__ 支不需要操作視窗、可用命令列跑），以及什麼情況適合、什麼情況不適合。">
 <link rel="stylesheet" href="../../css/code.css">
 <style>
@@ -247,7 +247,7 @@ def main():
     頁面上的畫面都是實際操作時擷取，未經合成。
   </div>
 
-  <footer>小R 頻道・程式設計</footer>
+  <footer>小R頻道・程式設計</footer>
 </div>
 </body>
 </html>

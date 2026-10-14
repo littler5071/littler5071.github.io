@@ -31,7 +31,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 生的圖，是不是真像素畫？我量三個數字就知道｜AI 助理實測｜小R 頻道</title>
+<title>AI 生的圖，是不是真像素畫？我量三個數字就知道｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="同一句提示、同樣要 64x64、同樣要求去背，三家的結果是 49 色對上一萬一千三百四十色。像素畫其實有三個客觀判準：色數、像素格、透明背景——都能用程式量出來，不必用眼睛吵。含實測數據與可自行複驗的程式碼。">
 <link rel="stylesheet" href="../../css/ai-analysis.css">
 <style>
@@ -181,7 +181,7 @@ if im.mode == "RGBA":
     本頁為工具與流程的實測紀錄，不構成任何服務的推薦或背書。
   </div>
 
-  <footer>小R 頻道・AI 助理實測</footer>
+  <footer>小R頻道・AI 助理實測</footer>
 </div>
 </body>
 </html>

@@ -28,7 +28,7 @@ HTML = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>免費中文語音實測：七種聲音並排試聽｜AI 助理實測｜小R 頻道</title>
+<title>免費中文語音實測：七種聲音並排試聽｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="做影片旁白要用的中文語音，哪些免費方案真的能聽？同一句話七種聲音並排試聽：本機執行的 Kokoro、雲端 edge、翻譯服務朗讀、作業系統內建語音，並寫清楚哪些方案行得通、哪些裝不起來、為什麼。">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <link rel="stylesheet" href="../../nav.css?v=73b4d013">
@@ -118,7 +118,7 @@ __SAMPLES__
     <strong>內容說明</strong>：本文為免費／開源工具的實測紀錄，不含任何帳號、憑證或個人資料；
     試聽音檔為工具產物，內容為本頻道的示範句子。
   </div>
-  <footer>小R 頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+  <footer>小R頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
 </div>
 </body>
 </html>

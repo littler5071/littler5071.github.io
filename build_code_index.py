@@ -82,8 +82,8 @@ HEAD = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>程式設計｜小R 頻道</title>
-<meta name="description" content="小R 頻道的程式設計：把實際寫過、量過、踩過坑的東西記錄下來，附可複驗的數字與做法。">
+<title>程式設計｜小R頻道</title>
+<meta name="description" content="小R頻道的程式設計：把實際寫過、量過、踩過坑的東西記錄下來，附可複驗的數字與做法。">
 <link rel="stylesheet" href="../css/index.css">
 <style>
   h2{font-size:clamp(19px,3.2vw,25px);margin:38px 0 10px;display:flex;align-items:center;gap:10px}
@@ -106,7 +106,7 @@ HEAD = """<!DOCTYPE html>
 
 FOOT = """
   <footer>
-    小R 頻道 · 程式設計 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
+    小R頻道 · 程式設計 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
 </div>
 </body>
