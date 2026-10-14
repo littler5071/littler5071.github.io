@@ -17,8 +17,8 @@ import urllib.request
 
 SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
 SLUG = "local-image-gen"
-VIDEO_MAIN = "x7wCUXFse-4"
-VIDEO_SHORT = "BjG3aAkDpE8"
+VIDEO_MAIN = "FSAmy5Kwjxw"
+VIDEO_SHORT = "WCMrFJc8poc"
 
 
 def embeddable(vid):
@@ -65,6 +65,13 @@ HTML = """<!DOCTYPE html>
     .vid{padding-bottom:56.25%;height:0}
     .vid iframe{position:absolute;top:0;left:0;width:100%;height:100%}
   }
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0 6px}
+  .grid4 figure{margin:0;text-align:center}
+  .grid4 img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid rgba(0,0,0,.08)}
+  .grid4 .nm{font-size:13.5px;font-weight:700;margin-top:7px}
+  .grid4 .tm{font-size:13px;color:var(--soft);font-variant-numeric:tabular-nums}
+  .grid4 figure.win .nm,.grid4 figure.win .tm{color:var(--red)}
+  .grid4 figure.win img{border:2px solid var(--red)}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 6px}
   .grid2 figure{margin:0}
   .grid2 img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid rgba(0,0,0,.08)}
@@ -76,6 +83,7 @@ HTML = """<!DOCTYPE html>
   table.data th{font-weight:700;font-size:14px;color:var(--soft)}
   table.data td.n{text-align:right;font-variant-numeric:tabular-nums}
   .scroll{overflow-x:auto}
+  @media (max-width:900px){ .grid4{grid-template-columns:repeat(2,1fr)} }
   @media (max-width:430px){ .grid2{grid-template-columns:1fr} }
 </style>
 </head>
@@ -105,10 +113,16 @@ __VIDEO_SHORT__
     <li><b>本機工具</b>　stable-diffusion.cpp（純 C++ 的推論引擎，量化 GGUF 模型）</li>
   </ul>
 
-  <div class="grid2">
-    <figure><img src="img/local-4step.png" alt="本機產出的紅蘋果"><figcaption>本機 sd.cpp 產出（512×512）</figcaption></figure>
-    <figure><img src="img/cloud-flux.png" alt="免費雲端產出的紅蘋果"><figcaption>免費雲端產出（1024×1024）</figcaption></figure>
+  <h2><span class="dot"></span>四種方式，四張產出</h2>
+  <p>四種設定都真的跑過一次，下面是各自的產出（同一個提示詞、同一個種子）：</p>
+  <div class="grid4">
+    <figure><img src="img/local-4step.png" alt="本機 CPU 完整解碼產出"><div class="nm">本機 CPU · 完整解碼</div><div class="tm">301 秒</div></figure>
+    <figure><img src="img/local-taesd.png" alt="本機加迷你解碼器產出"><div class="nm">本機 + 迷你解碼器</div><div class="tm">94 秒</div></figure>
+    <figure><img src="img/local-4step.png" alt="本機改用內顯產出"><div class="nm">本機 內顯（Vulkan）</div><div class="tm">219 秒</div></figure>
+    <figure class="win"><img src="img/cloud-flux.png" alt="免費雲端產出"><div class="nm">免費雲端 flux</div><div class="tm">12.4 秒</div></figure>
   </div>
+  <p class="dim">第三張與第一張是同一張圖，不是放錯：<strong>內顯與 CPU 在同一個種子下產出的檔案位元組完全相同</strong>
+  （md5 一致），代表兩條路算的是同一件事，只是內顯快一點。</p>
 
   <h2><span class="dot"></span>四種方式差 24 倍</h2>
   <div class="scroll">
@@ -176,8 +190,8 @@ __VIDEO_SHORT__
     <li><b>要一整組風格一致</b>　固定同一個模型 + 同一組步數，只換種子與提示詞。</li>
   </ul>
   <div class="grid2">
-    <figure><img src="img/ppt-bg.png" alt="用本機產生的簡報底圖"><figcaption>實測產出的 16:9 簡報底圖（109 秒）</figcaption></figure>
-    <figure><img src="img/ill-slide.png" alt="插圖"><figcaption>本機產的插圖（示意用）</figcaption></figure>
+    <figure><img src="img/ppt-bg.png" alt="用本機產生的簡報底圖"><figcaption>實際產出的 16:9 簡報底圖（768×432、109 秒）</figcaption></figure>
+    <figure><img src="img/cloud-flux.png" alt="免費雲端產出"><figcaption>同樣的流程，雲端版本（12.4 秒）</figcaption></figure>
   </div>
 
   <h2><span class="dot"></span>一件要誠實說的事：AI 畫不出精確符號</h2>
