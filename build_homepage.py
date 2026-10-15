@@ -99,6 +99,14 @@ def stock_items():
                             note="當日盤中成交金額前 50 檔即時快照"
                                  + (f"，候選池內上漲／下跌 {bd.group(1)} / {bd.group(2)}" if bd else "")
                                  + "；含時程紀錄與「盤中 → 收盤」對照。盤中是快照、不是收盤定案。"))
+    # 訊號回測頁（固定卡片，2026-10-15 加：網站健檢發現首頁漏了這張卡）
+    bp = os.path.join(SITE, "stock", "backtest", "index.html")
+    if os.path.exists(bp):
+        out.append(dict(date="", sort=("99999999", 0), category="股市觀察",
+                        title="訊號回測：正向 vs 反向對照",
+                        url="stock/backtest/", btn="看完整數字 →",
+                        note="同一套訊號，分別看「出現後」與「沒出現」兩組的後續表現差多少；"
+                             "差距不顯著就等於雜訊。含對照組與統計表。"))
     return out
 
 
