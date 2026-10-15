@@ -90,6 +90,37 @@ try:
 except Exception:
     pass
 
+# ── 把路徑換成看得懂的標題（2026-10-15 加：使用者要求報告顯示文章標題）
+_title_cache = {}
+
+
+def page_title(key):
+    """由計數器 key 反推頁面路徑，讀本機 HTML 的 <title>，去掉「｜小R頻道」尾巴。"""
+    if key in _title_cache:
+        return _title_cache[key]
+    k = (key or "").strip()
+    rel = "index.html" if k in ("", ".", "root") else k.strip("/") + "/index.html"
+    cand = [os.path.join(SITE, rel)]
+    if k not in ("", ".", "root"):
+        cand.append(os.path.join(SITE, k.strip("/") + ".html"))
+    title = None
+    for p in cand:
+        try:
+            with open(p, encoding="utf-8", errors="ignore") as f:
+                head = f.read(4000)
+            if "<title>" in head and "</title>" in head:
+                t = head.split("<title>", 1)[1].split("</title>", 1)[0].strip()
+                for suf in ("｜小R頻道", "|小R頻道", "｜小R 頻道", "|小R 頻道"):
+                    if t.endswith(suf):
+                        t = t[: -len(suf)].strip()
+                title = t
+                break
+        except Exception:
+            continue
+    _title_cache[key] = title or key
+    return _title_cache[key]
+
+
 rows = []
 for k, v in cur_pages.items():
     if v is None:
@@ -129,7 +160,8 @@ def draw_chart(rows, path):
     mx = max([r[1] for r in top] + [1])
     y = PAD + 156
     for name, v, d in top:
-        dr.text((PAD, y), name[:22], font=f_l, fill=INK)
+        lbl = page_title(name)
+        dr.text((PAD, y), lbl[:22], font=f_l, fill=INK)
         barw = int((W - PAD * 2 - 220) * v / mx)
         dr.rounded_rectangle([PAD, y + 40, PAD + max(6, barw), y + 62], 10, fill=BLUE)
         num = "%d" % v
@@ -166,7 +198,9 @@ print()
 if rows:
     print("② 瀏覽次數（有數字的頁面共 %d 頁）：" % len(rows))
     for name, v, d in rows[:10]:
-        print("　・%-26s %4d%s" % (name[:26], v, "（本週 +%d）" % d if d else ""))
+        shown = page_title(name)
+        suffix = "" if shown == name else "（%s）" % name
+        print("　・%s %s%4d%s" % (shown[:34], suffix, v, "（本週 +%d）" % d if d else ""))
     tot = sum(r[1] for r in rows)
     dtot = sum(r[2] for r in rows if r[2])
     print("　合計 %d 次%s" % (tot, "（本週 +%d）" % dtot if dtot else "（首次基準）"))
