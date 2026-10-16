@@ -179,6 +179,12 @@ def build_stock():
     <p>把 30 個技術訊號放進 2 年歷史，多頭與空頭分開算，每個訊號都比「有出現」與「沒出現」兩組的後 20 日報酬。結論：只有 4 個訊號兩期都正、6 個兩期都負（其中「底部進貨量」是反指標）。附可排序的互動表格。</p>
     <a class="btn" href="backtest/">看完整數字 →</a>
   </div>
+  <div class="card">
+    <span class="tag">追蹤</span>
+    <h3>條件追蹤：好條件最多 vs 對照組，後續 5 個交易日</h3>
+    <p>每個交易日記錄「好條件最多」前 10 檔，並用「不好條件最多」前 10 檔當對照組，追蹤它們之後 5 個交易日的平均累積報酬與勝率。只看正向不算證明，差距不顯著就照實說是雜訊。</p>
+    <a class="btn" href="tracker/">看追蹤表與圖 →</a>
+  </div>
   <h2><span class="dot"></span>每日觀察紀錄</h2>
 """ + "\n".join(cards_ordered) + f"""
   <h2><span class="dot"></span>全部觀察紀錄（{len(rows)} 個交易日）</h2>
