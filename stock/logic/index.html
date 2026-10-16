@@ -9,30 +9,34 @@
 <style>
   h2{font-size:clamp(19px,3.2vw,25px);margin:38px 0 10px;display:flex;align-items:center;gap:10px}
   td a:hover{color:var(--red);border-color:var(--red)}
-
-  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
-  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:6px 0 18px}
-  .summary .box{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--soft)}
-  .summary .big{font-size:23px;color:var(--ink);margin-bottom:2px}
-  section{margin:0 0 6px}
-  h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}
-  figure{margin:14px 0 6px}
-  figure img{width:100%;border:2px solid var(--line);border-radius:14px;background:#fdfbf5}
-  figcaption{font-size:13.5px;color:var(--soft);margin-top:6px}
-  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0}
-  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
-  ul.how{font-size:15.5px} ul.how li{margin:7px 0}
-  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:10px 0}
-  .two .box{background:#fffdf6;border:2px solid var(--line);border-left:5px solid var(--blue);border-radius:14px;padding:12px 14px;font-size:14.5px}
-  .dim{color:var(--soft);font-size:14px}
-
   /* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
+  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:6px 0 18px}
+  .summary .box{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--soft)}
+  .summary .big{font-size:23px;color:var(--ink);margin-bottom:2px}
+  section{margin:0 0 6px}
+  h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  figure{margin:14px 0 6px}
+  figure img{width:100%;border:2px solid var(--line);border-radius:14px;background:#fdfbf5}
+  figcaption{font-size:13.5px;color:var(--soft);margin-top:6px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap}
+  .scroll{overflow-x:auto}
+  ul.how{font-size:15.5px} ul.how li{margin:7px 0}
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:10px 0}
+  .two .box{background:#fffdf6;border:2px solid var(--line);border-left:5px solid var(--blue);border-radius:14px;padding:12px 14px;font-size:14.5px}
+  .dim{color:var(--soft);font-size:14px}
 </style>
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=4b28034a"></script>
+<script defer src="../../counter.js?v=94ad9679"></script>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/stock/logic/">
 
@@ -48,9 +52,6 @@
 <meta name="twitter:description" content="小R頻道的股市觀察：每個交易日成交金額上市前 35 名與上櫃前 15 名的技術線型逐檔分析，只用公開資料。">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <!-- /hermes-seo -->
-<link rel="stylesheet" href="../../nav.css?v=73b4d013">
-<script defer src="../../nav.js?v=4b28034a"></script>
-<script defer src="../../counter.js?v=94ad9679"></script>
 </head>
 <body>
 
@@ -186,7 +187,9 @@
   </div>
   <a class="back" href="../">← 回股市觀察</a>
 </div>
+<!-- 瀏覽次數：counter.js 依 location.pathname 自動算 key（/stock/logic/ → stock_logic）
+     data-views-fallback 放最後統計到的數字：服務不通／被外掛擋掉時顯示它，不會整行消失 -->
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="10" data-views>—</span></div>
 
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>

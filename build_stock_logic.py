@@ -218,6 +218,9 @@ def html_body():
   </div>
   <a class="back" href="../">← 回股市觀察</a>
 </div>
+<!-- 瀏覽次數：counter.js 依 location.pathname 自動算 key（/stock/logic/ → stock_logic）
+     data-views-fallback 放最後統計到的數字：服務不通／被外掛擋掉時顯示它，不會整行消失 -->
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="10" data-views>—</span></div>
 """
 
 CSS = """  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
