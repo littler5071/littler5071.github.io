@@ -1,0 +1,228 @@
+# -*- coding: utf-8 -*-
+"""產生 `/ai/local-video-test/`：本機 AI 影片生成實測報告頁。
+
+- 版型沿用 `/ai/` 家族（`css/ai-article.css` ＋ `.box`／`.plain`／`h2 .dot`／`table.data`）。
+- 導覽列（nav.css／nav.js）與瀏覽次數（counter.js／viewsline）直接寫進本產生器，
+  所以重跑本產生器不會把站台區塊弄丟（`add_site_nav.py` 看到已存在就不會重複插）。
+- 沒有 YouTube 影片可嵌：站內自架 256×256 的測試成品 mp4（約 0.9 秒），
+  以及逐格對照圖 `img/animdiff_test_contactsheet.jpg`。兩者都在本頁目錄裡（相對路徑）。
+- 隱私：頁面不得出現任何憑證、帳號、email 或本機路徑。
+  本檔的 SITE 預設值用 `__file__` 推導，不寫死本機絕對路徑。
+
+用法：python build_ai_local_video_test.py [網站根目錄]
+"""
+import os
+import sys
+
+SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
+SLUG = "local-video-test"
+
+# 導覽列／瀏覽次數的版本碼：抄同深度兄弟頁（/ai/<slug>/ → ../../）
+NAV_CSS_VER = "73b4d013"
+NAV_JS_VER = "4b28034a"
+COUNTER_JS_VER = "94ad9679"
+
+TITLE = "我花了 25 分鐘，只換到 0.88 秒的影片：本機 AI 影片生成實測｜AI 助理實測｜小R頻道"
+DESC = ("沒有獨顯的筆電能不能自己生影片？實測本機 AnimateDiff：256×256、8 格、"
+        "6 步要 769 秒換到 0.88 秒的影片，12 步要 1501 秒（25 分鐘）畫質只有 4/10，"
+        "每格每步換算、一集 20 秒短劇要 16 小時的推算、"
+        "動作模組只吃 SD1.5 的相容性崩潰，以及免費雲端一天的額度只夠 4～5 支的對照。")
+
+HTML = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<meta name="description" content="__DESC__">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .num{font-variant-numeric:tabular-nums;font-weight:700}
+  .bad{color:var(--red);font-weight:700}
+  .win{color:var(--red)}
+  table.data{width:100%;border-collapse:collapse;margin:12px 0 6px;font-size:15px;min-width:560px}
+  table.data th,table.data td{border-bottom:1px solid rgba(0,0,0,.09);padding:9px 8px;text-align:left}
+  table.data th{font-weight:700;font-size:14px;color:var(--soft)}
+  table.data td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.data tr.stop td{color:var(--soft)}
+  .scroll{overflow-x:auto;margin:0 0 8px}
+  code{background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px;font-size:13.5px}
+  .vidwrap{max-width:420px;margin:18px auto 8px}
+  .vidwrap video{width:100%;display:block;border-radius:12px;background:#000;border:1px solid rgba(0,0,0,.12)}
+  .vidwrap .cap{font-size:13px;color:var(--soft);margin-top:7px;text-align:center}
+  figure.shot{margin:16px 0 8px}
+  figure.shot img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid rgba(0,0,0,.09)}
+  figure.shot figcaption{font-size:13.5px;color:var(--soft);margin-top:8px;text-align:center}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<link rel="stylesheet" href="../../nav.css?v=__NAVCSS__">
+<script defer src="../../nav.js?v=__NAVJS__"></script>
+<script defer src="../../counter.js?v=__COUNTER__"></script>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 AI 助理實測</a>
+  <a class="back" style="margin-left:14px" href="../../">← 回影片索引</a>
+  <h1>我花了 25 分鐘，<br>只換到 0.88 秒的影片</h1>
+  <div class="sub">本機 AI 影片生成實測：一台沒有獨立顯卡的筆電，跑 AnimateDiff 的真實數字</div>
+  <div class="meta">2026/10/16・實測報告（約 6 分鐘讀完）</div>
+
+  <div class="box">
+    <strong>一句話摘要</strong>：我讓一台沒有獨立顯卡的筆電自己生成影片。25 分鐘之後，
+    我得到一段 <span class="num">0.88 秒</span>、畫質 <span class="bad">4/10</span> 的成品。
+    同樣這台筆電，25 分鐘可以生出一張堪用的靜圖，也可以做完一輪免費雲端的影片——
+    所以答案很清楚：<strong>本機的定位留在「同一張臉的靜圖」，影片走雲端。</strong>
+  </div>
+
+  <h2><span class="dot"></span>為什麼要跑這個實驗</h2>
+  <p>頻道上的《小R 觀察日誌》需要「會動的畫面」。生圖我已經確定這台筆電做得到
+  （四種方式的實測在另一篇），那影片呢？與其查資料、看別人的顯卡跑多快，
+  不如在自己的機器上真的跑一次。順便回答一個很多人問的問題：
+  <strong>沒有獨顯的筆電，到底能不能生影片？</strong></p>
+
+  <h2><span class="dot"></span>測試條件：同一台筆電、同一個方法</h2>
+  <ul class="plain">
+    <li><b>機器</b>　Intel i7-8565U（4 核心 8 執行緒）、<strong>沒有獨立顯卡</strong>、
+      記憶體 15.9 GB（可用約 8.7 GB）</li>
+    <li><b>工具</b>　stable-diffusion.cpp 的 <code>sd-cli</code>，影片模式（<code>-M vid_gen</code>）</li>
+    <li><b>動作模組</b>　AnimateDiff 的 <code>mm_sd_v15_v2</code>，<span class="num">1.82 GB</span></li>
+    <li><b>底模</b>　筆電裡現有的 SD1.5 模型（沒有另外下載新的底模）</li>
+    <li><b>統一條件</b>　8 格、固定提示詞與種子，只改解析度與步數</li>
+  </ul>
+
+  <h2><span class="dot"></span>三種設定，三個數字</h2>
+  <div class="scroll">
+  <table class="data">
+    <tr><th>設定</th><th style="text-align:right">每步</th><th style="text-align:right">每格</th><th style="text-align:right">整段</th><th>畫質</th></tr>
+    <tr class="stop"><td>512×512、8 格、6 步</td><td class="n">513～530 秒</td><td class="n">—</td><td class="n">約 51 分鐘（中止）</td><td>—</td></tr>
+    <tr><td>256×256、8 格、6 步</td><td class="n">122～132 秒</td><td class="n">96 秒</td><td class="n">769 秒（13 分）</td><td class="bad">2/10</td></tr>
+    <tr><td>256×256、8 格、12 步</td><td class="n">約 122 秒</td><td class="n">188 秒</td><td class="n">1501 秒（25 分）</td><td class="bad">4/10</td></tr>
+  </table>
+  </div>
+  <p class="dim">「每步」＝模型去雜訊一次的時間；「每格」＝一個畫格從頭到尾的總時間（含解碼）；
+  「整段」＝8 格相加。512×512 那一組在跑到一半時我還是按了中止——照這個速度一輪要超過 51 分鐘，
+  而畫質不會及格，再等下去只是燒電。<strong>每步超過 8 分鐘</strong>這件事本身就是結論。</p>
+
+  <h2><span class="dot"></span>換算成一個好記的數字</h2>
+  <ul class="plain">
+    <li><b>每格每步</b>　256×256 約 <span class="num">15.3 秒</span>；512×512 約 <span class="num">64 秒</span>（差約 4 倍，
+      解析度是乘上去的，不是加上去的）</li>
+    <li><b>一次去雜訊的代價</b>　把解析度從 256 換成 512，只是為了多看一點細節，
+      每一步就從十幾秒變成一分鐘</li>
+    <li><b>要「堪用」需要幾步</b>　12 步只有 4/10，影片要能看至少要 <span class="num">20 步</span> 以上——
+      而那時候每一格要約 <strong>5 分鐘</strong></li>
+  </ul>
+
+  <h2><span class="dot"></span>25 分鐘的成果，就是下面這 0.88 秒</h2>
+  <p>這 8 格串起來是 0.88 秒（約 9 fps）。用這個速度往回推一集短劇要多久：</p>
+  <ul class="plain">
+    <li><b>起點</b>　8 格＝0.88 秒 → 約 9 fps</li>
+    <li><b>一集 20 秒的短劇</b>　約 <span class="num">182 格</span></li>
+    <li><b>每格 20 步</b>　15.3 秒 × 20 步 ≈ 306 秒 ≈ 5.1 分鐘</li>
+    <li><b>總計</b>　182 × 306 秒 ≈ 55,700 秒 ≈ <strong>15.5 小時</strong>，也就是<strong>約 16 小時 ✗</strong></li>
+  </ul>
+  <p>16 小時的意思不是「一天不夠」，而是<strong>這條路不能走</strong>：中間不能斷電、不能散熱降頻、
+  不能同時做別的事，而且畫質還是 4/10 那一級。
+  同一台筆電做靜圖，25 分鐘已經可以出一張能用的成品了。</p>
+
+  <div class="vidwrap">
+    <video controls preload="metadata" playsinline
+      src="animdiff_test_4of10.mp4"></video>
+    <div class="cap">12 步版本的成品原檔：256×256、8 格、約 0.9 秒，花了 1501 秒做出來。
+    這是原始尺寸，畫面上本來就這麼小。</div>
+  </div>
+
+  <h2><span class="dot"></span>相容性坑：動作模組只吃 SD1.5</h2>
+  <ul class="plain">
+    <li><b>動作模組綁世代</b>　AnimateDiff 的 <code>mm_sd_v15_v2</code> 是為 SD1.5 這個世代做的。</li>
+    <li><b>想省時間反而撞牆</b>　我原本想用步數極少的蒸餾模型 SD-Turbo 搭配同一個動作模組，
+      結果<strong>直接 GGML_ASSERT 崩潰</strong>——SD-Turbo 是 SD2.1 架構，連一格都生不出來。</li>
+    <li><b>教訓</b>　動作模組與底模必須同架構、同世代；不同架構不會「變慢」，是直接中斷。
+      動手前先確認兩邊的架構，比事後 debug 便宜太多。</li>
+    <li><b>連帶限制</b>　SD1.5 底模本身的畫質就有限，影片又是逐格生成，
+      單格的瑕疵會被格與格之間的晃動放大——這也是 12 步只有 4/10 的原因之一。</li>
+  </ul>
+
+  <h2><span class="dot"></span>畫質誠實說：2/10 與 4/10</h2>
+  <ul class="plain">
+    <li><b>6 步（2/10）</b>　像 datamosh：臉會融掉，五官在格與格之間對不起來，背景像被拉扯過。
+      速度最快的一組，也是唯一一組連「同一個人」都撐不住。</li>
+    <li><b>12 步（4/10）</b>　同一個人可以辨識、構圖也穩定下來，但<strong>臉還是融的</strong>，
+      而且<strong>幾近靜態</strong>——動作有，只是很小，離「會動的畫面」還很遠。</li>
+  </ul>
+  <figure class="shot">
+    <img src="img/animdiff_test_contactsheet.jpg" alt="AnimateDiff 12 步版本 8 格逐格對照拼圖">
+    <figcaption>12 步版本的 8 格逐格對照（編號 1～8）：臉一直停在「快融掉」的邊緣，
+    背景的形狀每一格都在變，動作卻很小。</figcaption>
+  </figure>
+  <p class="dim">評分是我自己逐格看下來給的，不是模型給的分數。把 2/10 與 4/10 寫出來，
+  是因為下一個要判斷的事情（這條路要不要繼續）完全取決於這兩個數字。</p>
+
+  <h2><span class="dot"></span>對照組：免費雲端一天只能做 4～5 支</h2>
+  <p>同一件事換到免費的雲端 GPU（ZeroGPU）上做，是完全不同的量級：</p>
+  <ul class="plain">
+    <li><b>一支 1.5 秒的影片</b>　吃掉 <span class="num">65～70 秒</span> GPU 時間</li>
+    <li><b>免費額度</b>　每天 5 分鐘</li>
+    <li><b>換算</b>　一天大約只能做 <strong>4～5 支</strong></li>
+  </ul>
+  <p>看起來限制很多，但把它跟本機放在一起比就很清楚：本機做那 0.88 秒要 25 分鐘、
+  成品 4/10；免費雲端一整天的量是 4～5 支 1.5 秒的影片，而且畫質不在同一個水準。
+  這個「一天 4～5 支」的節奏，也剛好符合短劇系列一集一集慢慢上的做法。</p>
+
+  <h2><span class="dot"></span>什麼路徑才行</h2>
+  <ul class="plain">
+    <li><b>本機留著做靜圖 ✓</b>　「同一張臉的靜圖」是這台筆電真的擅長的事：
+      參考圖＋固定種子做角色一致的角色照，94～300 秒一張，可用。</li>
+    <li><b>影片走雲端或免費 GPU 額度 ✓</b>　速度與畫質都在不同量級，這是目前最實際的路。</li>
+    <li><b>要更多量就租 GPU</b>　約 <span class="num">US$0.34／小時</span>——一小時能做的量，
+      比這台筆電埋頭一整天還多。</li>
+    <li><b>長期最省事：一張 NVIDIA 顯卡</b>　影片生成對 GPU 是硬需求，
+      不是調參數、換步數能補起來的落差。</li>
+    <li><b>收乾淨</b>　實驗下載的 1.82 GB 動作模組與所有測試產物，結束後已<strong>完整移除</strong> ✓，
+      這台筆電的磁碟沒有因為這次實驗變薄。</li>
+  </ul>
+
+  <h2><span class="dot"></span>五個可以帶走的結論</h2>
+  <ul class="plain">
+    <li><b>1. 沒有獨顯也能生影片，但不可用</b>　速度是「分鐘／格」的等級，不是「秒／格」。</li>
+    <li><b>2. 卡住的是硬體，不是設定</b>　每格每步 15.3 秒（256×256）在純 CPU 上沒有便宜的解方。</li>
+    <li><b>3. 影片的門檻比生圖高一個數量級</b>　同一台筆電：靜圖最快 94 秒一張；
+      0.88 秒的影片要 1501 秒。</li>
+    <li><b>4. 相容性要先查</b>　動作模組與底模不同架構是直接崩潰，不是變慢——先查再下載。</li>
+    <li><b>5. 誠實的數字比好看的數字有用</b>　4/10 就是 4/10。寫下來，才能當下決定要不要繼續。</li>
+  </ul>
+
+  <div class="box">
+    <strong>內容說明</strong>：本文是本機環境的單次量測紀錄，換一台機器、換一組設定數字就會不一樣；
+    工具與模型都是公開專案。文中不含任何帳號、憑證、本機路徑或個人資料。
+    測試下載的模型檔與產物已在實驗結束後移除。
+  </div>
+  <footer>小R頻道 · AI 助理實測 ｜ <a href="../">回 AI 助理實測</a></footer>
+</div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="" data-views>—</span></div>
+</body>
+</html>
+"""
+
+
+def main():
+    out_dir = os.path.join(SITE, "ai", SLUG)
+    os.makedirs(out_dir, exist_ok=True)
+    html = (HTML.replace("__TITLE__", TITLE)
+                .replace("__DESC__", DESC)
+                .replace("__NAVCSS__", NAV_CSS_VER)
+                .replace("__NAVJS__", NAV_JS_VER)
+                .replace("__COUNTER__", COUNTER_JS_VER))
+    p = os.path.join(out_dir, "index.html")
+    with open(p, "w", encoding="utf-8", newline="\n") as f:
+        f.write(html)
+    print("✓ 產出 %s（%d bytes）" % (p, len(html.encode("utf-8"))))
+
+
+if __name__ == "__main__":
+    main()

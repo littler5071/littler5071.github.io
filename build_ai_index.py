@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """產生 AI 助理實測的分類頁 `/ai/index.html`（影片清單維護在 VIDEOS 裡）。
 
+★ nav.css／nav.js／counter.js 與 viewsline 那塊一律寫在本檔的 HEAD／尾段裡：
+  先前它們靠 add_site_nav.py 事後注入，只要單跑這支產生器（或排程重生成）就會靜默掉光，
+  線上實測 / 與 /ai/ 兩頁就是這樣整條選單與瀏覽次數都不見的。寫進產生器後重生也不會掉。
+
 用法：python build_ai_index.py [網站根目錄]
 """
 import os, sys, html
@@ -31,7 +35,16 @@ HEAD = """<!DOCTYPE html>
 <style>
   h2{{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}}
   .meta{{color:var(--soft);font-size:13.5px}}
+/* hermesviews（瀏覽次數） */
+  .viewsline{{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}}
+  .viewsline .vnum{{color:#364e70}}
+  .viewsline .vnum.vnum-on{{color:#bf4a3a}}
+  .viewsline .vnum.vnum-off{{color:#78706a}}
 </style>
+<link rel="stylesheet" href="../nav.css?v=73b4d013">
+<script defer src="../nav.js?v=4b28034a"></script>
+<script defer src="../counter.js?v=94ad9679"></script>
 </head>
 <body>
 <div class="wrap">
@@ -50,6 +63,13 @@ HEAD = """<!DOCTYPE html>
 
 
 ARTICLES = [
+    dict(title="我花了 25 分鐘，只換到 0.88 秒的影片：本機 AI 影片生成實測",
+         date="2026/10/16", length="實測報告", url="local-video-test/",
+         desc="沒有獨顯的筆電能不能自己生影片？實測本機 AnimateDiff：256×256、8 格，"
+              "6 步要 769 秒、12 步要 1501 秒（25 分鐘），換到的是一段 0.88 秒、畫質 2/10 與 4/10 的影片；"
+              "512×512 每步超過 8 分鐘，跑到一半中止。含每格每步換算（256×256 約 15.3 秒、512×512 約 64 秒）、"
+              "一集 20 秒短劇要約 16 小時的推算、動作模組只吃 SD1.5 的相容性崩潰（餵 SD-Turbo 直接崩），"
+              "以及免費雲端一天只夠做 4～5 支的對照與「本機做靜圖、影片走雲端」的結論。"),
     dict(title="動態漫畫短劇《小R 觀察日誌》：一集一個真實事件，免費素材就能做",
          date="2026/10/15", length="系列介紹＋影片", url="dynamic-comic-drama/",
          desc="新系列：每一集挑一件真實發生的小事，做成 20～30 秒的直式短劇——"
@@ -174,6 +194,7 @@ def build():
     小R頻道 · AI 助理實測 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
 </div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="100" data-views>—</span></div>
 </body>
 </html>
 """

@@ -192,6 +192,7 @@ BODY = """<body>
     頻道：<a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </div>
 </div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="113" data-views>—</span></div>
 </body>
 </html>
 """

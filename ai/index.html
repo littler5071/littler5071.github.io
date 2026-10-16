@@ -15,8 +15,9 @@
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
-
 </style>
+<link rel="stylesheet" href="../nav.css?v=73b4d013">
+<script defer src="../nav.js?v=4b28034a"></script>
 <script defer src="../counter.js?v=94ad9679"></script>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/ai/">
@@ -47,6 +48,12 @@
       想看它怎麼幫我做事，看〈網站的瀏覽次數完整分析〉；想直接動手，影片類都附實際操作畫面。
     </p>
 </header>
+  <div class="card">
+    <span class="tag">報告</span><span class="meta">2026/10/16・實測報告</span>
+    <h3>我花了 25 分鐘，只換到 0.88 秒的影片：本機 AI 影片生成實測</h3>
+    <p>沒有獨顯的筆電能不能自己生影片？實測本機 AnimateDiff：256×256、8 格，6 步要 769 秒、12 步要 1501 秒（25 分鐘），換到的是一段 0.88 秒、畫質 2/10 與 4/10 的影片；512×512 每步超過 8 分鐘，跑到一半中止。含每格每步換算（256×256 約 15.3 秒、512×512 約 64 秒）、一集 20 秒短劇要約 16 小時的推算、動作模組只吃 SD1.5 的相容性崩潰（餵 SD-Turbo 直接崩），以及免費雲端一天只夠做 4～5 支的對照與「本機做靜圖、影片走雲端」的結論。</p>
+    <a class="btn" href="local-video-test/">看報告 →</a>
+  </div>
   <div class="card">
     <span class="tag">報告</span><span class="meta">2026/10/15・系列介紹＋影片</span>
     <h3>動態漫畫短劇《小R 觀察日誌》：一集一個真實事件，免費素材就能做</h3>
@@ -143,10 +150,11 @@
     <p>Python 環境、瀏覽器登入、檔案上傳、語音合成、ffmpeg、Gmail，還有檔名——每一件都是真的踩過的坑。</p>
     <a class="btn" href="https://youtu.be/4zf8WFkkn5U">看影片 →</a>
   </div>
-  <h2><span class="dot"></span>全部影片與報告（16）</h2>
+  <h2><span class="dot"></span>全部影片與報告（17）</h2>
   <div class="scroll">
   <table>
     <tr><th>上線日</th><th>影片／報告</th><th>長度</th><th></th></tr>
+    <tr><td class="d">2026/10/16</td><td>我花了 25 分鐘，只換到 0.88 秒的影片：本機 AI 影片生成實測</td><td class="d">實測報告</td><td><a href="local-video-test/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/15</td><td>動態漫畫短劇《小R 觀察日誌》：一集一個真實事件，免費素材就能做</td><td class="d">系列介紹＋影片</td><td><a href="dynamic-comic-drama/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/14</td><td>免費中文語音實測：七種聲音並排試聽</td><td class="d">實測＋試聽</td><td><a href="tts-voice-test/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/14</td><td>沒有獨立顯卡的筆電，能自己生成圖片嗎？四種方式實測</td><td class="d">實測報告＋影片</td><td><a href="local-image-gen/">看報告 →</a></td></tr>
