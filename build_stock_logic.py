@@ -246,8 +246,9 @@ CSS = """  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-d
 
 def main():
     os.makedirs(FIG_DST, exist_ok=True)
-    for f in os.listdir(FIG_SRC):
-        if f.endswith(".png") and not f.startswith("_"):
+    # 只複製這頁真正引用的 fig1~fig8（FIG_SRC 裡還有 neck_*.png 這類大圖，不該進網站）
+    for f in sorted(os.listdir(FIG_SRC)):
+        if re.fullmatch(r"fig[1-8]_[^/]+\.png", f):
             shutil.copy(os.path.join(FIG_SRC, f), os.path.join(FIG_DST, f))
     head = open(os.path.join(SITE, "stock", "index.html"), encoding="utf-8").read().split("<body")[0]
     head = re.sub(r"<title>[^<]*</title>",
