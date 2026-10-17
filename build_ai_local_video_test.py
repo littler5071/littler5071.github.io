@@ -53,6 +53,14 @@ HTML = """<!DOCTYPE html>
   figure.shot{margin:16px 0 8px}
   figure.shot img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid rgba(0,0,0,.09)}
   figure.shot figcaption{font-size:13.5px;color:var(--soft);margin-top:8px;text-align:center}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0 6px}
+  .grid2 figure{margin:0}
+  .grid2 img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid rgba(0,0,0,.09)}
+  .grid2 .cap{font-size:13.5px;color:var(--soft);margin-top:8px;text-align:center;line-height:1.7}
+  .grid2 .cap b{color:var(--ink)}
+  .grid2 figure.win img{border:2px solid var(--red)}
+  .grid2 figure.win .cap b{color:var(--red)}
+  @media (max-width:430px){ .grid2{grid-template-columns:1fr} }
   /* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
@@ -173,6 +181,27 @@ HTML = """<!DOCTYPE html>
   <p>看起來限制很多，但把它跟本機放在一起比就很清楚：本機做那 0.88 秒要 25 分鐘、
   成品 4/10；免費雲端一整天的量是 4～5 支 1.5 秒的影片，而且畫質不在同一個水準。
   這個「一天 4～5 支」的節奏，也剛好符合短劇系列一集一集慢慢上的做法。</p>
+
+  <h2><span class="dot"></span>同一台筆電的靜圖：本機與免費雲端的實測輸出</h2>
+  <p>影片走不通，但結論裡說「本機留著做靜圖」——那到底長什麼樣？下面是同一台筆電、
+  同一組提示詞與同一個種子，本機與免費雲端各跑一次留下來的<strong>實際產出</strong>，
+  不是示意圖、也不是後來補畫的：</p>
+  <div class="grid2">
+    <figure>
+      <img src="img/local-taesd.jpg" alt="本機純 CPU 產出的實測圖（512×512）"
+        loading="lazy" width="512" height="512">
+      <div class="cap"><b>實測輸出・本機</b><br>純 CPU、512×512、<b>94 秒</b>、畫質約 <b>5.5/10</b></div>
+    </figure>
+    <figure class="win">
+      <img src="img/cloud-flux.jpg" alt="免費雲端 flux.1-schnell 產出的實測圖（1024×1024）"
+        loading="lazy" width="1024" height="1024">
+      <div class="cap"><b>實測輸出・免費雲端</b><br>flux.1-schnell、1024×1024、<b>12.4 秒</b>、畫質 <b>7.5/10</b></div>
+    </figure>
+  </div>
+  <p class="dim">同一組提示詞與種子：本機 94 秒、雲端 <strong>12.4 秒</strong>；解析度是四倍、
+  畫質評分也高一級。本機那張用的是迷你解碼器（把解碼從 160 秒壓到 9 秒的那一招），
+  代價是細節被抹平一點。四種設定的完整對照寫在另一篇
+  〈<a href="../local-image-gen/">沒有獨立顯卡的筆電，能自己生成圖片嗎？</a>〉。</p>
 
   <h2><span class="dot"></span>什麼路徑才行</h2>
   <ul class="plain">
