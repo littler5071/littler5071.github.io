@@ -196,7 +196,7 @@
 <line x1="60.56" y1="1021.25" x2="81.94" y2="1021.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
 <text x="55.81" y="641.25" font-size="19.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700" transform="rotate(-90 55.81 641.25)">640</text>
 <circle cx="95.00" cy="95.00" r="35.62" fill="#ffffff" stroke="#c8d0db" stroke-width="1.43"/>
-<polygon points="95.00,66.50 84.31,109.25 95.00,99.75 105.69,109.25" fill="none" stroke="#161b24" stroke-width="1.66" stroke-linejoin="round" Z/>
+<polygon points="95.00,66.50 84.31,109.25 95.00,99.75 105.69,109.25" fill="none" stroke="#161b24" stroke-width="1.66" stroke-linejoin="round"/>
 <text x="95.00" y="147.25" font-size="20.0" fill="#161b24" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">N</text>
 <text x="581.88" y="1384.62" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">比例尺 1:50（原圖 A3）</text>
 <rect x="344.38" y="1410.75" width="118.75" height="14.25" fill="#161b24" stroke="#161b24" stroke-width="1.19"/>
