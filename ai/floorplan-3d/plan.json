@@ -1,0 +1,807 @@
+{
+ "project": {
+  "project": "示範住宅（三房兩廳兩衛）",
+  "drawing": "一層平面圖",
+  "scale": "1:50",
+  "date": "2026-10-18",
+  "sheet": "A-01",
+  "note": "單位：公分｜牆厚：外牆 15、內牆 12｜樓高 280"
+ },
+ "unit": "cm",
+ "wall_height": 280,
+ "exterior_wall": 15,
+ "interior_wall": 12,
+ "parapet_height": 110,
+ "north": "up",
+ "rooms": [
+  {
+   "id": "master",
+   "name": "主臥室",
+   "kind": "bedroom",
+   "rect": [
+    0,
+    0,
+    300,
+    320
+   ],
+   "area_m2": 9.6,
+   "area_ping": 2.9
+  },
+  {
+   "id": "mbath",
+   "name": "主衛浴",
+   "kind": "bath",
+   "rect": [
+    300,
+    0,
+    460,
+    320
+   ],
+   "area_m2": 5.12,
+   "area_ping": 1.55
+  },
+  {
+   "id": "bed2",
+   "name": "次臥室",
+   "kind": "bedroom",
+   "rect": [
+    460,
+    0,
+    820,
+    320
+   ],
+   "area_m2": 11.52,
+   "area_ping": 3.48
+  },
+  {
+   "id": "bed3",
+   "name": "次臥室",
+   "kind": "bedroom",
+   "rect": [
+    820,
+    0,
+    1160,
+    320
+   ],
+   "area_m2": 10.88,
+   "area_ping": 3.29
+  },
+  {
+   "id": "living",
+   "name": "客廳",
+   "kind": "living",
+   "rect": [
+    0,
+    320,
+    520,
+    640
+   ],
+   "area_m2": 16.64,
+   "area_ping": 5.03
+  },
+  {
+   "id": "hall",
+   "name": "走道",
+   "kind": "corridor",
+   "rect": [
+    520,
+    320,
+    700,
+    470
+   ],
+   "area_m2": 2.7,
+   "area_ping": 0.82
+  },
+  {
+   "id": "gbath",
+   "name": "客用衛浴",
+   "kind": "bath",
+   "rect": [
+    520,
+    470,
+    700,
+    640
+   ],
+   "area_m2": 3.06,
+   "area_ping": 0.93
+  },
+  {
+   "id": "dining",
+   "name": "餐廳",
+   "kind": "dining",
+   "rect": [
+    700,
+    320,
+    940,
+    640
+   ],
+   "area_m2": 7.68,
+   "area_ping": 2.32
+  },
+  {
+   "id": "kitchen",
+   "name": "廚房",
+   "kind": "kitchen",
+   "rect": [
+    940,
+    320,
+    1160,
+    640
+   ],
+   "area_m2": 7.04,
+   "area_ping": 2.13
+  },
+  {
+   "id": "balcony",
+   "name": "陽台",
+   "kind": "balcony",
+   "rect": [
+    51,
+    655,
+    529,
+    815
+   ],
+   "area_m2": 7.65,
+   "area_ping": 2.31
+  }
+ ],
+ "walls": [
+  {
+   "id": "ext_n",
+   "kind": "ext",
+   "axis": "h",
+   "b": -7.5,
+   "a0": -15,
+   "a1": 1175,
+   "t": 15,
+   "openings": [
+    {
+     "type": "window",
+     "s": 60,
+     "e": 240,
+     "sill": 90,
+     "head": 210
+    },
+    {
+     "type": "window",
+     "s": 330,
+     "e": 430,
+     "sill": 130,
+     "head": 210
+    },
+    {
+     "type": "window",
+     "s": 560,
+     "e": 760,
+     "sill": 90,
+     "head": 210
+    },
+    {
+     "type": "window",
+     "s": 880,
+     "e": 1080,
+     "sill": 90,
+     "head": 210
+    }
+   ]
+  },
+  {
+   "id": "ext_s",
+   "kind": "ext",
+   "axis": "h",
+   "b": 647.5,
+   "a0": -15,
+   "a1": 1175,
+   "t": 15,
+   "openings": [
+    {
+     "type": "slider",
+     "s": 150,
+     "e": 400,
+     "sill": 0,
+     "head": 215
+    },
+    {
+     "type": "door",
+     "s": 790,
+     "e": 880,
+     "sill": 0,
+     "head": 210,
+     "hinge": "s",
+     "swing": -1
+    }
+   ]
+  },
+  {
+   "id": "ext_w",
+   "kind": "ext",
+   "axis": "v",
+   "b": -7.5,
+   "a0": -15,
+   "a1": 655,
+   "t": 15,
+   "openings": [
+    {
+     "type": "window",
+     "s": 335,
+     "e": 455,
+     "sill": 90,
+     "head": 210
+    }
+   ]
+  },
+  {
+   "id": "ext_e",
+   "kind": "ext",
+   "axis": "v",
+   "b": 1167.5,
+   "a0": -15,
+   "a1": 655,
+   "t": 15,
+   "openings": [
+    {
+     "type": "window",
+     "s": 90,
+     "e": 250,
+     "sill": 90,
+     "head": 210
+    },
+    {
+     "type": "window",
+     "s": 380,
+     "e": 560,
+     "sill": 90,
+     "head": 210
+    }
+   ]
+  },
+  {
+   "id": "w_master_mbath",
+   "kind": "int",
+   "axis": "v",
+   "b": 300,
+   "a0": 0,
+   "a1": 320,
+   "t": 12,
+   "openings": [
+    {
+     "type": "door",
+     "s": 100,
+     "e": 190,
+     "sill": 0,
+     "head": 210,
+     "hinge": "s",
+     "swing": 1
+    }
+   ]
+  },
+  {
+   "id": "w_mbath_bed2",
+   "kind": "int",
+   "axis": "v",
+   "b": 460,
+   "a0": 0,
+   "a1": 320,
+   "t": 12
+  },
+  {
+   "id": "w_bed2_bed3",
+   "kind": "int",
+   "axis": "v",
+   "b": 820,
+   "a0": 0,
+   "a1": 320,
+   "t": 12
+  },
+  {
+   "id": "w_band",
+   "kind": "int",
+   "axis": "h",
+   "b": 320,
+   "a0": 0,
+   "a1": 1160,
+   "t": 12,
+   "openings": [
+    {
+     "type": "door",
+     "s": 110,
+     "e": 200,
+     "sill": 0,
+     "head": 210,
+     "hinge": "s",
+     "swing": -1
+    },
+    {
+     "type": "door",
+     "s": 560,
+     "e": 650,
+     "sill": 0,
+     "head": 210,
+     "hinge": "e",
+     "swing": -1
+    },
+    {
+     "type": "door",
+     "s": 850,
+     "e": 940,
+     "sill": 0,
+     "head": 210,
+     "hinge": "s",
+     "swing": -1
+    }
+   ]
+  },
+  {
+   "id": "w_living_hall",
+   "kind": "int",
+   "axis": "v",
+   "b": 520,
+   "a0": 320,
+   "a1": 640,
+   "t": 12,
+   "openings": [
+    {
+     "type": "open",
+     "s": 340,
+     "e": 460,
+     "sill": 0,
+     "head": 210
+    }
+   ]
+  },
+  {
+   "id": "w_hall_din",
+   "kind": "int",
+   "axis": "v",
+   "b": 700,
+   "a0": 320,
+   "a1": 640,
+   "t": 12,
+   "openings": [
+    {
+     "type": "open",
+     "s": 345,
+     "e": 455,
+     "sill": 0,
+     "head": 210
+    }
+   ]
+  },
+  {
+   "id": "w_hall_gbath",
+   "kind": "int",
+   "axis": "h",
+   "b": 470,
+   "a0": 520,
+   "a1": 700,
+   "t": 12,
+   "openings": [
+    {
+     "type": "door",
+     "s": 565,
+     "e": 645,
+     "sill": 0,
+     "head": 210,
+     "hinge": "s",
+     "swing": 1
+    }
+   ]
+  },
+  {
+   "id": "w_din_kit",
+   "kind": "int",
+   "axis": "v",
+   "b": 940,
+   "a0": 320,
+   "a1": 640,
+   "t": 12,
+   "openings": [
+    {
+     "type": "open",
+     "s": 520,
+     "e": 640,
+     "sill": 0,
+     "head": 210
+    }
+   ]
+  },
+  {
+   "id": "para_v",
+   "kind": "parapet",
+   "axis": "v",
+   "b": 51,
+   "a0": 655,
+   "a1": 815,
+   "t": 12,
+   "h": 110
+  },
+  {
+   "id": "para_e",
+   "kind": "parapet",
+   "axis": "v",
+   "b": 529,
+   "a0": 655,
+   "a1": 815,
+   "t": 12,
+   "h": 110
+  },
+  {
+   "id": "para_s",
+   "kind": "parapet",
+   "axis": "h",
+   "b": 809,
+   "a0": 45,
+   "a1": 535,
+   "t": 12,
+   "h": 110
+  }
+ ],
+ "furniture": [
+  {
+   "room": "master",
+   "type": "bed",
+   "name": "雙人床",
+   "rect": [
+    90,
+    25,
+    240,
+    215
+   ],
+   "h": 45
+  },
+  {
+   "room": "master",
+   "type": "nightstand",
+   "name": "床頭櫃",
+   "rect": [
+    45,
+    25,
+    85,
+    65
+   ],
+   "h": 50
+  },
+  {
+   "room": "master",
+   "type": "nightstand",
+   "name": "床頭櫃",
+   "rect": [
+    245,
+    25,
+    285,
+    65
+   ],
+   "h": 50
+  },
+  {
+   "room": "master",
+   "type": "wardrobe",
+   "name": "衣櫃",
+   "rect": [
+    5,
+    100,
+    50,
+    260
+   ],
+   "h": 220
+  },
+  {
+   "room": "mbath",
+   "type": "toilet",
+   "name": "馬桶",
+   "rect": [
+    320,
+    30,
+    372,
+    104
+   ],
+   "h": 42
+  },
+  {
+   "room": "mbath",
+   "type": "basin",
+   "name": "洗手台",
+   "rect": [
+    388,
+    20,
+    450,
+    72
+   ],
+   "h": 80
+  },
+  {
+   "room": "mbath",
+   "type": "shower",
+   "name": "淋浴間",
+   "rect": [
+    310,
+    205,
+    445,
+    312
+   ],
+   "h": 200
+  },
+  {
+   "room": "bed2",
+   "type": "bed_single",
+   "name": "單人床",
+   "rect": [
+    490,
+    30,
+    620,
+    220
+   ],
+   "h": 42
+  },
+  {
+   "room": "bed2",
+   "type": "desk",
+   "name": "書桌",
+   "rect": [
+    665,
+    30,
+    810,
+    88
+   ],
+   "h": 75
+  },
+  {
+   "room": "bed2",
+   "type": "chair",
+   "name": "椅子",
+   "rect": [
+    700,
+    96,
+    745,
+    138
+   ],
+   "h": 45
+  },
+  {
+   "room": "bed2",
+   "type": "wardrobe",
+   "name": "衣櫃",
+   "rect": [
+    665,
+    252,
+    810,
+    305
+   ],
+   "h": 220
+  },
+  {
+   "room": "bed3",
+   "type": "bed_single",
+   "name": "單人床",
+   "rect": [
+    880,
+    30,
+    1010,
+    215
+   ],
+   "h": 42
+  },
+  {
+   "room": "bed3",
+   "type": "desk",
+   "name": "書桌",
+   "rect": [
+    1040,
+    40,
+    1150,
+    98
+   ],
+   "h": 75
+  },
+  {
+   "room": "bed3",
+   "type": "wardrobe",
+   "name": "衣櫃",
+   "rect": [
+    1040,
+    245,
+    1150,
+    300
+   ],
+   "h": 220
+  },
+  {
+   "room": "living",
+   "type": "sofa",
+   "name": "沙發",
+   "rect": [
+    40,
+    470,
+    128,
+    650
+   ],
+   "h": 80
+  },
+  {
+   "room": "living",
+   "type": "coffee",
+   "name": "茶几",
+   "rect": [
+    170,
+    500,
+    245,
+    600
+   ],
+   "h": 42
+  },
+  {
+   "room": "living",
+   "type": "tv",
+   "name": "電視櫃",
+   "rect": [
+    455,
+    430,
+    508,
+    600
+   ],
+   "h": 45
+  },
+  {
+   "room": "gbath",
+   "type": "toilet",
+   "name": "馬桶",
+   "rect": [
+    535,
+    566,
+    587,
+    636
+   ],
+   "h": 42
+  },
+  {
+   "room": "gbath",
+   "type": "basin",
+   "name": "洗手台",
+   "rect": [
+    650,
+    480,
+    694,
+    538
+   ],
+   "h": 80
+  },
+  {
+   "room": "dining",
+   "type": "dtable",
+   "name": "餐桌",
+   "rect": [
+    762,
+    420,
+    902,
+    500
+   ],
+   "h": 75
+  },
+  {
+   "room": "dining",
+   "type": "chair",
+   "name": "餐椅",
+   "rect": [
+    780,
+    386,
+    826,
+    414
+   ],
+   "h": 45
+  },
+  {
+   "room": "dining",
+   "type": "chair",
+   "name": "餐椅",
+   "rect": [
+    838,
+    386,
+    884,
+    414
+   ],
+   "h": 45
+  },
+  {
+   "room": "dining",
+   "type": "chair",
+   "name": "餐椅",
+   "rect": [
+    780,
+    506,
+    826,
+    534
+   ],
+   "h": 45
+  },
+  {
+   "room": "dining",
+   "type": "chair",
+   "name": "餐椅",
+   "rect": [
+    838,
+    506,
+    884,
+    534
+   ],
+   "h": 45
+  },
+  {
+   "room": "dining",
+   "type": "cabinet",
+   "name": "鞋櫃",
+   "rect": [
+    712,
+    332,
+    790,
+    378
+   ],
+   "h": 110
+  },
+  {
+   "room": "kitchen",
+   "type": "counter",
+   "name": "廚具台",
+   "rect": [
+    950,
+    332,
+    1150,
+    392
+   ],
+   "h": 88
+  },
+  {
+   "room": "kitchen",
+   "type": "counter",
+   "name": "廚具台",
+   "rect": [
+    1090,
+    392,
+    1150,
+    580
+   ],
+   "h": 88
+  },
+  {
+   "room": "kitchen",
+   "type": "fridge",
+   "name": "冰箱",
+   "rect": [
+    950,
+    560,
+    1022,
+    630
+   ],
+   "h": 180
+  },
+  {
+   "room": "balcony",
+   "type": "washer",
+   "name": "洗衣機",
+   "rect": [
+    64,
+    728,
+    134,
+    798
+   ],
+   "h": 86
+  }
+ ],
+ "beams": [
+  {
+   "axis": "h",
+   "b": 655,
+   "a0": 45,
+   "a1": 535,
+   "text": "天花樑・淨高 240"
+  },
+  {
+   "axis": "h",
+   "b": 320,
+   "a0": 0,
+   "a1": 1160,
+   "text": "天花樑"
+  }
+ ],
+ "total_interior_m2": 74.24,
+ "balcony_m2": 7.65
+}
