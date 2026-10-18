@@ -48,23 +48,26 @@
        left:calc(16px + env(safe-area-inset-left));
        bottom:calc(18px + env(safe-area-inset-bottom));
        width:96px;height:96px;border-radius:50%;
-       background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.42);
-       box-shadow:0 2px 10px rgba(20,30,50,.12);
-       display:none;z-index:6;opacity:.25;transition:opacity .4s;
+       background:rgba(255,255,255,.05);
+       border:1.5px solid rgba(23,32,48,.62);        /* 深色描邊：淺色牆面也看得見 */
+       box-shadow:0 0 0 1.5px rgba(255,255,255,.5);  /* 白色內圈：深色地板也看得見 */
+       display:none;z-index:6;opacity:.3;transition:opacity .4s;
        pointer-events:none;touch-action:none;
        user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
   body.touch .stage.walking #joy{display:block}
-  #joy.on{opacity:.7;transition:opacity .12s}
+  #joy.on{opacity:.78;transition:opacity .12s;
+       border-color:rgba(255,255,255,.95);background:rgba(255,255,255,.18);
+       box-shadow:0 0 0 1.5px rgba(23,32,48,.45),0 3px 12px rgba(20,30,50,.28)}
   #joy .knob{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;
        border-radius:50%;background:rgba(54,78,112,.62);border:2px solid rgba(255,255,255,.9);
        box-shadow:0 2px 8px rgba(20,30,50,.35);pointer-events:none;will-change:transform;
        opacity:0;transition:opacity .15s}
   #joy.on .knob{opacity:1}
   #joy::after{content:'移動';position:absolute;left:50%;bottom:100%;transform:translateX(-50%);
-       margin-bottom:5px;font-size:10px;color:rgba(255,255,255,.95);
-       text-shadow:0 1px 3px rgba(0,0,0,.6);white-space:nowrap;pointer-events:none;
-       opacity:.7;transition:opacity .3s}
-  #joy.on::after{opacity:1}
+       margin-bottom:5px;font-size:10px;line-height:1.5;padding:1px 8px;border-radius:999px;
+       background:rgba(23,32,48,.66);color:#fff;white-space:nowrap;pointer-events:none;
+       opacity:.78;transition:opacity .3s}
+  #joy.on::after{opacity:1;background:rgba(23,32,48,.82)}
   /* 走動模式的提示條移到畫面上方，避免被搖桿遮住 */
   body.touch .stage.walking .hint{bottom:auto;top:calc(10px + env(safe-area-inset-top));
        left:10px;right:10px;border-radius:10px;line-height:1.5;text-align:left}
@@ -75,6 +78,26 @@
   #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
         background:#eef1f4;color:var(--soft);font-size:14px;z-index:5}
   .fallback{display:none;padding:16px;font-size:14px;color:var(--soft)}
+  /* ── 平面圖區塊 ───────────────────────────────── */
+  .planfig{margin:0 0 22px;background:var(--card);border:2px solid var(--line);
+        border-radius:16px;padding:10px}
+  .planfig a{display:block;line-height:0;border:1px solid var(--line);border-radius:10px;
+        overflow:hidden;background:#fff}
+  .planfig img{display:block;width:100%;height:auto}
+  .planfig .cap{font-size:13.5px;color:var(--soft);line-height:1.8;padding:10px 4px 2px}
+  .planfig .cap b{color:var(--ink)}
+  /* ── 各空間渲染圖 ─────────────────────────────── */
+  .gal{display:grid;grid-template-columns:1fr;gap:14px;margin:0 0 10px}
+  @media(min-width:640px){.gal{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1000px){.gal{grid-template-columns:repeat(3,1fr)}}
+  .gal figure{margin:0;background:var(--card);border:2px solid var(--line);border-radius:14px;
+        overflow:hidden;box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .gal img{display:block;width:100%;height:auto;background:#eef1f4;aspect-ratio:1200/661;
+        object-fit:cover}
+  .gal figcaption{padding:9px 12px 11px;font-size:13px;color:var(--soft);line-height:1.7}
+  .gal figcaption b{display:block;font-size:14.5px;color:var(--ink);font-weight:600;margin-bottom:2px}
+  .gal figcaption .ar{color:var(--blue);font-variant-numeric:tabular-nums;font-weight:600}
+  .note-src{font-size:12.5px;color:var(--soft);line-height:1.75;margin:0 0 18px}
   /* ── 表格 ─────────────────────────────────────── */
   .tw{overflow-x:auto;margin:0 0 16px}
   table.bd{width:100%;min-width:480px;border-collapse:collapse;font-size:14.5px;
@@ -109,7 +132,7 @@
 
   <div class="demo">
     <div class="demo-top">
-      <span class="ttl">示範住宅・室內 22.5 坪（含陽台 24.8 坪）</span>
+      <span class="ttl">示範住宅・室內約 32 坪</span>
       <button class="ui on" id="b3d">3D 空間</button>
       <button class="ui" id="b2d">2D 平面圖</button>
       <button class="ui" id="bwalk">走進室內（WASD）</button>
@@ -140,6 +163,84 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <h2><span class="dot"></span>平面圖</h2>
+  <div class="planfig">
+    <a href="plan.png" target="_blank" rel="noopener" title="點開大圖：平面圖 plan.png（1900 px）">
+      <img src="plan.png" width="1900" height="1698" loading="lazy" decoding="async"
+           alt="示範住宅一層平面圖：三房兩廳兩衛，標有房間名稱與面積、外牆 15／內牆 12 公分的牆體、門窗開口、家具配置與分段尺寸標註">
+    </a>
+    <div class="cap">
+      示範住宅為<b>三房兩廳兩衛</b>，室內 <b>32 坪</b>（74.24 m²，另計陽台 7.65 m²）。
+      這張圖和上面的 3D 讀的是<b>同一份 plan.json</b> ——
+      點圖可開大圖（PNG），向量版本請開 <a href="plan.svg" target="_blank" rel="noopener">plan.svg</a>。
+    </div>
+  </div>
+
+  <h2><span class="dot"></span>各空間渲染圖</h2>
+  <p class="note-src">以下為依平面圖資料自動生成、並由程式自動擷取的渲染圖。</p>
+  <div class="gal">
+    <figure>
+      <img src="renders/living.jpg" alt="客廳的 3D 渲染圖：沙發、茶几、電視櫃與落地窗" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>客廳 <span class="ar">16.64 m²（5.03 坪）</span></b>沙發、茶几、電視櫃與落地窗</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/master.jpg" alt="主臥室的 3D 渲染圖：雙人床、床頭櫃與衣櫃" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>主臥室 <span class="ar">9.6 m²（2.90 坪）</span></b>雙人床、床頭櫃與衣櫃</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/mbath.jpg" alt="主衛浴的 3D 渲染圖：馬桶、洗手台與淋浴間" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>主衛浴 <span class="ar">5.12 m²（1.55 坪）</span></b>馬桶、洗手台與淋浴間</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/bed2.jpg" alt="次臥室（11.52 m²）的 3D 渲染圖：單人床與書桌" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>次臥室 <span class="ar">11.52 m²（3.48 坪）</span></b>單人床與書桌</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/bed3.jpg" alt="次臥室（10.88 m²）的 3D 渲染圖：單人床與書桌" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>次臥室 <span class="ar">10.88 m²（3.29 坪）</span></b>單人床與書桌</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/gbath.jpg" alt="客用衛浴的 3D 渲染圖：馬桶與洗手台" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>客用衛浴 <span class="ar">3.06 m²（0.93 坪）</span></b>馬桶與洗手台</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/dining.jpg" alt="餐廳的 3D 渲染圖：餐桌與餐椅" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>餐廳 <span class="ar">7.68 m²（2.32 坪）</span></b>餐桌與餐椅</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/kitchen.jpg" alt="廚房的 3D 渲染圖：廚具、水槽與爐台" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>廚房 <span class="ar">7.04 m²（2.13 坪）</span></b>廚具、水槽與爐台</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/balcony.jpg" alt="陽台的 3D 渲染圖：洗衣機與落地窗" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>陽台 <span class="ar">7.65 m²（2.31 坪）</span></b>洗衣機與落地窗</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/hall.jpg" alt="走道的 3D 渲染圖：連接各房間的走道" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>走道 <span class="ar">2.70 m²（0.82 坪）</span></b>連接各房間的走道</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/overview-top.jpg" alt="全屋鳥瞰俯視圖：三房兩廳兩衛的隔間與家具配置" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>全屋鳥瞰（俯視）</b>隔間與家具配置</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/hero.jpg" alt="全屋鳥瞰斜角圖：三房兩廳兩衛的整體外觀" width="1200" height="661"
+           loading="lazy" decoding="async">
+      <figcaption><b>全屋鳥瞰（斜角）</b>三房兩廳兩衛整體</figcaption>
+    </figure>
   </div>
 
   <h2><span class="dot"></span>為什麼要「同一份資料」</h2>
@@ -752,18 +853,118 @@ function updateLabels(){
 
 /* ── 鏡頭飛行 ─────────────────────────────────────────────── */
 let fly = null;
+let fadedWalls = [];
+let ceilWasVisible = null;
+const FOV_ORBIT = 55, FOV_ROOM = 60, FOV_ROOM_SMALL = 74;
+
+/* 2D 線段 (a→b) 與矩形 [x0,x1,z0,z1] 是否相交（Liang–Barsky） */
+function segRectHit(ax, az, bx, bz, r){
+  let t0 = 0, t1 = 1;
+  const dx = bx - ax, dz = bz - az;
+  const p = [-dx, dx, -dz, dz];
+  const q = [ax - r[0], r[1] - ax, az - r[2], r[3] - az];
+  for (let i = 0; i < 4; i++){
+    if (p[i] === 0){ if (q[i] < 0) return false; }
+    else {
+      const t = q[i] / p[i];
+      if (p[i] < 0){ if (t > t1) return false; if (t > t0) t0 = t; }
+      else { if (t < t0) return false; if (t < t1) t1 = t; }
+    }
+  }
+  return true;
+}
+function wallFoot(m){
+  const g = m.geometry;
+  if (!g || !g.parameters || g.parameters.width === undefined) return null;
+  const hw = g.parameters.width / 2, hd = g.parameters.depth / 2;
+  return [m.position.x - hw, m.position.x + hw, m.position.z - hd, m.position.z + hd];
+}
+/* 透視化：把相機附近、或正好擋在相機與注視點之間的牆淡出到 10% */
+function fadeBlockingWalls(camP, target){
+  wallFadeReset();
+  if (!wallGroup) return;
+  for (const m of wallGroup.children){
+    const r = wallFoot(m);
+    if (!r) continue;
+    const near = (camP.x > r[0]-0.55 && camP.x < r[1]+0.55 &&
+                  camP.z > r[2]-0.55 && camP.z < r[3]+0.55);
+    const hit = segRectHit(camP.x, camP.z, target.x, target.z,
+                           [r[0]-0.03, r[1]+0.03, r[2]-0.03, r[3]+0.03]);
+    if (!near && !hit) continue;
+    if (!m.userData._mat0) m.userData._mat0 = m.material;
+    const c = m.userData._mat0.clone();
+    c.transparent = true; c.opacity = 0.10; c.depthWrite = false;
+    m.material = c; fadedWalls.push(m);
+  }
+}
+function wallFadeReset(){
+  for (const m of fadedWalls){ if (m.userData._mat0) m.material = m.userData._mat0; }
+  fadedWalls = [];
+}
+/* 離開房間視角：牆恢復不透明、天花板恢復原狀、FOV 回鳥瞰值 */
+function roomViewExit(){
+  wallFadeReset();
+  if (ceiling && ceilWasVisible !== null){ ceiling.visible = ceilWasVisible; ceilWasVisible = null; }
+  if (camera){ camera.fov = FOV_ORBIT; camera.updateProjectionMatrix(); }
+}
+/* 貼在這間房間邊界上的室內門／開口（回傳 [x,z] 公尺） */
+function roomDoorCenters(r){
+  const out = [], tol = 8;
+  for (const w of (plan.walls || [])){
+    if (w.kind !== 'int') continue;
+    for (const o of (w.openings || [])){
+      const mid = (o.s + o.e) / 2;
+      if (w.axis === 'v'){
+        if ((Math.abs(w.b - r.rect[0]) <= tol || Math.abs(w.b - r.rect[2]) <= tol) &&
+            mid > r.rect[1] - 1 && mid < r.rect[3] + 1) out.push([w.b / 100, mid / 100]);
+      } else {
+        if ((Math.abs(w.b - r.rect[1]) <= tol || Math.abs(w.b - r.rect[3]) <= tol) &&
+            mid > r.rect[0] - 1 && mid < r.rect[2] + 1) out.push([mid / 100, w.b / 100]);
+      }
+    }
+  }
+  return out;
+}
 function flyTo(roomId){
   const r = plan.rooms.find(x => x.id === roomId);
   if (!r) return;
-  const cx = (r.rect[0]+r.rect[2])/2*CM, cz = (r.rect[1]+r.rect[3])/2*CM;
-  const zh = Math.max(3.2, Math.min(8.5, (r.rect[2]-r.rect[0])*CM*2.6));
-  const to = new THREE.Vector3(cx, zh*0.85, cz + zh*1.15);
-  const look = new THREE.Vector3(cx, Math.min(1.2, plan.wall_height*CM*0.42), cz);
+  if (mode === 'walk') exitWalk();          // 走動中點房間 → 先回到環繞模式才飛得起來
+  const x0 = r.rect[0] * CM, z0 = r.rect[1] * CM;
+  const x1 = r.rect[2] * CM, z1 = r.rect[3] * CM;
+  const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
+  const w = x1 - x0, d = z1 - z0;
+  const m = Math.min(0.42, w * 0.22, d * 0.22);
+  const eye = 1.62;                          // 站姿人眼高度
+
+  /* 相機站到「房間四角取最遠」的那一角（一定在房間內），盡量把整間收進畫面；
+     若角落與門有關，優先挑靠門的那一角（像走進門往內看） */
+  const doors = roomDoorCenters(r);
+  const corners = [[x0+m, z0+m], [x1-m, z0+m], [x0+m, z1-m], [x1-m, z1-m]];
+  let best = corners[0], bestScore = -1;
+  for (const c of corners){
+    let sc = Math.hypot(c[0]-cx, c[1]-cz);
+    if (doors.length){
+      const dd = Math.min(...doors.map(p => Math.hypot(p[0]-c[0], p[1]-c[1])));
+      if (dd < 1.3) sc += 0.3;               // 靠門加分
+    }
+    if (sc > bestScore){ bestScore = sc; best = c; }
+  }
+  const small = Math.min(w, d) < 2.5;
+  camera.fov = small ? FOV_ROOM_SMALL : FOV_ROOM;
+  camera.updateProjectionMatrix();
+
+  const to = new THREE.Vector3(best[0], eye, best[1]);
+  const look = new THREE.Vector3(cx, 1.28, cz);
+
+  fadeBlockingWalls(to, look);               // 擋住視線的牆透明化
+  if (ceiling){ ceilWasVisible = ceiling.visible; ceiling.visible = false; }
+
   fly = {t:0, p0:camera.position.clone(), p1:to, c0:controls.target.clone(), c1:look};
   document.querySelectorAll('#roomlist a').forEach(a =>
     a.classList.toggle('cur', a.dataset.room === roomId));
 }
 function resetView(){
+  roomViewExit();
   camera.position.set(planCenter.x, 9.6, planCenter.z + 8.4);
   controls.target.set(planCenter.x, 0.9, planCenter.z);
   document.querySelectorAll('#roomlist a').forEach(a => a.classList.remove('cur'));
@@ -771,6 +972,7 @@ function resetView(){
 
 /* ── 第一人稱 ─────────────────────────────────────────────── */
 function enterWalk(){
+  roomViewExit();                    // 走動前把房間視角的透視化／FOV 還原
   const r = plan.rooms.find(x => x.id === 'living');
   camera.position.set((r.rect[0]+r.rect[2])/2*CM, 1.62, (r.rect[1]+r.rect[3])/2*CM);
   const dir = new THREE.Vector3(planCenter.x - camera.position.x, 0, planCenter.z - camera.position.z);

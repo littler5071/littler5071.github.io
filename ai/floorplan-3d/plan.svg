@@ -1,222 +1,223 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1698" viewBox="0 0 1900 1698">
 <rect width="1900" height="1698" fill="#ffffff"/>
-<rect x="273.12" y="261.25" width="356.25" height="380.00" fill="#fdfbf5"/>
-<rect x="629.38" y="261.25" width="190.00" height="380.00" fill="#f2f7fb"/>
-<rect x="819.38" y="261.25" width="427.50" height="380.00" fill="#fdfbf5"/>
-<rect x="1246.88" y="261.25" width="403.75" height="380.00" fill="#fdfbf5"/>
-<rect x="273.12" y="641.25" width="617.50" height="380.00" fill="#fbfaf6"/>
-<rect x="890.62" y="641.25" width="213.75" height="178.12" fill="#f8f9fb"/>
-<rect x="890.62" y="819.38" width="213.75" height="201.88" fill="#f2f7fb"/>
-<rect x="1104.38" y="641.25" width="285.00" height="380.00" fill="#fbfaf6"/>
-<rect x="1389.38" y="641.25" width="261.25" height="380.00" fill="#f6faf5"/>
-<rect x="333.69" y="1039.06" width="567.62" height="190.00" fill="#f4f6f3"/>
-<rect x="380.00" y="290.94" width="178.12" height="225.62" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="380.00" y1="327.04" x2="558.12" y2="327.04" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<line x1="469.06" y1="290.94" x2="469.06" y2="327.04" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<rect x="326.56" y="290.94" width="47.50" height="47.50" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="564.06" y="290.94" width="47.50" height="47.50" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="279.06" y="380.00" width="53.44" height="190.00" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="305.78" y1="380.00" x2="305.78" y2="570.00" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<rect x="653.12" y="296.88" width="61.75" height="87.88" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<circle cx="684.00" cy="346.08" r="21.00" fill="#ffffff" stroke="#93a0b3" stroke-width="1.43"/>
-<rect x="733.88" y="285.00" width="73.62" height="61.75" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<circle cx="770.69" cy="315.88" r="19.76" fill="#ffffff" stroke="#93a0b3" stroke-width="1.43"/>
-<rect x="641.25" y="504.69" width="160.31" height="127.06" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<polyline points="641.25,504.69 801.56,504.69 801.56,631.75" fill="none" stroke="#93a0b3" stroke-width="1.19" stroke-linejoin="round" stroke-dasharray="10.7,7.1"/>
-<line x1="641.25" y1="504.69" x2="801.56" y2="631.75" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<circle cx="721.41" cy="568.22" r="4.16" fill="#93a0b3"/>
-<rect x="855.00" y="296.88" width="154.38" height="225.62" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="855.00" y1="332.98" x2="1009.38" y2="332.98" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<line x1="932.19" y1="296.88" x2="932.19" y2="332.98" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<rect x="1062.81" y="296.88" width="172.19" height="68.88" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1104.38" y="375.25" width="53.44" height="49.88" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1062.81" y="560.50" width="172.19" height="62.94" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="1148.91" y1="560.50" x2="1148.91" y2="623.44" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<rect x="1318.12" y="296.88" width="154.38" height="219.69" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="1318.12" y1="332.02" x2="1472.50" y2="332.02" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<line x1="1395.31" y1="296.88" x2="1395.31" y2="332.02" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<rect x="1508.12" y="308.75" width="130.62" height="68.88" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1508.12" y="552.19" width="130.62" height="65.31" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="1573.44" y1="552.19" x2="1573.44" y2="617.50" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<rect x="320.62" y="819.38" width="104.50" height="213.75" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="402.13" y1="819.38" x2="402.13" y2="1033.12" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<line x1="320.62" y1="926.25" x2="402.13" y2="926.25" stroke="#93a0b3" stroke-width="1.19" stroke-linecap="butt"/>
-<rect x="475.00" y="855.00" width="89.06" height="118.75" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="813.44" y="771.88" width="62.94" height="201.88" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="844.91" y1="771.88" x2="844.91" y2="973.75" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<rect x="908.44" y="933.38" width="61.75" height="83.12" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<circle cx="939.31" cy="979.92" r="21.00" fill="#ffffff" stroke="#93a0b3" stroke-width="1.43"/>
-<rect x="1045.00" y="831.25" width="52.25" height="68.88" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<circle cx="1071.12" cy="865.69" r="16.72" fill="#ffffff" stroke="#93a0b3" stroke-width="1.43"/>
-<rect x="1178.00" y="760.00" width="166.25" height="95.00" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1185.12" y="767.12" width="152.00" height="80.75" fill="none" stroke="#93a0b3" stroke-width="1.07"/>
-<rect x="1199.38" y="719.62" width="54.62" height="33.25" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1268.25" y="719.62" width="54.62" height="33.25" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1199.38" y="862.12" width="54.62" height="33.25" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1268.25" y="862.12" width="54.62" height="33.25" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<rect x="1118.62" y="655.50" width="92.62" height="54.62" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="1164.94" y1="655.50" x2="1164.94" y2="710.12" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<rect x="1401.25" y="655.50" width="237.50" height="71.25" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="1520.00" y1="655.50" x2="1520.00" y2="726.75" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<rect x="1567.50" y="726.75" width="71.25" height="223.25" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="1603.12" y1="726.75" x2="1603.12" y2="950.00" stroke="#93a0b3" stroke-width="0.95" stroke-linecap="butt"/>
-<rect x="1401.25" y="926.25" width="85.50" height="83.12" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<line x1="1401.25" y1="955.34" x2="1486.75" y2="955.34" stroke="#93a0b3" stroke-width="1.07" stroke-linecap="butt"/>
-<rect x="349.12" y="1125.75" width="83.12" height="83.12" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.66"/>
-<circle cx="390.69" cy="1167.31" r="28.26" fill="none" stroke="#93a0b3" stroke-width="1.43"/>
-<rect x="255.31" y="243.44" width="89.06" height="17.81" fill="#161b24"/>
-<rect x="558.12" y="243.44" width="106.88" height="17.81" fill="#161b24"/>
-<rect x="783.75" y="243.44" width="154.38" height="17.81" fill="#161b24"/>
-<rect x="1175.62" y="243.44" width="142.50" height="17.81" fill="#161b24"/>
-<rect x="1555.62" y="243.44" width="112.81" height="17.81" fill="#161b24"/>
-<rect x="255.31" y="1021.25" width="195.94" height="17.81" fill="#161b24"/>
-<rect x="748.12" y="1021.25" width="463.12" height="17.81" fill="#161b24"/>
-<rect x="1318.12" y="1021.25" width="350.31" height="17.81" fill="#161b24"/>
-<rect x="255.31" y="243.44" width="17.81" height="415.62" fill="#161b24"/>
-<rect x="255.31" y="801.56" width="17.81" height="237.50" fill="#161b24"/>
-<rect x="1650.62" y="243.44" width="17.81" height="124.69" fill="#161b24"/>
-<rect x="1650.62" y="558.12" width="17.81" height="154.38" fill="#161b24"/>
-<rect x="1650.62" y="926.25" width="17.81" height="112.81" fill="#161b24"/>
-<rect x="622.25" y="261.25" width="14.25" height="118.75" fill="#161b24"/>
-<rect x="622.25" y="486.88" width="14.25" height="154.38" fill="#161b24"/>
-<rect x="812.25" y="261.25" width="14.25" height="380.00" fill="#161b24"/>
-<rect x="1239.75" y="261.25" width="14.25" height="380.00" fill="#161b24"/>
-<rect x="273.12" y="634.12" width="130.62" height="14.25" fill="#161b24"/>
-<rect x="510.62" y="634.12" width="427.50" height="14.25" fill="#161b24"/>
-<rect x="1045.00" y="634.12" width="237.50" height="14.25" fill="#161b24"/>
-<rect x="1389.38" y="634.12" width="261.25" height="14.25" fill="#161b24"/>
-<rect x="883.50" y="641.25" width="14.25" height="23.75" fill="#161b24"/>
-<rect x="883.50" y="807.50" width="14.25" height="213.75" fill="#161b24"/>
-<rect x="1097.25" y="641.25" width="14.25" height="29.69" fill="#161b24"/>
-<rect x="1097.25" y="801.56" width="14.25" height="219.69" fill="#161b24"/>
-<rect x="890.62" y="812.25" width="53.44" height="14.25" fill="#161b24"/>
-<rect x="1039.06" y="812.25" width="65.31" height="14.25" fill="#161b24"/>
-<rect x="1382.25" y="641.25" width="14.25" height="237.50" fill="#161b24"/>
-<rect x="326.56" y="1039.06" width="14.25" height="190.00" fill="#eef0ee" stroke="#2b3444" stroke-width="1.43"/>
-<rect x="894.19" y="1039.06" width="14.25" height="190.00" fill="#eef0ee" stroke="#2b3444" stroke-width="1.43"/>
-<rect x="326.56" y="1214.81" width="581.88" height="14.25" fill="#eef0ee" stroke="#2b3444" stroke-width="1.43"/>
-<line x1="344.38" y1="243.44" x2="558.12" y2="243.44" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="344.38" y1="252.34" x2="558.12" y2="252.34" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="344.38" y1="261.25" x2="558.12" y2="261.25" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="665.00" y1="243.44" x2="783.75" y2="243.44" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="665.00" y1="252.34" x2="783.75" y2="252.34" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="665.00" y1="261.25" x2="783.75" y2="261.25" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="938.12" y1="243.44" x2="1175.62" y2="243.44" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="938.12" y1="252.34" x2="1175.62" y2="252.34" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="938.12" y1="261.25" x2="1175.62" y2="261.25" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1318.12" y1="243.44" x2="1555.62" y2="243.44" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1318.12" y1="252.34" x2="1555.62" y2="252.34" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1318.12" y1="261.25" x2="1555.62" y2="261.25" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="451.25" y1="1025.70" x2="748.12" y2="1025.70" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="451.25" y1="1034.61" x2="748.12" y2="1034.61" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1211.25" y1="1030.16" x2="1211.25" y2="923.28" stroke="#161b24" stroke-width="2.14" stroke-linecap="butt"/>
-<polyline points="1211.25,923.28 1218.24,923.51 1225.20,924.20 1232.10,925.33 1238.91,926.92 1245.60,928.95 1252.15,931.42 1258.52,934.30 1264.69,937.60 1270.63,941.29 1276.31,945.37 1281.72,949.80 1286.82,954.58 1291.60,959.69 1296.04,965.09 1300.11,970.78 1303.81,976.72 1307.10,982.89 1309.99,989.26 1312.45,995.80 1314.48,1002.49 1316.07,1009.31 1317.21,1016.21 1317.90,1023.17 1318.12,1030.16" fill="none" stroke="#8b96a8" stroke-width="1.43" stroke-linejoin="round"/>
-<line x1="255.31" y1="659.06" x2="255.31" y2="801.56" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="264.22" y1="659.06" x2="264.22" y2="801.56" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="273.12" y1="659.06" x2="273.12" y2="801.56" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1650.62" y1="368.12" x2="1650.62" y2="558.12" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1659.53" y1="368.12" x2="1659.53" y2="558.12" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1668.44" y1="368.12" x2="1668.44" y2="558.12" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1650.62" y1="712.50" x2="1650.62" y2="926.25" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1659.53" y1="712.50" x2="1659.53" y2="926.25" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="1668.44" y1="712.50" x2="1668.44" y2="926.25" stroke="#161b24" stroke-width="1.31" stroke-linecap="butt"/>
-<line x1="629.38" y1="380.00" x2="736.25" y2="380.00" stroke="#161b24" stroke-width="2.14" stroke-linecap="butt"/>
-<polyline points="736.25,380.00 736.02,386.99 735.34,393.95 734.20,400.85 732.61,407.66 730.58,414.35 728.11,420.90 725.23,427.27 721.93,433.44 718.24,439.38 714.16,445.06 709.73,450.47 704.95,455.57 699.84,460.35 694.44,464.79 688.75,468.86 682.81,472.56 676.64,475.85 670.27,478.74 663.73,481.20 657.04,483.23 650.23,484.82 643.32,485.96 636.36,486.65 629.38,486.88" fill="none" stroke="#8b96a8" stroke-width="1.43" stroke-linejoin="round"/>
-<line x1="403.75" y1="641.25" x2="403.75" y2="534.38" stroke="#161b24" stroke-width="2.14" stroke-linecap="butt"/>
-<polyline points="403.75,534.38 410.74,534.60 417.70,535.29 424.60,536.43 431.41,538.02 438.10,540.05 444.65,542.51 451.02,545.40 457.19,548.69 463.13,552.39 468.81,556.46 474.22,560.90 479.32,565.68 484.10,570.78 488.54,576.19 492.61,581.87 496.31,587.81 499.60,593.98 502.49,600.35 504.95,606.90 506.98,613.59 508.57,620.40 509.71,627.30 510.40,634.26 510.62,641.25" fill="none" stroke="#8b96a8" stroke-width="1.43" stroke-linejoin="round"/>
-<line x1="1045.00" y1="641.25" x2="1045.00" y2="534.38" stroke="#161b24" stroke-width="2.14" stroke-linecap="butt"/>
-<polyline points="1045.00,534.38 1038.01,534.60 1031.05,535.29 1024.15,536.43 1017.34,538.02 1010.65,540.05 1004.10,542.51 997.73,545.40 991.56,548.69 985.62,552.39 979.94,556.46 974.53,560.90 969.43,565.68 964.65,570.78 960.21,576.19 956.14,581.87 952.44,587.81 949.15,593.98 946.26,600.35 943.80,606.90 941.77,613.59 940.18,620.40 939.04,627.30 938.35,634.26 938.12,641.25" fill="none" stroke="#8b96a8" stroke-width="1.43" stroke-linejoin="round"/>
-<line x1="1282.50" y1="641.25" x2="1282.50" y2="534.38" stroke="#161b24" stroke-width="2.14" stroke-linecap="butt"/>
-<polyline points="1282.50,534.38 1289.49,534.60 1296.45,535.29 1303.35,536.43 1310.16,538.02 1316.85,540.05 1323.40,542.51 1329.77,545.40 1335.94,548.69 1341.88,552.39 1347.56,556.46 1352.97,560.90 1358.07,565.68 1362.85,570.78 1367.29,576.19 1371.36,581.87 1375.06,587.81 1378.35,593.98 1381.24,600.35 1383.70,606.90 1385.73,613.59 1387.32,620.40 1388.46,627.30 1389.15,634.26 1389.38,641.25" fill="none" stroke="#8b96a8" stroke-width="1.43" stroke-linejoin="round"/>
-<line x1="944.06" y1="819.38" x2="944.06" y2="914.38" stroke="#161b24" stroke-width="2.14" stroke-linecap="butt"/>
-<polyline points="944.06,914.38 950.28,914.17 956.46,913.56 962.60,912.55 968.65,911.14 974.60,909.33 980.42,907.14 986.08,904.58 991.56,901.65 996.84,898.36 1001.89,894.74 1006.70,890.80 1011.24,886.55 1015.49,882.01 1019.43,877.21 1023.05,872.15 1026.33,866.88 1029.27,861.39 1031.83,855.73 1034.02,849.91 1035.83,843.96 1037.24,837.91 1038.25,831.77 1038.86,825.59 1039.06,819.38" fill="none" stroke="#8b96a8" stroke-width="1.43" stroke-linejoin="round"/>
-<line x1="326.56" y1="1039.06" x2="908.44" y2="1039.06" stroke="#9aa5b6" stroke-width="1.31" stroke-linecap="butt" stroke-dasharray="16.6,10.7"/>
-<text x="617.50" y="1022.44" font-size="18.0" fill="#9aa5b6" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">天花樑・淨高 240</text>
-<line x1="273.12" y1="641.25" x2="1650.62" y2="641.25" stroke="#9aa5b6" stroke-width="1.31" stroke-linecap="butt" stroke-dasharray="16.6,10.7"/>
-<text x="961.88" y="624.62" font-size="18.0" fill="#9aa5b6" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">天花樑</text>
-<text x="451.25" y="429.88" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">主臥室</text>
-<text x="451.25" y="467.88" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">9.6 m² ／ 2.9 坪</text>
-<text x="724.38" y="429.88" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">主衛浴</text>
-<text x="724.38" y="467.88" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">5.12 m² ／ 1.55 坪</text>
-<text x="1033.12" y="429.88" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">次臥室</text>
-<text x="1033.12" y="467.88" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">11.52 m² ／ 3.48 坪</text>
-<text x="1448.75" y="429.88" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">次臥室</text>
-<text x="1448.75" y="467.88" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">10.88 m² ／ 3.29 坪</text>
-<text x="581.88" y="809.88" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">客廳</text>
-<text x="581.88" y="847.88" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">16.64 m² ／ 5.03 坪</text>
-<text x="997.50" y="716.06" font-size="20.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">走道</text>
-<text x="997.50" y="746.94" font-size="16.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">2.7 m²</text>
-<text x="997.50" y="898.94" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">客用衛浴</text>
-<text x="997.50" y="936.94" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">3.06 m² ／ 0.93 坪</text>
-<text x="1246.88" y="809.88" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">餐廳</text>
-<text x="1246.88" y="847.88" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">7.68 m² ／ 2.32 坪</text>
-<text x="1520.00" y="809.88" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">廚房</text>
-<text x="1520.00" y="847.88" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">7.04 m² ／ 2.13 坪</text>
-<text x="617.50" y="1112.69" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">陽台</text>
-<text x="617.50" y="1150.69" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">7.65 m² ／ 2.31 坪</text>
-<line x1="273.12" y1="148.44" x2="1650.62" y2="148.44" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="273.12" y1="137.75" x2="273.12" y2="159.12" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="629.38" y1="137.75" x2="629.38" y2="159.12" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="819.38" y1="137.75" x2="819.38" y2="159.12" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1246.88" y1="137.75" x2="1246.88" y2="159.12" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1650.62" y1="137.75" x2="1650.62" y2="159.12" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<text x="451.25" y="134.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">300</text>
-<text x="724.38" y="134.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">160</text>
-<text x="1033.12" y="134.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">360</text>
-<text x="1448.75" y="134.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">340</text>
-<line x1="148.44" y1="261.25" x2="148.44" y2="1229.06" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="137.75" y1="261.25" x2="159.12" y2="261.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="137.75" y1="641.25" x2="159.12" y2="641.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="137.75" y1="1021.25" x2="159.12" y2="1021.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="137.75" y1="1229.06" x2="159.12" y2="1229.06" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<text x="134.19" y="451.25" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" transform="rotate(-90 134.19 451.25)">320</text>
-<text x="134.19" y="831.25" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" transform="rotate(-90 134.19 831.25)">320</text>
-<text x="134.19" y="1125.16" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" transform="rotate(-90 134.19 1125.16)">175</text>
-<line x1="273.12" y1="1306.25" x2="1650.62" y2="1306.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="273.12" y1="1295.56" x2="273.12" y2="1316.94" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="890.62" y1="1295.56" x2="890.62" y2="1316.94" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1104.38" y1="1295.56" x2="1104.38" y2="1316.94" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1389.38" y1="1295.56" x2="1389.38" y2="1316.94" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1650.62" y1="1295.56" x2="1650.62" y2="1316.94" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<text x="581.88" y="1292.00" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">520</text>
-<text x="997.50" y="1292.00" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">180</text>
-<text x="1246.88" y="1292.00" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">240</text>
-<text x="1520.00" y="1292.00" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">220</text>
-<line x1="273.12" y1="1377.50" x2="1650.62" y2="1377.50" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="273.12" y1="1366.81" x2="273.12" y2="1388.19" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1650.62" y1="1366.81" x2="1650.62" y2="1388.19" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<text x="961.88" y="1362.06" font-size="19.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">1160</text>
-<line x1="1757.50" y1="261.25" x2="1757.50" y2="1021.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1746.81" y1="261.25" x2="1768.19" y2="261.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1746.81" y1="641.25" x2="1768.19" y2="641.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="1746.81" y1="1021.25" x2="1768.19" y2="1021.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<text x="1742.06" y="641.25" font-size="19.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700" transform="rotate(-90 1742.06 641.25)">640</text>
-<line x1="71.25" y1="261.25" x2="71.25" y2="1021.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="60.56" y1="261.25" x2="81.94" y2="261.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<line x1="60.56" y1="1021.25" x2="81.94" y2="1021.25" stroke="#8b96a8" stroke-width="1.07" stroke-linecap="butt"/>
-<text x="55.81" y="641.25" font-size="19.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700" transform="rotate(-90 55.81 641.25)">640</text>
-<circle cx="95.00" cy="95.00" r="35.62" fill="#ffffff" stroke="#c8d0db" stroke-width="1.43"/>
-<polygon points="95.00,66.50 84.31,109.25 95.00,99.75 105.69,109.25" fill="none" stroke="#161b24" stroke-width="1.66" stroke-linejoin="round"/>
-<text x="95.00" y="147.25" font-size="20.0" fill="#161b24" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">N</text>
-<text x="581.88" y="1384.62" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">比例尺 1:50（原圖 A3）</text>
-<rect x="344.38" y="1410.75" width="118.75" height="14.25" fill="#161b24" stroke="#161b24" stroke-width="1.19"/>
-<text x="344.38" y="1446.38" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">0</text>
-<rect x="463.12" y="1410.75" width="118.75" height="14.25" fill="#ffffff" stroke="#161b24" stroke-width="1.19"/>
-<text x="463.12" y="1446.38" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">100</text>
-<rect x="581.88" y="1410.75" width="118.75" height="14.25" fill="#161b24" stroke="#161b24" stroke-width="1.19"/>
-<text x="581.88" y="1446.38" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">200</text>
-<rect x="700.62" y="1410.75" width="118.75" height="14.25" fill="#ffffff" stroke="#161b24" stroke-width="1.19"/>
-<text x="700.62" y="1446.38" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">300</text>
-<rect x="819.38" y="1410.75" width="118.75" height="14.25" fill="#161b24" stroke="#161b24" stroke-width="1.19"/>
-<text x="819.38" y="1446.38" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">400</text>
-<text x="819.38" y="1446.38" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">cm</text>
-<rect x="29.69" y="29.69" width="1834.69" height="1632.81" fill="none" stroke="#c8d0db" stroke-width="1.90"/>
-<rect x="36.81" y="36.81" width="1820.44" height="1618.56" fill="none" stroke="#c8d0db" stroke-width="0.95"/>
-<rect x="985.62" y="1455.88" width="866.88" height="194.75" fill="#f7f8fa" stroke="#c8d0db" stroke-width="1.43"/>
-<text x="1011.75" y="1493.88" font-size="23.0" fill="#161b24" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">示範住宅（三房兩廳兩衛）</text>
-<text x="1011.75" y="1531.88" font-size="21.0" fill="#5c6779" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">一層平面圖</text>
-<line x1="1011.75" y1="1550.88" x2="1826.38" y2="1550.88" stroke="#c8d0db" stroke-width="0.95" stroke-linecap="butt"/>
-<text x="1011.75" y="1581.75" font-size="18.0" fill="#5c6779" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">比例 1:50　日期 2026-10-18　圖號 A-01</text>
-<text x="1011.75" y="1612.62" font-size="16.0" fill="#9aa5b6" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">單位：公分｜牆厚：外牆 15、內牆 12｜樓高 280</text>
-<text x="1011.75" y="1638.75" font-size="16.0" fill="#5c6779" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">小R頻道 ・ AI 助理自製平面圖（2D／3D 同源資料）</text>
+<rect x="273.56" y="261.62" width="356.13" height="380.00" fill="#fdfbf5"/>
+<rect x="629.69" y="261.62" width="190.00" height="380.00" fill="#f2f7fb"/>
+<rect x="819.69" y="261.62" width="427.75" height="380.00" fill="#fdfbf5"/>
+<rect x="1247.43" y="261.62" width="403.87" height="380.00" fill="#fdfbf5"/>
+<rect x="273.56" y="641.62" width="617.75" height="380.00" fill="#fbfaf6"/>
+<rect x="891.31" y="641.62" width="213.87" height="178.06" fill="#f8f9fb"/>
+<rect x="891.31" y="819.69" width="213.87" height="201.94" fill="#f2f7fb"/>
+<rect x="1105.18" y="641.62" width="284.50" height="380.00" fill="#fbfaf6"/>
+<rect x="1389.69" y="641.62" width="261.62" height="380.00" fill="#f6faf5"/>
+<rect x="334.24" y="1039.53" width="567.02" height="190.00" fill="#f4f6f3"/>
+<rect x="394.92" y="309.37" width="149.21" height="189.01" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="394.92" y1="339.61" x2="544.14" y2="339.61" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<line x1="469.53" y1="309.37" x2="469.53" y2="339.61" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<rect x="331.26" y="295.45" width="39.79" height="39.79" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="568.01" y="295.45" width="39.79" height="39.79" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="283.51" y="395.92" width="44.76" height="159.16" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="305.89" y1="395.92" x2="305.89" y2="555.08" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<rect x="658.53" y="304.40" width="51.73" height="73.61" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<circle cx="684.40" cy="345.62" r="17.59" fill="#ffffff" stroke="#93a0b3" stroke-width="1.19"/>
+<rect x="740.10" y="290.47" width="61.68" height="51.73" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<circle cx="770.94" cy="316.34" r="16.55" fill="#ffffff" stroke="#93a0b3" stroke-width="1.19"/>
+<rect x="654.55" y="515.29" width="134.29" height="106.44" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<polyline points="654.55,515.29 788.85,515.29 788.85,621.73" fill="none" stroke="#93a0b3" stroke-width="0.99" stroke-linejoin="round" stroke-dasharray="9.0,6.0"/>
+<line x1="654.55" y1="515.29" x2="788.85" y2="621.73" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<circle cx="721.70" cy="568.51" r="3.48" fill="#93a0b3"/>
+<rect x="868.43" y="315.34" width="129.32" height="189.01" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="868.43" y1="345.58" x2="997.75" y2="345.58" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<line x1="933.09" y1="315.34" x2="933.09" y2="345.58" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<rect x="1077.33" y="302.41" width="144.24" height="57.70" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1109.16" y="380.00" width="44.76" height="41.78" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1077.33" y="566.02" width="144.24" height="52.72" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="1149.45" y1="566.02" x2="1149.45" y2="618.74" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<rect x="1330.99" y="315.34" width="129.32" height="184.03" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="1330.99" y1="344.79" x2="1460.31" y2="344.79" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<line x1="1395.65" y1="315.34" x2="1395.65" y2="344.79" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<rect x="1519.01" y="314.35" width="109.42" height="57.70" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1519.01" y="558.06" width="109.42" height="54.71" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="1573.72" y1="558.06" x2="1573.72" y2="612.77" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<rect x="329.27" y="836.60" width="87.54" height="179.06" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="397.55" y1="836.60" x2="397.55" y2="1015.65" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<line x1="329.27" y1="926.13" x2="397.55" y2="926.13" stroke="#93a0b3" stroke-width="0.99" stroke-linecap="butt"/>
+<rect x="482.46" y="865.45" width="74.61" height="99.48" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="818.69" y="788.85" width="52.72" height="169.11" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="845.05" y1="788.85" x2="845.05" y2="957.96" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<rect x="914.19" y="940.05" width="51.73" height="69.63" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<circle cx="940.05" cy="979.05" r="17.59" fill="#ffffff" stroke="#93a0b3" stroke-width="1.19"/>
+<rect x="1049.48" y="837.59" width="43.77" height="57.70" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<circle cx="1071.36" cy="866.44" r="14.01" fill="#ffffff" stroke="#93a0b3" stroke-width="1.19"/>
+<rect x="1191.73" y="767.96" width="139.27" height="79.58" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1197.70" y="773.93" width="127.33" height="67.64" fill="none" stroke="#93a0b3" stroke-width="0.90"/>
+<rect x="1204.66" y="722.20" width="45.76" height="27.85" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1273.30" y="722.20" width="45.76" height="27.85" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1204.66" y="865.45" width="45.76" height="27.85" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1273.30" y="865.45" width="45.76" height="27.85" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<rect x="1126.07" y="660.52" width="77.59" height="45.76" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="1164.87" y1="660.52" x2="1164.87" y2="706.28" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<rect x="1420.52" y="661.52" width="198.95" height="59.69" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="1520.00" y1="661.52" x2="1520.00" y2="721.20" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<rect x="1573.72" y="745.08" width="59.69" height="187.02" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="1603.56" y1="745.08" x2="1603.56" y2="932.09" stroke="#93a0b3" stroke-width="0.80" stroke-linecap="butt"/>
+<rect x="1408.59" y="933.09" width="71.62" height="69.63" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<line x1="1408.59" y1="957.46" x2="1480.21" y2="957.46" stroke="#93a0b3" stroke-width="0.90" stroke-linecap="butt"/>
+<rect x="356.13" y="1133.04" width="69.63" height="69.63" fill="#eef1f6" stroke="#93a0b3" stroke-width="1.39"/>
+<circle cx="390.94" cy="1167.85" r="23.68" fill="none" stroke="#93a0b3" stroke-width="1.19"/>
+<rect x="255.65" y="245.21" width="106.44" height="14.92" fill="#161b24"/>
+<rect x="541.15" y="245.21" width="134.29" height="14.92" fill="#161b24"/>
+<rect x="774.92" y="245.21" width="183.04" height="14.92" fill="#161b24"/>
+<rect x="1156.91" y="245.21" width="181.05" height="14.92" fill="#161b24"/>
+<rect x="1536.91" y="245.21" width="132.30" height="14.92" fill="#161b24"/>
+<rect x="255.65" y="1023.12" width="219.84" height="14.92" fill="#161b24"/>
+<rect x="724.19" y="1023.12" width="496.39" height="14.92" fill="#161b24"/>
+<rect x="1310.10" y="1023.12" width="359.11" height="14.92" fill="#161b24"/>
+<rect x="257.15" y="243.72" width="14.92" height="427.75" fill="#161b24"/>
+<rect x="257.15" y="790.84" width="14.92" height="248.69" fill="#161b24"/>
+<rect x="1652.80" y="243.72" width="14.92" height="140.26" fill="#161b24"/>
+<rect x="1652.80" y="543.14" width="14.92" height="187.02" fill="#161b24"/>
+<rect x="1652.80" y="909.21" width="14.92" height="130.31" fill="#161b24"/>
+<rect x="623.72" y="261.62" width="11.94" height="127.33" fill="#161b24"/>
+<rect x="623.72" y="478.48" width="11.94" height="163.14" fill="#161b24"/>
+<rect x="813.72" y="261.62" width="11.94" height="380.00" fill="#161b24"/>
+<rect x="1241.47" y="261.62" width="11.94" height="380.00" fill="#161b24"/>
+<rect x="273.56" y="635.65" width="139.27" height="11.94" fill="#161b24"/>
+<rect x="502.36" y="635.65" width="444.66" height="11.94" fill="#161b24"/>
+<rect x="1036.54" y="635.65" width="254.66" height="11.94" fill="#161b24"/>
+<rect x="1380.73" y="635.65" width="270.58" height="11.94" fill="#161b24"/>
+<rect x="885.34" y="641.62" width="11.94" height="34.82" fill="#161b24"/>
+<rect x="885.34" y="795.81" width="11.94" height="225.81" fill="#161b24"/>
+<rect x="1099.21" y="641.62" width="11.94" height="39.79" fill="#161b24"/>
+<rect x="1099.21" y="790.84" width="11.94" height="230.79" fill="#161b24"/>
+<rect x="891.31" y="813.72" width="60.68" height="11.94" fill="#161b24"/>
+<rect x="1031.57" y="813.72" width="73.61" height="11.94" fill="#161b24"/>
+<rect x="1383.72" y="641.62" width="11.94" height="248.69" fill="#161b24"/>
+<rect x="1383.72" y="1009.69" width="11.94" height="11.94" fill="#161b24"/>
+<rect x="328.27" y="1039.53" width="11.94" height="190.00" fill="#eef0ee" stroke="#2b3444" stroke-width="1.19"/>
+<rect x="895.29" y="1039.53" width="11.94" height="190.00" fill="#eef0ee" stroke="#2b3444" stroke-width="1.19"/>
+<rect x="327.28" y="1216.60" width="581.94" height="11.94" fill="#eef0ee" stroke="#2b3444" stroke-width="1.19"/>
+<line x1="362.09" y1="245.21" x2="541.15" y2="245.21" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="362.09" y1="252.67" x2="541.15" y2="252.67" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="362.09" y1="260.13" x2="541.15" y2="260.13" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="675.45" y1="245.21" x2="774.92" y2="245.21" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="675.45" y1="252.67" x2="774.92" y2="252.67" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="675.45" y1="260.13" x2="774.92" y2="260.13" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="957.96" y1="245.21" x2="1156.91" y2="245.21" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="957.96" y1="252.67" x2="1156.91" y2="252.67" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="957.96" y1="260.13" x2="1156.91" y2="260.13" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1337.96" y1="245.21" x2="1536.91" y2="245.21" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1337.96" y1="252.67" x2="1536.91" y2="252.67" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1337.96" y1="260.13" x2="1536.91" y2="260.13" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="475.50" y1="1026.85" x2="724.19" y2="1026.85" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="475.50" y1="1034.31" x2="724.19" y2="1034.31" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1220.58" y1="1030.58" x2="1220.58" y2="941.05" stroke="#161b24" stroke-width="1.79" stroke-linecap="butt"/>
+<polyline points="1220.58,941.05 1226.43,941.24 1232.26,941.81 1238.04,942.77 1243.75,944.10 1249.35,945.80 1254.84,947.86 1260.17,950.28 1265.34,953.04 1270.32,956.14 1275.08,959.55 1279.61,963.26 1283.88,967.27 1287.89,971.55 1291.60,976.07 1295.02,980.84 1298.11,985.81 1300.87,990.98 1303.29,996.31 1305.35,1001.80 1307.05,1007.40 1308.38,1013.11 1309.34,1018.89 1309.91,1024.72 1310.10,1030.58" fill="none" stroke="#8b96a8" stroke-width="1.19" stroke-linejoin="round"/>
+<line x1="257.15" y1="671.47" x2="257.15" y2="790.84" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="264.61" y1="671.47" x2="264.61" y2="790.84" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="272.07" y1="671.47" x2="272.07" y2="790.84" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1652.80" y1="383.98" x2="1652.80" y2="543.14" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1660.26" y1="383.98" x2="1660.26" y2="543.14" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1667.72" y1="383.98" x2="1667.72" y2="543.14" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1652.80" y1="730.16" x2="1652.80" y2="909.21" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1660.26" y1="730.16" x2="1660.26" y2="909.21" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="1667.72" y1="730.16" x2="1667.72" y2="909.21" stroke="#161b24" stroke-width="1.09" stroke-linecap="butt"/>
+<line x1="629.69" y1="388.95" x2="719.21" y2="388.95" stroke="#161b24" stroke-width="1.79" stroke-linecap="butt"/>
+<polyline points="719.21,388.95 719.02,394.81 718.45,400.64 717.49,406.42 716.16,412.12 714.46,417.73 712.40,423.21 709.98,428.55 707.22,433.72 704.13,438.69 700.71,443.45 697.00,447.98 692.99,452.26 688.72,456.26 684.19,459.98 679.43,463.39 674.45,466.49 669.28,469.25 663.95,471.67 658.46,473.73 652.86,475.43 647.15,476.76 641.37,477.72 635.54,478.29 629.69,478.48" fill="none" stroke="#8b96a8" stroke-width="1.19" stroke-linejoin="round"/>
+<line x1="412.83" y1="641.62" x2="412.83" y2="552.09" stroke="#161b24" stroke-width="1.79" stroke-linecap="butt"/>
+<polyline points="412.83,552.09 418.68,552.29 424.51,552.86 430.29,553.81 436.00,555.14 441.61,556.85 447.09,558.91 452.42,561.33 457.59,564.09 462.57,567.18 467.33,570.60 471.86,574.31 476.13,578.32 480.14,582.59 483.86,587.12 487.27,591.88 490.36,596.86 493.12,602.03 495.54,607.36 497.60,612.84 499.31,618.45 500.64,624.16 501.59,629.94 502.16,635.77 502.36,641.62" fill="none" stroke="#8b96a8" stroke-width="1.19" stroke-linejoin="round"/>
+<line x1="1036.54" y1="641.62" x2="1036.54" y2="552.09" stroke="#161b24" stroke-width="1.79" stroke-linecap="butt"/>
+<polyline points="1036.54,552.09 1030.69,552.29 1024.86,552.86 1019.08,553.81 1013.37,555.14 1007.77,556.85 1002.28,558.91 996.95,561.33 991.78,564.09 986.80,567.18 982.04,570.60 977.51,574.31 973.24,578.32 969.23,582.59 965.52,587.12 962.10,591.88 959.01,596.86 956.25,602.03 953.83,607.36 951.77,612.84 950.07,618.45 948.74,624.16 947.78,629.94 947.21,635.77 947.02,641.62" fill="none" stroke="#8b96a8" stroke-width="1.19" stroke-linejoin="round"/>
+<line x1="1291.20" y1="641.62" x2="1291.20" y2="552.09" stroke="#161b24" stroke-width="1.79" stroke-linecap="butt"/>
+<polyline points="1291.20,552.09 1297.06,552.29 1302.89,552.86 1308.67,553.81 1314.38,555.14 1319.98,556.85 1325.47,558.91 1330.80,561.33 1335.97,564.09 1340.94,567.18 1345.71,570.60 1350.23,574.31 1354.51,578.32 1358.52,582.59 1362.23,587.12 1365.64,591.88 1368.74,596.86 1371.50,602.03 1373.92,607.36 1375.98,612.84 1377.68,618.45 1379.01,624.16 1379.97,629.94 1380.54,635.77 1380.73,641.62" fill="none" stroke="#8b96a8" stroke-width="1.19" stroke-linejoin="round"/>
+<line x1="951.99" y1="819.69" x2="951.99" y2="899.27" stroke="#161b24" stroke-width="1.79" stroke-linecap="butt"/>
+<polyline points="951.99,899.27 957.19,899.10 962.38,898.59 967.52,897.74 972.59,896.56 977.57,895.04 982.44,893.21 987.19,891.06 991.78,888.61 996.20,885.86 1000.44,882.82 1004.46,879.52 1008.26,875.96 1011.82,872.16 1015.13,868.13 1018.16,863.90 1020.91,859.48 1023.36,854.88 1025.51,850.14 1027.35,845.27 1028.86,840.28 1030.04,835.21 1030.89,830.07 1031.40,824.89 1031.57,819.69" fill="none" stroke="#8b96a8" stroke-width="1.19" stroke-linejoin="round"/>
+<line x1="327.28" y1="1039.53" x2="909.21" y2="1039.53" stroke="#9aa5b6" stroke-width="1.09" stroke-linecap="butt" stroke-dasharray="13.9,9.0"/>
+<text x="618.25" y="1025.60" font-size="18.0" fill="#9aa5b6" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">天花樑・淨高 240</text>
+<line x1="273.56" y1="641.62" x2="1651.31" y2="641.62" stroke="#9aa5b6" stroke-width="1.09" stroke-linecap="butt" stroke-dasharray="13.9,9.0"/>
+<text x="962.43" y="627.70" font-size="18.0" fill="#9aa5b6" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">天花樑</text>
+<text x="451.62" y="433.72" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">主臥室</text>
+<text x="451.62" y="465.55" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">13.68 m² ／ 4.14 坪</text>
+<text x="724.69" y="433.72" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">主衛浴</text>
+<text x="724.69" y="465.55" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">7.3 m² ／ 2.21 坪</text>
+<text x="1033.56" y="433.72" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">次臥室</text>
+<text x="1033.56" y="465.55" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">16.43 m² ／ 4.97 坪</text>
+<text x="1449.37" y="433.72" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">次臥室</text>
+<text x="1449.37" y="465.55" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">15.51 m² ／ 4.69 坪</text>
+<text x="582.43" y="813.72" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">客廳</text>
+<text x="582.43" y="845.55" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">23.72 m² ／ 7.18 坪</text>
+<text x="998.25" y="718.72" font-size="20.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">走道</text>
+<text x="998.25" y="744.58" font-size="16.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">3.85 m²</text>
+<text x="998.25" y="902.75" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">客用衛浴</text>
+<text x="998.25" y="934.58" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">4.36 m² ／ 1.32 坪</text>
+<text x="1247.43" y="813.72" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">餐廳</text>
+<text x="1247.43" y="845.55" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">10.93 m² ／ 3.31 坪</text>
+<text x="1520.50" y="813.72" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">廚房</text>
+<text x="1520.50" y="845.55" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">10.05 m² ／ 3.04 坪</text>
+<text x="617.75" y="1116.62" font-size="27.0" fill="#141b26" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">陽台</text>
+<text x="617.75" y="1148.46" font-size="18.0" fill="#6b7686" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">10.89 m² ／ 3.29 坪</text>
+<line x1="273.56" y1="149.21" x2="1651.31" y2="149.21" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="273.56" y1="140.26" x2="273.56" y2="158.17" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="629.69" y1="140.26" x2="629.69" y2="158.17" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="819.69" y1="140.26" x2="819.69" y2="158.17" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1247.43" y1="140.26" x2="1247.43" y2="158.17" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1651.31" y1="140.26" x2="1651.31" y2="158.17" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<text x="451.62" y="137.28" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">358</text>
+<text x="724.69" y="137.28" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">191</text>
+<text x="1033.56" y="137.28" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">430</text>
+<text x="1449.37" y="137.28" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">406</text>
+<line x1="149.21" y1="261.62" x2="149.21" y2="1229.53" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="140.26" y1="261.62" x2="158.17" y2="261.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="140.26" y1="641.62" x2="158.17" y2="641.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="140.26" y1="1021.62" x2="158.17" y2="1021.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="140.26" y1="1229.53" x2="158.17" y2="1229.53" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<text x="137.28" y="451.62" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" transform="rotate(-90 137.28 451.62)">382</text>
+<text x="137.28" y="831.62" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" transform="rotate(-90 137.28 831.62)">382</text>
+<text x="137.28" y="1125.58" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" transform="rotate(-90 137.28 1125.58)">209</text>
+<line x1="273.56" y1="1306.13" x2="1651.31" y2="1306.13" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="273.56" y1="1297.17" x2="273.56" y2="1315.08" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="891.31" y1="1297.17" x2="891.31" y2="1315.08" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1105.18" y1="1297.17" x2="1105.18" y2="1315.08" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1389.69" y1="1297.17" x2="1389.69" y2="1315.08" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1651.31" y1="1297.17" x2="1651.31" y2="1315.08" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<text x="582.43" y="1294.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">621</text>
+<text x="998.25" y="1294.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">215</text>
+<text x="1247.43" y="1294.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">286</text>
+<text x="1520.50" y="1294.19" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">263</text>
+<line x1="273.56" y1="1377.75" x2="1651.31" y2="1377.75" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="273.56" y1="1368.80" x2="273.56" y2="1386.70" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1651.31" y1="1368.80" x2="1651.31" y2="1386.70" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<text x="962.43" y="1364.82" font-size="19.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">1385</text>
+<line x1="1757.75" y1="261.62" x2="1757.75" y2="1021.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1748.80" y1="261.62" x2="1766.70" y2="261.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1748.80" y1="641.62" x2="1766.70" y2="641.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="1748.80" y1="1021.62" x2="1766.70" y2="1021.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<text x="1744.82" y="641.62" font-size="19.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700" transform="rotate(-90 1744.82 641.62)">764</text>
+<line x1="71.62" y1="261.62" x2="71.62" y2="1021.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="62.67" y1="261.62" x2="80.58" y2="261.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<line x1="62.67" y1="1021.62" x2="80.58" y2="1021.62" stroke="#8b96a8" stroke-width="0.90" stroke-linecap="butt"/>
+<text x="58.69" y="641.62" font-size="19.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700" transform="rotate(-90 58.69 641.62)">764</text>
+<circle cx="124.35" cy="122.36" r="29.84" fill="#ffffff" stroke="#c8d0db" stroke-width="1.19"/>
+<polygon points="124.35,98.48 115.39,134.29 124.35,126.34 133.30,134.29" fill="none" stroke="#161b24" stroke-width="1.39" stroke-linejoin="round"/>
+<text x="124.35" y="166.13" font-size="20.0" fill="#161b24" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">N</text>
+<text x="532.20" y="1202.67" font-size="18.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">比例尺 1:50（原圖 A3）</text>
+<rect x="333.25" y="1224.55" width="99.48" height="11.94" fill="#161b24" stroke="#161b24" stroke-width="0.99"/>
+<text x="333.25" y="1254.40" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">0</text>
+<rect x="432.72" y="1224.55" width="99.48" height="11.94" fill="#ffffff" stroke="#161b24" stroke-width="0.99"/>
+<text x="432.72" y="1254.40" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">100</text>
+<rect x="532.20" y="1224.55" width="99.48" height="11.94" fill="#161b24" stroke="#161b24" stroke-width="0.99"/>
+<text x="532.20" y="1254.40" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">200</text>
+<rect x="631.68" y="1224.55" width="99.48" height="11.94" fill="#ffffff" stroke="#161b24" stroke-width="0.99"/>
+<text x="631.68" y="1254.40" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">300</text>
+<rect x="731.15" y="1224.55" width="99.48" height="11.94" fill="#161b24" stroke="#161b24" stroke-width="0.99"/>
+<text x="731.15" y="1254.40" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">400</text>
+<text x="731.15" y="1254.40" font-size="15.0" fill="#5c6779" text-anchor="middle" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">cm</text>
+<rect x="69.63" y="67.64" width="1536.91" height="1367.80" fill="none" stroke="#c8d0db" stroke-width="1.59"/>
+<rect x="75.60" y="73.61" width="1524.97" height="1355.86" fill="none" stroke="#c8d0db" stroke-width="0.80"/>
+<rect x="870.42" y="1262.36" width="726.18" height="163.14" fill="#f7f8fa" stroke="#c8d0db" stroke-width="1.19"/>
+<text x="892.30" y="1294.19" font-size="23.0" fill="#161b24" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif" font-weight="700">示範住宅（三房兩廳兩衛）</text>
+<text x="892.30" y="1326.02" font-size="21.0" fill="#5c6779" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">一層平面圖</text>
+<line x1="892.30" y1="1341.94" x2="1574.71" y2="1341.94" stroke="#c8d0db" stroke-width="0.80" stroke-linecap="butt"/>
+<text x="892.30" y="1367.80" font-size="18.0" fill="#5c6779" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">比例 1:50　日期 2026-10-18　圖號 A-01</text>
+<text x="892.30" y="1393.66" font-size="16.0" fill="#9aa5b6" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">單位：公分｜牆厚：外牆 15、內牆 12｜樓高 280</text>
+<text x="892.30" y="1415.55" font-size="16.0" fill="#5c6779" text-anchor="start" font-family="Microsoft JhengHei, Noto Sans TC, sans-serif">小R頻道 ・ AI 助理自製平面圖（2D／3D 同源資料）</text>
 </svg>
