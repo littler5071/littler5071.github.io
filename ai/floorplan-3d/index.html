@@ -43,35 +43,34 @@
   #plan2d{display:none;width:100%;height:100%;object-fit:contain;background:#fff}
   .hint{position:absolute;left:10px;bottom:10px;background:rgba(23,32,48,.78);color:#fff;
         font-size:12px;padding:5px 11px;border-radius:999px;letter-spacing:.02em}
-  /* ── 手機虛擬搖桿（動態：左半側按下即在手指處生成，放手即消失）── */
-  #joy{position:absolute;width:106px;height:106px;border-radius:50%;
-       background:rgba(255,255,255,.10);border:2px solid rgba(255,255,255,.55);
-       box-shadow:0 2px 10px rgba(20,30,50,.15);display:none;z-index:6;
-       opacity:.4;transition:opacity .18s;pointer-events:none;
-       touch-action:none;user-select:none;-webkit-user-select:none;
-       -webkit-tap-highlight-color:transparent}
-  #joy.on{display:block;opacity:.78}
-  #joy .knob{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;
+  /* ── 手機虛擬搖桿：固定貼左下角（下方 25% 內），靜止極淡、按下才明顯 ── */
+  #joy{position:absolute;
+       left:calc(16px + env(safe-area-inset-left));
+       bottom:calc(18px + env(safe-area-inset-bottom));
+       width:96px;height:96px;border-radius:50%;
+       background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.42);
+       box-shadow:0 2px 10px rgba(20,30,50,.12);
+       display:none;z-index:6;opacity:.25;transition:opacity .4s;
+       pointer-events:none;touch-action:none;
+       user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+  body.touch .stage.walking #joy{display:block}
+  #joy.on{opacity:.7;transition:opacity .12s}
+  #joy .knob{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;
        border-radius:50%;background:rgba(54,78,112,.62);border:2px solid rgba(255,255,255,.9);
-       box-shadow:0 2px 8px rgba(20,30,50,.35);pointer-events:none;will-change:transform}
-  /* 左下角提示圈：靜止時很淡，閒置約 2 秒再淡一點（不擋畫面）*/
-  #joyHint{position:absolute;left:calc(14px + env(safe-area-inset-left));
-       bottom:calc(14px + env(safe-area-inset-bottom));
-       width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,255,255,.75);
-       background:rgba(255,255,255,.12);display:none;z-index:6;opacity:.5;
-       transition:opacity .5s;pointer-events:none}
-  body.touch .stage.walking #joyHint{display:block}
-  body.touch .stage.walking #joyHint.idle{opacity:.16}
-  #joyHint::after{content:'拖曳';position:absolute;left:50%;top:100%;transform:translateX(-50%);
-       margin-top:3px;font-size:10px;color:rgba(255,255,255,.95);
-       text-shadow:0 1px 3px rgba(0,0,0,.6);white-space:nowrap;pointer-events:none}
-  /* 搖桿出現時把提示移到上方，避免被遮住 */
+       box-shadow:0 2px 8px rgba(20,30,50,.35);pointer-events:none;will-change:transform;
+       opacity:0;transition:opacity .15s}
+  #joy.on .knob{opacity:1}
+  #joy::after{content:'移動';position:absolute;left:50%;bottom:100%;transform:translateX(-50%);
+       margin-bottom:5px;font-size:10px;color:rgba(255,255,255,.95);
+       text-shadow:0 1px 3px rgba(0,0,0,.6);white-space:nowrap;pointer-events:none;
+       opacity:.7;transition:opacity .3s}
+  #joy.on::after{opacity:1}
+  /* 走動模式的提示條移到畫面上方，避免被搖桿遮住 */
   body.touch .stage.walking .hint{bottom:auto;top:calc(10px + env(safe-area-inset-top));
        left:10px;right:10px;border-radius:10px;line-height:1.5;text-align:left}
   @media (max-width:400px){
-    #joy{width:94px;height:94px}
-    #joy .knob{width:40px;height:40px;margin:-20px 0 0 -20px}
-    #joyHint{width:46px;height:46px}
+    #joy{width:92px;height:92px}
+    #joy .knob{width:38px;height:38px;margin:-19px 0 0 -19px}
   }
   #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
         background:#eef1f4;color:var(--soft);font-size:14px;z-index:5}
@@ -124,7 +123,6 @@
         <div id="loading">正在載入 plan.json 與 3D 場景…</div>
         <div class="hint" id="hint">拖曳＝環繞／滾輪＝縮放／右鍵拖曳＝平移</div>
         <div id="joy"><div class="knob" id="joyKnob"></div></div>
-        <div id="joyHint"></div>
         <img id="plan2d" alt="住宅平面圖">
         <div class="fallback" id="fb">此瀏覽器無法載入 3D 或 plan.json。可直接開啟
           <a href="plan.svg">平面圖（SVG）</a> 或 <a href="plan.png">平面圖（PNG）</a>。</div>
@@ -782,7 +780,6 @@ function enterWalk(){
     ? '左下搖桿移動・畫面拖曳轉頭・再按「走進室內」離開'
     : 'W A S D／方向鍵移動・拖曳滑鼠轉頭・Shift 加速・Esc 離開';
   document.querySelector('.stage').classList.add('walking');
-  joyIdleKick();
   $('#bwalk').classList.add('on');
   document.querySelectorAll('#roomlist a').forEach(a => a.classList.remove('cur'));
 }
@@ -937,47 +934,49 @@ addEventListener('mousemove', e => {
 });
 canvas.style.touchAction = 'none';
 
-/* ── 動態虛擬搖桿（左半側按下＝手指處生成；與 WASD 共用 walkMove）── */
-const joy = $('#joy'), joyKnob = $('#joyKnob'), joyHint = $('#joyHint');
+/* ── 手機虛擬搖桿：固定貼左下角，按下才明顯（與 WASD 共用 walkMove）── */
+const joy = $('#joy'), joyKnob = $('#joyKnob');
 const stageEl = document.querySelector('.stage');
-let joyId = null, lookId = null, joyR = 32, joyIdleTimer = null;
+let joyId = null, lookId = null, joyR = 26, joyFadeTimer = null;
 const ld = {x:0, y:0};
 function joyReset(){
   joyVec.x = 0; joyVec.y = 0; joyId = null;
+  clearTimeout(joyFadeTimer);
   if (joyKnob) joyKnob.style.transform = 'translate(0,0)';
   if (joy) joy.classList.remove('on');
 }
-function joyPlace(cx, cy){
-  const r = stageEl.getBoundingClientRect(), half = joy.offsetWidth/2 || 53;
-  const x = Math.max(half, Math.min(r.width - half, cx - r.left));
-  const y = Math.max(half, Math.min(r.height - half, cy - r.top));
-  joy.style.left = (x - half) + 'px'; joy.style.top = (y - half) + 'px';
+function joyRelease(){          // 放手：停止移動，1.5 秒後淡回極淡
+  joyVec.x = 0; joyVec.y = 0; joyId = null;
+  if (joyKnob) joyKnob.style.transform = 'translate(0,0)';
+  clearTimeout(joyFadeTimer);
+  joyFadeTimer = setTimeout(() => {
+    if (joyId === null && joy) joy.classList.remove('on');
+  }, 1500);
 }
 function joyFromTouch(t){
   const r = joy.getBoundingClientRect();
   const cx = r.left + r.width/2, cy = r.top + r.height/2;
-  joyR = Math.max(18, r.width/2 - 22);
+  joyR = Math.max(18, r.width/2 - 20);
   let dx = t.clientX - cx, dy = t.clientY - cy;
   const len = Math.hypot(dx, dy);
   if (len > joyR){ dx = dx/len*joyR; dy = dy/len*joyR; }
   joyKnob.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
   joyVec.x = dx / joyR; joyVec.y = dy / joyR;   // 上＝前進（y 負）
 }
-function joyIdleKick(){
-  if (joyHint) joyHint.classList.remove('idle');
-  clearTimeout(joyIdleTimer);
-  joyIdleTimer = setTimeout(() => { if (joyHint) joyHint.classList.add('idle'); }, 2000);
+function inJoy(t){                               // 手指是否落在左下搖桿（含寬容邊距）
+  const r = joy.getBoundingClientRect(), pad = 18;
+  return t.clientX >= r.left-pad && t.clientX <= r.right+pad &&
+         t.clientY >= r.top-pad && t.clientY <= r.bottom+pad;
 }
 
 canvas.addEventListener('touchstart', e => {
   if (mode !== 'walk') return;
-  const r = stageEl.getBoundingClientRect();
   for (const t of e.changedTouches){
-    if (t.clientX - r.left < r.width/2){          // 左半側 → 在手指處生成搖桿（移動）
+    if (inJoy(t)){                                   // 左下搖桿 → 移動
       if (joyId !== null) continue;
-      joyId = t.identifier; joyPlace(t.clientX, t.clientY);
-      joy.classList.add('on'); joyFromTouch(t); joyIdleKick();
-    } else {                                       // 右半側 → 拖曳轉頭
+      joyId = t.identifier; clearTimeout(joyFadeTimer);
+      joy.classList.add('on'); joyFromTouch(t);
+    } else {                                         // 其他位置 → 拖曳轉頭
       if (lookId !== null) continue;
       lookId = t.identifier; ld.x = t.clientX; ld.y = t.clientY;
     }
@@ -999,13 +998,13 @@ canvas.addEventListener('touchmove', e => {
 }, {passive:false});
 const touchDone = e => {
   for (const t of e.changedTouches){
-    if (t.identifier === joyId) joyReset();
+    if (t.identifier === joyId) joyRelease();
     else if (t.identifier === lookId) lookId = null;
   }
 };
 canvas.addEventListener('touchend', touchDone);
 canvas.addEventListener('touchcancel', touchDone);
-if (IS_TOUCH) $('#hint').textContent = '左半側拖曳＝移動／右半側拖曳＝轉頭';
+if (IS_TOUCH) $('#hint').textContent = '單指拖曳＝環繞／雙指＝縮放／點房間飛過去';
 
 addEventListener('keydown', e => {
   const k = e.key.toLowerCase();
