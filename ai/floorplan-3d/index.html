@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>我請 AI 助理自己畫平面圖，再生成可走動的 3D 室內設計網頁｜AI 助理實測｜小R頻道</title>
 <meta name="description" content="同一個 AI 助理先畫出專業平面圖（SVG＋PNG），再用同一份 plan.json 生成 Three.js 互動 3D 室內設計：軌道環繞、WASD 第一人稱走動、房間標籤、2D／3D 切換。以 sRGB＋ACES 色調映射、環境光照（IBL）與 PBR 材質做寫實渲染。全程免費工具、無付費模型、無外部服務，含做法、資料結構與原始碼說明。">
 <link rel="stylesheet" href="../../css/ai-article.css">
@@ -20,7 +20,8 @@
   .stagewrap{display:flex;flex-direction:column;min-height:0}
   @media(min-width:900px){.stagewrap{flex-direction:row}}
   .stage{position:relative;flex:1 1 auto;background:#eef1f4;min-height:340px;
-        height:56vh;min-height:340px;max-height:640px}
+        height:56vh;min-height:340px;max-height:640px;
+        touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
   .side{flex:0 0 auto;width:100%;border-top:1px solid var(--line);
         padding:10px 12px;background:#fbfcfd;max-height:230px;overflow:auto}
   @media(min-width:900px){.side{width:216px;border-top:0;border-left:1px solid var(--line);
@@ -33,7 +34,7 @@
   .side li a.cur{background:var(--blue);color:#fff}
   .side .kv{font-size:12.5px;color:var(--soft);line-height:1.9}
   .side .kv b{color:var(--ink);font-weight:600}
-  canvas{display:block;width:100%;height:100%}
+  canvas{display:block;width:100%;height:100%;touch-action:none;user-select:none;-webkit-user-select:none}
   #labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
   .lab{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.86);
         border:1px solid rgba(54,78,112,.25);border-radius:999px;padding:2px 9px;
@@ -42,6 +43,36 @@
   #plan2d{display:none;width:100%;height:100%;object-fit:contain;background:#fff}
   .hint{position:absolute;left:10px;bottom:10px;background:rgba(23,32,48,.78);color:#fff;
         font-size:12px;padding:5px 11px;border-radius:999px;letter-spacing:.02em}
+  /* ── 手機虛擬搖桿（動態：左半側按下即在手指處生成，放手即消失）── */
+  #joy{position:absolute;width:106px;height:106px;border-radius:50%;
+       background:rgba(255,255,255,.10);border:2px solid rgba(255,255,255,.55);
+       box-shadow:0 2px 10px rgba(20,30,50,.15);display:none;z-index:6;
+       opacity:.4;transition:opacity .18s;pointer-events:none;
+       touch-action:none;user-select:none;-webkit-user-select:none;
+       -webkit-tap-highlight-color:transparent}
+  #joy.on{display:block;opacity:.78}
+  #joy .knob{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;
+       border-radius:50%;background:rgba(54,78,112,.62);border:2px solid rgba(255,255,255,.9);
+       box-shadow:0 2px 8px rgba(20,30,50,.35);pointer-events:none;will-change:transform}
+  /* 左下角提示圈：靜止時很淡，閒置約 2 秒再淡一點（不擋畫面）*/
+  #joyHint{position:absolute;left:calc(14px + env(safe-area-inset-left));
+       bottom:calc(14px + env(safe-area-inset-bottom));
+       width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,255,255,.75);
+       background:rgba(255,255,255,.12);display:none;z-index:6;opacity:.5;
+       transition:opacity .5s;pointer-events:none}
+  body.touch .stage.walking #joyHint{display:block}
+  body.touch .stage.walking #joyHint.idle{opacity:.16}
+  #joyHint::after{content:'拖曳';position:absolute;left:50%;top:100%;transform:translateX(-50%);
+       margin-top:3px;font-size:10px;color:rgba(255,255,255,.95);
+       text-shadow:0 1px 3px rgba(0,0,0,.6);white-space:nowrap;pointer-events:none}
+  /* 搖桿出現時把提示移到上方，避免被遮住 */
+  body.touch .stage.walking .hint{bottom:auto;top:calc(10px + env(safe-area-inset-top));
+       left:10px;right:10px;border-radius:10px;line-height:1.5;text-align:left}
+  @media (max-width:400px){
+    #joy{width:94px;height:94px}
+    #joy .knob{width:40px;height:40px;margin:-20px 0 0 -20px}
+    #joyHint{width:46px;height:46px}
+  }
   #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
         background:#eef1f4;color:var(--soft);font-size:14px;z-index:5}
   .fallback{display:none;padding:16px;font-size:14px;color:var(--soft)}
@@ -92,6 +123,8 @@
         <div id="labels"></div>
         <div id="loading">正在載入 plan.json 與 3D 場景…</div>
         <div class="hint" id="hint">拖曳＝環繞／滾輪＝縮放／右鍵拖曳＝平移</div>
+        <div id="joy"><div class="knob" id="joyKnob"></div></div>
+        <div id="joyHint"></div>
         <img id="plan2d" alt="住宅平面圖">
         <div class="fallback" id="fb">此瀏覽器無法載入 3D 或 plan.json。可直接開啟
           <a href="plan.svg">平面圖（SVG）</a> 或 <a href="plan.png">平面圖（PNG）</a>。</div>
@@ -214,6 +247,10 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 const CM = 0.01;
 const $ = (s) => document.querySelector(s);
 const canvas = $('#c');
+const IS_TOUCH = ('ontouchstart' in window) ||
+  (navigator.maxTouchPoints > 0 && matchMedia('(pointer: coarse)').matches);
+if (IS_TOUCH) document.body.classList.add('touch');
+let joyVec = {x:0, y:0};   // 虛擬搖桿方向（x：右正／左負，y：後正／前負）；-1..1
 
 /* ══════════════════════════════════════════════════════════════
    程序生成貼圖（全部用 canvas 現畫，不載入任何外部圖檔）
@@ -741,14 +778,21 @@ function enterWalk(){
   const dir = new THREE.Vector3(planCenter.x - camera.position.x, 0, planCenter.z - camera.position.z);
   yaw = Math.atan2(-dir.x, -dir.z); pitch = -0.05;
   mode = 'walk'; controls.enabled = false; camera.fov = 72; camera.updateProjectionMatrix();
-  $('#hint').textContent = 'W A S D／方向鍵移動・拖曳滑鼠轉頭・Shift 加速・Esc 離開';
+  $('#hint').textContent = IS_TOUCH
+    ? '左下搖桿移動・畫面拖曳轉頭・再按「走進室內」離開'
+    : 'W A S D／方向鍵移動・拖曳滑鼠轉頭・Shift 加速・Esc 離開';
+  document.querySelector('.stage').classList.add('walking');
+  joyIdleKick();
   $('#bwalk').classList.add('on');
   document.querySelectorAll('#roomlist a').forEach(a => a.classList.remove('cur'));
 }
 function exitWalk(){
   mode = 'orbit'; controls.enabled = true; camera.fov = 55; camera.updateProjectionMatrix();
-  $('#hint').textContent = '拖曳＝環繞／滾輪＝縮放／右鍵拖曳＝平移';
-  $('#bwalk').classList.remove('on'); resetView();
+  $('#hint').textContent = IS_TOUCH
+    ? '單指拖曳＝環繞／雙指＝縮放／點房間飛過去'
+    : '拖曳＝環繞／滾輪＝縮放／右鍵拖曳＝平移';
+  document.querySelector('.stage').classList.remove('walking');
+  joyReset(); $('#bwalk').classList.remove('on'); resetView();
 }
 function blocked(x, z){
   const pad = 0.16;
@@ -757,14 +801,21 @@ function blocked(x, z){
   return false;
 }
 function walkMove(dt){
+  // 鍵盤（WASD／方向鍵）
+  let kx = 0, kz = 0;
+  if (keys['w'] || keys['arrowup']) kz -= 1;
+  if (keys['s'] || keys['arrowdown']) kz += 1;
+  if (keys['a'] || keys['arrowleft']) kx -= 1;
+  if (keys['d'] || keys['arrowright']) kx += 1;
+  const kl = Math.hypot(kx, kz); if (kl) { kx /= kl; kz /= kl; }
+  // 虛擬搖桿（類比：推得越遠越快）
+  let jx = joyVec.x, jz = joyVec.y;
+  const jl = Math.hypot(jx, jz); if (jl > 1) { jx /= jl; jz /= jl; }
+  let fx = kx + jx, fz = kz + jz;
+  const len = Math.hypot(fx, fz);
+  if (!len) return;
+  if (len > 1) { fx /= len; fz /= len; }   // 合併後速度上限仍為 1
   const sp = (keys['shift'] ? 3.4 : 1.9) * dt;
-  let fx = 0, fz = 0;
-  if (keys['w'] || keys['arrowup']) fz -= 1;
-  if (keys['s'] || keys['arrowdown']) fz += 1;
-  if (keys['a'] || keys['arrowleft']) fx -= 1;
-  if (keys['d'] || keys['arrowright']) fx += 1;
-  if (!fx && !fz) return;
-  const len = Math.hypot(fx, fz); fx /= len; fz /= len;
   const sin = Math.sin(yaw), cos = Math.cos(yaw);
   const dx = (fx*cos + fz*sin) * sp;
   const dz = (-fx*sin + fz*cos) * sp;
@@ -885,6 +936,77 @@ addEventListener('mousemove', e => {
   d.set(e.clientX, e.clientY);
 });
 canvas.style.touchAction = 'none';
+
+/* ── 動態虛擬搖桿（左半側按下＝手指處生成；與 WASD 共用 walkMove）── */
+const joy = $('#joy'), joyKnob = $('#joyKnob'), joyHint = $('#joyHint');
+const stageEl = document.querySelector('.stage');
+let joyId = null, lookId = null, joyR = 32, joyIdleTimer = null;
+const ld = {x:0, y:0};
+function joyReset(){
+  joyVec.x = 0; joyVec.y = 0; joyId = null;
+  if (joyKnob) joyKnob.style.transform = 'translate(0,0)';
+  if (joy) joy.classList.remove('on');
+}
+function joyPlace(cx, cy){
+  const r = stageEl.getBoundingClientRect(), half = joy.offsetWidth/2 || 53;
+  const x = Math.max(half, Math.min(r.width - half, cx - r.left));
+  const y = Math.max(half, Math.min(r.height - half, cy - r.top));
+  joy.style.left = (x - half) + 'px'; joy.style.top = (y - half) + 'px';
+}
+function joyFromTouch(t){
+  const r = joy.getBoundingClientRect();
+  const cx = r.left + r.width/2, cy = r.top + r.height/2;
+  joyR = Math.max(18, r.width/2 - 22);
+  let dx = t.clientX - cx, dy = t.clientY - cy;
+  const len = Math.hypot(dx, dy);
+  if (len > joyR){ dx = dx/len*joyR; dy = dy/len*joyR; }
+  joyKnob.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+  joyVec.x = dx / joyR; joyVec.y = dy / joyR;   // 上＝前進（y 負）
+}
+function joyIdleKick(){
+  if (joyHint) joyHint.classList.remove('idle');
+  clearTimeout(joyIdleTimer);
+  joyIdleTimer = setTimeout(() => { if (joyHint) joyHint.classList.add('idle'); }, 2000);
+}
+
+canvas.addEventListener('touchstart', e => {
+  if (mode !== 'walk') return;
+  const r = stageEl.getBoundingClientRect();
+  for (const t of e.changedTouches){
+    if (t.clientX - r.left < r.width/2){          // 左半側 → 在手指處生成搖桿（移動）
+      if (joyId !== null) continue;
+      joyId = t.identifier; joyPlace(t.clientX, t.clientY);
+      joy.classList.add('on'); joyFromTouch(t); joyIdleKick();
+    } else {                                       // 右半側 → 拖曳轉頭
+      if (lookId !== null) continue;
+      lookId = t.identifier; ld.x = t.clientX; ld.y = t.clientY;
+    }
+  }
+  e.preventDefault();
+}, {passive:false});
+canvas.addEventListener('touchmove', e => {
+  if (mode !== 'walk') return;
+  for (const t of e.changedTouches){
+    if (t.identifier === joyId){ joyFromTouch(t); }
+    else if (t.identifier === lookId){
+      yaw -= (t.clientX - ld.x) * 0.0052;
+      pitch -= (t.clientY - ld.y) * 0.0038;
+      pitch = Math.max(-1.15, Math.min(1.15, pitch));
+      ld.x = t.clientX; ld.y = t.clientY;
+    }
+  }
+  e.preventDefault();
+}, {passive:false});
+const touchDone = e => {
+  for (const t of e.changedTouches){
+    if (t.identifier === joyId) joyReset();
+    else if (t.identifier === lookId) lookId = null;
+  }
+};
+canvas.addEventListener('touchend', touchDone);
+canvas.addEventListener('touchcancel', touchDone);
+if (IS_TOUCH) $('#hint').textContent = '左半側拖曳＝移動／右半側拖曳＝轉頭';
+
 addEventListener('keydown', e => {
   const k = e.key.toLowerCase();
   keys[k] = true; if (k === 'shift') keys['shift'] = true;
