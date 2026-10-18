@@ -36,7 +36,7 @@ HTML = r"""<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>我請 AI 助理自己畫平面圖，再生成可走動的 3D 室內設計網頁｜AI 助理實測｜小R頻道</title>
-<meta name="description" content="同一個 AI 助理先畫出專業平面圖（SVG＋PNG），再用同一份 plan.json 生成 Three.js 互動 3D 室內設計：軌道環繞、WASD 第一人稱走動、房間標籤、2D／3D 切換。全程免費工具、無付費模型、無外部服務，含做法、資料結構與原始碼說明。">
+<meta name="description" content="同一個 AI 助理先畫出專業平面圖（SVG＋PNG），再用同一份 plan.json 生成 Three.js 互動 3D 室內設計：軌道環繞、WASD 第一人稱走動、房間標籤、2D／3D 切換。以 sRGB＋ACES 色調映射、環境光照（IBL）與 PBR 材質做寫實渲染。全程免費工具、無付費模型、無外部服務，含做法、資料結構與原始碼說明。">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <style>
   /* ── 3D 展示區 ───────────────────────────────── */
@@ -92,6 +92,7 @@ HTML = r"""<!DOCTYPE html>
 </style>
 <link rel="stylesheet" href="../../nav.css?v=73b4d013">
 <script defer src="../../nav.js?v=4b28034a"></script>
+<script defer src="../../counter.js?v=94ad9679"></script>
 </head>
 <body>
 <div class="wrap">
@@ -179,9 +180,17 @@ __ROWS__
   <ul class="plain">
     <li><b>牆有洞</b>　程式把每道牆扣掉門窗後切成實體段，再把每個開口拆成「檯度以下的矮牆」與
     「上緣以上的過樑」——所以窗戶底下有牆、門上面有樑，牆不會是整片實心的。</li>
-    <li><b>家具只用基本量體</b>　床、衣櫃、沙發、餐桌、廚具台、冰箱、馬桶、洗手台、洗衣機
-    全部用方塊與圓柱拼出來，不載入任何外部模型檔。</li>
-    <li><b>光線</b>　環境光＋半球光＋方向光（帶陰影），確保每個房間都看得清楚，不會一片黑。</li>
+    <li><b>家具＝圓角量體＋細節</b>　床、衣櫃、沙發、餐桌、廚具台、冰箱、馬桶、洗手台、洗衣機
+    用 <b>RoundedBoxGeometry</b> 圓角量體拼出來，再加抱枕、棉被、蓮蓬頭、鏡子、毛巾、檯燈等小件；
+    不載入任何外部模型檔。</li>
+    <li><b>光線與色調</b>　環境光照（<b>IBL：RoomEnvironment ＋ PMREMGenerator</b>）＋
+    「從窗戶進來的太陽」方向光（<b>PCF 柔陰影</b>）＋客廳／臥室的暖色弱點光；
+    <b>sRGB 輸出 ＋ ACES Filmic 色調映射</b>，讓明暗過渡像照片、不會一片死白或一片黑。</li>
+    <li><b>PBR 材質（全程序生成）</b>　木地板（客廳／臥室）、磁磚（衛浴／廚房／陽台）分別用
+    <b>MeshStandardMaterial</b> 加木紋貼圖與粗糙度圖；沙發／床是布質、廚具檯面與衛浴是金屬／不鏽鋼。
+    <b>所有貼圖都用 canvas 即時畫出來</b>，不載入任何外部圖檔、也沒有授權問題。</li>
+    <li><b>空間細節</b>　門有門片（開約 35 度）、窗有窗框／玻璃／窗台、牆腳有<b>踢腳板</b>、
+    牆頂有天花線板，客廳與陽台各放一盆植物。</li>
     <li><b>三種視角</b>　①軌道環繞（拖曳旋轉、滾輪縮放、右鍵平移）②俯視鳥瞰 ③第一人稱走動
     （WASD／方向鍵，滑鼠拖曳轉頭，撞到牆會停下來）。</li>
     <li><b>免費、單檔</b>　一個 HTML 檔＋CDN 載入的 Three.js，沒有 npm、沒有打包、沒有後端。</li>
@@ -222,45 +231,196 @@ __ROWS__
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
 const CM = 0.01;
 const $ = (s) => document.querySelector(s);
 const canvas = $('#c');
 
-const FLOOR_COLOR = {bedroom:0xe6d8c0, bath:0xcfe1ea, living:0xe8ddc9, dining:0xe8ddc9,
-  kitchen:0xd8e2d4, corridor:0xe1e3e7, balcony:0xccd2c8};
-const FURN_COLOR = {bed:0x9b7d63, bed_single:0x9b7d63, wardrobe:0xc2ad93, sofa:0x7f8fa1,
-  coffee:0xb08f66, tv:0x6d737c, dtable:0xac8a62, chair:0x9d8568, cabinet:0xc2ad93,
-  counter:0xd6d3cc, fridge:0xc8ced5, toilet:0xffffff, basin:0xffffff, shower:0x9fd2e3,
-  washer:0xe2e5e8, desk:0xb28f65, nightstand:0xb28f65};
+/* ══════════════════════════════════════════════════════════════
+   程序生成貼圖（全部用 canvas 現畫，不載入任何外部圖檔）
+   ══════════════════════════════════════════════════════════════ */
+function cv(w,h){ const c=document.createElement('canvas'); c.width=w; c.height=h; return c; }
+let MAXANISO = 4;
+function tex(el, rx, ry, srgb){
+  const t = new THREE.CanvasTexture(el);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(rx, ry);
+  t.anisotropy = MAXANISO;
+  if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
 
-let plan = null, scene, camera, controls, renderer, ceiling, furnGroup, wallGroup;
+// 木地板：橫向拼板 + 木紋 + 板縫
+const WOOD_CANVAS = (() => {
+  const c = cv(768,768), g = c.getContext('2d');
+  g.fillStyle = '#c49a68'; g.fillRect(0,0,768,768);
+  const PH = 96;
+  for (let y=0; y<768; y+=PH){
+    const b = 105 + Math.random()*85;
+    g.fillStyle = 'rgb('+Math.round(b+48)+','+Math.round(b-8)+','+Math.round(b-62)+')';
+    g.fillRect(0,y,768,PH-3);
+    for (let i=0;i<48;i++){
+      const gy = y + Math.random()*(PH-6);
+      g.strokeStyle = 'rgba('+Math.round(58+Math.random()*55)+','+Math.round(36+Math.random()*36)+','+Math.round(16+Math.random()*26)+','+(0.14+Math.random()*0.30)+')';
+      g.lineWidth = 0.8 + Math.random()*2.2;
+      g.beginPath(); g.moveTo(0,gy);
+      for (let x=0;x<=768;x+=48) g.lineTo(x, gy + Math.sin(x*0.022+i*0.7)*2.4 + (Math.random()-0.5)*3.0);
+      g.stroke();
+    }
+    // 板縫（隨機錯位的接頭）
+    g.fillStyle = 'rgba(46,29,16,.68)'; g.fillRect(0,y+PH-3,768,3);
+    const joint = Math.random()*768;
+    g.fillStyle = 'rgba(46,29,16,.55)'; g.fillRect(joint, y, 3, PH);
+  }
+  return c;
+})();
+// 木地板粗糙度圖（灰階；紋理處稍粗糙 → 反射不一致）
+const WOOD_ROUGH = (() => {
+  const c = cv(256,256), g = c.getContext('2d');
+  g.fillStyle = '#b4b4b4'; g.fillRect(0,0,256,256);
+  for (let i=0;i<9000;i++){
+    const v = 150 + Math.random()*90;
+    g.fillStyle = 'rgba('+v+','+v+','+v+','+(0.10+Math.random()*0.25)+')';
+    g.fillRect(Math.random()*256, Math.random()*256, 1+Math.random()*3, 1+Math.random()*2);
+  }
+  for (let i=0;i<26;i++){
+    const gy = Math.random()*256;
+    g.strokeStyle = 'rgba(90,90,90,.35)'; g.lineWidth = 1+Math.random()*2;
+    g.beginPath(); g.moveTo(0,gy);
+    for (let x=0;x<=256;x+=24) g.lineTo(x, gy + (Math.random()-0.5)*3);
+    g.stroke();
+  }
+  return c;
+})();
+// 磁磚：淺灰白 4x4 格 + 填縫
+const TILE_CANVAS = (() => {
+  const c = cv(512,512), g = c.getContext('2d');
+  g.fillStyle = '#d9dcde'; g.fillRect(0,0,512,512);
+  const N = 4, S = 512/N;
+  for (let i=0;i<N;i++) for (let j=0;j<N;j++){
+    const v = 232 + Math.random()*16;
+    g.fillStyle = 'rgb('+Math.round(v)+','+Math.round(v-2)+','+Math.round(v-5)+')';
+    g.fillRect(i*S+3, j*S+3, S-6, S-6);
+    // 極淡的大理石紋
+    for (let k=0;k<5;k++){
+      g.strokeStyle = 'rgba(150,158,164,'+(0.05+Math.random()*0.10)+')';
+      g.lineWidth = 0.7+Math.random();
+      g.beginPath();
+      let x=i*S+4+Math.random()*(S-8), y=j*S+4+Math.random()*(S-8);
+      g.moveTo(x,y);
+      for (let s=0;s<5;s++){ x+=(Math.random()-0.5)*22; y+=(Math.random()-0.5)*22; g.lineTo(x,y); }
+      g.stroke();
+    }
+  }
+  return c;
+})();
+// 布質：細微雜點（近白，讓 material.color 決定顏色）
+const FABRIC_CANVAS = (() => {
+  const c = cv(256,256), g = c.getContext('2d');
+  g.fillStyle = '#f2f2f2'; g.fillRect(0,0,256,256);
+  for (let i=0;i<26000;i++){
+    const v = 210 + Math.random()*45;
+    g.fillStyle = 'rgba('+Math.round(v)+','+Math.round(v)+','+Math.round(v)+','+(0.12+Math.random()*0.35)+')';
+    g.fillRect(Math.random()*256, Math.random()*256, 1.4, 1.4);
+  }
+  for (let i=0;i<256;i+=3){
+    g.strokeStyle='rgba(200,200,200,.16)'; g.beginPath(); g.moveTo(i,0); g.lineTo(i,256); g.stroke();
+    g.beginPath(); g.moveTo(0,i); g.lineTo(256,i); g.stroke();
+  }
+  return c;
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   材質（PBR：MeshStandardMaterial / MeshPhysicalMaterial）
+   ══════════════════════════════════════════════════════════════ */
+const M = {
+  wall:    new THREE.MeshStandardMaterial({color:0xe9e3da, roughness:0.92, metalness:0, envMapIntensity:0.26}),
+  wallExt: new THREE.MeshStandardMaterial({color:0xded8cf, roughness:0.95, metalness:0, envMapIntensity:0.24}),
+  parapet: new THREE.MeshStandardMaterial({color:0xd4cfc7, roughness:0.95, metalness:0, envMapIntensity:0.24}),
+  ceil:    new THREE.MeshStandardMaterial({color:0xfbfaf8, roughness:1, metalness:0, transparent:true,
+             opacity:0.55, side:THREE.DoubleSide, envMapIntensity:0.2}),
+  glass:   new THREE.MeshPhysicalMaterial({color:0xbfd9e6, roughness:0.045, metalness:0,
+             transparent:true, opacity:0.34, ior:1.45, side:THREE.DoubleSide, envMapIntensity:0.5}),
+  frame:   new THREE.MeshStandardMaterial({color:0xf3f1ec, roughness:0.55, metalness:0.05, envMapIntensity:0.35}),
+  base:    new THREE.MeshStandardMaterial({color:0xafa189, roughness:0.85, metalness:0, envMapIntensity:0.24}),
+  trim:    new THREE.MeshStandardMaterial({color:0xf6f4ef, roughness:0.8, metalness:0, envMapIntensity:0.25}),
+  door:    new THREE.MeshStandardMaterial({color:0xcbbca4, roughness:0.68, metalness:0.02, envMapIntensity:0.28}),
+  doorDk:  new THREE.MeshStandardMaterial({color:0xa8947a, roughness:0.6, metalness:0.05, envMapIntensity:0.32}),
+  metal:   new THREE.MeshStandardMaterial({color:0xc7ccd2, roughness:0.3, metalness:0.78, envMapIntensity:1.2}),
+  steel:   new THREE.MeshStandardMaterial({color:0xb9bfc6, roughness:0.35, metalness:0.7, envMapIntensity:1.1}),
+  mirror:  new THREE.MeshStandardMaterial({color:0xdfe9ee, roughness:0.04, metalness:1.0, envMapIntensity:1.6}),
+  wood:    new THREE.MeshStandardMaterial({color:0xa87f52, roughness:0.6, metalness:0.02, envMapIntensity:0.32}),
+  woodDk:  new THREE.MeshStandardMaterial({color:0x7f603f, roughness:0.6, metalness:0.02, envMapIntensity:0.32}),
+  white:   new THREE.MeshStandardMaterial({color:0xf7f7f5, roughness:0.34, metalness:0.02, envMapIntensity:0.45}),
+  dark:    new THREE.MeshStandardMaterial({color:0x2b3036, roughness:0.4, metalness:0.3, envMapIntensity:0.6}),
+  pot:     new THREE.MeshStandardMaterial({color:0x9c8a78, roughness:0.85, metalness:0, envMapIntensity:0.3}),
+  leaf:    new THREE.MeshStandardMaterial({color:0x4f7a4a, roughness:0.85, metalness:0, envMapIntensity:0.25}),
+  leafDk:  new THREE.MeshStandardMaterial({color:0x3d6139, roughness:0.85, metalness:0, envMapIntensity:0.25}),
+  counterTop: new THREE.MeshStandardMaterial({color:0x8f959c, roughness:0.22, metalness:0.72, envMapIntensity:1.3}),
+};
+function fabric(hex, rx, ry, rough){
+  return new THREE.MeshStandardMaterial({map:tex(FABRIC_CANVAS, rx, ry, true), color:hex,
+    roughness:rough||0.95, metalness:0, envMapIntensity:0.28});
+}
+M.sofaFab  = fabric(0x8d99ab, 3, 2, 0.96);
+M.bedFab   = fabric(0xdcd3c4, 3, 2, 0.95);
+M.duvetFab = fabric(0xf0ece4, 3, 2, 0.94);
+M.pillowFab= fabric(0xffffff, 2, 2, 0.95);
+M.rugFab   = fabric(0xd8d2c6, 4, 3, 0.98);
+
+function floorMat(kind, w, dp){
+  if (kind === 'bath' || kind === 'kitchen' || kind === 'balcony' || kind === 'corridor'){
+    return new THREE.MeshStandardMaterial({map:tex(TILE_CANVAS, Math.max(1,w/0.85), Math.max(1,dp/0.85), true),
+      roughness:0.32, metalness:0.03, envMapIntensity:0.5});
+  }
+  return new THREE.MeshStandardMaterial({map:tex(WOOD_CANVAS, Math.max(1,w/3.2), Math.max(1,dp/3.2), true),
+    roughnessMap:tex(WOOD_ROUGH, Math.max(1,w/3.2), Math.max(1,dp/3.2), false),
+    roughness:0.72, metalness:0.02, envMapIntensity:0.45});
+}
+
+/* ══════════════════════════════════════════════════════════════
+   幾何工具
+   ══════════════════════════════════════════════════════════════ */
+let plan = null, scene, camera, controls, renderer, ceiling, furnGroup, wallGroup, decorGroup, sunLight;
 let roomMeshes = {}, labels = {}, planCenter = new THREE.Vector3(5.8,0,4);
 let mode = 'orbit';
 let loaded = false;
 const keys = {};
-let yaw = 0, pitch = 0, dragging = false, walkVel = new THREE.Vector3();
+let yaw = 0, pitch = 0, dragging = false;
 const d = new THREE.Vector2();
 let solidsForCollision = [];
-
-const R = (hex, rough=0.85) => new THREE.MeshStandardMaterial({color:hex, roughness:rough, metalness:0.03});
-const MAT = {
-  wall: new THREE.MeshStandardMaterial({color:0xf7f5f1, roughness:0.95}),
-  wallExt: new THREE.MeshStandardMaterial({color:0xece8e2, roughness:0.95}),
-  parapet: new THREE.MeshStandardMaterial({color:0xdedbd5, roughness:0.95}),
-  ceil: new THREE.MeshStandardMaterial({color:0xffffff, roughness:1, transparent:true,
-        opacity:0.5, side:THREE.DoubleSide}),
-  glass: new THREE.MeshStandardMaterial({color:0x9fd0e8, roughness:0.15, metalness:0.1,
-        transparent:true, opacity:0.42}),
-};
 
 function box(w,h,dp,x,y,z,mat){
   const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,dp), mat);
   m.position.set(x,y,z); m.castShadow = true; m.receiveShadow = true;
   return m;
 }
+function rbox(w,h,dp,r,mat){
+  const rr = Math.max(0.004, Math.min(r, Math.min(w,h,dp)/2.05));
+  const m = new THREE.Mesh(new RoundedBoxGeometry(w,h,dp,3,rr), mat);
+  m.castShadow = true; m.receiveShadow = true;
+  return m;
+}
+function put(mesh,x,y,z){ mesh.position.set(x,y,z); return mesh; }
 
-// ── 牆：把開口切成「檯度以下矮牆 + 上緣以上過樑」 ───────────────
+// 沿牆走向放一個盒子（s,e,h0,h1 與 wall 同單位 cm；pad 為兩側加厚 cm）
+function wallBox(w, s, e, h0, h1, mat, pad){
+  pad = pad || 0;
+  const len = (e-s)*CM, th = (w.t + pad*2)*CM, hh = (h1-h0)*CM;
+  let ww, dd, cx, cz;
+  if (w.axis === 'h'){ ww = len; dd = th; cx = (s+e)/2*CM; cz = w.b*CM; }
+  else { ww = th; dd = len; cx = w.b*CM; cz = (s+e)/2*CM; }
+  const m = new THREE.Mesh(new THREE.BoxGeometry(ww,hh,dd), mat);
+  m.position.set(cx, (h0+h1)/2*CM, cz);
+  m.castShadow = true; m.receiveShadow = true;
+  return m;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   牆：開口切成「檯度以下矮牆 + 上緣以上過樑」
+   ══════════════════════════════════════════════════════════════ */
 function wallSegments(w, H){
   const out = [];
   const ops = (w.openings||[]).slice().sort((a,b)=>a.s-b.s);
@@ -275,90 +435,218 @@ function wallSegments(w, H){
   return out;
 }
 
+function addDoor(w, o){
+  const fw = 5;                        // 門框寬（cm）
+  const hd = o.head, sil = o.sill;     // 0 → 210
+  const g = wallGroup;
+  // 門框：兩側立柱 + 上方橫樑
+  g.add(wallBox(w, o.s, o.s+fw, sil, hd, M.frame, 0.012));
+  g.add(wallBox(w, o.e-fw, o.e, sil, hd, M.frame, 0.012));
+  g.add(wallBox(w, o.s, o.e, hd-fw, hd, M.frame, 0.012));
+  // 門檻（石材）
+  g.add(wallBox(w, o.s, o.e, 0, 2, M.base, 0.008));
+  // 門扇：以鉸鏈為支點旋開約 35 度
+  const lw = (o.e-o.s)*CM - 0.03, dh = (hd-sil)*CM - 0.06;
+  const hingeCoord = (o.hinge === 'e') ? o.e : o.s;
+  const leaf = rbox(lw, dh, 0.042, 0.012, M.door);
+  leaf.position.set(lw/2 + 0.012, 0, 0);       // 從支點往外長
+  const grp = new THREE.Group();
+  grp.add(leaf);
+  // 門把
+  const knob = new THREE.Mesh(new THREE.CylinderGeometry(0.018,0.018,0.11,12), M.metal);
+  knob.rotation.z = Math.PI/2;
+  grp.add(put(knob, lw-0.10, -dh*0.06, 0.05));
+  let base;
+  if (w.axis === 'h') base = (o.hinge === 'e') ? Math.PI : 0;
+  else                base = (o.hinge === 'e') ? Math.PI/2 : -Math.PI/2;
+  const px = (w.axis === 'h') ? hingeCoord*CM : w.b*CM;
+  const pz = (w.axis === 'h') ? w.b*CM : hingeCoord*CM;
+  grp.position.set(px, (sil+hd)/2*CM - dh/2 + dh/2, pz);
+  grp.position.y = (sil+hd)/2*CM;
+  grp.rotation.y = base + (o.swing||1) * 0.62;
+  g.add(grp);
+}
+
+function addWindowTrim(w, o){
+  const fw = 6, sil = o.sill, hd = o.head;
+  const g = wallGroup;
+  // 窗框：左右立柱 + 上樑 + 下框
+  g.add(wallBox(w, o.s, o.s+fw, sil, hd, M.frame, 0.012));
+  g.add(wallBox(w, o.e-fw, o.e, sil, hd, M.frame, 0.012));
+  g.add(wallBox(w, o.s, o.e, hd-fw, hd, M.frame, 0.012));
+  g.add(wallBox(w, o.s, o.e, sil, sil+fw, M.frame, 0.012));
+  // 窗台板（向室內凸出）
+  g.add(wallBox(w, o.s-3, o.e+3, sil, sil+3, M.trim, 0.055));
+  // 門檻（落地窗）
+  if (o.type === 'slider') g.add(wallBox(w, o.s, o.e, 0, 2, M.frame, 0.02));
+}
+
 function addWall(w){
   const H = (w.kind === 'parapet') ? plan.parapet_height : plan.wall_height;
-  const mat = w.kind === 'parapet' ? MAT.parapet : (w.kind === 'ext' ? MAT.wallExt : MAT.wall);
+  const mat = w.kind === 'parapet' ? M.parapet : (w.kind === 'ext' ? M.wallExt : M.wall);
   for (const [s,e,h0,h1] of wallSegments(w, H)){
-    const len = (e-s)*CM, th = w.t*CM, hh = (h1-h0)*CM;
-    let ww, dd, cx, cz;
-    if (w.axis === 'h'){ ww = len; dd = th; cx = (s+e)/2*CM; cz = w.b*CM; }
-    else { ww = th; dd = len; cx = w.b*CM; cz = (s+e)/2*CM; }
-    wallGroup.add(box(ww, hh, dd, cx, (h0+h1)/2*CM, cz, mat));
+    wallGroup.add(wallBox(w, s, e, h0, h1, mat, 0));
     if (h0 === 0 && h1 === H && w.kind !== 'parapet')
-      solidsForCollision.push({x0:cx-ww/2, x1:cx+ww/2, z0:cz-dd/2, z1:cz+dd/2});
+      {
+        const len=(e-s)*CM, th=w.t*CM;
+        const cx = (w.axis==='h') ? (s+e)/2*CM : w.b*CM;
+        const cz = (w.axis==='h') ? w.b*CM : (s+e)/2*CM;
+        const ww = (w.axis==='h') ? len : th, dd = (w.axis==='h') ? th : len;
+        solidsForCollision.push({x0:cx-ww/2, x1:cx+ww/2, z0:cz-dd/2, z1:cz+dd/2});
+      }
+    // 踢腳板（只在落地段的室內面）
+    if (h0 === 0 && w.kind !== 'parapet' && e-s > 1)
+      wallGroup.add(wallBox(w, s, e, 0, 10, M.base, 0.018));
   }
-  // 玻璃：窗與落地窗
+  // 天花線板（牆頂一圈）
+  if (w.kind !== 'parapet')
+    wallGroup.add(wallBox(w, w.a0, w.a1, H-4, H, M.trim, 0.015));
+  // 窗：玻璃 + 窗框 + 窗台
   for (const o of (w.openings||[])){
-    if (o.type !== 'window' && o.type !== 'slider') continue;
-    const len = (o.e-o.s)*CM, th = 0.03, hh = (o.head-o.sill)*CM;
-    let ww, dd, cx, cz;
-    if (w.axis === 'h'){ ww = len; dd = th; cx = (o.s+o.e)/2*CM; cz = w.b*CM; }
-    else { ww = th; dd = len; cx = w.b*CM; cz = (o.s+o.e)/2*CM; }
-    wallGroup.add(box(ww, hh, dd, cx, (o.sill+o.head)/2*CM, cz, MAT.glass));
+    if (o.type === 'window' || o.type === 'slider'){
+      const len=(o.e-o.s)*CM, hh=(o.head-o.sill)*CM;
+      const th = 0.02;
+      let ww, dd, cx, cz;
+      if (w.axis === 'h'){ ww=len; dd=th; cx=(o.s+o.e)/2*CM; cz=w.b*CM; }
+      else { ww=th; dd=len; cx=w.b*CM; cz=(o.s+o.e)/2*CM; }
+      wallGroup.add(box(ww, hh, dd, cx, (o.sill+o.head)/2*CM, cz, M.glass));
+      addWindowTrim(w, o);
+    } else if (o.type === 'door'){
+      addDoor(w, o);
+    }
   }
 }
 
-// ── 家具：基本量體拼出來 ──────────────────────────────────────
+/* ══════════════════════════════════════════════════════════════
+   家具：RoundedBox 量體 + 細節
+   ══════════════════════════════════════════════════════════════ */
 function addFurn(f){
   const [x0,y0,x1,y1] = f.rect;
   const w = (x1-x0)*CM, dp = (y1-y0)*CM, h = f.h*CM;
   const cx = (x0+x1)/2*CM, cz = (y0+y1)/2*CM;
-  const c = FURN_COLOR[f.type] || 0xb9b2a6;
-  const g = new THREE.Group();
   const t = f.type;
+  const g = new THREE.Group();
   if (t === 'bed' || t === 'bed_single'){
-    g.add(box(w, h*0.55, dp, cx, h*0.275, cz, R(c)));
-    g.add(box(w*0.96, h*0.30, dp*0.94, cx, h*0.70, cz, R(0xf3f0ea)));
-    const pw = t === 'bed' ? w*0.42 : w*0.62;
-    g.add(box(pw, 0.10, dp*0.16, cx - (t==='bed'? w*0.23 : 0), h*0.88, cz - dp*0.36, R(0xffffff, 0.9)));
-    if (t === 'bed')
-      g.add(box(pw, 0.10, dp*0.16, cx + w*0.23, h*0.88, cz - dp*0.36, R(0xffffff, 0.9)));
+    const single = (t === 'bed_single');
+    g.add(put(rbox(w, h*0.5, dp, 0.05, M.wood), cx, h*0.25, cz));
+    g.add(put(rbox(w*0.97, h*0.30, dp*0.95, 0.05, M.bedFab), cx, h*0.64, cz));
+    g.add(put(rbox(w*0.99, h*0.20, dp*0.60, 0.06, M.duvetFab), cx, h*0.80, cz + dp*0.16));
+    const pw = single ? w*0.66 : w*0.44;
+    g.add(put(rbox(pw, 0.11, dp*0.18, 0.05, M.pillowFab), cx - (single?0:w*0.24), h*0.90, cz - dp*0.35));
+    if (!single) g.add(put(rbox(pw, 0.11, dp*0.18, 0.05, M.pillowFab), cx + w*0.24, h*0.90, cz - dp*0.35));
   } else if (t === 'sofa'){
-    g.add(box(w, h*0.45, dp, cx, h*0.225, cz, R(c)));
-    g.add(box(w*0.22, h*0.95, dp, cx - w*0.39, h*0.475, cz, R(c)));
-    g.add(box(w, h*0.95, dp*0.18, cx, h*0.475, cz - dp*0.41, R(c)));
+    g.add(put(rbox(w, h*0.42, dp, 0.07, M.sofaFab), cx, h*0.21, cz));
+    g.add(put(rbox(w, h*0.92, dp*0.18, 0.07, M.sofaFab), cx, h*0.52, cz - dp*0.41));
+    g.add(put(rbox(w*0.20, h*0.88, dp, 0.07, M.sofaFab), cx - w*0.40, h*0.50, cz));
+    g.add(put(rbox(w*0.20, h*0.88, dp, 0.07, M.sofaFab), cx + w*0.40, h*0.50, cz));
+    // 抱枕
+    g.add(put(rbox(w*0.26, 0.22, 0.11, 0.05, M.rugFab), cx - w*0.20, h*0.62, cz - dp*0.30));
+    g.add(put(rbox(w*0.26, 0.22, 0.11, 0.05, M.pillowFab), cx + w*0.20, h*0.62, cz - dp*0.30));
+  } else if (t === 'wardrobe' || t === 'cabinet'){
+    g.add(put(rbox(w, h, dp, 0.02, M.woodDk), cx, h/2, cz));
+    // 門片分縫 + 把手
+    for (const s of [-1,1]){
+      g.add(put(box(w*0.47, h*0.96, 0.012, cx + s*w*0.24, h/2, cz + dp/2), M.wood));
+      const hd = new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.012,0.16,10), M.metal);
+      g.add(put(hd, cx + s*w*0.06, h*0.5, cz + dp/2 + 0.02));
+    }
   } else if (t === 'toilet'){
-    g.add(box(w, h*0.75, dp*0.42, cx, h*0.375, cz - dp*0.29, R(0xffffff, 0.5)));
-    const cyl = new THREE.Mesh(new THREE.CylinderGeometry(dp*0.30, dp*0.26, h*0.62, 18), R(0xffffff,0.5));
-    cyl.position.set(cx, h*0.31, cz + dp*0.12); cyl.castShadow = true; g.add(cyl);
+    g.add(put(rbox(w, h*0.72, dp*0.40, 0.03, M.white), cx, h*0.36, cz - dp*0.30));
+    const bowl = new THREE.Mesh(new THREE.CylinderGeometry(dp*0.29, dp*0.24, h*0.60, 20), M.white);
+    g.add(put(bowl, cx, h*0.30, cz + dp*0.10));
+    const seat = new THREE.Mesh(new THREE.CylinderGeometry(dp*0.31, dp*0.31, 0.035, 20), M.white);
+    g.add(put(seat, cx, h*0.63, cz + dp*0.10));
   } else if (t === 'basin'){
-    g.add(box(w*0.55, h*0.78, dp*0.55, cx, h*0.39, cz, R(0xf0f0ee)));
-    g.add(box(w, h*0.16, dp, cx, h*0.92, cz, R(0xffffff, 0.5)));
+    g.add(put(rbox(w*0.62, h*0.80, dp*0.60, 0.02, M.woodDk), cx, h*0.40, cz));
+    g.add(put(rbox(w, h*0.14, dp, 0.03, M.white), cx, h*0.92, cz));
+    const bowl = new THREE.Mesh(new THREE.CylinderGeometry(dp*0.30, dp*0.24, 0.10, 20), M.white);
+    g.add(put(bowl, cx, h*0.96, cz));
+    const tap = new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,0.18,10), M.metal);
+    g.add(put(tap, cx, h*1.02, cz - dp*0.30));
+    // 鏡子（貼在牆側）
+    g.add(put(rbox(w*0.9, 0.62, 0.025, 0.01, M.mirror), cx, h*1.35, cz - dp/2 - 0.02));
   } else if (t === 'shower'){
-    g.add(box(w, 0.04, dp, cx, 0.02, cz, R(0xdfe6ea)));
-    g.add(box(0.03, h, dp, cx - w/2, h/2, cz, MAT.glass));
-    g.add(box(w, h, 0.03, cx, h/2, cz - dp/2, MAT.glass));
+    g.add(put(box(w, 0.05, dp, cx, 0.025, cz), M.white));
+    g.add(put(box(0.025, h*0.95, dp, cx - w/2, h*0.475, cz), M.glass));
+    g.add(put(box(w, h*0.95, 0.025, cx, h*0.475, cz - dp/2), M.glass));
+    // 淋浴柱 + 蓮蓬頭
+    const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,h*0.9,10), M.metal);
+    g.add(put(pipe, cx, h*0.45, cz + dp/2 - 0.07));
+    const head = new THREE.Mesh(new THREE.CylinderGeometry(0.10,0.10,0.03,16), M.metal);
+    g.add(put(head, cx, h*0.92, cz + dp/2 - 0.16));
+    // 毛巾桿 + 毛巾
+    const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.012,0.6,10), M.metal);
+    bar.rotation.z = Math.PI/2;
+    g.add(put(bar, cx - w/2 + 0.06, h*0.62, cz));
+    g.add(put(rbox(0.34, 0.42, 0.05, 0.02, M.rugFab), cx - w/2 + 0.06, h*0.42, cz));
   } else if (t === 'dtable'){
-    g.add(box(w, 0.05, dp, cx, h - 0.025, cz, R(c)));
+    g.add(put(rbox(w, 0.05, dp, 0.015, M.wood), cx, h - 0.025, cz));
     for (const sx of [-1,1]) for (const sz of [-1,1])
-      g.add(box(0.06, h - 0.05, 0.06, cx + sx*(w/2-0.08), (h-0.05)/2, cz + sz*(dp/2-0.08), R(c)));
+      g.add(put(rbox(0.06, h-0.05, 0.06, 0.01, M.wood), cx + sx*(w/2-0.08), (h-0.05)/2, cz + sz*(dp/2-0.08)));
+  } else if (t === 'coffee'){
+    g.add(put(rbox(w, 0.05, dp, 0.015, M.wood), cx, h - 0.025, cz));
+    for (const sx of [-1,1]) for (const sz of [-1,1])
+      g.add(put(rbox(0.05, h-0.05, 0.05, 0.01, M.woodDk), cx + sx*(w/2-0.07), (h-0.05)/2, cz + sz*(dp/2-0.07)));
   } else if (t === 'desk'){
-    g.add(box(w, 0.04, dp, cx, h - 0.02, cz, R(c)));
+    g.add(put(rbox(w, 0.04, dp, 0.012, M.wood), cx, h - 0.02, cz));
     for (const sx of [-1,1])
-      g.add(box(0.05, h - 0.04, 0.05, cx + sx*(w/2-0.06), (h-0.04)/2, cz, R(c)));
+      g.add(put(rbox(0.05, h-0.04, 0.05, 0.01, M.wood), cx + sx*(w/2-0.06), (h-0.04)/2, cz));
+    // 桌上一盞小檯燈
+    g.add(put(rbox(0.10,0.22,0.10,0.01,M.metal), cx + w*0.30, h+0.11, cz));
   } else if (t === 'chair'){
-    g.add(box(w, 0.05, dp, cx, h - 0.03, cz, R(c)));
-    g.add(box(w, h*0.55, 0.05, cx, h*0.72, cz - dp/2, R(c)));
+    g.add(put(rbox(w, 0.06, dp, 0.02, M.wood), cx, h - 0.03, cz));
+    g.add(put(rbox(w, h*0.52, 0.05, 0.02, M.wood), cx, h*0.70, cz - dp/2));
     for (const sx of [-1,1]) for (const sz of [-1,1])
-      g.add(box(0.035, h-0.05, 0.035, cx + sx*(w/2-0.05), (h-0.05)/2, cz + sz*(dp/2-0.05), R(c)));
+      g.add(put(box(0.035, h-0.06, 0.035, cx + sx*(w/2-0.05), (h-0.06)/2, cz + sz*(dp/2-0.05)), M.woodDk));
   } else if (t === 'tv'){
-    g.add(box(w, h, dp, cx, h/2, cz, R(c)));
-    g.add(box(0.04, 0.62, 1.08, cx - w/2 - 0.03, 0.95, cz, R(0x1a1d22, 0.4)));
+    g.add(put(rbox(w, h, dp, 0.02, M.woodDk), cx, h/2, cz));
+    // 電視面板（掛在櫃體側的牆面）
+    g.add(put(box(0.045, 0.66, 1.16, cx - w/2 - 0.045, 1.05, cz), M.dark));
+    g.add(put(box(0.012, 0.58, 1.08, cx - w/2 - 0.065, 1.05, cz), M.dark));
   } else if (t === 'counter'){
-    g.add(box(w, h*0.92, dp, cx, h*0.46, cz, R(c)));
-    g.add(box(w, 0.04, dp, cx, h*0.96, cz, R(0x4b515a, 0.5)));
-    if (w > 1.0) g.add(box(0.5, 0.01, 0.36, cx - 0.3, h*0.99, cz, R(0xb9c3cc, 0.3)));
-    if (w < 1.0) for (let i=0;i<2;i++)
-      g.add(new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.02,14),
-        R(0x2c3138,0.6)).translateX(cx).translateY(h*0.99).translateZ(cz - 0.28 + i*0.55));
+    g.add(put(rbox(w, h*0.90, dp, 0.02, M.white), cx, h*0.45, cz));
+    g.add(put(rbox(w+0.02, 0.05, dp+0.02, 0.01, M.counterTop), cx, h*0.94, cz));
+    if (w > 1.0){
+      // 水槽
+      g.add(put(box(0.56, 0.02, 0.40, cx - w*0.22, h*0.945, cz), M.steel));
+      const tap = new THREE.Mesh(new THREE.CylinderGeometry(0.018,0.018,0.24,10), M.metal);
+      g.add(put(tap, cx - w*0.22, h*0.94 + 0.12, cz - 0.22));
+    }
+    if (w < 1.0){
+      for (let i=0;i<2;i++){
+        const burner = new THREE.Mesh(new THREE.CylinderGeometry(0.10,0.10,0.018,16), M.dark);
+        g.add(put(burner, cx, h*0.97, cz - 0.32 + i*0.62));
+      }
+    }
+  } else if (t === 'fridge'){
+    g.add(put(rbox(w, h, dp, 0.03, M.white), cx, h/2, cz));
+    g.add(put(box(w*0.92, 0.012, dp*0.9, cx, h*0.62, cz + dp/2), M.steel));
+    const hd = new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,0.7,10), M.metal);
+    g.add(put(hd, cx + w*0.34, h*0.62, cz + dp/2 + 0.03));
   } else if (t === 'washer'){
-    g.add(box(w, h, dp, cx, h/2, cz, R(c)));
-    const c1 = new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.22,0.05,18), R(0x8f979f,0.4));
-    c1.rotation.x = Math.PI/2; c1.position.set(cx, h*0.55, cz + dp/2 + 0.01); g.add(c1);
+    g.add(put(rbox(w, h, dp, 0.03, M.white), cx, h/2, cz));
+    const drum = new THREE.Mesh(new THREE.CylinderGeometry(0.24,0.24,0.05,20), M.steel);
+    drum.rotation.x = Math.PI/2;
+    g.add(put(drum, cx, h*0.55, cz + dp/2 + 0.005));
+    g.add(put(new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.17,0.02,20), M.dark), cx, h*0.55, cz + dp/2 + 0.03));
   } else {
-    g.add(box(w, h, dp, cx, h/2, cz, R(c)));
+    g.add(put(rbox(w, h, dp, 0.03, M.wood), cx, h/2, cz));
   }
   g.traverse(o => { if (o.isMesh){ o.castShadow = true; o.receiveShadow = true; } });
+  return g;
+}
+
+/* 一兩盆植物，讓畫面不那麼冷 */
+function addPlant(x, z, s){
+  const g = new THREE.Group();
+  g.add(put(new THREE.Mesh(new THREE.CylinderGeometry(0.17*s,0.13*s,0.26*s,18), M.pot), 0, 0.13*s, 0));
+  for (let i=0;i<9;i++){
+    const rr = 0.10 + Math.random()*0.10;
+    const b = new THREE.Mesh(new THREE.SphereGeometry(rr*s, 10, 8), i%2 ? M.leaf : M.leafDk);
+    b.position.set((Math.random()-0.5)*0.30*s, 0.30*s + Math.random()*0.42*s, (Math.random()-0.5)*0.30*s);
+    b.castShadow = true; g.add(b);
+  }
+  g.position.set(x, 0, z);
   return g;
 }
 
@@ -371,17 +659,17 @@ function buildPlan(){
   }
   planCenter.set((minx+maxx)/2*CM, 0, (minz+maxz)/2*CM);
 
-  // 地板
+  // 地板（依房間性質給不同 PBR 材質）
   for (const r of rooms){
     const w = (r.rect[2]-r.rect[0])*CM, dp = (r.rect[3]-r.rect[1])*CM;
     const cx = (r.rect[0]+r.rect[2])/2*CM, cz = (r.rect[1]+r.rect[3])/2*CM;
-    const m = box(w, 0.06, dp, cx, -0.03, cz, R(FLOOR_COLOR[r.kind] || 0xe6e2d8, 0.95));
+    const m = box(w, 0.06, dp, cx, -0.03, cz, floorMat(r.kind, w, dp));
     m.userData.room = r.id;
     scene.add(m); roomMeshes[r.id] = m;
   }
   // 天花板
   const cw = (maxx-minx)*CM + 0.3, cd = (maxz-minz)*CM + 0.3;
-  ceiling = box(cw, 0.06, cd, planCenter.x, plan.wall_height*CM + 0.03, planCenter.z, MAT.ceil);
+  ceiling = box(cw, 0.06, cd, planCenter.x, plan.wall_height*CM + 0.03, planCenter.z, M.ceil);
   ceiling.castShadow = false; ceiling.visible = false;
   scene.add(ceiling);
 
@@ -390,16 +678,41 @@ function buildPlan(){
 
   furnGroup = new THREE.Group(); scene.add(furnGroup);
   for (const f of plan.furniture) furnGroup.add(addFurn(f));
+
+  // 植栽
+  decorGroup = new THREE.Group(); scene.add(decorGroup);
+  decorGroup.add(addPlant(0.30, 3.52, 1.0));   // 客廳角落
+  decorGroup.add(addPlant(4.72, 7.35, 0.85));  // 陽台
+  decorGroup.add(addPlant(7.55, 6.05, 0.8));   // 餐廳角落
+
+  // 暖色弱點光（客廳／臥室）——不亮到變白
+  for (const r of rooms){
+    if (r.kind === 'living' || r.kind === 'bedroom' || r.kind === 'dining'){
+      const cx = (r.rect[0]+r.rect[2])/2*CM, cz = (r.rect[1]+r.rect[3])/2*CM;
+      const pl = new THREE.PointLight(0xffd9a8, 5.0, 9, 2);
+      pl.position.set(cx, plan.wall_height*CM - 0.35, cz);
+      scene.add(pl);
+    }
+  }
+  // 太陽照射範圍對準整戶
+  if (sunLight){
+    sunLight.target.position.set(planCenter.x, 0, planCenter.z);
+    sunLight.position.set(planCenter.x + 9, 15, planCenter.z + 6.5);
+    const sc = sunLight.shadow.camera;
+    sc.left = -(maxx-minx)*CM*0.72 - 2; sc.right = (maxx-minx)*CM*0.72 + 2;
+    sc.top = (maxz-minz)*CM*0.72 + 2; sc.bottom = -(maxz-minz)*CM*0.72 - 2;
+    sc.updateProjectionMatrix();
+  }
 }
 
-// ── 房間標籤（把 3D 座標投影到畫面，用 HTML 顯示）─────────────
+/* ── 房間標籤 ─────────────────────────────────────────────── */
 function buildLabels(){
-  const box = $('#labels');
+  const el = $('#labels');
   for (const r of plan.rooms){
-    const el = document.createElement('div');
-    el.className = 'lab'; el.textContent = r.name;
-    box.appendChild(el);
-    labels[r.id] = {el:el, p:new THREE.Vector3((r.rect[0]+r.rect[2])/2*CM,
+    const sp = document.createElement('div');
+    sp.className = 'lab'; sp.textContent = r.name;
+    el.appendChild(sp);
+    labels[r.id] = {el:sp, p:new THREE.Vector3((r.rect[0]+r.rect[2])/2*CM,
                                                1.25, (r.rect[1]+r.rect[3])/2*CM)};
     const li = document.createElement('li');
     const a = document.createElement('a');
@@ -425,7 +738,7 @@ function updateLabels(){
   }
 }
 
-// ── 鏡頭飛行 ────────────────────────────────────────────────
+/* ── 鏡頭飛行 ─────────────────────────────────────────────── */
 let fly = null;
 function flyTo(roomId){
   const r = plan.rooms.find(x => x.id === roomId);
@@ -444,7 +757,7 @@ function resetView(){
   document.querySelectorAll('#roomlist a').forEach(a => a.classList.remove('cur'));
 }
 
-// ── 第一人稱 ────────────────────────────────────────────────
+/* ── 第一人稱 ─────────────────────────────────────────────── */
 function enterWalk(){
   const r = plan.rooms.find(x => x.id === 'living');
   camera.position.set((r.rect[0]+r.rect[2])/2*CM, 1.62, (r.rect[1]+r.rect[3])/2*CM);
@@ -489,30 +802,48 @@ function applyLook(){
   camera.quaternion.copy(q);
 }
 
-// ── 初始化 ──────────────────────────────────────────────────
+/* ── 初始化 ───────────────────────────────────────────────── */
 function initThree(){
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xeef1f4);
-  scene.fog = new THREE.Fog(0xeef1f4, 26, 60);
-  camera = new THREE.PerspectiveCamera(55, 1, 0.1, 300);
+  scene.background = new THREE.Color(0xd2dae2);
+  scene.fog = new THREE.Fog(0xd2dae2, 34, 78);
+  camera = new THREE.PerspectiveCamera(55, 1, 0.05, 300);
+
   renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.95;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  MAXANISO = Math.min(8, renderer.capabilities.getMaxAnisotropy ? renderer.capabilities.getMaxAnisotropy() : 4);
+
+  // ── 環境光照 IBL（three 內建 RoomEnvironment，免費、無外部素材）──
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envRT = pmrem.fromScene(new RoomEnvironment(), 0.04);
+  scene.environment = envRT.texture;
+  pmrem.dispose();
+
   controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true; controls.dampingFactor = 0.08;
-  controls.maxPolarAngle = Math.PI*0.495; controls.minDistance = 1.2; controls.maxDistance = 40;
+  controls.maxPolarAngle = Math.PI*0.495; controls.minDistance = 1.2; controls.maxDistance = 45;
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xc9cfd6, 0.75));
-  const sun = new THREE.DirectionalLight(0xfff5e6, 1.55);
-  sun.position.set(14, 19, 11); sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
-  const sc = sun.shadow.camera;
-  sc.left = -16; sc.right = 16; sc.top = 16; sc.bottom = -16; sc.near = 1; sc.far = 60;
-  scene.add(sun);
-  const fill = new THREE.DirectionalLight(0xdfe9ff, 0.45);
-  fill.position.set(-12, 12, -9); scene.add(fill);
+  // 從窗戶進來的太陽（柔陰影）
+  sunLight = new THREE.DirectionalLight(0xfff1d8, 3.2);
+  sunLight.position.set(10, 9.5, 7);
+  sunLight.castShadow = true;
+  sunLight.shadow.mapSize.set(2048, 2048);
+  sunLight.shadow.camera.near = 1; sunLight.shadow.camera.far = 60;
+  sunLight.shadow.bias = -0.0004;
+  sunLight.shadow.normalBias = 0.02;
+  sunLight.shadow.radius = 2.5;
+  scene.add(sunLight); scene.add(sunLight.target);
+
+  // 天空冷色補光（弱）
+  const fill = new THREE.DirectionalLight(0xdce8ff, 0.34);
+  fill.position.set(-9, 7, -11); scene.add(fill);
+  // 半球補光：把室內暗部稍微提亮，但不吃掉陰影對比
+  scene.add(new THREE.HemisphereLight(0xdfe8f5, 0xd8ccbb, 0.32));
 
   resize();
   addEventListener('resize', resize);
@@ -524,7 +855,7 @@ function resize(){
   camera.aspect = w / h; camera.updateProjectionMatrix();
 }
 
-function animate(t){
+function animate(){
   requestAnimationFrame(animate);
   if (!renderer) return;
   if (plan){
@@ -546,7 +877,7 @@ function animate(t){
   if (plan && !loaded){ loaded = true; const ld = $('#loading'); if (ld) ld.style.display = 'none'; }
 }
 
-// ── 互動 ────────────────────────────────────────────────────
+/* ── 互動 ─────────────────────────────────────────────────── */
 $('#b3d').addEventListener('click', () => {
   $('#c').style.display='block'; $('#plan2d').style.display='none';
   $('#labels').style.display='block'; $('#hint').style.display='block';
@@ -596,6 +927,8 @@ fetch('plan.json').then(r => r.json()).then(p => {
   $('#plan2d').style.display = 'none';
 });
 </script>
+</script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
 """
