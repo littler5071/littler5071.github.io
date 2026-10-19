@@ -253,7 +253,7 @@ HTML = r"""<!DOCTYPE html>
       <button class="svplay" id="svPlay" type="button"
               aria-label="播放 40 秒短片：平面圖怎麼變成 3D（YouTube Shorts，長度約 37 秒）">
         <img class="svcover" src="https://i.ytimg.com/vi/uXHUeG9banM/oardefault.jpg"
-             width="1080" height="1920" loading="lazy" decoding="async"
+             width="1080" height="1920" loading="eager" decoding="async"
              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/uXHUeG9banM/hqdefault.jpg'"
              alt="短片封面：把平面圖變成可以走進去的 3D 室內設計">
         <span class="svbtn" aria-hidden="true"></span>
