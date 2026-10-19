@@ -67,7 +67,9 @@ if os.path.exists(_snapfile):
 
 def views_html(rel):
     n = SNAP.get(rel)
-    fb = f' data-views-fallback="{n}"' if n else ""
+    # n = 0 也要寫進 fallback：沒有這個屬性時，服務一失敗 counter.js 會把整行收起來，
+    # 使用者就會回報「這頁少了瀏覽數統計」。SNAP 裡沒這一頁（None）才留空。
+    fb = f' data-views-fallback="{n}"' if n is not None else ""
     return f'<div class="viewsline">瀏覽次數 <span class="vnum"{fb} data-views>—</span></div>'
 
 
