@@ -98,6 +98,24 @@
   .gal figcaption b{display:block;font-size:14.5px;color:var(--ink);font-weight:600;margin-bottom:2px}
   .gal figcaption .ar{color:var(--blue);font-variant-numeric:tabular-nums;font-weight:600}
   .note-src{font-size:12.5px;color:var(--soft);line-height:1.75;margin:0 0 18px}
+  /* ── 短片（點封面才載入 YouTube，避免一開始就揹 iframe）──────── */
+  .shortvid{margin:0 0 22px;text-align:center}
+  .svwrap{position:relative;width:100%;max-width:380px;margin:0 auto;aspect-ratio:9/16;
+        background:#0d1117;border:2px solid var(--line);border-radius:16px;overflow:hidden}
+  @supports not (aspect-ratio:9/16){.svwrap{height:0;padding-bottom:177.78%}}
+  .svplay{display:block;width:100%;height:100%;padding:0;border:0;background:none;
+        cursor:pointer;position:relative;line-height:0}
+  .svcover{display:block;width:100%;height:100%;object-fit:cover}
+  .svbtn{position:absolute;left:50%;top:50%;width:74px;height:74px;margin:-37px 0 0 -37px;
+        border-radius:50%;background:rgba(13,17,23,.6);border:2px solid rgba(255,255,255,.92)}
+  .svbtn::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-40%,-50%);
+        border-style:solid;border-width:14px 0 14px 22px;
+        border-color:transparent transparent transparent #fff}
+  .svdur{position:absolute;right:9px;bottom:9px;background:rgba(13,17,23,.75);color:#fff;
+        font-size:12px;padding:2px 7px;border-radius:6px;font-variant-numeric:tabular-nums}
+  .svwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .svnote{font-size:12.5px;color:var(--soft);line-height:1.8;margin:10px auto 0;max-width:560px}
+  .svnote a{color:var(--blue)}
   /* ── 表格 ─────────────────────────────────────── */
   .tw{overflow-x:auto;margin:0 0 16px}
   table.bd{width:100%;min-width:480px;border-collapse:collapse;font-size:14.5px;
@@ -110,13 +128,29 @@
   pre.code{background:#f6f8fa;border:1px solid var(--line);border-radius:12px;padding:12px 14px;
     overflow-x:auto;font-size:13px;line-height:1.7;color:#2a3442;
     font-family:ui-monospace,Consolas,monospace}
-  /* hermesviews（瀏覽次數） */
+/* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
+
 </style>
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=4b28034a"></script>
+<script defer src="../../counter.js?v=94ad9679"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject",
+"name":"最近很紅，小R 也來試看看：平面圖丟給 AI 就長出 3D 室內設計",
+"description":"40 秒直式短片：把平面圖丟給 AI，就長出可以走進去的 3D 室內設計。平面圖與 3D 用的是同一份資料，改一個房間兩邊一起變；電腦用 WASD、手機用左下搖桿就能走進室內。",
+"thumbnailUrl":["https://i.ytimg.com/vi/uXHUeG9banM/oardefault.jpg","https://i.ytimg.com/vi/uXHUeG9banM/hqdefault.jpg"],
+"uploadDate":"2026-10-19T02:32:16-07:00",
+"duration":"PT37S",
+"embedUrl":"https://www.youtube.com/embed/uXHUeG9banM",
+"contentUrl":"https://www.youtube.com/shorts/uXHUeG9banM",
+"inLanguage":"zh-Hant",
+"publisher":{"@type":"Organization","name":"小R頻道","url":"https://littler5071.github.io/"}}
+</script>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/ai/floorplan-3d/">
 
@@ -132,9 +166,6 @@
 <meta name="twitter:description" content="最近很紅的「平面圖直接變成 3D」，小R 也來試看看：從一份平面圖資料 plan.json 出發，同時長出 2D 平面圖與可以走進去逛的 Three.js 3D 室內設計。點房間就飛進室內、軌道環繞、WASD 走動、2D／3D 切換；家具與設備（沙發、床、餐桌椅、廚具、抽油煙機、衛浴、窗簾、地毯、畫框）用圓角量體與 PBR 程序貼圖做出質感。含做法、資料結構與驗收方式，全程免費工具、無付費模型。">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <!-- /hermes-seo -->
-<link rel="stylesheet" href="../../nav.css?v=73b4d013">
-<script defer src="../../nav.js?v=4b28034a"></script>
-<script defer src="../../counter.js?v=94ad9679"></script>
 </head>
 <body>
 <div class="wrap">
@@ -149,6 +180,26 @@
     （向量 SVG ＋ 1900 px 點陣 PNG），資料存成一份 <b>plan.json</b>；
     再讓同一份 plan.json 餵給 Three.js，長出一個可以環繞、縮放、<b>走進去</b>的 3D 室內設計展示。
     <b>2D 與 3D 不是兩份工，是同一份資料的兩種呈現</b> —— 改一個房間尺寸，兩邊同時更新。
+  </div>
+
+  <h2><span class="dot"></span>看 40 秒短片：平面圖怎麼變成 3D</h2>
+  <div class="shortvid">
+    <div class="svwrap" id="svWrap"
+         data-id="uXHUeG9banM"
+         data-title="最近很紅，小R 也來試看看：平面圖丟給 AI 就長出 3D 室內設計">
+      <button class="svplay" id="svPlay" type="button"
+              aria-label="播放 40 秒短片：平面圖怎麼變成 3D（YouTube Shorts，長度約 37 秒）">
+        <img class="svcover" src="https://i.ytimg.com/vi/uXHUeG9banM/oardefault.jpg"
+             width="1080" height="1920" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/uXHUeG9banM/hqdefault.jpg'"
+             alt="短片封面：把平面圖變成可以走進去的 3D 室內設計">
+        <span class="svbtn" aria-hidden="true"></span>
+        <span class="svdur" aria-hidden="true">0:37</span>
+      </button>
+    </div>
+    <p class="svnote">40 秒直式短片（Shorts）：從平面圖到可以走進去的 3D 室內。
+      （若嵌入沒顯示，可直接在 <a href="https://www.youtube.com/shorts/uXHUeG9banM"
+      target="_blank" rel="noopener">YouTube 看</a>）</p>
   </div>
 
   <div class="demo">
@@ -1693,6 +1744,30 @@ fetch('plan.json').then(r => r.json()).then(p => {
   $('#plan2d').style.display = 'none';
 });
 </script>
+</script>
+<script>
+// 短片：預設只載入縮圖，點了播放鈕才把 YouTube iframe 換進去（省流量、不拖慢頁面）
+(function () {
+  var wrap = document.getElementById('svWrap');
+  var btn = document.getElementById('svPlay');
+  if (!wrap || !btn) return;
+  btn.addEventListener('click', function () {
+    var id = wrap.getAttribute('data-id');
+    var title = wrap.getAttribute('data-title') || '短片';
+    if (!id) return;
+    var f = document.createElement('iframe');
+    f.setAttribute('src', 'https://www.youtube.com/embed/' + id +
+                          '?autoplay=1&playsinline=1&rel=0&enablejsapi=1');
+    f.setAttribute('title', title);
+    f.setAttribute('allow',
+      'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    f.setAttribute('allowfullscreen', '');
+    wrap.innerHTML = '';
+    wrap.appendChild(f);
+    f.focus();
+  });
+})();
 </script>
 <div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
