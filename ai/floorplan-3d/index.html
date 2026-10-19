@@ -114,6 +114,21 @@
 <link rel="stylesheet" href="../../nav.css?v=73b4d013">
 <script defer src="../../nav.js?v=4b28034a"></script>
 <script defer src="../../counter.js?v=94ad9679"></script>
+<!-- hermes-seo -->
+<link rel="canonical" href="https://littler5071.github.io/ai/floorplan-3d/">
+
+<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
+<meta property="og:site_name" content="小R頻道">
+<meta property="og:type" content="website">
+<meta property="og:title" content="最近很紅的「平面圖變 3D」：小R 也來試看看｜AI 助理實測｜小R頻道">
+<meta property="og:description" content="最近很紅的「平面圖直接變成 3D」，小R 也來試看看：從一份平面圖資料 plan.json 出發，同時長出 2D 平面圖與可以走進去逛的 Three.js 3D 室內設計。點房間就飛進室內、軌道環繞、WASD 走動、2D／3D 切換；家具與設備（沙發、床、餐桌椅、廚具、抽油煙機、衛浴、窗簾、地毯、畫框）用圓角量體與 PBR 程序貼圖做出質感。含做法、資料結構與驗收方式，全程免費工具、無付費模型。">
+<meta property="og:url" content="https://littler5071.github.io/ai/floorplan-3d/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="最近很紅的「平面圖變 3D」：小R 也來試看看｜AI 助理實測｜小R頻道">
+<meta name="twitter:description" content="最近很紅的「平面圖直接變成 3D」，小R 也來試看看：從一份平面圖資料 plan.json 出發，同時長出 2D 平面圖與可以走進去逛的 Three.js 3D 室內設計。點房間就飛進室內、軌道環繞、WASD 走動、2D／3D 切換；家具與設備（沙發、床、餐桌椅、廚具、抽油煙機、衛浴、窗簾、地毯、畫框）用圓角量體與 PBR 程序貼圖做出質感。含做法、資料結構與驗收方式，全程免費工具、無付費模型。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<!-- /hermes-seo -->
 </head>
 <body>
 <div class="wrap">
@@ -182,8 +197,8 @@
   <p class="note-src">以下為依平面圖資料自動生成、並由程式自動擷取的渲染圖。</p>
   <div class="gal">
     <figure>
-      <img src="renders/living.jpg" alt="客廳的 3D 渲染圖：沙發、茶几、電視櫃、地毯與落地窗（含窗簾）" width="1200" height="661" loading="lazy" decoding="async">
-      <figcaption><b>客廳 <span class="ar">23.72 m²（7.18 坪）</span></b>沙發、茶几、電視櫃、地毯與落地窗（含窗簾）</figcaption>
+      <img src="renders/living.jpg" alt="客廳的 3D 渲染圖：沙發、茶几、電視櫃、鞋櫃、地毯與窗簾（大門進來就是客廳）" width="1200" height="661" loading="lazy" decoding="async">
+      <figcaption><b>客廳 <span class="ar">23.72 m²（7.18 坪）</span></b>沙發、茶几、電視櫃、鞋櫃、地毯與窗簾（大門進來就是客廳）</figcaption>
     </figure>
     <figure>
       <img src="renders/master.jpg" alt="主臥室的 3D 渲染圖：雙人床（含床頭板）、床頭櫃與衣櫃" width="1200" height="661" loading="lazy" decoding="async">
@@ -194,32 +209,32 @@
       <figcaption><b>主衛浴 <span class="ar">7.30 m²（2.21 坪）</span></b>馬桶、洗手台、鏡子與玻璃淋浴隔間</figcaption>
     </figure>
     <figure>
-      <img src="renders/bed2.jpg" alt="次臥室的 3D 渲染圖：單人床、書桌、椅子與衣櫃" width="1200" height="661" loading="lazy" decoding="async">
-      <figcaption><b>次臥室 <span class="ar">16.43 m²（4.97 坪）</span></b>單人床、書桌、椅子與衣櫃</figcaption>
+      <img src="renders/bed2.jpg" alt="次臥室的 3D 渲染圖：單人床、書桌（含桌上型電腦）、椅子與衣櫃" width="1200" height="661" loading="lazy" decoding="async">
+      <figcaption><b>次臥室 <span class="ar">16.43 m²（4.97 坪）</span></b>單人床、書桌（含桌上型電腦）、椅子與衣櫃</figcaption>
     </figure>
     <figure>
-      <img src="renders/bed3.jpg" alt="次臥室的 3D 渲染圖：單人床、書桌與衣櫃" width="1200" height="661" loading="lazy" decoding="async">
-      <figcaption><b>次臥室 <span class="ar">15.51 m²（4.69 坪）</span></b>單人床、書桌與衣櫃</figcaption>
+      <img src="renders/bed3.jpg" alt="次臥室的 3D 渲染圖：單人床、書桌（含桌上型電腦）與衣櫃" width="1200" height="661" loading="lazy" decoding="async">
+      <figcaption><b>次臥室 <span class="ar">15.51 m²（4.69 坪）</span></b>單人床、書桌（含桌上型電腦）與衣櫃</figcaption>
     </figure>
     <figure>
-      <img src="renders/gbath.jpg" alt="客用衛浴的 3D 渲染圖：馬桶與洗手台" width="1200" height="661" loading="lazy" decoding="async">
-      <figcaption><b>客用衛浴 <span class="ar">4.36 m²（1.32 坪）</span></b>馬桶與洗手台</figcaption>
+      <img src="renders/gbath.jpg" alt="客用衛浴的 3D 渲染圖：馬桶（水箱靠牆、面向房內）與洗手台" width="1200" height="661" loading="lazy" decoding="async">
+      <figcaption><b>客用衛浴 <span class="ar">4.36 m²（1.32 坪）</span></b>馬桶（水箱靠牆、面向房內）與洗手台</figcaption>
     </figure>
     <figure>
-      <img src="renders/dining.jpg" alt="餐廳的 3D 渲染圖：餐桌、四張餐椅與吊燈" width="1200" height="661" loading="lazy" decoding="async">
-      <figcaption><b>餐廳 <span class="ar">10.93 m²（3.31 坪）</span></b>餐桌、四張餐椅與吊燈</figcaption>
+      <img src="renders/dining.jpg" alt="餐廳的 3D 渲染圖：餐桌、四張餐椅與吊燈（開放式，旁邊就是往陽台的落地窗）" width="1200" height="661" loading="lazy" decoding="async">
+      <figcaption><b>餐廳 <span class="ar">10.93 m²（3.31 坪）</span></b>餐桌、四張餐椅與吊燈（開放式，旁邊就是往陽台的落地窗）</figcaption>
     </figure>
     <figure>
-      <img src="renders/kitchen.jpg" alt="廚房的 3D 渲染圖：上下廚櫃、水槽、爐台與抽油煙機" width="1200" height="661" loading="lazy" decoding="async">
-      <figcaption><b>廚房 <span class="ar">10.05 m²（3.04 坪）</span></b>上下廚櫃、水槽、爐台與抽油煙機</figcaption>
+      <img src="renders/kitchen.jpg" alt="廚房的 3D 渲染圖：上下廚櫃、水槽、爐台與抽油煙機（與餐廳之間沒有牆）" width="1200" height="661" loading="lazy" decoding="async">
+      <figcaption><b>廚房 <span class="ar">10.05 m²（3.04 坪）</span></b>上下廚櫃、水槽、爐台與抽油煙機（與餐廳之間沒有牆）</figcaption>
     </figure>
     <figure>
       <img src="renders/balcony.jpg" alt="陽台的 3D 渲染圖：洗衣機與女兒牆" width="1200" height="661" loading="lazy" decoding="async">
       <figcaption><b>陽台 <span class="ar">10.89 m²（3.29 坪）</span></b>洗衣機與女兒牆</figcaption>
     </figure>
     <figure>
-      <img src="renders/hall.jpg" alt="走道的 3D 渲染圖：連接各房間的走道" width="1200" height="661" loading="lazy" decoding="async">
-      <figcaption><b>走道 <span class="ar">3.85 m²（1.16 坪）</span></b>連接各房間的走道</figcaption>
+      <img src="renders/hall.jpg" alt="走道的 3D 渲染圖：開放式走道，連接客廳與餐廳（與客廳之間沒有門）" width="1200" height="661" loading="lazy" decoding="async">
+      <figcaption><b>走道 <span class="ar">3.85 m²（1.16 坪）</span></b>開放式走道，連接客廳與餐廳（與客廳之間沒有門）</figcaption>
     </figure>
     <figure>
       <img src="renders/overview-top.jpg" alt="全屋鳥瞰圖：隔間與家具配置" width="1200" height="661" loading="lazy" decoding="async">
@@ -747,14 +762,25 @@ function addFurn(f){
       g.add(hd);
     }
   } else if (t === 'toilet'){
-    g.add(put(rbox(w, h*0.86, dp*0.38, 0.03, M.ceramic), cx, h*0.43, cz - dp*0.30));   // 水箱
-    g.add(put(rbox(w*0.26, 0.028, 0.02, 0.006, M.chrome), cx, h*0.62, cz - dp*0.11));  // 沖水鈕
-    const bowl = new THREE.Mesh(new THREE.CylinderGeometry(dp*0.29, dp*0.23, h*0.52, 20), M.ceramic);
-    g.add(put(bowl, cx, h*0.26, cz + dp*0.10));
-    const seat = new THREE.Mesh(new THREE.CylinderGeometry(dp*0.32, dp*0.32, 0.035, 20), M.ceramic);
-    g.add(put(seat, cx, h*0.54, cz + dp*0.10));
-    const lid = new THREE.Mesh(new THREE.CylinderGeometry(dp*0.32, dp*0.30, 0.022, 20), M.ceramic);
-    g.add(put(lid, cx, h*0.57, cz + dp*0.10));
+    /* 方向：水箱靠牆、座圈朝房內。f.front = 座圈面向（n/s/e/w），預設 s */
+    const DIRS = {n:[0,-1], s:[0,1], e:[1,0], w:[-1,0]};
+    const dv = DIRS[f.front || 's'] || DIRS.s;
+    const LZ = (dv[1] !== 0) ? dp : w;                 // 沿「背→前」的長度
+    if (dv[1] !== 0){
+      g.add(put(rbox(w, h*0.86, dp*0.38, 0.03, M.ceramic), cx, h*0.43, cz - dv[1]*dp*0.30));   // 水箱（靠牆側）
+      g.add(put(rbox(w*0.26, 0.028, 0.02, 0.006, M.chrome), cx, h*0.62, cz - dv[1]*dp*0.11)); // 沖水鈕
+    } else {
+      g.add(put(rbox(w*0.38, h*0.86, dp, 0.03, M.ceramic), cx - dv[0]*w*0.30, h*0.43, cz));
+      g.add(put(rbox(0.02, 0.028, dp*0.26, 0.006, M.chrome), cx - dv[0]*w*0.11, h*0.62, cz));
+    }
+    const bx = cx + dv[0]*LZ*0.10, bz = cz + dv[1]*LZ*0.10;                 // 座圈／便斗中心（前方）
+    const br = Math.max(0.10, Math.min(w, dp) / 2);
+    const bowl = new THREE.Mesh(new THREE.CylinderGeometry(br*0.86, br*0.68, h*0.52, 20), M.ceramic);
+    g.add(put(bowl, bx, h*0.26, bz));
+    const seat = new THREE.Mesh(new THREE.CylinderGeometry(br*0.94, br*0.94, 0.035, 20), M.ceramic);
+    g.add(put(seat, bx, h*0.54, bz));
+    const lid = new THREE.Mesh(new THREE.CylinderGeometry(br*0.94, br*0.88, 0.022, 20), M.ceramic);
+    g.add(put(lid, bx, h*0.57, bz));
   } else if (t === 'basin'){
     g.add(put(rbox(w*0.60, h*0.78, dp*0.58, 0.02, M.woodDk), cx, h*0.39, cz));        // 浴櫃
     g.add(put(rbox(w, h*0.13, dp, 0.03, M.ceramic), cx, h*0.92, cz));                  // 陶瓷檯面
@@ -769,9 +795,9 @@ function addFurn(f){
     g.add(put(rbox(w*0.92, 0.68, 0.028, 0.01, M.mirror), cx, h*1.36, cz - dp/2 - 0.02));
     g.add(put(rbox(w*0.92, 0.70, 0.06, 0.01, M.white), cx, h*1.36, cz - dp/2 - 0.055));
   } else if (t === 'shower'){
-    g.add(put(box(w, 0.05, dp, cx, 0.025, cz), M.white));
-    g.add(put(box(0.025, h*0.95, dp, cx - w/2, h*0.475, cz), M.glass));
-    g.add(put(box(w, h*0.95, 0.025, cx, h*0.475, cz - dp/2), M.glass));
+    g.add(box(w, 0.05, dp, cx, 0.025, cz, M.white));
+    g.add(box(0.025, h*0.95, dp, cx - w/2, h*0.475, cz, M.glass));
+    g.add(box(w, h*0.95, 0.025, cx, h*0.475, cz - dp/2, M.glass));
     // 淋浴柱 + 蓮蓬頭
     const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,h*0.9,10), M.chrome);
     g.add(put(pipe, cx, h*0.45, cz + dp/2 - 0.07));
@@ -799,19 +825,39 @@ function addFurn(f){
     for (const sx of [-1,1]) for (const sz of [-1,1])
       g.add(put(rbox(0.05, h-0.05, 0.05, 0.01, M.woodDk), cx + sx*(w/2-0.07), (h-0.05)/2, cz + sz*(dp/2-0.07)));
   } else if (t === 'desk'){
+    /* 桌板＋四支桌腳；螢幕正面朝「坐的人」（＝房間中心那側），鍵盤在螢幕前方 */
+    const longX = (w >= dp);
     g.add(put(rbox(w, 0.04, dp, 0.012, M.wood), cx, h - 0.02, cz));
     for (const sx of [-1,1])
       g.add(put(rbox(0.05, h-0.04, 0.05, 0.01, M.wood), cx + sx*(w/2-0.06), (h-0.04)/2, cz));
-    // 桌上一盞小檯燈 + 螢幕
-    g.add(put(rbox(0.10,0.22,0.10,0.01,M.metal), cx + w*0.34, h+0.11, cz));
-    g.add(put(rbox(0.06,0.02,0.22,0.005,M.dark), cx - w*0.06, h+0.02, cz));
-    g.add(put(rbox(0.02,0.26,0.02,0.005,M.dark), cx - w*0.06, h+0.15, cz));
-    g.add(put(rbox(0.035,0.34,0.60,0.006,M.dark), cx - w*0.10, h+0.31, cz));
+    const ro = roomOf(f);
+    const ox = ro ? (ro.rect[0]+ro.rect[2])/2*CM : cx;
+    const oz = ro ? (ro.rect[1]+ro.rect[3])/2*CM : cz;
+    const face = longX ? ((oz >= cz) ? 1 : -1) : ((ox >= cx) ? 1 : -1);   // 朝向房內
+    if (longX){
+      g.add(put(rbox(0.60, 0.34, 0.035, 0.006, M.dark), cx - w*0.06, h + 0.22, cz - face*dp*0.10)); // 螢幕（面朝房內）
+      g.add(put(rbox(0.06, 0.02, 0.22, 0.005, M.dark), cx - w*0.06, h + 0.02, cz - face*dp*0.10));  // 底座
+      g.add(put(rbox(0.022, 0.22, 0.022, 0.005, M.dark), cx - w*0.06, h + 0.13, cz - face*dp*0.10));// 支架
+      g.add(put(rbox(0.42, 0.014, 0.15, 0.004, M.dark), cx - w*0.06, h + 0.012, cz + face*dp*0.16));// 鍵盤
+      g.add(put(rbox(0.10, 0.22, 0.10, 0.01, M.metal), cx + w*0.34, h + 0.11, cz + face*dp*0.02));  // 檯燈
+    } else {
+      g.add(put(rbox(0.035, 0.34, 0.60, 0.006, M.dark), cx - face*w*0.10, h + 0.22, cz - dp*0.06));
+      g.add(put(rbox(0.22, 0.02, 0.06, 0.005, M.dark), cx - face*w*0.10, h + 0.02, cz - dp*0.06));
+      g.add(put(rbox(0.022, 0.22, 0.022, 0.005, M.dark), cx - face*w*0.10, h + 0.13, cz - dp*0.06));
+      g.add(put(rbox(0.15, 0.014, 0.42, 0.004, M.dark), cx + face*w*0.16, h + 0.012, cz - dp*0.06));
+      g.add(put(rbox(0.10, 0.22, 0.10, 0.01, M.metal), cx + face*w*0.02, h + 0.11, cz + dp*0.30));
+    }
+    /* 桌上型電腦主機（放在桌側地上，貼地） */
+    const pcH = 0.42, pcW = 0.20, pcD = 0.46;
+    const pcx = longX ? cx - w/2 - pcW/2 - 0.04 : cx + face*(w/2 + pcW/2 + 0.04);
+    const pcz = longX ? cz + dp/2 - pcD/2 : cz + dp/2 + 0.06 + pcD/2;
+    g.add(put(rbox(pcW, pcH, pcD, 0.015, M.dark), pcx, pcH/2, pcz));
+    g.add(put(rbox(0.012, 0.012, 0.03, 0.004, M.chrome), pcx + pcW/2, pcH*0.72, pcz - pcD*0.25));
   } else if (t === 'chair'){
     /* 座面＋四支椅腳＋椅背（高過桌面才看得到），椅背朝「最近的家具」的反方向（餐椅＝背對桌子） */
     g.add(put(rbox(w, 0.06, dp, 0.02, M.wood), cx, h - 0.03, cz));
     for (const sx of [-1,1]) for (const sz of [-1,1])
-      g.add(put(box(0.035, h-0.06, 0.035, cx + sx*(w/2-0.05), (h-0.06)/2, cz + sz*(dp/2-0.05)), M.woodDk));
+      g.add(box(0.035, h-0.06, 0.035, cx + sx*(w/2-0.05), (h-0.06)/2, cz + sz*(dp/2-0.05), M.woodDk));
     const ro = roomOf(f);
     let bx = 0, bz = -1;
     if (ro){
@@ -833,25 +879,25 @@ function addFurn(f){
     if (bz !== 0){
       g.add(put(rbox(w*0.96, bh, 0.05, 0.02, M.wood), cx, by, cz + bz*(dp/2 - 0.03)));
       for (const sx of [-1,1])
-        g.add(put(box(0.022, bh*0.96, 0.022, cx + sx*(w/2-0.05), by, cz + bz*(dp/2 - 0.03)), M.woodDk));
+        g.add(box(0.022, bh*0.96, 0.022, cx + sx*(w/2-0.05), by, cz + bz*(dp/2 - 0.03), M.woodDk));
     } else {
       g.add(put(rbox(0.05, bh, dp*0.96, 0.02, M.wood), cx + bx*(w/2 - 0.03), by, cz));
       for (const sz of [-1,1])
-        g.add(put(box(0.022, bh*0.96, 0.022, cx + bx*(w/2 - 0.03), by, cz + sz*(dp/2-0.05)), M.woodDk));
+        g.add(box(0.022, bh*0.96, 0.022, cx + bx*(w/2 - 0.03), by, cz + sz*(dp/2-0.05), M.woodDk));
     }
   } else if (t === 'tv'){
     g.add(put(rbox(w, h, dp, 0.02, M.woodDk), cx, h/2, cz));
     // 電視面板（掛在櫃體側的牆面）
-    g.add(put(box(0.045, 0.66, 1.16, cx - w/2 - 0.045, 1.05, cz), M.dark));
-    g.add(put(box(0.012, 0.58, 1.08, cx - w/2 - 0.065, 1.05, cz), M.dark));
+    g.add(box(0.045, 0.66, 1.16, cx - w/2 - 0.045, 1.05, cz, M.dark));
+    g.add(box(0.012, 0.58, 1.08, cx - w/2 - 0.065, 1.05, cz, M.dark));
     g.add(put(rbox(0.10, 0.075, 0.80, 0.01, M.dark), cx, 0.40, cz));      // 聲霸
-    g.add(put(box(0.02, 0.36, 0.24, cx - w/2 - 0.02, 1.05, cz), M.dark)); // 壁掛支架
+    g.add(box(0.02, 0.36, 0.24, cx - w/2 - 0.02, 1.05, cz, M.dark));
   } else if (t === 'counter'){
     g.add(put(rbox(w, h*0.90, dp, 0.02, M.white), cx, h*0.45, cz));
     g.add(put(rbox(w+0.02, 0.05, dp+0.02, 0.01, M.counterTop), cx, h*0.94, cz));
     if (w > 1.0){
       // 水槽
-      g.add(put(box(0.56, 0.02, 0.40, cx - w*0.22, h*0.945, cz), M.steel));
+      g.add(box(0.56, 0.02, 0.40, cx - w*0.22, h*0.945, cz, M.steel));
       g.add(put(rbox(0.60, 0.012, 0.44, 0.01, M.steel), cx - w*0.22, h*0.96, cz));   // 水槽邊框
       const tap = new THREE.Mesh(new THREE.CylinderGeometry(0.018,0.018,0.26,10), M.chrome);
       g.add(put(tap, cx - w*0.22, h*0.94 + 0.13, cz - 0.22));
@@ -871,7 +917,7 @@ function addFurn(f){
     }
   } else if (t === 'fridge'){
     g.add(put(rbox(w, h, dp, 0.03, M.white), cx, h/2, cz));
-    g.add(put(box(w*0.92, 0.012, dp*0.9, cx, h*0.62, cz + dp/2), M.steel));
+    g.add(box(w*0.92, 0.012, dp*0.9, cx, h*0.62, cz + dp/2, M.steel));
     const hd = new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,0.7,10), M.chrome);
     g.add(put(hd, cx + w*0.34, h*0.62, cz + dp/2 + 0.03));
   } else if (t === 'washer'){
@@ -1057,14 +1103,14 @@ function buildPlan(){
   for (const w of plan.walls) addWall(w);
 
   furnGroup = new THREE.Group(); scene.add(furnGroup);
-  for (const f of plan.furniture) furnGroup.add(addFurn(f));
+  for (const f of plan.furniture){ const g = addFurn(f); g.userData.furn = f; furnGroup.add(g); }
   addKitchenExtras();                          // 吊櫃＋抽油煙機
 
-  // 植栽
+  // 植栽（位置一律避開門扇迴轉區與主要走道；盆栽不擋門）
   decorGroup = new THREE.Group(); scene.add(decorGroup);
-  decorGroup.add(addPlant(0.30, 3.52, 1.0));   // 客廳角落
-  decorGroup.add(addPlant(4.72, 7.35, 0.85));  // 陽台
-  decorGroup.add(addPlant(7.55, 6.05, 0.8));   // 餐廳角落
+  decorGroup.add(addPlant(3.30, 3.42, 1.0));   // 主臥室東南角（不擋衣櫃、不擋房門）
+  decorGroup.add(addPlant(12.90, 8.70, 0.85));  // 陽台東側（洗衣機旁，不擋落地窗）
+  decorGroup.add(addPlant(8.85, 7.25, 0.8));    // 餐廳西南角（離客衛門與落地窗都有餘裕）
 
   // 地毯／浴墊
   decorGroup.add(addRug(2.00, 6.55, 2.60, 2.00, M.rugFab));     // 客廳（沙發前）
@@ -1155,26 +1201,43 @@ function segRectHit(ax, az, bx, bz, r){
 }
 function wallFoot(m){
   const g = m.geometry;
-  if (!g || !g.parameters || g.parameters.width === undefined) return null;
-  const hw = g.parameters.width / 2, hd = g.parameters.depth / 2;
-  return [m.position.x - hw, m.position.x + hw, m.position.z - hd, m.position.z + hd];
+  if (g && g.parameters && g.parameters.width !== undefined){
+    const hw = g.parameters.width / 2, hd = g.parameters.depth / 2;
+    return [m.position.x - hw, m.position.x + hw, m.position.z - hd, m.position.z + hd];
+  }
+  if (m.isGroup){                       // 門扇群組（門片＋門把）→ 用實際包圍盒
+    const b = new THREE.Box3().setFromObject(m);
+    if (!isFinite(b.min.x)) return null;
+    return [b.min.x, b.max.x, b.min.z, b.max.z];
+  }
+  return null;
 }
-/* 透視化：把相機附近、或正好擋在相機與注視點之間的牆淡出到 10% */
+/* 把一個物件（含群組內所有網格）的材質淡出到 10%；離開房間視角時完全復原 */
+function fadePush(obj){
+  const list = [];
+  if (obj.isMesh) list.push(obj);
+  else if (obj.isGroup) obj.traverse(o => { if (o.isMesh) list.push(o); });
+  for (const mm of list){
+    if (!mm.userData._mat0) mm.userData._mat0 = mm.material;
+    const c = mm.userData._mat0.clone();
+    c.transparent = true; c.opacity = 0.10; c.depthWrite = false;
+    mm.material = c; fadedWalls.push(mm);
+  }
+}
+/* 透視化：把相機附近、或正好擋在相機與注視點之間的牆「與門片」淡出到 10% */
 function fadeBlockingWalls(camP, target){
   wallFadeReset();
   if (!wallGroup) return;
   for (const m of wallGroup.children){
     const r = wallFoot(m);
     if (!r) continue;
-    const near = (camP.x > r[0]-0.55 && camP.x < r[1]+0.55 &&
-                  camP.z > r[2]-0.55 && camP.z < r[3]+0.55);
+    const pad = m.isGroup ? 1.0 : 0.55;      // 門片小，容許半徑給大一點才擋得住視線
+    const near = (camP.x > r[0]-pad && camP.x < r[1]+pad &&
+                  camP.z > r[2]-pad && camP.z < r[3]+pad);
     const hit = segRectHit(camP.x, camP.z, target.x, target.z,
                            [r[0]-0.03, r[1]+0.03, r[2]-0.03, r[3]+0.03]);
     if (!near && !hit) continue;
-    if (!m.userData._mat0) m.userData._mat0 = m.material;
-    const c = m.userData._mat0.clone();
-    c.transparent = true; c.opacity = 0.10; c.depthWrite = false;
-    m.material = c; fadedWalls.push(m);
+    fadePush(m);
   }
 }
 function wallFadeReset(){
@@ -1547,9 +1610,73 @@ window.__fp3d = {
                    walls: furnGroup ? furnGroup.children.length : 0}; },
   room(id){ flyTo(id); },
   reset(){ resetView(); },
+  /* 貼地檢查：逐件家具回報世界座標最低點（y 應為 0）＋水平落點 */
+  ground(){
+    const out = [];
+    if (!furnGroup) return out;
+    for (const g of furnGroup.children){
+      const f = g.userData.furn; if (!f) continue;
+      const b = new THREE.Box3().setFromObject(g);
+      out.push({room:f.room, name:f.name, type:f.type, minY:+b.min.y.toFixed(4),
+                minX:+b.min.x.toFixed(3), maxX:+b.max.x.toFixed(3),
+                minZ:+b.min.z.toFixed(3), maxZ:+b.max.z.toFixed(3)});
+    }
+    return out;
+  },
+  /* 盆栽等裝飾的最低點 */
+  decor(){
+    const out = [];
+    if (!decorGroup) return out;
+    for (const g of decorGroup.children){
+      const b = new THREE.Box3().setFromObject(g);
+      out.push({minY:+b.min.y.toFixed(4), x:+(b.min.x+b.max.x).toFixed(2)/2,
+                z:+((b.min.z+b.max.z)/2).toFixed(2)});
+    }
+    return out;
+  },
+  cam(){ return {p:[+camera.position.x.toFixed(2), +camera.position.y.toFixed(2), +camera.position.z.toFixed(2)],
+                 fov:Math.round(camera.fov), mode:mode, faded:fadedWalls.length,
+                 ceil:(ceiling ? ceiling.visible : null)}; },
+  /* 逐件家具的每個零件（尺寸／世界座標範圍）——用來驗椅腳等細節有沒有真的長出來 */
+  parts(rid){
+    const out = [];
+    for (const g of furnGroup.children){
+      const f = g.userData.furn; if (!f) continue;
+      if (rid && f.room !== rid) continue;
+      const ps = [];
+      g.traverse(o => { if (o.isMesh){
+        const b = new THREE.Box3().setFromObject(o); const pp = o.geometry.parameters || {};
+        ps.push({sz:[pp.width, pp.height, pp.depth].map(v => (v === undefined ? '-' : v)).join('x'),
+                 y0:+b.min.y.toFixed(3), y1:+b.max.y.toFixed(3),
+                 x:[+b.min.x.toFixed(2), +b.max.x.toFixed(2)], z:[+b.min.z.toFixed(2), +b.max.z.toFixed(2)]}); }});
+      out.push({room:f.room, name:f.name, type:f.type, parts:ps});
+    }
+    return out;
+  },
+  /* 從相機沿視線射向注視點，回報「在注視點之前」還不透明的阻擋物
+     （淡出中的牆／門不算；注視點後面的遠牆本來就該看到，不算阻擋） */
+  sight(){
+    const rc = new THREE.Raycaster();
+    const dir = controls.target.clone().sub(camera.position);
+    const D = dir.length();
+    rc.set(camera.position, dir.normalize());
+    const hits = rc.intersectObject(wallGroup, true).filter(h => {
+      const m = h.object.material;
+      return h.distance < D - 0.05 && !(m && m.transparent && m.opacity < 0.2);
+    });
+    return hits.map(h => ({d:+h.distance.toFixed(2), geom:h.object.geometry.type}));
+  },
+  target(){ return [+controls.target.x.toFixed(2), +controls.target.y.toFixed(2), +controls.target.z.toFixed(2)]; },
   top(){ if (mode === 'walk') exitWalk(); roomViewExit();
          camera.position.set(planCenter.x, 15.2, planCenter.z + 0.001);
-         controls.target.set(planCenter.x, 0, planCenter.z); }
+         controls.target.set(planCenter.x, 0, planCenter.z); },
+  /* 驗收用：直接指定相機位置與注視點（自動處理天花板與擋住視線的牆／門） */
+  view(x, y, z, tx, ty, tz){
+    if (mode === 'walk') exitWalk(); else roomViewExit();
+    camera.position.set(x, y, z); controls.target.set(tx, ty, tz);
+    fadeBlockingWalls(camera.position, controls.target);
+    fly = null; controls.update(); return true;
+  }
 };
 fetch('plan.json').then(r => r.json()).then(p => {
   plan = p;
