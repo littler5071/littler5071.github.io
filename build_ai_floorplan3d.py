@@ -1767,7 +1767,7 @@ fetch('plan.json').then(r => r.json()).then(p => {
                           '?autoplay=1&playsinline=1&rel=0&enablejsapi=1');
     f.setAttribute('title', title);
     f.setAttribute('allow',
-      'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
     f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
     f.setAttribute('allowfullscreen', '');
     wrap.innerHTML = '';
