@@ -9,13 +9,16 @@
 <style>
   h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}
   .meta{color:var(--soft);font-size:13.5px}
-  /* hermesviews（瀏覽次數） */
+/* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<link rel="stylesheet" href="../nav.css?v=73b4d013">
+<script defer src="../nav.js?v=4b28034a"></script>
+<script defer src="../counter.js?v=94ad9679"></script>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/ai/">
 
@@ -31,9 +34,6 @@
 <meta name="twitter:description" content="小R頻道的 AI 助理實測：把 AI 助理真正做過的事記錄下來——怎麼運作、怎麼踩坑、怎麼修好，並附公開資料與實測數據。">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <!-- /hermes-seo -->
-<link rel="stylesheet" href="../nav.css?v=73b4d013">
-<script defer src="../nav.js?v=4b28034a"></script>
-<script defer src="../counter.js?v=94ad9679"></script>
 </head>
 <body>
 <div class="wrap">
@@ -48,6 +48,12 @@
       想看它怎麼幫我做事，看〈網站的瀏覽次數完整分析〉；想直接動手，影片類都附實際操作畫面。
     </p>
 </header>
+  <div class="card">
+    <span class="tag">報告</span><span class="meta">2026/10/18・互動示範＋實測</span>
+    <h3>最近很紅的「平面圖變 3D」：小R 也來試看看</h3>
+    <p>最近很紅的「平面圖直接變成 3D」，小R 也來試看看：從同一份平面圖資料出發，同時長出 2D 平面圖與可以走進去逛的 3D 室內設計（Three.js）——點房間就飛進室內、軌道環繞、WASD 走動、2D／3D 切換；家具與設備（沙發、床、餐桌椅、廚具、抽油煙機、衛浴、窗簾、地毯、畫框）用圓角量體與程序貼圖做出質感。含做法、資料結構與驗收方式，全程免費工具、無付費模型。</p>
+    <a class="btn" href="floorplan-3d/">看報告 →</a>
+  </div>
   <div class="card">
     <span class="tag">報告</span><span class="meta">2026/10/16・實測報告</span>
     <h3>我花了 25 分鐘，只換到 0.88 秒的影片：本機 AI 影片生成實測</h3>
@@ -150,10 +156,11 @@
     <p>Python 環境、瀏覽器登入、檔案上傳、語音合成、ffmpeg、Gmail，還有檔名——每一件都是真的踩過的坑。</p>
     <a class="btn" href="https://youtu.be/4zf8WFkkn5U">看影片 →</a>
   </div>
-  <h2><span class="dot"></span>全部影片與報告（17）</h2>
+  <h2><span class="dot"></span>全部影片與報告（18）</h2>
   <div class="scroll">
   <table>
     <tr><th>上線日</th><th>影片／報告</th><th>長度</th><th></th></tr>
+    <tr><td class="d">2026/10/18</td><td>最近很紅的「平面圖變 3D」：小R 也來試看看</td><td class="d">互動示範＋實測</td><td><a href="floorplan-3d/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/16</td><td>我花了 25 分鐘，只換到 0.88 秒的影片：本機 AI 影片生成實測</td><td class="d">實測報告</td><td><a href="local-video-test/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/15</td><td>動態漫畫短劇《小R 觀察日誌》：一集一個真實事件，免費素材就能做</td><td class="d">系列介紹＋影片</td><td><a href="dynamic-comic-drama/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/14</td><td>免費中文語音實測：七種聲音並排試聽</td><td class="d">實測＋試聽</td><td><a href="tts-voice-test/">看報告 →</a></td></tr>
@@ -181,6 +188,6 @@
     小R頻道 · AI 助理實測 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="106" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="100" data-views>—</span></div>
 </body>
 </html>
