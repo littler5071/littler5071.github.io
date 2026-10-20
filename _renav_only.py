@@ -6,7 +6,7 @@
 """
 import glob, os, runpy, sys
 
-SITE = "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 targets = {t.strip("/").replace("\\", "/") for t in sys.argv[1:]}
 if not targets:
     raise SystemExit("need at least one page rel path")

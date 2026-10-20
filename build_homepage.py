@@ -18,7 +18,7 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__f
 HEAD_FILE = os.path.join(SITE, "home_template_head.html")
 
 # 大盤快篩快照（market_screen.py 產出）放在股市觀察工作目錄：首頁只用它產生「一行大盤狀態」
-MARKET_DIR = os.environ.get("XIAOR_MARKET_DIR", r"D:/_Richard/OpenCode/圖片生成/小R頻道_股市觀察")
+MARKET_DIR = os.environ.get("XIAOR_MARKET_DIR", r"/home/littler5071/opencode/圖片生成/小R頻道_股市觀察")
 
 
 def _minus(t):

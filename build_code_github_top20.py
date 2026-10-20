@@ -10,7 +10,7 @@ import os
 import statistics
 import sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 SNAPSHOT = "2026/09/26 12:46"
 
 # 由 GitHub Search API 取得的原始欄位（stars 為抓取當下值）

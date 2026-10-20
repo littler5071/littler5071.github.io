@@ -8,7 +8,7 @@ ARTICLES 是這個分類的文章清單；`build_homepage.py` 會匯入它，把
 import os
 import sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 
 ARTICLES = [
     dict(title="有哪些公司在用 Rust？公司清單＋熱門專案排行",

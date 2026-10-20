@@ -9,8 +9,8 @@
 """
 import html, os, re, shutil, sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else r"D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
-FIG_SRC = r"D:/_Richard/OpenCode/圖片生成/小R頻道_股市觀察/figs"
+SITE = sys.argv[1] if len(sys.argv) > 1 else r"/home/littler5071/opencode/圖片生成/小R頻道_網站"
+FIG_SRC = r"/home/littler5071/opencode/圖片生成/小R頻道_股市觀察/figs"
 OUT = os.path.join(SITE, "stock", "logic")
 FIG_DST = os.path.join(OUT, "figs")
 

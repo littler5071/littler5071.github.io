@@ -18,7 +18,7 @@ import os
 import shutil
 import sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 ASSETS = sys.argv[2] if len(sys.argv) > 2 else "C:/Users/Summer/banner/floorplan3d"
 SLUG = "floorplan-3d"
 M2PING = 3.3058                     # 1 坪 = 3.3058 m²

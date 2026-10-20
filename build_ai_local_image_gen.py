@@ -15,7 +15,7 @@ import sys
 import urllib.parse
 import urllib.request
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 SLUG = "local-image-gen"
 VIDEO_MAIN = "FSAmy5Kwjxw"
 VIDEO_SHORT = "WCMrFJc8poc"

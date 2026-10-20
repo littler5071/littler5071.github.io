@@ -15,7 +15,7 @@ import re
 import shutil
 import sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 SHOTS = r"C:\Users\Summer\banner\ep_rpa\shots"
 SRC_TOOL = os.path.join(SHOTS, "tool_main.png")      # 主視窗（腳本清單＋步驟清單）
 SRC_MENU = os.path.join(SHOTS, "tool_menu.png")      # 「步驟」選單展開（四類＋基本操作）

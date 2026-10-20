@@ -13,7 +13,7 @@ import os
 import shutil
 import sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 SRC = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\20_開啟Excel並輸入資料.rpa.json"
 SRC21 = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos\21_開啟Notepad並模擬從excel複製多筆資料貼上.rpa.json"
 VIDS_JSON = "C:/Users/Summer/banner/ep_rpa/out/rpa_video_ids.json"   # 頻道影片 id（不寫死在產生器裡）

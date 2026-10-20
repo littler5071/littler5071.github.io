@@ -17,7 +17,7 @@ import re
 import shutil
 import sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 SHOTS = r"C:\Users\Summer\banner\ep_rpa\shots"
 DEMOS = r"D:\_Richard\OpenCode\RPA工具\publish\Scripts\Demos"
 DATE = "2026/10/01"

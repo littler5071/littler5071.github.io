@@ -2,7 +2,7 @@
 """本機檢查某頁的回跳功能是否完整。用法：python _check_bj.py toeic/p2-sample [期望每題按鈕數]"""
 import re, sys, os
 
-SITE = "D:/_Richard/OpenCode/圖片生成/小R頻道_網站"
+SITE = "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 rel = sys.argv[1].strip("/")
 p = os.path.join(SITE, rel, "index.html")
 h = open(p, encoding="utf-8").read()
