@@ -14,9 +14,9 @@ import time
 
 from PIL import Image, ImageDraw, ImageFont
 
-SITE = r"D:\_Richard\OpenCode\圖片生成\小R頻道_網站"
-PY = r"C:\Users\Summer\AppData\Local\hermes\venvs\video\Scripts\python.exe"
-OUT = r"C:\Users\Summer\banner\ep_rpa\out\site_weekly"
+SITE = "/home/littler5071/opencode/圖片生成/小R頻道_網站"
+PY = sys.executable
+OUT = "/home/littler5071/banner/out/site_weekly"
 SNAP = os.path.join(SITE, "views_snapshot.json")
 HIST = os.path.join(OUT, "views_history.jsonl")
 
@@ -28,9 +28,9 @@ LINE = (217, 209, 194)
 BLUE = (54, 78, 112)
 LEAF = (47, 143, 99)
 RED = (191, 74, 58)
-F_KAI = r"C:\Windows\Fonts\kaiu.ttf"
-F_HEI = r"C:\Windows\Fonts\msjh.ttc"
-F_HEIB = r"C:\Windows\Fonts\msjhbd.ttc"
+F_KAI = "/home/littler5071/.local/share/fonts/ukai.ttc"
+F_HEI = "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"
+F_HEIB = "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"
 
 os.makedirs(OUT, exist_ok=True)
 
