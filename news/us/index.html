@@ -11,7 +11,18 @@
   .wrap{max-width:820px;margin:0 auto;padding:0 18px 40px}
   h1{font-size:clamp(22px,4vw,30px);line-height:1.35;margin:18px 0 6px}
   .meta{color:var(--soft);font-size:14px;margin-bottom:16px}
-  .body p{font-size:16.5px;line-height:1.85;margin:8px 0}
+  .body{font-size:17px;line-height:1.9;color:var(--ink)}
+  .body .blk{border-top:1px solid #e7e0d2;padding:14px 0 4px}
+  .body .blk:first-child{border-top:0;padding-top:4px}
+  .body h3{font-size:17.5px;margin:0 0 8px;display:flex;align-items:baseline;gap:8px;font-weight:700}
+  .body h3 .dt{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none;transform:translateY(-1px)}
+  .body ul{margin:0;padding-left:18px}
+  .body li{margin:5px 0;line-height:1.85}
+  .body p{font-size:17px;line-height:1.9;margin:8px 0}
+  .body .night{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 16px}
+  .body .night .big{font-size:19px;margin:2px 0 4px}
+  .body .night .up{color:var(--red)} .body .night .dn{color:var(--green)}
+  .body .night .dim{font-size:13.5px;color:var(--soft);margin:0}
   .body p.li{padding-left:6px}
   .body h3{font-size:18px;margin:22px 0 6px}
   .body b{color:var(--ink)}
@@ -28,22 +39,46 @@
 <h1>美股晨報 2026/10/22</h1>
 <div class="meta">上一個美股交易日的四大指數、強弱族群、三件後續消息與對台股的影響</div>
 <div class="body">
-<p><b>美股晨報 10/22（交易日 10/21）</b></p>
-<p><b>① 四大指數</b></p>
-<p>道瓊 52,856.09 ▲0.69%（+360 點）｜S&amp;P500 7,757.17 ▲0.58%</p>
-<p>那斯達克 26,702.86 ▲1.05%｜費半 11,505.56 ▲1.97%（30 檔中 29 檔漲）</p>
-<p>原因：SpaceX 第 3 季營收年增 161%、AI 業務規模擴至 9 倍，並與特斯拉成立特別委員會談合併，重燃市場對 AI 交易的信心。</p>
-<p><b>② 最強／最弱</b></p>
-<p>最強：半導體（SMH +1.89%、XLK +1.67%），美超微上調上季營收預測 40 億美元，帶動 Dell、HPE。</p>
-<p>最弱：通訊服務 XLC −1.11%（Meta 財報前觀望）、房地產 XLRE −0.76%。</p>
-<p><b>③ 三件後續消息</b></p>
-<p class='li'>1. Fed 10/27–28 開會，路透調查顯示 94 位（共 100 位）經濟學家預期維持 3.75–4.00%，但 100 人全數預期 12 月再升息。（路透調查）</p>
-<p class='li'>2. 9 月新屋開工 122.1 萬戶、月減 5.2% 不如預期；待完成成屋銷售月減 7.3%，指數 66.0 為 2001 年以來最低。（美國普查局／MoneyDJ）</p>
-<p class='li'>3. Meta 盤後營收 646 億、年增 26% 超預期並收窄全年資本支出；特斯拉營收略超預期，但營業利益年減 56%、營益率僅 2.6%。（TradingKey）</p>
-<p><b>④ 對台股的影響</b></p>
-<p>費半近 2% 加上台積電 ADR +1.60%、輝達 +2.54%、美光 +1.96%，電子權值與 AI 供應鏈今早氣氛偏多，記憶體與 AI 伺服器鏈可能偏強。籌碼要留意：10/21 外資只買超 9.6 億元、勉強終止連 10 賣，投信買 129 億元卻被自營商賣 133 億元抵掉，回補力道偏薄；台幣收 32.39、單日升值約 0.57%，若續升且外資擴大買超，權值支撐會比較實在。開盤兩個變數：一是台積電現貨 2,420 元與 ADR 漲幅的落差要先收斂，二是自營商持續賣超下量能能否守住。</p>
-<p><b>⑤ 今天盯一件事</b></p>
-<p>晚間 20:30 美國上週初領失業金（預測 20 萬人、前值 19.9 萬）：數值偏高有助降溫 12 月升息押注，對電子評價與台幣偏有利，反之則偏空。</p>
+<section class="blk night"><h3><span class="dt"></span>台指期夜盤</h3><p class="big"><b>47,482</b> <span class="up">1.00%</span>　成交量 35,753 口</p><p class="dim">近月合約 202611｜夜盤 15:00→隔日 05:00，歸屬交易日 2026/10/22</p></section><section class="blk">
+<ul>
+<li><b>美股晨報 10/22（交易日 10/21）</b></li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span><b>① 四大指數</b></h3>
+<ul>
+<li>道瓊 52,856.09 ▲0.69%（+360 點）｜S&amp;P500 7,757.17 ▲0.58%</li>
+<li>那斯達克 26,702.86 ▲1.05%｜費半 11,505.56 ▲1.97%（30 檔中 29 檔漲）</li>
+<li>原因：SpaceX 第 3 季營收年增 161%、AI 業務規模擴至 9 倍，並與特斯拉成立特別委員會談合併，重燃市場對 AI 交易的信心。</li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span><b>② 最強／最弱</b></h3>
+<ul>
+<li>最強：半導體（SMH +1.89%、XLK +1.67%），美超微上調上季營收預測 40 億美元，帶動 Dell、HPE。</li>
+<li>最弱：通訊服務 XLC −1.11%（Meta 財報前觀望）、房地產 XLRE −0.76%。</li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span><b>③ 三件後續消息</b></h3>
+<ul>
+<li>1. Fed 10/27–28 開會，路透調查顯示 94 位（共 100 位）經濟學家預期維持 3.75–4.00%，但 100 人全數預期 12 月再升息。（路透調查）</li>
+<li>2. 9 月新屋開工 122.1 萬戶、月減 5.2% 不如預期；待完成成屋銷售月減 7.3%，指數 66.0 為 2001 年以來最低。（美國普查局／MoneyDJ）</li>
+<li>3. Meta 盤後營收 646 億、年增 26% 超預期並收窄全年資本支出；特斯拉營收略超預期，但營業利益年減 56%、營益率僅 2.6%。（TradingKey）</li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span><b>④ 對台股的影響</b></h3>
+<ul>
+<li>費半近 2% 加上台積電 ADR +1.60%、輝達 +2.54%、美光 +1.96%，電子權值與 AI 供應鏈今早氣氛偏多，記憶體與 AI 伺服器鏈可能偏強。籌碼要留意：10/21 外資只買超 9.6 億元、勉強終止連 10 賣，投信買 129 億元卻被自營商賣 133 億元抵掉，回補力道偏薄；台幣收 32.39、單日升值約 0.57%，若續升且外資擴大買超，權值支撐會比較實在。開盤兩個變數：一是台積電現貨 2,420 元與 ADR 漲幅的落差要先收斂，二是自營商持續賣超下量能能否守住。</li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span><b>⑤ 今天盯一件事</b></h3>
+<ul>
+<li>晚間 20:30 美國上週初領失業金（預測 20 萬人、前值 19.9 萬）：數值偏高有助降溫 12 月升息押注，對電子評價與台幣偏有利，反之則偏空。</li>
+</ul>
+</section>
 </div>
 <div class="arch">
 <h3>歷期</h3>

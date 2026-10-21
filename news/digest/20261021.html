@@ -11,7 +11,18 @@
   .wrap{max-width:820px;margin:0 auto;padding:0 18px 40px}
   h1{font-size:clamp(22px,4vw,30px);line-height:1.35;margin:18px 0 6px}
   .meta{color:var(--soft);font-size:14px;margin-bottom:16px}
-  .body p{font-size:16.5px;line-height:1.85;margin:8px 0}
+  .body{font-size:17px;line-height:1.9;color:var(--ink)}
+  .body .blk{border-top:1px solid #e7e0d2;padding:14px 0 4px}
+  .body .blk:first-child{border-top:0;padding-top:4px}
+  .body h3{font-size:17.5px;margin:0 0 8px;display:flex;align-items:baseline;gap:8px;font-weight:700}
+  .body h3 .dt{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none;transform:translateY(-1px)}
+  .body ul{margin:0;padding-left:18px}
+  .body li{margin:5px 0;line-height:1.85}
+  .body p{font-size:17px;line-height:1.9;margin:8px 0}
+  .body .night{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 16px}
+  .body .night .big{font-size:19px;margin:2px 0 4px}
+  .body .night .up{color:var(--red)} .body .night .dn{color:var(--green)}
+  .body .night .dim{font-size:13.5px;color:var(--soft);margin:0}
   .body p.li{padding-left:6px}
   .body h3{font-size:18px;margin:22px 0 6px}
   .body b{color:var(--ink)}
@@ -28,27 +39,43 @@
 <h1>每日新聞濃縮 2026/10/21</h1>
 <div class="meta">台灣與國際新聞濃縮，含關鍵數字</div>
 <div class="body">
-<p>2026/10/21 新聞濃縮</p>
-<p>【台灣】</p>
-<p class='li'>・強颱薔琵逼近，氣象署估最快今晚發海警、周五發陸警，23～24日中部以北與宜花防大雨或豪雨，近中心風速達60m/s</p>
-<p class='li'>・台北市長選戰民調：沈伯洋支持度50.3%、蔣萬安33.3%，沈較前次上升9.8個百分點（台北民主信託協會）</p>
-<p class='li'>・9月外銷訂單114.21億美元創單月新高，年增62.4%，寫下連20紅，AI與伺服器相關訂單為主力（經濟部）</p>
-<p class='li'>・台股20日跌529.15點收46,292.93點，外資單日賣超795.3億元，10月以來累計賣超6,620億元</p>
-<p class='li'>・美光桃園工會宣布22日罷工一天，罷工投票同意率約99%，聲援台中廠同日第二次勞資調解</p>
-<p class='li'>・中華職棒台灣大賽第3戰，味全龍6：0完封中信兄弟，系列賽3勝0敗聽牌；史上9次3勝0敗全數封王</p>
-<p class='li'>・國安局統計，今年中國滲透相關起訴人數增至73人（2020年6人），累計163人定罪</p>
-<p>【國際】</p>
-<p class='li'>・澤倫斯基在奧斯陸會晤美方特使魏科夫，稱美烏情報分享「已恢復運作」；同日俄軍空襲烏克蘭釀9死</p>
-<p class='li'>・川普政府宣布第二任期已撤銷超過30萬張美國簽證（美國國務院）</p>
-<p class='li'>・法國暴動後多城實施宵禁，總理誓言「大規模」警力部署，義大利派500名軍人進駐米蘭</p>
-<p class='li'>・葉門夏卜瓦省阿拉姆訓練營遭青年運動3枚彈道飛彈攻擊，省長稱58死、逾200傷、14人失蹤</p>
-<p class='li'>・伊朗警告若美方攻擊其基地與石化設施將打擊「9個國家」；IRGC稱2艘油輪在荷莫茲海峽南側觸雷起火</p>
-<p class='li'>・以色列27日舉行國會大選，川普對尼坦雅胡的背書被評對選民影響有限</p>
-<p class='li'>・Anthropic 今年上半年淨損逾800億美元，據華爾街日報引述IPO草稿招股書</p>
-<p>【數字】</p>
-<p class='li'>・台股：加權指數收46,292.93點、跌1.13%，成交金額7,586.8億元</p>
-<p class='li'>・匯市：台幣收32.617元、貶1.72角，續寫1年半新低；美股道瓊漲1.02%至52,495.88點，那指跌0.02%、費半跌0.29%</p>
-<p class='li'>・油市：布蘭特原油收108.79美元（-0.69%）、西德州101.79美元（-1.80%）；星展維持台灣今年GDP成長11.6%預測</p>
+<section class="blk">
+<ul>
+<li>2026/10/21 新聞濃縮</li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span>【台灣】</h3>
+<ul>
+<li>強颱薔琵逼近，氣象署估最快今晚發海警、周五發陸警，23～24日中部以北與宜花防大雨或豪雨，近中心風速達60m/s</li>
+<li>台北市長選戰民調：沈伯洋支持度50.3%、蔣萬安33.3%，沈較前次上升9.8個百分點（台北民主信託協會）</li>
+<li>9月外銷訂單114.21億美元創單月新高，年增62.4%，寫下連20紅，AI與伺服器相關訂單為主力（經濟部）</li>
+<li>台股20日跌529.15點收46,292.93點，外資單日賣超795.3億元，10月以來累計賣超6,620億元</li>
+<li>美光桃園工會宣布22日罷工一天，罷工投票同意率約99%，聲援台中廠同日第二次勞資調解</li>
+<li>中華職棒台灣大賽第3戰，味全龍6：0完封中信兄弟，系列賽3勝0敗聽牌；史上9次3勝0敗全數封王</li>
+<li>國安局統計，今年中國滲透相關起訴人數增至73人（2020年6人），累計163人定罪</li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span>【國際】</h3>
+<ul>
+<li>澤倫斯基在奧斯陸會晤美方特使魏科夫，稱美烏情報分享「已恢復運作」；同日俄軍空襲烏克蘭釀9死</li>
+<li>川普政府宣布第二任期已撤銷超過30萬張美國簽證（美國國務院）</li>
+<li>法國暴動後多城實施宵禁，總理誓言「大規模」警力部署，義大利派500名軍人進駐米蘭</li>
+<li>葉門夏卜瓦省阿拉姆訓練營遭青年運動3枚彈道飛彈攻擊，省長稱58死、逾200傷、14人失蹤</li>
+<li>伊朗警告若美方攻擊其基地與石化設施將打擊「9個國家」；IRGC稱2艘油輪在荷莫茲海峽南側觸雷起火</li>
+<li>以色列27日舉行國會大選，川普對尼坦雅胡的背書被評對選民影響有限</li>
+<li>Anthropic 今年上半年淨損逾800億美元，據華爾街日報引述IPO草稿招股書</li>
+</ul>
+</section>
+<section class="blk">
+<h3><span class="dt"></span>【數字】</h3>
+<ul>
+<li>台股：加權指數收46,292.93點、跌1.13%，成交金額7,586.8億元</li>
+<li>匯市：台幣收32.617元、貶1.72角，續寫1年半新低；美股道瓊漲1.02%至52,495.88點，那指跌0.02%、費半跌0.29%</li>
+<li>油市：布蘭特原油收108.79美元（-0.69%）、西德州101.79美元（-1.80%）；星展維持台灣今年GDP成長11.6%預測</li>
+</ul>
+</section>
 </div>
 <div class="arch">
 <h3>歷期</h3>

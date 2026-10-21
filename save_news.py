@@ -20,6 +20,7 @@
 import argparse
 import glob
 import html
+import json
 import os
 import re
 import subprocess
@@ -71,24 +72,53 @@ def inline(s):
     return s
 
 
+SECTION_MARKS = "①②③④⑤⑥⑦⑧⑨⑩"
+
+
+def _is_section(t):
+    """判斷是不是小節標題：圈號開頭、【】包住、或很短又沒有句號的標籤行。"""
+    if t[0] in SECTION_MARKS:
+        return True
+    if t.startswith("【") and "】" in t[:12]:
+        return True
+    if len(t) <= 14 and not t.endswith(("。", "！", "？", "，")) and not re.match(r"^[\d・•\-]", t):
+        return True
+    return False
+
+
 def to_html(md):
-    out = []
+    """把報告排成「小節 + 條列」——手機上一眼看到分區，不要一整片文字牆。"""
+    blocks, cur = [], {"title": None, "items": []}
+
+    def flush():
+        if cur["title"] or cur["items"]:
+            blocks.append({"title": cur["title"], "items": list(cur["items"])})
+        cur["title"], cur["items"] = None, []
+
     for line in md.splitlines():
         t = line.strip()
         if not t:
             continue
-        if t.startswith("### "):
-            out.append(f"<h3>{inline(t[4:])}</h3>")
-        elif t.startswith("## "):
-            out.append(f"<h3>{inline(t[3:])}</h3>")
-        elif t.startswith("# "):
-            out.append(f"<h2>{inline(t[2:])}</h2>")
-        elif re.match(r"^[・•\-]\s*", t):
-            out.append(f"<p class='li'>・{inline(re.sub(r'^[・•\-]\s*', '', t))}</p>")
-        elif re.match(r"^\d+[.)]\s*", t):
-            out.append(f"<p class='li'>{inline(t)}</p>")
-        else:
-            out.append(f"<p>{inline(t)}</p>")
+        t = re.sub(r"^#+\s*", "", t)
+        if _is_section(t):
+            flush()
+            cur["title"] = t
+            continue
+        cur["items"].append(re.sub(r"^[・•\-]\s*", "", t))
+    flush()
+
+    out = []
+    for b in blocks:
+        out.append('<section class="blk">')
+        if b["title"]:
+            out.append(f'<h3><span class="dt"></span>{inline(b["title"])}</h3>')
+        items = b["items"]
+        if items:
+            out.append("<ul>")
+            for it in items:
+                out.append(f"<li>{inline(it)}</li>")
+            out.append("</ul>")
+        out.append("</section>")
     return "\n".join(out)
 
 
@@ -96,7 +126,18 @@ CSS = """
   .wrap{max-width:820px;margin:0 auto;padding:0 18px 40px}
   h1{font-size:clamp(22px,4vw,30px);line-height:1.35;margin:18px 0 6px}
   .meta{color:var(--soft);font-size:14px;margin-bottom:16px}
-  .body p{font-size:16.5px;line-height:1.85;margin:8px 0}
+  .body{font-size:17px;line-height:1.9;color:var(--ink)}
+  .body .blk{border-top:1px solid #e7e0d2;padding:14px 0 4px}
+  .body .blk:first-child{border-top:0;padding-top:4px}
+  .body h3{font-size:17.5px;margin:0 0 8px;display:flex;align-items:baseline;gap:8px;font-weight:700}
+  .body h3 .dt{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none;transform:translateY(-1px)}
+  .body ul{margin:0;padding-left:18px}
+  .body li{margin:5px 0;line-height:1.85}
+  .body p{font-size:17px;line-height:1.9;margin:8px 0}
+  .body .night{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 16px}
+  .body .night .big{font-size:19px;margin:2px 0 4px}
+  .body .night .up{color:var(--red)} .body .night .dn{color:var(--green)}
+  .body .night .dim{font-size:13.5px;color:var(--soft);margin:0}
   .body p.li{padding-left:6px}
   .body h3{font-size:18px;margin:22px 0 6px}
   .body b{color:var(--ink)}
@@ -106,6 +147,36 @@ CSS = """
   .arch a{display:inline-block;margin:0 10px 8px 0;font-size:14.5px;color:var(--blue);text-decoration:none;border-bottom:1.5px solid currentColor}
   a.back{display:inline-block;margin:14px 0 0;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
 """
+
+
+NIGHT_SCRIPT = "/home/littler5071/opencode/圖片生成/小R頻道_股市觀察/taifex_night.py"
+
+
+def night_box(body_md):
+    """台指期夜盤小卡：報告本身沒寫到時，自動抓期交所資料補在最上面。"""
+    if "台指期夜盤" in body_md:
+        return ""
+    try:
+        r = subprocess.run(["/home/littler5071/.venvs/video/bin/python", NIGHT_SCRIPT, "--json"],
+                           capture_output=True, text=True, timeout=90)
+        if r.returncode != 0 or not r.stdout.strip().startswith("{"):
+            return ""
+        d = json.loads(r.stdout.strip().splitlines()[-1])
+        close = f"{d.get('night_close', 0):,.0f}"
+        chg = d.get("night_chg_pct", "")
+        vol = d.get("night_volume", "")
+        vol_s = f"{vol:,}" if isinstance(vol, int) else str(vol)
+        cls = "up" if str(chg).strip().startswith("-") is False else "dn"
+        return (f'<section class="blk night"><h3><span class="dt"></span>台指期夜盤</h3>'
+                f'<p class="big"><b>{close}</b> <span class="{cls}">{html.escape(str(chg))}</span>'
+                f'　成交量 {html.escape(vol_s)} 口</p>'
+                f'<p class="dim">近月合約 {html.escape(str(d.get("contract", "")))}｜'
+                f'夜盤 15:00→隔日 05:00，歸屬交易日 {html.escape(str(d.get("date", "")))}</p></section>')
+    except Exception:
+        if os.environ.get("SAVE_NEWS_DEBUG"):
+            import traceback
+            traceback.print_exc()
+        return ""
 
 
 def nav_tags():
@@ -186,14 +257,16 @@ def build(kind, limit):
     dates = [d for d, _ in items]
     for d, body in items:
         ymd = f"{d[:4]}/{d[4:6]}/{d[6:]}"
+        extra = night_box(body) if kind == "us" else ""
         html_doc = page(f"{cfg['title']} {ymd}", f"{cfg['title']} {ymd}", cfg["sub"],
-                        to_html(body), dates,
+                        extra + to_html(body), dates,
                         f"https://littler5071.github.io/news/{cfg['dir']}/{d}.html")
         open(os.path.join(outdir, f"{d}.html"), "w", encoding="utf-8").write(html_doc)
     latest_date, latest_body = items[0]
     ymd = f"{latest_date[:4]}/{latest_date[4:6]}/{latest_date[6:]}"
+    extra = night_box(latest_body) if kind == "us" else ""
     html_doc = page(f"{cfg['title']}｜最新", f"{cfg['title']} {ymd}", cfg["sub"],
-                    to_html(latest_body), dates,
+                    extra + to_html(latest_body), dates,
                     f"https://littler5071.github.io/news/{cfg['dir']}/")
     open(os.path.join(outdir, "index.html"), "w", encoding="utf-8").write(html_doc)
     print(f"[{kind}] 產出 {len(items)} 期，最新 {latest_date}")
