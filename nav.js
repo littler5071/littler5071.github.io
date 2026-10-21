@@ -24,6 +24,7 @@
     { label: '小R頻道',   path: '',        brand: true },
     { label: 'AI 助理實測', path: 'ai/'     },
     { label: '股市觀察',   path: 'stock/'  },
+    { label: '新聞晨報',   path: 'news/'   },
     { label: '多益英文',   path: 'toeic/'  },
     { label: '程式設計',   path: 'code/'   },
     { label: '教育輔助',   path: 'study/'  }
