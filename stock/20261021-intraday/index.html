@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>盤中觀察 2026/10/21 12:48 快照 · 成交值前 50 檔 · 小R 頻道｜小R頻道</title>
+<title>盤中觀察 2026/10/21 12:48 快照 · 成交值前 50 檔 · 小R 頻道</title>
 <meta name="description" content="2026/10/21 12:48 盤中即時快照：加權指數、櫃買指數與當日盤中成交金額前 50 檔個股（上市 35＋上櫃 15）的相對強弱、量能推估與技術線型。公開資料整理，不構成投資建議。">
 <link rel="stylesheet" href="../../css/stock-report.css">
 <style>
@@ -48,6 +48,12 @@
     .scroll table th:first-child,.scroll table td:first-child{position:sticky;left:0;background:#fffdf7;z-index:2;
       box-shadow:1px 0 0 rgba(0,0,0,.06)}
     .scroll table th,.scroll table td{white-space:normal;word-break:break-word}
+    /* 「上市 vs 上櫃」在手機改成卡片列（指標 + 加權/櫃買各一行），不要硬塞三欄 */
+    #sec-market-otc table,#sec-market-otc tbody,#sec-market-otc tr,#sec-market-otc th,#sec-market-otc td{display:block;width:100%}
+    #sec-market-otc tr{margin:0 0 10px;border:1.5px solid #e7e2d7;border-radius:12px;padding:9px 12px;background:#fff}
+    #sec-market-otc th{border:0;padding:0 0 5px;font-size:13px;color:#78706a;background:none}
+    #sec-market-otc td{border:0;padding:2px 0;font-size:14px;position:static;box-shadow:none;background:none}
+    #sec-market-otc td::before{content:attr(data-label)"：";color:#78706a;font-size:13px}
   }
   a.tg,.tg{font-size:12.5px;color:var(--soft);border:1.5px solid var(--line);border-radius:999px;padding:1px 9px;text-decoration:none}
   a.tg:hover{color:var(--red);border-color:var(--red)}
@@ -95,21 +101,6 @@
   .mkchip tr th{width:34%}
   .mkotcline,.mknote{font-size:13.5px;color:var(--soft);margin:4px 0 0}
 </style>
-<!-- hermes-seo -->
-<link rel="canonical" href="https://littler5071.github.io/stock/20261021-intraday/">
-
-<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
-<meta property="og:site_name" content="小R頻道">
-<meta property="og:type" content="website">
-<meta property="og:title" content="盤中觀察 2026/10/21 12:48 快照 · 成交值前 50 檔 · 小R 頻道｜小R頻道">
-<meta property="og:description" content="2026/10/21 12:48 盤中即時快照：加權指數、櫃買指數與當日盤中成交金額前 50 檔個股（上市 35＋上櫃 15）的相對強弱、量能推估與技術線型。公開資料整理，不構成投資建議。">
-<meta property="og:url" content="https://littler5071.github.io/stock/20261021-intraday/">
-<meta property="og:locale" content="zh_TW">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="盤中觀察 2026/10/21 12:48 快照 · 成交值前 50 檔 · 小R 頻道｜小R頻道">
-<meta name="twitter:description" content="2026/10/21 12:48 盤中即時快照：加權指數、櫃買指數與當日盤中成交金額前 50 檔個股（上市 35＋上櫃 15）的相對強弱、量能推估與技術線型。公開資料整理，不構成投資建議。">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<!-- /hermes-seo -->
 </head>
 <body>
 <div class="wrap" id="top">
@@ -207,7 +198,7 @@
           （兩個市場分開寫，不合併成一個數字；櫃買為 TPEX 公開資料）</div>
         <div class="scroll"><table>
           <tr><th>指標</th><th>加權（集中市場）</th><th>櫃買（上櫃）</th></tr>
-          <tr><th>收盤／漲跌</th><td>加權 46,292.93（-1.13%）</td><td>櫃買 387.88（-1.57%）</td></tr><tr><th>站上均線數</th><td>加權 1／4</td><td>櫃買 0／4</td></tr><tr><th>月線（MA20）</th><td>加權 跌破（-3.90%）／上彎</td><td>櫃買 跌破（-6.58%）／上彎</td></tr><tr><th>高點頸線</th><td>加權 49,285.22｜未突破 -6.07%</td><td>櫃買 412.11｜未突破 -5.88%</td></tr><tr><th>低點頸線</th><td>加權 44,639.15｜未跌破 +3.70%</td><td>櫃買 381.45｜未跌破 +1.69%</td></tr><tr><th>近 120 日區間百分位</th><td>加權 66.8%</td><td>櫃買 47.6%</td></tr><tr><th>主狀態</th><td>加權 區間整理／均線糾結</td><td>櫃買 區間整理／均線糾結</td></tr>
+          <tr><th>收盤／漲跌</th><td data-label="加權">46,292.93（-1.13%）</td><td data-label="櫃買">387.88（-1.57%）</td></tr><tr><th>站上均線數</th><td data-label="加權">1／4</td><td data-label="櫃買">0／4</td></tr><tr><th>月線（MA20）</th><td data-label="加權">跌破（-3.90%）／上彎</td><td data-label="櫃買">跌破（-6.58%）／上彎</td></tr><tr><th>高點頸線</th><td data-label="加權">49,285.22｜未突破 -6.07%</td><td data-label="櫃買">412.11｜未突破 -5.88%</td></tr><tr><th>低點頸線</th><td data-label="加權">44,639.15｜未跌破 +3.70%</td><td data-label="櫃買">381.45｜未跌破 +1.69%</td></tr><tr><th>近 120 日區間百分位</th><td data-label="加權">66.8%</td><td data-label="櫃買">47.6%</td></tr><tr><th>主狀態</th><td data-label="加權">區間整理／均線糾結</td><td data-label="櫃買">區間整理／均線糾結</td></tr>
         </table></div>
         <div class="mknote">櫃買歷史：TPEX 逐日回補 130 根；來源：櫃買中心 www/zh-tw/indexInfo/sectinx（逐日，官方；OpenAPI tpex_index 只回當月）
           （TPEX OpenAPI 只回當月，故逐日回補；歷史不足就不算該條均線並標「資料不足」，不用錯數字）</div>
