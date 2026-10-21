@@ -69,6 +69,32 @@
   footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13.5px}
   a{color:var(--blue)}
 
+  /* hermesnav（共用導覽・密集版：手機單行可橫向滑） */
+  .hnav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;
+        background:rgba(246,241,230,.97);border-bottom:2px solid #d9d1c2;padding:5px 10px;
+        overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+        font-family:"Kaiti TC","標楷體",KaiTi,"Microsoft JhengHei",system-ui,sans-serif}
+  .hnav::-webkit-scrollbar{display:none}
+  .hnav a{white-space:nowrap}
+  .hnav a.brand{font-size:14px;color:#4a4640;text-decoration:none;margin-right:6px;letter-spacing:.02em;
+        padding:2px 8px;border-radius:999px;border:1.5px solid transparent;flex:none}
+  .hnav a.brand:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.brand.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  .hnav a.lnk{font-size:13.5px;color:#364e70;text-decoration:none;padding:2px 8px;border-radius:999px;
+        border:1.5px solid transparent;flex:none}
+  .hnav a.lnk:hover{border-color:#c8bda8;color:#bf4a3a}
+  .hnav a.lnk.on{background:#fffdf6;border-color:#364e70;color:#364e70}
+  @media (max-width:430px){
+    .hnav{padding:4px 8px}
+    .hnav a.brand{font-size:13px;padding:2px 6px}
+    .hnav a.lnk{font-size:12.5px;padding:2px 6px}
+  }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
   /* 首頁：每個分類放最新 2 則 */
   section .hint{color:var(--soft);font-size:14.5px;margin:2px 0 10px}
   .same-day{font-size:13.5px;color:var(--soft);margin:6px 0 0}
@@ -77,31 +103,10 @@
   .mktline{font-size:14.5px;color:var(--blue);margin:2px 0 12px;line-height:1.6}
   .mktline .dim{color:var(--soft);font-size:13px}
   .foot{text-align:center;color:var(--soft);font-size:14px;margin-top:34px}
-  /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
-        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  .viewsline .vnum{color:#364e70}
-  .viewsline .vnum.vnum-on{color:#bf4a3a}
-  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<script defer src="./counter.js?v=94ad9679"></script>
 <link rel="stylesheet" href="./nav.css?v=73b4d013">
-<script defer src="./nav.js?v=9956c74d"></script>
-<script defer src="./counter.js?v=e837f732"></script>
-<!-- hermes-seo -->
-<link rel="canonical" href="https://littler5071.github.io/">
-<meta name="google-site-verification" content="d0-UsEPQx4WsiLOHng08n2o5Qclmq8Fw9tbMgaxIkck">
-<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
-<meta property="og:site_name" content="小R頻道">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小R頻道 · 影片索引">
-<meta property="og:description" content="小R頻道的影片索引：AI 助理實測、股市觀察、多益英文。">
-<meta property="og:url" content="https://littler5071.github.io/">
-<meta property="og:locale" content="zh_TW">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="小R頻道 · 影片索引">
-<meta name="twitter:description" content="小R頻道的影片索引：AI 助理實測、股市觀察、多益英文。">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<!-- /hermes-seo -->
+<script defer src="./nav.js?v=4b28034a"></script>
 </head>
 <body>
 <div class="wrap">
@@ -136,7 +141,7 @@
 
   <section id="stock">
     <h2><a class="h2link" href="stock/"><span class="dot"></span>股市觀察</a>
-      <span class="more"><a href="stock/">全部觀察紀錄（48）→</a></span>
+      <span class="more"><a href="stock/">全部觀察紀錄（50）→</a></span>
     </h2>
     <p class="hint">每個交易日成交金額前段班的逐檔技術面觀察，只用公開資料；不預測、不報牌。</p>
     <p class="mktline">大盤（加權指數）10/20 主狀態：區間整理／均線糾結｜距多方頸線 −6.07%｜量比 20 0.82<span class="dim">　公開資料技術面統計，不構成投資建議</span></p>
@@ -151,7 +156,7 @@
       <h3>2026/10/20 收盤後觀察：46292.93　-529.15 點（-1.13%）</h3>
       <p>成交金額前 50 檔（上市 35＋上櫃 15）逐檔技術線型；上市個股上漲／下跌 269 / 701。另有「好／不好條件最多」兩個排行榜。</p>
       <a class="btn" href="stock/20261020/">逐檔 K 線圖與線型分析（50 檔）→</a>
-    </div>    <p class="same-day">同一天另有：<a href="stock/20261020-intraday/">10/20 12:31 盤中快照</a></p>
+    </div>    <p class="same-day">同一天另有：<a href="stock/20261020-intraday/">10/20 18:27 盤中快照</a></p>
   </section>
 
   <section id="toeic">
@@ -196,6 +201,6 @@
     頻道：<a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </div>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="134" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="113" data-views>—</span></div>
 </body>
 </html>
