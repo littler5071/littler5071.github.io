@@ -103,7 +103,9 @@ def build_stock():
   </div>""")
     # 盤中觀察（目錄名為 <日期>-intraday）→ 依日期分組，要跟同一天的收盤頁排在一起
     intr = sorted([os.path.basename(os.path.dirname(p)) for p in
-                   glob.glob(os.path.join(SITE, "stock", "*-intraday", "index.html"))], reverse=True)
+                   glob.glob(os.path.join(SITE, "stock", "*-intraday", "index.html"))
+                   # 固定網址目錄（latest-intraday）不是日期頁，排掉才不會出現「late/st/-i」這種假日期
+                   if re.fullmatch(r"\d{8}-intraday", os.path.basename(os.path.dirname(p)))], reverse=True)
     icards_by_day, irows_by_day = {}, {}
     for d in intr:
         h = open(os.path.join(SITE, "stock", d, "index.html"), encoding="utf-8").read()
