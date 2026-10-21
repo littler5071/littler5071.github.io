@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16 條評分條件回測：多頭有效的，空頭期間全部反向｜小R頻道</title>
+<meta name="description" content="把每日評分與條件追蹤用的 16 條條件（8 條好條件、8 條壞條件）放進 458 個交易日、829,492 筆日 K 做多空分段回測：多頭期間趨勢條件有效，空頭期間同一組條件全部反向。">
+<link rel="stylesheet" href="../../css/index.css">
+<style>
+  h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 8px;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:14px;height:14px;border:3px solid var(--red);border-radius:50%;flex:none}
+  a.back{display:inline-block;margin:2px 0 12px;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:6px 0 18px}
+  .summary .box{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--soft)}
+  .summary .big{font-size:22px;color:var(--ink);margin-bottom:2px}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:rgba(255,253,246,.9);font-weight:400;color:var(--soft);white-space:nowrap;cursor:pointer}
+  .scroll{overflow-x:auto}
+  .up{color:var(--red)} .dn{color:var(--green)}
+  .dim{color:var(--soft);font-size:13.5px}
+  ul.how{font-size:15.5px} ul.how li{margin:7px 0}
+  ol.key{font-size:15.5px} ol.key li{margin:8px 0}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=9956c74d"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
+<!-- hermes-seo -->
+<link rel="canonical" href="https://littler5071.github.io/stock/backtest16/">
+
+<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
+<meta property="og:site_name" content="小R頻道">
+<meta property="og:type" content="website">
+<meta property="og:title" content="16 條評分條件回測：多頭有效的，空頭期間全部反向｜小R頻道">
+<meta property="og:description" content="把每日評分與條件追蹤用的 16 條條件（8 條好條件、8 條壞條件）放進 458 個交易日、829,492 筆日 K 做多空分段回測：多頭期間趨勢條件有效，空頭期間同一組條件全部反向。">
+<meta property="og:url" content="https://littler5071.github.io/stock/backtest16/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="16 條評分條件回測：多頭有效的，空頭期間全部反向｜小R頻道">
+<meta name="twitter:description" content="把每日評分與條件追蹤用的 16 條條件（8 條好條件、8 條壞條件）放進 458 個交易日、829,492 筆日 K 做多空分段回測：多頭期間趨勢條件有效，空頭期間同一組條件全部反向。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<!-- /hermes-seo -->
+</head>
+<body>
+<main>
+<a class="back" href="../">← 回股市觀察</a>
+<h1>16 條評分條件回測：多頭有效的，空頭期間全部反向</h1>
+<p class="dim">每日收盤評分與 19:00 條件追蹤用的 8 條「好條件」與 8 條「壞條件」，過去從來沒有被驗證過。
+這頁把它們放進 458 個交易日、829,492 筆日 K，用同一套方法（去重、多空分段、對照組、Welch t、超額報酬）算一次。</p>
+
+<div class="summary">
+<div class="box"><div class="big">829,492 筆</div>回測樣本<br><span class="dim">1,992 檔・458 個交易日（2024/12/02–2026/10/21）</span></div>
+<div class="box"><div class="big">535,939 筆</div>多頭期間<br><span class="dim">等權指數在 60 日均線之上</span></div>
+<div class="box"><div class="big">293,553 筆</div>空頭期間<br><span class="dim">等權指數在 60 日均線之下</span></div>
+<div class="box"><div class="big">+2.09%</div>多頭最強條件<br><span class="dim">突破頸線（t=12.2）</span></div>
+<div class="box"><div class="big">-2.08%</div>空頭期間反向<br><span class="dim">同一組好條件在空頭期間的後 20 日差距</span></div>
+<div class="box"><div class="big">+2.2% ~ +3.2%</div>對照組（空頭）<br><span class="dim">什麼訊號都沒有的股票，空頭期間 20 日平均</span></div>
+</div>
+
+<h2><span class="dot"></span>怎麼讀這張表</h2>
+<ul class="how">
+<li>「有」＝訊號出現那組的後 20 日平均報酬；「對照」＝同一期間<b>沒出現</b>的股票。</li>
+<li>要看的不是「有」本身，是<b>差距＝有 − 對照</b>，再加 t 值與樣本數；差距不顯著就是雜訊。</li>
+<li>多頭（等權指數 &gt; 60 日均線）與空頭分開算，因為實測同一個條件在兩期<b>方向相反</b>。</li>
+<li>顏色照台股慣例：<span class="up">紅＝上漲</span>、<span class="dn">綠＝下跌</span>。</li>
+</ul>
+
+<h2><span class="dot"></span>① 16 條條件（後 20 日報酬，點欄位標題可排序）</h2>
+<div class="scroll">
+<table id="t1">
+<thead><tr>
+<th>條件</th><th>類別</th><th>多頭 有</th><th>多頭 對照</th><th>多頭 差距</th><th>多頭 t</th>
+<th>空頭 有</th><th>空頭 對照</th><th>空頭 差距</th><th>空頭 t</th><th>去重樣本</th><th>判定</th>
+</tr></thead>
+<tbody>
+<tr><td>站上月線</td><td class='dim'>GOOD</td><td>+0.05%</td><td>-1.02%</td><td class='up'><b>+1.07%</b></td><td>+12.41</td><td>+1.88%</td><td>+3.16%</td><td class='dn'><b>-1.28%</b></td><td>-13.44</td><td>51,236</td><td>單邊有效</td></tr>
+<tr><td>月線向上</td><td class='dim'>GOOD</td><td>+0.96%</td><td>-0.77%</td><td class='up'><b>+1.74%</b></td><td>+12.62</td><td>+1.04%</td><td>+3.12%</td><td class='dn'><b>-2.08%</b></td><td>-14.72</td><td>21,386</td><td>單邊有效</td></tr>
+<tr><td>底底高</td><td class='dim'>GOOD</td><td>+0.29%</td><td>-0.38%</td><td class='up'><b>+0.67%</b></td><td>+2.69</td><td>+1.31%</td><td>+2.59%</td><td class='dn'><b>-1.29%</b></td><td>-5.74</td><td>8,584</td><td>單邊有效</td></tr>
+<tr><td>頭頭高</td><td class='dim'>GOOD</td><td>+0.37%</td><td>-0.72%</td><td class='up'><b>+1.09%</b></td><td>+9.93</td><td>+1.63%</td><td>+2.70%</td><td class='dn'><b>-1.08%</b></td><td>-8.92</td><td>33,784</td><td>單邊有效</td></tr>
+<tr><td>突破頸線</td><td class='dim'>GOOD</td><td>+1.58%</td><td>-0.51%</td><td class='up'><b>+2.09%</b></td><td>+12.24</td><td>+1.66%</td><td>+2.54%</td><td class='dn'><b>-0.88%</b></td><td>-3.66</td><td>17,053</td><td>單邊有效</td></tr>
+<tr><td>相對大盤強</td><td class='dim'>GOOD</td><td>-0.35%</td><td>-0.38%</td><td class='up'><b>+0.03%</b></td><td>+0.67</td><td>+2.53%</td><td>+2.56%</td><td class='dn'><b>-0.03%</b></td><td>-0.48</td><td>206,677</td><td>單邊有效</td></tr>
+<tr><td>外資買超</td><td class='dim'>GOOD</td><td>—</td><td>-0.31%</td><td class=''><b>—</b></td><td>—</td><td>—</td><td>+2.47%</td><td class=''><b>—</b></td><td>—</td><td>0</td><td>資料不足</td></tr>
+<tr><td>量價攻擊（收紅＋大量）</td><td class='dim'>GOOD</td><td>+0.41%</td><td>-0.51%</td><td class='up'><b>+0.92%</b></td><td>+13.49</td><td>+2.47%</td><td>+2.48%</td><td class='dn'><b>-0.01%</b></td><td>-0.12</td><td>93,225</td><td>單邊有效</td></tr>
+<tr><td>跌破前低</td><td class='dim'>BAD</td><td>-1.08%</td><td>-0.13%</td><td class='dn'><b>-0.95%</b></td><td>-10.59</td><td>+2.40%</td><td>+2.05%</td><td class='up'><b>+0.35%</b></td><td>+3.33</td><td>38,082</td><td>單邊有效</td></tr>
+<tr><td>今日下跌</td><td class='dim'>BAD</td><td>-0.40%</td><td>-0.18%</td><td class='dn'><b>-0.22%</b></td><td>-4.41</td><td>+2.34%</td><td>+2.20%</td><td class='up'><b>+0.14%</b></td><td>+2.58</td><td>210,448</td><td>單邊有效</td></tr>
+<tr><td>相對大盤弱</td><td class='dim'>BAD</td><td>-0.37%</td><td>-0.21%</td><td class='dn'><b>-0.15%</b></td><td>-2.93</td><td>+2.23%</td><td>+2.37%</td><td class='dn'><b>-0.14%</b></td><td>-2.52</td><td>207,186</td><td>兩期都負</td></tr>
+<tr><td>在月線之下</td><td class='dim'>BAD</td><td>-0.19%</td><td>+0.51%</td><td class='dn'><b>-0.69%</b></td><td>-8.19</td><td>+1.84%</td><td>+1.38%</td><td class='up'><b>+0.46%</b></td><td>+4.64</td><td>51,907</td><td>單邊有效</td></tr>
+<tr><td>量增下跌（出貨）</td><td class='dim'>BAD</td><td>-0.11%</td><td>-0.35%</td><td class='up'><b>+0.24%</b></td><td>+4.02</td><td>+2.69%</td><td>+2.38%</td><td class='up'><b>+0.31%</b></td><td>+4.24</td><td>103,599</td><td>兩期都正</td></tr>
+<tr><td>外資賣超</td><td class='dim'>BAD</td><td>—</td><td>-0.31%</td><td class=''><b>—</b></td><td>—</td><td>—</td><td>+2.47%</td><td class=''><b>—</b></td><td>—</td><td>0</td><td>資料不足</td></tr>
+<tr><td>月線下彎</td><td class='dim'>BAD</td><td>-1.32%</td><td>+0.15%</td><td class='dn'><b>-1.47%</b></td><td>-11.41</td><td>+1.66%</td><td>+1.32%</td><td class='up'><b>+0.34%</b></td><td>+2.45</td><td>21,713</td><td>單邊有效</td></tr>
+<tr><td>收盤跌破前一日低點</td><td class='dim'>BAD</td><td>-0.57%</td><td>-0.21%</td><td class='dn'><b>-0.37%</b></td><td>-6.75</td><td>+2.68%</td><td>+2.17%</td><td class='up'><b>+0.51%</b></td><td>+8.41</td><td>143,071</td><td>單邊有效</td></tr>
+</tbody></table>
+</div>
+
+<h2><span class="dot"></span>② 期限穩健性：後 5／10／20 日</h2>
+<p class="dim">同一個條件在三個期限方向要一致才算穩。方向反覆的（量增下跌、跌破前低）不要用。</p>
+<div class="scroll">
+<table>
+<thead><tr><th>條件</th><th>5日 多頭</th><th>5日 空頭</th><th>10日 多頭</th><th>10日 空頭</th><th>20日 多頭</th><th>20日 空頭</th></tr></thead>
+<tbody>
+<tr><td>站上月線</td><td class='up'>+0.10%</td><td class='dn'>-0.20%</td><td class='up'>+0.49%</td><td class='dn'>-0.50%</td><td class='up'>+1.07%</td><td class='dn'>-1.28%</td></tr>
+<tr><td>月線向上</td><td class='up'>+0.27%</td><td class='dn'>-0.02%</td><td class='up'>+0.69%</td><td class='dn'>-1.19%</td><td class='up'>+1.74%</td><td class='dn'>-2.08%</td></tr>
+<tr><td>底底高</td><td class='up'>+0.43%</td><td class='up'>+0.40%</td><td class='up'>+0.77%</td><td class='dn'>-0.58%</td><td class='up'>+0.67%</td><td class='dn'>-1.29%</td></tr>
+<tr><td>頭頭高</td><td class='up'>+0.25%</td><td class='dn'>-0.07%</td><td class='up'>+0.55%</td><td class='dn'>-0.33%</td><td class='up'>+1.09%</td><td class='dn'>-1.08%</td></tr>
+<tr><td>突破頸線</td><td class='up'>+0.83%</td><td class='up'>+0.12%</td><td class='up'>+1.35%</td><td class='dn'>-0.04%</td><td class='up'>+2.09%</td><td class='dn'>-0.88%</td></tr>
+<tr><td>相對大盤強</td><td class='up'>+0.05%</td><td class='dn'>-0.12%</td><td class='up'>+0.06%</td><td class='dn'>-0.02%</td><td class='up'>+0.03%</td><td class='dn'>-0.03%</td></tr>
+<tr><td>外資買超</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td></tr>
+<tr><td>量價攻擊（收紅＋大量）</td><td class='up'>+0.27%</td><td class='dn'>-0.17%</td><td class='up'>+0.49%</td><td class='dn'>-0.13%</td><td class='up'>+0.92%</td><td class='dn'>-0.01%</td></tr>
+<tr><td>跌破前低</td><td class='dn'>-0.02%</td><td class='dn'>-0.75%</td><td class='dn'>-0.11%</td><td class='dn'>-0.35%</td><td class='dn'>-0.95%</td><td class='up'>+0.35%</td></tr>
+<tr><td>今日下跌</td><td class='dn'>-0.17%</td><td class='up'>+0.10%</td><td class='dn'>-0.18%</td><td class='up'>+0.02%</td><td class='dn'>-0.22%</td><td class='up'>+0.14%</td></tr>
+<tr><td>相對大盤弱</td><td class='dn'>-0.09%</td><td class='up'>+0.02%</td><td class='dn'>-0.15%</td><td class='dn'>-0.08%</td><td class='dn'>-0.15%</td><td class='dn'>-0.14%</td></tr>
+<tr><td>在月線之下</td><td class='dn'>-0.10%</td><td class='dn'>-0.08%</td><td class='dn'>-0.19%</td><td class='dn'>-0.27%</td><td class='dn'>-0.69%</td><td class='up'>+0.46%</td></tr>
+<tr><td>量增下跌（出貨）</td><td class='dn'>-0.03%</td><td class='dn'>-0.00%</td><td class='up'>+0.15%</td><td class='dn'>-0.14%</td><td class='up'>+0.24%</td><td class='up'>+0.31%</td></tr>
+<tr><td>外資賣超</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td></tr>
+<tr><td>月線下彎</td><td class='dn'>-0.14%</td><td class='up'>+0.10%</td><td class='dn'>-0.40%</td><td class='dn'>-0.23%</td><td class='dn'>-1.47%</td><td class='up'>+0.34%</td></tr>
+<tr><td>收盤跌破前一日低點</td><td class='dn'>-0.03%</td><td class='up'>+0.04%</td><td class='dn'>-0.14%</td><td class='up'>+0.08%</td><td class='dn'>-0.37%</td><td class='up'>+0.51%</td></tr>
+</tbody></table>
+</div>
+
+<h2><span class="dot"></span>③ 空頭期間真正有效的條件</h2>
+<p class="dim">空頭期間趨勢條件反向，真正有正差距的是「超跌反轉」這一組。</p>
+<div class="scroll">
+<table>
+<thead><tr><th>條件</th><th>空頭 差距</th><th>空頭 t</th><th>去重樣本</th></tr></thead>
+<tbody>
+<tr><td>收盤跌破前一日低點</td><td class='up'><b>+0.51%</b></td><td>+8.41</td><td>143,071</td></tr>
+<tr><td>在月線之下</td><td class='up'><b>+0.46%</b></td><td>+4.64</td><td>51,907</td></tr>
+<tr><td>跌破前低</td><td class='up'><b>+0.35%</b></td><td>+3.33</td><td>38,082</td></tr>
+<tr><td>月線下彎</td><td class='up'><b>+0.34%</b></td><td>+2.45</td><td>21,713</td></tr>
+<tr><td>量增下跌（出貨）</td><td class='up'><b>+0.31%</b></td><td>+4.24</td><td>103,599</td></tr>
+</tbody></table>
+</div>
+
+<h2><span class="dot"></span>結論</h2>
+<ol class="key">
+<li><b>多頭期間，這套評分是對的</b>：突破頸線 +2.09%（t=12.2）、月線向上 +1.74%、頭頭高 +1.09%、站上月線 +1.07%。</li>
+<li><b>空頭期間，同一組條件全部反向</b>（−0.88% ~ −2.08%，t −3.7 ~ −14.7）→ 空頭時「好條件最多」其實偏弱。</li>
+<li><b>「相對大盤強」該拿掉</b>：三個期限都 ≈0（+0.03%，t 0.67），沒有分辨力。</li>
+<li><b>「量增下跌（出貨）」不是壞條件</b>：後 20 日兩期都是正的（+0.24%／+0.31%）。</li>
+<li><b>要改看超額報酬</b>：空頭期間連對照組都漲 +2.2%~+3.2%，只看原始報酬會把大盤的漲跌算成選股能力。</li>
+</ol>
+
+<h2><span class="dot"></span>方法與限制</h2>
+<ul class="how">
+<li>資料：證交所 <code>MI_INDEX(type=ALL)</code> 與櫃買中心逐日收盤行情，2024-09-01 起抓、清洗後 829,492 筆 / 1,992 檔 / 458 交易日。</li>
+<li>濾除：ETF／ETN（00 開頭）、收盤 ≤ 0、單筆後 20 日報酬超過 ±100% 的資料瑕疵。</li>
+<li>報酬在 <code>groupby(股票)</code> 內計算；訊號連續多天出現只留每段第一天（去重）。</li>
+<li>市場分段：等權指數對 60 日均線、±1% 緩衝，避免天天翻。對照組在各期間內各自計算。</li>
+<li>「突破頸線」以「最近 3 個已確認波高的最大值」近似原版的頸線群聚平均。</li>
+<li>「外資買超／賣超」需要兩年逐日 T86 籌碼，這批資料沒有 → 未驗證。</li>
+<li>t 值在高度重疊的訊號上會偏高，當方向性參考；過去不等於未來，也未計交易成本。</li>
+</ul>
+<p class="dim">延伸閱讀：<a href="../backtest/">30 個朱家泓式訊號的回測（正向 vs 反向對照）</a> ｜
+<a href="../tracker/">條件追蹤：好條件 Top10 vs 對照組</a></p>
+<p class="dim">本頁只用公開資料做統計整理，不構成任何投資建議。</p>
+</main>
+<script>
+document.querySelectorAll('#t1 th').forEach(function(th, i){
+  th.addEventListener('click', function(){
+    var tb = th.closest('table').tBodies[0];
+    var rows = Array.prototype.slice.call(tb.rows);
+    var num = function(c){ var t = c.innerText.replace(/[^0-9+\-.%]/g,'').replace('%',''); return parseFloat(t); };
+    var asc = th.dataset.asc === '1';
+    rows.sort(function(a, b){
+      var x = num(a.cells[i]), y = num(b.cells[i]);
+      if (isNaN(x) && isNaN(y)) return 0;
+      if (isNaN(x)) return 1;
+      if (isNaN(y)) return -1;
+      return asc ? x - y : y - x;
+    });
+    th.dataset.asc = asc ? '0' : '1';
+    rows.forEach(function(r){ tb.appendChild(r); });
+  });
+});
+</script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
