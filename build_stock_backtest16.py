@@ -72,11 +72,11 @@ def rows_main(h20):
             "<tr>"
             f"<td>{html.escape(r['condition'])}</td>"
             f"<td class='dim'>{html.escape(r['kind'])}</td>"
-            f"<td>{pct(r['bull_sig_fwd'])}</td><td>{pct(r['bull_ctl_fwd'])}</td>"
-            f"<td class='{cls_gap(r['bull_gap'])}'><b>{pct(r['bull_gap'])}</b></td><td>{tnum(r['bull_t'])}</td>"
-            f"<td>{pct(r['bear_sig_fwd'])}</td><td>{pct(r['bear_ctl_fwd'])}</td>"
-            f"<td class='{cls_gap(r['bear_gap'])}'><b>{pct(r['bear_gap'])}</b></td><td>{tnum(r['bear_t'])}</td>"
-            f"<td>{int(float(r['n_sig_dedup'])):,}</td>"
+            f"<td class='m-hide'>{pct(r['bull_sig_fwd'])}</td><td class='m-hide'>{pct(r['bull_ctl_fwd'])}</td>"
+            f"<td class='{cls_gap(r['bull_gap'])}'><b>{pct(r['bull_gap'])}</b></td><td class='m-hide'>{tnum(r['bull_t'])}</td>"
+            f"<td class='m-hide'>{pct(r['bear_sig_fwd'])}</td><td class='m-hide'>{pct(r['bear_ctl_fwd'])}</td>"
+            f"<td class='{cls_gap(r['bear_gap'])}'><b>{pct(r['bear_gap'])}</b></td><td class='m-hide'>{tnum(r['bear_t'])}</td>"
+            f"<td class='m-hide'>{int(float(r['n_sig_dedup'])):,}</td>"
             f"<td>{classify(r)}</td>"
             "</tr>")
     return "\n".join(out)
@@ -91,8 +91,9 @@ def rows_robust(h5, h10, h20):
         cells = [f"<td>{html.escape(c)}</td>"]
         for idx in (idx5, idx10, {c: r}):
             rr = idx.get(c, {})
-            cells.append(f"<td class='{cls_gap(rr.get('bull_gap'))}'>{pct(rr.get('bull_gap'))}</td>")
-            cells.append(f"<td class='{cls_gap(rr.get('bear_gap'))}'>{pct(rr.get('bear_gap'))}</td>")
+            hide = " m-hide" if (idx is idx5 or idx is idx10) else ""
+            cells.append(f"<td class='{cls_gap(rr.get('bull_gap'))}{hide}'>{pct(rr.get('bull_gap'))}</td>")
+            cells.append(f"<td class='{cls_gap(rr.get('bear_gap'))}{hide}'>{pct(rr.get('bear_gap'))}</td>")
         out.append("<tr>" + "".join(cells) + "</tr>")
     return "\n".join(out)
 
@@ -154,6 +155,17 @@ def main():
   .scroll{{overflow-x:auto}}
   .up{{color:var(--red)}} .dn{{color:var(--green)}}
   .dim{{color:var(--soft);font-size:13.5px}}
+  @media (max-width:720px){{
+    .m-hide{{display:none!important}}
+    h1{{font-size:22px;line-height:1.35}}
+    h2{{font-size:19px;margin:26px 0 6px}}
+    table{{font-size:13.5px}}
+    th,td{{padding:6px 8px}}
+    .summary{{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+    .summary .big{{font-size:19px}}
+    ul.how,ol.key{{font-size:15px}}
+    .scroll{{-webkit-overflow-scrolling:touch}}
+  }}
   ul.how{{font-size:15.5px}} ul.how li{{margin:7px 0}}
   ol.key{{font-size:15.5px}} ol.key li{{margin:8px 0}}
 </style>
@@ -181,8 +193,8 @@ def main():
 <div class="scroll">
 <table id="t1">
 <thead><tr>
-<th>條件</th><th>類別</th><th>多頭 有</th><th>多頭 對照</th><th>多頭 差距</th><th>多頭 t</th>
-<th>空頭 有</th><th>空頭 對照</th><th>空頭 差距</th><th>空頭 t</th><th>去重樣本</th><th>判定</th>
+<th>條件</th><th>類別</th><th class="m-hide">多頭 有</th><th class="m-hide">多頭 對照</th><th>多頭 差距</th><th class="m-hide">多頭 t</th>
+<th class="m-hide">空頭 有</th><th class="m-hide">空頭 對照</th><th>空頭 差距</th><th class="m-hide">空頭 t</th><th class="m-hide">去重樣本</th><th>判定</th>
 </tr></thead>
 <tbody>
 {rows_main(h20)}
@@ -193,7 +205,7 @@ def main():
 <p class="dim">同一個條件在三個期限方向要一致才算穩。方向反覆的（量增下跌、跌破前低）不要用。</p>
 <div class="scroll">
 <table>
-<thead><tr><th>條件</th><th>5日 多頭</th><th>5日 空頭</th><th>10日 多頭</th><th>10日 空頭</th><th>20日 多頭</th><th>20日 空頭</th></tr></thead>
+<thead><tr><th>條件</th><th class="m-hide">5日 多頭</th><th class="m-hide">5日 空頭</th><th class="m-hide">10日 多頭</th><th class="m-hide">10日 空頭</th><th>20日 多頭</th><th>20日 空頭</th></tr></thead>
 <tbody>
 {rows_robust(h5, h10, h20)}
 </tbody></table>

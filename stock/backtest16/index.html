@@ -19,6 +19,17 @@
   .scroll{overflow-x:auto}
   .up{color:var(--red)} .dn{color:var(--green)}
   .dim{color:var(--soft);font-size:13.5px}
+  @media (max-width:720px){
+    .m-hide{display:none!important}
+    h1{font-size:22px;line-height:1.35}
+    h2{font-size:19px;margin:26px 0 6px}
+    table{font-size:13.5px}
+    th,td{padding:6px 8px}
+    .summary{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+    .summary .big{font-size:19px}
+    ul.how,ol.key{font-size:15px}
+    .scroll{-webkit-overflow-scrolling:touch}
+  }
   ul.how{font-size:15.5px} ul.how li{margin:7px 0}
   ol.key{font-size:15.5px} ol.key li{margin:8px 0}
   /* hermesviews（瀏覽次數） */
@@ -75,26 +86,26 @@
 <div class="scroll">
 <table id="t1">
 <thead><tr>
-<th>條件</th><th>類別</th><th>多頭 有</th><th>多頭 對照</th><th>多頭 差距</th><th>多頭 t</th>
-<th>空頭 有</th><th>空頭 對照</th><th>空頭 差距</th><th>空頭 t</th><th>去重樣本</th><th>判定</th>
+<th>條件</th><th>類別</th><th class="m-hide">多頭 有</th><th class="m-hide">多頭 對照</th><th>多頭 差距</th><th class="m-hide">多頭 t</th>
+<th class="m-hide">空頭 有</th><th class="m-hide">空頭 對照</th><th>空頭 差距</th><th class="m-hide">空頭 t</th><th class="m-hide">去重樣本</th><th>判定</th>
 </tr></thead>
 <tbody>
-<tr><td>站上月線</td><td class='dim'>GOOD</td><td>+0.05%</td><td>-1.02%</td><td class='up'><b>+1.07%</b></td><td>+12.41</td><td>+1.88%</td><td>+3.16%</td><td class='dn'><b>-1.28%</b></td><td>-13.44</td><td>51,236</td><td>單邊有效</td></tr>
-<tr><td>月線向上</td><td class='dim'>GOOD</td><td>+0.96%</td><td>-0.77%</td><td class='up'><b>+1.74%</b></td><td>+12.62</td><td>+1.04%</td><td>+3.12%</td><td class='dn'><b>-2.08%</b></td><td>-14.72</td><td>21,386</td><td>單邊有效</td></tr>
-<tr><td>底底高</td><td class='dim'>GOOD</td><td>+0.29%</td><td>-0.38%</td><td class='up'><b>+0.67%</b></td><td>+2.69</td><td>+1.31%</td><td>+2.59%</td><td class='dn'><b>-1.29%</b></td><td>-5.74</td><td>8,584</td><td>單邊有效</td></tr>
-<tr><td>頭頭高</td><td class='dim'>GOOD</td><td>+0.37%</td><td>-0.72%</td><td class='up'><b>+1.09%</b></td><td>+9.93</td><td>+1.63%</td><td>+2.70%</td><td class='dn'><b>-1.08%</b></td><td>-8.92</td><td>33,784</td><td>單邊有效</td></tr>
-<tr><td>突破頸線</td><td class='dim'>GOOD</td><td>+1.58%</td><td>-0.51%</td><td class='up'><b>+2.09%</b></td><td>+12.24</td><td>+1.66%</td><td>+2.54%</td><td class='dn'><b>-0.88%</b></td><td>-3.66</td><td>17,053</td><td>單邊有效</td></tr>
-<tr><td>相對大盤強</td><td class='dim'>GOOD</td><td>-0.35%</td><td>-0.38%</td><td class='up'><b>+0.03%</b></td><td>+0.67</td><td>+2.53%</td><td>+2.56%</td><td class='dn'><b>-0.03%</b></td><td>-0.48</td><td>206,677</td><td>單邊有效</td></tr>
-<tr><td>外資買超</td><td class='dim'>GOOD</td><td>—</td><td>-0.31%</td><td class=''><b>—</b></td><td>—</td><td>—</td><td>+2.47%</td><td class=''><b>—</b></td><td>—</td><td>0</td><td>資料不足</td></tr>
-<tr><td>量價攻擊（收紅＋大量）</td><td class='dim'>GOOD</td><td>+0.41%</td><td>-0.51%</td><td class='up'><b>+0.92%</b></td><td>+13.49</td><td>+2.47%</td><td>+2.48%</td><td class='dn'><b>-0.01%</b></td><td>-0.12</td><td>93,225</td><td>單邊有效</td></tr>
-<tr><td>跌破前低</td><td class='dim'>BAD</td><td>-1.08%</td><td>-0.13%</td><td class='dn'><b>-0.95%</b></td><td>-10.59</td><td>+2.40%</td><td>+2.05%</td><td class='up'><b>+0.35%</b></td><td>+3.33</td><td>38,082</td><td>單邊有效</td></tr>
-<tr><td>今日下跌</td><td class='dim'>BAD</td><td>-0.40%</td><td>-0.18%</td><td class='dn'><b>-0.22%</b></td><td>-4.41</td><td>+2.34%</td><td>+2.20%</td><td class='up'><b>+0.14%</b></td><td>+2.58</td><td>210,448</td><td>單邊有效</td></tr>
-<tr><td>相對大盤弱</td><td class='dim'>BAD</td><td>-0.37%</td><td>-0.21%</td><td class='dn'><b>-0.15%</b></td><td>-2.93</td><td>+2.23%</td><td>+2.37%</td><td class='dn'><b>-0.14%</b></td><td>-2.52</td><td>207,186</td><td>兩期都負</td></tr>
-<tr><td>在月線之下</td><td class='dim'>BAD</td><td>-0.19%</td><td>+0.51%</td><td class='dn'><b>-0.69%</b></td><td>-8.19</td><td>+1.84%</td><td>+1.38%</td><td class='up'><b>+0.46%</b></td><td>+4.64</td><td>51,907</td><td>單邊有效</td></tr>
-<tr><td>量增下跌（出貨）</td><td class='dim'>BAD</td><td>-0.11%</td><td>-0.35%</td><td class='up'><b>+0.24%</b></td><td>+4.02</td><td>+2.69%</td><td>+2.38%</td><td class='up'><b>+0.31%</b></td><td>+4.24</td><td>103,599</td><td>兩期都正</td></tr>
-<tr><td>外資賣超</td><td class='dim'>BAD</td><td>—</td><td>-0.31%</td><td class=''><b>—</b></td><td>—</td><td>—</td><td>+2.47%</td><td class=''><b>—</b></td><td>—</td><td>0</td><td>資料不足</td></tr>
-<tr><td>月線下彎</td><td class='dim'>BAD</td><td>-1.32%</td><td>+0.15%</td><td class='dn'><b>-1.47%</b></td><td>-11.41</td><td>+1.66%</td><td>+1.32%</td><td class='up'><b>+0.34%</b></td><td>+2.45</td><td>21,713</td><td>單邊有效</td></tr>
-<tr><td>收盤跌破前一日低點</td><td class='dim'>BAD</td><td>-0.57%</td><td>-0.21%</td><td class='dn'><b>-0.37%</b></td><td>-6.75</td><td>+2.68%</td><td>+2.17%</td><td class='up'><b>+0.51%</b></td><td>+8.41</td><td>143,071</td><td>單邊有效</td></tr>
+<tr><td>站上月線</td><td class='dim'>GOOD</td><td class='m-hide'>+0.05%</td><td class='m-hide'>-1.02%</td><td class='up'><b>+1.07%</b></td><td class='m-hide'>+12.41</td><td class='m-hide'>+1.88%</td><td class='m-hide'>+3.16%</td><td class='dn'><b>-1.28%</b></td><td class='m-hide'>-13.44</td><td class='m-hide'>51,236</td><td>單邊有效</td></tr>
+<tr><td>月線向上</td><td class='dim'>GOOD</td><td class='m-hide'>+0.96%</td><td class='m-hide'>-0.77%</td><td class='up'><b>+1.74%</b></td><td class='m-hide'>+12.62</td><td class='m-hide'>+1.04%</td><td class='m-hide'>+3.12%</td><td class='dn'><b>-2.08%</b></td><td class='m-hide'>-14.72</td><td class='m-hide'>21,386</td><td>單邊有效</td></tr>
+<tr><td>底底高</td><td class='dim'>GOOD</td><td class='m-hide'>+0.29%</td><td class='m-hide'>-0.38%</td><td class='up'><b>+0.67%</b></td><td class='m-hide'>+2.69</td><td class='m-hide'>+1.31%</td><td class='m-hide'>+2.59%</td><td class='dn'><b>-1.29%</b></td><td class='m-hide'>-5.74</td><td class='m-hide'>8,584</td><td>單邊有效</td></tr>
+<tr><td>頭頭高</td><td class='dim'>GOOD</td><td class='m-hide'>+0.37%</td><td class='m-hide'>-0.72%</td><td class='up'><b>+1.09%</b></td><td class='m-hide'>+9.93</td><td class='m-hide'>+1.63%</td><td class='m-hide'>+2.70%</td><td class='dn'><b>-1.08%</b></td><td class='m-hide'>-8.92</td><td class='m-hide'>33,784</td><td>單邊有效</td></tr>
+<tr><td>突破頸線</td><td class='dim'>GOOD</td><td class='m-hide'>+1.58%</td><td class='m-hide'>-0.51%</td><td class='up'><b>+2.09%</b></td><td class='m-hide'>+12.24</td><td class='m-hide'>+1.66%</td><td class='m-hide'>+2.54%</td><td class='dn'><b>-0.88%</b></td><td class='m-hide'>-3.66</td><td class='m-hide'>17,053</td><td>單邊有效</td></tr>
+<tr><td>相對大盤強</td><td class='dim'>GOOD</td><td class='m-hide'>-0.35%</td><td class='m-hide'>-0.38%</td><td class='up'><b>+0.03%</b></td><td class='m-hide'>+0.67</td><td class='m-hide'>+2.53%</td><td class='m-hide'>+2.56%</td><td class='dn'><b>-0.03%</b></td><td class='m-hide'>-0.48</td><td class='m-hide'>206,677</td><td>單邊有效</td></tr>
+<tr><td>外資買超</td><td class='dim'>GOOD</td><td class='m-hide'>—</td><td class='m-hide'>-0.31%</td><td class=''><b>—</b></td><td class='m-hide'>—</td><td class='m-hide'>—</td><td class='m-hide'>+2.47%</td><td class=''><b>—</b></td><td class='m-hide'>—</td><td class='m-hide'>0</td><td>資料不足</td></tr>
+<tr><td>量價攻擊（收紅＋大量）</td><td class='dim'>GOOD</td><td class='m-hide'>+0.41%</td><td class='m-hide'>-0.51%</td><td class='up'><b>+0.92%</b></td><td class='m-hide'>+13.49</td><td class='m-hide'>+2.47%</td><td class='m-hide'>+2.48%</td><td class='dn'><b>-0.01%</b></td><td class='m-hide'>-0.12</td><td class='m-hide'>93,225</td><td>單邊有效</td></tr>
+<tr><td>跌破前低</td><td class='dim'>BAD</td><td class='m-hide'>-1.08%</td><td class='m-hide'>-0.13%</td><td class='dn'><b>-0.95%</b></td><td class='m-hide'>-10.59</td><td class='m-hide'>+2.40%</td><td class='m-hide'>+2.05%</td><td class='up'><b>+0.35%</b></td><td class='m-hide'>+3.33</td><td class='m-hide'>38,082</td><td>單邊有效</td></tr>
+<tr><td>今日下跌</td><td class='dim'>BAD</td><td class='m-hide'>-0.40%</td><td class='m-hide'>-0.18%</td><td class='dn'><b>-0.22%</b></td><td class='m-hide'>-4.41</td><td class='m-hide'>+2.34%</td><td class='m-hide'>+2.20%</td><td class='up'><b>+0.14%</b></td><td class='m-hide'>+2.58</td><td class='m-hide'>210,448</td><td>單邊有效</td></tr>
+<tr><td>相對大盤弱</td><td class='dim'>BAD</td><td class='m-hide'>-0.37%</td><td class='m-hide'>-0.21%</td><td class='dn'><b>-0.15%</b></td><td class='m-hide'>-2.93</td><td class='m-hide'>+2.23%</td><td class='m-hide'>+2.37%</td><td class='dn'><b>-0.14%</b></td><td class='m-hide'>-2.52</td><td class='m-hide'>207,186</td><td>兩期都負</td></tr>
+<tr><td>在月線之下</td><td class='dim'>BAD</td><td class='m-hide'>-0.19%</td><td class='m-hide'>+0.51%</td><td class='dn'><b>-0.69%</b></td><td class='m-hide'>-8.19</td><td class='m-hide'>+1.84%</td><td class='m-hide'>+1.38%</td><td class='up'><b>+0.46%</b></td><td class='m-hide'>+4.64</td><td class='m-hide'>51,907</td><td>單邊有效</td></tr>
+<tr><td>量增下跌（出貨）</td><td class='dim'>BAD</td><td class='m-hide'>-0.11%</td><td class='m-hide'>-0.35%</td><td class='up'><b>+0.24%</b></td><td class='m-hide'>+4.02</td><td class='m-hide'>+2.69%</td><td class='m-hide'>+2.38%</td><td class='up'><b>+0.31%</b></td><td class='m-hide'>+4.24</td><td class='m-hide'>103,599</td><td>兩期都正</td></tr>
+<tr><td>外資賣超</td><td class='dim'>BAD</td><td class='m-hide'>—</td><td class='m-hide'>-0.31%</td><td class=''><b>—</b></td><td class='m-hide'>—</td><td class='m-hide'>—</td><td class='m-hide'>+2.47%</td><td class=''><b>—</b></td><td class='m-hide'>—</td><td class='m-hide'>0</td><td>資料不足</td></tr>
+<tr><td>月線下彎</td><td class='dim'>BAD</td><td class='m-hide'>-1.32%</td><td class='m-hide'>+0.15%</td><td class='dn'><b>-1.47%</b></td><td class='m-hide'>-11.41</td><td class='m-hide'>+1.66%</td><td class='m-hide'>+1.32%</td><td class='up'><b>+0.34%</b></td><td class='m-hide'>+2.45</td><td class='m-hide'>21,713</td><td>單邊有效</td></tr>
+<tr><td>收盤跌破前一日低點</td><td class='dim'>BAD</td><td class='m-hide'>-0.57%</td><td class='m-hide'>-0.21%</td><td class='dn'><b>-0.37%</b></td><td class='m-hide'>-6.75</td><td class='m-hide'>+2.68%</td><td class='m-hide'>+2.17%</td><td class='up'><b>+0.51%</b></td><td class='m-hide'>+8.41</td><td class='m-hide'>143,071</td><td>單邊有效</td></tr>
 </tbody></table>
 </div>
 
@@ -102,24 +113,24 @@
 <p class="dim">同一個條件在三個期限方向要一致才算穩。方向反覆的（量增下跌、跌破前低）不要用。</p>
 <div class="scroll">
 <table>
-<thead><tr><th>條件</th><th>5日 多頭</th><th>5日 空頭</th><th>10日 多頭</th><th>10日 空頭</th><th>20日 多頭</th><th>20日 空頭</th></tr></thead>
+<thead><tr><th>條件</th><th class="m-hide">5日 多頭</th><th class="m-hide">5日 空頭</th><th class="m-hide">10日 多頭</th><th class="m-hide">10日 空頭</th><th>20日 多頭</th><th>20日 空頭</th></tr></thead>
 <tbody>
-<tr><td>站上月線</td><td class='up'>+0.10%</td><td class='dn'>-0.20%</td><td class='up'>+0.49%</td><td class='dn'>-0.50%</td><td class='up'>+1.07%</td><td class='dn'>-1.28%</td></tr>
-<tr><td>月線向上</td><td class='up'>+0.27%</td><td class='dn'>-0.02%</td><td class='up'>+0.69%</td><td class='dn'>-1.19%</td><td class='up'>+1.74%</td><td class='dn'>-2.08%</td></tr>
-<tr><td>底底高</td><td class='up'>+0.43%</td><td class='up'>+0.40%</td><td class='up'>+0.77%</td><td class='dn'>-0.58%</td><td class='up'>+0.67%</td><td class='dn'>-1.29%</td></tr>
-<tr><td>頭頭高</td><td class='up'>+0.25%</td><td class='dn'>-0.07%</td><td class='up'>+0.55%</td><td class='dn'>-0.33%</td><td class='up'>+1.09%</td><td class='dn'>-1.08%</td></tr>
-<tr><td>突破頸線</td><td class='up'>+0.83%</td><td class='up'>+0.12%</td><td class='up'>+1.35%</td><td class='dn'>-0.04%</td><td class='up'>+2.09%</td><td class='dn'>-0.88%</td></tr>
-<tr><td>相對大盤強</td><td class='up'>+0.05%</td><td class='dn'>-0.12%</td><td class='up'>+0.06%</td><td class='dn'>-0.02%</td><td class='up'>+0.03%</td><td class='dn'>-0.03%</td></tr>
-<tr><td>外資買超</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td></tr>
-<tr><td>量價攻擊（收紅＋大量）</td><td class='up'>+0.27%</td><td class='dn'>-0.17%</td><td class='up'>+0.49%</td><td class='dn'>-0.13%</td><td class='up'>+0.92%</td><td class='dn'>-0.01%</td></tr>
-<tr><td>跌破前低</td><td class='dn'>-0.02%</td><td class='dn'>-0.75%</td><td class='dn'>-0.11%</td><td class='dn'>-0.35%</td><td class='dn'>-0.95%</td><td class='up'>+0.35%</td></tr>
-<tr><td>今日下跌</td><td class='dn'>-0.17%</td><td class='up'>+0.10%</td><td class='dn'>-0.18%</td><td class='up'>+0.02%</td><td class='dn'>-0.22%</td><td class='up'>+0.14%</td></tr>
-<tr><td>相對大盤弱</td><td class='dn'>-0.09%</td><td class='up'>+0.02%</td><td class='dn'>-0.15%</td><td class='dn'>-0.08%</td><td class='dn'>-0.15%</td><td class='dn'>-0.14%</td></tr>
-<tr><td>在月線之下</td><td class='dn'>-0.10%</td><td class='dn'>-0.08%</td><td class='dn'>-0.19%</td><td class='dn'>-0.27%</td><td class='dn'>-0.69%</td><td class='up'>+0.46%</td></tr>
-<tr><td>量增下跌（出貨）</td><td class='dn'>-0.03%</td><td class='dn'>-0.00%</td><td class='up'>+0.15%</td><td class='dn'>-0.14%</td><td class='up'>+0.24%</td><td class='up'>+0.31%</td></tr>
-<tr><td>外資賣超</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td><td class=''>—</td></tr>
-<tr><td>月線下彎</td><td class='dn'>-0.14%</td><td class='up'>+0.10%</td><td class='dn'>-0.40%</td><td class='dn'>-0.23%</td><td class='dn'>-1.47%</td><td class='up'>+0.34%</td></tr>
-<tr><td>收盤跌破前一日低點</td><td class='dn'>-0.03%</td><td class='up'>+0.04%</td><td class='dn'>-0.14%</td><td class='up'>+0.08%</td><td class='dn'>-0.37%</td><td class='up'>+0.51%</td></tr>
+<tr><td>站上月線</td><td class='up m-hide'>+0.10%</td><td class='dn m-hide'>-0.20%</td><td class='up m-hide'>+0.49%</td><td class='dn m-hide'>-0.50%</td><td class='up'>+1.07%</td><td class='dn'>-1.28%</td></tr>
+<tr><td>月線向上</td><td class='up m-hide'>+0.27%</td><td class='dn m-hide'>-0.02%</td><td class='up m-hide'>+0.69%</td><td class='dn m-hide'>-1.19%</td><td class='up'>+1.74%</td><td class='dn'>-2.08%</td></tr>
+<tr><td>底底高</td><td class='up m-hide'>+0.43%</td><td class='up m-hide'>+0.40%</td><td class='up m-hide'>+0.77%</td><td class='dn m-hide'>-0.58%</td><td class='up'>+0.67%</td><td class='dn'>-1.29%</td></tr>
+<tr><td>頭頭高</td><td class='up m-hide'>+0.25%</td><td class='dn m-hide'>-0.07%</td><td class='up m-hide'>+0.55%</td><td class='dn m-hide'>-0.33%</td><td class='up'>+1.09%</td><td class='dn'>-1.08%</td></tr>
+<tr><td>突破頸線</td><td class='up m-hide'>+0.83%</td><td class='up m-hide'>+0.12%</td><td class='up m-hide'>+1.35%</td><td class='dn m-hide'>-0.04%</td><td class='up'>+2.09%</td><td class='dn'>-0.88%</td></tr>
+<tr><td>相對大盤強</td><td class='up m-hide'>+0.05%</td><td class='dn m-hide'>-0.12%</td><td class='up m-hide'>+0.06%</td><td class='dn m-hide'>-0.02%</td><td class='up'>+0.03%</td><td class='dn'>-0.03%</td></tr>
+<tr><td>外資買超</td><td class=' m-hide'>—</td><td class=' m-hide'>—</td><td class=' m-hide'>—</td><td class=' m-hide'>—</td><td class=''>—</td><td class=''>—</td></tr>
+<tr><td>量價攻擊（收紅＋大量）</td><td class='up m-hide'>+0.27%</td><td class='dn m-hide'>-0.17%</td><td class='up m-hide'>+0.49%</td><td class='dn m-hide'>-0.13%</td><td class='up'>+0.92%</td><td class='dn'>-0.01%</td></tr>
+<tr><td>跌破前低</td><td class='dn m-hide'>-0.02%</td><td class='dn m-hide'>-0.75%</td><td class='dn m-hide'>-0.11%</td><td class='dn m-hide'>-0.35%</td><td class='dn'>-0.95%</td><td class='up'>+0.35%</td></tr>
+<tr><td>今日下跌</td><td class='dn m-hide'>-0.17%</td><td class='up m-hide'>+0.10%</td><td class='dn m-hide'>-0.18%</td><td class='up m-hide'>+0.02%</td><td class='dn'>-0.22%</td><td class='up'>+0.14%</td></tr>
+<tr><td>相對大盤弱</td><td class='dn m-hide'>-0.09%</td><td class='up m-hide'>+0.02%</td><td class='dn m-hide'>-0.15%</td><td class='dn m-hide'>-0.08%</td><td class='dn'>-0.15%</td><td class='dn'>-0.14%</td></tr>
+<tr><td>在月線之下</td><td class='dn m-hide'>-0.10%</td><td class='dn m-hide'>-0.08%</td><td class='dn m-hide'>-0.19%</td><td class='dn m-hide'>-0.27%</td><td class='dn'>-0.69%</td><td class='up'>+0.46%</td></tr>
+<tr><td>量增下跌（出貨）</td><td class='dn m-hide'>-0.03%</td><td class='dn m-hide'>-0.00%</td><td class='up m-hide'>+0.15%</td><td class='dn m-hide'>-0.14%</td><td class='up'>+0.24%</td><td class='up'>+0.31%</td></tr>
+<tr><td>外資賣超</td><td class=' m-hide'>—</td><td class=' m-hide'>—</td><td class=' m-hide'>—</td><td class=' m-hide'>—</td><td class=''>—</td><td class=''>—</td></tr>
+<tr><td>月線下彎</td><td class='dn m-hide'>-0.14%</td><td class='up m-hide'>+0.10%</td><td class='dn m-hide'>-0.40%</td><td class='dn m-hide'>-0.23%</td><td class='dn'>-1.47%</td><td class='up'>+0.34%</td></tr>
+<tr><td>收盤跌破前一日低點</td><td class='dn m-hide'>-0.03%</td><td class='up m-hide'>+0.04%</td><td class='dn m-hide'>-0.14%</td><td class='up m-hide'>+0.08%</td><td class='dn'>-0.37%</td><td class='up'>+0.51%</td></tr>
 </tbody></table>
 </div>
 
