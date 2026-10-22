@@ -31,6 +31,13 @@
   .cond li b{display:block;color:#26221e}
   .cond .why{display:block;color:#4a453f}
   .cond .hm{display:block;color:#8a8072;font-size:12.5px}
+  .steps{display:grid;gap:10px;margin:10px 0 4px}
+  .step{display:flex;gap:12px;background:#fffdf6;border:2px solid #e3dccd;border-radius:14px;
+        padding:12px 14px;height:auto;width:auto}
+  .step .sn{flex:none;width:28px;height:28px;border-radius:50%;background:#364e70;color:#fff;
+        font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step>div{min-width:0;flex:1}
+  .step b{font-size:15px} .step .rd{font-size:14px;color:#4a453f;margin-top:3px;line-height:1.65}
   .regime{background:#fffdf6;border:2px solid #e3dccd;border-left:5px solid #364e70;border-radius:14px;
         padding:11px 14px;font-size:14px;margin:10px 0}
   /* 每日卡 */
@@ -141,6 +148,26 @@
     <div class="dim" style="margin-top:4px">狀態會切換條件：多頭看趨勢類（站上月線、突破頸線…），
       空頭改看超跌反轉類（跌破前低、月線下彎…），因為回測顯示趨勢條件在空頭期間會反向。</div>
   </div>
+
+  <h2><span class="dot"></span>正向組、對照組是怎麼選出來的？</h2>
+  <p class="lede">上面的清單是「檢查項目」，這裡是「怎麼從一堆股票裡挑出兩組人」。
+    兩件事分開看：<b>條件決定誰符合幾條</b>，<b>排序規則決定誰進榜</b>。</p>
+  <div class="steps">
+    <div class="step"><span class="sn">1</span><div><b>母體：成交金額前段班</b>
+      <div class="rd">當日成交金額 <span class="nw">上市前 50 名</span> ＋ <span class="nw">上櫃前 20 名</span>
+      → 今天 <b>70 檔</b>。只看有量的股票，避免冷門股用幾張成交量就上榜。</div></div></div>
+    <div class="step"><span class="sn">2</span><div><b>計分：逐條打勾</b>
+      <div class="rd">每檔對照上面清單：好條件最多 7 條、<span class="nw">不好條件最多 5 條</span>，
+      符合幾條就記幾條（不是加權分數、也不是機率）。今天最好的分別是
+      <b>好條件 5/7 條</b>、<b>不好條件 5/5 條</b>。</div></div></div>
+    <div class="step"><span class="sn">3</span><div><b>排序：同分比當天漲跌</b>
+      <div class="rd">好條件數多者在前，同分時<b>漲幅大的先</b>；<span class="nw">不好條件數多者在前</span>，同分時<b>跌幅大的先</b>。
+      這樣才挑得出「當天最強的一群」與「當天最弱的一群」。</div></div></div>
+    <div class="step"><span class="sn">4</span><div><b>取前 10 檔成組</b>
+      <div class="rd"><span class="nw">好條件那側前 10 檔</span>＝<b>正向組</b>；<span class="nw">不好條件那側前 10 檔</span>＝<b>對照組</b>。
+      對照組不是隨機抽樣，是「當天最弱的一群」——如果清單有用，這兩組後續表現應該要拉開。</div></div></div>
+  </div>
+  <p class="dim">註：同一檔股票理論上可能同時出現在兩邊（兩份清單的條件彼此不衝突），實務上很少見；今天的正向組與對照組沒有重疊。</p>
 
   <h2><span class="dot"></span>每日追蹤（最新 7 個選中日）</h2>
   <p class="dim">每張卡＝一個選中日；上半是好條件前 10 檔、下半是對照組。
