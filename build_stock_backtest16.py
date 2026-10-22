@@ -82,6 +82,20 @@ def rows_main(h20):
     return "\n".join(out)
 
 
+def rows_indep(rows):
+    out = []
+    for r in rows:
+        out.append(
+            "<tr>"
+            f"<td>{html.escape(r['condition'])}</td>"
+            f"<td class='dim'>{html.escape(r['kind'])}</td>"
+            f"<td class='{cls_gap(r['bull_gap'])}'>{pct(r['bull_gap'])}</td><td>{tnum(r['bull_t'])}</td>"
+            f"<td class='{cls_gap(r['bear_gap'])}'>{pct(r['bear_gap'])}</td><td>{tnum(r['bear_t'])}</td>"
+            f"<td>{int(float(r['n_sig_dedup'])):,}</td>"
+            "</tr>")
+    return "\n".join(out)
+
+
 def rows_robust(h5, h10, h20):
     idx5 = {r["condition"]: r for r in h5}
     idx10 = {r["condition"]: r for r in h10}
@@ -100,6 +114,7 @@ def rows_robust(h5, h10, h20):
 
 def main():
     h20, h10, h5 = load("results.csv"), load("results_h10.csv"), load("results_h5.csv")
+    indep = load("results_independent.csv")
     if not h20:
         sys.exit("找不到 results.csv")
     os.makedirs(OUT, exist_ok=True)
@@ -229,14 +244,28 @@ def main():
 </tbody></table>
 </div>
 
+<h2><span class="dot"></span>④ 獨立樣本版（每 20 個交易日只取一筆）</h2>
+<p class="dim">上面的表是「去重」後的結果，但訊號常常連續出現、樣本彼此重疊，t 值會偏高。
+這一版把<b>同一檔股票在 20 個交易日內只留第一筆</b>，樣本完全互不重疊，是比較保守、也比較誠實的版本。</p>
+<div class="scroll">
+<table>
+<thead><tr><th>條件</th><th>類別</th><th>多頭 差距</th><th>多頭 t</th><th>空頭 差距</th><th>空頭 t</th><th>樣本數</th></tr></thead>
+<tbody>
+{rows_indep(indep)}
+</tbody></table>
+</div>
+<p class="dim">獨立樣本下有三個結論要修正：① 「外資買超」仍然兩期都正，但 t 從 7～9 掉到約 2，屬於<b>弱證據</b>；
+② 「收盤跌破前一日低點」多空兩期都接近 0（t=0.35／−0.64）→ 這條已經沒用；
+③ 「外資賣超」反而變成兩期都負（−0.49／−0.24），可以放進空頭的壞條件。</p>
+
 <h2><span class="dot"></span>結論</h2>
 <ol class="key">
 <li><b>多頭期間，這套評分是對的</b>：突破頸線 +2.09%（t=12.2）、月線向上 +1.74%、頭頭高 +1.09%、站上月線 +1.07%。</li>
 <li><b>空頭期間，同一組條件全部反向</b>（−0.88% ~ −2.08%，t −3.7 ~ −14.7）→ 空頭時「好條件最多」其實偏弱。</li>
 <li><b>「相對大盤強」該拿掉</b>：三個期限都 ≈0（+0.03%，t 0.67），沒有分辨力。</li>
 <li><b>「量增下跌（出貨）」不是壞條件</b>：後 20 日兩期都是正的（+0.24%／+0.31%）。</li>
-<li><b>唯一兩期都正的是「外資買超」</b>：多頭 +0.39%（t=7.3）、空頭 +0.55%（t=9.4）→ 不論多空都站得住，
-所以評分在兩個期間都保留它。「外資賣超」則只有多頭有效（−0.40%，空頭 +0.03% t=0.5 等於雜訊）。</li>
+<li><b>唯一兩期都正的是「外資買超」</b>：多頭 +0.39%、空頭 +0.55%（去重版 t=7.3／9.4；<b>獨立樣本版只剩 t≈2</b>）→
+方向對、但不要說得太滿。「外資賣超」在獨立樣本下反而兩期都負（−0.49／−0.24）。</li>
 <li><b>要改看超額報酬</b>：空頭期間連對照組都漲 +2.2%~+3.2%，只看原始報酬會把大盤的漲跌算成選股能力。</li>
 </ol>
 
