@@ -50,6 +50,8 @@
     table.cmp td::before{content:attr(data-label);color:#8a8072;font-size:12.5px;font-weight:400}
     table.cmp td b{font-size:15px}
   }
+  h3.sub3{font-size:16px;margin:16px 0 6px;color:#26221e}
+  h3.sub3::before{content:"▍";color:#c0392b;margin-right:4px}
   .steps{display:grid;gap:10px;margin:10px 0 4px}
   .step{display:flex;gap:12px;background:#fffdf6;border:2px solid #e3dccd;border-radius:14px;
         padding:12px 14px;height:auto;width:auto}
@@ -113,6 +115,12 @@
     .chips{margin-left:0;width:100%}
     .nm{font-size:14px}
   }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/stock/tracker/">
@@ -124,21 +132,9 @@
 <meta property="og:url" content="https://littler5071.github.io/stock/tracker/">
 <meta property="og:locale" content="zh_TW">
 <meta name="twitter:card" content="summary">
-<!-- hermes-seo -->
-<link rel="canonical" href="https://littler5071.github.io/stock/tracker/">
-
-<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
-<meta property="og:site_name" content="小R頻道">
-<meta property="og:type" content="website">
-<meta property="og:title" content="條件追蹤：好條件前 10 檔 vs 不好條件前 10 檔｜小R頻道">
-<meta property="og:description" content="每個交易日收盤後，用同一套技術面清單挑出「好條件最多」前 10 檔與「不好條件最多」前 10 檔，追蹤入選後第 5、10、20 個交易日漲幅。附條件白話說明與對照組比較，只用公開資料。">
-<meta property="og:url" content="https://littler5071.github.io/stock/tracker/">
-<meta property="og:locale" content="zh_TW">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="條件追蹤：好條件前 10 檔 vs 不好條件前 10 檔｜小R頻道">
-<meta name="twitter:description" content="每個交易日收盤後，用同一套技術面清單挑出「好條件最多」前 10 檔與「不好條件最多」前 10 檔，追蹤入選後第 5、10、20 個交易日漲幅。附條件白話說明與對照組比較，只用公開資料。">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<!-- /hermes-seo -->
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=90e75fc6"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <div class="wrap">
@@ -205,11 +201,17 @@
     t 值在 2 附近只是「剛好擦到邊」，還不足以當穩健結論；而且這是事後切分同一批資料，容易高估。
     <b>第 20 日的樣本最少，參考價值最低。</b></p>
 
-  <h2><span class="dot"></span>事前追蹤：每天鎖定名單，不回頭改</h2>
-  <p class="lede">上面那張表是<b>事後</b>切分同一批資料，容易高估。這一區改成<b>事前鎖定</b>：
-    每天收盤後把當日的滿分組寫進紀錄就固定，之後不能改名單，等第 5／10／20 個交易日到期才計入平均。
-    從 <b>2026/10/22</b> 起算，已鎖定 <b>1 批</b>。</p>
-  <div class="scroll"><table class="cmp"><tr><th>期間</th><th>滿分組<br><span class="dim">當天鎖定</span></th><th>其餘正向組</th><th>對照組</th><th>滿分組 − 其餘</th></tr><tr><td data-label="期間"><b>第 5 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr><tr><td data-label="期間"><b>第 10 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr><tr><td data-label="期間"><b>第 20 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr></table></div>
+  <h2><span class="dot"></span>回推 vs 真實事前：兩份數字分開放</h2>
+  <p class="lede">過去的入選紀錄<b>並沒有丟掉</b>：只要當天有收盤統計，就能用當天的條件數回頭算出「滿分組」，
+    不需要用到未來價格。<b>所以歷史 25 批可以回推</b>。真正不能補的只有一件事——
+    「要用滿分組這個切法」是我看過結果之後才決定的，這件事本身有選擇偏誤。
+    因此下面分兩張表，不混在一起算。</p>
+
+  <h3 class="sub3">① 回推：25 批（規則是事後選的，僅供參考）</h3>
+  <div class="scroll"><table class="cmp"><tr><th>期間</th><th>滿分組</th><th>其餘正向組</th><th>對照組</th><th>滿分組 − 其餘</th></tr><tr><td data-label="期間"><b>第 5 日</b></td><td class="num up" data-label="滿分組">+4.89%<div class="dim">n=57</div></td><td class="num up" data-label="其餘正向組">+0.98%<div class="dim">n=153</div></td><td class="num up" data-label="對照組">+1.32%<div class="dim">n=210</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+3.46%</b><div class="dim">t=2.07（21 批）</div></td></tr><tr><td data-label="期間"><b>第 10 日</b></td><td class="num up" data-label="滿分組">+5.86%<div class="dim">n=50</div></td><td class="num up" data-label="其餘正向組">+1.89%<div class="dim">n=120</div></td><td class="num up" data-label="對照組">+2.64%<div class="dim">n=170</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+5.56%</b><div class="dim">t=2.01（17 批）</div></td></tr><tr><td data-label="期間"><b>第 20 日</b></td><td class="num up" data-label="滿分組">+2.46%<div class="dim">n=19</div></td><td class="num up" data-label="其餘正向組">+0.99%<div class="dim">n=51</div></td><td class="num up" data-label="對照組">+3.86%<div class="dim">n=70</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+2.56%</b><div class="dim">t=0.58（7 批）</div></td></tr></table></div>
+
+  <h3 class="sub3">② 真實事前：1 批（從 2026/10/22 起，每天鎖定不改名單）</h3>
+  <div class="scroll"><table class="cmp"><tr><th>期間</th><th>滿分組</th><th>其餘正向組</th><th>對照組</th><th>滿分組 − 其餘</th></tr><tr><td data-label="期間"><b>第 5 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr><tr><td data-label="期間"><b>第 10 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr><tr><td data-label="期間"><b>第 20 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr></table></div>
   <div class="note" style="border-left-color:#b26b00"><b>最新鎖定：2026/10/22（條件上限 5/7）</b><div class="dim" style="margin-top:4px">滿分組 5 檔：6456 GIS-KY、1815 富喬、6278 台表科、8042 金山電、3441 聯一光</div><div class="dim">其餘正向組 5 檔：1802 台玻、3037 欣興、4958 臻鼎-KY、3231 緯創、6505 台塑化</div></div>
   <p class="dim">這張表要等時間累積才有意義：目前每批要滿 5／10／20 個交易日才算一筆，
     所以「尚未到期」是正常的，不是壞掉。累積 20 批以上再回頭看，會比事後切分可信得多。</p>
@@ -250,6 +252,6 @@
   </ul>
   <p class="dim">本頁只用公開資料，不報牌、不預測、不下買賣決策，不構成任何投資建議。</p>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="18" data-views>—</span></div>
 </body>
 </html>
