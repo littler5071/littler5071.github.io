@@ -16,7 +16,8 @@
   .kpi-b{background:#fffdf6;border:2px solid #e3dccd;border-radius:14px;padding:11px 13px;display:flex;flex-direction:column;gap:2px}
   .kl{font-size:12.5px;color:#8a8072}
   .kv{font-size:22px;line-height:1.25}
-  h1{text-wrap:balance}
+  h1{font-size:clamp(21px,3.4vw,30px);line-height:1.35;margin:0 0 8px}
+  .nw{white-space:nowrap}
   .ks{font-size:11.5px;color:#a89e90}
   /* 條件說明 */
   .cond2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0 6px}
@@ -110,13 +111,13 @@
 <body>
 <div class="wrap">
   <a class="back" href="../">← 回股市觀察</a>
-  <h1>條件追蹤：好條件 vs 不好條件<br>各取前 10 檔做對照</h1>
+  <h1>條件追蹤<br><span class="nw">好條件 vs 不好條件</span><br><span class="nw">各取前 10 檔做對照</span></h1>
   <p class="lede">每個交易日收盤後，用同一套技術面清單在成交金額前段班裡挑出
     <b>好條件最多</b>的前 10 檔、與<b>不好條件最多</b>的前 10 檔（對照組），
     追蹤它們在<b>入選後第 5、10、20 個交易日</b>的漲幅。
     有對照組才看得出清單到底有沒有用；差距不顯著就當雜訊。</p>
 
-  <div class="kpis"><div class="kpi-b"><span class="kl">第 5 日差距</span><b class="kv" style="color:#c0392b">+0.72%</b><span class="ks">正向 − 對照　t=0.77・未顯著</span></div><div class="kpi-b"><span class="kl">第 10 日差距</span><b class="kv" style="color:#c0392b">+0.42%</b><span class="ks">正向 − 對照　t=0.28・未顯著</span></div><div class="kpi-b"><span class="kl">第 20 日差距</span><b class="kv" style="color:#2e8c64">-2.47%</b><span class="ks">正向 − 對照　t=-1.0・未顯著</span></div><div class="kpi-b"><span class="kl">已滿批次</span><b class="kv">21／17／7 批</b><span class="ks">第 5／10／20 日</span></div></div>
+  <div class="kpis"><div class="kpi-b"><span class="kl">第 5 日差距</span><b class="kv" style="color:#c0392b">+0.72%</b><span class="ks">t=0.77・未顯著</span></div><div class="kpi-b"><span class="kl">第 10 日差距</span><b class="kv" style="color:#c0392b">+0.42%</b><span class="ks">t=0.28・未顯著</span></div><div class="kpi-b"><span class="kl">第 20 日差距</span><b class="kv" style="color:#2e8c64">-2.47%</b><span class="ks">t=-1.0・未顯著</span></div><div class="kpi-b"><span class="kl">已滿批次</span><b class="kv">21／17／7 批</b><span class="ks">第 5／10／20 日</span></div></div>
   <p class="dim" style="margin-top:6px">差距＝正向組平均 − 對照組平均；Welch t＝0.77／0.28／-1.0（第 5／10／20 日），|t| &lt; 2 視為未達統計顯著。</p>
 
   <h2><span class="dot"></span>好條件、不好條件是什麼？</h2>
