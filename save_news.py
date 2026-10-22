@@ -86,7 +86,9 @@ def _is_section(t):
     return False
 
 
-IDX_LINE = re.compile(r"^(道瓊|S&P\s*500|S&P500|那斯達克|費半|納斯達克).*(%|▲|▼)")
+# 只認「指數名稱後面直接接數字」那種純數據行（例：道瓊 52,856.09 ▲0.69%）
+# 不能寫成「含 % 就濾掉」——④ 對台股的影響 第一個字就是「費半近 2% …」，會被誤殺
+IDX_LINE = re.compile(r"^(道瓊|S&P\s*500|S&P500|那斯達克|費半)\s*[\d,]+")
 
 
 def to_html(md, strip_indexes=False):
@@ -112,7 +114,8 @@ def to_html(md, strip_indexes=False):
             cur["title"] = t
             continue
         line_t = re.sub(r"^[・•\-]\s*", "", t)
-        if strip_indexes and IDX_LINE.match(line_t):
+        in_idx = bool(cur["title"] and "四大指數" in cur["title"])
+        if strip_indexes and in_idx and IDX_LINE.match(line_t):
             continue
         cur["items"].append(line_t)
     flush()
