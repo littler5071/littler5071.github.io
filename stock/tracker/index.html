@@ -31,6 +31,25 @@
   .cond li b{display:block;color:#26221e}
   .cond .why{display:block;color:#4a453f}
   .cond .hm{display:block;color:#8a8072;font-size:12.5px}
+  table.cmp{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 6px;background:#fffdf6;
+        border:2px solid #e3dccd;border-radius:14px;overflow:hidden}
+  table.cmp th{background:rgba(54,78,112,.06);font-weight:600;font-size:12.5px;color:#4a453f;
+        padding:8px 6px;text-align:left;border-bottom:1px solid #e3dccd;line-height:1.4}
+  table.cmp td{padding:8px 6px;border-bottom:1px dashed #e3dccd;vertical-align:top}
+  table.cmp tr:last-child td{border-bottom:0}
+  table.cmp td.num{text-align:right;white-space:nowrap;font-size:14px}
+  table.cmp td.num .dim{font-size:12px;color:#6b655e}
+  table.cmp th .dim{font-size:11.5px;color:#8a8072}
+  @media (max-width:720px){
+    table.cmp{border:0;background:transparent}
+    table.cmp tr:first-child{display:none}
+    table.cmp tr{display:block;background:#fffdf6;border:2px solid #e3dccd;border-radius:14px;
+          padding:8px 4px;margin:0 0 10px}
+    table.cmp td{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+          border:0;padding:4px 8px;text-align:right}
+    table.cmp td::before{content:attr(data-label);color:#8a8072;font-size:12.5px;font-weight:400}
+    table.cmp td b{font-size:15px}
+  }
   .steps{display:grid;gap:10px;margin:10px 0 4px}
   .step{display:flex;gap:12px;background:#fffdf6;border:2px solid #e3dccd;border-radius:14px;
         padding:12px 14px;height:auto;width:auto}
@@ -168,6 +187,17 @@
       對照組不是隨機抽樣，是「當天最弱的一群」——如果清單有用，這兩組後續表現應該要拉開。</div></div></div>
   </div>
   <p class="dim">註：同一檔股票理論上可能同時出現在兩邊（兩份清單的條件彼此不衝突），實務上很少見；今天的正向組與對照組沒有重疊。</p>
+
+  <h2><span class="dot"></span>雙重確認：滿分組是不是更值得追？</h2>
+  <p class="lede">你問的「在好條件、又符合正向組」<b>其實是同一件事的兩個層次</b>：
+    「好條件」是檢查項目，「正向組」是前 10 名。真正能再加一層的是<b>條件數夠不夠滿</b>——
+    把正向組再切一半，看「條件數＝該批最高」的<b>滿分組</b>是否比「入榜但差 1 條以上」的其餘組更強。
+    今天滿分組是 <b>5/7 條</b>、共 <b>5 檔</b>。</p>
+  <div class="scroll"><table class="cmp"><tr><th>期間</th><th>滿分組<br><span class="dim">條件數＝該批最高</span></th><th>其餘正向組<br><span class="dim">入榜但少 1 條以上</span></th><th>對照組<br><span class="dim">不好條件最多</span></th><th>滿分組 − 其餘<br><span class="dim">每批平均差</span></th></tr><tr><td data-label="期間"><b>第 5 日</b></td><td class="num up" data-label="滿分組">+4.89%<div class="dim">n=57</div></td><td class="num up" data-label="其餘正向組">+0.98%<div class="dim">n=153</div></td><td class="num up" data-label="對照組">+1.32%<div class="dim">n=210</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+3.46%</b><div class="dim">t=2.07（顯著）</div></td></tr><tr><td data-label="期間"><b>第 10 日</b></td><td class="num up" data-label="滿分組">+5.86%<div class="dim">n=50</div></td><td class="num up" data-label="其餘正向組">+1.89%<div class="dim">n=120</div></td><td class="num up" data-label="對照組">+2.64%<div class="dim">n=170</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+5.56%</b><div class="dim">t=2.01（顯著）</div></td></tr><tr><td data-label="期間"><b>第 20 日</b></td><td class="num up" data-label="滿分組">+2.46%<div class="dim">n=19</div></td><td class="num up" data-label="其餘正向組">+0.99%<div class="dim">n=51</div></td><td class="num up" data-label="對照組">+3.86%<div class="dim">n=70</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+2.56%</b><div class="dim">t=0.58（未顯著）</div></td></tr></table></div>
+  <p class="dim">讀法：滿分組 vs 其餘，比的是「同一批名單裡誰更值得看」；滿分組 vs 對照組，比的是「多方最強 vs 空方最弱」。
+    樣本只有 21 批、各格檔次 19～210，
+    t 值在 2 附近只是「剛好擦到邊」，還不足以當穩健結論；而且這是事後切分同一批資料，容易高估。
+    <b>第 20 日的樣本最少，參考價值最低。</b></p>
 
   <h2><span class="dot"></span>每日追蹤（最新 7 個選中日）</h2>
   <p class="dim">每張卡＝一個選中日；上半是好條件前 10 檔、下半是對照組。
