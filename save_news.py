@@ -86,8 +86,15 @@ def _is_section(t):
     return False
 
 
-def to_html(md):
-    """把報告排成「小節 + 條列」——手機上一眼看到分區，不要一整片文字牆。"""
+IDX_LINE = re.compile(r"^(道瓊|S&P\s*500|S&P500|那斯達克|費半|納斯達克).*(%|▲|▼)")
+
+
+def to_html(md, strip_indexes=False):
+    """把報告排成「小節 + 條列」——手機上一眼看到分區，不要一整片文字牆。
+
+    strip_indexes=True 時，把「① 四大指數」裡重複的指數數字行濾掉（上面已經有卡片），
+    只留下「原因」那類說明。
+    """
     blocks, cur = [], {"title": None, "items": []}
 
     def flush():
@@ -104,7 +111,10 @@ def to_html(md):
             flush()
             cur["title"] = t
             continue
-        cur["items"].append(re.sub(r"^[・•\-]\s*", "", t))
+        line_t = re.sub(r"^[・•\-]\s*", "", t)
+        if strip_indexes and IDX_LINE.match(line_t):
+            continue
+        cur["items"].append(line_t)
     flush()
 
     out = []
@@ -138,6 +148,14 @@ CSS = """
   .body .night .big{font-size:19px;margin:2px 0 4px}
   .body .night .up{color:var(--red)} .body .night .dn{color:var(--green)}
   .body .night .dim{font-size:13.5px;color:var(--soft);margin:0}
+  .idxgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .idxcard{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:10px 12px 6px}
+  .idxcard .nm{font-size:13px;color:var(--soft)}
+  .idxcard .px{font-size:17px;font-weight:700;margin:1px 0}
+  .idxcard .chg{font-size:13.5px;margin-bottom:4px}
+  .idxcard .up{color:var(--red)} .idxcard .dn{color:var(--green)}
+  .spark{display:block;width:100%;height:30px}
+  @media (min-width:640px){ .idxgrid{grid-template-columns:repeat(4,1fr)} }
   .body p.li{padding-left:6px}
   .body h3{font-size:18px;margin:22px 0 6px}
   .body b{color:var(--ink)}
@@ -150,6 +168,12 @@ CSS = """
 
 
 NIGHT_SCRIPT = "/home/littler5071/opencode/圖片生成/小R頻道_股市觀察/taifex_night.py"
+
+try:
+    from news_cards import indices_box as _indices_box
+except Exception:                     # 沒有就退回不顯示
+    def _indices_box():
+        return ""
 
 
 def night_box(body_md):
@@ -257,16 +281,16 @@ def build(kind, limit):
     dates = [d for d, _ in items]
     for d, body in items:
         ymd = f"{d[:4]}/{d[4:6]}/{d[6:]}"
-        extra = night_box(body) if kind == "us" else ""
+        extra = (_indices_box() + night_box(body)) if kind == "us" else ""
         html_doc = page(f"{cfg['title']} {ymd}", f"{cfg['title']} {ymd}", cfg["sub"],
-                        extra + to_html(body), dates,
+                        extra + to_html(body, strip_indexes=bool(extra)), dates,
                         f"https://littler5071.github.io/news/{cfg['dir']}/{d}.html")
         open(os.path.join(outdir, f"{d}.html"), "w", encoding="utf-8").write(html_doc)
     latest_date, latest_body = items[0]
     ymd = f"{latest_date[:4]}/{latest_date[4:6]}/{latest_date[6:]}"
-    extra = night_box(latest_body) if kind == "us" else ""
+    extra = (_indices_box() + night_box(latest_body)) if kind == "us" else ""
     html_doc = page(f"{cfg['title']}｜最新", f"{cfg['title']} {ymd}", cfg["sub"],
-                    extra + to_html(latest_body), dates,
+                    extra + to_html(latest_body, strip_indexes=bool(extra)), dates,
                     f"https://littler5071.github.io/news/{cfg['dir']}/")
     open(os.path.join(outdir, "index.html"), "w", encoding="utf-8").write(html_doc)
     print(f"[{kind}] 產出 {len(items)} 期，最新 {latest_date}")

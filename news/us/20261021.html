@@ -23,6 +23,14 @@
   .body .night .big{font-size:19px;margin:2px 0 4px}
   .body .night .up{color:var(--red)} .body .night .dn{color:var(--green)}
   .body .night .dim{font-size:13.5px;color:var(--soft);margin:0}
+  .idxgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .idxcard{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:10px 12px 6px}
+  .idxcard .nm{font-size:13px;color:var(--soft)}
+  .idxcard .px{font-size:17px;font-weight:700;margin:1px 0}
+  .idxcard .chg{font-size:13.5px;margin-bottom:4px}
+  .idxcard .up{color:var(--red)} .idxcard .dn{color:var(--green)}
+  .spark{display:block;width:100%;height:30px}
+  @media (min-width:640px){ .idxgrid{grid-template-columns:repeat(4,1fr)} }
   .body p.li{padding-left:6px}
   .body h3{font-size:18px;margin:22px 0 6px}
   .body b{color:var(--ink)}
@@ -39,17 +47,11 @@
 <h1>美股晨報 2026/10/21</h1>
 <div class="meta">上一個美股交易日的四大指數、強弱族群、三件後續消息與對台股的影響</div>
 <div class="body">
-<section class="blk night"><h3><span class="dt"></span>台指期夜盤</h3><p class="big"><b>47,482</b> <span class="up">1.00%</span>　成交量 35,753 口</p><p class="dim">近月合約 202611｜夜盤 15:00→隔日 05:00，歸屬交易日 2026/10/22</p></section><section class="blk">
+<section class="blk idxsec"><h3><span class="dt"></span>美股四大指數（近 30 個交易日）</h3><div class="idxgrid"><div class="idxcard"><div class="nm">道瓊</div><div class="px">52,856.09</div><div class="chg up">▲0.69%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,12.6 5.6,5.8 9.2,7.8 12.8,12.2 16.3,20.6 19.9,16.4 23.5,17.6 27.1,12.8 30.7,15.2 34.3,19.9 37.9,22.1 41.4,15.7 45.0,20.3 48.6,22.1 52.2,28.0 55.8,27.7 59.4,24.4 63.0,23.2 66.6,19.8 70.1,24.3 73.7,23.7 77.3,18.0 80.9,15.4 84.5,17.8 88.1,18.5 91.7,11.0 95.2,13.4 98.8,13.9 102.4,6.8 106.0,2.0" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></div><div class="idxcard"><div class="nm">S&amp;P 500</div><div class="px">7,757.17</div><div class="chg up">▲0.58%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,24.1 5.6,17.8 9.2,21.4 12.8,24.7 16.3,28.0 19.9,19.6 23.5,18.4 27.1,7.3 30.7,7.3 34.3,13.0 37.9,13.2 41.4,9.4 45.0,15.2 48.6,16.4 52.2,18.3 55.8,16.8 59.4,11.4 63.0,6.4 66.6,2.0 70.1,3.7 73.7,7.2 77.3,2.7 80.9,3.1 84.5,3.3 88.1,11.7 91.7,9.3 95.2,17.5 98.8,14.5 102.4,12.4 106.0,8.0" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></div><div class="idxcard"><div class="nm">那斯達克</div><div class="px">26,702.86</div><div class="chg up">▲1.05%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,26.3 5.6,22.3 9.2,24.7 12.8,27.9 16.3,28.0 19.9,20.9 23.5,19.3 27.1,9.7 30.7,7.7 34.3,12.6 37.9,12.6 41.4,10.5 45.0,14.5 48.6,14.9 52.2,13.8 55.8,13.7 59.4,8.6 63.0,4.0 66.6,2.0 70.1,3.0 73.7,8.5 77.3,5.7 80.9,7.7 84.5,8.3 88.1,16.5 91.7,16.2 95.2,25.4 98.8,20.7 102.4,20.8 106.0,16.4" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></div><div class="idxcard"><div class="nm">費半</div><div class="px">11,505.56</div><div class="chg up">▲1.97%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,22.0 5.6,19.4 9.2,28.0 12.8,27.4 16.3,26.6 19.9,22.2 23.5,18.2 27.1,11.8 30.7,8.6 34.3,10.5 37.9,11.0 41.4,8.8 45.0,11.4 48.6,9.3 52.2,9.3 55.8,6.8 59.4,3.0 63.0,2.6 66.6,2.0 70.1,3.9 73.7,9.4 77.3,10.0 80.9,14.2 84.5,14.6 88.1,21.1 91.7,22.4 95.2,27.9 98.8,25.7 102.4,26.1 106.0,23.3" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></div></div></section><section class="blk night"><h3><span class="dt"></span>台指期夜盤</h3><p class="big"><b>47,482</b> <span class="up">1.00%</span>　成交量 35,753 口</p><p class="dim">近月合約 202611｜夜盤 15:00→隔日 05:00，歸屬交易日 2026/10/22</p></section><section class="blk">
 <h3><span class="dt"></span>【美股晨報 10/21】財報撐盤、AI 降溫，道瓊獨強</h3>
 </section>
 <section class="blk">
 <h3><span class="dt"></span>① 四大指數（10/20 收盤）</h3>
-<ul>
-<li>道瓊 52,495.88 +529.85（+1.02%）：3M 財報優於預期，資金轉進工業股。</li>
-<li>S&amp;P500 7,712.57 +21.84（+0.28%）：油價回落加財報利多，抵銷 AI 疑慮。</li>
-<li>那斯達克 26,424.82 -6.07（-0.02%）：科技股獲利回吐。</li>
-<li>費半 11,283.81 -32.53（-0.29%）：前日強彈只有一日行情。</li>
-</ul>
 </section>
 <section class="blk">
 <h3><span class="dt"></span>② 最強：醫療保健、工業等價值股（3M +5.9%）；最弱：半導體／AI 供應鏈（SK 海力士 ADR -2.2%、韓國 Elice 掛牌首日崩 32%）。</h3>
@@ -64,9 +66,6 @@
 </section>
 <section class="blk">
 <h3><span class="dt"></span>④【對台股的影響】</h3>
-<ul>
-<li>費半小跌、台積電 ADR 卻 +1.16%，電子權值與 AI 供應鏈偏中性，開盤可能隨夜盤氣氛偏多、但追價要看量。記憶體族群偏空（SK 海力士 ADR -2.2%），南亞科、華邦電可能承壓。外資昨再賣 795.4 億、連 10 賣共 8,380 億；新台幣收 32.617、貶 1.72 角創一年半低，若續測 32.8 代表匯出未止；投信連 8 買、外資期貨淨空單降至 89,748 口，是少數偏多訊號。兩個變數：台指期結算，及台積電能否守 2,400 元、現貨不再開高走低。</li>
-</ul>
 </section>
 <section class="blk">
 <h3><span class="dt"></span>⑤ 今天盯：台指期今日結算，夜盤已彈 634 點至 46,975，看外資 8.97 萬口空單尾盤是否回補。</h3>
