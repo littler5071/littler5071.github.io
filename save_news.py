@@ -91,7 +91,7 @@ def _is_section(t):
 IDX_LINE = re.compile(r"^(道瓊|S&P\s*500|S&P500|那斯達克|費半)\s*[\d,]+")
 
 
-def to_html(md, strip_indexes=False):
+def to_html(md, strip_indexes=False, first_sections=None):
     """把報告排成「小節 + 條列」——手機上一眼看到分區，不要一整片文字牆。
 
     strip_indexes=True 時，把「① 四大指數」裡重複的指數數字行濾掉（上面已經有卡片），
@@ -119,6 +119,11 @@ def to_html(md, strip_indexes=False):
             continue
         cur["items"].append(line_t)
     flush()
+
+    if first_sections:
+        head = [b for b in blocks if b["title"] and any(k in b["title"] for k in first_sections)]
+        rest = [b for b in blocks if b not in head]
+        blocks = head + rest
 
     out = []
     for b in blocks:
@@ -173,9 +178,11 @@ CSS = """
 NIGHT_SCRIPT = "/home/littler5071/opencode/圖片生成/小R頻道_股市觀察/taifex_night.py"
 
 try:
-    from news_cards import indices_box as _indices_box
+    from news_cards import indices_box as _indices_box, digits_box as _digits_box
 except Exception:                     # 沒有就退回不顯示
     def _indices_box():
+        return ""
+    def _digits_box(_t):
         return ""
 
 
@@ -284,16 +291,26 @@ def build(kind, limit):
     dates = [d for d, _ in items]
     for d, body in items:
         ymd = f"{d[:4]}/{d[4:6]}/{d[6:]}"
-        extra = (_indices_box() + night_box(body)) if kind == "us" else ""
+        if kind == "us":
+            extra = _indices_box() + night_box(body)
+            inner = to_html(body, strip_indexes=bool(extra))
+        else:
+            extra = _digits_box(body)
+            inner = to_html(body, first_sections=["【數字】"])
         html_doc = page(f"{cfg['title']} {ymd}", f"{cfg['title']} {ymd}", cfg["sub"],
-                        extra + to_html(body, strip_indexes=bool(extra)), dates,
+                        extra + inner, dates,
                         f"https://littler5071.github.io/news/{cfg['dir']}/{d}.html")
         open(os.path.join(outdir, f"{d}.html"), "w", encoding="utf-8").write(html_doc)
     latest_date, latest_body = items[0]
     ymd = f"{latest_date[:4]}/{latest_date[4:6]}/{latest_date[6:]}"
-    extra = (_indices_box() + night_box(latest_body)) if kind == "us" else ""
+    if kind == "us":
+        extra = _indices_box() + night_box(latest_body)
+        inner = to_html(latest_body, strip_indexes=bool(extra))
+    else:
+        extra = _digits_box(latest_body)
+        inner = to_html(latest_body, first_sections=["【數字】"])
     html_doc = page(f"{cfg['title']}｜最新", f"{cfg['title']} {ymd}", cfg["sub"],
-                    extra + to_html(latest_body, strip_indexes=bool(extra)), dates,
+                    extra + inner, dates,
                     f"https://littler5071.github.io/news/{cfg['dir']}/")
     open(os.path.join(outdir, "index.html"), "w", encoding="utf-8").write(html_doc)
     print(f"[{kind}] 產出 {len(items)} 期，最新 {latest_date}")
