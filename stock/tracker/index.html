@@ -52,6 +52,14 @@
   }
   h3.sub3{font-size:16px;margin:16px 0 6px;color:#26221e}
   h3.sub3::before{content:"▍";color:#c0392b;margin-right:4px}
+  ul.mlist{list-style:none;padding:0;margin:8px 0 0}
+  ul.mlist li{display:grid;grid-template-columns:26px 1fr auto;gap:2px 8px;align-items:baseline;
+        padding:6px 0;border-bottom:1px dashed #e3dccd}
+  ul.mlist li:last-child{border:0}
+  ul.mlist .rk{color:#a89e90;font-size:12px}
+  ul.mlist .nm2{font-size:14.5px}
+  ul.mlist .sc{color:#b26b00;font-weight:700;font-size:13px}
+  ul.mlist .hits{grid-column:2 / -1;font-size:12px;color:#78706a;line-height:1.5}
   .steps{display:grid;gap:10px;margin:10px 0 4px}
   .step{display:flex;gap:12px;background:#fffdf6;border:2px solid #e3dccd;border-radius:14px;
         padding:12px 14px;height:auto;width:auto}
@@ -205,7 +213,7 @@
   <p class="lede">過去的入選紀錄<b>並沒有丟掉</b>：只要當天有收盤統計，就能用當天的條件數回頭算出「滿分組」，
     不需要用到未來價格。<b>所以歷史 25 批可以回推</b>。真正不能補的只有一件事——
     「要用滿分組這個切法」是我看過結果之後才決定的，這件事本身有選擇偏誤。
-    因此下面分三張表，不混在一起算：① 舊制混算（方向參考）、② 統一尺重算（同一把尺）、③ 真實事前（唯一能當裁判）。</p>
+    因此下面分成四段，不混在一起算：① 舊制混算（方向參考）、② 統一尺重算（同一把尺）、③ 新設計籌碼量能（回測最強、但只管 5 日）、④ 真實事前（唯一能當裁判）。</p>
 
   <h3 class="sub3">① 回推（舊制混算）：25 批</h3>
   <p class="dim" style="margin:0 0 4px">這 25 批裡 <b>24 批是 8 條條件的舊制</b>、1 批是空頭 4 條、
@@ -219,7 +227,19 @@
     這才是「同一把尺」的樣本 —— 代價是它不是當時的名單，而是重算版。</p>
   <div class="scroll"><table class="cmp"><tr><th>期間</th><th>滿分組</th><th>其餘正向組</th><th>對照組</th><th>滿分組 − 其餘</th></tr><tr><td data-label="期間"><b>第 5 日</b></td><td class="num up" data-label="滿分組">+4.50%<div class="dim">n=61</div></td><td class="num up" data-label="其餘正向組">+1.28%<div class="dim">n=148</div></td><td class="num up" data-label="對照組">+1.86%<div class="dim">n=210</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+2.75%</b><div class="dim">t=1.47（21 批）</div></td></tr><tr><td data-label="期間"><b>第 10 日</b></td><td class="num up" data-label="滿分組">+5.12%<div class="dim">n=54</div></td><td class="num up" data-label="其餘正向組">+2.40%<div class="dim">n=115</div></td><td class="num up" data-label="對照組">+3.79%<div class="dim">n=170</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+4.26%</b><div class="dim">t=1.36（17 批）</div></td></tr><tr><td data-label="期間"><b>第 20 日</b></td><td class="num up" data-label="滿分組">+3.31%<div class="dim">n=21</div></td><td class="num up" data-label="其餘正向組">+2.48%<div class="dim">n=48</div></td><td class="num up" data-label="對照組">+2.35%<div class="dim">n=70</div></td><td class="num up" data-label="滿分組 − 其餘"><b>+0.70%</b><div class="dim">t=0.23（7 批）</div></td></tr></table></div>
 
-  <h3 class="sub3">③ 真實事前：1 批（從 2026/10/22 起，每天鎖定不改名單）</h3>
+  <h3 class="sub3">③ 新設計：籌碼量能前 10（26 批回測）</h3>
+  <p class="dim" style="margin:0 0 4px">分數 = 2.0×外資買超 + 1.0×三大法人買超 + 1.5×量增(≥1.2倍) + 1.0×強於大盤<br>
+    在 7 種候選評分裡，這組是唯一「前後半段都為正、換權重也站得住」的：
+    等權重 (1,1,1,1) 仍有 +1.80%（t=3.17），拿掉法人欄位也還有 +1.56%（t=2.61）。</p>
+  <div class="scroll"><table class="cmp"><tr><th>期間</th><th>前 10 名</th><th>對照組</th>
+    <th>差距</th></tr><tr><td data-label="期間"><b>第 5 日</b></td><td class="num up" data-label="前 10 名">+2.74%<div class="dim">n=207</div></td><td class="num up" data-label="對照組">+0.73%<div class="dim">n=210</div></td><td class="num up" data-label="差距"><b>+2.01%</b><div class="dim">t=3.69　勝 17/21</div></td></tr><tr><td data-label="期間"><b>第 10 日</b></td><td class="num up" data-label="前 10 名">+3.39%<div class="dim">n=168</div></td><td class="num up" data-label="對照組">+2.40%<div class="dim">n=170</div></td><td class="num up" data-label="差距"><b>+1.04%</b><div class="dim">t=1.07　勝 10/17</div></td></tr><tr><td data-label="期間"><b>第 20 日</b></td><td class="num dn" data-label="前 10 名">-0.27%<div class="dim">n=69</div></td><td class="num up" data-label="對照組">+2.50%<div class="dim">n=70</div></td><td class="num dn" data-label="差距"><b>-2.64%</b><div class="dim">t=-1.54　勝 2/7</div></td></tr></table></div>
+  <p class="dim">這一組的<b>有效期限只有 5 個交易日</b>：第 10 日照差距 +1.04%（t=1.07，不顯著），
+    第 20 日反而 −2.64%（t=−1.54，比對照組差）。所以它是短線名單，不是波段名單，頁面上不美化這點。
+    每天 18:50 會把當日名單鎖進 <code>model_forward.json</code>（append-only），之後的成績自動累積，
+    跟 ④ 一樣不能回頭改名單。</p>
+  <div class="note" style="border-left-color:#b26b00"><b>今日名單（2026/10/22 收盤鎖定，10 檔）</b><ul class="mlist"><li><span class="rk">01</span><span class="nm2">2383 台光電</span><span class="sc">5.5 分</span><div class="hits">外資買超、法人買超、量增=2.0倍、強於大盤</div></li><li><span class="rk">02</span><span class="nm2">3037 欣興</span><span class="sc">5.5 分</span><div class="hits">外資買超、法人買超、量增=1.4倍、強於大盤</div></li><li><span class="rk">03</span><span class="nm2">1802 台玻</span><span class="sc">5.5 分</span><div class="hits">外資買超、法人買超、量增=3.4倍、強於大盤</div></li><li><span class="rk">04</span><span class="nm2">6456 GIS-KY</span><span class="sc">5.5 分</span><div class="hits">外資買超、法人買超、量增=2.7倍、強於大盤</div></li><li><span class="rk">05</span><span class="nm2">3374 精材</span><span class="sc">5.5 分</span><div class="hits">外資買超、法人買超、量增=2.1倍、強於大盤</div></li><li><span class="rk">06</span><span class="nm2">6173 信昌電</span><span class="sc">5.5 分</span><div class="hits">外資買超、法人買超、量增=1.9倍、強於大盤</div></li><li><span class="rk">07</span><span class="nm2">3324 雙鴻</span><span class="sc">5.5 分</span><div class="hits">外資買超、法人買超、量增=1.4倍、強於大盤</div></li><li><span class="rk">08</span><span class="nm2">3653 健策</span><span class="sc">4.5 分</span><div class="hits">外資買超、法人買超、量增=1.4倍</div></li><li><span class="rk">09</span><span class="nm2">6669 緯穎</span><span class="sc">4.5 分</span><div class="hits">外資買超、法人買超、量增=1.2倍</div></li><li><span class="rk">10</span><span class="nm2">6278 台表科</span><span class="sc">4.5 分</span><div class="hits">外資買超、法人買超、量增=1.4倍</div></li></ul></div>
+
+  <h3 class="sub3">④ 真實事前：1 批（從 2026/10/22 起，每天鎖定不改名單）</h3>
   <div class="scroll"><table class="cmp"><tr><th>期間</th><th>滿分組</th><th>其餘正向組</th><th>對照組</th><th>滿分組 − 其餘</th></tr><tr><td data-label="期間"><b>第 5 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr><tr><td data-label="期間"><b>第 10 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr><tr><td data-label="期間"><b>第 20 日</b></td><td colspan="4" data-label="狀態" class="dim">尚未到期（0 批完成）</td></tr></table></div>
   <div class="note" style="border-left-color:#b26b00"><b>最新鎖定：2026/10/22（條件上限 5/7）</b><div class="dim" style="margin-top:4px">滿分組 5 檔：6456 GIS-KY、1815 富喬、6278 台表科、8042 金山電、3441 聯一光</div><div class="dim">其餘正向組 5 檔：1802 台玻、3037 欣興、4958 臻鼎-KY、3231 緯創、6505 台塑化</div></div>
   <p class="dim">這張表要等時間累積才有意義：目前每批要滿 5／10／20 個交易日才算一筆，
