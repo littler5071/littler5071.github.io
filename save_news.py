@@ -161,6 +161,7 @@ CSS = """
   .idxcard .nm{font-size:13px;color:var(--soft)}
   .idxcard .px{font-size:17px;font-weight:700;margin:1px 0}
   .idxcard .chg{font-size:13.5px;margin-bottom:4px}
+  .idxcard .asof{font-size:11.5px;color:var(--soft);margin-top:2px}
   .idxcard .up{color:var(--red)} .idxcard .dn{color:var(--green)}
   .spark{display:block;width:100%;height:30px}
   @media (min-width:640px){ .idxgrid{grid-template-columns:repeat(4,1fr)} }
@@ -295,7 +296,7 @@ def build(kind, limit):
             extra = _indices_box() + night_box(body)
             inner = to_html(body, strip_indexes=bool(extra))
         else:
-            extra = _digits_box(body)
+            extra = _digits_box(body, ymd.replace("/", ""))
             inner = to_html(body, first_sections=["【數字】"])
         html_doc = page(f"{cfg['title']} {ymd}", f"{cfg['title']} {ymd}", cfg["sub"],
                         extra + inner, dates,
@@ -307,7 +308,7 @@ def build(kind, limit):
         extra = _indices_box() + night_box(latest_body)
         inner = to_html(latest_body, strip_indexes=bool(extra))
     else:
-        extra = _digits_box(latest_body)
+        extra = _digits_box(latest_body, ymd.replace("/", ""))
         inner = to_html(latest_body, first_sections=["【數字】"])
     html_doc = page(f"{cfg['title']}｜最新", f"{cfg['title']} {ymd}", cfg["sub"],
                     extra + inner, dates,

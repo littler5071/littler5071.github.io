@@ -78,6 +78,17 @@ def spark_svg(closes, up):
             'stroke-linejoin="round" stroke-linecap="round"/></svg>' % (w, h, " ".join(pts), color))
 
 
+def _asof(ser):
+    """最後一根 K 的日期（台北時間 M/D），讓卡片標示資料截止日。"""
+    try:
+        ts = ser[-1][0]
+        import datetime
+        d = datetime.datetime.utcfromtimestamp(ts + 8 * 3600)
+        return f"截至 {d.month}/{d.day}"
+    except Exception:
+        return ""
+
+
 def _card(name, ser):
     closes = [c for _, c in ser]
     last, prev = closes[-1], closes[-2]
@@ -87,8 +98,9 @@ def _card(name, ser):
     arrow = "▲" if up else "▼"
     fmt = format(last, ",.2f") if last >= 100 else format(last, ",.3f")
     return ('<div class="idxcard"><div class="nm">%s</div><div class="px">%s</div>'
-            '<div class="chg %s">%s%.2f%%</div>%s</div>'
-            % (html.escape(name), fmt, cls, arrow, abs(chg), spark_svg(closes, up)))
+            '<div class="chg %s">%s%.2f%%</div>%s'
+            '<div class="asof">%s</div></div>'
+            % (html.escape(name), fmt, cls, arrow, abs(chg), spark_svg(closes, up), _asof(ser)))
 
 
 NUM_RE = r"([0-9][0-9,]*\.?[0-9]*)\s*(?:點|美元|元|%)?"
@@ -145,7 +157,7 @@ def parse_pair(text, keys):
     return None, None, None
 
 
-def digits_box(text):
+def digits_box(text, asof=None):
     """新聞濃縮【數字】段落 → 依出現順序比對標的，做成有走勢圖的小卡。"""
     if not text:
         return ""
@@ -166,6 +178,10 @@ def digits_box(text):
             val = closes[-1]
         if chg is None:
             chg = (closes[-1] / closes[-2] - 1) * 100
+        # 文字裡的數值若比 Yahoo 最後一根新（Yahoo 常落後一日），把它補進線尾，
+        # 這樣「卡片數字」與「走勢線終點」就一致
+        if val is not None and abs(val - closes[-1]) > max(1e-6, abs(closes[-1]) * 1e-6):
+            closes = closes + [val]
         if sym.endswith("=X") and src == "angle":
             # 「台幣升 1.29 角」是台幣升值 → 美元兌台幣是下跌，方向要反過來
             chg = -chg
@@ -174,8 +190,10 @@ def digits_box(text):
         arrow = "▲" if up else "▼"
         fmt = format(val, ",.2f") if val >= 100 else format(val, ",.3f")
         cards.append('<div class="idxcard"><div class="nm">%s</div><div class="px">%s</div>'
-                     '<div class="chg %s">%s%.2f%%</div>%s</div>'
-                     % (html.escape(name), fmt, cls, arrow, abs(chg), spark_svg(closes, up)))
+                     '<div class="chg %s">%s%.2f%%</div>%s'
+                     '<div class="asof">%s</div></div>'
+                     % (html.escape(name), fmt, cls, arrow, abs(chg),
+                        spark_svg(closes, up), ("截至 " + asof[4:6] + "/" + asof[6:8]) if asof else _asof(ser)))
     if not cards:
         return ""
     return ('<section class="blk idxsec"><h3><span class="dt"></span>'
