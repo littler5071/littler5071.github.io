@@ -27,7 +27,9 @@
     { label: '新聞晨報',   path: 'news/'   },
     { label: '多益英文',   path: 'toeic/'  },
     { label: '程式設計',   path: 'code/'   },
-    { label: '教育輔助',   path: 'study/'  }
+    { label: '教育輔助',   path: 'study/'  },
+    /* 外部固定連結：直接給絕對網址（href），不經 prefix 組合 */
+    { label: 'Rich趨勢觀察家', href: 'https://gogohome.mooo.com/', external: true }
   ];
 
   var CLASS = 'hnav';          // 由 nav.css 決定長相
@@ -69,11 +71,16 @@
     ITEMS.forEach(function (it) {
       var a = document.createElement('a');
       a.className = it.brand ? 'brand' : 'lnk';
-      a.setAttribute('href', prefix + it.path);
+      a.setAttribute('href', it.href || (prefix + it.path));
+      if (it.external) {
+        a.className += ' ext';
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener');
+      }
       a.textContent = it.label;
       // 亮框：首頁只有「完全在根目錄」才亮；其他分類用「開頭符合」。
       // （舊版就是在這裡把 ai 寫成「完全等於」，/ai/ 子頁才會亮錯。）
-      var hit = it.brand ? (sub === '') : (it.path && sub.indexOf(it.path) === 0);
+      var hit = it.external ? false : (it.brand ? (sub === '') : (it.path && sub.indexOf(it.path) === 0));
       if (hit) a.className += ' on';
       nav.appendChild(a);
     });
