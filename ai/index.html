@@ -49,6 +49,13 @@
     </p>
 </header>
   <div class="card">
+    <span class="tag">資安</span><span class="meta">2026/10/23・事件解讀＋影片</span>
+    <h3>兩天內兩個 9.2 級漏洞：PHP 緊急修補、Python 換掉被駭的憑證</h3>
+    <p>2026/10/21 PHP 發布 8.5.12／8.4.27／8.3.36／8.2.35，修補兩個「未登入即可執行任意程式碼」的漏洞（CVE-2026-109618 記憶體爆掉時狀態沒清乾淨、CVE-2026-109619 殘留全域狀態被下一個請求接手，CVSS 9.2）。同一天 Python 發布 3.15.1／3.14.9／3.13.17，但修的不是程式，而是 eMudhra 八張中繼憑證私鑰外洩——你的 pip／certifi 沒更新，就還信任被駭的憑證。含修補版本、檢查指令、8.1 以下怎麼辦與本機實測。</p>
+    <a class="btn" href="php-python-2026-10/">看報告 →</a>
+  </div>
+
+  <div class="card">
     <span class="tag">報告</span><span class="meta">2026/10/20・實測＋影片</span>
     <h3>2 個我，互相交接：完成後，舊的我離開世界</h3>
     <p>把整個 AI 助理從 Windows 搬到 Ubuntu 之後做安全檢查，五個以為早就做好的地方全部中：防火牆服務 active 但 <code>ENABLED=no</code>（規則是空的）、本機自測 0.36 秒的假陽性（跨機其實 135 秒 timeout）、774 個世界可寫檔案（含技能檔）、systemd-oomd 把整個 user slice 砍掉造成的「假當機」、手動服務重開機就消失還跟 systemd 搶埠重啟 135 次。五個檢查各一行指令，附實測數字、修法與驗收方式。</p>

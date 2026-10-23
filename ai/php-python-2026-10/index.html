@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>兩天內兩個 9.2 級漏洞：PHP 緊急修補、Python 換掉被駭的憑證｜小R頻道</title>
+<meta name="description" content="2026 年 10 月 21 日，PHP 修補兩個未登入即可執行任意程式碼的漏洞（CVE-2026-109618、CVE-2026-109619，CVSS 9.2），Python 同一天發布 3.15.1／3.14.9／3.13.17，處理 eMudhra 八張中繼憑證私鑰外洩。含修補版本、檢查指令、8.1 以下怎麼辦，以及本機實測結果。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .step{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:22px 24px;margin:0 0 22px;
+        box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .step h3{margin:0 0 6px;font-size:22px;color:#364e70}
+  .step .no{display:inline-block;background:#c2452d;color:#fff;border-radius:10px;padding:2px 10px;
+            font-size:15px;margin-right:10px;vertical-align:2px}
+  .step .sym{font-size:15px;color:#78706a;margin:2px 0 12px}
+  .step .fix{background:#f3f7f3;border-left:5px solid #4a8a5c;padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0 0}
+  .step .warn{background:#fdf3f0;border-left:5px solid #c2452d;padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0 0}
+  pre{background:#181a1d;color:#d6e6ff;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.7;margin:12px 0}
+  pre .c{color:#8b9098}
+  pre .o{color:#8ee6a0}
+  .nums{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+  .nums th,.nums td{border-bottom:1px dashed var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+  .nums th{color:#78706a;font-weight:600;white-space:nowrap}
+  .nums td:first-child{font-weight:700;color:#c2452d;white-space:nowrap}
+  .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:28px;text-align:center;margin:18px 0 26px}
+  .video-slot b{color:#fff;font-size:18px;display:block;margin-bottom:6px}
+  .quote{border-left:5px solid #c2452d;padding:6px 0 6px 18px;color:#4a4640;font-size:17px;line-height:1.9;margin:22px 0}
+  .tldr{background:#fffdf7;border:2px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
+  .tldr b{color:#c2452d}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<!-- hermes-seo -->
+<link rel="canonical" href="https://littler5071.github.io/ai/php-python-2026-10/">
+
+<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
+<meta property="og:site_name" content="小R頻道">
+<meta property="og:type" content="website">
+<meta property="og:title" content="兩天內兩個 9.2 級漏洞：PHP 緊急修補、Python 換掉被駭的憑證｜小R頻道">
+<meta property="og:description" content="2026 年 10 月 21 日，PHP 修補兩個未登入即可執行任意程式碼的漏洞（CVE-2026-109618、CVE-2026-109619，CVSS 9.2），Python 同一天發布 3.15.1／3.14.9／3.13.17，處理 eMudhra 八張中繼憑證私鑰外洩。含修補版本、檢查指令、8.1 以下怎麼辦，以及本機實測結果。">
+<meta property="og:url" content="https://littler5071.github.io/ai/php-python-2026-10/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="兩天內兩個 9.2 級漏洞：PHP 緊急修補、Python 換掉被駭的憑證｜小R頻道">
+<meta name="twitter:description" content="2026 年 10 月 21 日，PHP 修補兩個未登入即可執行任意程式碼的漏洞（CVE-2026-109618、CVE-2026-109619，CVSS 9.2），Python 同一天發布 3.15.1／3.14.9／3.13.17，處理 eMudhra 八張中繼憑證私鑰外洩。含修補版本、檢查指令、8.1 以下怎麼辦，以及本機實測結果。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<!-- /hermes-seo -->
+<link rel="stylesheet" href="../../nav.css?v=73b4d013">
+<script defer src="../../nav.js?v=90e75fc6"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
+</head>
+<body>
+<main class="wrap">
+  <h1>兩天內兩個 9.2 級漏洞：PHP 緊急修補、Python 換掉被駭的憑證</h1>
+  <p class="sub">2026-10-23｜小R 頻道｜資安事件解讀</p>
+
+  <div class="tldr">
+    <p><b>一句話版本：</b>10 月 21 日，PHP 修掉兩個「不用登入就能執行任意程式碼」的漏洞（CVSS 9.2）；同一天 Python 發了三個版本，但修的不是程式本身，而是<b>憑證信任鏈</b>——eMudhra 八張中繼憑證的私鑰被偷，拿到金鑰的人可以假冒任何網站。</p>
+  </div>
+
+  <h2>一、PHP：兩個 9.2 級漏洞，同一天修掉</h2>
+  <p>PHP 專案在 2026 年 10 月 21 日發布 <b>8.5.12、8.4.27、8.3.36、8.2.35</b>，修補兩個嚴重度 <b>9.2（CVSS v4.0）</b>、可讓<b>未登入攻擊者執行任意程式碼</b>的漏洞。兩個漏洞都位在「幾乎每個請求都會經過」的地方：記憶體管理與錯誤處理。</p>
+
+  <div class="step">
+    <h3><span class="no">漏洞一</span>CVE-2026-109618：記憶體爆掉時狀態沒清乾淨</h3>
+    <p class="sym">RCE via OOM corruption</p>
+    <p>當請求剛好在 <code>memory_limit</code> 邊界觸發記憶體不足，PHP 會留下「只初始化一半」的內部資料；後續的清理流程把這塊無效資料當成有效資料處理，造成記憶體毀損。在 Apache + mod_php 環境下，<b>連應用程式碼都還沒開始執行就能觸發</b>，官方表示預設設定即可達到遠端程式碼執行。</p>
+    <div class="warn">這也是為什麼它嚴重：你以為「我的程式寫得很安全」沒有用，因為攻擊發生在你的程式之前。</div>
+  </div>
+
+  <div class="step">
+    <h3><span class="no">漏洞二</span>CVE-2026-109619：殘留的全域狀態被下一個請求接手</h3>
+    <p class="sym">RCE via stale global state</p>
+    <p>請求在錯誤的時間點發生致命錯誤後，PHP 的內部狀態仍指向<b>已經被釋放的記憶體</b>。同一個 worker 處理下一個請求時，可能會用到這塊殘留狀態。已確認可造成 use-after-free 與 worker 崩潰，也確認可達成遠端程式碼執行。</p>
+    <div class="warn">PHP-FPM 也受影響，只是需要經過應用程式的程式碼路徑；Apache + mod_php 風險最高。</div>
+  </div>
+
+  <h3>修補方式</h3>
+  <table class="nums">
+    <tr><th>項目</th><th>內容</th></tr>
+    <tr><td>PHP 8.5</td><td>升級到 8.5.12</td></tr>
+    <tr><td>PHP 8.4</td><td>升級到 8.4.27</td></tr>
+    <tr><td>PHP 8.3</td><td>升級到 8.3.36</td></tr>
+    <tr><td>PHP 8.2</td><td>升級到 8.2.35</td></tr>
+    <tr><td>PHP 8.1 以下</td><td>已停止官方維護，<b>沒有官方補丁</b>，只能升級（Linux 發行版可能有回補，要問廠商）</td></tr>
+    <tr><td>remirepo 使用者</td><td>官方明確表示 <code>rpms.remirepo.net</code> 當天不會有更新，需改用發行版套件或自行編譯</td></tr>
+  </table>
+
+  <pre><span class="c"># 先確認版本</span>
+php -v
+
+<span class="c"># Debian / Ubuntu（範例，實際版本依發行版）</span>
+sudo apt update &amp;&amp; sudo apt install --only-upgrade php8.3-cli php8.3-fpm
+
+<span class="c"># RHEL 系列</span>
+sudo dnf upgrade --refresh 'php*'
+
+<span class="c"># 重新載入服務</span>
+sudo systemctl reload apache2 2>/dev/null || sudo systemctl reload php8.3-fpm</pre>
+
+  <h2>二、Python：不是程式漏洞，是憑證鏈被攻破</h2>
+  <p>同一天（10/21），Python 發布 <b>3.15.1、3.14.9、3.13.17</b>，三個版本都把內建 <code>pip</code> 升到 <b>26.2.2</b>，其中包含 <b>certifi 2026.10.19</b>，用來移除已被撤銷的 eMudhra／emSign 中繼憑證。</p>
+
+  <div class="quote">
+    事件的源頭不是 Python：印度憑證機構 eMudhra 的 <b>8 張中繼憑證私鑰外洩</b>。10 月 17 日有人用這些私鑰簽署訊息通報，證明金鑰真的被拿走；10 月 20 日公開揭露。Firefox 與 Chrome 已在 17 日起封鎖這些中繼，微軟 20 日、蘋果 22 日跟進。
+  </div>
+
+  <p>問題在於：<b>瀏覽器有撤銷清單機制，會自動更新；但你程式裡帶的憑證包不會。</b> 只要某個 venv 的 certifi 還留著舊的憑證包，它就會繼續信任這八張中繼——攻擊者就能用它簽發的憑證假冒任何網站，包括你呼叫的 API 或套件下載來源。</p>
+
+  <h3>要檢查的四個地方</h3>
+  <table class="nums">
+    <tr><th>位置</th><th>怎麼檢查</th><th>目標</th></tr>
+    <tr><td>pip</td><td><code>python -m pip -V</code></td><td>26.2.2 以上</td></tr>
+    <tr><td>certifi</td><td><code>python -c "import certifi;print(certifi.__version__)"</code></td><td>2026.10.19 以上</td></tr>
+    <tr><td>系統憑證</td><td><code>dpkg -l ca-certificates</code> / <code>rpm -q ca-certificates</code></td><td>發行版最新版</td></tr>
+    <tr><td>容器 / CI</td><td>重新建置映像</td><td>才會帶到新憑證</td></tr>
+  </table>
+
+  <pre><span class="c"># 每個 venv 都要做</span>
+python -m pip install -U pip
+python -m pip install -U certifi
+
+<span class="c"># 系統層（Debian / Ubuntu）</span>
+sudo apt update &amp;&amp; sudo apt install --only-upgrade ca-certificates</pre>
+
+  <h2>三、本機實測：我們這台機器有沒有中？</h2>
+  <table class="nums">
+    <tr><th>項目</th><th>實測結果</th><th>判定</th></tr>
+    <tr><td>PHP</td><td>未安裝（<code>php -v</code> 無此指令）</td><td>不受影響</td></tr>
+    <tr><td>pip</td><td>26.2.1 → 已升級到 26.2.2</td><td>已修補</td></tr>
+    <tr><td>certifi</td><td>2026.10.19</td><td>已是最新</td></tr>
+    <tr><td>系統憑證</td><td>120 張，未含 eMudhra／emSign</td><td>不受影響</td></tr>
+  </table>
+  <p class="sym">檢查指令可直接複製：</p>
+  <pre>python3 -m pip -V
+python3 -c "import certifi;print(certifi.__version__)"
+grep -ci emsign /etc/ssl/certs/ca-certificates.crt</pre>
+
+  <h2>四、時間軸</h2>
+  <table class="nums">
+    <tr><th>時間</th><th>事件</th></tr>
+    <tr><td>10/17</td><td>eMudhra 中繼憑證私鑰外洩被通報（有人用私鑰簽訊息證明）；Firefox、Chrome 開始封鎖</td></tr>
+    <tr><td>10/20</td><td>事件公開揭露；微軟平台跟進封鎖</td></tr>
+    <tr><td>10/21</td><td>PHP 發布 8.5.12／8.4.27／8.3.36／8.2.35；Python 發布 3.15.1／3.14.9／3.13.17</td></tr>
+    <tr><td>10/22</td><td>蘋果平台跟進封鎖</td></tr>
+  </table>
+
+  <h2>五、常見問題</h2>
+  <p><b>Q：我用 Docker 跑 PHP，映像有更新嗎？</b><br>
+  A：官方映像通常會重建，但要自己 pull 新的 tag 並重新部署；只重啟容器不會換到新版本。</p>
+  <p><b>Q：PHP 8.1 還能用嗎？</b><br>
+  A：官方已停止維護，這次沒有補丁。少數發行版（例如某些 LTS）會回補，要直接問你的廠商；長期還是要升級。</p>
+  <p><b>Q：Python 的漏洞不是說「不是程式漏洞」嗎，為什麼要更新？</b><br>
+  A：因為你的程式信任哪些憑證，是由 certifi 決定的。舊的 certifi 還信任被駭的中繼，更新程式本身沒用，要更新憑證包。</p>
+  <p><b>Q：更新完要做什麼驗證？</b><br>
+  A：<code>php -v</code> 確認版本、<code>python -m pip -V</code> 確認 26.2.2、再跑一次你的服務健康檢查。</p>
+
+  <div class="video-slot">
+    <b>影片解說</b>
+    Shorts 版：兩天內兩個重大漏洞，90 秒看完｜長片版：為什麼 Apache + mod_php 最危險、憑證鏈為什麼更難修
+  </div>
+
+  <h2>六、檢查清單（可直接照做）</h2>
+  <table class="nums">
+    <tr><th>#</th><th>動作</th></tr>
+    <tr><td>1</td><td>PHP 8.2 以上：升級到 8.5.12／8.4.27／8.3.36／8.2.35</td></tr>
+    <tr><td>2</td><td>PHP 8.1 以下：規劃升級（先問發行版有沒有回補）</td></tr>
+    <tr><td>3</td><td>每個 venv：<code>pip install -U pip certifi</code></td></tr>
+    <tr><td>4</td><td>系統：更新 <code>ca-certificates</code></td></tr>
+    <tr><td>5</td><td>容器與 CI：重新建置映像</td></tr>
+    <tr><td>6</td><td>用 remirepo 的機器：改用發行版套件</td></tr>
+  </table>
+
+  <p class="quote">本頁為資安資訊整理，目的在協助站長與開發者盡快更新，不包含任何漏洞利用方法，也不構成對任何廠商的背書。</p>
+
+  <p class="sym">資料來源：php.net 2026-10-21 安全公告（CVE-2026-109618、CVE-2026-109619）、PHP Foundation 公告、python.org 3.15.1／3.14.9／3.13.17 發布說明、eMudhra 事件說明頁。</p>
+</main>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
