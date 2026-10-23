@@ -25,9 +25,12 @@
   .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:28px;text-align:center;margin:18px 0 26px}
   .video-slot b{color:#fff;font-size:18px;display:block;margin:0 0 12px}
   .video-slot b.s{margin-top:26px}
-  .video-slot video{width:100%;aspect-ratio:16/9;object-fit:contain;border-radius:14px;
-                    display:block;background:#000}
-  .video-slot video.short{max-width:330px;aspect-ratio:9/16;margin:0 auto}
+  .video-slot .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;
+                     border-radius:14px;overflow:hidden}
+  .video-slot .frame.short{max-width:330px;aspect-ratio:9/16;margin:0 auto}
+  .video-slot .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-slot .vlink{margin:10px 0 0;font-size:14px}
+  .video-slot .vlink a{color:#8fd3ff;text-decoration:none}
   .quote{border-left:5px solid #c2452d;padding:6px 0 6px 18px;color:#4a4640;font-size:17px;line-height:1.9;margin:22px 0}
   .tldr{background:#fffdf7;border:2px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
   .tldr b{color:#c2452d}
@@ -165,15 +168,17 @@ grep -ci emsign /etc/ssl/certs/ca-certificates.crt</pre>
 
   <div class="video-slot">
     <b>影片解說：長片版 3 分 19 秒</b>
-    <video controls preload="metadata" playsinline poster="">
-      <source src="long.mp4" type="video/mp4">
-      你的瀏覽器不支援內嵌影片，<a href="long.mp4">直接下載</a>。
-    </video>
+    <div class="frame"><iframe src="https://www.youtube.com/embed/MbUGX4ouy_E"
+      title="PHP 兩個 9.2 級漏洞＋Python 憑證被偷" loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe></div>
+    <p class="vlink"><a href="https://youtu.be/MbUGX4ouy_E" target="_blank" rel="noopener">在 YouTube 上看（3:17）</a></p>
     <b class="s">Shorts 版 57 秒（適合手機）</b>
-    <video controls preload="metadata" playsinline class="short">
-      <source src="shorts.mp4" type="video/mp4">
-      你的瀏覽器不支援內嵌影片，<a href="shorts.mp4">直接下載</a>。
-    </video>
+    <div class="frame short"><iframe src="https://www.youtube.com/embed/5QLZmOYZrYg"
+      title="兩天內兩個 9.2 級漏洞（Shorts）" loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe></div>
+    <p class="vlink"><a href="https://youtube.com/shorts/5QLZmOYZrYg" target="_blank" rel="noopener">在 YouTube 上看（0:57）</a></p>
   </div>
 
   <h2>六、檢查清單（可直接照做）</h2>
