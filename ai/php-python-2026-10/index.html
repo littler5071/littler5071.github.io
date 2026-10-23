@@ -23,7 +23,11 @@
   .nums th{color:#78706a;font-weight:600;white-space:nowrap}
   .nums td:first-child{font-weight:700;color:#c2452d;white-space:nowrap}
   .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:28px;text-align:center;margin:18px 0 26px}
-  .video-slot b{color:#fff;font-size:18px;display:block;margin-bottom:6px}
+  .video-slot b{color:#fff;font-size:18px;display:block;margin:0 0 12px}
+  .video-slot b.s{margin-top:26px}
+  .video-slot video{width:100%;aspect-ratio:16/9;object-fit:contain;border-radius:14px;
+                    display:block;background:#000}
+  .video-slot video.short{max-width:330px;aspect-ratio:9/16;margin:0 auto}
   .quote{border-left:5px solid #c2452d;padding:6px 0 6px 18px;color:#4a4640;font-size:17px;line-height:1.9;margin:22px 0}
   .tldr{background:#fffdf7;border:2px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
   .tldr b{color:#c2452d}
@@ -160,8 +164,16 @@ grep -ci emsign /etc/ssl/certs/ca-certificates.crt</pre>
   A：<code>php -v</code> 確認版本、<code>python -m pip -V</code> 確認 26.2.2、再跑一次你的服務健康檢查。</p>
 
   <div class="video-slot">
-    <b>影片解說</b>
-    Shorts 版：兩天內兩個重大漏洞，90 秒看完｜長片版：為什麼 Apache + mod_php 最危險、憑證鏈為什麼更難修
+    <b>影片解說：長片版 3 分 19 秒</b>
+    <video controls preload="metadata" playsinline poster="">
+      <source src="long.mp4" type="video/mp4">
+      你的瀏覽器不支援內嵌影片，<a href="long.mp4">直接下載</a>。
+    </video>
+    <b class="s">Shorts 版 57 秒（適合手機）</b>
+    <video controls preload="metadata" playsinline class="short">
+      <source src="shorts.mp4" type="video/mp4">
+      你的瀏覽器不支援內嵌影片，<a href="shorts.mp4">直接下載</a>。
+    </video>
   </div>
 
   <h2>六、檢查清單（可直接照做）</h2>
