@@ -23,13 +23,16 @@
   var ITEMS = [
     { label: '小R頻道',   path: '',        brand: true },
     { label: 'AI 助理實測', path: 'ai/'     },
-    { label: '股市觀察',   path: 'stock/'  },
+    /* children＝下拉群組：手機點一下展開，桌面滑過就開。
+       外站用 href（絕對網址），站內用 path（相對網站根目錄）。 */
+    { label: '股市', children: [
+        { label: '每日觀察報告',   path: 'stock/' },
+        { label: 'Rich趨勢觀察家', href: 'https://gogohome.mooo.com/', external: true, note: '即時查詢' }
+      ] },
     { label: '新聞晨報',   path: 'news/'   },
     { label: '多益英文',   path: 'toeic/'  },
     { label: '程式設計',   path: 'code/'   },
-    { label: '教育輔助',   path: 'study/'  },
-    /* 外部固定連結：直接給絕對網址（href），不經 prefix 組合 */
-    { label: 'Rich趨勢觀察家', href: 'https://gogohome.mooo.com/', external: true }
+    { label: '教育輔助',   path: 'study/'  }
   ];
 
   var CLASS = 'hnav';          // 由 nav.css 決定長相
@@ -68,7 +71,80 @@
     var nav = document.createElement('nav');
     nav.className = CLASS;
 
+    /* 下拉面板要放在 body 上（position:fixed），因為 nav 本身 overflow-x:auto
+       會把 absolute 面板整個裁掉——這是實際踩過的坑。 */
+    function makePanel(btn, kids) {
+      var panel = document.createElement('div');
+      panel.className = 'hdrop';
+      kids.forEach(function (k) {
+        var lk = document.createElement('a');
+        lk.setAttribute('href', k.href || (prefix + k.path));
+        if (k.external) { lk.setAttribute('target', '_blank'); lk.setAttribute('rel', 'noopener'); lk.className = 'ext'; }
+        var t = document.createElement('span');
+        t.textContent = k.label;
+        lk.appendChild(t);
+        if (k.note) {
+          var nt = document.createElement('em');
+          nt.textContent = k.note;
+          lk.appendChild(nt);
+        }
+        panel.appendChild(lk);
+      });
+      document.body.appendChild(panel);
+
+      function place() {
+        var r = btn.getBoundingClientRect();
+        panel.style.left = Math.max(8, Math.min(r.left, window.innerWidth - panel.offsetWidth - 8)) + 'px';
+        panel.style.top = (r.bottom + 6) + 'px';
+      }
+      function open() {
+        panel.classList.add('open');
+        btn.classList.add('open');
+        place();
+      }
+      function close() {
+        panel.classList.remove('open');
+        btn.classList.remove('open');
+      }
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        panel.classList.contains('open') ? close() : open();
+      });
+      btn.addEventListener('mouseenter', function () { if (window.innerWidth > 760) open(); });
+      btn.addEventListener('mouseleave', function () { if (window.innerWidth > 760) close(); });
+      document.addEventListener('click', function (e) {
+        if (!panel.contains(e.target) && e.target !== btn) close();
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+      window.addEventListener('resize', function () { if (panel.classList.contains('open')) place(); });
+      window.addEventListener('scroll', close, { passive: true });
+      return { panel: panel, close: close };
+    }
+
     ITEMS.forEach(function (it) {
+      if (it.children) {
+        var g = document.createElement('a');
+        g.className = 'lnk hgrp';
+        g.setAttribute('href', '#');
+        g.setAttribute('role', 'button');
+        g.setAttribute('aria-haspopup', 'true');
+        g.setAttribute('aria-expanded', 'false');
+        g.textContent = it.label;
+        var anyHit = it.children.some(function (k) {
+          return k.path && sub.indexOf(k.path) === 0;
+        });
+        if (anyHit) g.className += ' on';
+        nav.appendChild(g);
+        var api = makePanel(g, it.children);
+        g.addEventListener('click', function () {
+          g.setAttribute('aria-expanded', api.panel.classList.contains('open') ? 'true' : 'false');
+        });
+        var cc = document.createElement('span');
+        cc.className = 'caret';
+        cc.textContent = '▾';
+        g.appendChild(cc);
+        return;
+      }
       var a = document.createElement('a');
       a.className = it.brand ? 'brand' : 'lnk';
       a.setAttribute('href', it.href || (prefix + it.path));

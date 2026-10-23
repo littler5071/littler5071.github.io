@@ -27,3 +27,21 @@
   .hnav a.brand{font-size:13px;padding:2px 6px}
   .hnav a.lnk{font-size:12.5px;padding:2px 6px}
 }
+
+/* ── 下拉群組（股市 → 報告／Rich趨勢觀察家）────────────────────
+   面板由 nav.js 掛在 body 上、position:fixed，才不會被 .hnav 的
+   overflow-x:auto 裁掉。 */
+.hnav .hgrp{display:inline-flex;align-items:center;gap:5px}
+.hnav .hgrp .caret{font-size:10px;line-height:1;opacity:.65;transition:transform .15s}
+.hnav .hgrp.open .caret{transform:rotate(180deg)}
+.hdrop{position:fixed;z-index:9999;display:none;min-width:186px;padding:6px;
+  background:#fffdf7;border:1px solid #e6dfd1;border-radius:12px;
+  box-shadow:0 10px 26px rgba(38,34,30,.16)}
+.hdrop.open{display:block}
+.hdrop a{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 12px;border-radius:9px;color:#26221e;text-decoration:none;
+  font-size:14.5px;white-space:nowrap}
+.hdrop a:hover,.hdrop a:focus{background:#f1ece1}
+.hdrop a em{font-style:normal;font-size:11.5px;color:#8a8279}
+.hdrop a.ext span::after{content:"↗";margin-left:5px;font-size:11px;opacity:.6}
+@media(max-width:640px){.hdrop a{font-size:15px;padding:11px 13px}}
