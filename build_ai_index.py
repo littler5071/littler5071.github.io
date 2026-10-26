@@ -63,6 +63,13 @@ HEAD = """<!DOCTYPE html>
 
 
 ARTICLES = [
+    dict(title="實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞",
+         date="2026/10/26", length="長片 3:13＋Shorts 49 秒",
+         url="markitdown-2026-10/",
+         desc="微軟開源工具 MarkItDown 0.1.9 實測：Word、Excel、簡報、網頁、電子書、壓縮檔都轉得漂亮，"
+              "但中文 PDF 會把漢字換成康熙部首（斗 U+6597 → U+2F43），看起來一樣、搜尋卻搜不到，AI 也會讀錯；"
+              "英文 PDF 空白消失、字黏在一起；圖片完全沒有 OCR（裝了 exiftool 也是 0 字元）。"
+              "附速度實測（2.2 MB PDF 3.5 秒／4 檔批次 6.7 秒）、決策表、驗證指令與自製 mdit 批次工具。"),
     dict(title="最近很紅的「平面圖變 3D」：小R 也來試看看",
          date="2026/10/18", length="互動示範＋實測", url="floorplan-3d/",
          desc="最近很紅的「平面圖直接變成 3D」，小R 也來試看看：從同一份平面圖資料出發，"

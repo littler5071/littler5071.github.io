@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞｜小R頻道</title>
+<meta name="description" content="微軟開源工具 MarkItDown 0.1.9 實測：Word、Excel、簡報、網頁、電子書、壓縮檔都轉得漂亮，但中文 PDF 會把漢字換成康熙部首（斗 U+6597 → U+2F43），搜尋與 AI 都會誤讀；英文 PDF 空白消失、圖片完全沒有 OCR。附速度實測、決策表與自製 mdit 批次指令。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .step{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:22px 24px;margin:0 0 22px;
+        box-shadow:2px 3px 0 rgba(74,70,64,.06)}
+  .step h3{margin:0 0 6px;font-size:22px;color:#364e70}
+  .step .no{display:inline-block;background:#c2452d;color:#fff;border-radius:10px;padding:2px 10px;
+            font-size:15px;margin-right:10px;vertical-align:2px}
+  .step .sym{font-size:15px;color:#78706a;margin:2px 0 12px}
+  .step .fix{background:#f3f7f3;border-left:5px solid #4a8a5c;padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0 0}
+  .step .warn{background:#fdf3f0;border-left:5px solid #c2452d;padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0 0}
+  pre{background:#181a1d;color:#d6e6ff;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.7;margin:12px 0}
+  pre .c{color:#8b9098}
+  pre .o{color:#8ee6a0}
+  pre .r{color:#ff9d8a}
+  .nums{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+  .nums th,.nums td{border-bottom:1px dashed var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+  .nums th{color:#78706a;font-weight:600;white-space:nowrap}
+  .nums td:first-child{font-weight:700;color:#c2452d;white-space:nowrap}
+  .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:22px;text-align:center;margin:18px 0 26px}
+  .video-slot b{color:#fff;font-size:18px;display:block;margin:0 0 12px}
+  .video-slot b.s{margin-top:22px}
+  .video-slot .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden}
+  .video-slot .frame.short{max-width:330px;aspect-ratio:9/16;margin:0 auto}
+  .video-slot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+  .quote{border-left:5px solid #c2452d;padding:6px 0 6px 18px;color:#4a4640;font-size:17px;line-height:1.9;margin:22px 0}
+  .tldr{background:#fffdf7;border:2px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
+  .tldr b{color:#c2452d}
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<!-- hermes-seo -->
+<link rel="canonical" href="https://littler5071.github.io/ai/markitdown-2026-10/">
+<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, MarkItDown, markitdown, 檔案轉 Markdown, PDF 轉 Markdown, AI 助理實測">
+<meta property="og:site_name" content="小R頻道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞｜小R頻道">
+<meta property="og:description" content="Word、Excel、簡報、網頁、電子書、壓縮檔都轉得漂亮，但中文 PDF 會把漢字換成康熙部首（U+2F43），搜尋與 AI 都會誤讀；英文 PDF 空白消失、圖片沒有 OCR。附速度實測、決策表與自製 mdit 指令。">
+<meta property="og:url" content="https://littler5071.github.io/ai/markitdown-2026-10/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<!-- /hermes-seo -->
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
+</head>
+<body>
+<main class="wrap">
+  <h1>實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞</h1>
+  <p class="sub">2026-10-26｜小R 頻道｜AI 工具實測</p>
+
+  <div class="tldr">
+    <p><b>一句話版本：</b>MarkItDown 是微軟開源的「檔案轉 Markdown」工具，Word、Excel、簡報、網頁、電子書、壓縮檔<b>都轉得漂亮</b>；但<b>中文 PDF 會把漢字換成康熙部首</b>（斗 U+6597 → U+2F43），看起來一樣、搜尋卻搜不到，AI 也會讀錯；英文 PDF 空白消失、圖片完全沒有 OCR。</p>
+  </div>
+
+  <h2>一、它是什麼</h2>
+  <p>MarkItDown 由微軟 AutoGen 團隊開源，目前版本 <b>0.1.9</b>。它的工作很單純：讀檔、抽出文字、整理成 Markdown，輸出的內容可以直接餵給語言模型，或放進 Obsidian 這類筆記軟體。它<b>不做 OCR、不做排版還原、也不描述圖片內容</b>，定位是「批次轉檔工具」，不是「閱讀器」。</p>
+
+  <table class="nums">
+    <tr><th>項目</th><th>內容</th></tr>
+    <tr><td>版本</td><td>0.1.9（測試環境：Python 3.12 虛擬環境）</td></tr>
+    <tr><td>支援格式</td><td>PDF、DOCX、PPTX、XLSX／XLS、HTML、CSV、JSON、XML、EPUB、IPYNB、TXT、ZIP（遞迴）、圖片（僅 EXIF）、網址</td></tr>
+    <tr><td>主要依賴</td><td>pdfminer.six、mammoth、openpyxl、pandas、python-pptx、magika</td></tr>
+    <tr><td>安裝</td><td><code>uv pip install 'markitdown[all]'</code></td></tr>
+  </table>
+
+  <h2>二、實測結果：哪些真的好用</h2>
+  <table class="nums">
+    <tr><th>格式</th><th>結果</th><th>轉出內容</th></tr>
+    <tr><td>DOCX</td><td>可用</td><td>標題層級、段落、表格都正確</td></tr>
+    <tr><td>XLSX</td><td>可用</td><td>每個工作表變成一個 <code>## Sheet</code> 區塊＋Markdown 表格</td></tr>
+    <tr><td>PPTX</td><td>可用</td><td>逐頁輸出，帶 <code>&lt;!-- Slide number --&gt;</code> 標記</td></tr>
+    <tr><td>HTML</td><td>可用</td><td>標題、表格、超連結都保留</td></tr>
+    <tr><td>EPUB</td><td>可用</td><td>先輸出 metadata（書名／語言／識別碼），再輸出章節</td></tr>
+    <tr><td>CSV／JSON</td><td>可用</td><td>轉成 Markdown 表格</td></tr>
+    <tr><td>ZIP</td><td>可用</td><td>遞迴解開，逐檔輸出「File: 路徑」</td></tr>
+    <tr><td>中文 PDF</td><td><b>壞</b></td><td>漢字變康熙部首（詳見第三節）</td></tr>
+    <tr><td>英文 PDF</td><td><b>差</b></td><td>單字間空白消失，字黏在一起</td></tr>
+    <tr><td>圖片</td><td><b>空</b></td><td>輸出 0 字元，沒有 OCR</td></tr>
+    <tr><td>YouTube</td><td><b>失敗</b></td><td>只回傳頁面導覽文字，抓不到逐字稿</td></tr>
+  </table>
+
+  <h2>三、三個坑</h2>
+
+  <div class="step">
+    <h3><span class="no">坑 1</span>中文 PDF：字變成康熙部首</h3>
+    <p class="sym">斗 U+6597 → U+2F43</p>
+    <p>我拿自己做的中文 PDF（Chrome 產生、標題「北斗二日遊・大字版」）去轉，輸出變成「北⽃⼆⽇遊・⼤字版」——畫面上幾乎看不出差別，但那幾個字其實是<b>康熙部首區</b>的碼位，不是一般漢字。</p>
+    <table class="nums">
+      <tr><th>原本的字</th><th>轉出變成</th></tr>
+      <tr><td>斗（U+6597）</td><td>U+2F43</td></tr>
+      <tr><td>大（U+5927）</td><td>U+2F24</td></tr>
+      <tr><td>日（U+65E5）</td><td>U+2F47</td></tr>
+    </table>
+    <div class="warn">影響：中文搜尋完全搜不到、AI 讀到的是部首不是那個字、比對與翻譯都會歪。</div>
+    <div class="fix"><b>原因不是檔案壞掉。</b> Chrome 產生 PDF 時只嵌入用到的字型子集，而把字形對應回 Unicode 的對照表（ToUnicode）並不完整；工具遇到對不上的字，只好退回部首碼位。同一份內容的原始 HTML 轉起來完全正常。</div>
+    <pre><span class="c"># 一招驗證：轉出的檔案裡有沒有部首字</span>
+grep -P '\x{2F43}' out.md   <span class="c"># 有命中就是踩到</span>
+
+<span class="c"># 對照組：同樣的檔案用 pdftotext</span>
+pdftotext -layout 檔案.pdf -   <span class="c"># 中文正常</span></pre>
+  </div>
+
+  <div class="step">
+    <h3><span class="no">坑 2</span>英文 PDF：單字之間空白消失</h3>
+    <p class="sym">Provided proper attribution is provided → Providedproperattributionisprovided</p>
+    <p>用 arXiv 一篇 <b>2.2 MB</b> 的論文實測，文字抽得出來，但空白全部不見，整段變成一大串黏在一起的字。</p>
+    <div class="warn">影響：關鍵字比對、翻譯、摘要都會出錯；如果你的流程是把論文丟給 AI 摘要，這個問題會直接反映在答案品質上。</div>
+  </div>
+
+  <div class="step">
+    <h3><span class="no">坑 3</span>圖片：輸出零個字元，它沒有 OCR</h3>
+    <p class="sym">PNG、JPEG 都一樣</p>
+    <p>不管 PNG 或加了 EXIF 的 JPEG，轉出來都是 <b>0 字元</b>。我另外把 <code>exiftool 13.59</code> 裝起來再試，結果一樣——因為它只讀取特定的中繼資料欄位，並沒有辨識圖片文字的能力。</p>
+    <div class="fix">要處理掃描件或圖片，得另外用 OCR 工具，例如 <code>pymupdf</code>、<code>marker</code>。</div>
+  </div>
+
+  <h2>四、速度實測</h2>
+  <table class="nums">
+    <tr><th>項目</th><th>結果</th></tr>
+    <tr><td>2.2 MB 英文 PDF</td><td>3.5 秒</td></tr>
+    <tr><td>4 個檔案批次（PDF／DOCX／XLSX／CSV）</td><td>6.7 秒</td></tr>
+    <tr><td>中文 PDF 的副作用</td><td>stderr 會噴上百行 <code>Could not get FontBBox</code> 警告</td></tr>
+  </table>
+  <p class="quote">速度沒問題——但中文 PDF 轉得再快，轉出來是錯的字，快也沒有意義。</p>
+
+  <h2>五、怎麼選（決策表）</h2>
+  <table class="nums">
+    <tr><th>情境</th><th>用什麼</th><th>為什麼</th></tr>
+    <tr><td>中文 PDF</td><td><code>pdftotext</code> 或系統內建讀取</td><td>沒有異體字問題，實測正常</td></tr>
+    <tr><td>掃描件、圖片型 PDF</td><td><code>pymupdf</code>、<code>marker</code>（OCR）</td><td>MarkItDown 沒有 OCR</td></tr>
+    <tr><td>Office 檔、EPUB、ZIP、HTML</td><td>MarkItDown</td><td>批次最省事，格式保留最好</td></tr>
+    <tr><td>一般網頁</td><td>直接抓取工具（如 web_extract）</td><td>不需要多繞一層轉檔</td></tr>
+  </table>
+
+  <h2>六、我做的包裝指令：mdit</h2>
+  <p>原生 CLI 一次只能轉一個檔案，批次很麻煩，所以我寫了一個包裝指令：</p>
+  <pre><span class="c"># 單檔印出</span>
+mdit 檔案.docx
+
+<span class="c"># 單檔存檔</span>
+mdit 檔案.pdf -o 輸出.md
+
+<span class="c"># 整個資料夾批次轉換</span>
+mdit ~/Documents/報告
+<span class="o">  ✓ paper.pdf → md_out/paper.pdf.md</span>
+<span class="o">  ✓ 報表.xlsx → md_out/報表.xlsx.md</span>
+<span class="o">完成：12 個檔案 → md_out/</span></pre>
+  <p>批次輸出會<b>保留原始副檔名</b>（<code>報表.xlsx.md</code>），避免同名不同格式互相覆蓋；轉換過程的警告一律導到 <code>/dev/null</code>，畫面只留結果。</p>
+
+  <h2>七、檢查清單</h2>
+  <table class="nums">
+    <tr><th>#</th><th>動作</th></tr>
+    <tr><td>1</td><td>中文 PDF：改用 <code>pdftotext</code>，或轉完先 <code>grep -P '\x{2F43}'</code> 驗一下</td></tr>
+    <tr><td>2</td><td>英文 PDF：檢查關鍵段落有沒有黏字，有就換工具</td></tr>
+    <tr><td>3</td><td>圖片／掃描件：直接走 OCR 流程，不要指望轉檔工具</td></tr>
+    <tr><td>4</td><td>Office 檔批次：用 MarkItDown，記得保留原副檔名</td></tr>
+    <tr><td>5</td><td>要餵 AI 之前：先抽 3～5 行唸得出來，確認文字沒被換掉</td></tr>
+  </table>
+
+  <div class="video-slot">
+    <b>影片解說：長片版</b>
+    <div class="frame"><video controls preload="metadata" playsinline poster="">
+      <source src="long.mp4" type="video/mp4">
+      你的瀏覽器不支援影片播放，<a href="long.mp4">直接下載</a>。</video></div>
+    <b class="s">Shorts 版（適合手機）</b>
+    <div class="frame short"><video controls preload="metadata" playsinline>
+      <source src="shorts.mp4" type="video/mp4">
+      你的瀏覽器不支援影片播放，<a href="shorts.mp4">直接下載</a>。</video></div>
+  </div>
+
+  <h2>八、常見問題</h2>
+  <p><b>Q：它可以把 PDF 轉成「有表格」的 Markdown 嗎？</b><br>
+  A：可以，但要看 PDF 怎麼產生。原生數位 PDF 有機會；掃描件不行（沒有 OCR）。中文 PDF 另外有異體字問題。</p>
+  <p><b>Q：那為什麼還值得裝？</b><br>
+  A：因為 Office 檔、EPUB、ZIP 的批次轉換真的很省事，而且輸出乾淨。把它當「批次轉換器」，不要當「PDF 閱讀器」就沒問題。</p>
+  <p><b>Q：影片裡的 U+2F43 是什麼？</b><br>
+  A：那是 Unicode 的「康熙部首」區碼位，字形跟一般漢字幾乎一樣，但程式視為不同字元，所以搜尋會失敗。</p>
+
+  <p class="quote">本頁為工具實測整理，數據來自 2026 年 10 月在本機（Ubuntu 22.04、Python 3.12）的實際測試，不同版本與檔案可能有差異；不構成對任何廠商或工具的背書。</p>
+
+  <p class="sym">資料來源：markitdown 0.1.9 本機實測（PDF／DOCX／XLSX／PPTX／HTML／EPUB／CSV／ZIP／圖片／YouTube）、arXiv 論文 PDF（2.2 MB）、Chrome 產生的中文 PDF、exiftool 13.59。</p>
+</main>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>
