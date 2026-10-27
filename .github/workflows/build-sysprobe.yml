@@ -100,6 +100,16 @@ jobs:
             find . -maxdepth 1 -type f -exec shasum -a 256 {} \; > SHA256SUMS.txt
           fi
           cat SHA256SUMS.txt
+          {
+            echo "### sysprobe-${{ matrix.name }}"
+            echo ""
+            echo '```'
+            file "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" || true
+            rustc --version
+            echo '```'
+            echo ""
+            cat SHA256SUMS.txt | sed 's/^/    /'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         with:
