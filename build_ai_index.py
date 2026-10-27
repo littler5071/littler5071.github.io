@@ -64,7 +64,8 @@ HEAD = """<!DOCTYPE html>
 
 ARTICLES = [
     dict(title="AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」",
-         date="2026/10/27", length="Shorts 60 秒",
+         date="2026/10/27", length="長片 3:11＋Shorts 1:01",
+         yt="https://youtube.com/shorts/iySI_bjNNoc",
          url="rust-ai-2026-10/",
          desc="2026 年最流行的一句話是「AI 公司都在轉 Rust」。用 GitHub 語言統計 API 逐一實測："
               "OpenAI Codex 97.2% Rust、uv 98.0%、ruff 96.8%、Hugging Face tokenizers 95.1%、candle 75.3%、Polars 62.0%；"
