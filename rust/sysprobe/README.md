@@ -1,56 +1,55 @@
-# sysprobe — 一份 Rust 原始碼，四個平台產出
+# sysprobe ＋ hid_probe — 一份 Rust 原始碼，Windows 與 macOS x64 各自原生編譯
 
 用 GitHub Actions 的**免費額度**，同一個 commit 同時編出：
 
-| 產出 | Runner | 目標 triple | 格式 |
-|---|---|---|---|
-| `sysprobe-linux-x64.tar.gz` | `ubuntu-latest` | `x86_64-unknown-linux-gnu` | tar.gz |
-| `sysprobe-windows-x64.zip` | `windows-latest` | `x86_64-pc-windows-msvc` | zip（內含 `.exe`） |
-| `sysprobe-macos-x64.app.zip` | `macos-15-intel` | `x86_64-apple-darwin` | `.app` bundle |
-| `sysprobe-macos-arm64.app.zip` | `macos-14` | `aarch64-apple-darwin` | `.app` bundle |
+- **`sysprobe-windows-x64.zip`** — `windows-latest`（4 核／16 GB）→ `x86_64-pc-windows-msvc`，內含 `sysprobe.exe`、`hid_probe.exe`
+- **`sysprobe-macos-x64.app.zip`** — `macos-15-intel`（Intel）→ `x86_64-apple-darwin`，內含 `SysProbe.app`、`hid_probe`
 
-每個 artifact 都含 `SHA256SUMS.txt`，保留 14 天。
+每個 artifact 都含 `SHA256SUMS.txt` 與 `HID-SMOKE.txt`（CI 實機列舉結果），保留 14 天。
 
-## 它做什麼
+## 兩支程式
 
-執行後印出「編譯當時」與「執行當時」兩組資訊：
+**`sysprobe`** — 把「編譯當時」的環境用 `option_env!` 編進二進位，執行時再印出「執行當時」的環境，用來證明同一份原始碼跨平台編譯。
 
-```
-sysprobe 0.1.0
------------------------------------------------------------
-built_on_os   : Linux
-built_on_arch : X64
-built_at      : 2026-10-27T…
-rustc         : rustc 1.99.1 (58cf8f9c3 2026-10-13)
-target        : x86_64-unknown-linux-gnu
-commit        : <sha>
-os            : linux
-arch          : x86_64
-family        : unix
-pointer_bits  : 64
+**`hid_probe`** — Rust 的 HID（Human Interface Device）通訊範例：
+
+```bash
+hid_probe list                       # 列出所有 HID 裝置（VID:PID、名稱、路徑）
+hid_probe info <vid:pid>             # 廠商／產品／序號／report descriptor 長度
+hid_probe read <vid:pid> [秒數]       # 讀 input report（16 進位）
+hid_probe send <vid:pid> <hex...>    # 送 output report
+hid_probe get  <vid:pid> <report-id> # 讀 feature report
+hid_probe set  <vid:pid> <hex...>    # 寫 feature report
 ```
 
-`built_*` 由 CI 在編譯時注入（`option_env!` 編進二進位），`os/arch/family` 是執行時由 `std::env::consts` 取得 —
-所以把 `sysprobe-macos-arm64.zip` 解開、在 M 系列 Mac 上跑，會同時看到「編譯環境」與「執行環境」，可以直接證明是同一份原始碼跨平台編譯。
+底層是 `hidapi` crate（Rust 包裝 hidapi C 函式庫），各平台打自己的系統 API：
 
-加上 `--json` 可輸出 JSON。
+- **Windows**：`hid.dll` ＋ SetupAPI（系統內建 HID 驅動，不需另裝驅動）
+- **macOS**：IOKit / IOHIDManager
+- **Linux**：`/dev/hidraw`（本機開發測試用，不是 CI 目標）
+
+## CI 會做什麼
+
+1. 安裝 Rust（指定 target）
+2. `cargo build --release --locked`，同時產出 `sysprobe` 與 `hid_probe`
+3. **煙霧測試**：在 runner 上實際執行 `hid_probe list`，裝置數 < 1 就讓 job 失敗（避免「編得過但跑不動」的假成功）
+4. macOS 另包成 `.app` 並 ad-hoc 簽章
+5. 產生 `SHA256SUMS.txt`，上傳 artifact
 
 ## 本機開發
 
 ```bash
-cargo run --release
-cargo run --release -- --json
+cargo run --release                        # sysprobe
+cargo run --release --bin hid_probe -- list
 ```
 
-零外部 crate（只依賴 std），`cargo build --release` 約 3 秒。
+Linux 上自行編譯需要 `libudev` 開發檔與 `pkg-config`（本機採 `linux-static-hidraw` 特性，直接從原始碼編 hidapi）。
 
-## 免費額度怎麼算
+## 免費額度（重點）
 
-- **公開 repo**：標準 runner 不計分鐘，等於免費。
-- **私有 repo**（GitHub Free）：每月 2,000 分鐘、artifact 500 MB、cache 10 GB。
-- 計費倍率（對照 Linux 2-core $0.006/分）：Windows 2-core $0.010/分、macOS $0.062/分 ≈ **10 倍**。
-
-換句話說：這個矩陣的「四平台」成本幾乎都花在 macOS 那兩個 job 上。
+- 公開 repo：標準 runner **不計分鐘**；Windows 4 核 16 GB、macOS 3 核 M1 7 GB
+- 私有 repo（Free）：每月 2,000 分鐘、artifact 500 MB、快取 10 GB；Windows 約 Linux 的 1.7 倍、macOS 約 **10 倍**
+- Free 方案並行上限 20 個 job，其中 macOS 最多 5 個
 
 ## 授權
 

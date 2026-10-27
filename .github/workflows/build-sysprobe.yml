@@ -56,11 +56,14 @@ jobs:
       - name: 煙霧測試（真的執行，證明 HID 可用）
         shell: bash
         run: |
-          set +e
-          OUT="$("target/${{ matrix.target }}/release/hid_probe${{ matrix.ext }}" list 2>&1 | head -8)"
-          RC=$?
-          echo "hid_probe list → exit=$RC"
-          echo "$OUT"
+          set -uo pipefail
+          BIN="target/${{ matrix.target }}/release/hid_probe${{ matrix.ext }}"
+          mkdir -p dist
+          OUT="$("$BIN" list 2>&1)"
+          echo "$OUT" | head -8
+          COUNT="$(echo "$OUT" | head -1 | grep -oE '[0-9]+' | head -1)"
+          echo "偵測到 HID 裝置數：${COUNT:-0}"
+          echo "$OUT" > dist/HID-SMOKE.txt
           {
             echo "### ${{ matrix.name }} 煙霧測試"
             echo ""
@@ -68,10 +71,14 @@ jobs:
             echo "sysprobe:"
             "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" | head -6
             echo ""
-            echo "hid_probe list:"
-            echo "$OUT"
+            echo "hid_probe list（裝置數 ${COUNT:-0}）:"
+            echo "$OUT" | head -6
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+          if [ "${COUNT:-0}" -lt 1 ]; then
+            echo "::error::HID 列舉結果為 0，代表這台 runner 上 hidapi 沒有運作"
+            exit 1
+          fi
 
       - name: 打包 macOS app bundle
         if: startsWith(matrix.os, 'macos')
