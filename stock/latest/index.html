@@ -59,7 +59,16 @@
   .mkchip th[scope],.mkchip tr th,.mkotc tr th,.mkhist tr th{width:auto;white-space:nowrap}
   .mkchip tr th{width:34%}
   .mkotcline,.mknote{font-size:13.5px;color:var(--soft);margin:4px 0 0}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/stock/latest/">
 
@@ -1347,5 +1356,6 @@
   </article>
   <a class="top" href="../">← 回股市觀察</a>
 </div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="246" data-views>—</span></div>
 </body>
 </html>

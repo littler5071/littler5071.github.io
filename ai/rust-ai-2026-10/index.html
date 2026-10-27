@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」｜小R頻道</title>
+<meta name="description" content="2026 年最流行的一句話是「AI 公司都在轉 Rust」。我用 GitHub API 逐一查語言佔比：OpenAI Codex 97.2% Rust、uv 98%、ruff 96.8%、tokenizers 95.1%；但對照組 PyTorch 的 Rust 是 0%。結論：轉的是模型外面的基礎設施，不是模型本身。附六個硬證據、來源連結與反向驗證。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  pre{background:#181a1d;color:#d6e6ff;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.7;margin:12px 0}
+  pre .c{color:#8b9098}
+  pre .o{color:#8ee6a0}
+  .nums{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+  .nums th,.nums td{border-bottom:1px dashed var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+  .nums th{color:#78706a;font-weight:600;white-space:nowrap}
+  .nums td:first-child{font-weight:700;color:#c2452d;white-space:nowrap}
+  .nums td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:22px;text-align:center;margin:18px 0 26px}
+  .video-slot b{color:#fff;font-size:18px;display:block;margin:0 0 12px}
+  .video-slot .frame{position:relative;width:100%;max-width:330px;aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;margin:0 auto}
+  .video-slot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+  .quote{border-left:5px solid #c2452d;padding:6px 0 6px 18px;color:#4a4640;font-size:17px;line-height:1.9;margin:22px 0}
+  .tldr{background:#fffdf7;border:2px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
+  .tldr b{color:#c2452d}
+  .src{font-size:14px;color:#5f5a52;line-height:2}
+  .src a{color:#364e70}
+  .zero{color:#b03a26;font-weight:800}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
+<!-- hermes-seo -->
+<link rel="canonical" href="https://littler5071.github.io/ai/rust-ai-2026-10/">
+
+<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
+<meta property="og:site_name" content="小R頻道">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」｜小R頻道">
+<meta property="og:description" content="2026 年最流行的一句話是「AI 公司都在轉 Rust」。我用 GitHub API 逐一查語言佔比：OpenAI Codex 97.2% Rust、uv 98%、ruff 96.8%、tokenizers 95.1%；但對照組 PyTorch 的 Rust 是 0%。結論：轉的是模型外面的基礎設施，不是模型本身。附六個硬證據、來源連結與反向驗證。">
+<meta property="og:url" content="https://littler5071.github.io/ai/rust-ai-2026-10/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」｜小R頻道">
+<meta name="twitter:description" content="2026 年最流行的一句話是「AI 公司都在轉 Rust」。我用 GitHub API 逐一查語言佔比：OpenAI Codex 97.2% Rust、uv 98%、ruff 96.8%、tokenizers 95.1%；但對照組 PyTorch 的 Rust 是 0%。結論：轉的是模型外面的基礎設施，不是模型本身。附六個硬證據、來源連結與反向驗證。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<!-- /hermes-seo -->
+</head>
+<body>
+<main class="wrap">
+  <h1>AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」</h1>
+  <p class="sub">2026-10-27｜小R 頻道｜AI 技術觀察</p>
+
+  <div class="tldr">
+    <p><b>一句話版本：</b>「AI 公司都在轉 Rust」<b>對一半</b>。轉的是<b>模型外面的東西</b>——推論引擎、分詞器、套件管理器、CLI、資料處理，這些幾乎都換成 Rust 了（實測佔比 62%～98%）；但<b>模型本身還是 Python 的天下</b>，PyTorch 的 Rust 佔比是 <b class="zero">0%</b>。所以正確說法是：<b>引擎沒換，管線換了。</b></p>
+  </div>
+
+  <div class="video-slot">
+    <b>60 秒看懂（Shorts）</b>
+    <div class="frame"><video controls preload="metadata" playsinline>
+      <source src="shorts.mp4" type="video/mp4">
+      你的瀏覽器不支援影片播放，<a href="shorts.mp4">直接下載</a>。</video></div>
+  </div>
+
+  <h2>一、這個說法從哪裡來</h2>
+  <p>2026 年社群上很流行一句話：「AI 公司都在把程式碼改寫成 Rust，GitHub 上越來越多專案大量使用 Rust。」這句話在<b>工具鏈</b>層面是真的，在<b>模型</b>層面是錯的。兩個說法混在一起講，就變成一個看起來很猛、但經不起查證的結論。</p>
+  <p>我不用二手轉述，直接查原始資料：<b>GitHub 的語言統計 API</b>（每個 repo 各語言實際的程式碼位元組數）、<b>公司官方公告</b>、<b>Linux 核心維護者的會議紀錄</b>。</p>
+
+  <h2>二、我怎麼查的（可重現）</h2>
+  <p>GitHub 對每個公開 repo 都有語言統計端點，回傳的是<b>各語言實際的程式碼位元組數</b>，不是我猜的。查詢方式：</p>
+  <pre><span class="c"># 逐一查專案的語言組成（2026-10-27 實測）</span>
+curl -s https://api.github.com/repos/openai/codex/languages
+curl -s https://api.github.com/repos/astral-sh/uv/languages
+curl -s https://api.github.com/repos/huggingface/tokenizers/languages
+curl -s https://api.github.com/repos/pytorch/pytorch/languages
+<span class="c"># 再自行換算成百分比</span></pre>
+
+  <h2>三、六個硬證據（實測佔比）</h2>
+  <table class="nums">
+    <tr><th>專案</th><th>Rust 佔比</th><th>這是什麼</th></tr>
+    <tr><td>openai/codex</td><td class="num">97.2%</td><td>OpenAI 的 Codex CLI 代理工具（Python 只剩 2.1%）</td></tr>
+    <tr><td>astral-sh/uv</td><td class="num">98.0%</td><td>Python 套件管理器，取代 pip／poetry</td></tr>
+    <tr><td>astral-sh/ruff</td><td class="num">96.8%</td><td>Python 檢查與格式化工具</td></tr>
+    <tr><td>huggingface/tokenizers</td><td class="num">95.1%</td><td>所有大模型都會用到的分詞器（2019 年起就是 Rust）</td></tr>
+    <tr><td>huggingface/candle</td><td class="num">75.3%</td><td>Hugging Face 的 Rust 機器學習框架（另有 CUDA 9.1%、Metal 6.1%）</td></tr>
+    <tr><td>pola-rs/polars</td><td class="num">62.0%</td><td>Rust 核心的 DataFrame，常被拿來取代 pandas</td></tr>
+  </table>
+  <p>再加上兩個「不是程式碼佔比、但更關鍵」的事實：</p>
+  <ul>
+    <li><b>OpenAI 在 2026 年 3 月宣布收購 Astral</b>（uv、Ruff、ty 的開發團隊），官方新聞稿寫明要把這些工具整合進 Codex 生態。</li>
+    <li><b>Linux 核心的 Rust 支援在 2025 年維護者峰會正式「實驗過關」</b>，Miguel Ojeda 在會中說 Rust 程式碼量一年成長<b>五倍</b>；Android 16（6.12 核心）已經出貨含 Rust 寫的 <code>ashmem</code> 模組，NVIDIA 的 Nova 驅動也陸續合併。</li>
+  </ul>
+
+  <h2>四、反向驗證：如果「都在轉」，龍頭不會是 0%</h2>
+  <p>只列對自己有利的數據不算證明，所以我又查了對照組——<b>PyTorch</b>，AI 模型訓練的事實標準：</p>
+  <table class="nums">
+    <tr><th>語言</th><th>佔比</th><th>說明</th></tr>
+    <tr><td>Python</td><td class="num">66.3%</td><td>模型定義、訓練腳本、整個研究生態</td></tr>
+    <tr><td>C++</td><td class="num">26.5%</td><td>底層運算核心</td></tr>
+    <tr><td>CUDA</td><td class="num">2.5%</td><td>GPU kernel</td></tr>
+    <tr><td>Rust</td><td class="num zero">0%</td><td>完全沒有</td></tr>
+  </table>
+  <p class="quote">PyTorch 的 repo 裡，Rust 一行都沒有。如果「AI 公司都在轉 Rust」講的是模型本身，這個數字不會長這樣。</p>
+
+  <h2>五、那為什麼大家一直說 Rust？</h2>
+  <p>因為 Rust 解決的是 AI 產品<b>上線之後</b>才會痛的三件事：</p>
+  <table class="nums">
+    <tr><th>痛點</th><th>Python 的問題</th><th>Rust 的做法</th></tr>
+    <tr><td>延遲</td><td>垃圾回收（GC）造成偶發停頓</td><td>沒有 GC，延遲曲線平穩</td></tr>
+    <tr><td>記憶體</td><td>長時間執行的服務容易漏</td><td>編譯期就擋掉記憶體錯誤</td></tr>
+    <tr><td>成本</td><td>同樣流量需要更多機器</td><td>常駐記憶體小、CPU 用得省</td></tr>
+  </table>
+  <p>這些正好是<b>推論服務、分詞、資料前處理、CLI 工具</b>最在意的事——也就是「模型外面那一圈」。模型訓練反過來：研究要的是生態、實驗速度、現成的套件，Python 完勝，而且短期不會變。</p>
+
+  <h2>六、什麼轉了、什麼沒轉</h2>
+  <table class="nums">
+    <tr><th>層</th><th>現在的主流</th><th>有沒有轉 Rust</th></tr>
+    <tr><td>模型訓練／研究</td><td>Python ＋ CUDA／C++</td><td>沒有（PyTorch 0%）</td></tr>
+    <tr><td>推論引擎、分詞器</td><td>Rust（tokenizers 95%）</td><td>大幅轉</td></tr>
+    <tr><td>開發工具鏈</td><td>Rust（uv 98%、ruff 97%）</td><td>幾乎全轉</td></tr>
+    <tr><td>資料處理</td><td>Rust 核心 ＋ Python 介面（Polars 62%）</td><td>轉一半，介面留 Python</td></tr>
+    <tr><td>作業系統／驅動</td><td>C 為主，Rust 快速增加</td><td>進行中（核心 Rust 一年 5 倍）</td></tr>
+  </table>
+
+  <h2>七、對不同人的意義</h2>
+  <ul>
+    <li><b>如果你在寫 AI 應用：</b>你不用改學 Rust，但你用的工具會慢慢變成 Rust 寫的（uv、ruff、tokenizers），速度變快是白拿的好處。</li>
+    <li><b>如果你在做服務、要壓延遲與機器成本：</b>Rust 值得學，尤其是推論服務、資料處理這段「Python 很貴」的地方。</li>
+    <li><b>如果你在研究模型：</b>繼續用 Python。這幾年不會有「模型用 Rust 寫」的轉折，社群的實驗速度比語言效能重要。</li>
+  </ul>
+
+  <h2>八、一句話結論</h2>
+  <p class="quote">「AI 公司都在轉 Rust」要加一個很長的但書：<b>轉的是模型外面的管線，不是模型本身。</b>看到有人拿幾張 Rust 佔比圖就說「Python 要被取代」，先問他一句：那 PyTorch 的 0% 怎麼解釋？</p>
+
+  <h2>資料來源</h2>
+  <p class="src">
+    ① GitHub 語言統計 API（2026-10-27 實測）：<a href="https://api.github.com/repos/openai/codex/languages" target="_blank" rel="noopener">openai/codex</a>、<a href="https://api.github.com/repos/astral-sh/uv/languages" target="_blank" rel="noopener">astral-sh/uv</a>、<a href="https://api.github.com/repos/astral-sh/ruff/languages" target="_blank" rel="noopener">astral-sh/ruff</a>、<a href="https://api.github.com/repos/huggingface/tokenizers/languages" target="_blank" rel="noopener">huggingface/tokenizers</a>、<a href="https://api.github.com/repos/huggingface/candle/languages" target="_blank" rel="noopener">huggingface/candle</a>、<a href="https://api.github.com/repos/pola-rs/polars/languages" target="_blank" rel="noopener">pola-rs/polars</a>、<a href="https://api.github.com/repos/pytorch/pytorch/languages" target="_blank" rel="noopener">pytorch/pytorch</a><br>
+    ② OpenAI 收購 Astral（2026-03-19）：<a href="https://openai.com/index/openai-to-acquire-astral/" target="_blank" rel="noopener">openai.com</a><br>
+    ③ Linux 核心 Rust 實驗結論（2025 維護者峰會）：<a href="https://lwn.net/Articles/1050174/" target="_blank" rel="noopener">LWN</a><br>
+    ④ 微軟 2030 年以 AI 把 C／C++ 換成 Rust：<a href="https://www.zdnet.com/article/programming-transformation-ai-rust-c-linux-windows/" target="_blank" rel="noopener">ZDNET（2025-12-30）</a><br>
+    ⑤ crates.io 生態規模（2026-10-27）：<b>362,981</b> 個 crate、累計 <b>5,148 億</b>次下載（官方 API）<br>
+    ⑥ GitHub Octoverse 2025：語言排行榜第一名是 TypeScript（2,636,006 位貢獻者），Python 第二（2,585,427）：<a href="https://github.blog/news-insights/octoverse/" target="_blank" rel="noopener">github.blog</a>
+  </p>
+  <p class="src">本文所有數字皆為當日實測或官方公告，未使用估算值。資料只呈現事實，不構成任何投資或職涯建議。</p>
+</main>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+</body>
+</html>

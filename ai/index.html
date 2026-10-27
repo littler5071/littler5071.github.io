@@ -49,6 +49,12 @@
     </p>
 </header>
   <div class="card">
+    <span class="tag">報告</span><span class="meta">2026/10/27・Shorts 60 秒</span>
+    <h3>AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」</h3>
+    <p>2026 年最流行的一句話是「AI 公司都在轉 Rust」。用 GitHub 語言統計 API 逐一實測：OpenAI Codex 97.2% Rust、uv 98.0%、ruff 96.8%、Hugging Face tokenizers 95.1%、candle 75.3%、Polars 62.0%；但對照組 PyTorch 的 Rust 是 0%（Python 66.3%＋C++ 26.5%）。再加上 OpenAI 收購 Astral、Linux 核心 Rust 實驗過關且一年成長 5 倍、微軟 2030 年要把 C/C++ 換成 Rust。結論：轉的是模型外面的管線（推論、分詞、工具鏈），不是模型本身——引擎還是 Python。附六個硬證據與可重現指令。</p>
+    <a class="btn" href="rust-ai-2026-10/">看報告 →</a>
+  </div>
+  <div class="card">
     <span class="tag">報告</span><span class="meta">2026/10/26・長片 3:13＋Shorts 49 秒</span>
     <h3>實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞</h3>
     <p>微軟開源工具 MarkItDown 0.1.9 實測：Word、Excel、簡報、網頁、電子書、壓縮檔都轉得漂亮，但中文 PDF 會把漢字換成康熙部首（斗 U+6597 → U+2F43），看起來一樣、搜尋卻搜不到，AI 也會讀錯；英文 PDF 空白消失、字黏在一起；圖片完全沒有 OCR（裝了 exiftool 也是 0 字元）。附速度實測（2.2 MB PDF 3.5 秒／4 檔批次 6.7 秒）、決策表、驗證指令與自製 mdit 批次工具。</p>
@@ -162,10 +168,11 @@
     <p>Python 環境、瀏覽器登入、檔案上傳、語音合成、ffmpeg、Gmail，還有檔名——每一件都是真的踩過的坑。</p>
     <a class="btn" href="https://youtu.be/4zf8WFkkn5U">看影片 →</a>
   </div>
-  <h2><span class="dot"></span>全部影片與報告（19）</h2>
+  <h2><span class="dot"></span>全部影片與報告（20）</h2>
   <div class="scroll">
   <table>
     <tr><th>上線日</th><th>影片／報告</th><th>長度</th><th></th></tr>
+    <tr><td class="d">2026/10/27</td><td>AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」</td><td class="d">Shorts 60 秒</td><td><a href="rust-ai-2026-10/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/26</td><td>實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞</td><td class="d">長片 3:13＋Shorts 49 秒</td><td><a href="markitdown-2026-10/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/18</td><td>最近很紅的「平面圖變 3D」：小R 也來試看看</td><td class="d">互動示範＋實測</td><td><a href="floorplan-3d/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/16</td><td>我花了 25 分鐘，只換到 0.88 秒的影片：本機 AI 影片生成實測</td><td class="d">實測報告</td><td><a href="local-video-test/">看報告 →</a></td></tr>
