@@ -1,0 +1,14 @@
+[package]
+name = "sysprobe"
+version = "0.1.0"
+edition = "2021"
+description = "跨平台系統探針：同一份 Rust 程式在 Windows / macOS / Linux 編譯並回報環境資訊"
+license = "MIT"
+
+[dependencies]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true

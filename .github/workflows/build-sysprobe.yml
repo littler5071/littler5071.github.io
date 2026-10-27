@@ -1,0 +1,105 @@
+name: build-sysprobe
+
+on:
+  push:
+    branches: ["rust-demo"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: rust/sysprobe
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest,  target: x86_64-unknown-linux-gnu, name: linux-x64,   ext: "" }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc,   name: windows-x64, ext: ".exe" }
+          - { os: macos-15-intel, target: x86_64-apple-darwin,      name: macos-x64,   ext: "" }
+          - { os: macos-14,       target: aarch64-apple-darwin,     name: macos-arm64, ext: "" }
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安裝 Rust 工具鏈
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: 快取 cargo 與 target
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust/sysprobe -> target
+          key: ${{ matrix.target }}
+
+      - name: 編譯 release
+        shell: bash
+        env:
+          BUILD_OS: ${{ runner.os }}
+          BUILD_ARCH: ${{ runner.arch }}
+          BUILD_TARGET: ${{ matrix.target }}
+          BUILD_COMMIT: ${{ github.sha }}
+        run: |
+          export BUILD_RUSTC="$(rustc --version)"
+          export BUILD_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          cargo build --release --locked --target "${{ matrix.target }}"
+          echo "=== 產出檔案 ==="
+          ls -l "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}"
+          file "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" || true
+
+      - name: 打包 macOS app bundle
+        if: startsWith(matrix.os, 'macos')
+        shell: bash
+        run: |
+          set -euo pipefail
+          BIN="target/${{ matrix.target }}/release/sysprobe"
+          APPDIR="dist/SysProbe.app/Contents"
+          mkdir -p "$APPDIR/MacOS" "$APPDIR/Resources"
+          cp "$BIN" "$APPDIR/MacOS/sysprobe"
+          chmod +x "$APPDIR/MacOS/sysprobe"
+          printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>' \
+            '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' \
+            '<plist version="1.0"><dict>' \
+            '<key>CFBundleName</key><string>SysProbe</string>' \
+            '<key>CFBundleIdentifier</key><string>com.littler5071.sysprobe</string>' \
+            '<key>CFBundleVersion</key><string>0.1.0</string>' \
+            '<key>CFBundleShortVersionString</key><string>0.1.0</string>' \
+            '<key>CFBundlePackageType</key><string>APPL</string>' \
+            '<key>CFBundleExecutable</key><string>sysprobe</string>' \
+            '<key>LSMinimumSystemVersion</key><string>11.0</string>' \
+            '</dict></plist>' > "$APPDIR/Info.plist"
+          codesign --force --deep --sign - "dist/SysProbe.app" || true
+          cd dist && zip -qry "sysprobe-${{ matrix.name }}.app.zip" SysProbe.app
+
+      - name: 打包 Linux 與 Windows
+        if: "!startsWith(matrix.os, 'macos')"
+        shell: bash
+        run: |
+          set -euo pipefail
+          BIN="target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}"
+          mkdir -p dist
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            7z a -tzip "dist/sysprobe-${{ matrix.name }}.zip" "$BIN" >/dev/null
+          else
+            tar -czf "dist/sysprobe-${{ matrix.name }}.tar.gz" -C "$(dirname "$BIN")" "$(basename "$BIN")"
+          fi
+
+      - name: 產生校驗碼
+        shell: bash
+        run: |
+          cd dist
+          if command -v sha256sum >/dev/null; then sha256sum * > SHA256SUMS.txt; else shasum -a 256 * > SHA256SUMS.txt; fi
+          cat SHA256SUMS.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sysprobe-${{ matrix.name }}
+          path: rust/sysprobe/dist/*
+          if-no-files-found: error
+          retention-days: 14
