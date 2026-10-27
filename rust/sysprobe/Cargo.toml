@@ -1,11 +1,12 @@
 [package]
 name = "sysprobe"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
-description = "跨平台系統探針：同一份 Rust 程式在 Windows / macOS / Linux 編譯並回報環境資訊"
+description = "跨平台系統探針 ＋ Rust HID 通訊範例（Windows / macOS）"
 license = "MIT"
 
 [dependencies]
+hidapi = { version = "2.6", default-features = false, features = ["linux-static-hidraw"] }
 
 [profile.release]
 opt-level = "z"

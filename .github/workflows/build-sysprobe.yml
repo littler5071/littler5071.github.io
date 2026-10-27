@@ -20,10 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: ubuntu-latest,  target: x86_64-unknown-linux-gnu, name: linux-x64,   ext: "" }
-          - { os: windows-latest, target: x86_64-pc-windows-msvc,   name: windows-x64, ext: ".exe" }
-          - { os: macos-15-intel, target: x86_64-apple-darwin,      name: macos-x64,   ext: "" }
-          - { os: macos-14,       target: aarch64-apple-darwin,     name: macos-arm64, ext: "" }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc, name: windows-x64, ext: ".exe" }
+          - { os: macos-15-intel, target: x86_64-apple-darwin,    name: macos-x64,   ext: "" }
     steps:
       - uses: actions/checkout@v4
 
@@ -38,7 +36,7 @@ jobs:
           workspaces: rust/sysprobe -> target
           key: ${{ matrix.target }}
 
-      - name: 編譯 release
+      - name: 編譯 release（sysprobe ＋ hid_probe）
         shell: bash
         env:
           BUILD_OS: ${{ runner.os }}
@@ -50,45 +48,64 @@ jobs:
           export BUILD_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           cargo build --release --locked --target "${{ matrix.target }}"
           echo "=== 產出檔案 ==="
-          ls -l "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}"
-          file "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" || true
+          ls -l "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" \
+                "target/${{ matrix.target }}/release/hid_probe${{ matrix.ext }}"
+          file "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" \
+               "target/${{ matrix.target }}/release/hid_probe${{ matrix.ext }}" || true
+
+      - name: 煙霧測試（真的執行，證明 HID 可用）
+        shell: bash
+        run: |
+          set +e
+          OUT="$("target/${{ matrix.target }}/release/hid_probe${{ matrix.ext }}" list 2>&1 | head -8)"
+          RC=$?
+          echo "hid_probe list → exit=$RC"
+          echo "$OUT"
+          {
+            echo "### ${{ matrix.name }} 煙霧測試"
+            echo ""
+            echo '```'
+            echo "sysprobe:"
+            "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" | head -6
+            echo ""
+            echo "hid_probe list:"
+            echo "$OUT"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: 打包 macOS app bundle
         if: startsWith(matrix.os, 'macos')
         shell: bash
         run: |
           set -euo pipefail
-          BIN="target/${{ matrix.target }}/release/sysprobe"
+          BIN="target/${{ matrix.target }}/release"
           APPDIR="dist/SysProbe.app/Contents"
           mkdir -p "$APPDIR/MacOS" "$APPDIR/Resources"
-          cp "$BIN" "$APPDIR/MacOS/sysprobe"
+          cp "$BIN/sysprobe" "$APPDIR/MacOS/sysprobe"
           chmod +x "$APPDIR/MacOS/sysprobe"
           printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>' \
             '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' \
             '<plist version="1.0"><dict>' \
             '<key>CFBundleName</key><string>SysProbe</string>' \
             '<key>CFBundleIdentifier</key><string>com.littler5071.sysprobe</string>' \
-            '<key>CFBundleVersion</key><string>0.1.0</string>' \
-            '<key>CFBundleShortVersionString</key><string>0.1.0</string>' \
+            '<key>CFBundleVersion</key><string>0.2.0</string>' \
+            '<key>CFBundleShortVersionString</key><string>0.2.0</string>' \
             '<key>CFBundlePackageType</key><string>APPL</string>' \
             '<key>CFBundleExecutable</key><string>sysprobe</string>' \
             '<key>LSMinimumSystemVersion</key><string>11.0</string>' \
             '</dict></plist>' > "$APPDIR/Info.plist"
           codesign --force --deep --sign - "dist/SysProbe.app" || true
-          cd dist && zip -qry "sysprobe-${{ matrix.name }}.app.zip" SysProbe.app
+          cp "$BIN/hid_probe" dist/hid_probe
+          cd dist && zip -qry "sysprobe-${{ matrix.name }}.app.zip" SysProbe.app && zip -q "sysprobe-${{ matrix.name }}.app.zip" hid_probe
 
-      - name: 打包 Linux 與 Windows
-        if: "!startsWith(matrix.os, 'macos')"
+      - name: 打包 Windows
+        if: startsWith(matrix.os, 'windows')
         shell: bash
         run: |
           set -euo pipefail
-          BIN="target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}"
+          BIN="target/${{ matrix.target }}/release"
           mkdir -p dist
-          if [ "${{ runner.os }}" = "Windows" ]; then
-            7z a -tzip "dist/sysprobe-${{ matrix.name }}.zip" "$BIN" >/dev/null
-          else
-            tar -czf "dist/sysprobe-${{ matrix.name }}.tar.gz" -C "$(dirname "$BIN")" "$(basename "$BIN")"
-          fi
+          7z a -tzip "dist/sysprobe-${{ matrix.name }}.zip" "$BIN/sysprobe.exe" "$BIN/hid_probe.exe" >/dev/null
 
       - name: 產生校驗碼
         shell: bash
@@ -100,16 +117,7 @@ jobs:
             find . -maxdepth 1 -type f -exec shasum -a 256 {} \; > SHA256SUMS.txt
           fi
           cat SHA256SUMS.txt
-          {
-            echo "### sysprobe-${{ matrix.name }}"
-            echo ""
-            echo '```'
-            file "target/${{ matrix.target }}/release/sysprobe${{ matrix.ext }}" || true
-            rustc --version
-            echo '```'
-            echo ""
-            cat SHA256SUMS.txt | sed 's/^/    /'
-          } >> "$GITHUB_STEP_SUMMARY"
+          { echo ""; echo '```'; cat SHA256SUMS.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         with:
