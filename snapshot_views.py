@@ -21,7 +21,7 @@ import glob, json, os, re, sys, time, urllib.request, datetime
 SITE = os.path.dirname(os.path.abspath(__file__))
 NS = "littler5071-github-io"
 API = "https://abacus.jasoncameron.dev/get/%s/%s"
-TRIES = 4
+TRIES = int(os.environ.get("VIEWS_TRIES", "4"))   # 2026-10-28：abacus 會限流，排程用 VIEWS_TRIES=1 避免每頁 12 秒退避
 FAIL = None  # 佔位說明：失敗時回傳字串 "FAIL"，None 代表服務明確回答「Key not found」
 
 
