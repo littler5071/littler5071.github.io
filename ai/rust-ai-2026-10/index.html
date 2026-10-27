@@ -127,14 +127,65 @@ curl -s https://api.github.com/repos/pytorch/pytorch/languages
     <tr><td>作業系統／驅動</td><td>C 為主，Rust 快速增加</td><td>進行中（核心 Rust 一年 5 倍）</td></tr>
   </table>
 
-  <h2>七、對不同人的意義</h2>
+  <h2>七、更多 Rust 專案（同一支 API、同一天實測）</h2>
+  <p>「AI 公司轉 Rust」只是冰山一角。同一個方法查下去，GitHub 上一批你每天都在用的專案，本體都是 Rust：</p>
+
+  <h3>AI 與資料</h3>
+  <table class="nums">
+    <tr><th>專案</th><th>Rust</th><th>★</th><th>用途</th></tr>
+    <tr><td>qdrant/qdrant</td><td class="num">89.5%</td><td class="num">35.3k</td><td>向量資料庫（RAG 檢索的標準選擇之一）</td></tr>
+    <tr><td>meilisearch/meilisearch</td><td class="num">99.9%</td><td class="num">59.7k</td><td>全文搜尋引擎，主打「開箱即用」</td></tr>
+    <tr><td>apache/datafusion</td><td class="num">99.3%</td><td class="num">9.5k</td><td>Apache 的 Rust 查詢引擎（SQL 在記憶體內跑）</td></tr>
+    <tr><td>EricLBuehler/mistral.rs</td><td class="num">80.6%</td><td class="num">7.8k</td><td>純 Rust 的大模型推論引擎（另有 CUDA 9.7%）</td></tr>
+    <tr><td>TabbyML/tabby</td><td class="num">92.9%</td><td class="num">33.9k</td><td>可自架的 AI 程式碼助手（Copilot 的開源自架版）</td></tr>
+    <tr><td>vectordotdev/vector</td><td class="num">72.0%</td><td class="num">22.8k</td><td>日誌／指標管線，取代 Fluentd、Logstash</td></tr>
+    <tr><td>huggingface/candle</td><td class="num">75.3%</td><td class="num">—</td><td>Rust 的機器學習框架</td></tr>
+    <tr><td>pola-rs/polars</td><td class="num">62.0%</td><td class="num">—</td><td>DataFrame，常被拿來取代 pandas</td></tr>
+  </table>
+
+  <h3>開發工具</h3>
+  <table class="nums">
+    <tr><th>專案</th><th>Rust</th><th>★</th><th>用途</th></tr>
+    <tr><td>zed-industries/zed</td><td class="num">97.8%</td><td class="num">92.3k</td><td>主打效能的協作編輯器（內建 AI）</td></tr>
+    <tr><td>swc-project/swc</td><td class="num">97.1%</td><td class="num">34.2k</td><td>JavaScript／TypeScript 編譯器（Next.js 在用）</td></tr>
+    <tr><td>biomejs/biome</td><td class="num">84.5%</td><td class="num">26.0k</td><td>JS 的 lint ＋ format 一條龍</td></tr>
+    <tr><td>BurntSushi/ripgrep</td><td class="num">94.9%</td><td class="num">69.5k</td><td><code>rg</code>，取代 grep 的搜尋工具</td></tr>
+    <tr><td>helix-editor/helix</td><td class="num">76.4%</td><td class="num">46.7k</td><td>終端機編輯器（另有 22.6% tree-sitter query）</td></tr>
+    <tr><td>astral-sh/uv</td><td class="num">98.0%</td><td class="num">—</td><td>Python 套件管理器</td></tr>
+    <tr><td>astral-sh/ruff</td><td class="num">96.8%</td><td class="num">—</td><td>Python 檢查／格式化</td></tr>
+  </table>
+
+  <h3>桌面、基礎設施與資料庫</h3>
+  <table class="nums">
+    <tr><th>專案</th><th>Rust</th><th>★</th><th>用途</th></tr>
+    <tr><td>tauri-apps/tauri</td><td class="num">81.4%</td><td class="num">112.2k</td><td>用網頁技術做桌面 App（Electron 的輕量替代）</td></tr>
+    <tr><td>rustdesk/rustdesk</td><td class="num">69.4%</td><td class="num">127.2k</td><td>開源遠端桌面（這台電腦正在用它）</td></tr>
+    <tr><td>denoland/deno</td><td class="num">62.3%</td><td class="num">108.8k</td><td>JavaScript／TypeScript 執行環境</td></tr>
+    <tr><td>cloudflare/pingora</td><td class="num">100.0%</td><td class="num">27.7k</td><td>Cloudflare 自家的反向代理框架</td></tr>
+    <tr><td>firecracker-microvm/firecracker</td><td class="num">78.4%</td><td class="num">37.7k</td><td>AWS Lambda 背後的微虛擬機</td></tr>
+    <tr><td>tikv/tikv</td><td class="num">97.4%</td><td class="num">16.9k</td><td>分散式 Key-Value 儲存（TiDB 的引擎）</td></tr>
+    <tr><td>tokio-rs/tokio</td><td class="num">100.0%</td><td class="num">33.5k</td><td>Rust 非同步執行環境，幾乎所有服務都靠它</td></tr>
+  </table>
+
+  <h3>反向對照：不是什麼都轉了</h3>
+  <p>同樣方法查「AI 推論」這一圈，結論立刻變得不一樣：</p>
+  <table class="nums">
+    <tr><th>專案</th><th>主語言</th><th>Rust</th><th>說明</th></tr>
+    <tr><td>ggml-org/llama.cpp</td><td>C++ 56.3%</td><td class="num zero">0%</td><td>本機跑 LLM 的事實標準，完全沒轉</td></tr>
+    <tr><td>vllm-project/vllm</td><td>Python 85.4%</td><td class="num">6.5%</td><td>伺服器端主力推論框架，只局部導入 Rust</td></tr>
+    <tr><td>ollama/ollama</td><td>Go 72.4%</td><td class="num zero">0%</td><td>最多人用的本機 LLM 工具，選了 Go 不是 Rust</td></tr>
+    <tr><td>langchain-ai/langchain</td><td>Python 99.3%</td><td class="num zero">0%</td><td>AI 應用框架，純 Python</td></tr>
+  </table>
+  <p class="quote">同一支 API、同一天查詢：<b>工具鏈幾乎全 Rust，推論引擎一半一半，AI 框架與模型生態仍是 Python</b>。這才是完整的圖像。</p>
+
+  <h2>八、對不同人的意義</h2>
   <ul>
     <li><b>如果你在寫 AI 應用：</b>你不用改學 Rust，但你用的工具會慢慢變成 Rust 寫的（uv、ruff、tokenizers），速度變快是白拿的好處。</li>
     <li><b>如果你在做服務、要壓延遲與機器成本：</b>Rust 值得學，尤其是推論服務、資料處理這段「Python 很貴」的地方。</li>
     <li><b>如果你在研究模型：</b>繼續用 Python。這幾年不會有「模型用 Rust 寫」的轉折，社群的實驗速度比語言效能重要。</li>
   </ul>
 
-  <h2>八、一句話結論</h2>
+  <h2>九、一句話結論</h2>
   <p class="quote">「AI 公司都在轉 Rust」要加一個很長的但書：<b>轉的是模型外面的管線，不是模型本身。</b>看到有人拿幾張 Rust 佔比圖就說「Python 要被取代」，先問他一句：那 PyTorch 的 0% 怎麼解釋？</p>
 
   <h2>資料來源</h2>
