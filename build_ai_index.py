@@ -65,6 +65,7 @@ HEAD = """<!DOCTYPE html>
 ARTICLES = [
     dict(title="實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞",
          date="2026/10/26", length="長片 3:13＋Shorts 49 秒",
+         yt="https://youtube.com/shorts/R0WJG_ZPkFs",
          url="markitdown-2026-10/",
          desc="微軟開源工具 MarkItDown 0.1.9 實測：Word、Excel、簡報、網頁、電子書、壓縮檔都轉得漂亮，"
               "但中文 PDF 會把漢字換成康熙部首（斗 U+6597 → U+2F43），看起來一樣、搜尋卻搜不到，AI 也會讀錯；"
