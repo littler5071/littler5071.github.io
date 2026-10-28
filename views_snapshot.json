@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-10-28 03:30:33",
+ "snapshot_at": "2026-10-28 10:32:36",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "ai/agent10": 9,
@@ -17,7 +17,7 @@
   "ai/php-python-2026-10": 18,
   "ai/pixel-art": 4,
   "ai/portable-ai-studio": 4,
-  "ai/rust-ai-2026-10": 9,
+  "ai/rust-ai-2026-10": 10,
   "ai/shorts": 4,
   "ai/site-stats": 10,
   "ai/top-videos": 7,
@@ -89,6 +89,7 @@
   "stock/20261022": 17,
   "stock/20261027-intraday": 1,
   "stock/20261027": null,
+  "stock/20261028-intraday": null,
   "stock/backtest": 11,
   "stock/backtest16": 5,
   "stock": 203,

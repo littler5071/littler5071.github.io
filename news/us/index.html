@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>美股晨報｜最新｜小R頻道</title>
 <link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/./nav.css?v=b7b27715">
-<script defer src="/./nav.js?v=c73ca689"></script>
 <style>
   .wrap{max-width:820px;margin:0 auto;padding:0 18px 40px}
   h1{font-size:clamp(22px,4vw,30px);line-height:1.35;margin:18px 0 6px}
@@ -40,8 +38,17 @@
   .arch h3{font-size:16px;color:var(--soft);font-weight:400;margin:0 0 8px}
   .arch a{display:inline-block;margin:0 10px 8px 0;font-size:14.5px;color:var(--blue);text-decoration:none;border-bottom:1.5px solid currentColor}
   a.back{display:inline-block;margin:14px 0 0;font-size:14.5px;text-decoration:none;color:var(--blue);border-bottom:1.5px solid currentColor}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <link rel="canonical" href="https://littler5071.github.io/news/us/">
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <div class="wrap">
@@ -90,5 +97,6 @@
 </div>
 <a class="back" href="/news/">← 回新聞首頁</a>
 </div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="3" data-views>—</span></div>
 </body>
 </html>
