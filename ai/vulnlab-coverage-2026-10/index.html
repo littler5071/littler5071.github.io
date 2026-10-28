@@ -85,8 +85,8 @@
 
   <h2>二、連平台也一起：Windows／Linux／ARM64（含 Apple M 系列）</h2>
   <ul>
-    <li><b>Rust</b>：<code>x86_64-unknown-linux-gnu</code>（ELF）、<code>x86_64-pc-windows-gnu</code>（PE32+）、<code>aarch64-unknown-linux-gnu</code>（ELF ARM64）、<code>aarch64-apple-darwin</code>（<b>Mach-O arm64</b>，即 M 系列）。後三者用 Zig 0.17.0 當連結器（<code>cargo zigbuild</code>），完全在 Linux 上完成。</li>
-    <li><b>C#</b>：<code>dotnet publish -r win-x64／linux-x64／linux-arm64／osx-arm64 --self-contained -p:PublishSingleFile=true</code>，四個 RID 都成功。</li>
+    <li><b>Rust</b>：<code>x86_64-unknown-linux-gnu</code>（ELF 356 KB）、<code>x86_64-pc-windows-gnu</code>（PE32+ 412 KB）、<code>aarch64-unknown-linux-gnu</code>（ELF ARM64 387 KB）、<code>aarch64-apple-darwin</code>（<b>Mach-O arm64 388 KB</b>，即 M 系列）。後三者用 Zig 0.17.0 當連結器（<code>cargo zigbuild</code>），完全在 Linux 上完成。</li>
+    <li><b>C#</b>：<code>dotnet publish -r win-x64／linux-x64／linux-arm64／osx-arm64 --self-contained -p:PublishSingleFile=true</code>，四個 RID 都成功（win-x64 67 MB、linux-x64 66 MB、linux-arm64 72 MB、osx-arm64 72 MB，Mach-O arm64）。</li>
     <li><b>Python</b>：Linux x86_64 用 PyInstaller 打成 ELF；Windows 用官方 embeddable Python 打包成可攜 zip（PyInstaller 無法跨平台編譯）；<b>ARM64 沒有現成免費方案</b>，這點照實說。</li>
   </ul>
   <p>掃描 ARM64 成品時發現：<b>Rust 的 arm64 ELF 與 Mach-O 都抓到 0 個元件</b>（strip 過）；C# 的 linux-arm64 目錄因為還有 <code>deps.json</code>，抓到 5 個元件、grype 找到 2 個 High；osx-arm64 是單檔，抓到 0 個。<b>結論：SBOM 一定要在 build 階段產生，事後掃執行檔幾乎掃不到東西。</b></p>
