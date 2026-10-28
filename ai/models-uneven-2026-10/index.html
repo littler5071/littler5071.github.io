@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例｜小R頻道</title>
+<meta name="description" content="a16z 用 OpenAI GDPval 比較 2025 年 9 月與 2026 年 4 月的 44 個職業：模型對專家的勝率平均從 49.5% 升到 59.4%（+9.9 個百分點），36 個進步、7 個退步。退最多的是醫療與健康服務經理（65%→38%），律師 56%→46%；最高的是編輯 93%。附 44 列完整表格、產業排序、實際案例與出處。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  pre{background:#181a1d;color:#d6e6ff;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.7;margin:12px 0}
+  .nums{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+  .nums th,.nums td{border-bottom:1px dashed var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+  .nums th{color:#78706a;font-weight:600;white-space:nowrap}
+  .nums td.num{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+  .nums th:nth-child(n+3){text-align:right}
+  .nums tr.down .delta{color:#2f6b8f;font-weight:800}
+  .nums tr.up .delta{color:#c2452d;font-weight:800}
+  .nums tr.flat .delta{color:#8a8479}
+  .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:22px;text-align:center;margin:18px 0 26px}
+  .video-slot b{color:#fff;font-size:18px;display:block;margin:0 0 12px}
+  .video-slot .frame{position:relative;width:100%;max-width:330px;aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;margin:0 auto}
+  .video-slot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+  .quote{border-left:5px solid #c2452d;padding:6px 0 6px 18px;color:#4a4640;font-size:17px;line-height:1.9;margin:22px 0}
+  .tldr{background:#fffdf7;border:2px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
+  .tldr b{color:#c2452d}
+  .src{font-size:14px;color:#5f5a52;line-height:2}
+  .src a{color:#364e70}
+  .scroll{background:#fffdf9;border:1px solid var(--line);border-radius:14px;padding:6px 12px;overflow-x:auto}
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+</style>
+<!-- hermes-seo -->
+<link rel="canonical" href="https://littler5071.github.io/ai/models-uneven-2026-10/">
+<meta name="keywords" content="小R頻道, 小R 頻道, 小R, xiaor, AI 助理實測, GDPval, a16z, 企業 AI 採用, 職業 勝率">
+<meta property="og:site_name" content="小R頻道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例｜小R頻道">
+<meta property="og:description" content="a16z 用 OpenAI GDPval 比較 2025 年 9 月與 2026 年 4 月的 44 個職業：模型對專家的勝率平均從 49.5% 升到 59.4%（+9.9 個百分點），36 個進步、7 個退步。退最多的是醫療與健康服務經理（65%→38%），律師 56%→46%；最高的是編輯 93%。附 44 列完整表格、產業排序、實際案例與出處。">
+<meta property="og:url" content="https://littler5071.github.io/ai/models-uneven-2026-10/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例｜小R頻道">
+<meta name="twitter:description" content="a16z 用 OpenAI GDPval 比較 2025 年 9 月與 2026 年 4 月的 44 個職業：模型對專家的勝率平均從 49.5% 升到 59.4%（+9.9 個百分點），36 個進步、7 個退步。退最多的是醫療與健康服務經理（65%→38%），律師 56%→46%；最高的是編輯 93%。附 44 列完整表格、產業排序、實際案例與出處。">
+<!-- /hermes-seo -->
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
+</head>
+<body>
+<main class="wrap">
+  <h1>AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例</h1>
+  <p class="sub">2026-10-28｜小R 頻道｜AI 技術觀察</p>
+
+  <div class="tldr">
+    <p><b>一句話版本：</b>七個月內，模型在 44 個真實職業任務上贏過專家的比例，從 <b>49.5%</b> 升到 <b>59.4%</b>（+9.9 個百分點）。但<b>不是全面變好</b>：36 個進步、1 個持平、<b>7 個退步</b>。掉最多的是<b>醫療與健康服務經理（65% → 38%）</b>，律師也從 56% 掉到 46%；分數最高的則是<b>編輯 93%</b>。所以正確說法是：<b>AI 先把「可驗證、可重複」的工作吃掉，不是全面取代。</b></p>
+  </div>
+
+  <div class="video-slot">
+    <b>影片版（Shorts）</b>
+    <div class="frame"><video src="shorts.mp4" controls playsinline preload="metadata"></video></div>
+    <p style="font-size:13px;margin:12px 0 0">站內備援版本；YouTube 版本上線後會補在下方。</p>
+  </div>
+
+  <h2>一、這張圖在量什麼</h2>
+  <p>a16z 在 2026 年 4 月的〈Where Enterprises are Actually Adopting AI〉裡放了一張圖：<b>The Models Are Improving Quickly But Unevenly</b>，把兩個時間點的 GDPval 分數並排，看哪些職業進步、哪些退步。</p>
+  <p>GDPval 是 OpenAI 的評測（arXiv 2510.04374），特性有三個：</p>
+  <ul>
+    <li><b>題目是真的工作產出</b>：簡報、試算表、備忘錄、文件校對、數據核對，不是選擇題。</li>
+    <li><b>出題的人是業界專家</b>：平均 <b>14 年</b>經驗，任務取自他們實際交付的工作。</li>
+    <li><b>範圍是美國 GDP 前 9 大產業</b>、共 <b>44 個職業</b>；其中 <b>220 個題目已開源</b>，可在 evals.openai.com 公開評分。</li>
+  </ul>
+  <p>圖表上的「Wins」＝<b>頂尖模型對人類專家的勝率</b>：同一個任務，評審認為模型交出來的東西比專家好，就算模型贏。</p>
+
+  <h2>二、整體：49.5% → 59.4%</h2>
+  <table class="nums">
+    <tr><th>指標</th><th>數值</th></tr>
+    <tr><td>2025 年 9 月平均勝率</td><td class="num">49.5%</td></tr>
+    <tr><td>2026 年 4 月平均勝率</td><td class="num">59.4%</td></tr>
+    <tr><td>平均變化</td><td class="num">+9.9 個百分點</td></tr>
+    <tr><td>中位數變化</td><td class="num">+12.0 個百分點</td></tr>
+    <tr><td>進步／持平／退步</td><td class="num">36 ／ 1 ／ 7</td></tr>
+    <tr><td>2026 年 4 月勝率過半的職業</td><td class="num">29 / 44</td></tr>
+  </table>
+  <p class="quote">平均 +9.9 看起來很猛，但它是「平均」。把 44 列拆開看，才會看到下面那 7 個退步的職業。</p>
+
+  <h2>三、進步最多的六個</h2>
+  <table class="nums">
+    <tr><th>產業</th><th>職業</th><th>2025-09</th><th>2026-04</th><th>變化</th></tr>
+      <tr class="up"><td>金融與保險</td><td>證券與金融商品銷售</td><td class="num">42%</td><td class="num">73%</td><td class="num delta">+31</td></tr>
+      <tr class="up"><td>製造</td><td>工業工程師</td><td class="num">17%</td><td class="num">44%</td><td class="num delta">+27</td></tr>
+      <tr class="up"><td>政府</td><td>社工</td><td class="num">42%</td><td class="num">69%</td><td class="num delta">+27</td></tr>
+      <tr class="up"><td>政府</td><td>警察與偵探主管</td><td class="num">49%</td><td class="num">76%</td><td class="num delta">+27</td></tr>
+      <tr class="up"><td>房地產與租賃</td><td>不動產銷售</td><td class="num">36%</td><td class="num">60%</td><td class="num delta">+24</td></tr>
+      <tr class="up"><td>專業與技術服務</td><td>專案管理</td><td class="num">42%</td><td class="num">64%</td><td class="num delta">+22</td></tr>
+  </table>
+  <p>第一名是<b>證券、大宗商品與金融商品銷售（42% → 73%，+31）</b>。這個職業的任務有大量「照規則算數字、整理成客戶看得懂的東西」，正好是可驗證、可就地檢查錯的工作。</p>
+  <p>並列第二的三個（都 +27）：<b>工業工程師</b>（算產線節拍、良率試算表）、<b>社工</b>（個案紀錄、資源轉介文件）、<b>警察與偵探主管</b>（事件報告、程序文件）。共通點是：<b>格式固定、有明確欄位、可以事後檢查</b>。</p>
+
+  <h2>四、退步的 7 個（這才是新聞點）</h2>
+  <table class="nums">
+    <tr><th>產業</th><th>職業</th><th>2025-09</th><th>2026-04</th><th>變化</th></tr>
+      <tr class="down"><td>醫療與社會救助</td><td>醫療與健康服務經理</td><td class="num">65%</td><td class="num">38%</td><td class="num delta">-27</td></tr>
+      <tr class="down"><td>專業與技術服務</td><td>律師</td><td class="num">56%</td><td class="num">46%</td><td class="num delta">-10</td></tr>
+      <tr class="down"><td>批發</td><td>批發業務（非技術）</td><td class="num">66%</td><td class="num">56%</td><td class="num delta">-10</td></tr>
+      <tr class="down"><td>零售</td><td>營運經理</td><td class="num">67%</td><td class="num">62%</td><td class="num delta">-5</td></tr>
+      <tr class="down"><td>醫療與社會救助</td><td>行政支援主管</td><td class="num">41%</td><td class="num">38%</td><td class="num delta">-3</td></tr>
+      <tr class="down"><td>金融與保險</td><td>理財顧問</td><td class="num">64%</td><td class="num">62%</td><td class="num delta">-2</td></tr>
+      <tr class="down"><td>零售</td><td>徵信與調查</td><td class="num">70%</td><td class="num">69%</td><td class="num delta">-1</td></tr>
+  </table>
+  <p><b>醫療與健康服務經理 65% → 38%（−27）</b>是全部最差。這個職務的工作不是「交一份文件」，而是<b>協調醫師、護理、床位、預算</b>：沒有單一正確答案，出錯要很久才知道，很難用一份交付物評分。</p>
+  <p><b>律師 56% → 46%（−10）</b>也很值得注意。GDPval 考的是「交出來的文件夠不夠好」，但企業買法律 AI 買的是<b>審合約、找判例的效率</b>——這是兩件不同的事。</p>
+  <p>其餘五個：批發業務（非技術）66% → 56%、營運經理 67% → 62%、行政支援主管 41% → 38%、理財顧問 64% → 62%、徵信與調查 70% → 69%。</p>
+
+  <h2>五、最高分與最低分</h2>
+  <h3>2026 年 4 月最高的五個</h3>
+  <table class="nums">
+    <tr><th>產業</th><th>職業</th><th>2025-09</th><th>2026-04</th><th>變化</th></tr>
+      <tr class="up"><td>資訊</td><td>編輯</td><td class="num">75%</td><td class="num">93%</td><td class="num delta">+18</td></tr>
+      <tr class="up"><td>批發</td><td>非零售業務主管</td><td class="num">69%</td><td class="num">87%</td><td class="num delta">+18</td></tr>
+      <tr class="up"><td>房地產與租賃</td><td>櫃檯與租賃人員</td><td class="num">81%</td><td class="num">82%</td><td class="num delta">+1</td></tr>
+      <tr class="up"><td>專業與技術服務</td><td>軟體開發</td><td class="num">70%</td><td class="num">82%</td><td class="num delta">+12</td></tr>
+      <tr class="up"><td>批發</td><td>業務經理</td><td class="num">79%</td><td class="num">80%</td><td class="num delta">+1</td></tr>
+  </table>
+  <h3>最低的五個</h3>
+  <table class="nums">
+    <tr><th>產業</th><th>職業</th><th>2025-09</th><th>2026-04</th><th>變化</th></tr>
+      <tr class="up"><td>房地產與租賃</td><td>門房／接待</td><td class="num">29%</td><td class="num">31%</td><td class="num delta">+2</td></tr>
+      <tr class="up"><td>資訊</td><td>影視剪輯</td><td class="num">17%</td><td class="num">33%</td><td class="num delta">+16</td></tr>
+      <tr class="down"><td>醫療與社會救助</td><td>行政支援主管</td><td class="num">41%</td><td class="num">38%</td><td class="num delta">-3</td></tr>
+      <tr class="down"><td>醫療與社會救助</td><td>醫療與健康服務經理</td><td class="num">65%</td><td class="num">38%</td><td class="num delta">-27</td></tr>
+      <tr class="up"><td>零售</td><td>藥師</td><td class="num">26%</td><td class="num">38%</td><td class="num delta">+12</td></tr>
+  </table>
+  <p><b>編輯 93%</b> 是全部最高：訪談逐字稿整理成對外文章，要抓重點、改語氣、顧事實，這一整套流程模型已經做得比多數專家好。相對地，<b>門房／接待 31%</b>、<b>影視剪輯 33%</b> 這種吃臨場應對與手感的工作，分數還很低。</p>
+
+  <h2>六、我另外算的兩個規律（圖上沒有）</h2>
+  <h3>規律一：起點越低、進步越快</h3>
+  <table class="nums">
+    <tr><th>分組</th><th>職業數</th><th>平均變化</th></tr>
+    <tr><td>2025 年 9 月低於 50%</td><td class="num">22</td><td class="num">+15.3</td></tr>
+    <tr><td>2025 年 9 月 50% 以上</td><td class="num">22</td><td class="num">+4.5</td></tr>
+  </table>
+  <p>低分組平均 <b>+15.3</b>，高分組只有 <b>+4.5</b>。而且低分組有 <b>9 個</b>職業在這七個月內跨過 50%。這代表：<b>模型正在補的，是那些以前「完全做不到」的工作，而不是把已經很強的工作再推到極致。</b></p>
+
+  <h3>規律二：產業排序</h3>
+  <table class="nums">
+    <tr><th>產業</th><th>職業數</th><th>2025-09 平均</th><th>2026-04 平均</th><th>平均變化</th></tr>
+      <tr><td>政府</td><td class="num">5</td><td class="num">52.4%</td><td class="num">70.0%</td><td class="num delta">+17.6</td></tr>
+      <tr><td>資訊</td><td class="num">5</td><td class="num">40.8%</td><td class="num">53.6%</td><td class="num delta">+12.8</td></tr>
+      <tr><td>金融與保險</td><td class="num">5</td><td class="num">47.6%</td><td class="num">59.8%</td><td class="num delta">+12.2</td></tr>
+      <tr><td>製造</td><td class="num">5</td><td class="num">48.0%</td><td class="num">60.0%</td><td class="num delta">+12.0</td></tr>
+      <tr><td>專業與技術服務</td><td class="num">5</td><td class="num">48.8%</td><td class="num">60.2%</td><td class="num delta">+11.4</td></tr>
+      <tr><td>房地產與租賃</td><td class="num">5</td><td class="num">46.8%</td><td class="num">56.8%</td><td class="num delta">+10.0</td></tr>
+      <tr><td>批發</td><td class="num">5</td><td class="num">57.8%</td><td class="num">63.2%</td><td class="num delta">+5.4</td></tr>
+      <tr><td>零售</td><td class="num">4</td><td class="num">55.5%</td><td class="num">59.5%</td><td class="num delta">+4.0</td></tr>
+      <tr><td>醫療與社會救助</td><td class="num">5</td><td class="num">48.6%</td><td class="num">51.2%</td><td class="num delta">+2.6</td></tr>
+  </table>
+  <p><b>政府 +17.6</b> 最高，<b>醫療 +2.6</b> 最低——跟一般人「醫療最難、政府最慢」的直覺剛好相反。原因不是政府很先進，而是政府裡被測到的職業（行政服務主管、社工、法遵、警察主管、休閒活動）大多是<b>文件與流程密集型</b>。</p>
+
+  <h2>七、實際案例：這些分數對應什麼工作</h2>
+  <ul>
+    <li><b>編輯（93%）</b>：訪談錄音逐字稿 → 整理成可發布文章；要抓重點、改語氣、顧事實正確性。</li>
+    <li><b>工業工程師（17% → 44%）</b>：算出生產線節拍與瓶頸站；用試算表做良率、成本、人力試算。</li>
+    <li><b>客服（59% → 76%）</b>：照 SOP 處理退費、改地址、查訂單；判斷不了就轉真人，錯了也能補救。a16z 點名 Decagon、Sierra、Salient、HappyRobot 這類公司成長很快，原因就是客服有明確 SOP 與可量化指標（ ticket 數、CSAT、解決率）。</li>
+    <li><b>軟體開發（70% → 82%）</b>：a16z 說 coding 是企業 AI 採用的最大宗，<b>幾乎是其他用途的一個數量級</b>；Cursor、Claude Code、Codex 是他們點名的三個工具，並引述投資公司訪談：<b>最好的工程師生產力提升 10–20 倍</b>。</li>
+    <li><b>醫療與健康服務經理（65% → 38%）</b>：要協調人與資源，沒有單一標準答案；同一個產業裡的護理師（37% → 51%）、醫療行政助理（44% → 62%）反而是進步的。</li>
+    <li><b>律師（56% → 46%）</b>：文件品質的評分退步，但企業採用很積極；a16z 舉 Harvey 為例，靠 copilot 切入法律工作、快速取得市占。</li>
+  </ul>
+
+  <h2>八、企業端的真實數字</h2>
+  <p>同一篇報告裡，a16z 給了兩個採用數字（他們的內部資料＋公開資料＋與企業對談彙整）：</p>
+  <ul>
+    <li><b>29% 的 Fortune 500</b> 與 <b>約 19% 的 Global 2000</b>，已經是一個領先 AI 新創的「付費且上線」客戶</li>
+    <li>企業 AI 的營收動能集中在 <b>coding、support、search</b> 三類，其中 coding 是數量級的領先</li>
+    <li>最積極採用的產業是 <b>科技、法律、醫療</b></li>
+  </ul>
+  <p class="quote">把這兩張圖放在一起看，才會看到本文最重要的一句話：<b>能力變強，不代表企業馬上買單；企業買單的地方，也不一定是能力最強的地方。</b></p>
+
+  <h2>九、這張圖不能推論什麼</h2>
+  <ul>
+    <li><b>不能說「AI 要取代這些職業」。</b>圖上量的是「單一任務的交付品質」，不是「整份工作」。a16z 自己也寫：如果 AI 只能做 50% 的任務，那些<b>不能自動化的部分反而變成瓶頸、價值會上升</b>，所以整體經濟價值其實<b>被高估</b>。</li>
+    <li><b>不能當成模型排名。</b>圖上只取每個職業的頂尖模型，沒有公布是哪一家；GDPval 官方榜單才有逐模型分數。</li>
+    <li><b>資料來源有立場。</b>這是 a16z 的報告，用意在反駁「95% 企業 AI 專案失敗」的說法，數字取自他們的投資組合與訪談，方向性要自己打折。</li>
+    <li><b>只有兩個時間點。</b>七個月的變化可能包含榜單題目調整、評分方式變動，不能直接當成「能力成長率」。</li>
+  </ul>
+
+  <h2>十、44 列完整表格（依產業分組）</h2>
+  <div class="scroll">
+  <table class="nums">
+    <tr><th>產業</th><th>職業</th><th>2025-09</th><th>2026-04</th><th>變化</th></tr>
+      <tr class="up"><td>房地產與租賃</td><td>櫃檯與租賃人員</td><td class="num">81%</td><td class="num">82%</td><td class="num delta">+1</td></tr>
+      <tr class="up"><td>房地產與租賃</td><td>不動產經紀人</td><td class="num">54%</td><td class="num">67%</td><td class="num delta">+13</td></tr>
+      <tr class="up"><td>房地產與租賃</td><td>不動產銷售</td><td class="num">36%</td><td class="num">60%</td><td class="num delta">+24</td></tr>
+      <tr class="up"><td>房地產與租賃</td><td>不動產與社區經理</td><td class="num">34%</td><td class="num">44%</td><td class="num delta">+10</td></tr>
+      <tr class="up"><td>房地產與租賃</td><td>門房／接待</td><td class="num">29%</td><td class="num">31%</td><td class="num delta">+2</td></tr>
+      <tr class="up"><td>製造</td><td>收發與盤點人員</td><td class="num">76%</td><td class="num">78%</td><td class="num delta">+2</td></tr>
+      <tr class="up"><td>製造</td><td>採購人員</td><td class="num">64%</td><td class="num">76%</td><td class="num delta">+12</td></tr>
+      <tr class="flat"><td>製造</td><td>生產線主管</td><td class="num">58%</td><td class="num">58%</td><td class="num delta">0</td></tr>
+      <tr class="up"><td>製造</td><td>工業工程師</td><td class="num">17%</td><td class="num">44%</td><td class="num delta">+27</td></tr>
+      <tr class="up"><td>製造</td><td>機械工程師</td><td class="num">25%</td><td class="num">44%</td><td class="num delta">+19</td></tr>
+      <tr class="up"><td>專業與技術服務</td><td>軟體開發</td><td class="num">70%</td><td class="num">82%</td><td class="num delta">+12</td></tr>
+      <tr class="up"><td>專業與技術服務</td><td>資訊系統主管</td><td class="num">52%</td><td class="num">67%</td><td class="num delta">+15</td></tr>
+      <tr class="up"><td>專業與技術服務</td><td>專案管理</td><td class="num">42%</td><td class="num">64%</td><td class="num delta">+22</td></tr>
+      <tr class="down"><td>專業與技術服務</td><td>律師</td><td class="num">56%</td><td class="num">46%</td><td class="num delta">-10</td></tr>
+      <tr class="up"><td>專業與技術服務</td><td>會計與審計</td><td class="num">24%</td><td class="num">42%</td><td class="num delta">+18</td></tr>
+      <tr class="up"><td>政府</td><td>行政服務主管</td><td class="num">62%</td><td class="num">78%</td><td class="num delta">+16</td></tr>
+      <tr class="up"><td>政府</td><td>警察與偵探主管</td><td class="num">49%</td><td class="num">76%</td><td class="num delta">+27</td></tr>
+      <tr class="up"><td>政府</td><td>法遵人員</td><td class="num">69%</td><td class="num">71%</td><td class="num delta">+2</td></tr>
+      <tr class="up"><td>政府</td><td>社工</td><td class="num">42%</td><td class="num">69%</td><td class="num delta">+27</td></tr>
+      <tr class="up"><td>政府</td><td>休閒活動人員</td><td class="num">40%</td><td class="num">56%</td><td class="num delta">+16</td></tr>
+      <tr class="up"><td>醫療與社會救助</td><td>護理師（NP）</td><td class="num">56%</td><td class="num">67%</td><td class="num delta">+11</td></tr>
+      <tr class="up"><td>醫療與社會救助</td><td>醫療行政助理</td><td class="num">44%</td><td class="num">62%</td><td class="num delta">+18</td></tr>
+      <tr class="up"><td>醫療與社會救助</td><td>註冊護理師</td><td class="num">37%</td><td class="num">51%</td><td class="num delta">+14</td></tr>
+      <tr class="down"><td>醫療與社會救助</td><td>行政支援主管</td><td class="num">41%</td><td class="num">38%</td><td class="num delta">-3</td></tr>
+      <tr class="down"><td>醫療與社會救助</td><td>醫療與健康服務經理</td><td class="num">65%</td><td class="num">38%</td><td class="num delta">-27</td></tr>
+      <tr class="up"><td>金融與保險</td><td>客服人員</td><td class="num">59%</td><td class="num">76%</td><td class="num delta">+17</td></tr>
+      <tr class="up"><td>金融與保險</td><td>證券與金融商品銷售</td><td class="num">42%</td><td class="num">73%</td><td class="num delta">+31</td></tr>
+      <tr class="down"><td>金融與保險</td><td>理財顧問</td><td class="num">64%</td><td class="num">62%</td><td class="num delta">-2</td></tr>
+      <tr class="up"><td>金融與保險</td><td>財務主管</td><td class="num">32%</td><td class="num">44%</td><td class="num delta">+12</td></tr>
+      <tr class="up"><td>金融與保險</td><td>金融投資分析</td><td class="num">41%</td><td class="num">44%</td><td class="num delta">+3</td></tr>
+      <tr class="up"><td>零售</td><td>零售銷售主管</td><td class="num">59%</td><td class="num">69%</td><td class="num delta">+10</td></tr>
+      <tr class="down"><td>零售</td><td>徵信與調查</td><td class="num">70%</td><td class="num">69%</td><td class="num delta">-1</td></tr>
+      <tr class="down"><td>零售</td><td>營運經理</td><td class="num">67%</td><td class="num">62%</td><td class="num delta">-5</td></tr>
+      <tr class="up"><td>零售</td><td>藥師</td><td class="num">26%</td><td class="num">38%</td><td class="num delta">+12</td></tr>
+      <tr class="up"><td>批發</td><td>非零售業務主管</td><td class="num">69%</td><td class="num">87%</td><td class="num delta">+18</td></tr>
+      <tr class="up"><td>批發</td><td>業務經理</td><td class="num">79%</td><td class="num">80%</td><td class="num delta">+1</td></tr>
+      <tr class="down"><td>批發</td><td>批發業務（非技術）</td><td class="num">66%</td><td class="num">56%</td><td class="num delta">-10</td></tr>
+      <tr class="up"><td>批發</td><td>批發業務（技術）</td><td class="num">47%</td><td class="num">53%</td><td class="num delta">+6</td></tr>
+      <tr class="up"><td>批發</td><td>訂單處理</td><td class="num">28%</td><td class="num">40%</td><td class="num delta">+12</td></tr>
+      <tr class="up"><td>資訊</td><td>編輯</td><td class="num">75%</td><td class="num">93%</td><td class="num delta">+18</td></tr>
+      <tr class="up"><td>資訊</td><td>新聞記者</td><td class="num">53%</td><td class="num">60%</td><td class="num delta">+7</td></tr>
+      <tr class="up"><td>資訊</td><td>製作與導演</td><td class="num">29%</td><td class="num">44%</td><td class="num delta">+15</td></tr>
+      <tr class="up"><td>資訊</td><td>影音技術</td><td class="num">30%</td><td class="num">38%</td><td class="num delta">+8</td></tr>
+      <tr class="up"><td>資訊</td><td>影視剪輯</td><td class="num">17%</td><td class="num">33%</td><td class="num delta">+16</td></tr>
+  </table>
+  </div>
+  <p style="font-size:14px;color:#78706a">註：變化欄為「2026-04 減 2025-09」，單位是百分點；藍色為退步、紅色為進步。數字逐列對照 a16z 原圖，統計值由這 44 列重新計算。</p>
+
+  <h2>資料來源</h2>
+  <p class="src">
+    ① a16z〈Where Enterprises are Actually Adopting AI〉（2026-04），圖表 The Models Are Improving Quickly But Unevenly：<a href="https://a16z.com/where-enterprises-are-actually-adopting-ai/" target="_blank" rel="noopener">a16z.com</a><br>
+    ② 原圖檔：<a href="https://d1lamhf6l6yk6d.cloudfront.net/uploads/2026/04/The-Models-are-Improving-Fast-v3-scaled.png" target="_blank" rel="noopener">The-Models-are-Improving-Fast-v3-scaled.png</a><br>
+    ③ GDPval 論文（44 個職業、平均 14 年經驗、220 題開源）：<a href="https://arxiv.org/abs/2510.04374" target="_blank" rel="noopener">arXiv 2510.04374</a><br>
+    ④ GDPval 公開排行榜（2026-04 snapshot）：<a href="https://evals.openai.com/gdpval/leaderboard" target="_blank" rel="noopener">evals.openai.com</a><br>
+    ⑤ 2025 年 9 月 snapshot 對應的評測版本：同 ③ 論文所述資料集
+  </p>
+  <p class="src">本文數字全部由圖表 44 列重新計算（平均、中位數、產業平均、起點分組），未使用估算值。內容為資料整理，不構成投資、職涯或採購建議。</p>
+</main>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="10" data-views>—</span></div>
+</body>
+</html>
