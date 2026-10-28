@@ -64,8 +64,8 @@ HEAD = """<!DOCTYPE html>
 
 ARTICLES = [
     dict(title="AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例",
-         date="2026/10/28", length="Shorts 1:11＋完整表格",
-         yt="",
+         date="2026/10/28", length="長片 4:15＋Shorts 1:11",
+         yt="https://youtube.com/shorts/oho-UmKbvL8",
          url="models-uneven-2026-10/",
          desc="a16z 引用 OpenAI GDPval，比較 2025 年 9 月與 2026 年 4 月的 44 個職業："
               "模型對專家的勝率平均從 49.5% 升到 59.4%（+9.9 個百分點），36 個進步、1 個持平、7 個退步。"

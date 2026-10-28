@@ -19,7 +19,7 @@
   .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:22px;text-align:center;margin:18px 0 26px}
   .video-slot b{color:#fff;font-size:18px;display:block;margin:0 0 12px}
   .video-slot .frame{position:relative;width:100%;max-width:330px;aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;margin:0 auto}
-  .video-slot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+  .video-slot video,.video-slot iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;border:0}
   .quote{border-left:5px solid #c2452d;padding:6px 0 6px 18px;color:#4a4640;font-size:17px;line-height:1.9;margin:22px 0}
   .tldr{background:#fffdf7;border:2px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
   .tldr b{color:#c2452d}
@@ -35,11 +35,15 @@
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/ai/models-uneven-2026-10/">
-<meta name="keywords" content="小R頻道, 小R 頻道, 小R, xiaor, AI 助理實測, GDPval, a16z, 企業 AI 採用, 職業 勝率">
+
+<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
 <meta property="og:site_name" content="小R頻道">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例｜小R頻道">
 <meta property="og:description" content="a16z 用 OpenAI GDPval 比較 2025 年 9 月與 2026 年 4 月的 44 個職業：模型對專家的勝率平均從 49.5% 升到 59.4%（+9.9 個百分點），36 個進步、7 個退步。退最多的是醫療與健康服務經理（65%→38%），律師 56%→46%；最高的是編輯 93%。附 44 列完整表格、產業排序、實際案例與出處。">
 <meta property="og:url" content="https://littler5071.github.io/ai/models-uneven-2026-10/">
@@ -47,10 +51,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例｜小R頻道">
 <meta name="twitter:description" content="a16z 用 OpenAI GDPval 比較 2025 年 9 月與 2026 年 4 月的 44 個職業：模型對專家的勝率平均從 49.5% 升到 59.4%（+9.9 個百分點），36 個進步、7 個退步。退最多的是醫療與健康服務經理（65%→38%），律師 56%→46%；最高的是編輯 93%。附 44 列完整表格、產業排序、實際案例與出處。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <!-- /hermes-seo -->
-<link rel="stylesheet" href="../../nav.css?v=b7b27715">
-<script defer src="../../nav.js?v=c73ca689"></script>
-<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <main class="wrap">
@@ -62,9 +64,10 @@
   </div>
 
   <div class="video-slot">
-    <b>影片版（Shorts）</b>
-    <div class="frame"><video src="shorts.mp4" controls playsinline preload="metadata"></video></div>
-    <p style="font-size:13px;margin:12px 0 0">站內備援版本；YouTube 版本上線後會補在下方。</p>
+    <b>影片版：長片 4:15 ＋ Shorts 1:11</b>
+    <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/oho-UmKbvL8" title="Shorts：AI 在 44 個職業的實測" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
+    <p style="font-size:14px;margin:14px 0 6px">長片（完整 44 列與產業排序）：<a href="https://youtu.be/VYo2blviV8g" target="_blank" rel="noopener" style="color:#c2452d;font-weight:700">youtu.be/VYo2blviV8g</a></p>
+    <p style="font-size:13px;margin:0">站內備援版本：<a href="shorts.mp4" style="color:#9fb4cf">shorts.mp4</a>（70 秒）</p>
   </div>
 
   <h2>一、這張圖在量什麼</h2>
