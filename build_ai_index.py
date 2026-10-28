@@ -63,6 +63,14 @@ HEAD = """<!DOCTYPE html>
 
 
 ARTICLES = [
+    dict(title="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少",
+         date="2026/10/28", length="Shorts 1:05＋完整對照表",
+         yt="",
+         url="vulnlab-coverage-2026-10/",
+         desc="CWE 對照實驗：Rust／C#／Python 各植入 SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、"
+              "TLS 驗證關閉，加一個已知漏洞相依，共 20 個弱點。用 syft、grype、trivy、OSV、sbomqs、Semgrep、"
+              "Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。"
+              "結果：Python 100%、C# 71%、Rust 17%；唯一全中的類型是相依漏洞，沒有單一工具能應付 CRA。"),
     dict(title="AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例",
          date="2026/10/28", length="長片 4:15＋Shorts 1:11",
          yt="https://youtube.com/shorts/oho-UmKbvL8",
