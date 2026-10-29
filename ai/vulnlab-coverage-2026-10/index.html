@@ -145,12 +145,12 @@
     <tr><td>S2 只掃成品（out/）</td><td class="num">5</td><td class="num">2</td><td class="num">0</td><td class="num">0</td></tr>
     <tr><td>S3 全目錄</td><td class="num"><b>400</b></td><td class="num"><b>12</b></td><td class="num">10</td><td class="num">0</td></tr>
     <tr><td rowspan="2">Python</td><td>S1 只掃原始碼</td><td class="num">3</td><td class="num">17</td><td class="num">17</td><td class="num">1</td></tr>
-    <tr><td>S2 只掃成品（PyInstaller 單檔）</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td>S2 只掃成品（PyInstaller 單檔 7.5 MB）</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
   </table></div>
   <ul>
     <li><b>C# 只掃原始碼 → 0 個元件</b>：.NET 的相依資訊在 <code>obj/project.assets.json</code>，把它排除就什麼都掃不到。</li>
     <li><b>C# 全目錄 → 400 個元件、12 個 CVE</b>：其中大部分是建置暫存與 runtime 檔案，SBOM 會被灌水，sbomqs 分數也被拖低。</li>
-    <li><b>只掃成品 → 多數是 0</b>：strip 過的 ELF 與單檔打包沒有相依線索。</li>
+    <li><b>只掃成品 → 多數是 0</b>：strip 過的 ELF 與單檔打包沒有相依線索。Python 用 PyInstaller 打成的 7.5 MB 單檔，syft／grype／trivy 全部回 0。</li>
     <li>結論：<b>掃描範圍要等於「出貨內容＋lockfile」</b>，並在證據上寫明範圍與 commit／digest。</li>
   </ul>
 
