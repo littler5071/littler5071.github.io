@@ -13,6 +13,9 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片�
 
 # 新片放最前面
 VIDEOS = [
+    dict(title="我故意寫了三個有漏洞的程式，讓 11 個免費資安工具去抓：Rust 只抓到 17%",
+         date="2026/10/29", length="1:06", url="https://youtube.com/shorts/ZWVaJ04ERUI",
+         desc="Rust／C#／Python 各植入同一組 6 種弱點＋1 個漏洞相依，共 20 個；11 個免費工具聯集只命中 13 個（65%）。完整清單與行號見 ai/vulnlab-coverage-2026-10/。"),
     dict(title="100 個任務裡，最值得先交給 AI 的 10 件（最後只留 3 件給你）",
          date="2026/09/15", length="4:29", url="https://youtu.be/0tfEOBG2-xE",
          desc="用公開的真實使用資料（Anthropic 經濟指數 1,007 種請求類型）排出 100 個任務，再選出最值得先交給 AI 的 10 件；每一件都有「做法」與「驗收」，最後只留 3 件給你。（1.2 倍速版）"),
@@ -65,7 +68,7 @@ HEAD = """<!DOCTYPE html>
 ARTICLES = [
     dict(title="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少",
          date="2026/10/28", length="Shorts 1:05＋完整對照表",
-         yt="https://youtube.com/shorts/ZWVaJ04ERUI",
+         video="https://youtube.com/shorts/ZWVaJ04ERUI",
          url="vulnlab-coverage-2026-10/",
          desc="CWE 對照實驗：Rust／C#／Python 各植入 SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、"
               "TLS 驗證關閉，加一個已知漏洞相依，共 20 個弱點。用 syft、grype、trivy、OSV、sbomqs、Semgrep、"
