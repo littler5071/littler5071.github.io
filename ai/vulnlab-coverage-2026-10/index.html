@@ -13,6 +13,35 @@
   .grid td.c{text-align:center;font-weight:800;color:#c2452d}
   .grid td.num,.grid td.tool{white-space:nowrap;font-variant-numeric:tabular-nums}
   .grid td.note{font-size:12.5px;color:#78706a}
+  .grid.wide{font-size:12.5px;width:100%;table-layout:fixed}
+  .grid.wide th,.grid.wide td{white-space:normal;word-break:break-word;padding:6px 4px}
+  .grid.wide th:nth-child(1),.grid.wide td:nth-child(1){width:28px}
+  .grid.wide th:nth-child(2),.grid.wide td:nth-child(2){width:46px}
+  .grid.wide th:nth-child(3),.grid.wide td:nth-child(3){width:34px}
+  .grid.wide th:nth-child(4),.grid.wide td:nth-child(4){width:68px}
+  .grid.wide th:nth-child(6),.grid.wide td:nth-child(6){width:26%}
+  .grid.wide th:nth-child(7),.grid.wide td:nth-child(7){width:30%}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+  ol.wlist{list-style:none;padding:0;margin:16px 0;counter-reset:w}
+  ol.wlist li{counter-increment:w;background:#fff;border:1px solid var(--line);border-radius:14px;
+        padding:12px 14px;margin:0 0 10px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;
+        border-left:6px solid #c2452d}
+  ol.wlist li.hit{border-left-color:#2e7d5b}
+  ol.wlist li.part{border-left-color:#b8860b}
+  ol.wlist .top{font-size:15px;font-weight:800;color:#1e1e1e}
+  ol.wlist .top .idx{display:inline-block;min-width:26px;color:#c2452d}
+  ol.wlist .top .chip{font-size:11.5px;font-weight:700;background:#efece3;color:#5f5a52;
+        border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:1px}
+  ol.wlist .name{font-size:14.5px;color:#2b2b2b;margin-top:2px}
+  ol.wlist .loc{font-family:ui-monospace,monospace;font-size:12.5px;color:#5f5a52;word-break:break-all;margin-top:4px}
+  ol.wlist .res{font-size:12.5px;line-height:1.55;text-align:right;max-width:230px}
+  ol.wlist .res.miss{color:#b3261e;font-weight:700}
+  ol.wlist .res.ok{color:#2e7d5b;font-weight:700}
+  ol.wlist .res.part{color:#8a6d00;font-weight:700}
+  @media (max-width:620px){
+    ol.wlist li{grid-template-columns:1fr}
+    ol.wlist .res{text-align:left;max-width:none}
+  }
   .nums{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
   .nums th,.nums td{border-bottom:1px dashed var(--line);padding:9px 8px;text-align:left}
   .nums th{color:#78706a;font-weight:600}
@@ -28,23 +57,15 @@
   .src a{color:#364e70}
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  code{background:#efece3;border-radius:5px;padding:1px 5px;font-size:13.5px}
-  /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
-        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  .viewsline .vnum{color:#364e70}
-  .viewsline .vnum.vnum-on{color:#bf4a3a}
-  .viewsline .vnum.vnum-off{color:#78706a}
+  code{background:#efece3;border-radius:5px;padding:1px 5px;font-size:13.5px;word-break:break-all}
+  main.wrap p,main.wrap li{overflow-wrap:anywhere}
+  html,body{overflow-x:hidden}
 </style>
-<link rel="stylesheet" href="../../nav.css?v=b7b27715">
-<script defer src="../../nav.js?v=c73ca689"></script>
-<script defer src="../../counter.js?v=e837f732"></script>
 <!-- hermes-seo -->
 <link rel="canonical" href="https://littler5071.github.io/ai/vulnlab-coverage-2026-10/">
-
-<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
+<meta name="keywords" content="小R頻道, SBOM, SAST, SCA, CRA, Cyber Resilience Act, syft, grype, trivy, semgrep, bandit, gitleaks, ARM64, CWE">
 <meta property="og:site_name" content="小R頻道">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道">
 <meta property="og:description" content="CWE 對照實驗：Rust／C#／Python 各植入同一組弱點（SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、TLS 驗證關閉）＋一個已知漏洞相依，共 20 個。用 syft、grype、trivy、OSV、sbomqs、Semgrep、Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並同時編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。結果：Python 100%、C# 71%、Rust 17%，沒有任何單一工具能單獨應付 CRA。">
 <meta property="og:url" content="https://littler5071.github.io/ai/vulnlab-coverage-2026-10/">
@@ -52,8 +73,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道">
 <meta name="twitter:description" content="CWE 對照實驗：Rust／C#／Python 各植入同一組弱點（SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、TLS 驗證關閉）＋一個已知漏洞相依，共 20 個。用 syft、grype、trivy、OSV、sbomqs、Semgrep、Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並同時編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。結果：Python 100%、C# 71%、Rust 17%，沒有任何單一工具能單獨應付 CRA。">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <!-- /hermes-seo -->
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <main class="wrap">
@@ -70,7 +93,34 @@
     <p style="font-size:13px;margin:12px 0 0">站內備援版本；YouTube 上線後補連結。</p>
   </div>
 
-  <h2>一、實驗設計：弱點是我刻意放的，而且有行號</h2>
+
+  <h2>二、20 個弱點逐項清單（哪一個、在哪一行、誰抓到）</h2>
+  <p>上一節是「弱點類型」，這一節是「實際植入的 20 個弱點」：3 個語言 × 6 個程式碼弱點，加上 3 個相依套件弱點。標記 <b>◐</b> 代表相鄰問題的部分命中（本報告仍計為命中，與影片一致）。</p>
+  <ol class="wlist">
+    <li class="miss"><div><div class="top"><span class="idx">1</span>Rust<span class="chip">W1</span><span class="chip">CWE-89</span></div><div class="name">SQL 字串拼接</div><div class="loc">rust/src/main.rs:13</div></div><div class="res miss">沒有任何工具抓到</div></li>
+    <li class="miss"><div><div class="top"><span class="idx">2</span>Rust<span class="chip">W2</span><span class="chip">CWE-78</span></div><div class="name">使用者輸入進 shell</div><div class="loc">rust/src/main.rs:19</div></div><div class="res miss">沒有任何工具抓到</div></li>
+    <li class="miss"><div><div class="top"><span class="idx">3</span>Rust<span class="chip">W3</span><span class="chip">CWE-22</span></div><div class="name">路徑穿越</div><div class="loc">rust/src/main.rs:25</div></div><div class="res miss">沒有任何工具抓到</div></li>
+    <li class="miss"><div><div class="top"><span class="idx">4</span>Rust<span class="chip">W4</span><span class="chip">CWE-798</span></div><div class="name">硬編碼憑證</div><div class="loc">rust/src/main.rs:10</div></div><div class="res miss">沒有任何工具抓到</div></li>
+    <li class="miss"><div><div class="top"><span class="idx">5</span>Rust<span class="chip">W5</span><span class="chip">CWE-327</span></div><div class="name">MD5 當完整性檢查</div><div class="loc">rust/src/main.rs:30</div></div><div class="res miss">沒有任何工具抓到</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">6</span>Rust<span class="chip">W8</span><span class="chip">CWE-1395</span></div><div class="name">已知漏洞相依</div><div class="loc">time 0.1.44（RUSTSEC-2020-0071）</div></div><div class="res hit">SCA：grype／trivy／OSV</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">7</span>C#<span class="chip">W1</span><span class="chip">CWE-89</span></div><div class="name">SQL 字串拼接</div><div class="loc">csharp/Program.cs:18</div></div><div class="res hit">Semgrep（csharp-sqli）；.NET analyzers（CA2100）</div></li>
+    <li class="miss"><div><div class="top"><span class="idx">8</span>C#<span class="chip">W2</span><span class="chip">CWE-78</span></div><div class="name">使用者輸入進 shell</div><div class="loc">csharp/Program.cs:25</div></div><div class="res miss">沒有任何工具抓到</div></li>
+    <li class="miss"><div><div class="top"><span class="idx">9</span>C#<span class="chip">W3</span><span class="chip">CWE-22</span></div><div class="name">路徑穿越</div><div class="loc">csharp/Program.cs:36</div></div><div class="res miss">沒有任何工具抓到</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">10</span>C#<span class="chip">W4</span><span class="chip">CWE-798</span></div><div class="name">硬編碼憑證</div><div class="loc">csharp/Program.cs:11</div></div><div class="res hit">gitleaks（generic-api-key）</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">11</span>C#<span class="chip">W5</span><span class="chip">CWE-327</span></div><div class="name">MD5 當完整性檢查</div><div class="loc">csharp/Program.cs:42</div></div><div class="res hit">.NET analyzers（CA1850, CA5351）</div></li>
+    <li class="part"><div><div class="top"><span class="idx">12</span>C#<span class="chip">W6</span><span class="chip">CWE-295</span></div><div class="name">關閉 TLS 憑證驗證</div><div class="loc">csharp/Program.cs:51</div></div><div class="res part">◐ .NET analyzers（CA2000，資源釋放誤配）</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">13</span>C#<span class="chip">W8</span><span class="chip">CWE-1395</span></div><div class="name">已知漏洞相依</div><div class="loc">Newtonsoft.Json 12.0.1／SqlClient 4.8.5</div></div><div class="res hit">SCA：grype／trivy／OSV</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">14</span>Python<span class="chip">W1</span><span class="chip">CWE-89</span></div><div class="name">SQL 字串拼接</div><div class="loc">python/app.py:17</div></div><div class="res hit">Bandit（B608）</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">15</span>Python<span class="chip">W2</span><span class="chip">CWE-78</span></div><div class="name">使用者輸入進 shell</div><div class="loc">python/app.py:24</div></div><div class="res hit">Semgrep（subprocess-shell-true）；Bandit（B602）</div></li>
+    <li class="part"><div><div class="top"><span class="idx">16</span>Python<span class="chip">W3</span><span class="chip">CWE-22</span></div><div class="name">路徑穿越</div><div class="loc">python/app.py:29</div></div><div class="res part">◐ Bandit（B108 硬編碼 /tmp，非路徑穿越本身）</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">17</span>Python<span class="chip">W4</span><span class="chip">CWE-798</span></div><div class="name">硬編碼憑證</div><div class="loc">python/app.py:10</div></div><div class="res hit">Bandit（B105）；trivy secret（aws-access-key-id）；gitleaks（generic-api-key）</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">18</span>Python<span class="chip">W5</span><span class="chip">CWE-327</span></div><div class="name">MD5 當完整性檢查</div><div class="loc">python/app.py:35</div></div><div class="res hit">Semgrep（insecure-hash-algorithm-md5）；Bandit（B324）</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">19</span>Python<span class="chip">W6</span><span class="chip">CWE-295</span></div><div class="name">關閉 TLS 憑證驗證</div><div class="loc">python/app.py:40</div></div><div class="res hit">Bandit（B501）</div></li>
+    <li class="hit"><div><div class="top"><span class="idx">20</span>Python<span class="chip">W8</span><span class="chip">CWE-1395</span></div><div class="name">已知漏洞相依</div><div class="loc">requests 2.19.1／urllib3 1.23</div></div><div class="res hit">SCA：grype／trivy／OSV</div></li>
+  </ol>
+  <p>統計：<b>20 個弱點，13 個命中（65%）</b>——Rust 1/6、C# 5/7、Python 7/7。<b>完全沒有工具抓到</b>的有 6 個：Rust 的 W1–W5（全部程式碼弱點）、C# 的 W2 與 W3。</p>
+
+  <h2>一、實驗設計：同一組弱點類型，三個語言各寫一次</h2>
   <p>每個弱點在原始碼裡都用 <code>VULN-Wn</code> 標在同一行，量測腳本用「行號 ±2」判斷工具是否命中，不靠關鍵字猜。Rust 沒有 TLS 設定場景，所以少一個（W6），這是唯一的數量差異。</p>
   <table class="nums">
     <tr><th>代號</th><th>CWE</th><th>內容</th><th>Rust 行</th><th>C# 行</th><th>Python 行</th></tr>
@@ -83,15 +133,36 @@
       <tr><td>W8</td><td>CWE-1395</td><td>已知漏洞相依</td><td class='num'>38</td><td class='num'>—</td><td class='num'>—</td></tr>
   </table>
 
-  <h2>二、連平台也一起：Windows／Linux／ARM64（含 Apple M 系列）</h2>
+
+  <h2>三、掃描範圍會決定你看到什麼（實測對照）</h2>
+  <p>同一個專案，只換「掃哪裡」，數字就完全不同。這是 CRA 證據最常出錯的地方：你以為掃了專案，其實掃到的是建置暫存檔。</p>
+  <div class="tablewrap"><table class="nums">
+    <tr><th>專案</th><th>掃描範圍</th><th>syft 元件</th><th>grype CVE</th><th>trivy CVE</th><th>trivy secret</th></tr>
+    <tr><td rowspan="3">Rust</td><td>S1 只掃原始碼</td><td class="num">9</td><td class="num">1</td><td class="num">1</td><td class="num">0</td></tr>
+    <tr><td>S2 只掃成品（target/release）</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td>S3 全目錄（含建置暫存）</td><td class="num">9</td><td class="num">1</td><td class="num">1</td><td class="num">0</td></tr>
+    <tr><td rowspan="3">C#</td><td>S1 只掃原始碼（排除 obj／bin／out）</td><td class="num"><b>0</b></td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td>S2 只掃成品（out/）</td><td class="num">5</td><td class="num">2</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td>S3 全目錄</td><td class="num"><b>400</b></td><td class="num"><b>12</b></td><td class="num">10</td><td class="num">0</td></tr>
+    <tr><td rowspan="2">Python</td><td>S1 只掃原始碼</td><td class="num">3</td><td class="num">17</td><td class="num">17</td><td class="num">1</td></tr>
+    <tr><td>S2 只掃成品（PyInstaller 單檔）</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+  </table></div>
   <ul>
-    <li><b>Rust</b>：<code>x86_64-unknown-linux-gnu</code>（ELF 356 KB）、<code>x86_64-pc-windows-gnu</code>（PE32+ 412 KB）、<code>aarch64-unknown-linux-gnu</code>（ELF ARM64 387 KB）、<code>aarch64-apple-darwin</code>（<b>Mach-O arm64 388 KB</b>，即 M 系列）。後三者用 Zig 0.17.0 當連結器（<code>cargo zigbuild</code>），完全在 Linux 上完成。</li>
-    <li><b>C#</b>：<code>dotnet publish -r win-x64／linux-x64／linux-arm64／osx-arm64 --self-contained -p:PublishSingleFile=true</code>，四個 RID 都成功（win-x64 67 MB、linux-x64 66 MB、linux-arm64 72 MB、osx-arm64 72 MB，Mach-O arm64）。</li>
+    <li><b>C# 只掃原始碼 → 0 個元件</b>：.NET 的相依資訊在 <code>obj/project.assets.json</code>，把它排除就什麼都掃不到。</li>
+    <li><b>C# 全目錄 → 400 個元件、12 個 CVE</b>：其中大部分是建置暫存與 runtime 檔案，SBOM 會被灌水，sbomqs 分數也被拖低。</li>
+    <li><b>只掃成品 → 多數是 0</b>：strip 過的 ELF 與單檔打包沒有相依線索。</li>
+    <li>結論：<b>掃描範圍要等於「出貨內容＋lockfile」</b>，並在證據上寫明範圍與 commit／digest。</li>
+  </ul>
+
+  <h2>四、連平台也一起：Windows／Linux／ARM64（含 Apple M 系列）</h2>
+  <ul>
+    <li><b>Rust</b>：<code>x86_64-unknown-linux-gnu</code>（ELF）、<code>x86_64-pc-windows-gnu</code>（PE32+）、<code>aarch64-unknown-linux-gnu</code>（ELF ARM64）、<code>aarch64-apple-darwin</code>（<b>Mach-O arm64</b>，即 M 系列）。後三者用 Zig 0.17.0 當連結器（<code>cargo zigbuild</code>），完全在 Linux 上完成。</li>
+    <li><b>C#</b>：<code>dotnet publish -r win-x64／linux-x64／linux-arm64／osx-arm64 --self-contained -p:PublishSingleFile=true</code>，四個 RID 都成功。</li>
     <li><b>Python</b>：Linux x86_64 用 PyInstaller 打成 ELF；Windows 用官方 embeddable Python 打包成可攜 zip（PyInstaller 無法跨平台編譯）；<b>ARM64 沒有現成免費方案</b>，這點照實說。</li>
   </ul>
   <p>掃描 ARM64 成品時發現：<b>Rust 的 arm64 ELF 與 Mach-O 都抓到 0 個元件</b>（strip 過）；C# 的 linux-arm64 目錄因為還有 <code>deps.json</code>，抓到 5 個元件、grype 找到 2 個 High；osx-arm64 是單檔，抓到 0 個。<b>結論：SBOM 一定要在 build 階段產生，事後掃執行檔幾乎掃不到東西。</b></p>
 
-  <h2>三、Rust：6 個弱點，程式碼弱點 0 個被抓到</h2>
+  <h2>五、Rust：6 個弱點，程式碼弱點 0 個被抓到</h2>
       <table class='grid'><tr><th>工具</th><th>W4</th><th>W1</th><th>W2</th><th>W3</th><th>W5</th><th>W8</th><th>說明</th></tr>
       <tr><td class='tool'>Semgrep（p/rust，11 條）</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='note'>只回 2 筆無關的 args 提示</td></tr>
       <tr><td class='tool'>Clippy（700+ lint）</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='note'>風格與正確性，不談安全</td></tr>
@@ -99,7 +170,7 @@
       </table>
   <p>Rust 的公開 SAST 規則只有 11 條，<code>Command::new("sh").arg("-c").arg(format!(...))</code> 這種教科書級指令注入<b>完全沒有反應</b>；Clippy 是風格工具，0 命中。唯一被發現的是相依漏洞。</p>
 
-  <h2>四、C#：7 個弱點，聯集 5 個（71%）</h2>
+  <h2>六、C#：7 個弱點，聯集 5 個（71%）</h2>
       <table class='grid'><tr><th>工具</th><th>W4</th><th>W1</th><th>W2</th><th>W3</th><th>W5</th><th>W6</th><th>W8</th><th>說明</th></tr>
       <tr><td class='tool'>Semgrep（p/csharp，27 條）</td><td class='c'>·</td><td class='c'>✓</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='c'>·</td><td class='note'>csharp-sqli</td></tr>
       <tr><td class='tool'>.NET 分析器（CA）</td><td class='c'>·</td><td class='c'>✓</td><td class='c'>·</td><td class='c'>·</td><td class='c'>✓</td><td class='c'>◐</td><td class='c'>·</td><td class='note'>CA2100、CA5351；W6 只跳出 CA2000（誤配）</td></tr>
@@ -109,7 +180,7 @@
       </table>
   <p>SQL 注入兩個工具都抓到（Semgrep <code>csharp-sqli</code>、.NET <code>CA2100</code>）；MD5 只有 .NET 分析器的 <code>CA5351</code> 抓到；TLS 驗證關閉那一行只跳出 <code>CA2000</code>（物件未釋放），屬於不同問題的誤配，我標成 ◐。<b>指令注入（W2）與路徑穿越（W3）全部漏掉。</b></p>
 
-  <h2>五、Python：7 個弱點，Bandit 幾乎全中</h2>
+  <h2>七、Python：7 個弱點，Bandit 幾乎全中</h2>
       <table class='grid'><tr><th>工具</th><th>W4</th><th>W1</th><th>W2</th><th>W3</th><th>W5</th><th>W6</th><th>W8</th><th>說明</th></tr>
       <tr><td class='tool'>Bandit</td><td class='c'>✓</td><td class='c'>✓</td><td class='c'>✓</td><td class='c'>◐</td><td class='c'>✓</td><td class='c'>✓</td><td class='c'>·</td><td class='note'>B608、B602、B108、B105、B324、B501</td></tr>
       <tr><td class='tool'>Semgrep（p/python，151 條）</td><td class='c'>·</td><td class='c'>·</td><td class='c'>✓</td><td class='c'>·</td><td class='c'>✓</td><td class='c'>·</td><td class='c'>·</td><td class='note'>subprocess-shell-true、insecure-hash-md5</td></tr>
@@ -119,8 +190,8 @@
       </table>
   <p>Bandit 6 個程式碼弱點抓到 6 個：<code>B608</code>（SQL）、<code>B602</code>（shell）、<code>B108</code>（硬編碼 /tmp，與路徑穿越相關但不等價，標 ◐）、<code>B105</code>（硬編碼憑證）、<code>B324</code>（MD5）、<code>B501</code>（<code>verify=False</code>）。Semgrep 只抓到 2 個。</p>
 
-  <h2>六、涵蓋率排行與誤判</h2>
-  <table class="nums">
+  <h2>八、涵蓋率排行與誤判</h2>
+  <div class="tablewrap"><table class="nums">
     <tr><th>工具</th><th>Rust</th><th>C#</th><th>Python</th><th>誤判</th></tr>
     <tr><td>Bandit</td><td>—</td><td>—</td><td><b>86%</b></td><td class="num">2</td></tr>
     <tr><td>.NET 內建分析器</td><td>—</td><td>33%（含 1 誤配）</td><td>—</td><td class="num">4</td></tr>
@@ -129,17 +200,31 @@
     <tr><td>trivy secret</td><td>0%</td><td>0%</td><td>14%</td><td class="num">0</td></tr>
     <tr><td>Clippy</td><td>0%</td><td>—</td><td>—</td><td class="num">0</td></tr>
     <tr><td>SCA（grype／trivy／OSV）</td><td>17%</td><td>14%</td><td>14%</td><td class="num">0</td></tr>
-  </table>
+  </table></div>
   <p class="quote">唯一三個語言都 100% 命中的類型，是「相依套件漏洞」。這也是為什麼 CRA 把 SBOM 寫成硬性要求——它是目前唯一可靠的自動化防線。</p>
 
-  <h2>七、結論：CRA 要的是三件套，不是一個神器</h2>
+  <h2>九、結論：CRA 要的是三件套，不是一個神器</h2>
   <ol>
     <li><b>SBOM</b>：build 階段用 syft 產生（事後掃執行檔會得到 0 個元件），用 sbomqs 檢查 BSI／NTIA profile。</li>
     <li><b>SCA</b>：grype＋trivy＋OSV 至少並跑兩個，保留原始 JSON 當證據。</li>
     <li><b>SAST</b>：按語言挑——Python 用 Bandit、C# 用 .NET 分析器、Rust 老實說沒有成熟的免費方案。</li>
   </ol>
 
-  <h2>八、限制（照實寫）</h2>
+  <h2>十、工具版本（全部已是 2026-10-28 的最新版）</h2>
+  <table class="nums">
+    <tr><th>工具</th><th>版本</th><th>是否最新</th></tr>
+    <tr><td>syft</td><td class="num">1.55.0</td><td>✅ 最新</td></tr>
+    <tr><td>grype</td><td class="num">0.121.0</td><td>✅ 最新</td></tr>
+    <tr><td>trivy</td><td class="num">0.76.1</td><td>✅ 最新</td></tr>
+    <tr><td>osv-scanner</td><td class="num">2.7.0</td><td>✅ 最新</td></tr>
+    <tr><td>sbomqs</td><td class="num">2.1.3</td><td>✅ 最新</td></tr>
+    <tr><td>gitleaks</td><td class="num">8.30.1</td><td>✅ 最新</td></tr>
+    <tr><td>Semgrep</td><td class="num">1.182.1</td><td>✅ 最新</td></tr>
+    <tr><td>Bandit</td><td class="num">1.9.4</td><td>✅ 最新</td></tr>
+    <tr><td>.NET SDK</td><td class="num">8.0.427</td><td>✅ 最新 LTS</td></tr>
+  </table>
+
+  <h2>十一、限制（照實寫）</h2>
   <ul>
     <li>每個語言只有 5–6 個弱點，只能看趨勢，不能當統計結論。</li>
     <li>弱點是我寫的，寫法會影響偵測率；換一種寫法結果可能不同。</li>
@@ -150,7 +235,7 @@
 
   <h2>資料來源</h2>
   <p class="src">
-    ① 原始碼與掃描輸出：本機 <code>~/banner/out/cra_sbom_report/vulnlab/</code>（含 coverage.json、coverage_detail.json）<br>
+    ① 原始碼與掃描輸出：本機執行，未上傳（含 20 列對照表與各工具原始 JSON）；本文表格即為完整結果<br>
     ② syft／grype：<a href="https://github.com/anchore/syft" target="_blank" rel="noopener">GitHub</a>｜<a href="https://github.com/anchore/grype" target="_blank" rel="noopener">GitHub</a><br>
     ③ trivy：<a href="https://github.com/aquasecurity/trivy" target="_blank" rel="noopener">GitHub</a>｜OSV-Scanner：<a href="https://github.com/google/osv-scanner" target="_blank" rel="noopener">GitHub</a><br>
     ④ Semgrep：<a href="https://github.com/semgrep/semgrep" target="_blank" rel="noopener">GitHub</a>｜Bandit：<a href="https://github.com/PyCQA/bandit" target="_blank" rel="noopener">GitHub</a>｜gitleaks：<a href="https://github.com/gitleaks/gitleaks" target="_blank" rel="noopener">GitHub</a><br>
@@ -158,6 +243,6 @@
   </p>
   <p class="src">本文所有數字皆為 2026-10-28 本機實測，未使用估算值；內容為技術整理，不構成任何產品或採購建議。</p>
 </main>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="10" data-views>—</span></div>
 </body>
 </html>
