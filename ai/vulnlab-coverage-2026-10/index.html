@@ -94,6 +94,20 @@
   </div>
 
 
+  <h2>一、實驗設計：同一組弱點類型，三個語言各寫一次</h2>
+  <p>每個弱點在原始碼裡都用 <code>VULN-Wn</code> 標在同一行，量測腳本用「行號 ±2」判斷工具是否命中，不靠關鍵字猜。Rust 沒有 TLS 設定場景，所以少一個（W6），這是唯一的數量差異。</p>
+  <table class="nums">
+    <tr><th>代號</th><th>CWE</th><th>內容</th><th>Rust 行</th><th>C# 行</th><th>Python 行</th></tr>
+      <tr><td>W1</td><td>CWE-89</td><td>SQL 字串拼接</td><td class='num'>13</td><td class='num'>18</td><td class='num'>17</td></tr>
+      <tr><td>W2</td><td>CWE-78</td><td>使用者輸入進 shell</td><td class='num'>19</td><td class='num'>25</td><td class='num'>24</td></tr>
+      <tr><td>W3</td><td>CWE-22</td><td>路徑穿越</td><td class='num'>25</td><td class='num'>36</td><td class='num'>29</td></tr>
+      <tr><td>W4</td><td>CWE-798</td><td>硬編碼憑證</td><td class='num'>10</td><td class='num'>11</td><td class='num'>10</td></tr>
+      <tr><td>W5</td><td>CWE-327</td><td>MD5 當完整性檢查</td><td class='num'>30</td><td class='num'>42</td><td class='num'>35</td></tr>
+      <tr><td>W6</td><td>CWE-295</td><td>關閉 TLS 憑證驗證</td><td class='num'>—</td><td class='num'>51</td><td class='num'>40</td></tr>
+      <tr><td>W8</td><td>CWE-1395</td><td>已知漏洞相依</td><td class='num'>38</td><td class='num'>—</td><td class='num'>—</td></tr>
+  </table>
+
+
   <h2>二、20 個弱點逐項清單（哪一個、在哪一行、誰抓到）</h2>
   <p>上一節是「弱點類型」，這一節是「實際植入的 20 個弱點」：3 個語言 × 6 個程式碼弱點，加上 3 個相依套件弱點。標記 <b>◐</b> 代表相鄰問題的部分命中（本報告仍計為命中，與影片一致）。</p>
   <ol class="wlist">
@@ -118,21 +132,7 @@
     <li class="hit"><div><div class="top"><span class="idx">19</span>Python<span class="chip">W6</span><span class="chip">CWE-295</span></div><div class="name">關閉 TLS 憑證驗證</div><div class="loc">python/app.py:40</div></div><div class="res hit">Bandit（B501）</div></li>
     <li class="hit"><div><div class="top"><span class="idx">20</span>Python<span class="chip">W8</span><span class="chip">CWE-1395</span></div><div class="name">已知漏洞相依</div><div class="loc">requests 2.19.1／urllib3 1.23</div></div><div class="res hit">SCA：grype／trivy／OSV</div></li>
   </ol>
-  <p>統計：<b>20 個弱點，13 個命中（65%）</b>——Rust 1/6、C# 5/7、Python 7/7。<b>完全沒有工具抓到</b>的有 6 個：Rust 的 W1–W5（全部程式碼弱點）、C# 的 W2 與 W3。</p>
-
-  <h2>一、實驗設計：同一組弱點類型，三個語言各寫一次</h2>
-  <p>每個弱點在原始碼裡都用 <code>VULN-Wn</code> 標在同一行，量測腳本用「行號 ±2」判斷工具是否命中，不靠關鍵字猜。Rust 沒有 TLS 設定場景，所以少一個（W6），這是唯一的數量差異。</p>
-  <table class="nums">
-    <tr><th>代號</th><th>CWE</th><th>內容</th><th>Rust 行</th><th>C# 行</th><th>Python 行</th></tr>
-      <tr><td>W1</td><td>CWE-89</td><td>SQL 字串拼接</td><td class='num'>13</td><td class='num'>18</td><td class='num'>17</td></tr>
-      <tr><td>W2</td><td>CWE-78</td><td>使用者輸入進 shell</td><td class='num'>19</td><td class='num'>25</td><td class='num'>24</td></tr>
-      <tr><td>W3</td><td>CWE-22</td><td>路徑穿越</td><td class='num'>25</td><td class='num'>36</td><td class='num'>29</td></tr>
-      <tr><td>W4</td><td>CWE-798</td><td>硬編碼憑證</td><td class='num'>10</td><td class='num'>11</td><td class='num'>10</td></tr>
-      <tr><td>W5</td><td>CWE-327</td><td>MD5 當完整性檢查</td><td class='num'>30</td><td class='num'>42</td><td class='num'>35</td></tr>
-      <tr><td>W6</td><td>CWE-295</td><td>關閉 TLS 憑證驗證</td><td class='num'>—</td><td class='num'>51</td><td class='num'>40</td></tr>
-      <tr><td>W8</td><td>CWE-1395</td><td>已知漏洞相依</td><td class='num'>38</td><td class='num'>—</td><td class='num'>—</td></tr>
-  </table>
-
+  <p>統計：<b>20 個弱點，13 個命中（65%）</b>——Rust 1/6、C# 5/7、Python 7/7。<b>完全沒有工具抓到</b>的有 7 個：Rust 的 W1–W5（全部程式碼弱點）、C# 的 W2 與 W3。</p>
 
   <h2>三、掃描範圍會決定你看到什麼（實測對照）</h2>
   <p>同一個專案，只換「掃哪裡」，數字就完全不同。這是 CRA 證據最常出錯的地方：你以為掃了專案，其實掃到的是建置暫存檔。</p>
