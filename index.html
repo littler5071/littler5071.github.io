@@ -87,21 +87,6 @@
 <link rel="stylesheet" href="./nav.css?v=b7b27715">
 <script defer src="./nav.js?v=c73ca689"></script>
 <script defer src="./counter.js?v=e837f732"></script>
-<!-- hermes-seo -->
-<link rel="canonical" href="https://littler5071.github.io/">
-<meta name="google-site-verification" content="d0-UsEPQx4WsiLOHng08n2o5Qclmq8Fw9tbMgaxIkck">
-<meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
-<meta property="og:site_name" content="小R頻道">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小R頻道 · 影片索引">
-<meta property="og:description" content="小R頻道的影片索引：AI 助理實測、股市觀察、多益英文。">
-<meta property="og:url" content="https://littler5071.github.io/">
-<meta property="og:locale" content="zh_TW">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="小R頻道 · 影片索引">
-<meta name="twitter:description" content="小R頻道的影片索引：AI 助理實測、股市觀察、多益英文。">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<!-- /hermes-seo -->
 </head>
 <body>
 <div class="wrap">
@@ -117,26 +102,26 @@
 
   <section id="ai">
     <h2><a class="h2link" href="ai/"><span class="dot"></span>AI 助理實測</a>
-      <span class="more"><a href="ai/">全部影片（21）→</a></span>
+      <span class="more"><a href="ai/">全部影片（23）→</a></span>
     </h2>
     <p class="hint">真的拿 AI 助理來做事的紀錄：實測影片、踩過的坑、用公開來源寫成的長文。</p>
     <div class="card">
       <span class="tag new">最新</span>
-      <h3>AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例</h3>
-      <p>a16z 引用 OpenAI GDPval，比較 2025 年 9 月與 2026 年 4 月的 44 個職業：模型對專家的勝率平均從 49.5% 升到 59.4%（+9.9 個百分點），36 個進步、1 個持平、7 個退步。退最多的是醫療與健康服務經理（65%→38%），律師 56%→46%；分數最高的是編輯 93%。我另外算出兩個圖上沒有的規律：起點低的職業平均 +15.3、起點高的只 +4.5；產業以政府 +17.6 最高、醫療 +2.6 最低。附 44 列完整表格、實際案例與出處。</p>
-      <a class="btn" href="ai/models-uneven-2026-10/">看報告 →</a>
+      <h3>我故意寫了三個有漏洞的程式，讓 11 個免費資安工具去抓：Rust 只抓到 17%</h3>
+      <p>Rust／C#／Python 各植入同一組 6 種弱點＋1 個漏洞相依，共 20 個；11 個免費工具聯集只命中 13 個（65%）。完整清單與行號見 ai/vulnlab-coverage-2026-10/。</p>
+      <a class="btn" href="https://youtube.com/shorts/ZWVaJ04ERUI">看影片 →</a>
     </div>
     <div class="card">
       <span class="tag new">近期</span>
-      <h3>AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」</h3>
-      <p>2026 年最流行的一句話是「AI 公司都在轉 Rust」。用 GitHub 語言統計 API 逐一實測：OpenAI Codex 97.2% Rust、uv 98.0%、ruff 96.8%、Hugging Face tokenizers 95.1%、candle 75.3%、Polars 62.0%；但對照組 PyTorch 的 Rust 是 0%（Python 66.3%＋C++ 26.5%）。再加上 OpenAI 收購 Astral、Linux 核心 Rust 實驗過關且一年成長 5 倍、微軟 2030 年要把 C/C++ 換成 Rust。結論：轉的是模型外面的管線（推論、分詞、工具鏈），不是模型本身——引擎還是 Python。附六個硬證據與可重現指令。</p>
-      <a class="btn" href="ai/rust-ai-2026-10/">看報告 →</a>
+      <h3>我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少</h3>
+      <p>CWE 對照實驗：Rust／C#／Python 各植入 SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、TLS 驗證關閉，加一個已知漏洞相依，共 20 個弱點。用 syft、grype、trivy、OSV、sbomqs、Semgrep、Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。結果：Python 100%、C# 71%、Rust 17%；唯一全中的類型是相依漏洞，沒有單一工具能應付 CRA。</p>
+      <a class="btn" href="ai/vulnlab-coverage-2026-10/">看報告 →</a>
     </div>
   </section>
 
   <section id="stock">
     <h2><a class="h2link" href="stock/"><span class="dot"></span>股市觀察</a>
-      <span class="more"><a href="stock/">全部觀察紀錄（57）→</a></span>
+      <span class="more"><a href="stock/">全部觀察紀錄（58）→</a></span>
     </h2>
     <p class="hint">每個交易日成交金額前段班的逐檔技術面觀察，只用公開資料；不預測、不報牌。</p>
     <p class="mktline">大盤（加權指數）10/28 主狀態：跌破月線｜距多方頸線 −4.56%｜量比 20 0.78<span class="dim">　公開資料技術面統計，不構成投資建議</span></p>
