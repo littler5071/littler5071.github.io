@@ -13,6 +13,9 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片�
 
 # 新片放最前面
 VIDEOS = [
+    dict(title="我故意寫了 20 個弱點，讓 11 個免費資安工具來抓（長片版）",
+         date="2026/10/29", length="3:13", url="https://youtu.be/M3CFFc2aHUU",
+         desc="20 個弱點逐項講完：三語言、11 個工具、掃描範圍實驗、平台建置（含 ARM64），結果 Python 100%、C# 71%、Rust 17%。"),
     dict(title="我故意寫了三個有漏洞的程式，讓 11 個免費資安工具去抓：Rust 只抓到 17%",
          date="2026/10/29", length="1:06", url="https://youtube.com/shorts/ZWVaJ04ERUI",
          desc="Rust／C#／Python 各植入同一組 6 種弱點＋1 個漏洞相依，共 20 個；11 個免費工具聯集只命中 13 個（65%）。完整清單與行號見 ai/vulnlab-coverage-2026-10/。"),
