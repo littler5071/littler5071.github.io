@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K3s 完全研究報告：從「它是什麼」到「你該不該用」｜小R頻道</title>
+<meta name="description" content="K3s 是什麼、跟 Kubernetes 差在哪、官方資源實測數字（server 1.6 GB／agent 275 MB）、三種部署架構、需要的硬體與網路埠、七個方案對照、風險清單與落地路線；由淺而深三層，全部引用官方文件與版本 v1.37.1+k3s1。">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border-radius:12px}
+  table.kt{width:100%;border-collapse:collapse;font-size:14px;background:#fff;min-width:520px}
+  table.kt th,table.kt td{border-bottom:1px dashed var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+  table.kt th{color:#78706a;font-weight:700;white-space:nowrap;background:#faf7ef}
+  table.kt td{line-height:1.65}
+  table.kt code{font-size:12.5px}
+  @media (max-width:640px){
+    table.kt{min-width:0;font-size:13px}
+    table.kt th,table.kt td{white-space:normal;word-break:break-word;padding:7px 6px}
+  }
+  h2{margin-top:38px;padding-top:10px;border-top:2px dashed #ddd6c6}
+  h3{margin-top:26px;color:#3a3630}
+  ul,ol{padding-left:22px;line-height:1.95}
+  li{margin:6px 0}
+  blockquote{border-left:5px solid #c2452d;margin:18px 0;padding:6px 0 6px 16px;color:#4a4640;background:#fffdf7}
+  pre{background:#1f2126;color:#e8e6e1;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.7}
+  pre code{background:none;color:inherit;padding:0}
+  .lede{font-size:17px;line-height:1.95;color:#3f3a34}
+  .meta{font-size:13.5px;color:#78706a;margin:-6px 0 22px}
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+</style>
+<!-- hermes-seo -->
+<link rel="canonical" href="https://littler5071.github.io/ai/k3s-2026-10/">
+<meta name="keywords" content="小R頻道, K3s, Kubernetes, 邊緣運算, 自架叢集, RKE2, k0s, MicroK8s, SBOM, 雲原生">
+<meta property="og:site_name" content="小R頻道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K3s 完全研究報告：從「它是什麼」到「你該不該用」｜小R頻道">
+<meta property="og:description" content="K3s 是什麼、跟 Kubernetes 差在哪、官方資源實測數字（server 1.6 GB／agent 275 MB）、三種部署架構、需要的硬體與網路埠、七個方案對照、風險清單與落地路線；由淺而深三層，全部引用官方文件與版本 v1.37.1+k3s1。">
+<meta property="og:url" content="https://littler5071.github.io/ai/k3s-2026-10/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="K3s 完全研究報告：從「它是什麼」到「你該不該用」｜小R頻道">
+<meta name="twitter:description" content="K3s 是什麼、跟 Kubernetes 差在哪、官方資源實測數字（server 1.6 GB／agent 275 MB）、三種部署架構、需要的硬體與網路埠、七個方案對照、風險清單與落地路線；由淺而深三層，全部引用官方文件與版本 v1.37.1+k3s1。">
+<!-- /hermes-seo -->
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
+</head>
+<body>
+<main class="wrap">
+  <h1>K3s 完全研究報告：從「它是什麼」到「你該不該用」</h1>
+  <p class="meta">2026-10-29｜小R 頻道｜技術研究</p>
+  <p class="lede">K3s 是什麼、跟 Kubernetes 差在哪、官方資源實測數字（server 1.6 GB／agent 275 MB）、三種部署架構、需要的硬體與網路埠、七個方案對照、風險清單與落地路線；由淺而深三層，全部引用官方文件與版本 v1.37.1+k3s1。</p>
+<p><strong>版本基準</strong>：K3s <code>v1.37.1+k3s1</code>（2026-09-30 發布，對應 Kubernetes v1.37.1）<br>
+<strong>撰寫日期</strong>：2026-10-29<br>
+<strong>資料來源</strong>：K3s 官方文件（docs.k3s.io）、k3s-io/k3s GitHub Releases；數字均標明出處章節<br>
+<strong>閱讀方式</strong>：第一層看熱鬧、第二層看門道、第三層看決策。要直接看結論跳到最後一節。</p>
+<hr>
+<h2>第 0 層：先搞懂三個名詞（30 秒版）</h2>
+<h3>0.1 Kubernetes（K8s）是什麼</h3>
+<p>想像你有一批<strong>貨櫃</strong>（應用程式），跟幾十台<strong>卡車</strong>（伺服器）。<br>
+Kubernetes 是那個「<strong>碼頭調度中心</strong>」：你只說「我要 3 個這個貨櫃一直在跑」，它就負責找車、裝載、檢查、壞了重派、要換版本時一台一台換。</p>
+<p>具體一點，它做的事是：</p>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>你說的</th>
+<th>K8s 幫你做的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「這個服務要 3 份」</td>
+<td>自動在有空位的機器上開 3 個容器，掛掉一個就補一個</td>
+</tr>
+<tr>
+<td>「更新到新版本」</td>
+<td>一台一台換（滾動更新），新版本壞了就自動退回舊版</td>
+</tr>
+<tr>
+<td>「這台機器掛了」</td>
+<td>把上面的工作搬到其他機器重開</td>
+</tr>
+<tr>
+<td>「這兩個服務要互相找得到」</td>
+<td>給每個服務一個固定名稱與內部 IP，不用記機器 IP</td>
+</tr>
+<tr>
+<td>「這個服務要對外 80 埠」</td>
+<td>透過 Ingress／LoadBalancer 幫你轉進去</td>
+</tr>
+<tr>
+<td>「這份設定／密碼」</td>
+<td>用 ConfigMap／Secret 管理，不用寫死在映像裡</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>它跟 Docker Compose 最大的差別</strong>：Compose 是「一台機器上幫你啟動一組容器」；K8s 是「<strong>一群機器上，持續把系統維持在你宣告的狀態</strong>」——機器掛掉、容器當掉、要擴充、要換版，它會自己處理。</p>
+<h3>0.2 那 K3s 又是什麼</h3>
+<p><strong>K3s 就是 Kubernetes，只是「打包方式」不一樣。</strong></p>
+<p>標準的 Kubernetes 要你自己湊齊很多零件（etcd 資料庫、API server、排程器、控制器、CNI 網路、DNS、Ingress、負載平衡、儲存），每個零件都是一個獨立程式、各自有版本、各自要設定憑證。</p>
+<p>K3s 把這些<strong>全部塞進一個不到 100 MB 的執行檔</strong>，並在裡面附上：containerd（容器執行環境）、Flannel（網路）、CoreDNS（DNS）、Traefik（Ingress）、ServiceLB（負載平衡）、local-path（儲存）、以及預設用 SQLite 當資料庫。</p>
+<p>所以：</p>
+<ul>
+<li><strong>K8s 是規格與功能</strong>（API、YAML、Pod、Service、Deployment… 全部一樣）</li>
+<li><strong>K3s 是「把 K8s 裝起來變簡單」的一種發行版</strong>（像 Ubuntu 之於 Linux）</li>
+<li>你寫的 <code>kubectl</code> 指令、Helm chart、Operator，在 K3s 上<strong>完全通用</strong></li>
+</ul>
+<h3>0.3 為什麼它的定位是「太難養」而不是「功能不夠」</h3>
+<p>Kubernetes 的功能其實非常夠。問題出在<strong>養它的成本</strong>：</p>
+<ul>
+<li>建一個能用的叢集，要處理 <strong>9 類</strong>基礎設施（憑證、資料庫、runtime、CNI、DNS、Ingress、LB、儲存、版本對齊）</li>
+<li>憑證過期 → 整個叢集連不上；etcd 磁碟滿 → 叢集寫不進去；升級順序錯 → 起不來</li>
+<li>這些事的知識門檻高，而且<strong>出錯時很難查</strong></li>
+</ul>
+<p>這就是官方首頁那句 “Situations where a PhD in K8s clusterology is infeasible” 的意思——<strong>不是 K8s 不夠強，是它的維運門檻把大多數人擋在外面</strong>。K3s 要解決的就是這一件事：把「裝起來、維持運作、升級」變成一行指令級的操作。</p>
+<hr>
+<h2>第一層：入門（它是什麼、為什麼會存在）</h2>
+<h3>1.1 名字的由來</h3>
+<p>Kubernetes 是 10 個字母，縮寫 K8s（中間 8 個字母）。K3s 想做的是一個「記憶體只有一半」的版本，於是取中間 3 個字母 → <strong>K3s</strong>。官方明說：<strong>沒有長寫法、也沒有官方唸法</strong>。</p>
+<h3>1.2 沒有 K3s 之前，裝一套 K8s 有多麻煩</h3>
+<p>用 <code>kubeadm</code> 從零建叢集，你至少要處理這些事：</p>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>項目</th>
+<th>傳統 K8s 的痛點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>憑證</td>
+<td>CA、apiserver、kubelet、etcd 憑證要自己產、自己輪替，過期就全叢集掛掉</td>
+</tr>
+<tr>
+<td>資料庫</td>
+<td>要自己架 etcd 叢集（3 或 5 節點、quorum、defrag、快照）</td>
+</tr>
+<tr>
+<td>容器執行環境</td>
+<td>要自己裝 containerd 或 CRI-O，設 cgroup driver</td>
+</tr>
+<tr>
+<td>CNI</td>
+<td>要自己選 Calico／Cilium／Flannel 並部署</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>要自己裝 CoreDNS</td>
+</tr>
+<tr>
+<td>Ingress</td>
+<td>要自己裝 ingress-nginx／Traefik</td>
+</tr>
+<tr>
+<td>LoadBalancer</td>
+<td>裸機沒有雲的 LB，要自己接 MetalLB</td>
+</tr>
+<tr>
+<td>儲存</td>
+<td>要自己接 CSI 或 NFS</td>
+</tr>
+<tr>
+<td>版本</td>
+<td>每個元件版本都要對得上，K8s 版本 skew 政策很囉唆</td>
+</tr>
+</tbody>
+</table></div>
+<p>一個熟悉的人做也要半天到一天，而且<strong>升級與憑證輪替才是真正的地獄</strong>。</p>
+<h3>1.3 K3s 的做法：把上面全部包進去</h3>
+<p>K3s 把所有控制平面元件編譯進<strong>同一個 process</strong>，並且內建這些東西（官方文件「Packaged Components」）：</p>
+<ul>
+<li><strong>containerd</strong>（容器執行環境；也支援 cri-dockerd）</li>
+<li><strong>Flannel</strong>（CNI，預設 VXLAN）</li>
+<li><strong>CoreDNS</strong>（叢集 DNS）</li>
+<li><strong>Traefik</strong>（Ingress Controller）</li>
+<li><strong>ServiceLB / Klipper</strong>（裸機 LoadBalancer 實作）</li>
+<li><strong>Kube-router</strong>（Network Policy）</li>
+<li><strong>local-path-provisioner</strong>（預設 StorageClass，用本機磁碟）</li>
+<li><strong>Spegel</strong>（分散式容器映像 mirror，減少對外拉映像）</li>
+<li><strong>host utilities</strong>（iptables、socat 等）</li>
+</ul>
+<p>而且預設資料庫是 <strong>SQLite（透過 kine 介面）</strong>，不是 etcd —— 這是它「單節點就能跑」的關鍵。</p>
+<h3>1.4 五分鐘上手（單節點）</h3>
+<pre><code class="language-bash"># 1) 安裝（會自動裝成 systemd 服務）
+curl -sfL https://get.k3s.io | sh -
+
+# 2) 看節點
+sudo k3s kubectl get nodes
+# NAME       STATUS   ROLES                  AGE   VERSION
+# k3s-server  Ready    control-plane,master   30s   v1.37.1+k3s1
+
+# 3) 讓一般使用者能用 kubectl
+mkdir -p ~/.kube &amp;&amp; sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $USER ~/.kube/config &amp;&amp; chmod 600 ~/.kube/config
+export KUBECONFIG=~/.kube/config
+
+# 4) 部署一個服務
+kubectl create deployment web --image=nginx:alpine --replicas=2
+kubectl expose deployment web --port=80 --type=LoadBalancer
+
+# 5) 看它拿到什麼 IP（ServiceLB 會用節點 IP）
+kubectl get svc web
+</code></pre>
+<p>這樣就有：兩個 nginx Pod、一個 LoadBalancer Service、一個可用的 Ingress Controller，<strong>不用裝任何其他東西</strong>。</p>
+<h3>1.5 心智模型：只有兩種節點</h3>
+<ul>
+<li><strong>server node</strong>：跑 <code>k3s server</code>，有控制平面與資料庫</li>
+<li><strong>agent node</strong>：跑 <code>k3s agent</code>，只有 kubelet + runtime + CNI</li>
+</ul>
+<p>單機時，server 同時也跑工作負載（K3s 不會像 kubeadm 那樣幫 control-plane 上 taint 阻止排程）。</p>
+<hr>
+<h2>第二層：進階（架構、規格、操作）</h2>
+<h3>2.1 三種部署架構</h3>
+<p><strong>A. 單 server + 內嵌 SQLite（最常見）</strong><br>
+- 1 台 server，0～N 台 agent<br>
+- 資料庫就是一個 SQLite 檔（<code>/var/lib/rancher/k3s/server/db/</code>）<br>
+- 優點：最簡單、最省資源、備份就是複製檔案<br>
+- 缺點：<strong>沒有 HA</strong>，server 掛了就沒控制平面</p>
+<p><strong>B. 3 台以上 server + 內嵌 etcd（HA）</strong><br>
+- <code>--cluster-init</code> 啟動第一台，其餘用 <code>--server https://server1:6443</code> 加入<br>
+- etcd 必須是<strong>奇數</strong>台（quorum = n/2+1）<br>
+- 官方警告：<strong>內嵌 etcd 在慢速磁碟（例如 Raspberry Pi 的 SD 卡）會有效能問題</strong></p>
+<p><strong>C. 2 台以上 server + 外部資料庫（MySQL／PostgreSQL／外部 etcd）</strong><br>
+- 適合已經有 RDS 之類的企業環境<br>
+- K3s 只負責 K8s，資料庫交給專業的</p>
+<p>另外有一個實務常用的東西：<strong>固定註冊位址（fixed registration address）</strong><br>
+多台 server 時，agent 不該寫死連某一台，而是連一個 VIP／DNS 名稱（<code>--tls-san</code>），再由它轉到健康的 server。</p>
+<h3>2.2 官方資源實測（這是最值得看的表）</h3>
+<p>K3s 官方 <code>Resource Profiling</code> 頁面，用 Intel Xeon 8375C 2.90GHz 與 Raspberry Pi 4B 實測，跑 K3s v1.26.5 + Prometheus + Grafana + 範例 nginx：</p>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>元件</th>
+<th>處理器</th>
+<th>最小 CPU</th>
+<th>最小 RAM（Kine/SQLite）</th>
+<th>最小 RAM（內嵌 etcd）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server（含一個工作負載）</td>
+<td>Xeon 8375C</td>
+<td>核心的 6%</td>
+<td><strong>1596 MB</strong></td>
+<td>1606 MB</td>
+</tr>
+<tr>
+<td>server + 1 agent</td>
+<td>Xeon 8375C</td>
+<td>核心的 5%</td>
+<td>1428 MB</td>
+<td>1450 MB</td>
+</tr>
+<tr>
+<td><strong>agent</strong></td>
+<td>Xeon 8375C</td>
+<td>核心的 3%</td>
+<td><strong>275 MB</strong></td>
+<td>275 MB</td>
+</tr>
+<tr>
+<td>server（含工作負載）</td>
+<td>Pi4B 1.5GHz</td>
+<td>核心的 30%</td>
+<td>1588 MB</td>
+<td>1613 MB</td>
+</tr>
+<tr>
+<td>server + 1 agent</td>
+<td>Pi4B 1.5GHz</td>
+<td>核心的 25%</td>
+<td>1215 MB</td>
+<td>1413 MB</td>
+</tr>
+<tr>
+<td>agent</td>
+<td>Pi4B 1.5GHz</td>
+<td>核心的 10%</td>
+<td>268 MB</td>
+<td>268 MB</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>兩個關鍵訊息</strong>：</p>
+<ol>
+<li><strong>控制平面本身約 1.2～1.6 GB RAM</strong>（含監控堆疊與一個 nginx）——「K3s 只要 512MB」是把它當純 agent 或關掉一堆元件時的說法。</li>
+<li><strong>CPU 需求真的很低</strong>：Xeon 上只吃 5～6% 的一核；Pi4B 上 25～30% 的一核。所以「省」主要省在 CPU 與維運，不是省在 RAM 下限。</li>
+</ol>
+<p>官方另外給的<strong>最低門檻</strong>（不含工作負載）：</p>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>節點</th>
+<th>CPU</th>
+<th>RAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>2 cores</td>
+<td>2 GB</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td>1 core</td>
+<td>512 MB</td>
+</tr>
+</tbody>
+</table></div>
+<h3>2.3 規模上限（官方 sizing 表）</h3>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>Server CPU</th>
+<th>Server RAM</th>
+<th>可帶 agent 數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>4 GB</td>
+<td>0–350</td>
+</tr>
+<tr>
+<td>4</td>
+<td>8 GB</td>
+<td>351–900</td>
+</tr>
+<tr>
+<td>8</td>
+<td>16 GB</td>
+<td>901–1800</td>
+</tr>
+<tr>
+<td>16+</td>
+<td>32 GB</td>
+<td>1800+</td>
+</tr>
+</tbody>
+</table></div>
+<p>HA（3 台 server）大約可再多 50%，例如 3 台 4vCPU/8GB 可撐到約 1,200 個 agent。<br>
+官方建議 agent <strong>每批 50 台以內</strong>加入（加入瞬間有 CPU 尖峰），超過 255 節點要改 <code>cluster-cidr</code>。</p>
+<h3>2.4 網路與防火牆（實務最常卡的地方）</h3>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>埠</th>
+<th>協定</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>6443</strong></td>
+<td>TCP</td>
+<td>Kubernetes API（所有節點都要能連 server）</td>
+</tr>
+<tr>
+<td><strong>8472</strong></td>
+<td>UDP</td>
+<td>Flannel VXLAN（用 WireGuard backend 時改成 51820/51821）</td>
+</tr>
+<tr>
+<td><strong>10250</strong></td>
+<td>TCP</td>
+<td>kubelet metrics（要用 metrics-server 時節點間互通）</td>
+</tr>
+<tr>
+<td><strong>2379／2380</strong></td>
+<td>TCP</td>
+<td>內嵌 etcd 的 server 之間</td>
+</tr>
+<tr>
+<td>30000–32767</td>
+<td>TCP</td>
+<td>NodePort 服務</td>
+</tr>
+</tbody>
+</table></div>
+<p>兩個官方明講的安全警告，值得抄進筆記：</p>
+<blockquote>
+<p>VXLAN 的 8472 埠<strong>絕對不要對外網開放</strong>，等於把整個叢集網段攤在網路上。</p>
+<p>Flannel 用 bridge CNI 做 L2 交換，<strong>帶有 NET_RAW 的 Pod 可以做 ARP spoofing</strong>，官方建議對不受信任的 Pod 套用 restricted PSA profile 關掉 NET_RAW。</p>
+</blockquote>
+<h3>2.5 資料庫選擇：SQLite 還是 etcd？</h3>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th></th>
+<th>SQLite（kine）</th>
+<th>內嵌 etcd</th>
+<th>外部 MySQL／Postgres</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>節點數</td>
+<td>只能 1 台 server</td>
+<td>3、5、7 台</td>
+<td>2 台以上 server</td>
+</tr>
+<tr>
+<td>HA</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅（資料庫要自己 HA）</td>
+</tr>
+<tr>
+<td>備份</td>
+<td>複製 DB 檔／停機快照</td>
+<td><code>k3s etcd-snapshot</code> 內建</td>
+<td>資料庫自己的備份</td>
+</tr>
+<tr>
+<td>效能</td>
+<td>單機夠用；寫入是序列化的</td>
+<td>好，但<strong>寫入密集、怕慢碟</strong></td>
+<td>看資料庫</td>
+</tr>
+<tr>
+<td>適用</td>
+<td>開發、邊緣、單機服務、CI</td>
+<td>生產 HA</td>
+<td>已有企業級 DB</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>這是最多人踩的坑</strong>：用 SQLite 起了一個「正式」叢集，等到要加第二台 server 才發現加不了，必須重建並遷移資料。</p>
+<h3>2.6 日常操作速查</h3>
+<pre><code class="language-bash"># 用設定檔（強烈建議：不要把參數寫在 install script 裡，重跑會覆蓋）
+sudo tee /etc/rancher/k3s/config.yaml &gt;/dev/null &lt;&lt;'YAML'
+write-kubeconfig-mode: &quot;0644&quot;
+disable:
+  - traefik          # 不用 Traefik（改自己的 Ingress）
+  - metrics-server   # 記憶體吃緊時
+tls-san:
+  - k3s.example.com
+YAML
+
+# 升級（先 server 逐台，再 agent；不可跳版）
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.37.1+k3s1 sh -
+
+# 備份（etcd 模式）
+sudo k3s etcd-snapshot save --name pre-upgrade
+sudo k3s etcd-snapshot list
+
+# 還原
+sudo systemctl stop k3s
+sudo k3s server --cluster-reset --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/&lt;file&gt;
+
+# 離線安裝（air-gap）
+#  1. 下載 k3s 執行檔 + k3s-airgap-images-&lt;arch&gt;.tar
+#  2. 載入映像：sudo k3s ctr images import k3s-airgap-images-amd64.tar
+#  3. INSTALL_K3S_SKIP_DOWNLOAD=true ./install.sh
+
+# 自動升級（GitHub 上的 system-upgrade-controller + Plan CRD）
+kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
+</code></pre>
+<p><strong>版本 skew 規則</strong>：升級不能跳過中間的 minor 版本（K8s 政策），system-upgrade-controller 不會幫你擋。</p>
+<hr>
+<h2>第三層：深入（決策、比較、風險）</h2>
+<h3>3.1 K3s 拿掉了什麼</h3>
+<p>K3s 不是「K8s 縮小版」這麼簡單，它<strong>移除或替換</strong>了一些東西：</p>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>項目</th>
+<th>狀態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>舊版 in-tree cloud provider（AWS/GCE/Azure…）</td>
+<td>移除，改用外部 cloud-controller-manager</td>
+</tr>
+<tr>
+<td>部分 alpha 功能與 feature gate</td>
+<td>預設關閉或移除</td>
+</tr>
+<tr>
+<td>舊式（非 CSI）in-tree 儲存驅動</td>
+<td>移除</td>
+</tr>
+<tr>
+<td>內建 etcd（單節點時）</td>
+<td>換成 SQLite/kine</td>
+</tr>
+<tr>
+<td>多個獨立 process 的控制平面</td>
+<td>合併成單一 process</td>
+</tr>
+<tr>
+<td>Docker 為預設 runtime</td>
+<td>改成 containerd（可選 cri-dockerd）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>但它是 CNCF 認證的 conformance 版本</strong>：<code>kubectl</code>、YAML、Helm chart、Operator、CRD 這些完全通用，只是「裝法」與「預設值」不同。</p>
+<h3>3.2 與其他方案比較</h3>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>方案</th>
+<th>定位</th>
+<th>優點</th>
+<th>缺點</th>
+<th>適合誰</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>K3s</strong></td>
+<td>輕量 K8s 發行版</td>
+<td>單 binary、內建齊全、ARM 支援好、社群最大</td>
+<td>SQLite 單點、預設值偏「方便」而非「安全硬化」</td>
+<td>家庭 lab、邊緣、IoT、CI、小型生產</td>
+</tr>
+<tr>
+<td><strong>RKE2</strong></td>
+<td>安全硬化版（同為 Rancher）</td>
+<td>CIS benchmark 對齊、預設不包 Traefik、FIPS 取向</td>
+<td>較重、學習曲線陡</td>
+<td>政府／金融／需要合規</td>
+</tr>
+<tr>
+<td><strong>MicroK8s</strong></td>
+<td>Canonical 版</td>
+<td>snap 安裝、addon 生態豐富、桌面開發友善</td>
+<td>snap 綁定 Ubuntu、資源比 K3s 重一些</td>
+<td>Ubuntu 開發者、單機 lab</td>
+</tr>
+<tr>
+<td><strong>k0s</strong></td>
+<td>單 binary、零依賴</td>
+<td>真的「一個 binary」、預設更中性</td>
+<td>生態與文件較小</td>
+<td>想要乾淨基底自己加料</td>
+</tr>
+<tr>
+<td><strong>Talos</strong></td>
+<td>不可變 OS + K8s</td>
+<td>極高一致性、API 驅動、安全</td>
+<td>不能 SSH 進去、學習曲線最陡</td>
+<td>認真做叢集、要 immutable infra</td>
+</tr>
+<tr>
+<td><strong>kubeadm</strong></td>
+<td>官方安裝器</td>
+<td>最貼近 upstream、可控性最高</td>
+<td>什麼都要自己做</td>
+<td>已有 K8s 團隊、要完全掌控</td>
+</tr>
+<tr>
+<td><strong>kind／minikube</strong></td>
+<td>本機測試</td>
+<td>快、隔離、適合 CI</td>
+<td>不適合正式</td>
+<td>開發與測試</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3.3 什麼時候「不該」用 K3s</h3>
+<p>老實說，這節比優點更重要：</p>
+<ol>
+<li><strong>你只有一台機器、服務也不多</strong> → systemd + Docker/Podman compose 就夠了，K3s 只是多一層要學。</li>
+<li><strong>你有嚴格的合規要求（CIS／FIPS）</strong> → 直接用 RKE2 或託管服務，不要自己改 K3s 預設值改到懷疑人生。</li>
+<li><strong>你的磁碟是 SD 卡或便宜 eMMC</strong> → etcd 寫入密集，官方自己說不建議。</li>
+<li><strong>團隊沒人懂 K8s</strong> → K3s 讓「裝起來」變簡單，但<strong>沒讓「除錯」變簡單</strong>。Pod 起不來、CNI 不通、PVC 卡住，這些知識一樣要會。</li>
+<li><strong>規模超大（數千節點、多租戶硬隔離）</strong> → 用正式發行版或雲端託管。</li>
+<li><strong>你需要 Windows 節點</strong> → K3s 不支援 Windows worker（upstream 有，K3s 沒有）。</li>
+</ol>
+<h3>3.4 用了之後的實際效益（可量化的部分）</h3>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>面向</th>
+<th>傳統 kubeadm</th>
+<th>K3s</th>
+<th>差距</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初次建置</td>
+<td>半天～1 天</td>
+<td>5～10 分鐘</td>
+<td><strong>約 50～100 倍</strong></td>
+</tr>
+<tr>
+<td>控制平面 RAM</td>
+<td>約 2 GB 起（etcd + 各元件）</td>
+<td>約 1.2～1.6 GB（含監控與範例 app）</td>
+<td>約 30～40%</td>
+</tr>
+<tr>
+<td>節點 CPU</td>
+<td>較高（多 process）</td>
+<td>Xeon 5～6%、Pi4B 25～30% 單核</td>
+<td>明顯較低</td>
+</tr>
+<tr>
+<td>憑證管理</td>
+<td>手動／需工具</td>
+<td>自動產生、自動輪替（單 process 內完成）</td>
+<td>幾乎免維運</td>
+</tr>
+<tr>
+<td>升級</td>
+<td>每個元件分別升</td>
+<td>一行指令、先 server 後 agent</td>
+<td>大幅簡化</td>
+</tr>
+<tr>
+<td>備份</td>
+<td>etcd 快照自行規劃</td>
+<td><code>k3s etcd-snapshot</code> 內建</td>
+<td>內建</td>
+</tr>
+<tr>
+<td>映像拉取</td>
+<td>每個節點各自對外</td>
+<td>Spegel P2P mirror 减少對外依賴</td>
+<td>邊緣場景差很多</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最容易被低估的效益是「可重建性」</strong>：因為安裝是宣告式的（config.yaml + 安裝腳本），整台機器掛掉時，重建時間從「一天」變成「十幾分鐘」。這對家庭 lab 與邊緣部署的價值，遠大於省下的那幾百 MB 記憶體。</p>
+<h3>3.5 風險清單（含緩解）</h3>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>風險</th>
+<th>影響</th>
+<th>緩解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQLite 單點</td>
+<td>server 掛 → 控制平面停擺（工作負載還在跑）</td>
+<td>生產用 3 節點 etcd；或接受停機並定期備份 DB</td>
+</tr>
+<tr>
+<td>etcd 寫入密集 + 慢碟</td>
+<td>叢集隨機卡頓、leader 頻繁切換</td>
+<td>SSD；Pi 用外接 SSD（官方明講）</td>
+</tr>
+<tr>
+<td>升級跳版</td>
+<td>API 不相容、無法啟動</td>
+<td>一次升一個 minor；先用 <code>--dry-run</code> 在測試叢集驗證</td>
+</tr>
+<tr>
+<td>預設 Traefik 與自架 Ingress 衝突</td>
+<td>80/443 被佔用</td>
+<td><code>--disable traefik</code> 或改用 IngressClass</td>
+</tr>
+<tr>
+<td>ServiceLB 佔用主機 80/443</td>
+<td>與既有 nginx/apache 衝突</td>
+<td>改 NodePort、或 disable servicelb</td>
+</tr>
+<tr>
+<td>VXLAN 8472 對外</td>
+<td>叢集網段暴露</td>
+<td>防火牆封鎖；只在內網</td>
+</tr>
+<tr>
+<td>NET_RAW Pod</td>
+<td>ARP spoofing／橫向移動</td>
+<td>Pod Security restricted profile</td>
+</tr>
+<tr>
+<td>secrets 未加密</td>
+<td>etcd/DB 被偷 → 憑證外洩</td>
+<td>啟用 <code>--secrets-encryption</code></td>
+</tr>
+<tr>
+<td>容器映像供應鏈</td>
+<td>拉進惡意映像</td>
+<td>私有 registry + 簽章（cosign）＋限制 image pull policy</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3.6 建議的落地路線（從 PoC 到生產）</h3>
+<p><strong>Phase 0（1 小時）</strong>：在一台可犧牲的 VM 上跑單節點，部署 nginx + 一個 PVC，確認 Ingress 與儲存可用。</p>
+<p><strong>Phase 1（半天）</strong>：把一個真實的小服務搬上去（有狀態的用 local-path PVC，無狀態的用 Deployment），量測：<br>
+- <code>kubectl top node</code> 的實際 RAM／CPU<br>
+- 重開機後服務是否自動回來<br>
+- 備份／還原演練一次</p>
+<p><strong>Phase 2（1～2 天）</strong>：3 台 VM 做 HA（<code>--cluster-init</code> + etcd），測：<br>
+- 關掉一台 server，API 是否仍可用<br>
+- 升版流程（先 server 逐台、再 agent）<br>
+- etcd 快照還原</p>
+<p><strong>Phase 3（選配）</strong>：GitOps（Flux／Argo CD）+ 映像掃描 + 備份自動化。到這裡才是「可以放正式服務」的狀態。</p>
+<h3>3.7 什麼樣的小型環境適合、什麼樣不適合</h3>
+<p>以下是「低規格主機」的常見判斷方式，用規格而非特定機型說明：</p>
+<p><strong>規格對照（依官方 Resource Profiling）</strong></p>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>情境</th>
+<th>需要 RAM</th>
+<th>判斷</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單節點 server ＋ 1～2 個小服務</td>
+<td>約 1.2～1.6 GB</td>
+<td>4 GB 機器可行，但要關掉不需要的元件</td>
+</tr>
+<tr>
+<td>3 節點 HA（每台 server）</td>
+<td>每台約 2 GB 起</td>
+<td>建議 8 GB／台，較有餘裕</td>
+</tr>
+<tr>
+<td>純 worker（agent）</td>
+<td>約 275 MB</td>
+<td>2 GB 的小主機就夠</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>適合的場景</strong><br>
+- 只有一台小主機、想學 K8s、或想讓 3～5 個自架服務有「自動重啟、滾動更新」<br>
+- 邊緣裝置、門市小主機、CI runner（跑得動就好，不需要 HA）<br>
+- 想把「部署方式」標準化成 YAML，之後搬到雲端不用重寫</p>
+<p><strong>不適合的場景</strong><br>
+- 記憶體 ≤ 4 GB <strong>而且</strong>同一台還要跑資料庫、監控、反向代理、桌面或影音處理 → 會長期在換頁邊緣<br>
+- 需要控制平面 HA，但只有一台機器<br>
+- 團隊沒有人熟悉 K8s 的除錯（Pod 起不來、CNI 不通、PVC 卡住）</p>
+<p><strong>判斷原則</strong>：K3s 控制平面本身很省 CPU，但<strong>記憶體下限約 1.2～1.6 GB 是硬的</strong>。先把「現有服務 + K3s 控制平面 + 一個工作負載」加起來，如果超過實體記憶體的 70%，就不要在同機部署，改用第二台機器或雲端。</p>
+<p><strong>三條實務路線</strong><br>
+- <strong>A. 三台便宜 VPS（各 2 vCPU／4 GB）</strong>：完整 HA 練習，成本約每月 US$15～30<br>
+- <strong>B. 一台小主機當控制平面 ＋ 既有機器當 worker</strong>：記憶體壓力分散，不需要三台<br>
+- <strong>C. 本機用 k3d／kind 練習</strong>：不碰正式服務，學概念最快</p>
+<h2>附錄 A：常用指令與對應檔案</h2>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th>目的</th>
+<th>指令／路徑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>設定檔</td>
+<td><code>/etc/rancher/k3s/config.yaml</code></td>
+</tr>
+<tr>
+<td>kubeconfig</td>
+<td><code>/etc/rancher/k3s/k3s.yaml</code></td>
+</tr>
+<tr>
+<td>資料目錄</td>
+<td><code>/var/lib/rancher/k3s/</code></td>
+</tr>
+<tr>
+<td>內建 kubectl</td>
+<td><code>k3s kubectl …</code></td>
+</tr>
+<tr>
+<td>映像清單</td>
+<td><code>k3s crictl images</code></td>
+</tr>
+<tr>
+<td>服務日誌</td>
+<td><code>journalctl -u k3s -f</code></td>
+</tr>
+<tr>
+<td>快照</td>
+<td><code>k3s etcd-snapshot save/list/delete</code></td>
+</tr>
+<tr>
+<td>檢查環境</td>
+<td><code>k3s check-config</code></td>
+</tr>
+<tr>
+<td>解除安裝</td>
+<td><code>/usr/local/bin/k3s-uninstall.sh</code>（server）、<code>k3s-agent-uninstall.sh</code>（agent）</td>
+</tr>
+</tbody>
+</table></div>
+<h2>附錄 B：K3s vs RKE2（同一個團隊的兩個產品）</h2>
+<div class="tablewrap"><table class="kt">
+<thead>
+<tr>
+<th></th>
+<th>K3s</th>
+<th>RKE2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定位</td>
+<td>輕量、易用</td>
+<td>安全硬化、合規</td>
+</tr>
+<tr>
+<td>預設 Ingress</td>
+<td>Traefik（有）</td>
+<td>無（自己選）</td>
+</tr>
+<tr>
+<td>CIS benchmark</td>
+<td>需自行調整</td>
+<td>對齊</td>
+</tr>
+<tr>
+<td>控制平面</td>
+<td>單 process</td>
+<td>單 process，但每個元件可獨立</td>
+</tr>
+<tr>
+<td>資源</td>
+<td>較低</td>
+<td>較高</td>
+</tr>
+<tr>
+<td>選誰</td>
+<td>家庭／邊緣／CI／小型生產</td>
+<td>政府、金融、需要合規稽核</td>
+</tr>
+</tbody>
+</table></div>
+<h2>附錄 C：出處</h2>
+<ol>
+<li>K3s 官方首頁與功能清單：<a href="https://docs.k3s.io/">https://docs.k3s.io/</a></li>
+<li>架構（server／agent、HA、fixed registration address）：<a href="https://docs.k3s.io/architecture">https://docs.k3s.io/architecture</a></li>
+<li>安裝需求（硬體門檻、磁碟建議、sizing 表、網路埠）：<a href="https://docs.k3s.io/installation/requirements">https://docs.k3s.io/installation/requirements</a></li>
+<li>資源實測（CPU／RAM／IOPS 原始數據）：<a href="https://docs.k3s.io/reference/resource-profiling">https://docs.k3s.io/reference/resource-profiling</a></li>
+<li>HA 內嵌 etcd：<a href="https://docs.k3s.io/datastore/ha-embedded">https://docs.k3s.io/datastore/ha-embedded</a></li>
+<li>設定選項：<a href="https://docs.k3s.io/installation/configuration">https://docs.k3s.io/installation/configuration</a></li>
+<li>手動升級與 release channel：<a href="https://docs.k3s.io/upgrades/manual">https://docs.k3s.io/upgrades/manual</a></li>
+<li>版本發布：<a href="https://github.com/k3s-io/k3s/releases">https://github.com/k3s-io/k3s/releases</a>（最新 <code>v1.37.1+k3s1</code>，2026-09-30）</li>
+</ol>
+<h2>附錄 D：本報告的驗證範圍（照實寫）</h2>
+<ul>
+<li>官方數字（資源、sizing、埠、架構）<strong>逐項取自上述文件</strong>，未經我改寫成估算值。</li>
+<li><strong>本報告沒有在實機上做安裝與效能量測</strong>：所有資源數字取自官方 Resource Profiling（Xeon 與 Pi4B 兩種平台）。若需要實測版（安裝耗時、實際 RAM 曲線、Ingress 延遲、關機故障切換秒數），可用三台 VPS 或一台可犧牲的虛擬機跑一輪，再產出第二份報告。</li>
+<li>「與其他方案比較」一節屬架構層面的對照，非同一硬體上的跑分。</li>
+</ul>
+</main>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="10" data-views>—</span></div>
+</body>
+</html>

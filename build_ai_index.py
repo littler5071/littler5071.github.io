@@ -69,6 +69,11 @@ HEAD = """<!DOCTYPE html>
 
 
 ARTICLES = [
+    dict(title="K3s 完全研究報告：從「它是什麼」到「你該不該用」",
+         date="2026/10/29", length="408 行完整報告",
+         url="k3s-2026-10/",
+         desc="K3s 是什麼、跟 Kubernetes 差在哪、官方資源實測（server 1.6 GB／agent 275 MB）、三種架構、"
+              "硬體與網路埠、七個方案對照、風險清單與落地路線。全部引用官方文件，版本 v1.37.1+k3s1。"),
     dict(title="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少",
          date="2026/10/28", length="Shorts 1:05＋完整對照表",
          video="https://youtube.com/shorts/ZWVaJ04ERUI",
