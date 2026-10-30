@@ -3,15 +3,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>新聞與晨報｜小R頻道</title>
 <link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/./nav.css?v=b7b27715">
-<script defer src="/./nav.js?v=c73ca689"></script>
 <style>
  .wrap{max-width:900px;margin:0 auto;padding:0 18px 40px}
  .card{background:#fffdf6;border:2px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0}
  .card h2{font-size:20px;margin:0 0 4px}
  .dim{color:var(--soft);font-size:14px;margin:4px 0}
  .btn{display:inline-block;margin-top:8px;font-size:15px;color:var(--blue);text-decoration:none;border-bottom:1.5px solid currentColor}
-</style></head><body><div class="wrap">
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style><link rel="stylesheet" href="../nav.css?v=b7b27715">
+<script defer src="../nav.js?v=c73ca689"></script>
+<script defer src="../counter.js?v=e837f732"></script>
+</head><body><div class="wrap">
 <h1>新聞與晨報</h1>
 <p class="dim">固定網址，每天更新；舊的留在底下「歷期」。</p>
 <div class="card">
@@ -25,4 +32,5 @@
   <p class="dim">最新：2026/10/30</p>
   <a class="btn" href="/news/digest/">看最新 →</a>
 </div>
-</div></body></html>
+</div><div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="11" data-views>—</span></div>
+</body></html>
