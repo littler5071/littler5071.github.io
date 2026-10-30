@@ -64,6 +64,37 @@ def date_of(md_path):
     return f"{m.group(1)}{m.group(2)}{m.group(3)}" if m else None
 
 
+def body_dir(kind):
+    """導流模式下，全文另存一份（cron 紀錄裡只有標題＋連結時靠它補全文）。"""
+    return os.path.join(SITE, "news", ".bodies", kind)
+
+
+def sidecar_of(kind, d):
+    p = os.path.join(body_dir(kind), f"{d}.txt")
+    if not os.path.exists(p):
+        return None
+    try:
+        t = open(p, encoding="utf-8").read().strip()
+    except Exception:
+        return None
+    return t or None
+
+
+def sidecar_items(kind):
+    """沒有 cron 紀錄、但已寫入全文的日期。"""
+    out = []
+    d = body_dir(kind)
+    if not os.path.isdir(d):
+        return out
+    for p in glob.glob(os.path.join(d, "*.txt")):
+        k = os.path.basename(p)[:-4]
+        if re.fullmatch(r"\d{8}", k):
+            t = sidecar_of(kind, k)
+            if t:
+                out.append((k, t))
+    return out
+
+
 def inline(s):
     s = html.escape(s)
     s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
@@ -274,10 +305,20 @@ def collect(kind, limit):
         body = response_of(f)
         if not body:
             continue
+        side = sidecar_of(kind, d)
+        # cron 紀錄只有「標題＋連結」的導流版時，全文以 sidecar 為準
+        if side and len(side) > len(body):
+            body = side
         seen.add(d)
         items.append((d, body))
         if len(items) >= limit:
             break
+    for d, body in sorted(sidecar_items(kind), reverse=True):
+        if d in seen or len(items) >= limit:
+            continue
+        seen.add(d)
+        items.append((d, body))
+    items.sort(key=lambda x: x[0], reverse=True)
     return items
 
 
