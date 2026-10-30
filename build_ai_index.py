@@ -22,9 +22,6 @@ VIDEOS = [
     dict(title="我故意寫了 20 個弱點，讓 11 個免費資安工具來抓（長片版）",
          date="2026/10/29", length="3:13", url="https://youtu.be/M3CFFc2aHUU",
          desc="20 個弱點逐項講完：三語言、11 個工具、掃描範圍實驗、平台建置（含 ARM64），結果 Python 100%、C# 71%、Rust 17%。"),
-    dict(title="我故意寫了三個有漏洞的程式，讓 11 個免費資安工具去抓：Rust 只抓到 17%",
-         date="2026/10/29", length="1:06", url="https://youtube.com/shorts/ZWVaJ04ERUI",
-         desc="Rust／C#／Python 各植入同一組 6 種弱點＋1 個漏洞相依，共 20 個；11 個免費工具聯集只命中 13 個（65%）。完整清單與行號見 ai/vulnlab-coverage-2026-10/。"),
     dict(title="100 個任務裡，最值得先交給 AI 的 10 件（最後只留 3 件給你）",
          date="2026/09/15", length="4:29", url="https://youtu.be/0tfEOBG2-xE",
          desc="用公開的真實使用資料（Anthropic 經濟指數 1,007 種請求類型）排出 100 個任務，再選出最值得先交給 AI 的 10 件；每一件都有「做法」與「驗收」，最後只留 3 件給你。（1.2 倍速版）"),
@@ -80,14 +77,6 @@ ARTICLES = [
          url="k3s-2026-10/",
          desc="K3s 是什麼、跟 Kubernetes 差在哪、官方資源實測（server 1.6 GB／agent 275 MB）、三種架構、"
               "硬體與網路埠、七個方案對照、風險清單與落地路線。全部引用官方文件，版本 v1.37.1+k3s1。"),
-    dict(title="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少",
-         date="2026/10/28", length="Shorts 1:05＋完整對照表",
-         video="https://youtube.com/shorts/ZWVaJ04ERUI",
-         url="vulnlab-coverage-2026-10/",
-         desc="CWE 對照實驗：Rust／C#／Python 各植入 SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、"
-              "TLS 驗證關閉，加一個已知漏洞相依，共 20 個弱點。用 syft、grype、trivy、OSV、sbomqs、Semgrep、"
-              "Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。"
-              "結果：Python 100%、C# 71%、Rust 17%；唯一全中的類型是相依漏洞，沒有單一工具能應付 CRA。"),
     dict(title="AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例",
          date="2026/10/28", length="長片 4:15＋Shorts 1:11",
          yt="https://youtube.com/shorts/oho-UmKbvL8",

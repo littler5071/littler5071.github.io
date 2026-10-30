@@ -11,6 +11,13 @@ import sys
 SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 
 ARTICLES = [
+    dict(title="我故意寫了 20 個弱點，讓 11 個免費資安工具來抓：誰抓到、誰漏掉、涵蓋率多少",
+         date="2026/10/30", length="Shorts 1:06＋長片 3:13＋完整對照表",
+         url="vulnlab-coverage-2026-10/", video="https://youtu.be/M3CFFc2aHUU",
+         desc="CWE 對照實驗：Rust／C#／Python 各植入 SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、"
+              "TLS 驗證關閉，加一個已知漏洞相依，共 20 個弱點。用 syft、grype、trivy、OSV、sbomqs、Semgrep、"
+              "Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。"
+              "結果：Python 100%、C# 71%、Rust 17%；另有一段「掃描範圍實驗」：C# 只掃原始碼 0 個元件、全目錄 400 個。"),
     dict(title="有哪些公司在用 Rust？公司清單＋熱門專案排行",
          date="2026/10/13", length="清單",
          url="rust/projects/",

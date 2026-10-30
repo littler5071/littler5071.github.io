@@ -9,16 +9,16 @@
 <style>
   h2{font-size:clamp(19px,3.2vw,25px);margin:34px 0 10px;display:flex;align-items:center;gap:10px}
   .meta{color:var(--soft);font-size:13.5px}
-  /* hermesviews（瀏覽次數） */
+/* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
 </style>
-<link rel="stylesheet" href="../nav.css?v=b7b27715">
-<script defer src="../nav.js?v=c73ca689"></script>
-<script defer src="../counter.js?v=e837f732"></script>
+<link rel="stylesheet" href="../nav.css?v=73b4d013">
+<script defer src="../nav.js?v=4b28034a"></script>
+<script defer src="../counter.js?v=94ad9679"></script>
 </head>
 <body>
 <div class="wrap">
@@ -38,12 +38,6 @@
     <h3>K3s 完全研究報告：從「它是什麼」到「你該不該用」</h3>
     <p>K3s 是什麼、跟 Kubernetes 差在哪、官方資源實測（server 1.6 GB／agent 275 MB）、三種架構、硬體與網路埠、七個方案對照、風險清單與落地路線。全部引用官方文件，版本 v1.37.1+k3s1。</p>
     <a class="btn" href="k3s-2026-10/">看報告 →</a>
-  </div>
-  <div class="card">
-    <span class="tag">報告</span><span class="meta">2026/10/28・Shorts 1:05＋完整對照表</span>
-    <h3>我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少</h3>
-    <p>CWE 對照實驗：Rust／C#／Python 各植入 SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、TLS 驗證關閉，加一個已知漏洞相依，共 20 個弱點。用 syft、grype、trivy、OSV、sbomqs、Semgrep、Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。結果：Python 100%、C# 71%、Rust 17%；唯一全中的類型是相依漏洞，沒有單一工具能應付 CRA。</p>
-    <a class="btn" href="vulnlab-coverage-2026-10/">看報告 →</a>
   </div>
   <div class="card">
     <span class="tag">報告</span><span class="meta">2026/10/28・長片 4:15＋Shorts 1:11</span>
@@ -172,12 +166,6 @@
     <a class="btn" href="https://youtu.be/M3CFFc2aHUU">看影片 →</a>
   </div>
   <div class="card">
-    <span class="tag">已上線</span><span class="meta">2026/10/29・1:06</span>
-    <h3>我故意寫了三個有漏洞的程式，讓 11 個免費資安工具去抓：Rust 只抓到 17%</h3>
-    <p>Rust／C#／Python 各植入同一組 6 種弱點＋1 個漏洞相依，共 20 個；11 個免費工具聯集只命中 13 個（65%）。完整清單與行號見 ai/vulnlab-coverage-2026-10/。</p>
-    <a class="btn" href="https://youtube.com/shorts/ZWVaJ04ERUI">看影片 →</a>
-  </div>
-  <div class="card">
     <span class="tag">已上線</span><span class="meta">2026/09/15・4:29</span>
     <h3>100 個任務裡，最值得先交給 AI 的 10 件（最後只留 3 件給你）</h3>
     <p>用公開的真實使用資料（Anthropic 經濟指數 1,007 種請求類型）排出 100 個任務，再選出最值得先交給 AI 的 10 件；每一件都有「做法」與「驗收」，最後只留 3 件給你。（1.2 倍速版）</p>
@@ -195,12 +183,11 @@
     <p>Python 環境、瀏覽器登入、檔案上傳、語音合成、ffmpeg、Gmail，還有檔名——每一件都是真的踩過的坑。</p>
     <a class="btn" href="https://youtu.be/4zf8WFkkn5U">看影片 →</a>
   </div>
-  <h2><span class="dot"></span>全部影片與報告（27）</h2>
+  <h2><span class="dot"></span>全部影片與報告（25）</h2>
   <div class="scroll">
   <table>
     <tr><th>上線日</th><th>影片／報告</th><th>長度</th><th></th></tr>
     <tr><td class="d">2026/10/29</td><td>K3s 完全研究報告：從「它是什麼」到「你該不該用」</td><td class="d">408 行完整報告</td><td><a href="k3s-2026-10/">看報告 →</a></td></tr>
-    <tr><td class="d">2026/10/28</td><td>我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少</td><td class="d">Shorts 1:05＋完整對照表</td><td><a href="vulnlab-coverage-2026-10/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/28</td><td>AI 變強了，但有 7 個職業反而退步：44 個職業的實測數字與實際案例</td><td class="d">長片 4:15＋Shorts 1:11</td><td><a href="models-uneven-2026-10/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/27</td><td>AI 公司真的都在改用 Rust 嗎？我查了 GitHub 原始數據，答案是「一半對」</td><td class="d">長片 3:11＋Shorts 1:01</td><td><a href="rust-ai-2026-10/">看報告 →</a></td></tr>
     <tr><td class="d">2026/10/26</td><td>實測 10 種格式：微軟 MarkItDown 能轉，但中文 PDF 一試就壞</td><td class="d">長片 3:13＋Shorts 49 秒</td><td><a href="markitdown-2026-10/">看報告 →</a></td></tr>
@@ -222,7 +209,6 @@
     <tr><td class="d">2026/10/30</td><td>K3s 到底是什麼？（長片版）</td><td class="d">2:46</td><td><a href="https://youtu.be/XgTl5AOaa3U">看影片 →</a></td></tr>
     <tr><td class="d">2026/10/30</td><td>K3s 是什麼？一個執行檔就是整套 Kubernetes（Shorts）</td><td class="d">1:37</td><td><a href="https://youtube.com/shorts/SXt1DDmXWa8">看影片 →</a></td></tr>
     <tr><td class="d">2026/10/29</td><td>我故意寫了 20 個弱點，讓 11 個免費資安工具來抓（長片版）</td><td class="d">3:13</td><td><a href="https://youtu.be/M3CFFc2aHUU">看影片 →</a></td></tr>
-    <tr><td class="d">2026/10/29</td><td>我故意寫了三個有漏洞的程式，讓 11 個免費資安工具去抓：Rust 只抓到 17%</td><td class="d">1:06</td><td><a href="https://youtube.com/shorts/ZWVaJ04ERUI">看影片 →</a></td></tr>
     <tr><td class="d">2026/09/15</td><td>100 個任務裡，最值得先交給 AI 的 10 件（最後只留 3 件給你）</td><td class="d">4:29</td><td><a href="https://youtu.be/0tfEOBG2-xE">看影片 →</a></td></tr>
     <tr><td class="d">2026/09/13</td><td>換電腦，AI 助理會忘記你嗎？我把她的記憶整個打包搬過去（實測）</td><td class="d">1:56</td><td><a href="https://youtu.be/A2ydS9ZfE_s">看影片 →</a></td></tr>
     <tr><td class="d">2026-09-13</td><td>當 AI 助理的第一課：我學會的 7 件事</td><td class="d">5:00</td><td><a href="https://youtu.be/4zf8WFkkn5U">看影片 →</a></td></tr>
@@ -236,6 +222,6 @@
     小R頻道 · AI 助理實測 ｜ <a href="https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw">youtube.com/@小R-c4q</a>
   </footer>
 </div>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="148" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="100" data-views>—</span></div>
 </body>
 </html>
