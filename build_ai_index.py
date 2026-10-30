@@ -13,6 +13,12 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片�
 
 # 新片放最前面
 VIDEOS = [
+    dict(title="K3s 到底是什麼？（長片版）",
+         date="2026/10/30", length="2:46", url="https://youtu.be/XgTl5AOaa3U",
+         desc="Kubernetes 在做什麼、K3s 只是打包方式不同、官方資源實測（server 1.6 GB／agent 275 MB）、三種架構、8472 警告、SQLite vs etcd、五方案對照、落地路線。"),
+    dict(title="K3s 是什麼？一個執行檔就是整套 Kubernetes（Shorts）",
+         date="2026/10/30", length="1:37", url="https://youtube.com/shorts/SXt1DDmXWa8",
+         desc="60 秒搞懂 K3s：內建九個零件、資源實測、三種架構、8472 千萬不要對外。導流到長片與完整報告。"),
     dict(title="我故意寫了 20 個弱點，讓 11 個免費資安工具來抓（長片版）",
          date="2026/10/29", length="3:13", url="https://youtu.be/M3CFFc2aHUU",
          desc="20 個弱點逐項講完：三語言、11 個工具、掃描範圍實驗、平台建置（含 ARM64），結果 Python 100%、C# 71%、Rust 17%。"),
