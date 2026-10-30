@@ -127,10 +127,14 @@ def parse_pair(text, keys):
                 raw = m.group(1)
                 is_pct = m.group(2) == "%"
                 after = seg[m.end(): m.end() + 1]
+                pre = seg[max(0, m.start() - 1):m.start()]
+                neg = pre in ("-", "\u2212", "\uff0d", "+") and pre != "+"
                 if is_pct:
                     if chg is None:
                         try:
                             chg = float(raw.replace(",", ""))
+                            if neg:
+                                chg = -chg
                         except ValueError:
                             pass
                     continue
@@ -146,9 +150,10 @@ def parse_pair(text, keys):
                     if v >= 100 or "." in raw:
                         val = v
             if chg is None:
-                mj = re.search(r"(升|漲|貶|跌)\s*([0-9.]+)\s*角", seg)
+                mj = re.search(r"(升|漲|貶|跌)值?\s*([0-9.]+)\s*(角|分)", seg)
                 if mj and val:
-                    v = float(mj.group(2)) / 10.0 / val * 100
+                    unit = 0.1 if mj.group(3) == "角" else 0.01
+                    v = float(mj.group(2)) * unit / val * 100
                     chg = v if mj.group(1) in "升漲" else -v
             if val is not None or chg is not None:
                 src = "angle" if chg is not None and not re.search(r"%", seg) else "pct"
@@ -161,6 +166,10 @@ def digits_box(text, asof=None):
     """新聞濃縮【數字】段落 → 依出現順序比對標的，做成有走勢圖的小卡。"""
     if not text:
         return ""
+    # 【數字】段落優先：「標普500跌1.82%」這種寫法會讓解析器把 500 當成價位
+    i = text.find("【數字】")
+    if i > 0:
+        text = text[i:] + "\n" + text[:i]
     found = []
     for keys, sym, name in INSTRUMENTS:
         if any(k in text for k in keys) and sym not in [s for s, _, _ in found]:
