@@ -152,7 +152,7 @@
     <li class="hit"><div><div class="top"><span class="idx">20</span>Python<span class="chip">W8</span><span class="chip">CWE-1395</span></div><div class="name">已知漏洞相依</div><div class="loc">requests 2.19.1／urllib3 1.23</div></div><div class="res hit">SCA：grype／trivy／OSV</div></li>
   </ol>
   <p>統計：<b>34 個弱點，21 個命中（62%）</b>——Rust 1/6、C# 5/7、Python 7/7、C 4/7（含 1 個部分命中）、C++ 4/7。若只算「完整命中、不接受部分命中」，是 20/34（59%）。</p>
-  <p><b>加入 C／C++ 之後，整體涵蓋率反而從 65% 掉到 62%</b>：這兩個語言的靜態分析工具最弱，C 只抓到 3 個，C++ 抓到 4 個，而且兩個語言的 SQL 注入全靠「工具看不懂」收場。</p>
+  <p><b>語言之間差距很大：</b>Python 靠 Bandit 幾乎全中（7/7），C# 中等（5/7），Rust 與 C 的靜態工具最弱——Rust 的 5 個程式碼弱點一個都沒被抓到，C 只抓到 3 個，SQL 注入與硬編碼密碼在所有語言裡都是同一個結局：沒有任何工具看見。</p>
 
   <h2>三、掃描範圍會決定你看到什麼（實測對照）</h2>
   <p>同一個專案，只換「掃哪裡」，數字就完全不同。這是 CRA 證據最常出錯的地方：你以為掃了專案，其實掃到的是建置暫存檔。</p>
