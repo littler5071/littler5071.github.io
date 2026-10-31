@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道</title>
+<title>我故意寫了五個有漏洞的程式，讓 15 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道</title>
 <meta name="description" content="CWE 對照實驗：Rust／C#／Python 各植入同一組弱點（SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、TLS 驗證關閉）＋一個已知漏洞相依，共 20 個。用 syft、grype、trivy、OSV、sbomqs、Semgrep、Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並同時編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。結果：Python 100%、C# 71%、Rust 17%，沒有任何單一工具能單獨應付 CRA。">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <style>
@@ -44,7 +44,13 @@
   }
   .nums{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
   .nums th,.nums td{border-bottom:1px dashed var(--line);padding:9px 8px;text-align:left}
-  .nums th{color:#78706a;font-weight:600}
+  .nums th{color:#78706a;font-weight:600;white-space:nowrap}
+  @media (max-width:560px){
+    .nums{font-size:13.5px}
+    .nums th,.nums td{padding:7px 6px;white-space:nowrap}
+    .tablewrap table.nums{min-width:0}
+    .tablewrap table.nums th,.tablewrap table.nums td{font-size:12px;padding:6px 4px;letter-spacing:-.2px}
+  }
   .nums td.num{font-variant-numeric:tabular-nums;text-align:center;white-space:nowrap}
   .video-slot{background:#1c1f24;color:#c9d3e0;border-radius:18px;padding:22px;text-align:center;margin:18px 0 26px}
   .video-slot b{color:#fff;font-size:18px;display:block;margin:0 0 12px}
@@ -73,12 +79,12 @@
 <meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
 <meta property="og:site_name" content="小R頻道">
 <meta property="og:type" content="website">
-<meta property="og:title" content="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道">
+<meta property="og:title" content="我故意寫了五個有漏洞的程式，讓 15 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道">
 <meta property="og:description" content="CWE 對照實驗：Rust／C#／Python 各植入同一組弱點（SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、TLS 驗證關閉）＋一個已知漏洞相依，共 20 個。用 syft、grype、trivy、OSV、sbomqs、Semgrep、Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並同時編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。結果：Python 100%、C# 71%、Rust 17%，沒有任何單一工具能單獨應付 CRA。">
 <meta property="og:url" content="https://littler5071.github.io/code/vulnlab-coverage-2026-10/">
 <meta property="og:locale" content="zh_TW">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道">
+<meta name="twitter:title" content="我故意寫了五個有漏洞的程式，讓 15 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少｜小R頻道">
 <meta name="twitter:description" content="CWE 對照實驗：Rust／C#／Python 各植入同一組弱點（SQL 注入、指令注入、路徑穿越、硬編碼憑證、MD5、TLS 驗證關閉）＋一個已知漏洞相依，共 20 個。用 syft、grype、trivy、OSV、sbomqs、Semgrep、Bandit、gitleaks、.NET 分析器、Clippy 全跑一輪，並同時編出 Windows／Linux／ARM64（含 Apple M 系列 Mach-O）。結果：Python 100%、C# 71%、Rust 17%，沒有任何單一工具能單獨應付 CRA。">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"小R頻道","alternateName":["小R","小R頻道","小R 頻道","小R老師","xiaor"],"url":"https://littler5071.github.io/","inLanguage":"zh-Hant","publisher":{"@type":"Organization","name":"小R頻道","alternateName":["小R頻道"],"url":"https://littler5071.github.io/","sameAs":["https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"]},"potentialAction":{"@type":"SearchAction","target":"https://littler5071.github.io/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <!-- /hermes-seo -->
@@ -88,11 +94,11 @@
 </head>
 <body>
 <main class="wrap">
-  <h1>我故意寫了三個有漏洞的程式，讓 11 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少</h1>
+  <h1>我故意寫了五個有漏洞的程式，讓 15 個免費工具去抓：誰抓到、誰漏掉、涵蓋率多少</h1>
   <p class="sub">2026-10-28｜小R 頻道｜AI 技術觀察／資安實測</p>
 
   <div class="tldr">
-    <p><b>一句話版本：</b>我寫了三支「故意有漏洞」的程式（Rust／C#／Python），每個都植入同一組 6 種弱點，再加一個已知漏洞的相依套件，共 <b>20 個弱點</b>。用 11 個免費工具去抓，全部工具聯集只命中 <b>13／20（65%）</b>：<b>Python 100%</b>、<b>C# 71%</b>、<b>Rust 17%</b>。沒有任何單一工具能單獨應付歐盟 CRA。</p>
+    <p><b>一句話版本：</b>我寫了五支「故意有漏洞」的程式（Rust／C#／Python／C／C++），每個都植入同一組 6 種弱點，再加一個已知漏洞的相依套件，共 <b>20 個弱點</b>。用 11 個免費工具去抓，全部工具聯集只命中 <b>13／20（65%）</b>：<b>Python 100%</b>、<b>C# 71%</b>、<b>Rust 17%</b>。沒有任何單一工具能單獨應付歐盟 CRA。</p>
   </div>
 
   <div class="video-slot" style="margin-top:0">
@@ -107,7 +113,7 @@
   </div>
 
 
-  <h2>一、實驗設計：同一組弱點類型，三個語言各寫一次</h2>
+  <h2>一、實驗設計：同一組弱點類型，五個語言各寫一次</h2>
   <p>每個弱點在原始碼裡都用 <code>VULN-Wn</code> 標在同一行，量測腳本用「行號 ±2」判斷工具是否命中，不靠關鍵字猜。Rust 沒有 TLS 設定場景，所以少一個（W6），這是唯一的數量差異。</p>
   <table class="nums">
     <tr><th>代號</th><th>CWE</th><th>內容</th><th>Rust 行</th><th>C# 行</th><th>Python 行</th></tr>
@@ -121,8 +127,8 @@
   </table>
 
 
-  <h2>二、20 個弱點逐項清單（哪一個、在哪一行、誰抓到）</h2>
-  <p>上一節是「弱點類型」，這一節是「實際植入的 20 個弱點」：3 個語言 × 6 個程式碼弱點，加上 3 個相依套件弱點。標記 <b>◐</b> 代表相鄰問題的部分命中（本報告仍計為命中，與影片一致）。</p>
+  <h2>二、34 個弱點逐項清單（哪一個、在哪一行、誰抓到）</h2>
+  <p>上一節是「弱點類型」，這一節是「實際植入的 34 個弱點」：五個語言各 6 個程式碼弱點（Rust 5、C# 6、Python 6、C 6、C++ 6），加上各語言 1 個相依套件弱點。標記 <b>◐</b> 代表相鄰問題的部分命中（本報告仍計為命中，與影片一致）。</p>
   <ol class="wlist">
     <li class="miss"><div><div class="top"><span class="idx">1</span>Rust<span class="chip">W1</span><span class="chip">CWE-89</span></div><div class="name">SQL 字串拼接</div><div class="loc">rust/src/main.rs:13</div></div><div class="res miss">沒有任何工具抓到</div></li>
     <li class="miss"><div><div class="top"><span class="idx">2</span>Rust<span class="chip">W2</span><span class="chip">CWE-78</span></div><div class="name">使用者輸入進 shell</div><div class="loc">rust/src/main.rs:19</div></div><div class="res miss">沒有任何工具抓到</div></li>
@@ -145,7 +151,8 @@
     <li class="hit"><div><div class="top"><span class="idx">19</span>Python<span class="chip">W6</span><span class="chip">CWE-295</span></div><div class="name">關閉 TLS 憑證驗證</div><div class="loc">python/app.py:40</div></div><div class="res hit">Bandit（B501）</div></li>
     <li class="hit"><div><div class="top"><span class="idx">20</span>Python<span class="chip">W8</span><span class="chip">CWE-1395</span></div><div class="name">已知漏洞相依</div><div class="loc">requests 2.19.1／urllib3 1.23</div></div><div class="res hit">SCA：grype／trivy／OSV</div></li>
   </ol>
-  <p>統計：<b>20 個弱點，13 個命中（65%）</b>——Rust 1/6、C# 5/7、Python 7/7。<b>完全沒有工具抓到</b>的有 7 個：Rust 的 W1–W5（全部程式碼弱點）、C# 的 W2 與 W3。</p>
+  <p>統計：<b>34 個弱點，21 個命中（62%）</b>——Rust 1/6、C# 5/7、Python 7/7、C 4/7（含 1 個部分命中）、C++ 4/7。若只算「完整命中、不接受部分命中」，是 20/34（59%）。</p>
+  <p><b>加入 C／C++ 之後，整體涵蓋率反而從 65% 掉到 62%</b>：這兩個語言的靜態分析工具最弱，C 只抓到 3 個，C++ 抓到 4 個，而且兩個語言的 SQL 注入全靠「工具看不懂」收場。</p>
 
   <h2>三、掃描範圍會決定你看到什麼（實測對照）</h2>
   <p>同一個專案，只換「掃哪裡」，數字就完全不同。這是 CRA 證據最常出錯的地方：你以為掃了專案，其實掃到的是建置暫存檔。</p>
@@ -203,27 +210,67 @@
       </table>
   <p>Bandit 6 個程式碼弱點抓到 6 個：<code>B608</code>（SQL）、<code>B602</code>（shell）、<code>B108</code>（硬編碼 /tmp，與路徑穿越相關但不等價，標 ◐）、<code>B105</code>（硬編碼憑證）、<code>B324</code>（MD5）、<code>B501</code>（<code>verify=False</code>）。Semgrep 只抓到 2 個。</p>
 
-  <h2>八、涵蓋率排行與誤判</h2>
+  <h2>八、C：6 個弱點只抓到 3 個（50%），最弱的一組</h2>
+  <p>C 是所有語言裡工具支援最分歧的：<b>cppcheck 一個都沒報、GCC 內建分析器一個都沒報</b>，真正有反應的是老派的
+  flawfinder（用函式黑名單比對）跟執行期的 AddressSanitizer。</p>
   <div class="tablewrap"><table class="nums">
-    <tr><th>工具</th><th>Rust</th><th>C#</th><th>Python</th><th>誤判</th></tr>
-    <tr><td>Bandit</td><td>—</td><td>—</td><td><b>86%</b></td><td class="num">2</td></tr>
-    <tr><td>.NET 內建分析器</td><td>—</td><td>33%（含 1 誤配）</td><td>—</td><td class="num">4</td></tr>
-    <tr><td>Semgrep</td><td>0%</td><td>14%</td><td>29%</td><td class="num">2</td></tr>
-    <tr><td>gitleaks</td><td>0%</td><td>14%</td><td>14%</td><td class="num">0</td></tr>
-    <tr><td>trivy secret</td><td>0%</td><td>0%</td><td>14%</td><td class="num">0</td></tr>
-    <tr><td>Clippy</td><td>0%</td><td>—</td><td>—</td><td class="num">0</td></tr>
-    <tr><td>SCA（grype／trivy／OSV）</td><td>17%</td><td>14%</td><td>14%</td><td class="num">0</td></tr>
+    <tr><th>代號</th><th>弱點</th><th>行號</th><th>結果</th></tr>
+    <tr><td>W1</td><td>SQL 字串拼接（snprintf 進 query）</td><td class="num">vuln.c:37</td><td>漏</td></tr>
+    <tr><td>W2</td><td>使用者輸入進 system()</td><td class="num">vuln.c:46</td><td><b>flawfinder</b></td></tr>
+    <tr><td>W3</td><td>使用者路徑直接 fopen()</td><td class="num">vuln.c:53</td><td>◐ flawfinder（只報 fopen，沒判斷來源）</td></tr>
+    <tr><td>W4</td><td>寫死的資料庫密碼</td><td class="num">vuln.c:24</td><td>漏</td></tr>
+    <tr><td>W5</td><td>時間種子的弱隨機（重設權杖）</td><td class="num">vuln.c:29</td><td><b>flawfinder</b></td></tr>
+    <tr><td>W6</td><td>strcpy 到 32 bytes 堆疊緩衝區</td><td class="num">vuln.c:63</td><td><b>flawfinder＋Semgrep＋ASan</b></td></tr>
+    <tr><td>W8</td><td>相依套件（SCA 觀察）</td><td class="num">連結系統 libc</td><td>漏（syft 0 元件）</td></tr>
   </table></div>
-  <p class="quote">唯一三個語言都 100% 命中的類型，是「相依套件漏洞」。這也是為什麼 CRA 把 SBOM 寫成硬性要求——它是目前唯一可靠的自動化防線。</p>
+  <p><b>最值得講的一個：</b>gitleaks 抓不到 <code>P@ssw0rd-Prod-2026!</code> 這種「人類自己想的密碼」，因為它的規則認的是
+  特定格式的金鑰（AWS、Stripe、GitHub token）。同一份 C++ 樣本裡的金鑰寫成 <code>sk_live_...</code> 就立刻被抓到——
+  <b>工具抓的是「長相」，不是「機密」</b>。</p>
+  <p>另外 C 沒有套件管理器，syft 對編出來的執行檔回報 <b>0 個元件</b>；也就是說 SBOM 這一關在純 C 專案上，
+  你得自己維護套件清單（DPKG／RPM／vcpkg／Conan），工具不會幫你。</p>
 
-  <h2>九、結論：CRA 要的是三件套，不是一個神器</h2>
+  <h2>九、C++：6 個弱點抓到 4 個（67%），靠的還是金鑰長相</h2>
+  <p>C++ 的結果比 C 好一點，但好的原因很現實：<b>樣本裡的金鑰長得像 Stripe 金鑰</b>，
+  gitleaks 與 Semgrep 的 Stripe 規則同時命中；如果換成長得像密碼的字串，一樣全漏。</p>
+  <div class="tablewrap"><table class="nums">
+    <tr><th>代號</th><th>弱點</th><th>行號</th><th>結果</th></tr>
+    <tr><td>W1</td><td>std::string 拼接 SQL</td><td class="num">vuln.cpp:41</td><td>漏</td></tr>
+    <tr><td>W2</td><td>std::system() 接使用者輸入</td><td class="num">vuln.cpp:49</td><td><b>flawfinder</b></td></tr>
+    <tr><td>W3</td><td>std::ifstream 開使用者路徑</td><td class="num">vuln.cpp:55</td><td>漏</td></tr>
+    <tr><td>W4</td><td>寫死的 API 金鑰（sk_live_…）</td><td class="num">vuln.cpp:29</td><td><b>gitleaks＋Semgrep</b></td></tr>
+    <tr><td>W5</td><td>std::rand 當 session id</td><td class="num">vuln.cpp:34</td><td><b>flawfinder</b></td></tr>
+    <tr><td>W6</td><td>strcpy 到 32 bytes 堆疊緩衝區</td><td class="num">vuln.cpp:64</td><td><b>flawfinder＋ASan</b></td></tr>
+    <tr><td>W8</td><td>相依套件（SCA 觀察）</td><td class="num">連結系統 libc</td><td>漏（syft 0 元件）</td></tr>
+  </table></div>
+  <p><b>兩個語言共同的結論：</b>真正穩定抓到緩衝區溢位的不是靜態工具，而是<b>執行期的 ASan</b>——
+  它要你真的跑起來、而且要跑到那條路徑。靜態工具對「使用者輸入流到危險函式」這種跨函式的資料流，
+  在 C／C++ 上幾乎放棄治療。</p>
+
+  <h2>十、涵蓋率排行與誤判</h2>
+  <div class="tablewrap"><table class="nums">
+    <tr><th>工具</th><th>Rust</th><th>C#</th><th>Python</th><th>C</th><th>C++</th><th>誤判</th></tr>
+    <tr><td>Bandit</td><td>—</td><td>—</td><td><b>86%</b></td><td>—</td><td>—</td><td>2</td></tr>
+    <tr><td>.NET 內建分析器</td><td>—</td><td>33%（含 1 誤配）</td><td>—</td><td>—</td><td>—</td><td>4</td></tr>
+    <tr><td>Semgrep</td><td>0%</td><td>14%</td><td>29%</td><td>17%</td><td>17%</td><td>2</td></tr>
+    <tr><td>gitleaks</td><td>0%</td><td>14%</td><td>14%</td><td>0%</td><td>17%</td><td>0</td></tr>
+    <tr><td>trivy secret</td><td>0%</td><td>0%</td><td>14%</td><td>0%</td><td>0%</td><td>0</td></tr>
+    <tr><td>Clippy</td><td>0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+    <tr><td>cppcheck 2.17.1</td><td>—</td><td>—</td><td>—</td><td>0%</td><td>0%</td><td>0</td></tr>
+    <tr><td>GCC -fanalyzer</td><td>—</td><td>—</td><td>—</td><td>0%</td><td>0%</td><td>0</td></tr>
+    <tr><td>flawfinder 2.0.20</td><td>—</td><td>—</td><td>—</td><td><b>50%</b></td><td><b>67%</b></td><td>1</td></tr>
+    <tr><td>ASan／UBSan（執行期）</td><td>—</td><td>—</td><td>—</td><td>17%</td><td>17%</td><td>0</td></tr>
+    <tr><td>SCA（grype／trivy／OSV）</td><td>17%</td><td>14%</td><td>14%</td><td>0%</td><td>0%</td><td>0</td></tr>
+  </table></div><p class="muted" style="font-size:12.5px;color:#78706a;margin:-6px 0 10px">← 表格可左右滑動 →</p>
+  <p class="quote">唯一每個語言都能命中的類型，是「相依套件漏洞」——但 C／C++ 例外，它們沒有套件管理器，syft 對執行檔回傳 0 元件。這也是為什麼 CRA 把 SBOM 寫成硬性要求——它是目前唯一可靠的自動化防線。</p>
+
+  <h2>十一、結論：CRA 要的是三件套，不是一個神器</h2>
   <ol>
     <li><b>SBOM</b>：build 階段用 syft 產生（事後掃執行檔會得到 0 個元件），用 sbomqs 檢查 BSI／NTIA profile。</li>
     <li><b>SCA</b>：grype＋trivy＋OSV 至少並跑兩個，保留原始 JSON 當證據。</li>
     <li><b>SAST</b>：按語言挑——Python 用 Bandit、C# 用 .NET 分析器、Rust 老實說沒有成熟的免費方案。</li>
   </ol>
 
-  <h2>十、工具版本（全部已是 2026-10-28 的最新版）</h2>
+  <h2>十二、工具版本（全部已是 2026-10-28 的最新版）</h2>
   <table class="nums">
     <tr><th>工具</th><th>版本</th><th>是否最新</th></tr>
     <tr><td>syft</td><td class="num">1.55.0</td><td>✅ 最新</td></tr>
@@ -237,7 +284,7 @@
     <tr><td>.NET SDK</td><td class="num">8.0.427</td><td>✅ 最新 LTS</td></tr>
   </table>
 
-  <h2>十一、限制（照實寫）</h2>
+  <h2>十三、限制（照實寫）</h2>
   <ul>
     <li>每個語言只有 5–6 個弱點，只能看趨勢，不能當統計結論。</li>
     <li>弱點是我寫的，寫法會影響偵測率；換一種寫法結果可能不同。</li>
