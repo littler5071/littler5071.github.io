@@ -121,6 +121,8 @@ def parse_pair(text, keys):
             for stop in ("。", "；", "\n", "｜", "|"):
                 if stop in seg:
                     seg = seg.split(stop)[0]
+            if kw in ('標普', 'S&P') and seg.lstrip().startswith('500 '):
+                seg = seg.lstrip()[3:].lstrip()
             val = None
             chg = None
             for m in re.finditer(r"([0-9][0-9,]*\.?[0-9]*)\s*(%?)", seg):
