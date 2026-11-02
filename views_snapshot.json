@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-11-02 10:32:35",
+ "snapshot_at": "2026-11-02 11:32:34",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "ai/agent10": 9,
@@ -20,7 +20,7 @@
   "ai/php-python-2026-10": 18,
   "ai/pixel-art": 4,
   "ai/portable-ai-studio": 4,
-  "ai/rust-ai-2026-10": 12,
+  "ai/rust-ai-2026-10": 13,
   "ai/shorts": 4,
   "ai/site-stats": 10,
   "ai/top-videos": 7,
