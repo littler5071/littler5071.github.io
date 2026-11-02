@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>30 萬星的 REA：給它一顆只有機器碼的檔案，6 個弱點全部現形｜小R頻道</title>
+<title>沒有原始碼也能拆程式：30 萬星的 REA 實測，cppcheck 抓到 0 個、它抓到 6 個｜小R頻道</title>
 <meta name="description" content="REA（Reverse Engineer Anything）實測：接上 Ghidra 12.1.4 後，同一顆植入 6 個弱點的 C 執行檔全部還原；沒有引擎時連反編譯都做不到。含速度、安裝重量、與 cppcheck／Semgrep／ASan 的對照。">
 <link rel="canonical" href="https://littler5071.github.io/ai/rea-2026-11/">
-<meta property="og:title" content="30 萬星的 REA：給它一顆只有機器碼的檔案，6 個弱點全部現形">
+<meta property="og:title" content="沒有原始碼也能拆程式：30 萬星的 REA 實測，cppcheck 抓到 0 個、它抓到 6 個">
 <meta property="og:description" content="REA（Reverse Engineer Anything）實測：接上 Ghidra 12.1.4 後，同一顆植入 6 個弱點的 C 執行檔全部還原；沒有引擎時連反編譯都做不到。含速度、安裝重量、與 cppcheck／Semgrep／ASan 的對照。">
 <meta property="og:type" content="article">
 <link rel="stylesheet" href="../../css/ai-article.css">
@@ -24,24 +24,38 @@
   blockquote{border-left:5px solid #c2452d;margin:18px 0;padding:6px 0 6px 16px;color:#4a4640;background:#fffdf7}
   pre{background:#1f2126;color:#e8e6e1;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.7}
   pre code{background:none;color:inherit;padding:0}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0 26px}
+  .stat{background:#fffdf7;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+  .stat b{display:block;font-size:24px;color:#c2452d;letter-spacing:.5px}
+  .stat span{display:block;font-size:12.5px;color:#7a7268;margin-top:4px;line-height:1.45}
+  @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.stat b{font-size:21px}}
+
 </style>
 <link rel="stylesheet" href="../../nav.css?v=b7b27715">
 <script defer src="../../nav.js?v=c73ca689"></script>
 </head>
 <body>
 <main class="article">
-  <h1>30 萬星的 REA：給它一顆只有機器碼的檔案，6 個弱點全部現形</h1>
+  <h1>沒有原始碼也能拆程式：30 萬星的 REA 實測，cppcheck 抓到 0 個、它抓到 6 個</h1>
   <p class="meta">2026-11-02｜小R 頻道｜AI 技術觀察／資安工具實測</p>
   <div class="videobox" style="position:relative;padding-bottom:56.25%;height:0;margin:24px 0;border-radius:14px;overflow:hidden">
     <iframe src="https://www.youtube-nocookie.com/embed/TDtUkhVOen4" title="REA 實測"
       allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
   </div>
+  <div class="stats">
+    <div class="stat"><b>6 / 6</b><span>植入弱點全部還原</span></div>
+    <div class="stat"><b>0</b><span>cppcheck 命中數</span></div>
+    <div class="stat"><b>13.9 秒</b><span>單一函式反編譯</span></div>
+    <div class="stat"><b>1.36 GB</b><span>REA＋Ghidra＋JDK</span></div>
+  </div>
 <p><b>測試日期</b>：2026-11-02　<b>環境</b>：Ubuntu 22.04、Node v26.7.0、JDK 21、純 CPU 省電型主機（無 GPU）</p>
 <p><b>版本</b>：<code>rea-agents</code> <b>6.7.0</b>＋Ghidra <b>12.1.4</b>（＋pwntools 4.15.0）</p>
 <hr>
-<h3>一句話結論</h3>
-<p>REA 本身不會反編譯，它把 Ghidra／IDA／Hopper 變成「AI 代理可呼叫、每步附證據」的流程；<b>裝上 Ghidra 後，同一顆我故意植入 6 個弱點的 C 執行檔，它把 6 個全部還原出來</b>——而 cppcheck 與 gcc 靜態分析師當時是 0 命中。</p>
+<h3>先講結論（30 秒版）</h3>
+<ul><li><b>6 / 6</b>：我故意埋了 6 個弱點的 C 執行檔，只給機器碼，REA 接上 Ghidra 後全部還原</li><li><b>0</b>：同一個檔案，cppcheck 與 <code>gcc -fanalyzer</code> 都是 0 命中</li><li><b>13.9 秒</b>：單一函式反編譯時間；6 個函式約 1.5 分鐘</li><li><b>1.36 GB</b>：REA＋Ghidra＋JDK 的安裝重量，純本機、不用 GPU</li><li><b>12.1.x</b>：Ghidra 12.2 會被直接拒絕，版本是硬綁定</li></ul>
+<blockquote>一句話：REA 不會反編譯，它把 Ghidra 變成「AI 可以呼叫、每步附證據」的工具。真正動手拆程式的是 Ghidra，REA 負責讓代理叫得動它。</blockquote>
+<hr>
 <hr>
 <h3>一、這是什麼</h3>
 <div class="tablewrap"><table class="kt"><thead><tr><th></th><th>說明</th></tr></thead><tbody><tr><td>定位</td><td>MCP server（207 個 tool）＋CLI＋agent skill，一個 npm 套件</td></tr><tr><td>角色</td><td><b>調度者</b>：原生二進位交給 Ghidra／IDA／Hopper／Kuna；Android 給 JADX；ELF 佈局給 pwntools；.NET、JS/Electron、Go、Rust、SQLite 有內建分析器</td></tr><tr><td>不是</td><td>反編譯器（不自己反編譯）、也不是模型（推理仍靠代理的 LLM）</td></tr><tr><td>授權</td><td>MIT（REA 本體）；引擎各自授權（Ghidra Apache 2.0、IDA 商業）</td></tr><tr><td>每個結果</td><td>附 <code>evidence_id</code>、<code>confidence</code>（observed／inferred）、<code>limitations</code> 清單</td></tr></tbody></table></div>
@@ -70,7 +84,7 @@ export GHIDRA_INSTALL_DIR=~/Applications/ghidra_12.1.4_PUBLIC</code></pre>
 <h3>4-2 還原率：6 個植入弱點，6 個全中</h3>
 <p>測試樣本 <code>vuln.c</code>（79 行、故意植入 6 個弱點，分別對應 CWE），編成<b>弱版</b>（關掉防護）後只給 REA 執行檔、不給原始碼：</p>
 <div class="tablewrap"><table class="kt"><thead><tr><th>代號</th><th>CWE</th><th>原始碼弱點</th><th>REA＋Ghidra 還原出的內容</th><th>命中</th></tr></thead><tbody><tr><td>W1</td><td>CWE-89</td><td><code>find_user()</code> 字串拼接 SQL</td><td><code>snprintf(buf, &quot;SELECT * FROM users WHERE name = &#x27;%s&#x27;&quot;, param)</code> → <code>db_query()</code></td><td>✅ 直接看到 SQL 樣板與注入點</td></tr><tr><td>W2</td><td>CWE-78</td><td><code>list_dir()</code> 呼叫 <code>system()</code></td><td><code>snprintf(buf, &quot;ls -l %s&quot;, param)</code> → <code>system(buf)</code></td><td>✅ 指令注入樣板完整現形</td></tr><tr><td>W3</td><td>CWE-22</td><td><code>read_note()</code> 直接 <code>fopen(參數)</code></td><td><code>fopen(param, &quot;r&quot;)</code> 無任何路徑檢查</td><td>✅ 可判定路徑穿越</td></tr><tr><td>W4</td><td>CWE-798</td><td>硬編密碼</td><td><code>main</code> 內 <code>printf(&quot;db=%s\n&quot;, DB_PASSWORD)</code>，符號直接指向字串</td><td>✅ 連變數名都留著</td></tr><tr><td>W5</td><td>CWE-338</td><td>用 <code>rand()</code> 產 token</td><td><code>srand(time(NULL)); rand();</code></td><td>✅ 一看就是可預測</td></tr><tr><td>W6</td><td>CWE-787</td><td>32 bytes 緩衝區 <code>strcpy</code></td><td><code>char local_28[32]; strcpy(local_28, param);</code></td><td>✅ 溢位大小與函式都標出來</td></tr></tbody></table></div>
-<p><b>6／6，等於 100%</b>。作為對照，同一顆弱版在之前的靜態工具測試裡：</p>
+<p><b>6／6，等於 100%</b>。作為對照，同一個弱版在之前的靜態工具測試裡：</p>
 <div class="tablewrap"><table class="kt"><thead><tr><th>工具</th><th>這 6 個弱點的命中數</th></tr></thead><tbody><tr><td>cppcheck 2.17.1（<code>--enable=all</code>）</td><td><b>0</b></td></tr><tr><td><code>gcc -fanalyzer</code></td><td><b>0</b></td></tr><tr><td>flawfinder 2.0.20</td><td>2（只靠函式黑名單）</td></tr><tr><td>Semgrep <code>p/security-audit</code></td><td>2</td></tr><tr><td>AddressSanitizer（需要執行）</td><td>1（實際觸發溢位那條）</td></tr><tr><td><b>REA＋Ghidra（靜態反編譯）</b></td><td><b>6</b></td></tr></tbody></table></div>
 <p>差別在於：前面那些工具看的是<b>語法</b>，REA 拿到的是<b>反編譯後的完整函式骨架</b>——陣列大小、字串樣板、呼叫關係都在裡面。</p>
 <h3>4-3 它誠實的地方</h3>
@@ -87,7 +101,7 @@ export GHIDRA_INSTALL_DIR=~/Applications/ghidra_12.1.4_PUBLIC</code></pre>
 <div class="tablewrap"><table class="kt"><thead><tr><th>情境</th><th>建議</th></tr></thead><tbody><tr><td>只想看防護、符號、佈局</td><td>裝 pwntools 就夠，1.7 秒／檔，適合放進 CI 取代 checksec</td></tr><tr><td>要 AI 代理真的拆程式</td><td>裝 <b>Ghidra 12.1.x</b>（免費、純本機）並設 <code>GHIDRA_INSTALL_DIR</code></td></tr><tr><td>有專有 binary</td><td>別把反編譯輸出送雲端模型；用本機模型，或只讓代理看摘要</td></tr><tr><td>接進 Hermes</td><td><code>rea setup</code> 會改 <code>~/.hermes/config.yaml</code>，掛完重啟 gateway</td></tr></tbody></table></div>
 <hr>
 <h3>八、我怎麼看</h3>
-<p>這次實測最值得記下來的不是「它抓到 6 個弱點」，而是<b>它抓到的方式</b>：給它一顆只有機器碼的檔案，它還原出 <code>char local_28[32]; strcpy(...)</code>、<code>snprintf(&quot;ls -l %s&quot;) → system()</code> 這種人類一看就知道要出事的骨架，而且每一條都標了來源與信心等級。</p>
+<p>這次實測最值得記下來的不是「它抓到 6 個弱點」，而是<b>它抓到的方式</b>：給它一個只有機器碼的檔案，它還原出 <code>char local_28[32]; strcpy(...)</code>、<code>snprintf(&quot;ls -l %s&quot;) → system()</code> 這種人類一看就知道要出事的骨架，而且每一條都標了來源與信心等級。</p>
 <p>同時它兩次「不知道」也講得很清楚：NX 推不出來標 null、ELF 不當 PE 分析就明確拒絕。<b>在資安工具裡，知道自己沒看到什麼，比給一個看起來很肯定的答案更有價值。</b></p>
 <p>實務結論：REA 值得裝，但它是「<b>放大既有引擎價值的調度層</b>」，不是萬靈丹；沒有 Ghidra 的 REA，只是一套很會整理 metadata 的工具。</p>
 </main>
