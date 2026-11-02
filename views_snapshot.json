@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-11-02 13:32:41",
+ "snapshot_at": "2026-11-02 18:17:22",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "ai/agent10": 9,
@@ -101,6 +101,7 @@
   "stock/20261030-intraday": null,
   "stock/20261030": null,
   "stock/20261102-intraday": null,
+  "stock/20261102": null,
   "stock/backtest": 11,
   "stock/backtest16": 5,
   "stock": 203,
@@ -137,7 +138,7 @@
   "stock/tracker/20261028": null,
   "stock/tracker/20261029": 2,
   "stock/tracker/20261030": 2,
-  "stock/tracker": 41,
+  "stock/tracker": 48,
   "study": 14,
   "toeic/2026-11": null,
   "toeic/guide": 23,
