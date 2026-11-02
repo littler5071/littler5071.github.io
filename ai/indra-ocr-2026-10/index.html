@@ -21,9 +21,16 @@
   blockquote{border-left:5px solid #c2452d;margin:18px 0;padding:6px 0 6px 16px;color:#4a4640;background:#fffdf7}
   pre{background:#1f2126;color:#e8e6e1;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.7}
   pre code{background:none;color:inherit;padding:0}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <link rel="stylesheet" href="../../nav.css?v=b7b27715">
 <script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <main class="article">
@@ -107,5 +114,6 @@ uv pip install --python ~/.venvs/ocr/bin/python indra-ocr pymupdf
 <p>報告初版把「單頁參考文字」拿去比「整份輸出」，算出 414% 這種不合理數字，被我誤讀成 4.15%。</p>
 <p>已改為：整份文件對整份輸出、去掉 HTML 標籤後再計算，數字為上表的 11.4%～13.3%。</p>
 </main>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
