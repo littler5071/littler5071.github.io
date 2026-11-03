@@ -124,3 +124,13 @@ h2 .dot{
 }
 ul.plain{margin:0;padding-left:22px}
 ul.plain li{margin:8px 0}
+
+/* 文章本文區：左右留白（手機特別需要，原本貼邊太壓迫） */
+.article{
+  max-width:860px;
+  margin:0 auto;
+  padding:40px clamp(24px, 6vw, 52px) 88px;
+}
+@media (max-width:640px){
+  .article{ padding:26px 24px 72px; }
+}
