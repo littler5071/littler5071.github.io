@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-11-03 11:32:50",
+ "snapshot_at": "2026-11-03 12:32:45",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "ai/agent10": 9,
@@ -77,7 +77,7 @@
   "stock/20261007": 4,
   "stock/20261008-intraday": 1,
   "stock/20261008": 3,
-  "stock/20261012-intraday": null,
+  "stock/20261012-intraday": 1,
   "stock/20261012": null,
   "stock/20261013-intraday": 2,
   "stock/20261014": null,
