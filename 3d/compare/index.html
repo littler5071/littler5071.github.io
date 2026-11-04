@@ -500,6 +500,7 @@ new ResizeObserver(resize).observe(stage);
 resize();
 
 // 供自動測試：把內部函式掛到 window（不影響使用者）
+window.__scene = scene; window.__camera = camera; window.__controls = controls;
 window.__cmp = {samplePoints, buildGrid, nearestAll, nearestGrid, distPointTri, geometry, shiftTris: null};
 
 function tick(){
