@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3D 模型瀏覽器｜小R頻道</title>
+<meta name="description" content="拖放 .glb／.gltf／.stl／.obj 就能看的 3D 模型瀏覽器：旋轉、縮放、線框、自動旋轉與面數統計，全部在瀏覽器本機完成。">
+<link rel="canonical" href="https://littler5071.github.io/3d/">
+<style>
+  :root{
+    --paper:#f4f1ea; --card:#fffdf8; --ink:#1f1c19; --muted:#7d7469;
+    --line:#ded6c7; --accent:#c2452d; --accent-soft:#f6e3dc;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{display:flex;flex-direction:column;height:100dvh}
+  header{
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    padding:14px clamp(14px,3vw,28px);border-bottom:1px solid var(--line);background:var(--card);
+  }
+  h1{font-size:17px;font-weight:800;margin:0;letter-spacing:.01em;white-space:nowrap}
+  h1 span{color:var(--accent)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+  button,label.file{
+    -webkit-tap-highlight-color:transparent;
+    font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+    background:#fff;border:1.5px solid var(--line);border-radius:999px;
+    padding:8px 14px;cursor:pointer;transition:.15s;
+  }
+  button:hover,label.file:hover{border-color:var(--accent);color:var(--accent)}
+  button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  label.file{display:inline-flex;align-items:center;gap:6px}
+  input[type=file]{display:none}
+  main{position:relative;flex:1;min-height:0}
+  #stage{position:absolute;inset:0}
+  #stage canvas{display:block;width:100%;height:100%;touch-action:none}
+  .panel{
+    position:absolute;left:14px;bottom:14px;background:rgba(255,253,248,.94);
+    border:1px solid var(--line);border-radius:14px;padding:10px 14px;
+    font-size:12.5px;line-height:1.7;color:var(--muted);max-width:min(360px,72vw);
+    backdrop-filter:blur(6px);
+  }
+  .panel b{color:var(--ink);font-weight:800}
+  .panel .k{color:var(--muted)}
+  .hint{
+    position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    background:rgba(31,28,25,.82);color:#fff;font-size:13px;font-weight:600;
+    padding:9px 16px;border-radius:999px;pointer-events:none;transition:opacity .4s;
+  }
+  .drop{
+    position:absolute;inset:0;display:none;place-items:center;
+    background:rgba(194,69,45,.10);border:3px dashed var(--accent);border-radius:0;
+    color:var(--accent);font-weight:800;font-size:18px;z-index:5;
+  }
+  .drop.show{display:grid}
+  @media (max-width:560px){
+    h1{font-size:15px}
+    .chips{margin-left:0;width:100%}
+    button,label.file{padding:7px 12px;font-size:13px}
+    .panel{left:10px;right:10px;bottom:10px;max-width:none;font-size:12px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>3D 模型<span>瀏覽器</span></h1>
+    <div class="chips">
+      <button data-model="gear" class="on">齒輪</button>
+      <button data-model="vase">花瓶</button>
+      <button data-model="knot">紐結</button>
+      <button data-model="heart">愛心</button>
+      <label class="file">開檔<input type="file" id="file" accept=".glb,.gltf,.stl,.obj"></label>
+      <button id="wire">線框</button>
+      <button id="spin" class="on">自轉</button>
+      <button id="reset">重置視角</button>
+    </div>
+  </header>
+  <main id="main">
+    <div id="stage"></div>
+    <div class="panel" id="panel">
+      <div><b id="mname">—</b> <span class="k" id="mtype"></span></div>
+      <div><span class="k">頂點</span> <b id="mverts">—</b>　<span class="k">三角面</span> <b id="mtris">—</b></div>
+      <div><span class="k">尺寸</span> <b id="mdim">—</b></div>
+      <div><span class="k">格式</span> GLB／glTF（推薦）、STL、OBJ・檔案不會上傳</div>
+    </div>
+    <div class="hint" id="hint">拖放 .glb／.stl／.obj 到畫面上，或直接拖進來看</div>
+    <div class="drop" id="drop">放開即載入</div>
+  </main>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false, preserveDrawingBuffer:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(stage.clientWidth, stage.clientHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const BG = 0xf4f1ea;
+scene.background = new THREE.Color(BG);
+
+const camera = new THREE.PerspectiveCamera(42, stage.clientWidth/stage.clientHeight, 0.05, 200);
+camera.position.set(2.6, 1.9, 3.2);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 0.6;
+controls.maxDistance = 24;
+controls.target.set(0, 0, 0);
+
+// 燈光：一主一補一背，柔和棚拍感
+const key = new THREE.DirectionalLight(0xffffff, 2.1);
+key.position.set(3.4, 5.2, 3.0);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+key.shadow.camera.near = 0.5; key.shadow.camera.far = 20;
+key.shadow.camera.left = -4; key.shadow.camera.right = 4;
+key.shadow.camera.top = 4; key.shadow.camera.bottom = -4;
+scene.add(key);
+const fill = new THREE.DirectionalLight(0xffe9d9, 0.85);
+fill.position.set(-4, 2.2, 1.6); scene.add(fill);
+const rim = new THREE.DirectionalLight(0xdfe7ff, 0.7);
+rim.position.set(0, 2.4, -4.2); scene.add(rim);
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c2, 0.55));
+
+// 地板 + 網格
+const floor = new THREE.Mesh(
+  new THREE.CircleGeometry(9, 64),
+  new THREE.MeshStandardMaterial({ color:0xece7dd, roughness:1, metalness:0 })
+);
+floor.rotation.x = -Math.PI/2;
+floor.position.y = -1.02;
+floor.receiveShadow = true;
+scene.add(floor);
+const grid = new THREE.GridHelper(12, 24, 0xcfc6b6, 0xe2dbcd);
+grid.position.y = -1.01;
+scene.add(grid);
+
+const holder = new THREE.Group();
+scene.add(holder);
+
+let current = null, wire = false, spin = true;
+
+function clearModel(){
+  holder.traverse(o => {
+    if (o.isMesh){
+      o.geometry?.dispose?.();
+      const mats = Array.isArray(o.material) ? o.material : [o.material];
+      mats.forEach(m => m?.dispose?.());
+    }
+  });
+  holder.clear();
+}
+
+function fitCamera(obj){
+  const box = new THREE.Box3().setFromObject(obj);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  obj.position.sub(center);                       // 置中
+  const radius = Math.max(size.x, size.y, size.z) || 1;
+  const dist = radius * 2.05 / Math.tan((camera.fov * Math.PI/180)/2);
+  camera.position.set(dist*0.62, dist*0.46, dist*0.66);
+  controls.target.set(0, 0, 0);
+  controls.minDistance = radius * 0.35;
+  controls.maxDistance = radius * 9;
+  camera.near = radius/100; camera.far = radius*40; camera.updateProjectionMatrix();
+  controls.update();
+  return { size, center };
+}
+
+function applyWire(on){
+  holder.traverse(o => {
+    if (o.isMesh){
+      const mats = Array.isArray(o.material) ? o.material : [o.material];
+      mats.forEach(m => { if (m) m.wireframe = on; });
+    }
+  });
+}
+
+function stats(obj){
+  let verts = 0, tris = 0;
+  obj.traverse(o => {
+    if (o.isMesh && o.geometry){
+      const g = o.geometry;
+      const pos = g.attributes.position;
+      verts += pos ? pos.count : 0;
+      tris += g.index ? g.index.count/3 : (pos ? pos.count/3 : 0);
+    }
+  });
+  return { verts, tris: Math.round(tris) };
+}
+
+const UI = {
+  name: document.getElementById('mname'),
+  type: document.getElementById('mtype'),
+  verts: document.getElementById('mverts'),
+  tris: document.getElementById('mtris'),
+  dim: document.getElementById('mdim'),
+};
+
+function setInfo(name, type, obj, size){
+  const s = stats(obj);
+  UI.name.textContent = name;
+  UI.type.textContent = type ? `（${type}）` : '';
+  UI.verts.textContent = s.verts.toLocaleString();
+  UI.tris.textContent = s.tris.toLocaleString();
+  UI.dim.textContent = `${size.x.toFixed(2)} × ${size.y.toFixed(2)} × ${size.z.toFixed(2)}`;
+}
+
+function install(obj, name, type){
+  clearModel();
+  obj.traverse(o => { if (o.isMesh){ o.castShadow = true; o.receiveShadow = true; } });
+  holder.add(obj);
+  current = obj;
+  const { size } = fitCamera(obj);
+  applyWire(wire);
+  setInfo(name, type, obj, size);
+  hint.style.opacity = '0';
+}
+
+const gltfLoader = new GLTFLoader();
+const stlLoader = new STLLoader();
+const objLoader = new OBJLoader();
+
+const BUILTIN = {
+  gear: ['齒輪', 'gear.glb'], vase: ['花瓶', 'vase.glb'],
+  knot: ['環面紐結', 'knot.glb'], heart: ['愛心', 'heart.glb'],
+};
+
+function loadBuiltin(key){
+  const [label, file] = BUILTIN[key];
+  gltfLoader.load(`models/${file}`, g => install(g.scene, label, 'GLB'), undefined, e => {
+    console.error(e); hint.textContent = '模型載入失敗：' + file; hint.style.opacity = '1';
+  });
+}
+
+function loadFile(file){
+  const ext = (file.name.split('.').pop() || '').toLowerCase();
+  const url = URL.createObjectURL(file);
+  const done = obj => { install(obj, file.name, ext.toUpperCase()); URL.revokeObjectURL(url); };
+  const fail = e => {
+    console.error(e); hint.textContent = '讀取失敗：' + file.name; hint.style.opacity = '1';
+    URL.revokeObjectURL(url);
+  };
+  if (ext === 'glb' || ext === 'gltf') gltfLoader.load(url, g => done(g.scene), undefined, fail);
+  else if (ext === 'stl') stlLoader.load(url, geo => {
+    geo.computeVertexNormals();
+    done(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:0xc2452d, roughness:0.5, metalness:0.15 })));
+  }, undefined, fail);
+  else if (ext === 'obj') objLoader.load(url, o => {
+    o.traverse(m => { if (m.isMesh && !m.material?.type) m.material = new THREE.MeshStandardMaterial({ color:0xc2452d, roughness:0.55 }); });
+    done(o);
+  }, undefined, fail);
+  else fail(new Error('unsupported'));
+}
+
+const hint = document.getElementById('hint');
+
+// 按鈕
+document.querySelectorAll('[data-model]').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('[data-model]').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    loadBuiltin(b.dataset.model);
+  });
+});
+document.getElementById('file').addEventListener('change', e => {
+  if (e.target.files[0]) loadFile(e.target.files[0]);
+});
+document.getElementById('wire').addEventListener('click', e => {
+  wire = !wire; e.currentTarget.classList.toggle('on', wire); applyWire(wire);
+});
+document.getElementById('spin').addEventListener('click', e => {
+  spin = !spin; e.currentTarget.classList.toggle('on', spin);
+});
+document.getElementById('reset').addEventListener('click', () => {
+  if (current) fitCamera(current);
+});
+
+// 拖放
+const drop = document.getElementById('drop');
+['dragenter','dragover'].forEach(t => document.addEventListener(t, e => {
+  e.preventDefault(); drop.classList.add('show');
+}));
+['dragleave','drop'].forEach(t => document.addEventListener(t, e => {
+  e.preventDefault(); if (t === 'drop' && e.dataTransfer?.files?.[0]) loadFile(e.dataTransfer.files[0]);
+  drop.classList.remove('show');
+}));
+
+// 尺寸
+function resize(){
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(stage);
+addEventListener('orientationchange', () => setTimeout(resize, 200));
+
+// 先載入預設模型
+loadBuiltin('gear');
+setTimeout(() => { hint.style.opacity = '0'; }, 6000);
+
+function tick(){
+  requestAnimationFrame(tick);
+  if (spin && holder) holder.rotation.y += 0.0042;
+  controls.update();
+  renderer.render(scene, camera);
+}
+tick();
+</script>
+</body>
+</html>
