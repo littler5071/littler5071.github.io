@@ -188,6 +188,10 @@ function clearModel(){
 }
 
 function fitCamera(obj){
+  // 量測前先把容器旋轉歸零，否則旋轉過的模型量到的包圍盒會變大
+  holder.rotation.set(0, 0, 0);
+  holder.position.set(0, 0, 0);
+  holder.updateMatrixWorld(true);
   const box = new THREE.Box3().setFromObject(obj);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
@@ -392,6 +396,8 @@ addEventListener('orientationchange', () => setTimeout(resize, 200));
 // 先載入預設模型
 loadBuiltin('gear');
 setTimeout(() => { hint.style.opacity = '0'; }, 6000);
+
+window.__view = {scene, camera, controls, holder};
 
 function tick(){
   requestAnimationFrame(tick);
