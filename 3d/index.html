@@ -34,8 +34,11 @@
   }
   button:hover,label.file:hover{border-color:var(--accent);color:var(--accent)}
   button.on{background:var(--accent);border-color:var(--accent);color:#fff}
-  label.file{display:inline-flex;align-items:center;gap:6px}
-  input[type=file]{display:none}
+  label.file{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px}
+  label.file input[type=file]{
+    position:absolute;inset:0;opacity:0;cursor:pointer;
+    font-size:100px;               /* 讓整個可點區域都吃得到點擊 */
+  }
   main{position:relative;flex:1;min-height:0}
   #stage{position:absolute;inset:0}
   #stage canvas{display:block;width:100%;height:100%;touch-action:none}
@@ -75,7 +78,9 @@
       <button data-model="vase">花瓶</button>
       <button data-model="knot">紐結</button>
       <button data-model="heart">愛心</button>
-      <label class="file">上傳<input type="file" id="file" accept=".glb,.gltf,.stl,.obj"></label>
+      <label class="file" for="file" id="filelabel">上傳模型
+        <input type="file" id="file" accept=".glb,.gltf,.stl,.obj,model/gltf-binary,model/stl,text/plain,application/octet-stream">
+      </label>
       <button id="dl-glb">存 GLB</button>
       <button id="dl-stl">存 STL</button>
       <button id="dl-obj">存 OBJ</button>
@@ -264,24 +269,42 @@ function loadBuiltin(key){
   });
 }
 
-function loadFile(file){
-  const ext = (file.name.split('.').pop() || '').toLowerCase();
-  const url = URL.createObjectURL(file);
-  const done = obj => { install(obj, file.name, ext.toUpperCase()); URL.revokeObjectURL(url); };
-  const fail = e => {
-    console.error(e); hint.textContent = '讀取失敗：' + file.name; hint.style.opacity = '1';
-    URL.revokeObjectURL(url);
-  };
-  if (ext === 'glb' || ext === 'gltf') gltfLoader.load(url, g => done(g.scene), undefined, fail);
-  else if (ext === 'stl') stlLoader.load(url, geo => {
-    geo.computeVertexNormals();
-    done(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:0xc2452d, roughness:0.5, metalness:0.15 })));
-  }, undefined, fail);
-  else if (ext === 'obj') objLoader.load(url, o => {
-    o.traverse(m => { if (m.isMesh && !m.material?.type) m.material = new THREE.MeshStandardMaterial({ color:0xc2452d, roughness:0.55 }); });
-    done(o);
-  }, undefined, fail);
-  else fail(new Error('unsupported'));
+async function loadFile(file){
+  const hintEl = document.getElementById('hint');
+  const say = msg => { hintEl.textContent = msg; hintEl.style.opacity = '1'; };
+  try {
+    const buf = await file.arrayBuffer();
+    const head = new TextDecoder().decode(new Uint8Array(buf, 0, Math.min(64, buf.byteLength)));
+    const magic = head.slice(0, 4);
+    const done = (obj, kind) => {
+      obj.traverse(m => {
+        if (m.isMesh && (!m.material || !m.material.type || m.material.type === 'MeshBasicMaterial')) {
+          m.material = new THREE.MeshStandardMaterial({ color:0xc2452d, roughness:0.6, metalness:0.08 });
+        }
+      });
+      install(obj, file.name, kind);
+    };
+    const fail = e => { console.error(e); say('讀取失敗：' + file.name + '（' + (e?.message || e) + '）'); };
+
+    // 先看內容再決定解析器：副檔名被改掉（.stl.txt、無副檔名）也讀得到
+    if (magic === 'glTF') {
+      gltfLoader.parse(buf, '', g => done(g.scene, 'GLB'), fail);
+    } else if (head.trimStart().startsWith('{')) {
+      gltfLoader.parse(new TextDecoder().decode(buf), '', g => done(g.scene, 'glTF'), fail);
+    } else if (buf.byteLength > 84 && 84 + 50 * new DataView(buf).getUint32(80, true) === buf.byteLength) {
+      const geo = stlLoader.parse(buf);
+      geo.computeVertexNormals();
+      done(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:0xc2452d, roughness:0.6, metalness:0.08 })), 'STL');
+    } else if (/^\s*(v|vn|vt|f|o|g|#)\s/m.test(head) || head.startsWith('#')) {
+      const obj = objLoader.parse(new TextDecoder().decode(buf));
+      done(obj, 'OBJ');
+    } else {
+      say('看不懂這個檔：' + file.name + '（只支援 GLB／glTF／STL／OBJ）');
+    }
+  } catch (e) {
+    console.error(e);
+    say('讀取失敗：' + file.name);
+  }
 }
 
 const hint = document.getElementById('hint');
