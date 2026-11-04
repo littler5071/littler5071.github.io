@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>沒有 Blender、沒有顯示卡：我用 900 行程式自己做 3D 模型、瀏覽器和比對工具｜小R頻道</title>
-<meta name="description" content="用 Python 標準函式庫產生 GLB／STL／OBJ 五顆模型，寫一個能上傳下載的 three.js 檢視器，再做一個用取樣偏差計算差異的比對頁：同一模型偏差 0.0000、粗面版 0.0015、不同模型 0.387，暴力法 9.3 秒用空間網格降到 1.0 秒且誤差為 0。">
+<title>用程式生出 3D 模型，還自己做瀏覽器與比對工具｜小R頻道</title>
+<meta name="description" content="用 Python 標準函式庫自己刻 GLB 容器，產出齒輪、花瓶、環面紐結、愛心、莫比烏斯帶五顆模型；再寫一個能上傳、也能存回 GLB／STL／OBJ 的 three.js 檢視器，以及用取樣偏差算差異的比對頁（同模型 0.0000、粗面版 0.0015、不同模型 0.387）。">
 <link rel="canonical" href="https://littler5071.github.io/ai/3d-models-2026-11/">
-<meta property="og:title" content="沒有 Blender、沒有顯示卡：我用 900 行程式自己做 3D 模型、瀏覽器和比對工具">
-<meta property="og:description" content="用 Python 標準函式庫產生 GLB／STL／OBJ 五顆模型，寫一個能上傳下載的 three.js 檢視器，再做一個用取樣偏差計算差異的比對頁：同一模型偏差 0.0000、粗面版 0.0015、不同模型 0.387，暴力法 9.3 秒用空間網格降到 1.0 秒且誤差為 0。">
+<meta property="og:title" content="用程式生出 3D 模型，還自己做瀏覽器與比對工具">
+<meta property="og:description" content="用 Python 標準函式庫自己刻 GLB 容器，產出齒輪、花瓶、環面紐結、愛心、莫比烏斯帶五顆模型；再寫一個能上傳、也能存回 GLB／STL／OBJ 的 three.js 檢視器，以及用取樣偏差算差異的比對頁（同模型 0.0000、粗面版 0.0015、不同模型 0.387）。">
+<meta property="og:image" content="https://littler5071.github.io/ai/3d-models-2026-11/img/3d-printer.jpg">
 <meta property="og:type" content="article">
 <link rel="stylesheet" href="../../css/ai-article.css">
 <style>
@@ -24,6 +25,13 @@
   blockquote{border-left:5px solid #c2452d;margin:18px 0;padding:6px 0 6px 16px;color:#4a4640;background:#fffdf7}
   pre{background:#1f2126;color:#e8e6e1;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.7}
   pre code{background:none;color:inherit;padding:0}
+  a{color:#c2452d;text-decoration:underline;text-underline-offset:2px}
+  a:hover{color:#8f2c1c}
+  figure{margin:26px 0}
+  figure img{width:100%;border-radius:14px;display:block;border:1px solid var(--line);background:#fff}
+  figcaption,.cap{font-size:12.5px;color:#7a7268;line-height:1.7;margin:8px 0 0}
+  .toolbox{background:#fff6e8;border:2px solid #f0d9b8;border-radius:14px;padding:16px 18px;margin:20px 0;font-size:14.5px}
+  .toolbox ul{margin:10px 0 0;padding-left:20px;line-height:1.9}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0 26px}
   .stat{background:#fffdf7;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
   .stat b{display:block;font-size:24px;color:#c2452d}
@@ -41,20 +49,23 @@
 </head>
 <body>
 <main class="article">
-  <h1>沒有 Blender、沒有顯示卡：我用 900 行程式自己做 3D 模型、瀏覽器和比對工具</h1>
+  <h1>用程式生出 3D 模型，還自己做瀏覽器與比對工具</h1>
   <p class="meta">2026-11-04｜小R 頻道｜AI 技術觀察／實作紀錄</p>
   <div style="margin:24px 0">
     <video controls playsinline preload="metadata" style="width:100%;border-radius:14px;background:#141210;display:block">
       <source src="3d-report.mp4" type="video/mp4">
     </video>
-    <p style="font-size:13px;color:#78706a;margin:8px 0 0">完整長片 3:50（本頁內嵌）</p>
+    <p class="cap" style="margin:8px 0 0">完整長片 3:50（本頁內嵌）</p>
   </div>
-  <div style="background:#fff6e8;border:2px solid #f0d9b8;border-radius:14px;padding:16px 18px;margin:20px 0;font-size:14.5px;line-height:1.8">
-    <b>先動手玩</b><br>
-    ・<a href="../" style="color:#c2452d;font-weight:700">3D 模型瀏覽器</a>：拖入 GLB／STL／OBJ 就能轉，可存回三種格式<br>
-    ・<a href="../compare/" style="color:#c2452d;font-weight:700">3D 模型比對</a>：放兩個檔進去，看平均偏差與紅色熱點<br>
-    ・下面四顆示範模型可直接下載：<a href="../../3d/models/gear.glb">齒輪 GLB</a>、
-      <a href="../../3d/models/vase.stl">花瓶 STL</a>、<a href="../../3d/models/knot.obj">紐結 OBJ</a>
+  <div class="toolbox">
+    <b>可以直接玩</b>
+    <ul>
+      <li><a href="../../3d/" target="_blank" rel="noopener">3D 模型瀏覽器</a>：拖入 GLB／STL／OBJ 就能轉，也能存回三種格式</li>
+      <li><a href="../../3d/compare/" target="_blank" rel="noopener">3D 模型比對</a>：放兩個檔進去，看平均偏差與紅色熱點</li>
+      <li>示範模型下載：<a href="../../3d/models/gear.glb" download>齒輪 GLB</a>・
+          <a href="../../3d/models/vase.stl" download>花瓶 STL</a>・
+          <a href="../../3d/models/knot.obj" download>紐結 OBJ</a></li>
+    </ul>
   </div>
   <div class="stats">
     <div class="stat"><b>5</b><span>程序化模型</span></div>
@@ -63,18 +74,21 @@
     <div class="stat"><b>0.0000</b><span>同模型比對偏差</span></div>
   </div>
 
-<p><b>測試日期</b>：2026-11-04　<b>環境</b>：Ubuntu 22.04、純 CPU（無 GPU）、Chromium headless（SwiftShader）</p>
-<p><b>工具鏈</b>：Python 3.12 標準函式庫（<code>math</code>／<code>struct</code>／<code>json</code>）＋ three.js 0.160</p>
+<p><b>測試日期</b>：2026-11-04　<b>工具鏈</b>：Python 標準函式庫（math／struct／json）＋ three.js 0.160</p>
+<figure><img src="img/3d-printer.jpg" alt="3D 印表機正在成型" loading="lazy"><figcaption>程式算出來的形狀，最後可以變成手上真的拿得到的東西。照片：MukhtaromST／CC0</figcaption></figure>
 <hr>
 <h2>一、為什麼要自己做</h2>
 <p>需求只有三句話：</p>
 <ol><li>產生 3D 模型檔</li><li>寫一個能看 3D 檔的瀏覽器</li><li>比對兩個 3D 檔差在哪</li></ol>
-<p>市面上的路（Blender、trimesh、雲端文字轉 3D）都要額外安裝或配額。實際上這三件事用<b>標準函式庫</b>就做得完：</p>
-<p>mesh 就是一組頂點加一組三角形索引，GLB／STL／OBJ 三種格式的容器規則都寫在公開規格裡，加起來不到 400 行程式。</p>
+<p>現成的路要嘛裝一套 3D 軟體，要嘛用雲端服務算配額。但這三件事其實用<b>標準函式庫</b>就做得完：</p>
+<p>mesh 就是一組頂點加一組三角形索引，GLB／STL／OBJ 三種格式的容器規則都寫在公開規格裡，</p>
+<p>加起來不到 900 行程式。</p>
 <hr>
 <h2>二、模型怎麼產生</h2>
 <p>核心只有一個資料結構：<code>Mesh.v</code>（頂點陣列）與 <code>Mesh.f</code>（三角形索引陣列）。每種模型就是一個產生函式：</p>
-<div class="tablewrap"><table class="kt"><thead><tr><th>模型</th><th>做法</th><th>頂點</th><th>三角面</th><th>GLB 大小</th></tr></thead><tbody><tr><td>齒輪</td><td>極座標齒形輪廓 ＋ 側牆 ＋ 三角扇上蓋 ＋ 中心凸轂</td><td>243</td><td>432</td><td>36.4 KB</td></tr><tr><td>花瓶</td><td>旋轉體（半徑函式 <code>0.28 + 0.42·sin</code> ＋ <code>0.10·sin(2.2πt)</code>）</td><td>2,068</td><td>4,048</td><td>96.9 KB</td></tr><tr><td>環面紐結</td><td>沿 (p=2, q=3) 曲線掃圓管，Frenet 座標取正交基底</td><td>3,520</td><td>7,040</td><td>166.0 KB</td></tr><tr><td>愛心</td><td>2D 心形曲線擠出厚度</td><td>146</td><td>288</td><td>7.7 KB</td></tr><tr><td>莫比烏斯帶</td><td>帶狀曲面，u 走一圈、v 半扭轉</td><td>1,760</td><td>3,200</td><td>79.7 KB</td></tr></tbody></table></div>
+<div class="tablewrap"><table class="kt"><thead><tr><th>模型</th><th>做法</th><th>頂點</th><th>三角面</th><th>GLB 大小</th></tr></thead><tbody><tr><td>齒輪</td><td>極座標齒形輪廓 ＋ 側牆 ＋ 三角扇上蓋 ＋ 中心凸轂</td><td>243</td><td>432</td><td>36.4 KB</td></tr><tr><td>花瓶</td><td>旋轉體（半徑函式 <code>0.28 + 0.42·sin</code> ＋ <code>0.10·sin(2.2πt)</code>）</td><td>2,068</td><td>4,048</td><td>96.9 KB</td></tr><tr><td>環面紐結</td><td>沿 (p=2, q=3) 曲線掃圓管，取正交基底</td><td>3,520</td><td>7,040</td><td>166.0 KB</td></tr><tr><td>愛心</td><td>2D 心形曲線擠出厚度</td><td>146</td><td>288</td><td>7.7 KB</td></tr><tr><td>莫比烏斯帶</td><td>帶狀曲面，u 走一圈、v 半扭轉</td><td>1,760</td><td>3,200</td><td>79.7 KB</td></tr></tbody></table></div>
+<figure><img src="img/vase.png" alt="花瓶模型" loading="lazy"><figcaption>程式生的旋轉體：2,068 個頂點、4,048 個面</figcaption></figure>
+<figure><img src="img/vase-painting.jpg" alt="真實的靜物花瓶油畫" loading="lazy"><figcaption>對照組：真實世界的花瓶（大都會博物館館藏，CC0）。曲面的「手感」很難只用公式描述</figcaption></figure>
 <h3>兩個一定要處理的細節</h3>
 <p><b>① 孔洞不能「把外輪廓乘一個係數」</b></p>
 <p>第一版齒輪的中心孔是把齒形輪廓座標乘 0.22 做出來的。結果不是圓孔，而是<b>18 齒的小星形</b>，</p>
@@ -84,6 +98,7 @@
 <p>曲面模型改用「位置量化焊接 ＋ 平均面法線」：</p>
 <div class="tablewrap"><table class="kt"><thead><tr><th>模型</th><th>焊接前頂點</th><th>焊接後頂點</th><th>GLB 大小變化</th></tr></thead><tbody><tr><td>環面紐結</td><td>21,120</td><td>3,520</td><td>578.5 KB → <b>166.0 KB</b></td></tr></tbody></table></div>
 <p>同一顆模型，檔案小 71%、畫面變平滑，幾何完全沒變（三角面數相同）。</p>
+<figure><img src="img/knot.png" alt="環面紐結" loading="lazy"><figcaption>焊接頂點前後，三角面數都是 7,040</figcaption></figure>
 <hr>
 <h2>三、GLB 是自己刻的容器</h2>
 <p>glTF 2.0 的二進位封裝規則不能錯，錯一個欄位就是整顆載不進去：</p>
@@ -92,11 +107,12 @@
 <p>兩個都對，代表容器沒寫壞。</p>
 <hr>
 <h2>四、瀏覽器：能上傳、能下載</h2>
-<p>上線位置：<code>https://littler5071.github.io/3d/</code></p>
-<div class="tablewrap"><table class="kt"><thead><tr><th>功能</th><th>實作</th></tr></thead><tbody><tr><td>讀檔格式</td><td>GLB／glTF／STL（binary）／OBJ</td></tr><tr><td>上傳</td><td>「上傳模型」按鈕（<code>&lt;input&gt;</code> 鋪滿整個按鈕）＋ 整頁拖放</td></tr><tr><td>下載</td><td>存 GLB／STL／OBJ（<code>GLTFExporter</code>／<code>STLExporter</code>／<code>OBJExporter</code>）</td></tr><tr><td>檢視</td><td>OrbitControls 旋轉縮放、線框、自轉、重置視角</td></tr><tr><td>資訊</td><td>檔名、格式、頂點數、三角面數、尺寸 X×Y×Z</td></tr><tr><td>鏡頭</td><td>依 bounding box 自動置中，<code>dist = r × 2.05 / tan(fov/2)</code></td></tr><tr><td>隱私</td><td>全程在瀏覽器本機解析，檔案不上傳</td></tr></tbody></table></div>
+<p>直接玩：<a href="https://littler5071.github.io/3d/" target="_blank" rel="noopener">https://littler5071.github.io/3d/</a></p>
+<div class="tablewrap"><table class="kt"><thead><tr><th>功能</th><th>實作</th></tr></thead><tbody><tr><td>讀檔格式</td><td>GLB／glTF／STL（binary）／OBJ</td></tr><tr><td>上傳</td><td>「上傳模型」按鈕（input 鋪滿整個按鈕）＋ 整頁拖放</td></tr><tr><td>下載</td><td>存 GLB／STL／OBJ（GLTFExporter／STLExporter／OBJExporter）</td></tr><tr><td>檢視</td><td>OrbitControls 旋轉縮放、線框、自轉、重置視角</td></tr><tr><td>資訊</td><td>檔名、格式、頂點數、三角面數、尺寸 X×Y×Z</td></tr><tr><td>鏡頭</td><td>依 bounding box 自動置中，<code>dist = r × 2.05 / tan(fov/2)</code></td></tr><tr><td>隱私</td><td>全程在瀏覽器本機解析，檔案不上傳</td></tr></tbody></table></div>
+<figure><img src="img/viewer.png" alt="檢視器介面" loading="lazy"><figcaption>拖進去就能轉，左下角即時顯示頂點、面數與尺寸</figcaption></figure>
 <h3>上傳踩到的兩個坑</h3>
 <p><b>坑 1：靠副檔名判斷，檔案被改名就讀不到。</b></p>
-<p>Telegram／LINE 下載常變成 <code>knot-noext</code>、<code>knot.stl.txt</code>，配 <code>accept=&quot;.stl&quot;</code> 會讓系統檔案視窗直接反灰，</p>
+<p>通訊軟體下載常變成 <code>knot-noext</code>、<code>knot.stl.txt</code>，配 <code>accept=&quot;.stl&quot;</code> 會讓系統檔案視窗直接反灰，</p>
 <p>使用者看到的就是「按開檔不能上傳」。改成讀前 64 bytes 判斷：</p>
 <div class="tablewrap"><table class="kt"><thead><tr><th>開頭特徵</th><th>判定</th></tr></thead><tbody><tr><td><code>glTF</code></td><td>GLB</td></tr><tr><td><code>{</code></td><td>glTF（JSON）</td></tr><tr><td><code>84 + 50 × n == 檔案大小</code></td><td>binary STL</td></tr><tr><td><code>v </code>／<code>f </code>／<code>#</code> 開頭</td><td>OBJ</td></tr></tbody></table></div>
 <p>實測：<code>knot-noext</code>（無副檔名）→ 正確讀成 STL、21,120 頂點／7,040 面；<code>vase.obj.txt</code> → OBJ、12,144／4,048。</p>
@@ -104,12 +120,13 @@
 <p>改成 <code>label{position:relative;overflow:hidden}</code> ＋ <code>input{position:absolute;inset:0;opacity:0}</code>，</p>
 <p>整個按鈕都是可點區域（實測 label 86×38、input 84×36）。</p>
 <h3>下載要驗 round-trip，不能只看「有沒有檔案」</h3>
-<div class="tablewrap"><table class="kt"><thead><tr><th>動作</th><th>產出</th><th>驗證結果</th></tr></thead><tbody><tr><td>存 GLB</td><td>mobius.glb 80.2 KB</td><td>檔頭 <code>glTF</code> v2、<code>total 270,260</code> == 實際大小</td></tr><tr><td>存 STL</td><td>mobius.stl 156.3 KB</td><td>3,200 面、<code>84 + 50×3,200 = 160,084</code> == 實際大小</td></tr><tr><td>存 OBJ</td><td>mobius.obj 309.6 KB</td><td>9,600 個 <code>v</code>、3,200 個 <code>f</code></td></tr></tbody></table></div>
+<div class="tablewrap"><table class="kt"><thead><tr><th>動作</th><th>產出</th><th>驗證結果</th></tr></thead><tbody><tr><td>存 GLB</td><td>mobius.glb 80.2 KB</td><td>檔頭 glTF v2、<code>total 270,260</code> == 實際大小</td></tr><tr><td>存 STL</td><td>mobius.stl 156.3 KB</td><td>3,200 面、<code>84 + 50×3,200 = 160,084</code> == 實際大小</td></tr><tr><td>存 OBJ</td><td>mobius.obj 309.6 KB</td><td>9,600 個 v、3,200 個 f</td></tr></tbody></table></div>
 <hr>
 <h2>五、比對：差異要能量，不能只用眼睛看</h2>
-<p>上線位置：<code>https://littler5071.github.io/3d/compare/</code></p>
+<p>直接玩：<a href="https://littler5071.github.io/3d/compare/" target="_blank" rel="noopener">https://littler5071.github.io/3d/compare/</a></p>
 <p>除了面數、體積、表面積、尺寸，真正有用的是<b>取樣偏差</b>：在 A 表面依面積加權隨機取點，</p>
-<p>量每一點到 B 表面的最近距離（point-to-triangle distance），再反向做一次。</p>
+<p>量每一點到 B 表面的最近距離，再反向做一次。</p>
+<figure><img src="img/compare-red.png" alt="比對頁" loading="lazy"><figcaption>紅色＝兩顆模型差最多的地方；綠色＝幾乎重合</figcaption></figure>
 <h3>效能：暴力法 → 空間網格</h3>
 <p>1500 點 × 3200 面 ≈ 480 萬次距離計算，瀏覽器要 9.3 秒。改成均勻網格：</p>
 <ol><li>格子邊長 ＝ 包圍盒最長邊 ÷ 14</li><li>每個三角形塞進它 bbox 跨到的所有格子</li><li>查詢時從所在格往外一圈圈找，<code>best ≤ r × cell</code> 就停</li></ol>
@@ -117,22 +134,29 @@
 <p><b>準確性對照</b>：用 288 面球體、400 個隨機點，同時跑網格與暴力法逐點比對 ——</p>
 <p><code>maxErr = 0</code>、<code>meanErr = 0</code>，加速沒有犧牲精度。</p>
 <h3>三組對照（網頁與命令列數字一致）</h3>
-<div class="tablewrap"><table class="kt"><thead><tr><th>對照</th><th>平均偏差</th><th>95% 偏差</th><th>最大偏差</th><th>體積差</th></tr></thead><tbody><tr><td>同一顆：<code>mobius.glb</code> × <code>mobius.stl</code></td><td><b>0.00000</b></td><td>0.00000</td><td>0.00000</td><td>0.0%</td></tr><tr><td>粗面版（面數少 2,816）</td><td>0.00148</td><td>0.00322</td><td>0.00433</td><td>0.7%</td></tr><tr><td>完全不同（莫比烏斯帶 × 愛心）</td><td>0.38680</td><td>0.67530</td><td>0.84680</td><td>87.3%</td></tr></tbody></table></div>
+<div class="tablewrap"><table class="kt"><thead><tr><th>對照</th><th>平均偏差</th><th>95% 偏差</th><th>最大偏差</th><th>體積差</th></tr></thead><tbody><tr><td>同一顆：mobius.glb × mobius.stl</td><td><b>0.00000</b></td><td>0.00000</td><td>0.00000</td><td>0.0%</td></tr><tr><td>粗面版（面數少 2,816）</td><td>0.00148</td><td>0.00322</td><td>0.00433</td><td>0.7%</td></tr><tr><td>完全不同（莫比烏斯帶 × 愛心）</td><td>0.38680</td><td>0.67530</td><td>0.84680</td><td>87.3%</td></tr></tbody></table></div>
 <p>第一組是關鍵：同一個模型的兩種格式，幾何必須完全相同 → 偏差 0，代表演算法沒有亂算。</p>
 <p>第二組代表「形狀一樣、三角化不同」，數字小但非零。第三組才是形狀真的不同。</p>
 <h3>一定要先對齊中心</h3>
 <p>兩顆模型若原點不同，位移會被誤認為巨大差異。比對頁預設把 A、B 各自移到自己的包圍盒中心再算，</p>
 <p>並提供「對齊中心」開關；關掉時可以拿來檢查兩個檔是否本來就放在同一個座標系。</p>
 <hr>
-<h2>六、限制（實話）</h2>
-<ol><li><b>只做程序化建模</b>：幾何是人類寫的參數曲面，做不出人型、有機造型。要那種形狀得走雲端文字轉 3D 或 sculpt。</li><li><b>比對是點到面距離，不是布林運算</b>：它告訴你「哪裡不一樣、差多少」，不會給你「A 減 B 之後的實體」。</li><li><b>取樣是隨機的</b>：同一對模型重跑兩次，平均偏差小數點後第三位會跳動（1500 點、標準差約 1e-4）。</li><li><b>沒有材質／貼圖</b>：GLB 只帶單一 PBR 顏色，不處理 UV 與貼圖。</li><li><b>大檔會慢</b>：10 萬面以上的模型，比對會落在 5～10 秒，且手機可能記憶體吃緊。</li><li><b>STL 沒有法線、OBJ 沒有材質</b>：載入後要自己補 <code>computeVertexNormals()</code> 與 <code>MeshStandardMaterial</code>。</li></ol>
+<h2>六、真的存在於世界的版本</h2>
+<figure><img src="img/mobius-sculpture.jpg" alt="不鏽鋼莫比烏斯帶雕塑" loading="lazy"><figcaption>不鏽鋼莫比烏斯帶雕塑（CC0）。我們那顆 3,200 面的模型，就是把這種「只有一個面、一條邊」的形狀講清楚</figcaption></figure>
+<p>程序化建模最適合做的，就是這種「用文字很難講、用公式很好算」的形狀：齒輪、旋轉體、紐結、莫比烏斯帶。</p>
+<p>反過來說，人臉、布料皺褶、動物肌肉這種靠觀察的東西，它給不了——這也是下面限制的第一條。</p>
 <hr>
-<h2>七、結論</h2>
+<h2>七、限制（實話）</h2>
+<ol><li><b>只做程序化建模</b>：幾何是人類寫的參數曲面，做不出人型、有機造型。要那種形狀得走掃描、雕刻或雲端生成。</li><li><b>比對是點到面距離，不是布林運算</b>：它告訴你「哪裡不一樣、差多少」，不會給你「A 減 B 之後的實體」。</li><li><b>取樣是隨機的</b>：同一對模型重跑兩次，平均偏差小數點後第三位會跳動（1500 點、標準差約 1e-4）。</li><li><b>沒有材質／貼圖</b>：GLB 只帶單一 PBR 顏色，不處理 UV 與貼圖。</li><li><b>大檔會慢</b>：10 萬面以上的模型，比對會落在 5～10 秒，手機可能記憶體吃緊。</li><li><b>STL 沒有法線、OBJ 沒有材質</b>：載入後要自己補 <code>computeVertexNormals()</code> 與 <code>MeshStandardMaterial</code>。</li></ol>
+<figure><img src="img/desk.jpg" alt="工作現場" loading="lazy"><figcaption>整條流程都在這張桌子上跑完：寫程式、算模型、寫網頁、量差異。照片：Niklas Veenhuis／CC0</figcaption></figure>
+<hr>
+<h2>八、結論</h2>
 <div class="tablewrap"><table class="kt"><thead><tr><th>問題</th><th>答案</th></tr></thead><tbody><tr><td>能不能產生 3D 模型檔？</td><td>能，五顆模型、三種格式，標準函式庫即可</td></tr><tr><td>能不能瀏覽 3D 檔？</td><td>能，GLB／STL／OBJ 上傳、旋轉、量面數、再存回三種格式</td></tr><tr><td>能不能比對兩個檔？</td><td>能，量化到「平均／95%／最大偏差 ＋ 體積差」，並畫出熱點圖</td></tr><tr><td>值不值得自己寫？</td><td>值得。全部加起來不到 900 行，沒有安裝、沒有配額、可重現、檔案小</td></tr></tbody></table></div>
-<p>若要重跑全部流程：</p>
+<p>若想自己重跑一次：</p>
 <pre><code>~/.venvs/video/bin/python ~/banner/tools/make3d.py          # 四顆內建模型
 ~/.venvs/video/bin/python ~/banner/tools/make3d_extra.py    # 莫比烏斯帶
 ~/.venvs/video/bin/python ~/banner/tools/compare3d.py A B   # 命令列比對</code></pre>
+<figure><img src="img/3d-printer.jpg" alt="桌上型 3D 印表機" loading="lazy"><figcaption>從一個頂點陣列，到桌上真的印得出來的實體（照片：MukhtaromST／CC0）</figcaption></figure>
 </main>
 <div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
