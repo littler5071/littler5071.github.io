@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>可以直接列印的 3D 模型｜魚骨蛇・齒輪・花瓶・杯墊｜小R頻道</title>
+<meta name="description" content="六個可以直接列印的 STL：一體成形魚骨蛇、撓性蛇、齒輪 Ø60、花瓶 110 mm、杯墊 Ø90。附尺寸、體積、水密檢查與列印參數。">
+<link rel="canonical" href="https://littler5071.github.io/3d/print/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"可列印 3D 模型","url":"https://littler5071.github.io/3d/print/",
+ "itemListElement":[
+  {"@type":"ListItem","position":1,"name":"一體成形魚骨蛇"},
+  {"@type":"ListItem","position":2,"name":"撓性蛇（珠子＋細頸）"},
+  {"@type":"ListItem","position":3,"name":"齒輪 Ø60"},
+  {"@type":"ListItem","position":4,"name":"花瓶 110 mm"},
+  {"@type":"ListItem","position":5,"name":"杯墊 Ø90"}]}
+</script>
+<style>
+  :root{--ink:#1c1a17;--sub:#6b6357;--line:#e3ddd2;--card:#fffdf8;--accent:#c2452d;--bg:#f7f4ee}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    line-height:1.75;-webkit-text-size-adjust:100%}
+  .wrap{max-width:900px;margin:0 auto;padding:28px clamp(18px,5vw,40px) 72px}
+  .backlink{display:inline-block;color:var(--sub);text-decoration:none;font-size:14px;margin-bottom:16px}
+  .backlink:hover{color:var(--accent)}
+  h1{font-size:clamp(24px,4.4vw,34px);line-height:1.35;margin:0 0 10px;letter-spacing:-.01em}
+  .lead{color:var(--sub);font-size:15px;margin:0 0 22px}
+  h2{font-size:clamp(18px,3vw,22px);margin:34px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(255px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;display:flex;flex-direction:column}
+  .card h3{font-size:16.5px;margin:0 0 6px}
+  .card .spec{font-size:13px;color:var(--sub);margin:0 0 10px;line-height:1.6}
+  .card .spec b{color:var(--ink)}
+  .dl{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .dl a{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;
+    font-size:13.5px;font-weight:700;padding:8px 14px;border-radius:999px}
+  .dl a.ghost{background:#fff;color:var(--accent);border:1.5px solid var(--accent)}
+  .dl a:active{transform:translateY(1px)}
+  .shot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin:16px 0}
+  .shot img{width:100%;height:auto;display:block;border-radius:10px}
+  .shot figcaption{font-size:12.5px;color:var(--sub);margin-top:8px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left}
+  th{background:#f0ebe1;font-weight:700;font-size:13px}
+  tr:last-child td{border-bottom:0}
+  .note{background:#fff6e5;border:2px solid #e0b25a;border-radius:12px;padding:12px 15px;
+    font-size:13.5px;color:#5a4a2a;line-height:1.7;margin:16px 0}
+  ul{padding-left:20px;font-size:14.5px}
+  li{margin:5px 0}
+  a.inline{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+  footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
+  @media (max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="../">← 3D 模型瀏覽器</a>
+  <h1>可以直接列印的 3D 模型</h1>
+  <p class="lead">六個 STL，單位都是 mm、全部都通過「每條邊剛好被 2 個三角形使用」的水密檢查，丟進切片軟體就能印。</p>
+
+  <figure class="shot">
+    <img src="shots/print_set.png" alt="魚骨蛇、齒輪、花瓶、杯墊四個模型的列印預覽">
+    <figcaption>魚骨蛇（上）、齒輪、花瓶、杯墊。單位 mm，全部平底不翹。</figcaption>
+  </figure>
+
+  <h2>一體成形的魚骨蛇</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>魚骨蛇（卡扣式）</h3>
+      <p class="spec">
+        <b>190.8 × 8 × 4 mm</b>｜12 節<br>
+        8,036 三角面｜11.84 cm³（PLA 約 14.7 g）<br>
+        每節＝平板＋C 形扣環＋柱銷，間隙 0.25 mm
+      </p>
+      <div class="dl">
+        <a href="models/fishbone_snake.stl" download>下載 STL</a>
+        <a class="ghost" href="../?model=../print/models/fishbone_snake.stl">線上看</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>撓性蛇（珠子＋細頸）</h3>
+      <p class="spec">
+        <b>164 × 6.5 × 6 mm</b>｜活鉸結構<br>
+        22,968 三角面｜2.98 cm³（約 3.7 g）<br>
+        最軟、最不容易印失敗
+      </p>
+      <div class="dl">
+        <a href="models/wiggle_snake.stl" download>下載 STL</a>
+        <a class="ghost" href="../?model=../print/models/wiggle_snake.stl">線上看</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>撓性蛇（16 節寬鬆版）</h3>
+      <p class="spec">
+        <b>184 × 5.5 × 5 mm</b>｜16 節<br>
+        2.43 cm³（約 3.0 g）<br>
+        節數多、擺動更滑順
+      </p>
+      <div class="dl">
+        <a href="models/flexi_snake_loose.stl" download>下載 STL</a>
+      </div>
+    </div>
+  </div>
+
+  <figure class="shot">
+    <img src="shots/fishbone_zoom.png" alt="魚骨蛇接頭近照：C 形扣環扣住柱銷">
+    <figcaption>近看接頭：板身右端是 C 形扣環，左端柱銷穿進前一節的環裡。中間那個「看起來斷掉」的缺口是刻意留的開口，不是破面。</figcaption>
+  </figure>
+
+  <h2>齒輪・花瓶・杯墊</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>齒輪 Ø60</h3>
+      <p class="spec"><b>60 × 60 × 9 mm</b><br>14.14 cm³（約 17.5 g）<br>16 齒、中心孔 Ø8，可當減速齒輪組</p>
+      <div class="dl">
+        <a href="models/gear_d60.stl" download>下載 STL</a>
+        <a class="ghost" href="../?model=../print/models/gear_d60.stl">線上看</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>花瓶 110 mm</h3>
+      <p class="spec"><b>75.5 × 75.5 × 110 mm</b><br>25.08 cm³（約 31 g）<br>單層牆可印成透光薄殼，建議花瓶模式</p>
+      <div class="dl">
+        <a href="models/vase_h110.stl" download>下載 STL</a>
+        <a class="ghost" href="../?model=../print/models/vase_h110.stl">線上看</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>杯墊 Ø90</h3>
+      <p class="spec"><b>90 × 90 × 4 mm</b><br>23.55 cm³（約 29 g）<br>邊緣倒角，吸水層可墊軟木</p>
+      <div class="dl">
+        <a href="models/coaster_d90.stl" download>下載 STL</a>
+        <a class="ghost" href="../?model=../print/models/coaster_d90.stl">線上看</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>建議列印參數</h2>
+  <table>
+    <tr><th>項目</th><th>魚骨蛇</th><th>撓性蛇</th><th>齒輪／杯墊</th><th>花瓶</th></tr>
+    <tr><td>層高</td><td>0.2 mm</td><td>0.2 mm</td><td>0.2 mm</td><td>0.24 mm</td></tr>
+    <tr><td>外牆</td><td>3 圈</td><td>2 圈</td><td>4 圈</td><td>1 圈（花瓶模式）</td></tr>
+    <tr><td>填充</td><td>20%</td><td>15%</td><td>40%</td><td>0%</td></tr>
+    <tr><td>支撐</td><td><b>不要開</b></td><td>不要開</td><td>不要開</td><td>不要開</td></tr>
+    <tr><td>首層高度</td><td>0.24–0.28 mm</td><td>0.2 mm</td><td>0.2 mm</td><td>0.2 mm</td></tr>
+  </table>
+
+  <div class="note">
+    <b>魚骨蛇最容易失敗的地方</b>：首層壓太扁（被平台壓到 0.15 mm 以下）會讓扣環跟柱銷黏死。
+    首層拉到 0.24–0.28 mm，或在切片軟體把「水平擴張」設 −0.05 mm。
+    印完先用手輕輕左右擺每一節，能動再整條拉直，硬拉會斷銷。
+  </div>
+
+  <h2>自己檢查一個 STL 能不能印</h2>
+  <ul>
+    <li><b>水密</b>：每條邊剛好被 2 個三角形使用（不是 1 也不是 3）。用 Python 的 <code>Counter</code> 統計排序後的邊索引就能驗。</li>
+    <li><b>平底</b>：最小 z 必須是 0，否則一定要支撐。</li>
+    <li><b>單位</b>：STL 沒有單位欄位，慣例是 mm。檔案匯出時就要用 mm 建模，不要事後縮放。</li>
+    <li><b>體積為正</b>：繞向（winding）一致，切片軟體才不會把裡面當外面。</li>
+  </ul>
+  <p style="font-size:14px;color:var(--sub)">想自己比對兩個版本差多少？用 <a class="inline" href="../compare/">3D 模型比對</a>：丟兩個檔進去，算出平均偏差與紅色熱點。</p>
+
+  <footer>
+    模型由程式生成（Python 直寫 STL），可自由使用與修改。<br>
+    <a class="inline" href="../">3D 模型瀏覽器</a>　·　<a class="inline" href="../../ai/3d-models-2026-11/">完整技術報告</a>　·　小R頻道
+  </footer>
+</div>
+</body>
+</html>

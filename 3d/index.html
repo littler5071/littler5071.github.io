@@ -33,6 +33,9 @@
     padding:8px 14px;cursor:pointer;transition:.15s;
   }
   button:hover,label.file:hover{border-color:var(--accent);color:var(--accent)}
+  a.chaplink{font-size:14px;font-weight:700;color:var(--accent);text-decoration:none;
+    border:1.5px solid var(--accent);border-radius:999px;padding:8px 14px;display:inline-flex;align-items:center}
+  a.chaplink:hover{background:var(--accent);color:#fff}
   button.on{background:var(--accent);border-color:var(--accent);color:#fff}
   label.file{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px}
   label.file input[type=file]{
@@ -74,6 +77,7 @@
   <header>
     <h1>3D 模型<span>瀏覽器</span></h1>
     <div class="chips">
+      <a class="chaplink" href="print/">列印模型</a>
       <button data-model="gear" class="on">齒輪</button>
       <button data-model="vase">花瓶</button>
       <button data-model="knot">紐結</button>
@@ -325,6 +329,16 @@ document.querySelectorAll('[data-model]').forEach(b => {
 document.getElementById('file').addEventListener('change', e => {
   if (e.target.files[0]) loadFile(e.target.files[0]);
 });
+
+// 支援 ?model=<路徑> 直接載入指定檔案（列印頁的「線上看」用）
+(function(){
+  const q = new URLSearchParams(location.search).get('model');
+  if (!q) return;
+  const name = decodeURIComponent(q).split('/').pop() || 'model';
+  fetch(q).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
+    .then(b => loadFile(new File([b], name)))
+    .catch(err => { hint.textContent = '載入失敗：' + q; hint.style.opacity = '1'; console.error(err); });
+})();
 document.getElementById('wire').addEventListener('click', e => {
   wire = !wire; e.currentTarget.classList.toggle('on', wire); applyWire(wire);
 });
