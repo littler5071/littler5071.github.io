@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3D 模型比對｜小R頻道</title>
+<meta name="description" content="載入兩個 3D 模型（GLB／STL／OBJ），比對面數、體積、表面積、邊界盒，並用取樣距離畫出差異熱點圖。">
+<link rel="canonical" href="https://littler5071.github.io/3d/compare/">
+<style>
+  :root{--paper:#f4f1ea;--card:#fffdf8;--ink:#1f1c19;--muted:#7d7469;--line:#ded6c7;
+        --accent:#c2452d;--good:#3f7a55;--warn:#c98a1e;--bad:#b5301f;}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .app{display:flex;flex-direction:column;height:100dvh}
+  header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px clamp(12px,3vw,24px);
+         border-bottom:1px solid var(--line);background:var(--card)}
+  h1{font-size:16px;font-weight:800;margin:0;white-space:nowrap}
+  h1 span{color:var(--accent)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto;align-items:center}
+  button,label.file{font:inherit;font-size:13.5px;font-weight:700;background:#fff;border:1.5px solid var(--line);
+    border-radius:999px;padding:7px 13px;cursor:pointer;color:var(--ink)}
+  button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  label.file{position:relative;overflow:hidden;display:inline-flex;gap:6px}
+  label.file input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:90px}
+  label.file.a{border-color:#4a6f8a;color:#33566e}
+  label.file.b{border-color:#8a5a4a;color:#6e4333}
+  main{position:relative;flex:1;min-height:0;display:flex}
+  #stage{position:relative;flex:1;min-width:0}
+  #stage canvas{display:block;width:100%;height:100%}
+  aside{width:min(390px,42vw);border-left:1px solid var(--line);background:var(--card);
+        overflow:auto;padding:14px 16px 28px;font-size:13px}
+  aside h2{font-size:13px;margin:16px 0 8px;color:var(--muted);font-weight:800;letter-spacing:.03em}
+  aside h2:first-child{margin-top:0}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed #eee6d8}
+  .row b{font-variant-numeric:tabular-nums}
+  .row.hdr{border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+  .row .d{font-variant-numeric:tabular-nums;font-weight:800}
+  .d.same{color:var(--good)} .d.diff{color:var(--bad)} .d.mid{color:var(--warn)}
+  .legend{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--muted);margin-top:8px}
+  .bar{height:10px;flex:1;border-radius:6px;background:linear-gradient(90deg,#3f7a55,#c9c02e,#c98a1e,#b5301f)}
+  .note{font-size:11.5px;color:var(--muted);line-height:1.7;margin-top:10px}
+  .hint{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:rgba(31,28,25,.85);color:#fff;
+        padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:600;pointer-events:none;transition:opacity .4s;z-index:4}
+  .badge{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;background:#eee7d8;color:#5a5248}
+  @media (max-width:760px){
+    main{flex-direction:column}
+    aside{width:auto;max-height:46dvh;border-left:0;border-top:1px solid var(--line)}
+    #stage{flex:1 1 auto;min-height:44dvh}
+    h1{font-size:15px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>3D 模型<span>比對</span></h1>
+    <div class="chips">
+      <label class="file a">選 A<input type="file" id="fileA"></label>
+      <label class="file b">選 B<input type="file" id="fileB"></label>
+      <label class="file">兩檔一起<input type="file" id="fileBoth" multiple></label>
+      <button id="align" class="on">對齊中心</button>
+      <button id="mode" class="on">差異熱點</button>
+      <button id="spin">自轉</button>
+      <a href="../"><button type="button">回瀏覽器</button></a>
+    </div>
+  </header>
+  <main>
+    <div id="stage"><div class="hint" id="hint">先選 A，再選 B（或一次選兩個檔）</div></div>
+    <aside>
+      <h2>A／B 基本資料</h2>
+      <div class="row hdr"><span></span><span><b style="color:#33566e">A</b> <span style="color:#bbb">|</span> <b style="color:#6e4333">B</b></span></div>
+      <div id="stats"></div>
+      <h2>幾何差異（取樣 1,500 點）</h2>
+      <div id="diff"></div>
+      <div class="legend"><span>0</span><div class="bar"></div><span id="maxd">—</span></div>
+      <div class="note" id="note">
+        差異＝在 A 的表面隨機取點，量它到 B 表面最近距離（單向），再反向做一次取平均。
+        兩顆模型若只差面數／三角化方式，數值會接近 0；若形狀不同、位置沒對齊，數字會變大。
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
+const stage = document.getElementById('stage');
+const hint = document.getElementById('hint');
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+stage.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf4f1ea);
+const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 500);
+camera.position.set(3, 2.2, 3.6);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c2, 0.9));
+const key = new THREE.DirectionalLight(0xffffff, 1.7); key.position.set(4,6,3); scene.add(key);
+const fill = new THREE.DirectionalLight(0xffe9d9, 0.6); fill.position.set(-4,2,-2); scene.add(fill);
+const grid = new THREE.GridHelper(8, 16, 0xd6cfc0, 0xe6dfd2); grid.position.y = -1.3; scene.add(grid);
+
+const groupA = new THREE.Group(), groupB = new THREE.Group();
+scene.add(groupA, groupB);
+
+const loaderGltf = new GLTFLoader(), loaderStl = new STLLoader(), loaderObj = new OBJLoader();
+const state = { A:null, B:null, align:true, heat:true, rotate:false };
+
+function say(msg, ms=6000){ hint.textContent = msg; hint.style.opacity='1';
+  clearTimeout(say._t); if (ms) say._t = setTimeout(()=>hint.style.opacity='0', ms); }
+
+async function detect(file){
+  const buf = await file.arrayBuffer();
+  const head = new TextDecoder().decode(new Uint8Array(buf, 0, Math.min(64, buf.byteLength)));
+  if (head.slice(0,4) === 'glTF') return {kind:'GLB', buf};
+  if (head.trimStart().startsWith('{')) return {kind:'glTF', buf:new TextDecoder().decode(buf)};
+  if (buf.byteLength > 84 && 84 + 50*new DataView(buf).getUint32(80,true) === buf.byteLength) return {kind:'STL', buf};
+  return {kind:'OBJ', buf:new TextDecoder().decode(buf)};
+}
+
+function parse(kind, buf){
+  return new Promise((res, rej) => {
+    if (kind === 'GLB' || kind === 'glTF') loaderGltf.parse(buf, '', g => res(g.scene), rej);
+    else if (kind === 'STL') { const g = loaderStl.parse(buf); g.computeVertexNormals();
+      res(new THREE.Mesh(g, new THREE.MeshStandardMaterial({color:0x9aa3ab, roughness:.9}))); }
+    else res(loaderObj.parse(buf));
+  });
+}
+
+// ---- 幾何統計 ----
+function geometry(obj){
+  obj.updateMatrixWorld(true);
+  const tris = [];      // [ax,ay,az, bx,by,bz, cx,cy,cz]
+  let verts = 0;
+  obj.traverse(o => {
+    if (!o.isMesh) return;
+    const g = o.geometry, pos = g.attributes.position;
+    if (!pos) return;
+    verts += pos.count;
+    const idx = g.index;
+    const v = new THREE.Vector3();
+    const n = idx ? idx.count : pos.count;
+    for (let i = 0; i < n; i += 3){
+      const a = idx ? idx.getX(i) : i, b = idx ? idx.getX(i+1) : i+1, c = idx ? idx.getX(i+2) : i+2;
+      const p = [a,b,c].map(k => {
+        v.fromBufferAttribute(pos, k).applyMatrix4(o.matrixWorld);
+        return [v.x, v.y, v.z];
+      });
+      tris.push([...p[0], ...p[1], ...p[2]]);
+    }
+  });
+  const box = new THREE.Box3().setFromObject(obj);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+
+  let volume = 0, area = 0;
+  const cen = new THREE.Vector3();
+  for (const t of tris){
+    const ax=t[0],ay=t[1],az=t[2], bx=t[3],by=t[4],bz=t[5], cx=t[6],cy=t[7],cz=t[8];
+    volume += (ax*(by*cz-bz*cy) - ay*(bx*cz-bz*cx) + az*(bx*cy-by*cx)) / 6;
+    const ux=bx-ax, uy=by-ay, uz=bz-az, vx=cx-ax, vy=cy-ay, vz=cz-az;
+    const nx=uy*vz-uz*vy, ny=uz*vx-ux*vz, nz=ux*vy-uy*vx;
+    area += 0.5*Math.hypot(nx,ny,nz);
+    cen.x += (ax+bx+cx)/3; cen.y += (ay+by+cy)/3; cen.z += (az+bz+cz)/3;
+  }
+  if (tris.length) cen.multiplyScalar(1/tris.length);
+  return {tris, verts, faces:tris.length, size, center, cen, volume:Math.abs(volume), area};
+}
+
+// ---- 取樣 + 最近距離 ----
+function samplePoints(tris, n){
+  const areas = new Float64Array(tris.length);
+  let total = 0;
+  for (let i=0;i<tris.length;i++){
+    const t = tris[i];
+    const ux=t[3]-t[0], uy=t[4]-t[1], uz=t[5]-t[2];
+    const vx=t[6]-t[0], vy=t[7]-t[1], vz=t[8]-t[2];
+    const nx=uy*vz-uz*vy, ny=uz*vx-ux*vz, nz=ux*vy-uy*vx;
+    areas[i] = 0.5*Math.hypot(nx,ny,nz); total += areas[i];
+  }
+  const pts = [];
+  for (let k=0;k<n;k++){
+    let r = Math.random()*total, i = 0;
+    while (i < areas.length-1 && r > areas[i]) { r -= areas[i]; i++; }
+    const t = tris[i];
+    let a = Math.sqrt(Math.random()), b = Math.random();
+    if (a+b > 1) { a = 1-a; b = 1-b; }
+    pts.push([
+      t[0] + a*(t[3]-t[0]) + b*(t[6]-t[0]),
+      t[1] + a*(t[4]-t[1]) + b*(t[7]-t[1]),
+      t[2] + a*(t[5]-t[2]) + b*(t[8]-t[2]),
+    ]);
+  }
+  return pts;
+}
+
+function distPointTri(p, t){
+  // 標準 point-triangle distance（Ericson）
+  const ax=t[0],ay=t[1],az=t[2], bx=t[3],by=t[4],bz=t[5], cx=t[6],cy=t[7],cz=t[8];
+  const abx=bx-ax, aby=by-ay, abz=bz-az;
+  const acx=cx-ax, acy=cy-ay, acz=cz-az;
+  const apx=p[0]-ax, apy=p[1]-ay, apz=p[2]-az;
+  const d1 = abx*apx+aby*apy+abz*apz;
+  const d2 = acx*apx+acy*apy+acz*apz;
+  if (d1<=0 && d2<=0) return Math.hypot(apx,apy,apz);
+  const bpx=p[0]-bx, bpy=p[1]-by, bpz=p[2]-bz;
+  const d3 = abx*bpx+aby*bpy+abz*bpz;
+  const d4 = acx*bpx+acy*bpy+acz*bpz;
+  if (d3>=0 && d4<=d3) return Math.hypot(bpx,bpy,bpz);
+  const vc = d1*d4 - d3*d2;
+  if (vc<=0 && d1>=0 && d3<=0){
+    const v = d1/(d1-d3);
+    return Math.hypot(p[0]-(ax+v*abx), p[1]-(ay+v*aby), p[2]-(az+v*abz));
+  }
+  const cpx=p[0]-cx, cpy=p[1]-cy, cpz=p[2]-cz;
+  const d5 = abx*cpx+aby*cpy+abz*cpz;
+  const d6 = acx*cpx+acy*cpy+acz*cpz;
+  if (d6>=0 && d5<=d6) return Math.hypot(cpx,cpy,cpz);
+  const vb = d5*d2 - d1*d6;
+  if (vb<=0 && d2>=0 && d6<=0){
+    const w = d2/(d2-d6);
+    return Math.hypot(p[0]-(ax+w*acx), p[1]-(ay+w*acy), p[2]-(az+w*acz));
+  }
+  const va = d3*d6 - d5*d4;
+  if (va<=0 && (d4-d3)>=0 && (d5-d6)>=0){
+    const w = (d4-d3)/((d4-d3)+(d5-d6));
+    return Math.hypot(p[0]-(bx+w*(cx-bx)), p[1]-(by+w*(cy-by)), p[2]-(bz+w*(cz-bz)));
+  }
+  const denom = 1/(va+vb+vc);
+  const v = vb*denom, w = vc*denom;
+  const qx = ax + abx*v + acx*w, qy = ay + aby*v + acy*w, qz = az + abz*v + acz*w;
+  return Math.hypot(p[0]-qx, p[1]-qy, p[2]-qz);
+}
+
+// ---- 空間網格加速最近距離 ----
+function buildGrid(tris, pad=0){
+  const box = {x0:Infinity,y0:Infinity,z0:Infinity,x1:-Infinity,y1:-Infinity,z1:-Infinity};
+  for (const t of tris){
+    for (let k=0;k<3;k++){
+      const x=t[k*3], y=t[k*3+1], z=t[k*3+2];
+      if (x<box.x0) box.x0=x; if (x>box.x1) box.x1=x;
+      if (y<box.y0) box.y0=y; if (y>box.y1) box.y1=y;
+      if (z<box.z0) box.z0=z; if (z>box.z1) box.z1=z;
+    }
+  }
+  const span = Math.max(box.x1-box.x0, box.y1-box.y0, box.z1-box.z0) || 1;
+  const cell = (span / 14) * (1 + pad);
+  const map = new Map();
+  const key = (i,j,k) => i + ',' + j + ',' + k;
+  const ci = v => Math.floor((v - box.x0)/cell);
+  tris.forEach((t, idx) => {
+    const xs=[t[0],t[3],t[6]], ys=[t[1],t[4],t[7]], zs=[t[2],t[5],t[8]];
+    const i0=ci(Math.min(...xs)), i1=ci(Math.max(...xs));
+    const j0=ci(Math.min(...ys)), j1=ci(Math.max(...ys));
+    const k0=ci(Math.min(...zs)), k1=ci(Math.max(...zs));
+    for (let i=i0;i<=i1;i++) for (let j=j0;j<=j1;j++) for (let k=k0;k<=k1;k++){
+      const kk = key(i,j,k);
+      let arr = map.get(kk);
+      if (!arr){ arr = []; map.set(kk, arr); }
+      arr.push(idx);
+    }
+  });
+  return {map, cell, box, ci};
+}
+
+function nearestGrid(grid, tris, p){
+  const {map, cell, ci} = grid;
+  const i0 = ci(p[0]), j0 = ci(p[1]), k0 = ci(p[2]);
+  let best = Infinity;
+  for (let r = 0; r <= 12; r++){
+    let found = false;
+    for (let i=i0-r;i<=i0+r;i++) for (let j=j0-r;j<=j0+r;j++) for (let k=k0-r;k<=k0+r;k++){
+      // 只掃外圈
+      if (Math.max(Math.abs(i-i0), Math.abs(j-j0), Math.abs(k-k0)) !== r) continue;
+      const arr = map.get(i + ',' + j + ',' + k);
+      if (!arr) continue;
+      found = true;
+      for (const idx of arr){
+        const d = distPointTri(p, tris[idx]);
+        if (d < best) best = d;
+      }
+    }
+    // 外圈不可能比已找到的更近就不必再擴
+    if (best <= (r) * cell) break;
+    if (!found && r > 2 && best < Infinity) break;
+  }
+  return best;
+}
+
+function nearestAll(pts, tris, grid){
+  const out = new Float64Array(pts.length);
+  for (let i=0;i<pts.length;i++){
+    const d = nearestGrid(grid, tris, pts[i]);
+    out[i] = Number.isFinite(d) ? d : 0;
+  }
+  return out;
+}
+
+function pct(arr, q){
+  const a = Array.from(arr).sort((x,y)=>x-y);
+  return a[Math.min(a.length-1, Math.floor(q*a.length))] || 0;
+}
+
+// ---- 顯示 ----
+function clearGroup(g){
+  g.traverse(o => { if (o.isMesh){ o.geometry?.dispose?.(); } });
+  g.clear();
+}
+
+function frameAll(){
+  const box = new THREE.Box3();
+  if (state.A) box.expandByObject(groupA);
+  if (state.B) box.expandByObject(groupB);
+  if (box.isEmpty()) return;
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  const r = Math.max(size.x, size.y, size.z) || 1;
+  const d = r*2.1/Math.tan((camera.fov*Math.PI/180)/2);
+  camera.position.set(d*0.55, d*0.42, d*0.72);
+  controls.target.copy(center);
+  camera.near = r/100; camera.far = r*60; camera.updateProjectionMatrix();
+  controls.minDistance = r*0.3; controls.maxDistance = r*12;
+  controls.update();
+  grid.position.y = box.min.y - r*0.02;
+}
+
+function showA(g, st, color=0x8e99a4){
+  clearGroup(groupA);
+  g.traverse(o => { if (o.isMesh){
+    o.material = new THREE.MeshStandardMaterial({color, roughness:.85, metalness:.05,
+      transparent:true, opacity:0.42, depthWrite:false, side:THREE.DoubleSide});
+  }});
+  groupA.add(g);
+}
+
+function showB(g){
+  clearGroup(groupB);
+  g.traverse(o => { if (o.isMesh){
+    o.material = new THREE.MeshStandardMaterial({color:0x8a5a4a, roughness:.8,
+      transparent:true, opacity:0.35, depthWrite:false, side:THREE.DoubleSide});
+  }});
+  groupB.add(g);
+}
+
+function heatPoints(pts, dists, maxD){
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(pts.length*3);
+  const col = new Float32Array(pts.length*3);
+  const c = new THREE.Color();
+  for (let i=0;i<pts.length;i++){
+    pos[i*3] = pts[i][0]; pos[i*3+1] = pts[i][1]; pos[i*3+2] = pts[i][2];
+    const t = Math.min(1, dists[i]/(maxD||1));
+    // 綠 → 黃 → 橙 → 紅
+    c.setHSL(0.33*(1-t), 0.75, 0.45);
+    col[i*3] = c.r; col[i*3+1] = c.g; col[i*3+2] = c.b;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col,3));
+  return new THREE.Points(geo, new THREE.PointsMaterial({size:0.022, vertexColors:true, sizeAttenuation:true}));
+}
+
+// ---- 主流程 ----
+let heatObj = null;
+
+async function compare(){
+  document.getElementById('stats').innerHTML = '';
+  document.getElementById('diff').innerHTML = '';
+  if (heatObj){ scene.remove(heatObj); heatObj = null; }
+  if (!state.A || !state.B){ say('需要 A 與 B 兩個檔案'); return; }
+
+  // 對齊：把 A 移到原點、B 也移到原點（可關）
+  if (state.align){
+    groupA.position.set(0,0,0); groupB.position.set(0,0,0);
+    const cA = state.A.geo.center.clone().negate(), cB = state.B.geo.center.clone().negate();
+    groupA.children.forEach(ch => ch.position.copy(cA));
+    groupB.children.forEach(ch => ch.position.copy(cB));
+    groupA.updateMatrixWorld(true); groupB.updateMatrixWorld(true);
+  }
+
+  say('計算中…', 0);
+
+  // 對齊位移（以各自的 bbox 中心為原點）
+  const offA = state.align ? state.A.geo.center.clone().negate() : new THREE.Vector3();
+  const offB = state.align ? state.B.geo.center.clone().negate() : new THREE.Vector3();
+  const shiftTris = (tris, o) => tris.map(t => [
+    t[0]+o.x, t[1]+o.y, t[2]+o.z, t[3]+o.x, t[4]+o.y, t[5]+o.z, t[6]+o.x, t[7]+o.y, t[8]+o.z]);
+  const tA = shiftTris(state.A.geo.tris, offA);
+  const tB = shiftTris(state.B.geo.tris, offB);
+
+  const ptsA = samplePoints(tA, 1500);
+  const ptsB = samplePoints(tB, 1500);
+  const gridA = buildGrid(tA), gridB = buildGrid(tB);
+  const dAB = nearestAll(ptsA, tB, gridB);
+  const dBA = nearestAll(ptsB, tA, gridA);
+
+  const all = [...dAB, ...dBA];
+  const maxD = Math.max(...all);
+  const mean = all.reduce((s,x)=>s+x,0)/all.length;
+  const p95 = pct(all, 0.95);
+
+  if (heatObj){ scene.remove(heatObj); heatObj = null; }
+  if (state.heat){
+    heatObj = heatPoints(ptsA, dAB, maxD);
+    scene.add(heatObj);
+  }
+
+  const f = (x, d=3) => x.toFixed(d);
+  const A = state.A.geo, B = state.B.geo;
+  const rows = [
+    ['頂點', A.verts.toLocaleString(), B.verts.toLocaleString()],
+    ['三角面', A.faces.toLocaleString(), B.faces.toLocaleString()],
+    ['體積', f(A.volume,4), f(B.volume,4)],
+    ['表面積', f(A.area,4), f(B.area,4)],
+    ['尺寸 X', f(A.size.x,3), f(B.size.x,3)],
+    ['尺寸 Y', f(A.size.y,3), f(B.size.y,3)],
+    ['尺寸 Z', f(A.size.z,3), f(B.size.z,3)],
+  ];
+  document.getElementById('stats').innerHTML = rows.map(([k,a,b]) => {
+    const same = a === b;
+    return `<div class="row"><span>${k}</span><span><b>${a}</b> <span style="color:#bbb">|</span> <b>${b}</b> <span class="badge" style="${same?'':'background:#f7e0da;color:#8f2c1c'}">${same?'相同':'不同'}</span></span></div>`;
+  }).join('');
+
+  const pctDiff = (x,y) => (Math.max(x,y) === 0 ? 0 : Math.abs(x-y)/Math.max(x,y)*100);
+  const dRows = [
+    ['平均偏差', f(mean,4), mean < 1e-6 ? 'same' : (mean < 0.02 ? 'mid' : 'diff')],
+    ['95% 偏差', f(p95,4), p95 < 1e-6 ? 'same' : (p95 < 0.05 ? 'mid' : 'diff')],
+    ['最大偏差', f(maxD,4), maxD < 1e-6 ? 'same' : (maxD < 0.1 ? 'mid' : 'diff')],
+    ['體積差', f(Math.abs(A.volume-B.volume),4) + `（${f(pctDiff(A.volume,B.volume),1)}%）`, ''],
+    ['表面積差', f(Math.abs(A.area-B.area),3) + `（${f(pctDiff(A.area,B.area),1)}%）`, ''],
+    ['面數差', (B.faces-A.faces).toLocaleString() + ' 面', ''],
+  ];
+  document.getElementById('diff').innerHTML = dRows.map(([k,v,cls]) =>
+    `<div class="row"><span>${k}</span><span class="d ${cls}">${v}</span></div>`).join('');
+  document.getElementById('maxd').textContent = f(maxD,3);
+  say(`比對完成：平均偏差 ${f(mean,4)}`, 8000);
+}
+
+async function loadSlot(slot, file){
+  try {
+    const {kind, buf} = await detect(file);
+    const obj = await parse(kind, buf);
+    const geo = geometry(obj);
+    state[slot] = {name:file.name, kind, geo, obj};
+    if (slot === 'A') showA(obj, geo); else showB(obj);
+    frameAll();
+    await compare();
+  } catch(e){ console.error(e); say('讀取失敗：' + file.name + '（' + (e?.message||e) + '）'); }
+}
+
+document.getElementById('fileA').addEventListener('change', e => e.target.files[0] && loadSlot('A', e.target.files[0]));
+document.getElementById('fileB').addEventListener('change', e => e.target.files[0] && loadSlot('B', e.target.files[0]));
+document.getElementById('fileBoth').addEventListener('change', async e => {
+  const fs = [...e.target.files];
+  if (fs.length >= 2){ await loadSlot('A', fs[0]); await loadSlot('B', fs[1]); }
+  else if (fs.length === 1) await loadSlot(state.A ? 'B' : 'A', fs[0]);
+});
+
+document.getElementById('align').addEventListener('click', e => {
+  state.align = !state.align; e.currentTarget.classList.toggle('on', state.align);
+  if (!state.align){ groupA.children.forEach(c=>c.position.set(0,0,0)); groupB.children.forEach(c=>c.position.set(0,0,0)); }
+  compare();
+});
+document.getElementById('mode').addEventListener('click', e => {
+  state.heat = !state.heat; e.currentTarget.classList.toggle('on', state.heat);
+  if (heatObj){ heatObj.visible = state.heat; }
+});
+document.getElementById('spin').addEventListener('click', e => {
+  state.rotate = !state.rotate; e.currentTarget.classList.toggle('on', state.rotate);
+});
+
+// 拖放：一次拖兩個也可以
+['dragenter','dragover'].forEach(t => stage.addEventListener(t, e => e.preventDefault()));
+stage.addEventListener('drop', async e => {
+  e.preventDefault();
+  const fs = [...(e.dataTransfer?.files || [])];
+  if (!fs.length) return;
+  if (fs.length >= 2){ await loadSlot('A', fs[0]); await loadSlot('B', fs[1]); }
+  else await loadSlot(state.A ? 'B' : 'A', fs[0]);
+});
+
+function resize(){
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w/h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(stage);
+resize();
+
+// 供自動測試：把內部函式掛到 window（不影響使用者）
+window.__cmp = {samplePoints, buildGrid, nearestAll, nearestGrid, distPointTri, geometry, shiftTris: null};
+
+function tick(){
+  requestAnimationFrame(tick);
+  if (state.rotate){ groupA.rotation.y += 0.004; groupB.rotation.y += 0.004; }
+  controls.update();
+  renderer.render(scene, camera);
+}
+tick();
+setTimeout(()=>hint.style.opacity='0', 7000);
+</script>
+</body>
+</html>
