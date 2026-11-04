@@ -75,7 +75,10 @@
       <button data-model="vase">花瓶</button>
       <button data-model="knot">紐結</button>
       <button data-model="heart">愛心</button>
-      <label class="file">開檔<input type="file" id="file" accept=".glb,.gltf,.stl,.obj"></label>
+      <label class="file">上傳<input type="file" id="file" accept=".glb,.gltf,.stl,.obj"></label>
+      <button id="dl-glb">存 GLB</button>
+      <button id="dl-stl">存 STL</button>
+      <button id="dl-obj">存 OBJ</button>
       <button id="wire">線框</button>
       <button id="spin" class="on">自轉</button>
       <button id="reset">重置視角</button>
@@ -106,8 +109,11 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+import { STLExporter } from 'three/addons/exporters/STLExporter.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { OBJExporter } from 'three/addons/exporters/OBJExporter.js';
 
 const stage = document.getElementById('stage');
 const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false, preserveDrawingBuffer:true });
@@ -162,7 +168,7 @@ scene.add(grid);
 const holder = new THREE.Group();
 scene.add(holder);
 
-let current = null, wire = false, spin = true;
+let current = null, wire = false, spin = true, currentName = 'gear';
 
 function clearModel(){
   holder.traverse(o => {
@@ -235,6 +241,7 @@ function install(obj, name, type){
   obj.traverse(o => { if (o.isMesh){ o.castShadow = true; o.receiveShadow = true; } });
   holder.add(obj);
   current = obj;
+  currentName = (name || 'model').replace(/\.[^.]+$/, '') || 'model';
   const { size } = fitCamera(obj);
   applyWire(wire);
   setInfo(name, type, obj, size);
@@ -298,6 +305,45 @@ document.getElementById('spin').addEventListener('click', e => {
 });
 document.getElementById('reset').addEventListener('click', () => {
   if (current) fitCamera(current);
+});
+
+// 下載：把畫面中的模型轉成三種格式存回本機
+function saveBlob(blob, filename){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+
+function flash(msg){
+  hint.textContent = msg;
+  hint.style.opacity = '1';
+  clearTimeout(flash._t);
+  flash._t = setTimeout(() => { hint.style.opacity = '0'; }, 2200);
+}
+
+document.getElementById('dl-glb').addEventListener('click', () => {
+  if (!current) return flash('先載入模型');
+  new GLTFExporter().parse(holder, res => {
+    saveBlob(new Blob([res], { type: 'model/gltf-binary' }), `${currentName}.glb`);
+    flash(`已存 ${currentName}.glb（${(res.byteLength/1024).toFixed(0)} KB）`);
+  }, err => { console.error(err); flash('匯出 GLB 失敗'); }, { binary: true });
+});
+
+document.getElementById('dl-stl').addEventListener('click', () => {
+  if (!current) return flash('先載入模型');
+  const data = new STLExporter().parse(holder, { binary: true });
+  saveBlob(new Blob([data], { type: 'model/stl' }), `${currentName}.stl`);
+  flash(`已存 ${currentName}.stl（${(data.byteLength/1024).toFixed(0)} KB）`);
+});
+
+document.getElementById('dl-obj').addEventListener('click', () => {
+  if (!current) return flash('先載入模型');
+  const text = new OBJExporter().parse(holder);
+  saveBlob(new Blob([text], { type: 'text/plain' }), `${currentName}.obj`);
+  flash(`已存 ${currentName}.obj（${(text.length/1024).toFixed(0)} KB）`);
 });
 
 // 拖放
