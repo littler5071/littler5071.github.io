@@ -335,7 +335,8 @@ document.getElementById('file').addEventListener('change', e => {
   const q = new URLSearchParams(location.search).get('model');
   if (!q) return;
   const name = decodeURIComponent(q).split('/').pop() || 'model';
-  fetch(q).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
+  const url = new URL(q, location.origin).href;   // 相對路徑一律解析成絕對網址
+  fetch(url).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
     .then(b => loadFile(new File([b], name)))
     .catch(err => { hint.textContent = '載入失敗：' + q; hint.style.opacity = '1'; console.error(err); });
 })();
