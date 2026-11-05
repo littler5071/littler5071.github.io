@@ -66,7 +66,7 @@
   <div class="toolbox">
     <b>可以直接玩</b>
     <ul>
-      <li><a href="https://littler5071.github.io/3d/" target="_blank" rel="noopener">3D 模型瀏覽器</a>：拖入 GLB／STL／OBJ 就能轉，也能存回三種格式</li>
+      <li><a href="https://littler5071.github.io/3d/" target="_blank" rel="noopener">3D 模型瀏覽器</a>：拖入 GLB／STL／OBJ／<b>STEP（CAD）</b> 就能轉，也能存回三種網格格式</li>
       <li><a href="https://littler5071.github.io/3d/print/" target="_blank" rel="noopener">可列印模型下載</a>：魚骨蛇、齒輪、花瓶、杯墊，附參數</li>
       <li><a href="https://littler5071.github.io/3d/compare/" target="_blank" rel="noopener">3D 模型比對</a>：放兩個檔進去，看平均偏差與紅色熱點</li>
       <li>示範模型下載：<a href="https://littler5071.github.io/3d/models/gear.glb" download>齒輪 GLB</a>・
@@ -115,7 +115,7 @@
 <hr>
 <h2>四、瀏覽器：能上傳、能下載</h2>
 <p>直接玩：<a href="https://littler5071.github.io/3d/" target="_blank" rel="noopener">https://littler5071.github.io/3d/</a></p>
-<div class="tablewrap"><table class="kt"><thead><tr><th>功能</th><th>實作</th></tr></thead><tbody><tr><td>讀檔格式</td><td>GLB／glTF／STL（binary）／OBJ</td></tr><tr><td>上傳</td><td>「上傳模型」按鈕（input 鋪滿整個按鈕）＋ 整頁拖放</td></tr><tr><td>下載</td><td>存 GLB／STL／OBJ（GLTFExporter／STLExporter／OBJExporter）</td></tr><tr><td>檢視</td><td>OrbitControls 旋轉縮放、線框、自轉、重置視角</td></tr><tr><td>資訊</td><td>檔名、格式、頂點數、三角面數、尺寸 X×Y×Z</td></tr><tr><td>鏡頭</td><td>依 bounding box 自動置中，<code>dist = r × 2.05 / tan(fov/2)</code></td></tr><tr><td>隱私</td><td>全程在瀏覽器本機解析，檔案不上傳</td></tr></tbody></table></div>
+<div class="tablewrap"><table class="kt"><thead><tr><th>功能</th><th>實作</th></tr></thead><tbody><tr><td>讀檔格式</td><td>GLB／glTF／STL（binary）／OBJ／<b>STEP・STP</b>（內嵌 OpenCascade wasm 三角化）</td></tr><tr><td>上傳</td><td>「上傳模型」按鈕（input 鋪滿整個按鈕）＋ 整頁拖放</td></tr><tr><td>下載</td><td>存 GLB／STL／OBJ（GLTFExporter／STLExporter／OBJExporter）</td></tr><tr><td>檢視</td><td>OrbitControls 旋轉縮放、線框、自轉、重置視角</td></tr><tr><td>資訊</td><td>檔名、格式、頂點數、三角面數、尺寸 X×Y×Z</td></tr><tr><td>鏡頭</td><td>依 bounding box 自動置中，<code>dist = r × 2.05 / tan(fov/2)</code></td></tr><tr><td>隱私</td><td>全程在瀏覽器本機解析，檔案不上傳</td></tr></tbody></table></div>
 <figure><img src="img/viewer.png" alt="檢視器介面" loading="lazy"><figcaption>拖進去就能轉，左下角即時顯示頂點、面數與尺寸</figcaption></figure>
 <h3>上傳踩到的兩個坑</h3>
 <p><b>坑 1：靠副檔名判斷，檔案被改名就讀不到。</b></p>
@@ -158,7 +158,10 @@
 <figure><img src="img/desk.jpg" alt="工作現場" loading="lazy"><figcaption>整條流程都在這張桌子上跑完：寫程式、算模型、寫網頁、量差異。照片：Niklas Veenhuis／CC0</figcaption></figure>
 <hr>
 <h2>八、結論</h2>
-<div class="tablewrap"><table class="kt"><thead><tr><th>問題</th><th>答案</th></tr></thead><tbody><tr><td>能不能產生 3D 模型檔？</td><td>能，五顆模型、三種格式，標準函式庫即可</td></tr><tr><td>能不能瀏覽 3D 檔？</td><td>能，GLB／STL／OBJ 上傳、旋轉、量面數、再存回三種格式</td></tr><tr><td>能不能比對兩個檔？</td><td>能，量化到「平均／95%／最大偏差 ＋ 體積差」，並畫出熱點圖</td></tr><tr><td>值不值得自己寫？</td><td>值得。全部加起來不到 900 行，沒有安裝、沒有配額、可重現、檔案小</td></tr></tbody></table></div>
+<h3>STEP／STP（CAD 檔）怎麼讀</h3>
+<p>three.js 沒有 STEP 載入器——STEP 是 B-rep 曲面，不是三角網格，必須先三角化。做法是內嵌 <code>occt-import-js</code>（OpenCascade 編譯成 WebAssembly，約 7.3 MB）：讀到檔頭含 <code>ISO-10303-21</code> 就交給它，回傳每個實體的頂點與索引，再組回 three.js 的幾何。整個過程在瀏覽器本機完成，檔案不會上傳；第一次載入引擎約 5～10 秒，之後由瀏覽器快取。</p>
+<p>限制講清楚：STEP 只會變成三角網格（曲面依 deflection 近似），工程圖、尺寸標註、組立約束都不會出現；顏色有就用、沒有就套預設色；單位一律當 mm。實測 <code>cube.stp</code> 12 面、<code>rounded-cube.step</code> 84 面。</p>
+<div class="tablewrap"><table class="kt"><thead><tr><th>問題</th><th>答案</th></tr></thead><tbody><tr><td>能不能產生 3D 模型檔？</td><td>能，五顆模型、三種格式，標準函式庫即可</td></tr><tr><td>能不能瀏覽 3D 檔？</td><td>能，GLB／STL／OBJ／STEP 上傳、旋轉、量面數、再存回三種格式</td></tr><tr><td>能不能比對兩個檔？</td><td>能，量化到「平均／95%／最大偏差 ＋ 體積差」，並畫出熱點圖</td></tr><tr><td>值不值得自己寫？</td><td>值得。全部加起來不到 900 行，沒有安裝、沒有配額、可重現、檔案小</td></tr></tbody></table></div>
 <p>若想自己重跑一次：</p>
 <pre><code>~/.venvs/video/bin/python ~/banner/tools/make3d.py          # 四顆內建模型
 ~/.venvs/video/bin/python ~/banner/tools/make3d_extra.py    # 莫比烏斯帶
