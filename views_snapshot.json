@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-11-05 10:32:44",
+ "snapshot_at": "2026-11-05 11:32:41",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "3d/compare": null,
@@ -117,7 +117,7 @@
   "stock/backtest16": 5,
   "stock": 229,
   "stock/latest-intraday": 4,
-  "stock/latest": 285,
+  "stock/latest": 286,
   "stock/logic": 14,
   "stock/tracker/20260911": null,
   "stock/tracker/20260914": null,
@@ -161,7 +161,7 @@
   "toeic/p2-sample": 9,
   "toeic/p3-full": 13,
   "toeic/p4-full": 7,
-  "toeic/p5-full": 4,
+  "toeic/p5-full": 5,
   "toeic/p6-full": 9,
   "toeic/p7-full": 8,
   "toeic/p7-s01": 7,
