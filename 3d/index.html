@@ -36,6 +36,7 @@
   a.chaplink{font-size:14px;font-weight:700;color:var(--accent);text-decoration:none;
     border:1.5px solid var(--accent);border-radius:999px;padding:8px 14px;display:inline-flex;align-items:center}
   a.chaplink:hover{background:var(--accent);color:#fff}
+  button.dim{opacity:.45}
   button.on{background:var(--accent);border-color:var(--accent);color:#fff}
   label.file{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px}
   label.file input[type=file]{
@@ -97,7 +98,7 @@
       <button id="dl-glb">存 GLB</button>
       <button id="dl-stl">存 STL</button>
       <button id="dl-obj">存 OBJ</button>
-      <button id="dl-src" title="把載入的原始檔原樣存回（含 STEP）">存原檔</button>
+      <button id="dl-src" class="dim" title="只有載入 STEP 檔時才能存回 STP">存 STP</button>
       <button id="wire">線框</button>
       <button id="spin" class="on">自轉</button>
       <button id="reset">重置視角</button>
@@ -293,7 +294,7 @@ async function loadFile(file){
   const hintEl = document.getElementById('hint');
   lastFile = file;
   const srcBtn = document.getElementById('dl-src');
-  if (srcBtn) srcBtn.textContent = /\.(stp|step)$/i.test(file.name || '') ? '存 STP' : '存原檔';
+  if (srcBtn) srcBtn.classList.toggle('dim', !/\.(stp|step)$/i.test(file.name || ''));
   const say = msg => { hintEl.textContent = msg; hintEl.style.opacity = '1'; };
   try {
     const buf = await file.arrayBuffer();
@@ -406,10 +407,13 @@ function flash(msg){
 }
 
 document.getElementById('dl-src').addEventListener('click', () => {
-  if (!lastFile) return flash('先載入模型');
+  if (!lastFile) return flash('目前是內建模型，不是 STEP。上傳 .stp／.step 才能存回 STP。');
   const name = lastFile.name || 'model';
+  if (!/\.(stp|step)$/i.test(name)) {
+    return flash('這個檔不是 STEP。STEP 只能從 CAD 軟體輸出；這裡可以存 GLB／STL／OBJ。');
+  }
   saveBlob(lastFile, name);
-  flash(`已存原檔 ${name}（${(lastFile.size/1024).toFixed(0)} KB）`);
+  flash(`已存 ${name}（${(lastFile.size/1024).toFixed(0)} KB）`);
 });
 
 document.getElementById('dl-glb').addEventListener('click', () => {
