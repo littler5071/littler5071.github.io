@@ -50,7 +50,16 @@
     #stage{flex:1 1 auto;min-height:44dvh}
     h1{font-size:15px}
   }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=c73ca689"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <div class="app">
@@ -512,5 +521,6 @@ function tick(){
 tick();
 setTimeout(()=>hint.style.opacity='0', 7000);
 </script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
