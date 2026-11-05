@@ -92,7 +92,7 @@
       <button data-model="knot">紐結</button>
       <button data-model="heart">愛心</button>
       <label class="file" for="file" id="filelabel">上傳模型
-        <input type="file" id="file" accept=".glb,.gltf,.stl,.obj,model/gltf-binary,model/stl,text/plain,application/octet-stream">
+        <input type="file" id="file" accept=".glb,.gltf,.stl,.obj,.stp,.step,model/gltf-binary,model/stl,text/plain,application/octet-stream">
       </label>
       <button id="dl-glb">存 GLB</button>
       <button id="dl-stl">存 STL</button>
@@ -111,7 +111,7 @@
       <div><span class="k">尺寸</span> <b id="mdim">—</b></div>
       <div><span class="k">格式</span> GLB／glTF（推薦）、STL、OBJ・檔案不會上傳</div>
     </div>
-    <div class="hint" id="hint">拖放 .glb／.stl／.obj 到畫面上，或直接拖進來看</div>
+    <div class="hint" id="hint">拖放 .glb／.stl／.obj／.step 到畫面上，或直接拖進來看</div>
     <div class="drop" id="drop">放開即載入</div>
   </main>
 </div>
@@ -124,6 +124,7 @@
   }
 }
 </script>
+<script src="vendor/occt-import-js.js"></script>
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -301,6 +302,7 @@ async function loadFile(file){
         }
       });
       install(obj, file.name, kind);
+      hintEl.textContent = ''; hintEl.style.opacity = '0';   // 讀取完成就把提示收起來
     };
     const fail = e => { console.error(e); say('讀取失敗：' + file.name + '（' + (e?.message || e) + '）'); };
 
@@ -313,11 +315,34 @@ async function loadFile(file){
       const geo = stlLoader.parse(buf);
       geo.computeVertexNormals();
       done(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:0xc2452d, roughness:0.6, metalness:0.08 })), 'STL');
+    } else if (new TextDecoder().decode(new Uint8Array(buf, 0, Math.min(512, buf.byteLength))).includes('ISO-10303-21')) {
+      say('讀取 STEP 中（第一次要載入 CAD 引擎，約 5～10 秒）…');
+      const occt = await (window.__occt || (window.__occt = occtimportjs({ locateFile: f => 'vendor/' + f })));
+      const res = occt.ReadStepFile(new Uint8Array(buf), { linearUnit: 'millimeter' });
+      if (!res || !res.success || !res.meshes || !res.meshes.length) throw new Error('STEP 解析失敗');
+      const group = new THREE.Group();
+      let tris = 0;
+      res.meshes.forEach((m, i) => {
+        const pos = m.attributes.position.array;
+        const idx = m.index ? m.index.array : null;
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(Float32Array.from(pos), 3));
+        if (idx) geo.setIndex(new THREE.BufferAttribute(Uint32Array.from(idx), 1));
+        geo.computeVertexNormals();
+        const col = (m.color && m.color.length === 3)
+          ? new THREE.Color(m.color[0], m.color[1], m.color[2])
+          : new THREE.Color(0xc2452d);
+        const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: col, roughness: 0.55, metalness: 0.1, side: THREE.DoubleSide }));
+        mesh.name = 'solid-' + (i + 1);
+        tris += (idx ? idx.length : pos.length / 3) / 3;
+        group.add(mesh);
+      });
+      done(group, 'STEP（' + res.meshes.length + ' 個實體）');
     } else if (/^\s*(v|vn|vt|f|o|g|#)\s/m.test(head) || head.startsWith('#')) {
       const obj = objLoader.parse(new TextDecoder().decode(buf));
       done(obj, 'OBJ');
     } else {
-      say('看不懂這個檔：' + file.name + '（只支援 GLB／glTF／STL／OBJ）');
+      say('看不懂這個檔：' + file.name + '（只支援 GLB／glTF／STL／OBJ／STEP）');
     }
   } catch (e) {
     console.error(e);
