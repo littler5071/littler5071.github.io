@@ -292,6 +292,8 @@ function loadBuiltin(key){
 async function loadFile(file){
   const hintEl = document.getElementById('hint');
   lastFile = file;
+  const srcBtn = document.getElementById('dl-src');
+  if (srcBtn) srcBtn.textContent = /\.(stp|step)$/i.test(file.name || '') ? '存 STP' : '存原檔';
   const say = msg => { hintEl.textContent = msg; hintEl.style.opacity = '1'; };
   try {
     const buf = await file.arrayBuffer();
