@@ -97,6 +97,7 @@
       <button id="dl-glb">存 GLB</button>
       <button id="dl-stl">存 STL</button>
       <button id="dl-obj">存 OBJ</button>
+      <button id="dl-src" title="把載入的原始檔原樣存回（含 STEP）">存原檔</button>
       <button id="wire">線框</button>
       <button id="spin" class="on">自轉</button>
       <button id="reset">重置視角</button>
@@ -188,7 +189,7 @@ scene.add(grid);
 const holder = new THREE.Group();
 scene.add(holder);
 
-let current = null, wire = false, spin = true, currentName = 'gear';
+let current = null, wire = false, spin = true, currentName = 'gear', lastFile = null;
 
 function clearModel(){
   holder.traverse(o => {
@@ -290,6 +291,7 @@ function loadBuiltin(key){
 
 async function loadFile(file){
   const hintEl = document.getElementById('hint');
+  lastFile = file;
   const say = msg => { hintEl.textContent = msg; hintEl.style.opacity = '1'; };
   try {
     const buf = await file.arrayBuffer();
@@ -400,6 +402,13 @@ function flash(msg){
   clearTimeout(flash._t);
   flash._t = setTimeout(() => { hint.style.opacity = '0'; }, 2200);
 }
+
+document.getElementById('dl-src').addEventListener('click', () => {
+  if (!lastFile) return flash('先載入模型');
+  const name = lastFile.name || 'model';
+  saveBlob(lastFile, name);
+  flash(`已存原檔 ${name}（${(lastFile.size/1024).toFixed(0)} KB）`);
+});
 
 document.getElementById('dl-glb').addEventListener('click', () => {
   if (!current) return flash('先載入模型');

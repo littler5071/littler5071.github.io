@@ -115,7 +115,7 @@
 <hr>
 <h2>四、瀏覽器：能上傳、能下載</h2>
 <p>直接玩：<a href="https://littler5071.github.io/3d/" target="_blank" rel="noopener">https://littler5071.github.io/3d/</a></p>
-<div class="tablewrap"><table class="kt"><thead><tr><th>功能</th><th>實作</th></tr></thead><tbody><tr><td>讀檔格式</td><td>GLB／glTF／STL（binary）／OBJ／<b>STEP・STP</b>（內嵌 OpenCascade wasm 三角化）</td></tr><tr><td>上傳</td><td>「上傳模型」按鈕（input 鋪滿整個按鈕）＋ 整頁拖放</td></tr><tr><td>下載</td><td>存 GLB／STL／OBJ（GLTFExporter／STLExporter／OBJExporter）</td></tr><tr><td>檢視</td><td>OrbitControls 旋轉縮放、線框、自轉、重置視角</td></tr><tr><td>資訊</td><td>檔名、格式、頂點數、三角面數、尺寸 X×Y×Z</td></tr><tr><td>鏡頭</td><td>依 bounding box 自動置中，<code>dist = r × 2.05 / tan(fov/2)</code></td></tr><tr><td>隱私</td><td>全程在瀏覽器本機解析，檔案不上傳</td></tr></tbody></table></div>
+<div class="tablewrap"><table class="kt"><thead><tr><th>功能</th><th>實作</th></tr></thead><tbody><tr><td>讀檔格式</td><td>GLB／glTF／STL（binary）／OBJ／<b>STEP・STP</b>（內嵌 OpenCascade wasm 三角化）</td></tr><tr><td>上傳</td><td>「上傳模型」按鈕（input 鋪滿整個按鈕）＋ 整頁拖放</td></tr><tr><td>下載</td><td>存 GLB／STL／OBJ（GLTFExporter／STLExporter／OBJExporter）＋<b>存原檔</b>（把載入的檔案原樣存回，含 STEP）</td></tr><tr><td>檢視</td><td>OrbitControls 旋轉縮放、線框、自轉、重置視角</td></tr><tr><td>資訊</td><td>檔名、格式、頂點數、三角面數、尺寸 X×Y×Z</td></tr><tr><td>鏡頭</td><td>依 bounding box 自動置中，<code>dist = r × 2.05 / tan(fov/2)</code></td></tr><tr><td>隱私</td><td>全程在瀏覽器本機解析，檔案不上傳</td></tr></tbody></table></div>
 <figure><img src="img/viewer.png" alt="檢視器介面" loading="lazy"><figcaption>拖進去就能轉，左下角即時顯示頂點、面數與尺寸</figcaption></figure>
 <h3>上傳踩到的兩個坑</h3>
 <p><b>坑 1：靠副檔名判斷，檔案被改名就讀不到。</b></p>
