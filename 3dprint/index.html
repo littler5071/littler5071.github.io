@@ -33,6 +33,9 @@
   ul.models a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:2px solid #f0c9c0}
   ul.models a:hover{color:var(--accent);border-color:var(--accent)}
   .dl{display:inline-block;margin-left:8px;font-size:13px;color:var(--accent);font-weight:700}
+  .tip3{display:block;margin-top:6px;padding:7px 10px;background:#f3eee4;border-left:3px solid #c2452d;
+    border-radius:6px;font-size:13px;line-height:1.65;color:#4a443c}
+  .tip3 b{color:#c2452d;margin-right:6px;font-size:12.5px}
   .orig{display:block;font-size:12.5px;color:var(--sub);margin-top:2px}
   .tip{background:#fff6e5;border:2px solid #e0b25a;border-radius:12px;padding:12px 15px;
     font-size:14px;color:#5a4a2a;margin:16px 0}
@@ -51,7 +54,7 @@
 <div class="wrap">
   <a class="backlink" href="../">← 小R頻道</a>
   <h1>3D 列印模型總整理：實用・玩具・機械・關節動物</h1>
-  <p class="lead">剛買 Bambu Lab A1，第一件事不是找最酷的模型，而是找「印壞了也不心痛、印好了天天用」的那幾件。這篇把四大類共 52 件整理在一起，每一件都附 MakerWorld 的實際下載次數與原始連結。</p>
+  <p class="lead">剛買 Bambu Lab A1，第一件事不是找最酷的模型，而是找「印壞了也不心痛、印好了天天用」的那幾件。這篇把四大類共 0 件整理在一起，每一件都附 MakerWorld 的實際下載次數、原始連結，以及在 A1 上印它要注意什麼、參數怎麼微調。</p>
   <p class="stamp">整理日期 2026-11-08｜下載數為 MakerWorld API 當日實測值</p>
 
   <h2>一、先講怎麼挑，不要一開始就挑最難的</h2>
@@ -68,15 +71,15 @@
   <p class="note">這一批的共同點是「買不到剛好合的尺寸」，所以只能印。</p>
   <figure class="shot"><img src="shots/useful1.png" alt="九件解決生活麻煩的實用模型" loading="lazy"></figure>
   <ul class="models">
-<li><a href="https://makerworld.com/en/models/1101226-mini-bag-clip" target="_blank" rel="noopener">夾鏈袋／麵包袋夾</a><span class="dl">154,861 次下載</span><span class="orig">Mini Bag Clip</span></li>
-<li><a href="https://makerworld.com/en/models/1462919-ergonomic-cable-winder" target="_blank" rel="noopener">線材整線器</a><span class="dl">56,264 次下載</span><span class="orig">Ergonomic Cable Winder</span></li>
-<li><a href="https://makerworld.com/en/models/844154-drill-dust-collector" target="_blank" rel="noopener">鑽孔集塵罩</a><span class="dl">55,504 次下載</span><span class="orig">Drill Dust Collector</span></li>
-<li><a href="https://makerworld.com/en/models/476243-parametric-sorting-tray" target="_blank" rel="noopener">零件分類盤</a><span class="dl">55,024 次下載</span><span class="orig">Parametric Sorting Tray</span></li>
-<li><a href="https://makerworld.com/en/models/427080-door-stopper" target="_blank" rel="noopener">門擋</a><span class="dl">43,035 次下載</span><span class="orig">Door Stopper</span></li>
-<li><a href="https://makerworld.com/en/models/92592-bag-closure-clips" target="_blank" rel="noopener">垃圾袋夾</a><span class="dl">38,388 次下載</span><span class="orig">Bag Closure Clips</span></li>
-<li><a href="https://makerworld.com/en/models/2525320-ikea-365-plastic-lid-hanger-organizer" target="_blank" rel="noopener">鍋蓋架</a><span class="dl">33,911 次下載</span><span class="orig">Ikea 365+ Plastic Lid Hanger / Organizer</span></li>
-<li><a href="https://makerworld.com/en/models/2451525-japandi-drain-tray-sponge-soap-holder" target="_blank" rel="noopener">海綿／皂盤</a><span class="dl">23,682 次下載</span><span class="orig">Japandi Drain Tray – Sponge & Soap Holder</span></li>
-<li><a href="https://makerworld.com/en/models/1125088-stackable-bottle-drying-rack" target="_blank" rel="noopener">瓶罐晾乾架</a><span class="dl">63,936 次下載</span><span class="orig">Stackable Bottle Drying Rack</span></li>
+<li><a href="https://makerworld.com/en/models/1101226-mini-bag-clip" target="_blank" rel="noopener">夾鏈袋／麵包袋夾</a><span class="dl">154,861 次下載</span><span class="orig">Mini Bag Clip</span><span class="tip3"><b>注意</b>卡扣薄、拆裝次數多會斷<br><b>微調</b>0.16mm 層高、填充 30%；常開關就改用 PETG</span></li>
+<li><a href="https://makerworld.com/en/models/1462919-ergonomic-cable-winder" target="_blank" rel="noopener">線材整線器</a><span class="dl">56,264 次下載</span><span class="orig">Ergonomic Cable Winder</span><span class="tip3"><b>注意</b>夾口尺寸固定，線徑差太多會夾不住<br><b>微調</b>依實際線徑縮放 95–105%，填充 25%</span></li>
+<li><a href="https://makerworld.com/en/models/844154-drill-dust-collector" target="_blank" rel="noopener">鑽孔集塵罩</a><span class="dl">55,504 次下載</span><span class="orig">Drill Dust Collector</span><span class="tip3"><b>注意</b>貼牆面不平會漏粉塵<br><b>微調</b>免支撐、外壁 3 圈，背面貼 1mm 海綿膠條</span></li>
+<li><a href="https://makerworld.com/en/models/476243-parametric-sorting-tray" target="_blank" rel="noopener">零件分類盤</a><span class="dl">55,024 次下載</span><span class="orig">Parametric Sorting Tray</span><span class="tip3"><b>注意</b>多個疊放時公差累積<br><b>微調</b>XY 補償 −0.05mm、0.2mm 層高</span></li>
+<li><a href="https://makerworld.com/en/models/427080-door-stopper" target="_blank" rel="noopener">門擋</a><span class="dl">43,035 次下載</span><span class="orig">Door Stopper</span><span class="tip3"><b>注意</b>磁磚或木地板止滑差<br><b>微調</b>底面貼 TPU 墊、填充 40%</span></li>
+<li><a href="https://makerworld.com/en/models/92592-bag-closure-clips" target="_blank" rel="noopener">垃圾袋夾</a><span class="dl">38,388 次下載</span><span class="orig">Bag Closure Clips</span><span class="tip3"><b>注意</b>長時間夾緊會彈性疲乏<br><b>微調</b>PETG 印、填充 20%；要更耐用可 70°C 退火 30 分鐘</span></li>
+<li><a href="https://makerworld.com/en/models/2525320-ikea-365-plastic-lid-hanger-organizer" target="_blank" rel="noopener">鍋蓋架</a><span class="dl">33,911 次下載</span><span class="orig">Ikea 365+ Plastic Lid Hanger / Organizer</span><span class="tip3"><b>注意</b>櫃門厚度不一，掛不上<br><b>微調</b>先量門板厚度，掛勾孔位放大 0.3mm</span></li>
+<li><a href="https://makerworld.com/en/models/2451525-japandi-drain-tray-sponge-soap-holder" target="_blank" rel="noopener">海綿／皂盤</a><span class="dl">23,682 次下載</span><span class="orig">Japandi Drain Tray – Sponge & Soap Holder</span><span class="tip3"><b>注意</b>平底積水、容易發霉<br><b>微調</b>PETG 印、3 層外壁，底部自行加 2mm 排水孔</span></li>
+<li><a href="https://makerworld.com/en/models/1125088-stackable-bottle-drying-rack" target="_blank" rel="noopener">瓶罐晾乾架</a><span class="dl">63,936 次下載</span><span class="orig">Stackable Bottle Drying Rack</span><span class="tip3"><b>注意</b>高瓶重心不穩<br><b>微調</b>填充 25%、底面貼矽膠墊</span></li>
   </ul>
 
 
@@ -84,10 +87,10 @@
   <p class="note">下載數都在一萬五以上，代表不是小眾需求。</p>
   <figure class="shot"><img src="shots/useful2.png" alt="四件日常小麻煩：牙膏、線材、廁紙、鑰匙" loading="lazy"></figure>
   <ul class="models">
-<li><a href="https://makerworld.com/en/models/30246-ratcheted-toothpaste-tube-squeezer" target="_blank" rel="noopener">牙膏擠壓器</a><span class="dl">90,158 次下載</span><span class="orig">Ratcheted Toothpaste Tube Squeezer</span></li>
-<li><a href="https://makerworld.com/en/models/2268549-usb-cable-organizer-box-tray-iphone-samsung" target="_blank" rel="noopener">USB 線收納盒</a><span class="dl">46,550 次下載</span><span class="orig">USB cable organizer Box tray IPhone Samsung</span></li>
-<li><a href="https://makerworld.com/en/models/981625-sheeptastic-toilet-paper-sheep-holder-fits-all" target="_blank" rel="noopener">綿羊造型廁紙架</a><span class="dl">19,343 次下載</span><span class="orig">Sheeptastic! Toilet Paper Sheep Holder - FITS ALL!</span></li>
-<li><a href="https://makerworld.com/en/models/2608443-gt3-rs-key-hanger" target="_blank" rel="noopener">GT3 RS 鑰匙掛架</a><span class="dl">16,585 次下載</span><span class="orig">GT3 rs key hanger</span></li>
+<li><a href="https://makerworld.com/en/models/30246-ratcheted-toothpaste-tube-squeezer" target="_blank" rel="noopener">牙膏擠壓器</a><span class="dl">90,158 次下載</span><span class="orig">Ratcheted Toothpaste Tube Squeezer</span><span class="tip3"><b>注意</b>齒輪卡死就轉不動<br><b>微調</b>0.16mm 層高、XY −0.05mm，PLA 即可</span></li>
+<li><a href="https://makerworld.com/en/models/2268549-usb-cable-organizer-box-tray-iphone-samsung" target="_blank" rel="noopener">USB 線收納盒</a><span class="dl">46,550 次下載</span><span class="orig">USB cable organizer Box tray IPhone Samsung</span><span class="tip3"><b>注意</b>手機含殼放不進去<br><b>微調</b>先量機身尺寸再縮放，內壁 1.6mm</span></li>
+<li><a href="https://makerworld.com/en/models/981625-sheeptastic-toilet-paper-sheep-holder-fits-all" target="_blank" rel="noopener">綿羊造型廁紙架</a><span class="dl">19,343 次下載</span><span class="orig">Sheeptastic! Toilet Paper Sheep Holder - FITS ALL!</span><span class="tip3"><b>注意</b>捲筒軸太緊、換紙卡卡<br><b>微調</b>軸徑 +0.2mm、免支撐</span></li>
+<li><a href="https://makerworld.com/en/models/2608443-gt3-rs-key-hanger" target="_blank" rel="noopener">GT3 RS 鑰匙掛架</a><span class="dl">16,585 次下載</span><span class="orig">GT3 rs key hanger</span><span class="tip3"><b>注意</b>掛勾處受力集中會斷<br><b>微調</b>填充 40%、外壁 4 圈，PETG 更保險</span></li>
   </ul>
 
 
@@ -95,10 +98,10 @@
   <p class="note">關節類與減壓類，適合當「給小孩看」的第一件。</p>
   <figure class="shot"><img src="shots/fun.png" alt="玩的：關節龍、指尖方塊、解謎盒、旋轉球" loading="lazy"></figure>
   <ul class="models">
-<li><a href="https://makerworld.com/en/models/55289-articulated-crystal-dragon-by-saber3d" target="_blank" rel="noopener">水晶關節龍</a><span class="dl">230,999 次下載</span><span class="orig">Articulated Crystal Dragon by Saber3D</span></li>
-<li><a href="https://makerworld.com/en/models/65426-fidget-cube-toy-angled" target="_blank" rel="noopener">指尖方塊</a><span class="dl">198,504 次下載</span><span class="orig">Fidget Cube Toy: Angled</span></li>
-<li><a href="https://makerworld.com/en/models/30385-russian-maze-puzzle-gift-box-hard" target="_blank" rel="noopener">迷宮解謎盒</a><span class="dl">29,532 次下載</span><span class="orig">Russian Maze Puzzle Gift Box - HARD</span></li>
-<li><a href="https://makerworld.com/en/models/2910956-helixcore-press-to-spin-squishy-ball" target="_blank" rel="noopener">HelixCore 旋轉陀螺</a><span class="dl">66,398 次下載</span><span class="orig">HelixCore – Press-to-Spin Squishy Ball</span></li>
+
+<li><a href="https://makerworld.com/en/models/65426-fidget-cube-toy-angled" target="_blank" rel="noopener">指尖方塊</a><span class="dl">198,504 次下載</span><span class="orig">Fidget Cube Toy: Angled</span><span class="tip3"><b>注意</b>鉸鏈黏死就整顆報廢<br><b>微調</b>0.16mm 層高、XY −0.05mm、不開支撐</span></li>
+<li><a href="https://makerworld.com/en/models/30385-russian-maze-puzzle-gift-box-hard" target="_blank" rel="noopener">迷宮解謎盒</a><span class="dl">29,532 次下載</span><span class="orig">Russian Maze Puzzle Gift Box - HARD</span><span class="tip3"><b>注意</b>軌道公差太大會鬆、太小會卡<br><b>微調</b>0.2mm 層高、XY −0.03mm，先印單層測試片</span></li>
+<li><a href="https://makerworld.com/en/models/2910956-helixcore-press-to-spin-squishy-ball" target="_blank" rel="noopener">HelixCore 旋轉陀螺</a><span class="dl">66,398 次下載</span><span class="orig">HelixCore – Press-to-Spin Squishy Ball</span><span class="tip3"><b>注意</b>球面接縫明顯<br><b>微調</b>0.12–0.16mm、外壁降速到 50mm/s</span></li>
   </ul>
 
 
@@ -106,11 +109,11 @@
   <p class="note">這類最能看出機器精度：齒輪咬合、軸承間隙、一體成形連桿。</p>
   <figure class="shot"><img src="shots/mech.png" alt="機械：行星齒輪、噴射引擎、V8、軸承、機械手臂" loading="lazy"></figure>
   <ul class="models">
-<li><a href="https://makerworld.com/en/models/654785-planetary-gears-finger-fidget-spinners" target="_blank" rel="noopener">行星齒輪指尖陀螺</a><span class="dl">171,587 次下載</span><span class="orig">Planetary Gears Finger Fidget Spinners</span></li>
-<li><a href="https://makerworld.com/en/models/13806-3d-printable-jet-engine" target="_blank" rel="noopener">3D 可印噴射引擎</a><span class="dl">43,707 次下載</span><span class="orig">3D Printable Jet Engine</span></li>
-<li><a href="https://makerworld.com/en/models/1285057-print-in-place-v8-engine-fidget" target="_blank" rel="noopener">一體成形 V8 引擎</a><span class="dl">38,673 次下載</span><span class="orig">Print-in-place v8 engine fidget</span></li>
-<li><a href="https://makerworld.com/en/models/473167-608z-6000z-6001z-roller-bearing-v2" target="_blank" rel="noopener">608Z 滾柱軸承</a><span class="dl">51,995 次下載</span><span class="orig">608Z, 6000Z, 6001Z Roller Bearing V2</span></li>
-<li><a href="https://makerworld.com/en/models/1052740-mechanical-phone-holder-desk-mounted-stand-arm" target="_blank" rel="noopener">機械手臂手機架</a><span class="dl">43,963 次下載</span><span class="orig">Mechanical Phone Holder Desk Mounted Stand Arm</span></li>
+<li><a href="https://makerworld.com/en/models/654785-planetary-gears-finger-fidget-spinners" target="_blank" rel="noopener">行星齒輪指尖陀螺</a><span class="dl">171,587 次下載</span><span class="orig">Planetary Gears Finger Fidget Spinners</span><span class="tip3"><b>注意</b>齒輪咬合太緊轉不動<br><b>微調</b>0.16mm、XY −0.05mm、填充 30%</span></li>
+<li><a href="https://makerworld.com/en/models/13806-3d-printable-jet-engine" target="_blank" rel="noopener">3D 可印噴射引擎</a><span class="dl">43,707 次下載</span><span class="orig">3D Printable Jet Engine</span><span class="tip3"><b>注意</b>大量懸空，支撐很難拆<br><b>微調</b>支撐只觸熱床、0.2mm 層高、風扇全開</span></li>
+<li><a href="https://makerworld.com/en/models/1285057-print-in-place-v8-engine-fidget" target="_blank" rel="noopener">一體成形 V8 引擎</a><span class="dl">38,673 次下載</span><span class="orig">Print-in-place v8 engine fidget</span><span class="tip3"><b>注意</b>連桿間隙不對就卡死<br><b>微調</b>0.16mm、XY −0.05mm、外壁 40mm/s</span></li>
+<li><a href="https://makerworld.com/en/models/473167-608z-6000z-6001z-roller-bearing-v2" target="_blank" rel="noopener">608Z 滾柱軸承</a><span class="dl">51,995 次下載</span><span class="orig">608Z, 6000Z, 6001Z Roller Bearing V2</span><span class="tip3"><b>注意</b>間隙極敏感，差 0.05mm 就轉不動<br><b>微調</b>XY 從 −0.05mm 起調、0.12mm 層高、滾道不要上油</span></li>
+<li><a href="https://makerworld.com/en/models/1052740-mechanical-phone-holder-desk-mounted-stand-arm" target="_blank" rel="noopener">機械手臂手機架</a><span class="dl">43,963 次下載</span><span class="orig">Mechanical Phone Holder Desk Mounted Stand Arm</span><span class="tip3"><b>注意</b>關節鬆緊差很多<br><b>微調</b>0.2mm、XY −0.03mm，關節件用 PETG</span></li>
   </ul>
 
 
@@ -118,18 +121,18 @@
   <p class="note">如果你已經印完前面幾類，這批可以往「家裡每個角落」擴散。</p>
   <figure class="shot"><img src="shots/more2.png" alt="第二批 12 件：收納、玩具、機構" loading="lazy"></figure>
   <ul class="models">
-<li><a href="https://makerworld.com/en/models/215875-clean-cable-management-organizer-clip" target="_blank" rel="noopener">桌下線材收納</a><span class="dl">24,893 次下載</span><span class="orig">Clean Cable Management Organizer Clip</span></li>
-<li><a href="https://makerworld.com/en/models/708853-the-ultimate-3d-printed-clip" target="_blank" rel="noopener">強力洗衣夾</a><span class="dl">20,040 次下載</span><span class="orig">The Ultimate 3D Printed Clip</span></li>
-<li><a href="https://makerworld.com/en/models/160052-kitchen-packet-organizer-baking-spice-box" target="_blank" rel="noopener">廚房調味包收納</a><span class="dl">14,163 次下載</span><span class="orig">Kitchen Packet Organizer / Baking Spice Box</span></li>
-<li><a href="https://makerworld.com/en/models/1738386-spinning-organizer-rotating-storage-box" target="_blank" rel="noopener">旋轉收納盤</a><span class="dl">21,060 次下載</span><span class="orig">Spinning Organizer | Rotating Storage Box</span></li>
-<li><a href="https://makerworld.com/en/models/584640-flexi-holding-cat-print-in-place" target="_blank" rel="noopener">關節貓玩具</a><span class="dl">62,323 次下載</span><span class="orig">Flexi Holding Cat (Print-in-place)</span></li>
-<li><a href="https://makerworld.com/en/models/14265-marble-run-003" target="_blank" rel="noopener">彈珠軌道</a><span class="dl">36,897 次下載</span><span class="orig">Marble Run 003</span></li>
-<li><a href="https://makerworld.com/en/models/850566-little-robot-hand" target="_blank" rel="noopener">小機械手</a><span class="dl">32,622 次下載</span><span class="orig">Little Robot Hand</span></li>
-<li><a href="https://makerworld.com/en/models/3273325-clicky-clicker-with-click-sound" target="_blank" rel="noopener">喀噠開關玩具</a><span class="dl">18,396 次下載</span><span class="orig">Clicky Clicker with *Click* Sound</span></li>
-<li><a href="https://makerworld.com/en/models/628601-high-speed-propeller-launcher" target="_blank" rel="noopener">高速螺旋槳發射器</a><span class="dl">56,313 次下載</span><span class="orig">High Speed Propeller Launcher</span></li>
-<li><a href="https://makerworld.com/en/models/1049303-gear-generator-parametric-gears-racks" target="_blank" rel="noopener">齒輪產生器（可調參數）</a><span class="dl">29,096 次下載</span><span class="orig">Gear Generator - Parametric Gears & Racks</span></li>
-<li><a href="https://makerworld.com/en/models/13297-tt-furious-tourbillon" target="_blank" rel="noopener">陀飛輪機構</a><span class="dl">15,020 次下載</span><span class="orig">TT Furious Tourbillon</span></li>
-<li><a href="https://makerworld.com/en/models/115260-date-keeper-perpetual-flip-calendar" target="_blank" rel="noopener">翻頁日曆機</a><span class="dl">15,916 次下載</span><span class="orig">"Date Keeper" Perpetual Flip Calendar</span></li>
+<li><a href="https://makerworld.com/en/models/215875-clean-cable-management-organizer-clip" target="_blank" rel="noopener">桌下線材收納</a><span class="dl">24,893 次下載</span><span class="orig">Clean Cable Management Organizer Clip</span><span class="tip3"><b>注意</b>桌板厚度不合就夾不住<br><b>微調</b>先量桌板，螺絲孔放大 0.3mm</span></li>
+<li><a href="https://makerworld.com/en/models/708853-the-ultimate-3d-printed-clip" target="_blank" rel="noopener">強力洗衣夾</a><span class="dl">20,040 次下載</span><span class="orig">The Ultimate 3D Printed Clip</span><span class="tip3"><b>注意</b>彈簧溝反覆受力易裂<br><b>微調</b>PETG、填充 40%、0.2mm</span></li>
+<li><a href="https://makerworld.com/en/models/160052-kitchen-packet-organizer-baking-spice-box" target="_blank" rel="noopener">廚房調味包收納</a><span class="dl">14,163 次下載</span><span class="orig">Kitchen Packet Organizer / Baking Spice Box</span><span class="tip3"><b>注意</b>抽屜深度不合放不進<br><b>微調</b>依抽屜內寬縮放，免支撐</span></li>
+<li><a href="https://makerworld.com/en/models/1738386-spinning-organizer-rotating-storage-box" target="_blank" rel="noopener">旋轉收納盤</a><span class="dl">21,060 次下載</span><span class="orig">Spinning Organizer | Rotating Storage Box</span><span class="tip3"><b>注意</b>軸心太緊轉不動<br><b>微調</b>軸徑 +0.2mm、XY −0.03mm</span></li>
+<li><a href="https://makerworld.com/en/models/584640-flexi-holding-cat-print-in-place" target="_blank" rel="noopener">關節貓玩具</a><span class="dl">62,323 次下載</span><span class="orig">Flexi Holding Cat (Print-in-place)</span><span class="tip3"><b>注意</b>尾巴與耳朵細節易斷<br><b>微調</b>0.16mm、外壁降到 40mm/s</span></li>
+<li><a href="https://makerworld.com/en/models/14265-marble-run-003" target="_blank" rel="noopener">彈珠軌道</a><span class="dl">36,897 次下載</span><span class="orig">Marble Run 003</span><span class="tip3"><b>注意</b>接頭高低差會卡珠<br><b>微調</b>0.2mm，每節印完先用手試珠再組</span></li>
+<li><a href="https://makerworld.com/en/models/850566-little-robot-hand" target="_blank" rel="noopener">小機械手</a><span class="dl">32,622 次下載</span><span class="orig">Little Robot Hand</span><span class="tip3"><b>注意</b>指節黏死、掰不開<br><b>微調</b>0.16mm、XY −0.05mm；先用 0.2mm 版本試手感</span></li>
+<li><a href="https://makerworld.com/en/models/3273325-clicky-clicker-with-click-sound" target="_blank" rel="noopener">喀噠開關玩具</a><span class="dl">18,396 次下載</span><span class="orig">Clicky Clicker with *Click* Sound</span><span class="tip3"><b>注意</b>手感偏硬或沒聲音<br><b>微調</b>0.16mm，彈片處填充 100%</span></li>
+<li><a href="https://makerworld.com/en/models/628601-high-speed-propeller-launcher" target="_blank" rel="noopener">高速螺旋槳發射器</a><span class="dl">56,313 次下載</span><span class="orig">High Speed Propeller Launcher</span><span class="tip3"><b>注意</b>高速旋轉件，組裝不良會射出<br><b>微調</b>軸位 XY −0.05mm；不要加大馬達電壓</span></li>
+<li><a href="https://makerworld.com/en/models/1049303-gear-generator-parametric-gears-racks" target="_blank" rel="noopener">齒輪產生器（可調參數）</a><span class="dl">29,096 次下載</span><span class="orig">Gear Generator - Parametric Gears & Racks</span><span class="tip3"><b>注意</b>參數輸入錯誤會生成咬合不良的齒輪<br><b>微調</b>模數 1–1.5、XY −0.05mm、外壁 4 圈</span></li>
+<li><a href="https://makerworld.com/en/models/13297-tt-furious-tourbillon" target="_blank" rel="noopener">陀飛輪機構</a><span class="dl">15,020 次下載</span><span class="orig">TT Furious Tourbillon</span><span class="tip3"><b>注意</b>小件極多、組裝順序不能錯<br><b>微調</b>0.12mm、XY −0.05mm；先只印一組齒輪試運轉</span></li>
+<li><a href="https://makerworld.com/en/models/115260-date-keeper-perpetual-flip-calendar" target="_blank" rel="noopener">翻頁日曆機</a><span class="dl">15,916 次下載</span><span class="orig">"Date Keeper" Perpetual Flip Calendar</span><span class="tip3"><b>注意</b>彈簧與卡榫是弱點<br><b>微調</b>0.16mm，彈片用 PETG</span></li>
   </ul>
 
 
@@ -137,29 +140,29 @@
   <p class="note">全部都是 print-in-place：印完不用組裝，直接能擺動。這類同時考驗尺寸補償與冷卻。</p>
   <figure class="shot"><img src="shots/animals.png" alt="一體成形關節動物" loading="lazy"></figure>
   <ul class="models">
-<li><a href="https://makerworld.com/en/models/55289-articulated-crystal-dragon-by-saber3d" target="_blank" rel="noopener">水晶關節龍</a><span class="dl">231,008 次下載</span><span class="orig">Articulated Crystal Dragon by Saber3D</span></li>
-<li><a href="https://makerworld.com/en/models/463778-articulated-shark" target="_blank" rel="noopener">關節鯊魚</a><span class="dl">116,248 次下載</span><span class="orig">Articulated Shark</span></li>
-<li><a href="https://makerworld.com/en/models/13859-cute-mini-octopus" target="_blank" rel="noopener">迷你章魚</a><span class="dl">135,165 次下載</span><span class="orig">Cute Mini Octopus</span></li>
-<li><a href="https://makerworld.com/en/models/1634871-flexi-skeleton-t-rex-dinosaur" target="_blank" rel="noopener">骷髏暴龍</a><span class="dl">109,632 次下載</span><span class="orig">Flexi Skeleton T-Rex Dinosaur</span></li>
-<li><a href="https://makerworld.com/en/models/1925739-cute-snakey-free-to-sell-no-ams" target="_blank" rel="noopener">Cute Snakey 伸縮蛇</a><span class="dl">94,548 次下載</span><span class="orig">Cute Snakey - Free to Sell - No AMS</span></li>
-<li><a href="https://makerworld.com/en/models/1163767-shadowcoil-articulated-dragon" target="_blank" rel="noopener">Shadowcoil 關節龍</a><span class="dl">90,465 次下載</span><span class="orig">Shadowcoil - Articulated Dragon</span></li>
-<li><a href="https://makerworld.com/en/models/13862-articulated-lizard-v2" target="_blank" rel="noopener">關節蜥蜴 v2</a><span class="dl">60,656 次下載</span><span class="orig">Articulated Lizard v2</span></li>
-<li><a href="https://makerworld.com/en/models/2215005-mini-shark-articulated" target="_blank" rel="noopener">迷你鯊魚</a><span class="dl">80,532 次下載</span><span class="orig">Mini Shark Articulated</span></li>
-<li><a href="https://makerworld.com/en/models/2443950-modular-flexi-crab-no-ams-required" target="_blank" rel="noopener">模組化關節蟹</a><span class="dl">26,694 次下載</span><span class="orig">Modular Flexi Crab No AMS Required</span></li>
+<li><a href="https://makerworld.com/en/models/55289-articulated-crystal-dragon-by-saber3d" target="_blank" rel="noopener">水晶關節龍</a><span class="dl">231,008 次下載</span><span class="orig">Articulated Crystal Dragon by Saber3D</span><span class="tip3"><b>注意</b>背刺與角很脆<br><b>微調</b>0.16mm、外壁 40mm/s、XY −0.05mm</span></li>
+<li><a href="https://makerworld.com/en/models/463778-articulated-shark" target="_blank" rel="noopener">關節鯊魚</a><span class="dl">116,248 次下載</span><span class="orig">Articulated Shark</span><span class="tip3"><b>注意</b>尾鰭大片懸空<br><b>微調</b>免支撐、懸空處局部降速到 30mm/s</span></li>
+<li><a href="https://makerworld.com/en/models/13859-cute-mini-octopus" target="_blank" rel="noopener">迷你章魚</a><span class="dl">135,165 次下載</span><span class="orig">Cute Mini Octopus</span><span class="tip3"><b>注意</b>觸手細、容易拉絲<br><b>微調</b>0.12–0.16mm、線材先烘乾、回抽 +1mm</span></li>
+<li><a href="https://makerworld.com/en/models/1634871-flexi-skeleton-t-rex-dinosaur" target="_blank" rel="noopener">骷髏暴龍</a><span class="dl">109,632 次下載</span><span class="orig">Flexi Skeleton T-Rex Dinosaur</span><span class="tip3"><b>注意</b>肋骨薄，拆支撐會斷<br><b>微調</b>0.16mm、外壁 3 圈、支撐只在熱床</span></li>
+<li><a href="https://makerworld.com/en/models/1925739-cute-snakey-free-to-sell-no-ams" target="_blank" rel="noopener">Cute Snakey 伸縮蛇</a><span class="dl">94,548 次下載</span><span class="orig">Cute Snakey - Free to Sell - No AMS</span><span class="tip3"><b>注意</b>長條連續路徑容易拉絲<br><b>微調</b>線材乾燥、回抽 +1mm、外壁 40mm/s</span></li>
+<li><a href="https://makerworld.com/en/models/1163767-shadowcoil-articulated-dragon" target="_blank" rel="noopener">Shadowcoil 關節龍</a><span class="dl">90,465 次下載</span><span class="orig">Shadowcoil - Articulated Dragon</span><span class="tip3"><b>注意</b>龍角與背鰭細節小<br><b>微調</b>0.12mm、外壁 35mm/s</span></li>
+<li><a href="https://makerworld.com/en/models/13862-articulated-lizard-v2" target="_blank" rel="noopener">關節蜥蜴 v2</a><span class="dl">60,656 次下載</span><span class="orig">Articulated Lizard v2</span><span class="tip3"><b>注意</b>腳趾極小易斷<br><b>微調</b>0.12–0.16mm、XY −0.03mm</span></li>
+<li><a href="https://makerworld.com/en/models/2215005-mini-shark-articulated" target="_blank" rel="noopener">迷你鯊魚</a><span class="dl">80,532 次下載</span><span class="orig">Mini Shark Articulated</span><span class="tip3"><b>注意</b>一次排多隻會互相黏住<br><b>微調</b>排列間距至少 5mm、關閉「合併同層」</span></li>
+<li><a href="https://makerworld.com/en/models/2443950-modular-flexi-crab-no-ams-required" target="_blank" rel="noopener">模組化關節蟹</a><span class="dl">26,694 次下載</span><span class="orig">Modular Flexi Crab No AMS Required</span><span class="tip3"><b>注意</b>多色換料浪費大<br><b>微調</b>沒有 AMS 就分件印，XY −0.05mm</span></li>
   </ul>
 
   <p class="note">第二批：換不同物種，包含體型更小的入門款（5g 蜥蜴只要 15 分鐘）。</p>
   <figure class="shot"><img src="shots/animals2.png" alt="第二批一體成形關節動物" loading="lazy"></figure>
   <ul class="models">
-<li><a href="https://makerworld.com/en/models/989796-articulated-axolotl-multicolor" target="_blank" rel="noopener">六角蠑螈（可多色）</a><span class="dl">56,254 次下載</span><span class="orig">Articulated Axolotl (Multicolor)</span></li>
-<li><a href="https://makerworld.com/en/models/171079-articulated-sea-turtle-singlecolor-multicolor" target="_blank" rel="noopener">關節海龜</a><span class="dl">38,624 次下載</span><span class="orig">Articulated Sea Turtle (singlecolor & multicolor)</span></li>
-<li><a href="https://makerworld.com/en/models/764261-cute-articulated-frog" target="_blank" rel="noopener">關節青蛙</a><span class="dl">23,902 次下載</span><span class="orig">Cute articulated frog</span></li>
-<li><a href="https://makerworld.com/en/models/1245872-mini-articulated-dragon-02" target="_blank" rel="noopener">迷你關節龍 02</a><span class="dl">38,056 次下載</span><span class="orig">Mini Articulated Dragon 02</span></li>
-<li><a href="https://makerworld.com/en/models/131095-articulated-whale-shark" target="_blank" rel="noopener">關節鯨鯊</a><span class="dl">43,490 次下載</span><span class="orig">Articulated Whale Shark</span></li>
-<li><a href="https://makerworld.com/en/models/1575462-spiked-articulated-snake" target="_blank" rel="noopener">尖刺關節蛇</a><span class="dl">41,354 次下載</span><span class="orig">Spiked Articulated Snake</span></li>
-<li><a href="https://makerworld.com/en/models/1444435-tuxi-the-penguin-articulated-keychain" target="_blank" rel="noopener">關節企鵝 Tuxi</a><span class="dl">17,119 次下載</span><span class="orig">Tuxi the penguin – Articulated & keychain</span></li>
-<li><a href="https://makerworld.com/en/models/2947243-meccha-chameleon-characters-all-og-poses-no-ai" target="_blank" rel="noopener">Meccha 變色龍角色公仔</a><span class="dl">63,639 次下載</span><span class="orig">Meccha Chameleon Characters - All OG Poses (No AI)</span></li>
-<li><a href="https://makerworld.com/en/models/2716330-5g-lizard-lizard-articulated-lizard-only-5g" target="_blank" rel="noopener">5g 關節蜥蜴</a><span class="dl">49,744 次下載</span><span class="orig">5g蜥蜴 lizard-关节可动蜥蜴-仅5g</span></li>
+<li><a href="https://makerworld.com/en/models/989796-articulated-axolotl-multicolor" target="_blank" rel="noopener">六角蠑螈（可多色）</a><span class="dl">56,254 次下載</span><span class="orig">Articulated Axolotl (Multicolor)</span><span class="tip3"><b>注意</b>外鰓是最容易斷的地方<br><b>微調</b>外壁 30mm/s、0.12mm、XY −0.05mm</span></li>
+<li><a href="https://makerworld.com/en/models/171079-articulated-sea-turtle-singlecolor-multicolor" target="_blank" rel="noopener">關節海龜</a><span class="dl">38,624 次下載</span><span class="orig">Articulated Sea Turtle (singlecolor & multicolor)</span><span class="tip3"><b>注意</b>龜殼頂面紋理容易醜<br><b>微調</b>0.16mm，開 Ironing（頂面熨燙）</span></li>
+<li><a href="https://makerworld.com/en/models/764261-cute-articulated-frog" target="_blank" rel="noopener">關節青蛙</a><span class="dl">23,902 次下載</span><span class="orig">Cute articulated frog</span><span class="tip3"><b>注意</b>貼床面積小，容易中途倒<br><b>微調</b>Brim 5mm、第一層 0.25mm、底板 60°C</span></li>
+<li><a href="https://makerworld.com/en/models/1245872-mini-articulated-dragon-02" target="_blank" rel="noopener">迷你關節龍 02</a><span class="dl">38,056 次下載</span><span class="orig">Mini Articulated Dragon 02</span><span class="tip3"><b>注意</b>尺寸極小、間隙吃掉整件功能<br><b>微調</b>0.08–0.12mm、XY −0.03mm</span></li>
+<li><a href="https://makerworld.com/en/models/131095-articulated-whale-shark" target="_blank" rel="noopener">關節鯨鯊</a><span class="dl">43,490 次下載</span><span class="orig">Articulated Whale Shark</span><span class="tip3"><b>注意</b>長身兩端易翹<br><b>微調</b>Brim、底板降 5°C、前 10 層降速</span></li>
+<li><a href="https://makerworld.com/en/models/1575462-spiked-articulated-snake" target="_blank" rel="noopener">尖刺關節蛇</a><span class="dl">41,354 次下載</span><span class="orig">Spiked Articulated Snake</span><span class="tip3"><b>注意</b>尖刺在冷卻不足時會斷<br><b>微調</b>0.16mm、風扇 100%、別放冷氣口</span></li>
+<li><a href="https://makerworld.com/en/models/1444435-tuxi-the-penguin-articulated-keychain" target="_blank" rel="noopener">關節企鵝 Tuxi</a><span class="dl">17,119 次下載</span><span class="orig">Tuxi the penguin – Articulated & keychain</span><span class="tip3"><b>注意</b>鑰匙圈孔常印成橢圓<br><b>微調</b>孔徑 +0.3mm、孔位處降速</span></li>
+<li><a href="https://makerworld.com/en/models/2947243-meccha-chameleon-characters-all-og-poses-no-ai" target="_blank" rel="noopener">Meccha 變色龍角色公仔</a><span class="dl">63,639 次下載</span><span class="orig">Meccha Chameleon Characters - All OG Poses (No AI)</span><span class="tip3"><b>注意</b>姿勢件多、拆件費時<br><b>微調</b>一次印 3–4 隻、間距 4mm、0.16mm</span></li>
+<li><a href="https://makerworld.com/en/models/2716330-5g-lizard-lizard-articulated-lizard-only-5g" target="_blank" rel="noopener">5g 關節蜥蜴</a><span class="dl">49,744 次下載</span><span class="orig">5g蜥蜴 lizard-关节可动蜥蜴-仅5g</span><span class="tip3"><b>注意</b>極輕，第一層沒貼牢就整個被噴嘴帶走<br><b>微調</b>Brim 3mm、XY −0.03mm、首層 0.25mm</span></li>
   </ul>
 
   <h2>八、A1 的列印參數（這幾類都適用）</h2>
