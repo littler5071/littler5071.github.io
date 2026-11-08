@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>沒登入、沒 OTP，錢卻被轉走：永豐銀 4,176 萬盜轉事件完整拆解｜小R頻道</title>
+<meta name="description" content="418 人、427 筆、4,176 萬元。受害客戶沒有登入、沒有收到 OTP、沒有人臉辨識，錢就被轉走。這篇整理時間軸、手法、三個設計缺陷、原因分層，以及為什麼專家懷疑這更像「測試失控」而不是典型犯罪。">
+<link rel="canonical" href="https://littler5071.github.io/code/sinopac-2026-11/">
+<meta property="og:title" content="沒登入、沒 OTP，錢卻被轉走：永豐銀 4,176 萬盜轉事件完整拆解">
+<meta property="og:description" content="418 人受害、427 筆異常轉帳、4,176 萬元。從 09:29 第一通客服電話到 13:47 止住，共 4 小時 18 分。">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border-radius:12px}
+  table.kt{width:100%;border-collapse:collapse;font-size:14px;background:#fff;min-width:520px}
+  table.kt th,table.kt td{border-bottom:1px dashed var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+  table.kt th{color:#78706a;font-weight:700;white-space:nowrap;background:#faf7ef}
+  table.kt td{line-height:1.65}
+  @media (max-width:640px){
+    table.kt{min-width:0;font-size:13px}
+    table.kt th,table.kt td{white-space:normal;word-break:break-word;padding:7px 6px}
+  }
+  h2{margin-top:38px;padding-top:10px;border-top:2px dashed #ddd6c6}
+  blockquote{border-left:5px solid #c2452d;margin:18px 0;padding:6px 0 6px 16px;color:#4a4640;background:#fffdf7}
+  a{color:#c2452d;text-decoration:underline;text-underline-offset:2px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0 26px}
+  .stat{background:#fffdf7;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+  .stat b{display:block;font-size:22px;color:#c2452d}
+  .stat span{display:block;font-size:12.5px;color:#7a7268;margin-top:4px;line-height:1.45}
+  @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.stat b{font-size:19px}}
+  .toolbox{background:#fff6e8;border:2px solid #f0d9b8;border-radius:14px;padding:16px 18px;margin:20px 0;font-size:14.5px}
+  .toolbox ul{margin:10px 0 0;padding-left:20px;line-height:1.9}
+  .viewsline{max-width:900px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#7a7268;font-size:13px}
+</style>
+</head>
+<body>
+<article class="article">
+  <p class="kicker">資安事件 · 完整拆解</p>
+  <h1>沒登入、沒 OTP，錢卻被轉走：永豐銀 4,176 萬盜轉事件</h1>
+  <p class="lede">418 名客戶、427 筆異常轉帳、4,176 萬元。最反常的不是金額，而是流程：受害者沒有登入網銀、沒有收到簡訊驗證碼、沒有通過人臉辨識，錢就直接從帳戶消失。這篇把時間軸、手法、三個設計缺陷與背後的結構問題一次整理。</p>
+  <p class="meta">2026-11-07 · 事件日 2026-11-03 · 資料來源：中央社、公視、聯合報、壹蘋、Taiwan News、金管會記者會</p>
+
+  <div class="stats">
+    <div class="stat"><b>418 人</b><span>受影響客戶</span></div>
+    <div class="stat"><b>427 筆</b><span>異常轉帳</span></div>
+    <div class="stat"><b>4,176 萬</b><span>被轉出金額（當天全數返還）</span></div>
+    <div class="stat"><b>4 小時 18 分</b><span>從第一通客服電話到止住</span></div>
+  </div>
+
+  <h2>一、30 秒版本</h2>
+  <ul>
+    <li><strong>手法</strong>：外部駭客利用新網銀交易系統供應商的程式原生瑕疵與安全設定漏洞，用「隨機試誤」取得有效帳戶後直接轉帳。</li>
+    <li><strong>最誇張的地方</strong>：受害客戶沒有登入、沒有收到 OTP、沒有人臉辨識，錢就被轉走；單筆多為 10 萬元。</li>
+    <li><strong>錢去哪</strong>：全部流入同一個台北富邦銀行帳戶，持有人是 70 多歲退休老翁，曾遭假投資詐騙，直到 ATM 提款受阻才發現。</li>
+    <li><strong>止血</strong>：當天 13:47 找到原因並下架新網銀 APP，攻擊立刻停止；下午完成全額返還。</li>
+    <li><strong>後續</strong>：北檢分他字案（妨害電腦使用罪方向）；金管會要求 11/12 前交重大偶發報告，查委外與內控；永豐銀將向國外系統商求償。</li>
+  </ul>
+
+  <h2>二、時間軸：錢在跑，監控沒叫</h2>
+  <div class="tablewrap">
+  <table class="kt">
+    <tr><th>時間</th><th>事件</th></tr>
+    <tr><td>上午</td><td>系統出現「細微徵兆」，一開始無法判斷是個案或通案</td></tr>
+    <tr><td>09:29</td><td>客服陸續接到客戶反映存款被轉出</td></tr>
+    <tr><td>10:00</td><td>啟動內部應變程序</td></tr>
+    <tr><td>10:30</td><td>通知台北富邦銀行，對方凍結收款帳戶</td></tr>
+    <tr><td>12:00</td><td>內部定調為「重大偶發事件」</td></tr>
+    <tr><td>12:50</td><td>通報金管會銀行局</td></tr>
+    <tr><td>13:47</td><td>查出原因，下架新網銀 APP，之後未再看到攻擊</td></tr>
+    <tr><td>當天下午</td><td>4,176 萬元全數返還客戶</td></tr>
+    <tr><td>11/4 晚</td><td>董事長、總經理兩度鞠躬道歉，公布調查結果</td></tr>
+    <tr><td>11/5</td><td>金管會找董總說明，要求 11/12 前交完整報告</td></tr>
+  </table>
+  </div>
+  <blockquote>第一通電話是「客戶打進來」，不是「系統告警」。427 筆同額轉出、收款帳戶集中同一個，風控照理該在第一批就亮紅燈——這是內控最難解釋的一塊。</blockquote>
+
+  <h2>三、為什麼「不用登入」也能轉帳</h2>
+  <p>一筆正常的網銀轉帳，至少要過五關：</p>
+  <ol>
+    <li>帳號密碼登入</li>
+    <li>裝置綁定／信任裝置</li>
+    <li>交易 OTP 或生物辨識</li>
+    <li>非約定帳戶的單筆／單日限額</li>
+    <li>後端風控（行為異常、頻率、收款帳戶黑名單）</li>
+  </ol>
+  <p>這次事件，<strong>第 1～3 關完全沒有發生</strong>，第 4 關被「每筆剛好 10 萬」壓在門檻內，第 5 關沒有擋下來。合理的技術解釋只有一個：</p>
+  <blockquote>驗證被放在「前端 APP／供應商元件」，而不是後端的交易授權核心。</blockquote>
+  <p>只要繞過那個 APP 的交易流程（或直接用它的 API／測試介面），後端就把它當成合法交易。這也是為什麼「APP 下架」能立刻止住攻擊——攻擊面就是那支 APP 的交易路徑本身。</p>
+
+  <h3>三個關鍵設計缺陷</h3>
+  <div class="tablewrap">
+  <table class="kt">
+    <tr><th>缺陷</th><th>說明</th><th>後果</th></tr>
+    <tr><td>可列舉的帳號空間＋無速率限制</td><td>用「隨機試誤」就能找到有效帳戶，代表沒有失敗計數、沒有驗證碼、沒有 IP／裝置信譽</td><td>427 筆不需要 427 個受害者名單，只要一直試</td></tr>
+    <tr><td>每筆 10 萬的「剛好」</td><td>多數銀行非約定轉帳上限就是 10 萬，攻擊者固定打 10 萬，等於刻意貼著風控門檻走</td><td>單筆看起來正常，不會觸發超額告警</td></tr>
+    <tr><td>身分證字號 P 開頭集中</td><td>受害客戶字號都是 P 開頭（雲林縣戶籍代碼），外界因此懷疑個資外洩</td><td>銀行稱無外洩軌跡；另一種可能是 P 只是列舉起點或供應商測試資料殘留</td></tr>
+  </table>
+  </div>
+
+  <h2>四、原因分層：技術、流程、產業</h2>
+  <h3>1. 直接原因（技術）</h3>
+  <ul>
+    <li>國外供應商新網銀交易系統的程式原生瑕疵＋安全設定漏洞</li>
+    <li>測試／設定環境與生產環境的界線沒有處理乾淨（總經理原話：「每次導入系統…幾乎要完美無缺地交接，這次事件是有些例外」）</li>
+  </ul>
+  <h3>2. 根本原因（流程）</h3>
+  <ul>
+    <li>委外驗收不足：上線前的滲透測試、組態基準檢查、異常情境測試沒有涵蓋「未登入直接呼叫交易」</li>
+    <li>變更管理：新系統用較新技術、找國外廠商，卻沒有對應的在地監理與測試要求</li>
+    <li>沒有 kill switch：只能下架整個 APP 止血，代表沒有單獨關閉交易 API 的開關，也沒有自動偵測大量小額轉出的規則</li>
+  </ul>
+  <h3>3. 系統性原因（產業）</h3>
+  <ul>
+    <li>銀行把身分驗證的責任交給 APP／供應商元件，後端只認請求格式</li>
+    <li>供應鏈風險：同一套系統的使用家數，媒體與金管會說法有落差</li>
+    <li>現有監理工具是「7 天內交報告＋聯防通報」，屬於事後機制</li>
+  </ul>
+
+  <h2>五、疑點：這像犯罪，還是像測試失控？</h2>
+  <ol>
+    <li><strong>收款帳戶只有一個，而且是被害老翁</strong>：427 筆全進同一帳戶，持有人 70 多歲、曾遭假投資詐騙。可能是被當人頭，也可能是測試失控——錢集中、金額固定、沒有後續洗錢動作，都不像專業犯罪集團。</li>
+    <li><strong>資安專家的判斷</strong>：台灣數位安全發展協會理事長劉彥伯認為「比較不像一般實際犯罪，更像駭客測試或自動化程式測試產生的意外」。</li>
+    <li><strong>「P 開頭」不必然等於外洩</strong>：若是外洩名單，不會剛好只有一個字母開頭，更像列舉起點或測試資料集特徵。</li>
+    <li><strong>求償 vs 罰則</strong>：銀行說已掌握證據要向外商求償，對方一定抗辯；金管會同時查委外管理與內控，兩條線會並行。</li>
+  </ol>
+
+  <h2>六、影響</h2>
+  <div class="tablewrap">
+  <table class="kt">
+    <tr><th>面向</th><th>影響</th></tr>
+    <tr><td>客戶</td><td>418 人受影響，金額當天全數返還；但「錢會自己不見」的信心衝擊更大</td></tr>
+    <tr><td>銀行</td><td>名譽損失、新網銀 APP 下架、面臨求償與金管會調查</td></tr>
+    <tr><td>產業</td><td>強化委外供應鏈管理與資安聯防，金融業被要求重新檢視 APP 交易路徑</td></tr>
+    <tr><td>司法</td><td>北檢他字案，妨害電腦使用罪方向；收款帳戶持有人列關係人</td></tr>
+  </table>
+  </div>
+
+  <h2>七、如果我是這家銀行的資安負責人</h2>
+  <ol>
+    <li><strong>交易授權必須在後端</strong>：轉帳請求要帶伺服器簽發的短效 token＋裝置綁定指紋，前端只是顯示層</li>
+    <li><strong>列舉防護</strong>：帳號查詢與交易 initiation 都要有速率限制、失敗計數、CAPTCHA 或裝置信譽</li>
+    <li><strong>異常批次規則</strong>：同一收款帳戶在 10 分鐘內收到 N 筆小額 → 自動凍結並告警</li>
+    <li><strong>Kill switch</strong>：能單獨關閉新網銀交易 API，不必下架整個 APP</li>
+    <li><strong>委外驗收清單</strong>：組態基準、SAST／DAST、未授權交易測試、測試資料不得進生產</li>
+    <li><strong>桌上演練</strong>：從「客戶來電」到「止住」要在 60 分鐘內，而不是 4 小時</li>
+  </ol>
+
+  <div class="toolbox">
+    <strong>給一般使用者的四件事</strong>
+    <ul>
+      <li>開啟每一筆交易通知（App 推播＋Email），不要只依賴月結單</li>
+      <li>設定約定帳戶，並把非約定轉帳額度調到最低</li>
+      <li>網銀 APP 只留官方商店版本；出現異常更新或要求重新綁定時先打電話確認</li>
+      <li>發現未授權交易：先打客服凍結、再報案，並保留通知截圖</li>
+    </ul>
+  </div>
+
+  <h2>八、參考來源</h2>
+  <ul>
+    <li><a href="https://www.cna.com.tw/news/afe/202611040331.aspx" target="_blank" rel="noopener">中央社（11/4）：永豐銀新網銀 APP 釀資安危機 還原遭駭時間軸</a></li>
+    <li><a href="https://www.cna.com.tw/news/afe/202611030259.aspx" target="_blank" rel="noopener">中央社（11/3）：永豐銀爆集體盜轉 金管會說明</a></li>
+    <li><a href="https://www.cna.com.tw/news/afe/202611050282.aspx" target="_blank" rel="noopener">中央社（11/5）：金管會找銀行高層說明</a></li>
+    <li><a href="https://news.pts.org.tw/article/834329" target="_blank" rel="noopener">公視（11/4）：逾 400 客戶存款遭盜轉</a></li>
+    <li><a href="https://news.pts.org.tw/article/834414" target="_blank" rel="noopener">公視（11/5）：款項轉入同一帳戶</a></li>
+    <li><a href="https://news.nextapple.com/finance/20261105/5E28383BF607024E9B0C0954347F5D4D" target="_blank" rel="noopener">壹蘋（11/5）：418 名客戶遭殃</a></li>
+    <li><a href="https://udn.com/news/story/7315/9860294" target="_blank" rel="noopener">聯合報（11/4）：檢警初查收款帳戶</a></li>
+    <li><a href="https://www.taiwannews.com.tw/news/6473003" target="_blank" rel="noopener">Taiwan News（11/6）</a></li>
+  </ul>
+
+  <p class="cap">事件仍在偵辦中，部分技術細節（供應商名稱、漏洞類型、是否與測試環境有關）尚未由官方完整公布；本文已標明哪些是官方說法、哪些是媒體與專家推測。</p>
+</article>
+<div class="viewsline">小R頻道 · AI 助理實測與教學</div>
+<script src="../../counter.js?v=e837f732" data-views></script>
+</body>
+</html>
