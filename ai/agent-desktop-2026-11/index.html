@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>不看圖也能操作電腦？用「無障礙樹」讓 AI 點按鈕，實測 32 ms、264 bytes｜小R頻道</title>
+<meta name="description" content="AI 操作桌面有兩條路：截圖猜座標，或直接問作業系統「這個按鈕叫什麼、在哪裡」。實測 agent-desktop 1.2.0 在 Ubuntu 22.04：清單 0.69 秒、小對話框讀樹 1,708 ms／436 bytes；瀏覽器改用 CDP 無障礙樹，取整棵 32 ms、精簡 264 bytes、用角色＋名稱點完 7×8= 只要 259 ms。">
+<link rel="canonical" href="https://littler5071.github.io/ai/agent-desktop-2026-11/">
+<meta property="og:title" content="不看圖也能操作電腦？用「無障礙樹」讓 AI 點按鈕">
+<meta property="og:description" content="截圖派猜座標，無障礙樹派問語意。實測：清單 0.69 秒、讀樹 1,708 ms／436 bytes、瀏覽器 32 ms 取樹、259 ms 完成 7×8=56。">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="../../css/ai-article.css">
+<style>
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border-radius:12px}
+  table.kt{width:100%;border-collapse:collapse;font-size:14px;background:#fff;min-width:520px}
+  table.kt th,table.kt td{border-bottom:1px dashed var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+  table.kt th{color:#78706a;font-weight:700;white-space:nowrap;background:#faf7ef}
+  table.kt td{line-height:1.65}
+  @media (max-width:640px){
+    table.kt{min-width:0;font-size:13px}
+    table.kt th,table.kt td{white-space:normal;word-break:break-word;padding:7px 6px}
+  }
+  h2{margin-top:38px;padding-top:10px;border-top:2px dashed #ddd6c6}
+  blockquote{border-left:5px solid #c2452d;margin:18px 0;padding:6px 0 6px 16px;color:#4a4640;background:#fffdf7}
+  pre{background:#1f2126;color:#e8e6e1;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.7}
+  pre code{background:none;color:inherit;padding:0}
+  a{color:#c2452d;text-decoration:underline;text-underline-offset:2px}
+  a:hover{color:#8f2c1c}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0 26px}
+  .stat{background:#fffdf7;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+  .stat b{display:block;font-size:23px;color:#c2452d}
+  .stat span{display:block;font-size:12.5px;color:#7a7268;margin-top:4px;line-height:1.45}
+  @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.stat b{font-size:20px}}
+  .toolbox{background:#fff6e8;border:2px solid #f0d9b8;border-radius:14px;padding:16px 18px;margin:20px 0;font-size:14.5px}
+  .toolbox ul{margin:10px 0 0;padding-left:20px;line-height:1.9}
+  .viewsline{max-width:900px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#7a7268;font-size:13px}
+</style>
+</head>
+<body>
+<article class="article">
+  <p class="kicker">AI 助理實測 · 桌面自動化</p>
+  <h1>不看圖也能操作電腦？用「無障礙樹」讓 AI 點按鈕</h1>
+  <p class="lede">同樣是「讓 AI 幫我點按鈕」，一條路是截圖猜座標，另一條路是直接問作業系統：這個按鈕叫什麼、能不能按、在哪裡。這篇把兩條路的成本攤開，並附上在這台 4 GB Ubuntu 上的實測數字。</p>
+  <p class="meta">2026-11-07 · 實測環境 Ubuntu 22.04／X11／4 GB · agent-desktop 1.2.0</p>
+
+  <div class="stats">
+    <div class="stat"><b>0.69s</b><span>列出 22 個應用程式</span></div>
+    <div class="stat"><b>1,708ms</b><span>小對話框讀整棵樹</span></div>
+    <div class="stat"><b>32ms</b><span>瀏覽器取整棵 AX 樹</span></div>
+    <div class="stat"><b>259ms</b><span>用角色＋名稱點完 7×8＝</span></div>
+  </div>
+
+  <h2>一、兩條路的差別，不在新舊，在資料來源</h2>
+  <p><strong>截圖派</strong>：拍一張畫面 → 視覺模型猜「按鈕在 (x, y)」→ 點下去。模型看到的是像素，座標是它「估」出來的。</p>
+  <p><strong>無障礙樹派</strong>：直接問作業系統「這個視窗裡有哪些元件、叫什麼、能不能按、在哪個位置」→ 拿到結構化 JSON → 依元件的 ref 操作。這套資料本來是給螢幕閱讀器用的，AI 只是撿現成。</p>
+  <blockquote>一句話：一個從像素反推語意，一個直接拿語意。標準元件（按鈕、輸入框、選單、清單）是後者的主場。</blockquote>
+
+  <h2>二、四個平台各有一層無障礙 API</h2>
+  <div class="tablewrap">
+  <table class="kt">
+    <tr><th>平台</th><th>API</th><th>誰提供</th><th>拿到的東西</th></tr>
+    <tr><td>Windows</td><td>UI Automation（UIA）</td><td>系統內建（Win32／WPF／UWP）</td><td>元件樹、ControlType、Name、AutomationId、Invoke／Value／Toggle</td></tr>
+    <tr><td>macOS</td><td>AXUIElement</td><td>系統內建，要在「輔助使用」授權</td><td>AXRole、AXTitle、AXChildren、AXPosition、AXPress</td></tr>
+    <tr><td>Linux</td><td>AT-SPI2（走 D-Bus）</td><td>at-spi2-core；GTK／Qt 應用都會掛上去</td><td>role、name、state、位置、可執行動作</td></tr>
+    <tr><td>網頁</td><td>Chromium accessibility tree（CDP）</td><td>瀏覽器</td><td>AX 節點樹；Playwright 的 aria snapshot 就是這條</td></tr>
+  </table>
+  </div>
+  <p>前提是：元件要「有發佈無障礙資訊」。GTK／Qt／Win32／WPF 通常都有；Electron 要開旗標；Canvas、遊戲、自繪介面、遠端桌面畫面沒有。</p>
+
+  <h2>三、代表實作：agent-desktop</h2>
+  <p>這次研究的主體是 <a href="https://github.com/vercel-labs/agent-desktop" target="_blank" rel="noopener">vercel-labs/agent-desktop</a>（CLI ＋ C library，Apache-2.0）。它的設計有幾個關鍵：</p>
+  <ul>
+    <li><strong>不是代理</strong>：它沒有內建模型，只負責「看」與「做」，observe → act → verify 由呼叫它的 AI 自己跑。</li>
+    <li><strong>預設語意操作</strong>：透過無障礙 API 動作，不移動滑鼠、不搶焦點；加 <code>--headed</code> 才用實體輸入。</li>
+    <li><strong>ref 機制</strong>：snapshot 回傳 JSON，每個可操作元件都有 ref（像 <code>@s8f3k2p9:e8</code>）；畫面一變就回 <code>STALE_REF</code>，不會拿舊座標亂點。</li>
+    <li><strong>明確定位</strong>：只做桌面原生應用，不做網頁（網頁交給它的 agent-browser）。</li>
+  </ul>
+  <p>同一條路上還有 Microsoft 的 UFO²（UIA＋視覺混合、允許代理在隔離桌面跑）與 macOS 的 a11y-mcp，做法不同但原理一致。</p>
+
+  <h2>四、跟截圖派比：成本差在哪</h2>
+  <div class="tablewrap">
+  <table class="kt">
+    <tr><th>項目</th><th>截圖派</th><th>無障礙樹派</th></tr>
+    <tr><td>每步輸入</td><td>一張 1080p 圖，約 1.1k～1.5k tokens</td><td>一棵樹的 JSON：小對話框 436 bytes（約 100 tokens），複雜 app 數 KB</td></tr>
+    <tr><td>定位</td><td>模型估座標，常差 10～20 px</td><td>直接拿元件座標／ref，不會偏</td></tr>
+    <tr><td>速度</td><td>截圖＋上傳＋推理，2～6 秒／步</td><td>本機讀樹 0.7～1.7 秒，模型只處理文字</td></tr>
+    <tr><td>文字讀取</td><td>靠 OCR／視覺，易錯字</td><td>元件 name／value 原字</td></tr>
+    <tr><td>盲點</td><td>看得到就能點</td><td>沒有無障礙資訊的介面完全看不到</td></tr>
+    <tr><td>驗證</td><td>再截一張圖比對</td><td>再 snapshot 比對 ref 與 state</td></tr>
+  </table>
+  </div>
+
+  <h2>五、本機實測（Ubuntu 22.04／X11／4 GB）</h2>
+  <h3>A. 桌面層：agent-desktop 1.2.0</h3>
+  <div class="tablewrap">
+  <table class="kt">
+    <tr><th>測試</th><th>結果</th><th>數字</th></tr>
+    <tr><td><code>version</code></td><td>成功</td><td>1.2.0／linux x86_64</td></tr>
+    <tr><td><code>list-apps</code></td><td>成功</td><td>0.69 秒／22 個應用</td></tr>
+    <tr><td><code>list-windows</code></td><td>成功</td><td>約 0.8 秒</td></tr>
+    <tr><td><code>snapshot --app zenity</code></td><td>成功一次</td><td>1,708 ms／436 bytes／1 個節點（button OK）</td></tr>
+    <tr><td><code>snapshot --app gnome-calculator</code></td><td>失敗</td><td>3.9 秒後 <code>WINDOW_NOT_FOUND</code>，同時計算機 core dumped</td></tr>
+    <tr><td><code>snapshot --app gedit</code></td><td>逾時</td><td>8.7 秒無回應</td></tr>
+  </table>
+  </div>
+  <p>根因寫在 log 裡，不是猜的：</p>
+  <pre><code>at-spi2-registr[1551]: got RegisterEvent with invalid signature 'sass'</code></pre>
+  <p><code>at-spi2-core 2.44.0-3</code>（Ubuntu 22.04 內建）的 registryd 拒絕 agent-desktop 送出的簽章，接著 GTK 應用在註冊事件時直接 <code>SIGABRT</code>。所以：只查清單沒問題（那兩條只讀 registry），一讀整棵樹就掛。這是平台版本不相容，不是 CLI 邏輯錯。</p>
+
+  <h3>B. 瀏覽器層：CDP 無障礙樹（同一台機器）</h3>
+  <div class="tablewrap">
+  <table class="kt">
+    <tr><th>測試</th><th>結果</th></tr>
+    <tr><td>取得整棵 AX 樹</td><td>30 個節點，32 ms</td></tr>
+    <tr><td>精簡成 role＋name</td><td>264 bytes（7 個語意節點：heading／status／textbox／4 顆 button）</td></tr>
+    <tr><td>用 role＋name 點 7×8＝</td><td>259 ms，結果 56（正確）</td></tr>
+    <tr><td>對照</td><td>那 4 顆按鈕的真實座標是 x=54、y=208 等——截圖派要自己猜這些數字</td></tr>
+  </table>
+  </div>
+  <blockquote>264 bytes 的文字 vs 一張 1.1k～1.5k tokens 的圖；32 ms 取樹 vs 2～6 秒一步。這就是兩條路的實際差距。</blockquote>
+
+  <h2>六、限制（先講清楚）</h2>
+  <ol>
+    <li><strong>看不到沒有無障礙資訊的介面</strong>：Canvas、遊戲、遠端桌面、Java Swing 舊程式、部分 Electron。</li>
+    <li><strong>ref 會過期</strong>：畫面一動就 STALE_REF，每一步都要重新 snapshot，也代表每一步都要一次模型呼叫。</li>
+    <li><strong>權限很大</strong>：能看到輸入框的值、清單內容、郵件主旨，隱私風險跟截圖派一樣高。</li>
+    <li><strong>提示注入</strong>：樹裡的 name／value 也是文字，一樣可能被當指令，不可逆動作要人工確認。</li>
+    <li><strong>平台差異大</strong>：macOS 要授權、Windows 同權限層免授權、Linux 對工作階段健康度很敏感。</li>
+  </ol>
+
+  <div class="toolbox">
+    <strong>我們最後怎麼用</strong>
+    <ul>
+      <li>瀏覽器端：走無障礙樹（CDP Accessibility），本機實測 32 ms 可用。</li>
+      <li>桌面端：這台 Ubuntu 22.04 的 at-spi 版本卡住，退回截圖派；換機或升 24.04 再處理。</li>
+      <li>原則：能拿語意就拿語意，拿不到才看圖。</li>
+    </ul>
+  </div>
+
+  <h2>七、參考</h2>
+  <ul>
+    <li><a href="https://github.com/vercel-labs/agent-desktop" target="_blank" rel="noopener">vercel-labs/agent-desktop</a></li>
+    <li><a href="https://arxiv.org/html/2504.14603" target="_blank" rel="noopener">Microsoft UFO²: The Desktop AgentOS</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/windows/win32/winauto/uiauto-uiautomationoverview" target="_blank" rel="noopener">UI Automation 概觀（Windows）</a></li>
+    <li><a href="https://developer.apple.com/documentation/applicationservices/axuielement_h" target="_blank" rel="noopener">macOS AXUIElement</a></li>
+    <li><a href="https://github.com/msorvig/a11y-mcp" target="_blank" rel="noopener">msorvig/a11y-mcp</a></li>
+  </ul>
+
+  <p class="cap">本文為實測紀錄，數字取自 2026-11-05 在本機的實際執行結果；不同平台與版本可能不同。</p>
+</article>
+<div class="viewsline">小R頻道 · AI 助理實測與教學</div>
+<script src="../../counter.js?v=e837f732" data-views></script>
+</body>
+</html>
