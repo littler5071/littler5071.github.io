@@ -31,7 +31,16 @@
   .toolbox{background:#fff6e8;border:2px solid #f0d9b8;border-radius:14px;padding:16px 18px;margin:20px 0;font-size:14.5px}
   .toolbox ul{margin:10px 0 0;padding-left:20px;line-height:1.9}
   .viewsline{max-width:900px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;color:#7a7268;font-size:13px}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=d2c4af8c"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <article class="article">
@@ -169,7 +178,6 @@
 
   <p class="cap">事件仍在偵辦中，部分技術細節（供應商名稱、漏洞類型、是否與測試環境有關）尚未由官方完整公布；本文已標明哪些是官方說法、哪些是媒體與專家推測。</p>
 </article>
-<div class="viewsline">小R頻道 · AI 助理實測與教學</div>
-<script src="../../counter.js?v=e837f732" data-views></script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
