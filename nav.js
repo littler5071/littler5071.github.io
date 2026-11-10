@@ -34,7 +34,7 @@
         { label: '教育輔助', path: 'study/', note: '學習工具' },
         { label: '3D列印',  path: '3dprint/' },
         { label: '塔羅牌',   path: 'tarot/' }
-      ] }
+      ] },
     { label: '新聞晨報',   path: 'news/'   },
     { label: '程式設計',   path: 'code/'   },
   ];
