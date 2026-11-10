@@ -29,13 +29,13 @@
         { label: '每日觀察報告',   path: 'stock/' },
         { label: 'Rich趨勢觀察家', href: 'https://gogohome.mooo.com/', external: true, note: '即時查詢' }
       ] },
-    { label: '3D列印',    path: '3dprint/' },
-    { label: '塔羅',      path: 'tarot/' },
     { label: '新聞晨報',   path: 'news/'   },
     { label: '程式設計',   path: 'code/'   },
-    { label: '教育', children: [
+    { label: '教育進修', children: [
         { label: '多益英文', path: 'toeic/' },
-        { label: '教育輔助', path: 'study/', note: '學習工具' }
+        { label: '教育輔助', path: 'study/', note: '學習工具' },
+        { label: '3D列印',  path: '3dprint/' },
+        { label: '塔羅牌',   path: 'tarot/' }
       ] }
   ];
 
