@@ -33,7 +33,7 @@ import re
 import sys
 
 SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
-SKIP = {"ai/hdd-ai/index.html", "private/demo/index.html"}
+SKIP = {"ai/hdd-ai/index.html", "private/demo/index.html", "tarot/index.html"}
 MAX_REMOVED_LINES = 60
 
 

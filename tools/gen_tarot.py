@@ -171,20 +171,23 @@ html = r"""<!DOCTYPE html>
     padding:7px 0;list-style:none}
   footer{margin-top:34px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);color:#778;font-size:12px;line-height:1.8}
   .disclaimer{color:#8f7a3f}
-  .backbtn{position:fixed;left:12px;top:58px;z-index:15;display:inline-flex;align-items:center;gap:5px;
-    padding:6px 12px 6px 9px;border-radius:999px;font-size:12.5px;letter-spacing:.04em;
-    color:rgba(232,205,121,.75);text-decoration:none;border:1px solid rgba(201,162,39,.22);
-    background:rgba(11,16,32,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-    transition:opacity .18s,color .18s,border-color .18s;opacity:.8}
-  .backbtn:hover{opacity:1;color:#e8cd79;border-color:rgba(201,162,39,.5)}
-  .backbtn svg{width:12px;height:12px;flex:none}
-  @media(max-width:430px){.backbtn{top:54px;left:10px;font-size:12px;padding:5px 10px 5px 8px}}
+  .backbtn{position:fixed;left:12px;top:14px;z-index:15;display:inline-flex;align-items:center;gap:6px;
+    padding:0;width:34px;height:34px;justify-content:center;border-radius:50%;font-size:12px;letter-spacing:.04em;
+    color:rgba(232,205,121,.62);text-decoration:none;border:1px solid rgba(201,162,39,.16);
+    background:rgba(11,16,32,.12);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    transition:color .18s,border-color .18s,background .18s}
+  .backbtn span{display:none}
+  .backbtn:hover,.backbtn:focus-visible{color:#e8cd79;border-color:rgba(201,162,39,.45);background:rgba(11,16,32,.3)}
+  .backbtn svg{width:13px;height:13px;flex:none}
+  @media(min-width:640px){
+    .backbtn{width:auto;height:auto;padding:6px 12px 6px 9px;border-radius:999px;gap:6px}
+    .backbtn span{display:inline}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="backbtn" href="../" aria-label="回上一頁"
-     onclick="if(history.length>1){history.back();return false;}">
+  <a class="backbtn" href="../" aria-label="回首頁" title="回首頁">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
          stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     <span>回上一頁</span>
