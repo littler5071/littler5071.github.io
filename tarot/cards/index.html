@@ -60,7 +60,16 @@
     color:#7c8399;font-size:12px;line-height:1.9}
   footer a{color:var(--gold2);text-decoration:none}
   @media(max-width:400px){.card{grid-template-columns:72px 1fr;gap:10px} .card .thumb{width:72px}}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=887e3871"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <div class="wrap">
@@ -1031,5 +1040,6 @@ q.addEventListener('input', () => {
   });
 });
 </script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
