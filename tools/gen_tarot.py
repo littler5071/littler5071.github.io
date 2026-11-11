@@ -12,6 +12,18 @@ from tarot_text import (  # noqa: E402
     MAJOR_SCENE, RANK_SCENE, SUIT_FLAVOR, TOPIC_POS, OPENERS,
     CLOSERS_POS, CLOSERS_REV,
 )
+from tarot_text2 import (  # noqa: E402
+    ADD_TO_TOPIC, OPENERS_ADD, CLOSERS_POS_ADD, CLOSERS_REV_ADD,
+    SYN_LINK, SYN_NOW_POS, SYN_NOW_REV, SYN_NEXT_POS, SYN_NEXT_REV, ACT,
+)
+
+for _t, _d in ADD_TO_TOPIC.items():
+    for _pos, _extra in _d.items():
+        TOPIC_POS[_t][_pos].extend(_extra)
+for _pos, _extra in OPENERS_ADD.items():
+    OPENERS[_pos].extend(_extra)
+CLOSERS_POS.extend(CLOSERS_POS_ADD)
+CLOSERS_REV.extend(CLOSERS_REV_ADD)
 
 SCENE = {}
 for _c in cards:
@@ -202,6 +214,13 @@ const TP = __TP__;
 const OP = __OP__;
 const CP = __CP__;
 const CR = __CR__;
+const LINK = __LINK__;
+const SN_P = __SNP__;
+const SN_R = __SNR__;
+const SX_P = __SXP__;
+const SX_R = __SXR__;
+const ACT = __ACT__;
+function fill(tpl, m){ return tpl.replace(/\{(\w+)\}/g, (s, k) => (m[k] !== undefined ? m[k] : s)); }
 function h32(str){
   let h = 0;
   for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) % 2147483647;
@@ -214,6 +233,13 @@ function scenOf(c, topic, pos, q, rev){
   const closer = rev ? CR[Math.floor(h / 9) % CR.length] : CP[Math.floor(h / 13) % CP.length];
   return op + tp + "。這張牌（" + c.n + "）看到的是：" + SCENE[c.img] + "。" + closer;
 }
+const KW={
+  "工作":["工作","職","公司","老闆","同事","面試","升遷","專案","客戶","創業","轉職","離職"],
+  "金錢":["錢","投資","股","買","賣","房","貸","薪","收入","支出","存款"],
+  "感情":["感情","他","她","喜歡","愛","交往","分手","復合","關係","婚","曖昧","對象"],
+  "選擇":["要不要","該不該","選","決定","哪個","繼續"],
+  "自己":["自己","人生","方向","焦慮","累","迷惘","目標","習慣"]
+};
 function detectTopic(q){
   const score=t=>{
     let s=0;
@@ -325,17 +351,17 @@ function renderReading(){
   }).join("");
 
   const p=picked[0], n=picked[1], f=picked[2];
-  const trend = n.isRev
-    ? `你現在的狀態是「${n.kwr}」。這代表卡點多半不在外面，而在你還沒處理的那一塊；先處理它，後面的牌才有意義。`
-    : `你現在是「${n.kw}」的狀態。這代表方向其實是對的，只是成果還沒出現，需要的是時間與穩定。`;
   const ori=c=>c.isRev?"（逆位）":"";
-  const head = `過去從「${p.n}${ori(p)}」開始，帶你走到現在的「${n.n}${ori(n)}」；如果照這個節奏走下去，未來會走向「${f.n}${ori(f)}」。`;
-  const future = f.isRev
-    ? `未來這張是逆位：不是壞事，是提醒你別急著定案。先把準備工作補齊，動起來會穩得多。`
-    : `未來這張是正位：可以動了，而且越早越好；拖著反而會讓機會變薄。`;
-  const act = f.isRev
-    ? "今天可以做的一件事：把你還沒準備好的那一項寫下來（最多三條），只補第一條。"
-    : "今天可以做的一件事：把你要做的決定寫成一句話，然後在 24 小時內執行最小的一步。";
+  const seed = h32(p.img + n.img + f.img + topic + q);
+  const m = {
+    p: p.n + ori(p), n: n.n + ori(n), f: f.n + ori(f),
+    kp: p.kw, kn: n.kw, kf: f.kw
+  };
+  const head = fill(LINK[seed % LINK.length], m);
+  const trend = fill((n.isRev ? SN_R : SN_P)[Math.floor(seed / 3) % SN_P.length], m);
+  const future = fill((f.isRev ? SX_R : SX_P)[Math.floor(seed / 7) % SX_P.length], m);
+  const actPool = ACT[topic] || ACT["自己"];
+  const act = actPool[Math.floor(seed / 11) % actPool.length];
 
   $("#reading").innerHTML = `<h2 style="font-size:15px;letter-spacing:.12em;color:var(--gold2);margin:20px 0 2px">三張牌的解讀</h2>`
     + blocks
@@ -391,6 +417,12 @@ html = (html
         .replace("__OP__", json.dumps(OPENERS, ensure_ascii=False))
         .replace("__CP__", json.dumps(CLOSERS_POS, ensure_ascii=False))
         .replace("__CR__", json.dumps(CLOSERS_REV, ensure_ascii=False))
+        .replace("__LINK__", json.dumps(SYN_LINK, ensure_ascii=False))
+        .replace("__SNP__", json.dumps(SYN_NOW_POS, ensure_ascii=False))
+        .replace("__SNR__", json.dumps(SYN_NOW_REV, ensure_ascii=False))
+        .replace("__SXP__", json.dumps(SYN_NEXT_POS, ensure_ascii=False))
+        .replace("__SXR__", json.dumps(SYN_NEXT_REV, ensure_ascii=False))
+        .replace("__ACT__", json.dumps(ACT, ensure_ascii=False))
         .replace("__BACK__", back_svg))
 with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
     f.write(html)
