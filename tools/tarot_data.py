@@ -58,7 +58,7 @@ for suit, meta in SUITS.items():
     for rank, en, rkw, rup, rrev, rintro in RANKS:
         cards.append({
             "n": f"{suit}{rank}", "num": rank, "arc": suit, "el": meta["el"],
-            "kw": f"{rkw}·{meta['theme']}",
+            "kw": rkw,
             "up": f"{meta['theme']}上的{rkw}：{rup}",
             "kwr": f"{meta['obstacle']}、{rkw}受阻",
             "rev": rrev,
