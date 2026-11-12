@@ -17,6 +17,12 @@
   .body h3{font-size:17.5px;margin:0 0 8px;display:flex;align-items:baseline;gap:8px;font-weight:700}
   .body h3 .dt{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none;transform:translateY(-1px)}
   .body ul{margin:0;padding-left:18px}
+  .body ul.brk{padding-left:0;list-style:none}
+  .body ul.brk li{margin:9px 0;line-height:1.7}
+  .body ul.brk a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(54,78,112,.28)}
+  .body ul.brk a:active{opacity:.7}
+  .body ul.brk .src{display:block;font-size:12.5px;color:var(--soft);margin-top:2px}
+  .body .brknote{font-size:12.5px;color:var(--soft);line-height:1.7;margin:8px 0 0}
   .body li{margin:5px 0;line-height:1.85}
   .body p{font-size:17px;line-height:1.9;margin:8px 0}
   .body .night{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 16px}
@@ -48,7 +54,7 @@
 <h1>每日新聞濃縮 2026/11/10</h1>
 <div class="meta">台灣與國際新聞濃縮，含關鍵數字</div>
 <div class="body">
-<section class="blk idxsec"><h3><span class="dt"></span>今日數字（近 30 個交易日）</h3><div class="idxgrid"><div class="idxcard"><div class="nm">台股加權</div><div class="px">41,661.70</div><div class="chg up">▲4.94%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,6.3 5.5,6.6 8.9,7.6 12.4,6.8 15.9,5.8 19.3,5.5 22.8,2.3 26.3,2.0 29.7,2.0 33.2,3.3 36.7,3.3 40.1,5.8 43.6,5.1 47.1,9.3 50.5,9.0 54.0,9.7 57.5,11.1 60.9,9.5 64.4,11.7 67.9,11.6 71.3,9.2 74.8,10.9 78.3,13.8 81.7,14.6 85.2,18.7 88.7,19.7 92.1,23.2 95.6,28.0 99.1,23.0 102.5,20.3 106.0,23.0" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg><div class="asof">截至 11/10</div></div><div class="idxcard"><div class="nm">美元兌台幣</div><div class="px">32.882</div><div class="chg up">▲0.35%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,25.8 5.5,25.4 8.9,26.4 12.4,28.0 15.9,27.5 19.3,26.1 22.8,24.7 26.3,24.8 29.7,24.6 33.2,21.2 36.7,19.6 40.1,17.0 43.6,15.8 47.1,14.0 50.5,12.2 54.0,16.2 57.5,11.8 60.9,12.3 64.4,13.0 67.9,15.1 71.3,15.9 74.8,12.4 78.3,11.6 81.7,12.0 85.2,9.2 88.7,7.5 92.1,2.0 95.6,8.7 99.1,8.1 102.5,6.7 106.0,6.4" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg><div class="asof">截至 11/10</div></div></div><p class="note">數字取自報告本文；走勢線為近 30 個交易日收盤（Yahoo，可能落後一日）</p></section><section class="blk">
+<section class="blk idxsec"><h3><span class="dt"></span>今日數字（近 30 個交易日）</h3><div class="idxgrid"><div class="idxcard"><div class="nm">台股加權</div><div class="px">41,661.70</div><div class="chg up">▲4.94%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,6.3 5.5,6.6 8.9,7.6 12.4,6.8 15.9,5.8 19.3,5.5 22.8,2.3 26.3,2.0 29.7,2.0 33.2,3.3 36.7,3.3 40.1,5.8 43.6,5.1 47.1,9.3 50.5,9.0 54.0,9.7 57.5,11.1 60.9,9.5 64.4,11.7 67.9,11.6 71.3,9.2 74.8,10.9 78.3,13.8 81.7,14.6 85.2,18.7 88.7,19.7 92.1,23.2 95.6,28.0 99.1,23.0 102.5,20.3 106.0,23.0" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg><div class="asof">截至 11/10</div></div><div class="idxcard"><div class="nm">美元兌台幣</div><div class="px">32.882</div><div class="chg up">▲0.35%</div><svg class="spark" viewBox="0 0 108 30" preserveAspectRatio="none" aria-hidden="true"><polyline points="2.0,25.4 5.5,26.4 8.9,28.0 12.4,27.5 15.9,26.1 19.3,24.7 22.8,24.8 26.3,24.6 29.7,21.2 33.2,19.6 36.7,17.0 40.1,15.8 43.6,14.0 47.1,12.2 50.5,16.2 54.0,11.8 57.5,12.3 60.9,13.0 64.4,15.1 67.9,15.9 71.3,12.4 74.8,11.6 78.3,12.0 81.7,9.2 85.2,7.5 88.7,2.0 92.1,8.7 95.6,8.1 99.1,5.0 102.5,6.6 106.0,6.4" fill="none" stroke="#c2452d" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg><div class="asof">截至 11/10</div></div></div><p class="note">數字取自報告本文；走勢線為近 30 個交易日收盤（Yahoo，可能落後一日）</p></section><section class="blk">
 <h3><span class="dt"></span>【數字】</h3>
 <ul>
 <li>台股9日收41,661.70點、漲1,960.06點（+4.94%），成交8,379.29億元；外資賣超900.56億元、連8賣，三大法人合計賣超945.26億元。</li>

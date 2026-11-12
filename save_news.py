@@ -26,6 +26,8 @@ import re
 import subprocess
 import sys
 
+import broker_news
+
 SITE = "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 OUTPUT = os.path.expanduser("~/.hermes/cron/output")
 
@@ -181,6 +183,12 @@ CSS = """
   .body h3{font-size:17.5px;margin:0 0 8px;display:flex;align-items:baseline;gap:8px;font-weight:700}
   .body h3 .dt{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none;transform:translateY(-1px)}
   .body ul{margin:0;padding-left:18px}
+  .body ul.brk{padding-left:0;list-style:none}
+  .body ul.brk li{margin:9px 0;line-height:1.7}
+  .body ul.brk a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(54,78,112,.28)}
+  .body ul.brk a:active{opacity:.7}
+  .body ul.brk .src{display:block;font-size:12.5px;color:var(--soft);margin-top:2px}
+  .body .brknote{font-size:12.5px;color:var(--soft);line-height:1.7;margin:8px 0 0}
   .body li{margin:5px 0;line-height:1.85}
   .body p{font-size:17px;line-height:1.9;margin:8px 0}
   .body .night{background:#fffdf6;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 16px}
@@ -339,6 +347,11 @@ def build(kind, limit):
         else:
             extra = _digits_box(body, ymd.replace("/", ""))
             inner = to_html(body, first_sections=["【數字】"])
+            if d == items[0][0]:
+                try:
+                    inner += broker_news.section_html()
+                except Exception as e:  # noqa: BLE001
+                    print(f"[digest] 外資區塊略過：{type(e).__name__}: {e}")
         html_doc = page(f"{cfg['title']} {ymd}", f"{cfg['title']} {ymd}", cfg["sub"],
                         extra + inner, dates,
                         f"https://littler5071.github.io/news/{cfg['dir']}/{d}.html")
@@ -351,6 +364,10 @@ def build(kind, limit):
     else:
         extra = _digits_box(latest_body, ymd.replace("/", ""))
         inner = to_html(latest_body, first_sections=["【數字】"])
+        try:
+            inner += broker_news.section_html()
+        except Exception as e:  # noqa: BLE001
+            print(f"[digest] 外資區塊略過：{type(e).__name__}: {e}")
     html_doc = page(f"{cfg['title']}｜最新", f"{cfg['title']} {ymd}", cfg["sub"],
                     extra + inner, dates,
                     f"https://littler5071.github.io/news/{cfg['dir']}/")
