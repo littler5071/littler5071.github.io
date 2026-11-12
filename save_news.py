@@ -352,6 +352,7 @@ def build(kind, limit):
     dates = [d for d, _ in items]
     for d, body in items:
         ymd = f"{d[:4]}/{d[4:6]}/{d[6:]}"
+        mid = ""
         if kind == "us":
             extra = _indices_box() + night_box(body)
             inner = to_html(body, strip_indexes=bool(extra))
@@ -360,15 +361,16 @@ def build(kind, limit):
             inner = to_html(body, first_sections=["【數字】"])
             if d == items[0][0]:
                 try:
-                    inner += broker_news.section_html()
+                    mid = broker_news.section_html()   # 放在正文之前
                 except Exception as e:  # noqa: BLE001
                     print(f"[digest] 外資區塊略過：{type(e).__name__}: {e}")
         html_doc = page(f"{cfg['title']} {ymd}", f"{cfg['title']} {ymd}", cfg["sub"],
-                        extra + inner, dates,
+                        extra + mid + inner, dates,
                         f"https://littler5071.github.io/news/{cfg['dir']}/{d}.html")
         open(os.path.join(outdir, f"{d}.html"), "w", encoding="utf-8").write(html_doc)
     latest_date, latest_body = items[0]
     ymd = f"{latest_date[:4]}/{latest_date[4:6]}/{latest_date[6:]}"
+    mid = ""
     if kind == "us":
         extra = _indices_box() + night_box(latest_body)
         inner = to_html(latest_body, strip_indexes=bool(extra))
@@ -376,11 +378,11 @@ def build(kind, limit):
         extra = _digits_box(latest_body, ymd.replace("/", ""))
         inner = to_html(latest_body, first_sections=["【數字】"])
         try:
-            inner += broker_news.section_html()
+            mid = broker_news.section_html()           # 放在正文之前
         except Exception as e:  # noqa: BLE001
             print(f"[digest] 外資區塊略過：{type(e).__name__}: {e}")
     html_doc = page(f"{cfg['title']}｜最新", f"{cfg['title']} {ymd}", cfg["sub"],
-                    extra + inner, dates,
+                    extra + mid + inner, dates,
                     f"https://littler5071.github.io/news/{cfg['dir']}/")
     open(os.path.join(outdir, "index.html"), "w", encoding="utf-8").write(html_doc)
     print(f"[{kind}] 產出 {len(items)} 期，最新 {latest_date}")
