@@ -1,5 +1,5 @@
 {
- "snapshot_at": "2026-11-17 12:33:47",
+ "snapshot_at": "2026-11-17 18:56:00",
  "service": "abacus.jasoncameron.dev",
  "pages": {
   "3d/compare": 2,
@@ -139,6 +139,7 @@
   "stock/20261116-jia": null,
   "stock/20261116": null,
   "stock/20261117-intraday": null,
+  "stock/20261117": null,
   "stock/backtest": 15,
   "stock/backtest16": 5,
   "stock": 234,
