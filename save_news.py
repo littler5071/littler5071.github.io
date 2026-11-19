@@ -99,6 +99,8 @@ def sidecar_items(kind):
 
 def inline(s):
     s = html.escape(s)
+    s = re.sub(r"!\[(.{0,80}?)\]\(([^)\s]+)\)",
+               r'<a href="\2" target="_blank" class="mdimgwrap"><img class="mdimg" src="\2" alt="\1" loading="lazy"></a>', s)
     s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
     s = re.sub(r"`(.+?)`", r"<code>\1</code>", s)
     s = re.sub(r"\[(.+?)\]\((https?://[^)]+)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
@@ -167,7 +169,8 @@ def to_html(md, strip_indexes=False, first_sections=None):
         if items:
             out.append("<ul>")
             for it in items:
-                out.append(f"<li>{inline(it)}</li>")
+                cls = ' class="imgli"' if it.lstrip().startswith("![") else ""
+                out.append(f"<li{cls}>{inline(it)}</li>")
             out.append("</ul>")
         out.append("</section>")
     return "\n".join(out)
@@ -189,6 +192,9 @@ CSS = """
   .body ul.brk a:active{opacity:.7}
   .body ul.brk .src{display:block;font-size:12.5px;color:var(--soft);margin-top:2px}
   .body .brknote{font-size:12.5px;color:var(--soft);line-height:1.7;margin:8px 0 0}
+  .body ul li.imgli{list-style:none;padding-left:0;margin:2px 0 6px}
+  .body img.mdimg{display:block;width:100%;max-width:640px;height:auto;margin:10px 0;
+    border:1px solid #ece6da;border-radius:12px;background:#fff}
   .body ul.brkcard{list-style:none;padding:0;margin:6px 0 0}
   .body ul.brkcard li.brkrow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:start;
     padding:9px 0;border-bottom:1px dashed #e7e0d2}
