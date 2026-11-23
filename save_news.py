@@ -235,11 +235,14 @@ CSS = """
 NIGHT_SCRIPT = "/home/littler5071/opencode/圖片生成/小R頻道_股市觀察/taifex_night.py"
 
 try:
-    from news_cards import indices_box as _indices_box, digits_box as _digits_box
+    from news_cards import (indices_box as _indices_box, digits_box as _digits_box,
+                            market_box as _market_box)
 except Exception:                     # 沒有就退回不顯示
     def _indices_box():
         return ""
-    def _digits_box(_t):
+    def _digits_box(_t, _d=None):
+        return ""
+    def _market_box():
         return ""
 
 
@@ -363,7 +366,7 @@ def build(kind, limit):
             extra = _indices_box() + night_box(body)
             inner = to_html(body, strip_indexes=bool(extra))
         else:
-            extra = _digits_box(body, ymd.replace("/", ""))
+            extra = _market_box()
             inner = to_html(body, first_sections=["【數字】"])
             if d == items[0][0]:
                 try:
@@ -381,7 +384,7 @@ def build(kind, limit):
         extra = _indices_box() + night_box(latest_body)
         inner = to_html(latest_body, strip_indexes=bool(extra))
     else:
-        extra = _digits_box(latest_body, ymd.replace("/", ""))
+        extra = _market_box()
         inner = to_html(latest_body, first_sections=["【數字】"])
         try:
             mid = broker_news.section_html()           # 放在正文之前

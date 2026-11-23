@@ -15,6 +15,9 @@ SITE = "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 CACHE_DIR = os.path.join(SITE, "news", ".cache")
 
 INDICES = [("^DJI", "道瓊"), ("^GSPC", "S&P 500"), ("^IXIC", "那斯達克"), ("^SOX", "費半")]
+# 每日新聞濃縮頁的市場卡：台股、科技指數、半導體、黃金、石油
+MARKET = [("^TWII", "台股加權"), ("^IXIC", "那斯達克"), ("^SOX", "費半"),
+          ("GC=F", "黃金"), ("CL=F", "石油")]
 
 # 新聞濃縮【數字】會出現的標的：關鍵字 → Yahoo 代號／顯示名稱
 INSTRUMENTS = [
@@ -240,3 +243,34 @@ def indices_box():
     return ('<section class="blk idxsec"><h3><span class="dt"></span>'
             '美股四大指數（近 30 個交易日）</h3>'
             '<div class="idxgrid">%s</div></section>' % "".join(cards))
+
+
+def market_box():
+    """市場走勢卡：台股加權、那斯達克、費半、黃金、石油（近 30 個交易日）。"""
+    cards = []
+    for sym, name in MARKET:
+        ser = fetch_series(sym, 30)
+        if len(ser) < 3:
+            continue
+        closes = [c for _, c in ser]
+        last, prev = closes[-1], closes[-2]
+        chg = (last / prev - 1) * 100 if prev else 0
+        up = chg >= 0
+        cls = "up" if up else "dn"
+        arrow = "▲" if up else "▼"
+        cards.append(
+            '<div class="idxcard">'
+            '<div class="nm">%s</div>'
+            '<div class="px">%s</div>'
+            '<div class="chg %s">%s%.2f%%</div>'
+            '%s'
+            '</div>' % (html.escape(name), format(last, ",.2f"), cls, arrow, abs(chg),
+                        spark_svg(closes, up)))
+    if not cards:
+        return ""
+    return ('<section class="blk idxsec"><h3><span class="dt"></span>'
+            '市場走勢（近 30 個交易日）</h3>'
+            '<div class="idxgrid">%s</div>'
+            '<p class="note">收盤與漲跌為 Yahoo Finance 日線，可能落後一日；'
+            '黃金為近月期貨（GC）、石油為西德州原油（CL）。</p></section>' % "".join(cards))
+
