@@ -16,8 +16,9 @@ CACHE_DIR = os.path.join(SITE, "news", ".cache")
 
 INDICES = [("^DJI", "道瓊"), ("^GSPC", "S&P 500"), ("^IXIC", "那斯達克"), ("^SOX", "費半")]
 # 每日新聞濃縮頁的市場卡：台股、科技指數、半導體、黃金、石油
+COMMODITIES = [("GC=F", "黃金"), ("CL=F", "石油")]
 MARKET = [("^TWII", "台股加權"), ("^IXIC", "那斯達克"), ("^SOX", "費半"),
-          ("GC=F", "黃金"), ("CL=F", "石油")]
+          ("GC=F", "黃金"), ("CL=F", "石油"), ("TWD=X", "美元兌台幣")]
 
 # 新聞濃縮【數字】會出現的標的：關鍵字 → Yahoo 代號／顯示名稱
 INSTRUMENTS = [
@@ -218,9 +219,9 @@ def digits_box(text, asof=None):
 
 
 def indices_box():
-    """四大指數卡：名稱、收盤、漲跌%、近 30 日走勢圖。"""
+    """美股指數＋黃金／石油卡：名稱、收盤、漲跌%、近 30 日走勢圖。"""
     cards = []
-    for sym, name in INDICES:
+    for sym, name in INDICES + COMMODITIES:
         ser = fetch_series(sym, 30)
         if len(ser) < 3:
             continue
@@ -241,7 +242,7 @@ def indices_box():
     if not cards:
         return ""
     return ('<section class="blk idxsec"><h3><span class="dt"></span>'
-            '美股四大指數（近 30 個交易日）</h3>'
+            '美股指數與商品（近 30 個交易日）</h3>'
             '<div class="idxgrid">%s</div></section>' % "".join(cards))
 
 
