@@ -6,8 +6,6 @@
 <title>台股 66 個產業龍頭，用實際數字重排一次｜小R頻道</title>
 <meta name="description" content="把 66 個產業分類的龍頭名單接上證交所收盤與最新財報，補上本益比、殖利率、月營收年增率，並做價值型與成長型交叉篩選。">
 <link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/./nav.css?v=b7b27715">
-<script defer src="/./nav.js?v=887e3871"></script>
 <style>
   .wrap{max-width:820px;margin:0 auto;padding:0 18px 40px}
   h1{font-size:clamp(22px,4vw,30px);line-height:1.35;margin:18px 0 6px}
@@ -89,8 +87,17 @@ table.lead th:first-child{background:#f3eee4;z-index:3}
   table.lead{min-width:680px;font-size:13px}
   .hint{display:block;font-size:12px;color:#8a8378;margin:8px 0 -4px}
 }
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <link rel="canonical" href="https://littler5071.github.io/stock/leaders/">
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=887e3871"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <div class="wrap">
@@ -101,5 +108,6 @@ table.lead th:first-child{background:#f3eee4;z-index:3}
 </div>
 <a class="back" href="/stock/">← 回台股觀察</a>
 </div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
