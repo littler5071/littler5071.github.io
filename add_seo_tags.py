@@ -86,6 +86,8 @@ def seo_block(title: str, desc: str, url: str) -> str:
 
 def main() -> None:
     dry = "--dry" in sys.argv
+    # --sitemap-only：只重生 sitemap.xml／robots.txt，不動任何 HTML（給收盤流程收尾用）
+    sitemap_only = "--sitemap-only" in sys.argv
     root = SITE_DIR
     n_pages = n_titles = n_seo = 0
     urls = []
@@ -100,6 +102,11 @@ def main() -> None:
         n_pages += 1
         url = canon_for(root, path)
         urls.append(url)
+        # -jia 頁面只進 sitemap、不插 SEO 區塊：18:15 排程的驗收條件是
+        # stock/latest/index.html 與 stock/<當天>-jia/index.html 必須 md5 相同，
+        # 兩頁 canonical 不同就會破壞這個檢查（2026-11-25 實測踩到）。
+        if os.path.basename(os.path.dirname(path)).endswith("-jia"):
+            continue
         m = TITLE_RE.search(src)
         title = (m.group(1).strip() if m else BRAND)
         d = DESC_RE.search(src)
@@ -111,11 +118,17 @@ def main() -> None:
             new = new[:m.start()] + "<title>%s</title>" % new_title + new[m.end():]
             title = new_title
             n_titles += 1
-        # 2) SEO 區塊（先移除舊的，再插到 </head> 前）
+        # 2) SEO 區塊（先移除舊的，再插回原位置；找不到才插到 </head> 前，避免每天把 nav 三行搬來搬去）
+        _m = BLOCK_RE.search(new)
+        _pos = _m.start() if _m else None
         new = BLOCK_RE.sub("", new)
-        new = new.replace("</head>", seo_block(title, desc, url) + "\n</head>", 1)
+        _blk = seo_block(title, desc, url) + "\n"
+        if _pos is None:
+            new = new.replace("</head>", _blk + "</head>", 1)
+        else:
+            new = new[:_pos] + _blk + new[_pos:]
         n_seo += 1
-        if not dry and new != src:
+        if not dry and not sitemap_only and new != src:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(new)
 
