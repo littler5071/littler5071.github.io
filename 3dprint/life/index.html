@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>實用生活模型：23 件真的會用到的東西｜小R頻道</title>
+<meta name="description" content="從浴室、玄關、廚房到收納與修繕，23 件實用 3D 列印模型：尺寸怎麼量、材料怎麼選、A1 參數怎麼設，附注意與微調。">
+<style>
+  :root{--ink:#1c1a17;--sub:#6b6357;--line:#e3ddd2;--card:#fffdf8;--accent:#c2452d;--bg:#f7f4ee}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    line-height:1.8;-webkit-text-size-adjust:100%}
+  .wrap{max-width:900px;margin:0 auto;padding:28px clamp(18px,5vw,40px) 72px}
+  .backlink{display:inline-block;color:var(--sub);text-decoration:none;font-size:14px;margin-bottom:14px}
+  .backlink:hover{color:var(--accent)}
+  h1{font-size:clamp(25px,4.6vw,36px);line-height:1.35;margin:0 0 10px;letter-spacing:-.01em}
+  .lead{color:var(--sub);font-size:15.5px;margin:0 0 8px}
+  .stamp{font-size:13px;color:var(--sub);margin:0 0 24px}
+  h2{font-size:clamp(19px,3.2vw,24px);margin:38px 0 8px;padding-top:10px;border-top:1px solid var(--line)}
+  .note{font-size:14px;color:var(--sub);margin:0 0 12px}
+  .shot{margin:14px 0 6px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px}
+  .shot img{width:100%;height:auto;display:block;border-radius:10px}
+  ul.models{list-style:none;padding:0;margin:12px 0 0}
+  ul.models li{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:12px 14px;margin:8px 0;font-size:15.5px;display:flex;gap:11px;align-items:flex-start}
+  img.km{cursor:zoom-in}
+  #lbox{position:fixed;inset:0;background:rgba(24,21,18,.88);display:none;align-items:center;
+    justify-content:center;z-index:999;padding:18px;flex-direction:column;gap:12px}
+  #lbox.on{display:flex}
+  #lbox img{max-width:min(94vw,640px);max-height:74vh;width:auto;height:auto;border-radius:16px;
+    background:#fff;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+  #lbox .cap{color:#f7f1e6;font-size:15px;text-align:center;line-height:1.5;max-width:92vw}
+  #lbox .x{position:absolute;top:14px;right:16px;width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,.16);color:#fff;font-size:22px;line-height:40px;text-align:center;
+    cursor:pointer;user-select:none}
+  ul.models li img.km{flex:0 0 64px;width:64px;height:64px;object-fit:cover;border-radius:10px;
+    border:1px solid var(--line);background:#eee;display:block}
+  .kbody{flex:1;min-width:0}
+  ul.models a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:2px solid #f0c9c0}
+  ul.models a:hover{color:var(--accent);border-color:var(--accent)}
+  .dl{display:inline-block;margin-left:8px;font-size:13px;color:var(--accent);font-weight:700}
+  .tip3{display:block;margin-top:6px;padding:7px 10px;background:#f3eee4;border-left:3px solid #c2452d;
+    border-radius:6px;font-size:13px;line-height:1.65;color:#4a443c}
+  .tip3 b{color:#c2452d;margin-right:6px;font-size:12.5px}
+  .orig{display:block;font-size:12.5px;color:var(--sub);margin-top:2px}
+  .tip{background:#fff6e5;border:2px solid #e0b25a;border-radius:12px;padding:12px 15px;
+    font-size:14px;color:#5a4a2a;margin:16px 0}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:12px 0}
+  th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left}
+  th{background:#f0ebe1;font-size:13px}
+  tr:last-child td{border-bottom:0}
+  footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
+</style>
+<style>
+  .backrow{margin:0 0 14px}
+  .backrow a{color:var(--sub);text-decoration:none;font-size:14px}
+  .backrow a:hover{color:var(--accent)}
+  ul.plain,ol.plain{margin:10px 0 18px;padding-left:22px;color:#3a352e}
+  ul.plain li,ol.plain li{margin:6px 0}
+  table.params{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:15px;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  table.params th,table.params td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+  table.params th{background:#efe9df;color:#4a443b;font-weight:700}
+  table.params tr:last-child td{border-bottom:none}
+  .foot{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:var(--sub);font-size:14px}
+  .foot a{color:var(--accent);text-decoration:none}
+  h1{font-size:clamp(26px,5vw,38px);line-height:1.35;margin:0 0 10px;letter-spacing:-.01em}
+  h2{font-size:clamp(19px,3.4vw,24px);margin:34px 0 8px}
+  .lead{color:#4a443b}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="backrow"><a href="../">← 回 3D 列印總覽</a></div>
+  <h1>實用生活模型：23 件真的會用到的東西</h1>
+  <p class="lead">實用模型最容易失敗，不是因為模型不好，而是因為<b>你家跟我家的尺寸不一樣</b>。這篇把浴室、玄關、廚房、收納、修繕五個場景分開，每一件都寫清楚「先量什麼、用什麼材料、參數怎麼調」。</p>
+
+  <h2>為什麼實用模型最容易印壞</h2>
+  <ul class="plain">
+    <li><b>尺寸沒量</b>：門板厚 1.8 或 2.0 公分、瓶口直徑差 1mm，掛勾就是掛不上。</li>
+    <li><b>材料選錯</b>：受力件用 PLA，夏天車內或用力一次就斷；該用 PETG 的地方不要省。</li>
+    <li><b>公差沒留</b>：卡扣、螺紋、滑軌一律留 0.2～0.3mm，印出來才裝得進去。</li>
+  </ul>
+
+  <h2>挑選三原則</h2>
+  <ol class="plain">
+    <li><b>先印小的</b>：同一個作者的小件先試，確認你的機器與材料表現，再印大件。</li>
+    <li><b>先量再印</b>：量三處（最厚、最薄、最窄），取平均值再縮放。</li>
+    <li><b>受力件用 PETG</b>：夾子、鞋拔、掛勾、卡扣都算受力件；純裝飾才用 PLA。</li>
+  </ol>
+
+  <h2>一、浴室與洗手台</h2>
+  <p class="note">每天都會碰到的地方，尺寸差 2mm 就會卡。</p>
+  <p>這四件都是「用完就想再印一個」的東西：牙膏擠到最後一滴、肥皂不泡水、廁紙不落地。</p>
+  <ul class="models">
+<li><img class="km" src="img/30246.jpg" data-lg="img/lg/30246.jpg" alt="牙膏擠壓器" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/30246-ratcheted-toothpaste-tube-squeezer" target="_blank" rel="noopener">牙膏擠壓器</a><span class="dl">90,158 次下載</span><span class="orig">Ratcheted Toothpaste Tube Squeezer</span><span class="tip3"><b>注意</b>齒輪卡死就轉不動<b></b>微調</span></div></li>
+<li><img class="km" src="img/1449266.jpg" data-lg="img/lg/1449266.jpg" alt="牙膏擠壓器（螺旋款）" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/1449266-toothpaste-squeezer" target="_blank" rel="noopener">牙膏擠壓器（螺旋款）</a><span class="dl">17,594 次下載</span><span class="orig">Toothpaste Squeezer</span><span class="tip3"><b>注意</b>螺旋桿與齒條公差偏緊<b></b>微調</span></div></li>
+<li><img class="km" src="img/2451525.jpg" data-lg="img/lg/2451525.jpg" alt="海綿／皂盤" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/2451525-japandi-drain-tray-sponge-soap-holder" target="_blank" rel="noopener">海綿／皂盤</a><span class="dl">23,682 次下載</span><span class="orig">Japandi Drain Tray – Sponge & Soap Holder</span><span class="tip3"><b>注意</b>平底積水、容易發霉<b></b>微調</span></div></li>
+<li><img class="km" src="img/981625.jpg" data-lg="img/lg/981625.jpg" alt="綿羊造型廁紙架" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/981625-sheeptastic-toilet-paper-sheep-holder-fits-all" target="_blank" rel="noopener">綿羊造型廁紙架</a><span class="dl">19,343 次下載</span><span class="orig">Sheeptastic! Toilet Paper Sheep Holder - FITS ALL!</span><span class="tip3"><b>注意</b>捲筒軸太緊、換紙卡卡<b></b>微調</span></div></li>
+  </ul>
+  <h2>二、玄關與穿鞋</h2>
+  <p class="note">彎不下腰、鞋子太緊、門會自己關上，這四件處理的就是這些。</p>
+  <p>鞋拔是整篇最容易被低估的一件：一次印三支，玄關、車上、包包各放一支。</p>
+  <ul class="models">
+<li><img class="km" src="img/2862004.jpg" data-lg="img/lg/2862004.jpg" alt="迷你鞋拔（鑰匙圈款）" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/2862004-shoe-horn" target="_blank" rel="noopener">迷你鞋拔（鑰匙圈款）</a><span class="dl">13,068 次下載</span><span class="orig">Shoe Horn</span><span class="tip3"><b>注意</b>尺寸小、受力集中<b></b>微調</span></div></li>
+<li><img class="km" src="img/1588082.jpg" data-lg="img/lg/1588082.jpg" alt="兒童鞋拔" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/1588082-shoe-horn-for-childrens-shoes" target="_blank" rel="noopener">兒童鞋拔</a><span class="dl">2,872 次下載</span><span class="orig">Shoe horn for children's shoes</span><span class="tip3"><b>注意</b>薄片彎角是斷裂點<b></b>微調</span></div></li>
+<li><img class="km" src="img/1453382.jpg" data-lg="img/lg/1453382.jpg" alt="鞋帶快扣（旋鈕式）" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/1453382-schnellverschluss-kordelband-schuhriemen" target="_blank" rel="noopener">鞋帶快扣（旋鈕式）</a><span class="dl">1,583 次下載</span><span class="orig">Schnellverschluss Kordelband Schuhriemen</span><span class="tip3"><b>注意</b>螺紋件，層高太大會卡死<b></b>微調</span></div></li>
+<li><img class="km" src="img/427080.jpg" data-lg="img/lg/427080.jpg" alt="門擋" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/427080-door-stopper" target="_blank" rel="noopener">門擋</a><span class="dl">43,035 次下載</span><span class="orig">Door Stopper</span><span class="tip3"><b>注意</b>磁磚或木地板止滑差<b></b>微調</span></div></li>
+  </ul>
+  <h2>三、廚房</h2>
+  <p class="note">廚房的問題通常不是買不到，而是「尺寸剛好不合」。</p>
+  <p>鍋蓋、袋口、瓶罐、調味包，這五件都是先量再印就會成功的類型。</p>
+  <ul class="models">
+<li><img class="km" src="img/2525320.jpg" data-lg="img/lg/2525320.jpg" alt="鍋蓋架" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/2525320-ikea-365-plastic-lid-hanger-organizer" target="_blank" rel="noopener">鍋蓋架</a><span class="dl">33,911 次下載</span><span class="orig">Ikea 365+ Plastic Lid Hanger / Organizer</span><span class="tip3"><b>注意</b>櫃門厚度不一，掛不上<b></b>微調</span></div></li>
+<li><img class="km" src="img/1101226.jpg" data-lg="img/lg/1101226.jpg" alt="夾鏈袋／麵包袋夾" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/1101226-mini-bag-clip" target="_blank" rel="noopener">夾鏈袋／麵包袋夾</a><span class="dl">154,861 次下載</span><span class="orig">Mini Bag Clip</span><span class="tip3"><b>注意</b>卡扣薄、拆裝次數多會斷<b></b>微調</span></div></li>
+<li><img class="km" src="img/92592.jpg" data-lg="img/lg/92592.jpg" alt="垃圾袋夾" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/92592-bag-closure-clips" target="_blank" rel="noopener">垃圾袋夾</a><span class="dl">38,388 次下載</span><span class="orig">Bag Closure Clips</span><span class="tip3"><b>注意</b>長時間夾緊會彈性疲乏<b></b>微調</span></div></li>
+<li><img class="km" src="img/1125088.jpg" data-lg="img/lg/1125088.jpg" alt="瓶罐晾乾架" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/1125088-stackable-bottle-drying-rack" target="_blank" rel="noopener">瓶罐晾乾架</a><span class="dl">63,936 次下載</span><span class="orig">Stackable Bottle Drying Rack</span><span class="tip3"><b>注意</b>高瓶重心不穩<b></b>微調</span></div></li>
+<li><img class="km" src="img/160052.jpg" data-lg="img/lg/160052.jpg" alt="廚房調味包收納" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/160052-kitchen-packet-organizer-baking-spice-box" target="_blank" rel="noopener">廚房調味包收納</a><span class="dl">14,163 次下載</span><span class="orig">Kitchen Packet Organizer / Baking Spice Box</span><span class="tip3"><b>注意</b>抽屜深度不合放不進<b></b>微調</span></div></li>
+  </ul>
+  <h2>四、收納與桌上</h2>
+  <p class="note">抽屜亂、線材纏、小零件找不到，這六件是收納的基本盤。</p>
+  <p>先印分類盤與線夾，這兩件最容易立刻感受到差別。</p>
+  <ul class="models">
+<li><img class="km" src="img/476243.jpg" data-lg="img/lg/476243.jpg" alt="零件分類盤" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/476243-parametric-sorting-tray" target="_blank" rel="noopener">零件分類盤</a><span class="dl">55,024 次下載</span><span class="orig">Parametric Sorting Tray</span><span class="tip3"><b>注意</b>多個疊放時公差累積<b></b>微調</span></div></li>
+<li><img class="km" src="img/1462919.jpg" data-lg="img/lg/1462919.jpg" alt="線材整線器" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/1462919-ergonomic-cable-winder" target="_blank" rel="noopener">線材整線器</a><span class="dl">56,264 次下載</span><span class="orig">Ergonomic Cable Winder</span><span class="tip3"><b>注意</b>夾口尺寸固定，線徑差太多會夾不住<b></b>微調</span></div></li>
+<li><img class="km" src="img/2268549.jpg" data-lg="img/lg/2268549.jpg" alt="USB 線收納盒" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/2268549-usb-cable-organizer-box-tray-iphone-samsung" target="_blank" rel="noopener">USB 線收納盒</a><span class="dl">46,550 次下載</span><span class="orig">USB cable organizer Box tray IPhone Samsung</span><span class="tip3"><b>注意</b>手機含殼放不進去<b></b>微調</span></div></li>
+<li><img class="km" src="img/1738386.jpg" data-lg="img/lg/1738386.jpg" alt="旋轉收納盤" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/1738386-spinning-organizer-rotating-storage-box" target="_blank" rel="noopener">旋轉收納盤</a><span class="dl">21,060 次下載</span><span class="orig">Spinning Organizer | Rotating Storage Box</span><span class="tip3"><b>注意</b>軸心太緊轉不動<b></b>微調</span></div></li>
+<li><img class="km" src="img/708853.jpg" data-lg="img/lg/708853.jpg" alt="強力洗衣夾" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/708853-the-ultimate-3d-printed-clip" target="_blank" rel="noopener">強力洗衣夾</a><span class="dl">20,040 次下載</span><span class="orig">The Ultimate 3D Printed Clip</span><span class="tip3"><b>注意</b>彈簧溝反覆受力易裂<b></b>微調</span></div></li>
+<li><img class="km" src="img/2250253.jpg" data-lg="img/lg/2250253.jpg" alt="萬用夾（ClipBait）" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/2250253-clipbait-v_1-la-molletta-che-appende-tutto" target="_blank" rel="noopener">萬用夾（ClipBait）</a><span class="dl">7,757 次下載</span><span class="orig">ClipBait V_1</span><span class="tip3"><b>注意</b>彈性夾臂，PLA 會脆斷<b></b>微調</span></div></li>
+  </ul>
+  <h2>五、修繕與雜項</h2>
+  <p class="note">鑽牆、走線、桌下這三件事，靠這四件可以少弄髒一點、少爬一次桌子。</p>
+  <p>集塵罩是這裡最值得先印的一件，鑽一次牆就知道差別。</p>
+  <ul class="models">
+<li><img class="km" src="img/844154.jpg" data-lg="img/lg/844154.jpg" alt="鑽孔集塵罩" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/844154-drill-dust-collector" target="_blank" rel="noopener">鑽孔集塵罩</a><span class="dl">55,504 次下載</span><span class="orig">Drill Dust Collector</span><span class="tip3"><b>注意</b>貼牆面不平會漏粉塵<b></b>微調</span></div></li>
+<li><img class="km" src="img/746690.jpg" data-lg="img/lg/746690.jpg" alt="伸縮收線器" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/746690-retractable-cable-organizer-with-stop" target="_blank" rel="noopener">伸縮收線器</a><span class="dl">26,308 次下載</span><span class="orig">Retractable Cable Organizer - With Stop</span><span class="tip3"><b>注意</b>發條彈簧張力過大會爆開<b></b>微調</span></div></li>
+<li><img class="km" src="img/215875.jpg" data-lg="img/lg/215875.jpg" alt="桌下線材收納" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/215875-clean-cable-management-organizer-clip" target="_blank" rel="noopener">桌下線材收納</a><span class="dl">24,893 次下載</span><span class="orig">Clean Cable Management Organizer Clip</span><span class="tip3"><b>注意</b>桌板厚度不合就夾不住<b></b>微調</span></div></li>
+<li><img class="km" src="img/606619.jpg" data-lg="img/lg/606619.jpg" alt="通用線材固定夾" width="64" height="64" loading="lazy"><div class="kbody"><a href="https://makerworld.com/en/models/606619-universal-cable-holder-v1" target="_blank" rel="noopener">通用線材固定夾</a><span class="dl">27,350 次下載</span><span class="orig">universal cable holder V1</span><span class="tip3"><b>注意</b>夾口與線徑不合就滑動<b></b>微調</span></div></li>
+  </ul>
+
+  <h2>六、A1 的參數（這幾類都適用）</h2>
+  <table class="params">
+    <tr><th>情境</th><th>層高</th><th>外壁</th><th>填充</th><th>材料</th></tr>
+    <tr><td>一般收納、托盤</td><td>0.20mm</td><td>3 圈</td><td>15%</td><td>PLA</td></tr>
+    <tr><td>卡扣、夾具、掛勾</td><td>0.16mm</td><td>4 圈</td><td>25%</td><td>PETG</td></tr>
+    <tr><td>螺紋、滑軌、快扣</td><td>0.12mm</td><td>4 圈</td><td>40%</td><td>PETG</td></tr>
+    <tr><td>薄片（鞋拔、刮刀）</td><td>0.16mm</td><td>3 圈</td><td>100%</td><td>PETG／PLA+</td></tr>
+  </table>
+  <p class="note">A1 上列印這類小件時，建議把「外壁順序」設成外到內，表面會更平整；螺紋件把外壁速度降到 30mm/s。</p>
+
+  <h2>七、三種最常見的失敗</h2>
+  <ol class="plain">
+    <li><b>裝不進去</b>：XY 補償 −0.05mm，或把卡扣縮 98%；不要一次縮太多，會鬆到夾不住。</li>
+    <li><b>一用力就斷</b>：換 PETG、外壁加到 4 圈；PLA 的層間強度只有 PETG 的六成左右。</li>
+    <li><b>底面翹起</b>：面積大的托盤用 5mm brim、熱床 65°C，第一層速度降到 30mm/s。</li>
+  </ol>
+
+  <h2>八、資料來源與授權</h2>
+  <p class="note">模型皆為 MakerWorld 上公開分享的作品，下載數為抓取當下數字（2026/11/25）。列印前請回到原頁確認授權條款：多數為「可免費列印、不可商業販售」，少數標示可販售。本文只做整理與參數建議，不主張任何模型的所有權。</p>
+
+  <div class="foot"><a href="../">← 回 3D 列印總覽</a>　·　<a href="https://littler5071.github.io/">小R頻道首頁</a></div>
+</div>
+
+<div id="lbox"><span class="x">×</span><img alt=""><div class="cap"></div></div>
+<script>
+(function(){
+  var lb=document.getElementById('lbox'), li=lb.querySelector('img'), cap=lb.querySelector('.cap');
+  function close(){lb.classList.remove('on'); li.removeAttribute('src'); document.body.style.overflow='';}
+  document.addEventListener('click', function(e){
+    var t=e.target.closest ? e.target.closest('img.km') : null;
+    if(t){ li.src=t.getAttribute('data-lg')||t.src; cap.textContent=t.alt||''; lb.classList.add('on'); document.body.style.overflow='hidden'; return; }
+    if(lb.classList.contains('on') && (e.target===lb || e.target.classList.contains('x'))) close();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+</body>
+</html>
