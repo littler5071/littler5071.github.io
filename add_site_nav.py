@@ -32,7 +32,12 @@ import os
 import re
 import sys
 
-SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
+_args = [a for i, a in enumerate(sys.argv[1:])
+         if a != "--only" and (i == 0 or sys.argv[1:][i - 1] != "--only")]
+ONLY = ""
+if "--only" in sys.argv:
+    ONLY = sys.argv[sys.argv.index("--only") + 1].strip("/") + "/"
+SITE = _args[0] if _args else "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 SKIP = {"ai/hdd-ai/index.html", "private/demo/index.html", "tarot/index.html"}
 MAX_REMOVED_LINES = 60
 
@@ -123,7 +128,10 @@ def main():
     pages = sorted(p for p in glob.glob(os.path.join(SITE, "**", "index.html"), recursive=True)
                    if ".git" not in p)
     for p in pages:
-        print(os.path.relpath(p, SITE).replace("\\", "/"), "→", inject(p))
+        rel = os.path.relpath(p, SITE).replace("\\", "/")
+        if ONLY and not rel.startswith(ONLY):
+            continue
+        print(rel, "→", inject(p))
     print(f"共 {len(pages)} 頁")
     return 0
 

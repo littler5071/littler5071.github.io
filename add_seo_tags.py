@@ -25,6 +25,7 @@ SITE_DIR = "/home/littler5071/opencode/圖片生成/小R頻道_網站"
 BASE = "https://littler5071.github.io"
 BRAND = "小R頻道"
 YT = "https://www.youtube.com/channel/UCl-5q4SoIybOvibMN1kRpsw"
+HTML_SKIP = {os.path.join("stock", "latest", "index.html")}  # 與 -jia 必須位元相同（18:40 排程驗 md5），只進 sitemap
 SKIP = {os.path.join("ai", "hdd-ai", "index.html"),
         os.path.join("private", "demo", "index.html")}
 
@@ -88,6 +89,11 @@ def main() -> None:
     dry = "--dry" in sys.argv
     # --sitemap-only：只重生 sitemap.xml／robots.txt，不動任何 HTML（給收盤流程收尾用）
     sitemap_only = "--sitemap-only" in sys.argv
+    # --only news：只改 news/ 底下的 HTML（sitemap 仍含全站）。給新聞排程收尾用，
+    # 避免順手碰到 stock/latest（要與 -jia 位元相同）。
+    only = ""
+    if "--only" in sys.argv:
+        only = sys.argv[sys.argv.index("--only") + 1].strip("/") + "/"
     root = SITE_DIR
     n_pages = n_titles = n_seo = 0
     urls = []
@@ -102,6 +108,10 @@ def main() -> None:
         n_pages += 1
         url = canon_for(root, path)
         urls.append(url)
+        if rel.replace("/", os.sep) in HTML_SKIP:
+            continue
+        if only and not rel.startswith(only):
+            continue
         # -jia 頁面只進 sitemap、不插 SEO 區塊：18:15 排程的驗收條件是
         # stock/latest/index.html 與 stock/<當天>-jia/index.html 必須 md5 相同，
         # 兩頁 canonical 不同就會破壞這個檢查（2026-11-25 實測踩到）。

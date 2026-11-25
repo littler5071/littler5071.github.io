@@ -457,6 +457,14 @@ def main():
     for k in kinds:
         ok = build(k, args.limit) or ok
     build_hub()
+    # 收尾：補回 SEO／選單／瀏覽次數區塊。save_news 的樣板沒有這些，
+    # 每天 07:25 重建 index 頁時會把它們洗掉，晚上收盤流程又補回來 → 每天假 diff。
+    # 2026-11-26 修：產完就地補，順序固定，隔天重建後結果相同。
+    for script in ("add_seo_tags.py", "add_site_nav.py"):
+        r = subprocess.run([sys.executable, script, "--only", "news"], cwd=SITE,
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            print(f"[{script}] 失敗：{(r.stderr or r.stdout)[:200]}")
     if args.push:
         push()
     return 0 if ok else 1
