@@ -363,10 +363,10 @@ def build(kind, limit):
         ymd = f"{d[:4]}/{d[4:6]}/{d[6:]}"
         mid = ""
         if kind == "us":
-            extra = _indices_box() + night_box(body)
+            extra = (_indices_box() + night_box(body)) if d == items[0][0] else ""
             inner = to_html(body, strip_indexes=bool(extra))
         else:
-            extra = _market_box()
+            extra = _market_box() if d == items[0][0] else ""
             inner = to_html(body, first_sections=["【數字】"])
             if d == items[0][0]:
                 try:
