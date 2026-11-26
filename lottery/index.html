@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LUCKY DRAW｜抽獎控制台</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/console.css">
+</head>
+<body>
+
+<header class="appbar">
+  <div class="logo">
+    <span class="logo-mark"></span>
+    <span class="logo-text">LUCKY<b>DRAW</b></span>
+    <em>抽獎控制台</em>
+  </div>
+
+  <input id="eventName" class="event-input" maxlength="48" placeholder="活動名稱（顯示於投影畫面）">
+
+  <div class="appbar-right">
+    <span class="pill" id="stagePill"><i></i><span id="stagePillText">投影畫面未連線</span></span>
+    <button class="btn" id="btnOpenStage" title="開啟投影畫面視窗 (S)">開啟投影畫面</button>
+    <button class="btn ghost" id="btnMusic" title="背景音樂開關 (M)">♪ 音樂：開</button>
+    <button class="btn ghost" id="btnBlackout" title="投影黑屏待機 (B)">黑屏</button>
+  </div>
+</header>
+
+<main class="grid">
+
+  <!-- ============ 抽獎控制 ============ -->
+  <section class="card draw-card">
+    <div class="draw-head">
+      <div>
+        <div class="label">當前獎項 CURRENT PRIZE</div>
+        <div class="prize-title" id="curPrizeName">—</div>
+      </div>
+      <div class="prize-progress">
+        <b id="curPrizeProgress">0 / 0</b>
+        <span>已抽出</span>
+      </div>
+    </div>
+
+    <div class="chips" id="prizeChips"></div>
+
+    <div class="stats">
+      <div class="stat"><b id="stPool">0</b><span>可抽人數</span></div>
+      <div class="stat"><b id="stWon">0</b><span>已中獎</span></div>
+      <div class="stat"><b id="stTotal">0</b><span>名單總數</span></div>
+    </div>
+
+    <div class="draw-controls">
+      <div class="stepper">
+        <span class="stepper-label">抽出人數</span>
+        <button type="button" data-step="-1" aria-label="減少">−</button>
+        <input type="number" id="drawCount" min="1" max="300" value="1">
+        <button type="button" data-step="1" aria-label="增加">＋</button>
+      </div>
+      <button class="btn primary draw-btn" id="btnDraw">
+        <span class="draw-btn-icon">▶</span>
+        <span id="btnDrawText">開始抽獎</span>
+        <kbd>Enter</kbd>
+      </button>
+    </div>
+
+    <div class="sub-actions">
+      <button class="btn ghost" id="btnAdhoc">＋ 臨時加碼</button>
+      <button class="btn ghost" id="btnExtra1">加抽 1 名</button>
+      <button class="btn ghost" id="btnUndo">撤銷上一輪 <kbd>Ctrl+Z</kbd></button>
+      <button class="btn ghost" id="btnIdle">投影待機</button>
+      <button class="btn danger ghost push" id="btnResetPrize">重設本獎項</button>
+    </div>
+
+    <div class="draw-tip" id="drawTip"></div>
+  </section>
+
+  <!-- ============ 側欄 ============ -->
+  <section class="card side">
+    <nav class="tabs" id="tabs">
+      <button data-tab="record" class="active">中獎紀錄</button>
+      <button data-tab="roster">員工名單</button>
+      <button data-tab="prizes">獎項設定</button>
+      <button data-tab="settings">設定</button>
+    </nav>
+
+    <!-- 中獎紀錄 -->
+    <div class="tab-body" id="tab-record">
+      <div class="body-actions">
+        <button class="btn ghost" id="btnExportCsv">匯出 CSV</button>
+        <span class="hint" id="recordSummary"></span>
+      </div>
+      <div class="scroll" id="winnerList"></div>
+    </div>
+
+    <!-- 員工名單 -->
+    <div class="tab-body" id="tab-roster" hidden>
+      <div class="body-actions">
+        <label class="btn file">匯入 CSV<input type="file" id="fileRoster" accept=".csv,.txt,.tsv"></label>
+        <button class="btn ghost" id="btnPasteRoster">貼上名單</button>
+        <button class="btn ghost" id="btnSample">範例名單</button>
+        <button class="btn danger ghost" id="btnClearRoster">清空</button>
+      </div>
+      <p class="hint">可直接從 Excel 複製儲存格貼上（Tab 分隔），或匯入 CSV。欄位順序：<b>姓名, 部門, 員工編號</b>（後兩欄可省略）。</p>
+      <div class="scroll">
+        <table id="rosterTable">
+          <thead>
+            <tr><th style="width:44px">#</th><th>姓名</th><th>部門</th><th>員工編號</th><th style="width:64px">排除</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 獎項設定 -->
+    <div class="tab-body" id="tab-prizes" hidden>
+      <div class="body-actions">
+        <button class="btn ghost" id="btnAddPrize">＋ 新增獎項</button>
+        <span class="hint">由下往上抽，最後一項通常是頭獎。</span>
+      </div>
+      <div class="scroll" id="prizeEditor"></div>
+    </div>
+
+    <!-- 設定 -->
+    <div class="tab-body" id="tab-settings" hidden>
+      <div class="scroll settings">
+        <div class="set-row">
+          <div>
+            <b>活動名稱</b>
+            <p class="hint">顯示在投影左上角與視窗標題。</p>
+          </div>
+          <input type="text" id="setEventName" class="set-input" maxlength="48" placeholder="聖誕晚會抽獎">
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>抽獎節奏</b>
+            <p class="hint">轉盤翻滾時間，越長越緊張。</p>
+          </div>
+          <div class="range-wrap">
+            <input type="range" id="setSpin" min="1500" max="9000" step="100">
+            <b id="setSpinVal">4.2s</b>
+          </div>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>假動作（回馬槍）</b>
+            <p class="hint">名字幾乎停下後再突然加速，臨場張力最高。</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="setTease"><i></i></label>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>音效</b>
+            <p class="hint">翻牌鈴聲、鼓聲、中獎樂句（由投影視窗播放）。</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="setSound"><i></i></label>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>抽獎音樂</b>
+            <p class="hint">揭曉時的短樂句風格，下次抽獎立即生效。</p>
+          </div>
+          <select id="setDrawStyle" class="set-select">
+            <option value="orchestra">交響震撼（銅管＋定音鼓）</option>
+            <option value="bells">鐘聲華麗（教堂鐘＋豎琴）</option>
+            <option value="party">派對節奏（切分＋鼓）</option>
+          </select>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>中獎歡呼聲</b>
+            <p class="hint">揭曉時播放拍手／歡呼音檔（6 秒，CC0）。</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="setApplause"><i></i></label>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>背景音樂</b>
+            <p class="hint">Jingle Bells 演奏版循環；抽獎時自動停止。</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="setMusic"><i></i></label>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>背景音樂曲目</b>
+            <p class="hint">切換後立即播放新曲目。</p>
+          </div>
+          <select id="setBgmTrack" class="set-select">
+            <option value="jingle">Jingle Bells（輕快派對）</option>
+            <option value="wish">We Wish You（大樂團）</option>
+            <option value="tree">Oh Christmas Tree（熱鬧）</option>
+            <option value="carol">Carol of the Bells（戲劇張力）</option>
+            <option value="wish2">We Wish You（輕音樂）</option>
+          </select>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>顯示員工編號</b>
+            <p class="hint">投影畫面上顯示中獎者員工編號。</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="setEmpNo"><i></i></label>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>允許重複中獎</b>
+            <p class="hint">預設關閉：每人最多中獎一次。</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="setRepeat"><i></i></label>
+        </div>
+
+        <div class="set-sep"></div>
+
+        <div class="set-row">
+          <div>
+            <b>資料備份</b>
+            <p class="hint">含名單、獎項與中獎紀錄，可換電腦還原。</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn ghost" id="btnBackup">匯出備份</button>
+            <label class="btn ghost file">匯入備份<input type="file" id="fileBackup" accept=".json"></label>
+          </div>
+        </div>
+
+        <div class="set-row">
+          <div>
+            <b>清除所有資料</b>
+            <p class="hint">名單、獎項、中獎紀錄全部重置，無法復原。</p>
+          </div>
+          <button class="btn danger ghost" id="btnResetAll">全部重置</button>
+        </div>
+
+        <div class="set-sep"></div>
+
+        <div class="set-row">
+          <div>
+            <b>投影畫面連線測試</b>
+            <p class="hint">送出一次測試音效與閃光確認。</p>
+          </div>
+          <button class="btn ghost" id="btnTest">測試投影</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="toast"></div>
+<div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
+
+<script src="js/bus.js"></script>
+<script src="js/store.js"></script>
+<script src="js/console.js"></script>
+</body>
+</html>
