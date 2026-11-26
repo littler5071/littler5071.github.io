@@ -115,8 +115,13 @@ def inject(path):
     else:
         html = head_tags + html
 
-    if "</style>" in html and ".viewsline{" not in html.split("</style>", 1)[0]:
-        html = html.replace("</style>", VIEWS_CSS + "</style>", 1)
+    _own_css = html.split("</style>", 1)[0] if "</style>" in html else html
+    if ".viewsline{" not in _own_css:
+        if "</style>" in html:
+            html = html.replace("</style>", VIEWS_CSS + "</style>", 1)
+        elif "</head>" in html:
+            # 只用外部 CSS 的頁面（例如 lottery）沒有 <style>，瀏覽次數會變成沒樣式的裸字
+            html = html.replace("</head>", "<style>" + chr(10) + VIEWS_CSS + "</style>" + chr(10) + "</head>", 1)
 
     if "</body>" in html:
         html = html.replace("</body>", views_html(rel) + chr(10) + "</body>", 1)
