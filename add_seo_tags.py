@@ -132,7 +132,11 @@ def main() -> None:
         _m = BLOCK_RE.search(new)
         _pos = _m.start() if _m else None
         new = BLOCK_RE.sub("", new)
+        # 頁面自己已有 canonical（手寫或舊版注入）就不要再插第二個，避免兩個 canonical 打架
+        _had_canon = bool(re.search("<link[^>]+rel=\"canonical\"", new, re.I))
         _blk = seo_block(title, desc, url) + "\n"
+        if _had_canon:
+            _blk = re.sub("<link rel=\"canonical\"[^>]*>\\n\\n?", "", _blk)
         if _pos is None:
             new = new.replace("</head>", _blk + "</head>", 1)
         else:
