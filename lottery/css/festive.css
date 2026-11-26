@@ -1,0 +1,249 @@
+/* ===== FESTIVE THEME · 繽紛聖誕（純 CSS 疊加，不改原邏輯） =====
+   使用方式：在原樣式之後引入本檔（console 與 stage 共用）。
+   移除本檔即可回到原本樣式。 */
+
+/* ---------- 共用：動態漸層與光斑 ---------- */
+@keyframes fest-hue {
+  0%   { filter: hue-rotate(0deg); }
+  50%  { filter: hue-rotate(12deg); }
+  100% { filter: hue-rotate(0deg); }
+}
+@keyframes fest-drift1 {
+  0%,100% { transform: translate3d(-6%, -4%, 0) scale(1); }
+  50%     { transform: translate3d(8%, 6%, 0) scale(1.15); }
+}
+@keyframes fest-drift2 {
+  0%,100% { transform: translate3d(6%, 2%, 0) scale(1.1); }
+  50%     { transform: translate3d(-8%, -6%, 0) scale(.95); }
+}
+@keyframes fest-shine {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes fest-sweep {
+  0%   { transform: translateX(-140%) skewX(-18deg); }
+  60%  { transform: translateX(140%) skewX(-18deg); }
+  100% { transform: translateX(140%) skewX(-18deg); }
+}
+
+/* ---------- 控制台（淺色系） ---------- */
+body:not(.stage) {
+  background:
+    radial-gradient(ellipse 58% 44% at 6% -12%, rgba(255, 140, 175, .24), transparent 62%),
+    radial-gradient(ellipse 52% 38% at 96% 2%, rgba(255, 196, 110, .26), transparent 60%),
+    radial-gradient(ellipse 66% 52% at 50% 110%, rgba(70, 190, 200, .26), transparent 66%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(140, 160, 255, .18), transparent 68%),
+    linear-gradient(160deg, #fffaf1 0%, #fbf7fb 40%, #eef6ff 100%);
+  background-attachment: fixed;
+}
+
+/* 飄動的彩色光斑 */
+body:not(.stage)::before,
+body:not(.stage)::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .26;
+}
+body:not(.stage)::before {
+  width: 52vw; height: 52vw; left: -12vw; top: -16vw;
+  background: radial-gradient(circle, rgba(255, 96, 160, .65), rgba(255, 96, 160, 0) 70%);
+  animation: fest-drift1 22s ease-in-out infinite;
+}
+body:not(.stage)::after {
+  width: 46vw; height: 46vw; right: -10vw; bottom: -18vw;
+  background: radial-gradient(circle, rgba(96, 190, 255, .55), rgba(96, 190, 255, 0) 70%);
+  animation: fest-drift2 26s ease-in-out infinite;
+}
+
+body:not(.stage) .appbar,
+body:not(.stage) main,
+body:not(.stage) .grid { position: relative; z-index: 2; }
+
+/* 卡片：玻璃質感＋彩色頂光 */
+body:not(.stage) .card,
+body:not(.stage) .side .card {
+  background: rgba(255, 255, 255, .78);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, .85);
+  box-shadow:
+    0 18px 44px rgba(150, 70, 100, .14),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+  position: relative;
+  overflow: hidden;
+}
+body:not(.stage) .card::before {
+  content: "";
+  position: absolute; inset: 0 0 auto 0; height: 4px;
+  background: linear-gradient(90deg, #ff4d8d, #ffb03a, #42d6b4, #4aa8ff, #b06bff);
+  background-size: 200% 100%;
+  animation: fest-shine 8s linear infinite;
+}
+
+/* 標題與數字：彩色漸層 */
+body:not(.stage) .prize-title,
+body:not(.stage) .logo-text b {
+  background: linear-gradient(92deg, #e01050, #ff8a00, #d81b60);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body:not(.stage) .stat b {
+  background: linear-gradient(180deg, #ff5a7a, #c8102e);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+body:not(.stage) .logo-mark {
+  background:
+    radial-gradient(circle at 32% 28%, #fff 0 18%, transparent 19%),
+    conic-gradient(from 200deg, #ff3d71, #ffb03a, #42d6b4, #4aa8ff, #ff3d71);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .8), 0 8px 20px rgba(255, 90, 130, .45);
+}
+
+/* 獎項籌碼：每個不同色 */
+body:not(.stage) .chip {
+  border-color: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .72);
+  box-shadow: 0 6px 16px rgba(120, 70, 90, .10);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+body:not(.stage) .chip:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(120, 70, 90, .18); }
+body:not(.stage) .chip:nth-child(1) .dot { background: #ff4d8d; box-shadow: 0 0 0 4px rgba(255, 77, 141, .18); }
+body:not(.stage) .chip:nth-child(2) .dot { background: #ffb03a; box-shadow: 0 0 0 4px rgba(255, 176, 58, .18); }
+body:not(.stage) .chip:nth-child(3) .dot { background: #4aa8ff; box-shadow: 0 0 0 4px rgba(74, 168, 255, .18); }
+body:not(.stage) .chip:nth-child(4) .dot { background: #b06bff; box-shadow: 0 0 0 4px rgba(176, 107, 255, .18); }
+body:not(.stage) .chip:nth-child(5) .dot { background: #42d6b4; box-shadow: 0 0 0 4px rgba(66, 214, 180, .18); }
+body:not(.stage) .chip.active {
+  background: linear-gradient(135deg, #fff, #fff3f8);
+  border-color: #ffb3cc;
+  box-shadow: 0 10px 26px rgba(255, 77, 141, .28), 0 0 0 2px rgba(255, 77, 141, .18);
+}
+
+/* 主要按鈕：繽紛漸層＋掃光 */
+body:not(.stage) .draw-btn {
+  background: linear-gradient(100deg, #e01050, #ff6a00 55%, #ffb03a);
+  background-size: 200% 100%;
+  animation: fest-shine 6s linear infinite;
+  color: #fff;
+  box-shadow: 0 14px 34px rgba(224, 16, 80, .34), inset 0 1px 0 rgba(255, 255, 255, .35);
+  overflow: hidden;
+}
+body:not(.stage) .draw-btn::after {
+  content: "";
+  position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+  animation: fest-sweep 3.6s ease-in-out infinite;
+}
+body:not(.stage) .btn {
+  border-color: rgba(255, 255, 255, .85);
+  background: rgba(255, 255, 255, .8);
+}
+body:not(.stage) .btn:hover { box-shadow: 0 10px 24px rgba(140, 70, 100, .18); }
+
+/* 表格與紀錄：淡彩列 */
+body:not(.stage) table tbody tr:nth-child(odd) { background: rgba(255, 255, 255, .55); }
+body:not(.stage) table tbody tr:hover { background: rgba(255, 240, 246, .9); }
+
+/* ---------- 舞台（深色系）加色光 ---------- */
+body.stage .bg::after {
+  content: "";
+  position: absolute; inset: -20%;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 64, 128, .34), transparent 46%),
+    radial-gradient(circle at 78% 22%, rgba(255, 176, 58, .30), transparent 44%),
+    radial-gradient(circle at 50% 88%, rgba(64, 200, 255, .26), transparent 50%);
+  animation: fest-drift1 26s ease-in-out infinite;
+  pointer-events: none;
+}
+body.stage .rays {
+  background: conic-gradient(from 0deg,
+    rgba(255, 64, 128, .22), rgba(255, 176, 58, .20), rgba(66, 214, 180, .18),
+    rgba(74, 168, 255, .20), rgba(176, 107, 255, .20), rgba(255, 64, 128, .22));
+  mix-blend-mode: screen;
+  opacity: .55;
+  animation: fest-spin 34s linear infinite;
+}
+@keyframes fest-spin { to { transform: rotate(360deg); } }
+
+body.stage .event-name {
+  background: linear-gradient(92deg, #fff, #ffd36e 30%, #ff8fb8 55%, #8fe6ff 80%, #fff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fest-shine 7s linear infinite;
+  filter: drop-shadow(0 4px 18px rgba(255, 170, 90, .35));
+}
+body.stage .stage-body .name {
+  background: linear-gradient(92deg, #a10f3c 0%, #e2571b 26%, #a3162f 50%, #6d2b9c 74%, #a10f3c 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, .9);
+  animation: fest-shine 6s linear infinite;
+  filter: drop-shadow(0 8px 22px rgba(200, 40, 70, .35));
+}
+body.stage .winner-card {
+  background: linear-gradient(150deg, rgba(255, 64, 128, .22), rgba(255, 176, 58, .18), rgba(74, 168, 255, .20));
+  border: 1px solid rgba(255, 255, 255, .35);
+  box-shadow: 0 14px 40px rgba(255, 80, 140, .22);
+  backdrop-filter: blur(6px);
+}
+body.stage .prize-tag {
+  background: linear-gradient(100deg, #ff3d71, #ffb03a);
+  color: #2a0d16;
+  font-weight: 800;
+  box-shadow: 0 10px 30px rgba(255, 90, 130, .35);
+}
+
+/* 裝飾用彩帶畫布 */
+#festiveFx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; display: block; }
+body:not(.stage) #festiveFx { z-index: 1; opacity: .5; }
+body.stage #festiveFx { z-index: 3; opacity: .85; }
+
+@media (prefers-reduced-motion: reduce) {
+  body:not(.stage)::before, body:not(.stage)::after,
+  body.stage .rays, body.stage .bg::after { animation: none; }
+  body:not(.stage) .draw-btn, body:not(.stage) .draw-btn::after { animation: none; }
+}
+
+/* ---------- 可讀性強化（第二輪微調） ---------- */
+body:not(.stage) .label,
+body:not(.stage) .note,
+body:not(.stage) .hint,
+body:not(.stage) .draw-tip,
+body:not(.stage) .stat span,
+body:not(.stage) .stepper-label {
+  color: #6a4636;
+}
+body:not(.stage) .btn {
+  border: 1.5px solid #e6d2c4;
+  background: #fffdfa;
+  font-weight: 600;
+}
+body:not(.stage) .btn.ghost { background: rgba(255, 255, 255, .72); }
+body:not(.stage) .draw-btn { -webkit-text-fill-color: #fff; }
+body:not(.stage) table thead th { color: #5c3a2c; background: rgba(255, 244, 236, .95); }
+body:not(.stage) table td { color: #3b241d; }
+body:not(.stage) { padding-bottom: 40px; }
+body.stage .event-name { -webkit-text-stroke: .5px rgba(255, 255, 255, .6); }
+body.stage .hint, body.stage .pool-info, body.stage .clock { text-shadow: 0 2px 10px rgba(255, 255, 255, .75); }
+
+/* 主要／次要按鈕層級（沿用原生 .btn.primary / .btn.ghost） */
+body:not(.stage) .btn.primary {
+  background: linear-gradient(100deg, #d81b3f, #e2571b 60%, #f0912b);
+  border: 0;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  box-shadow: 0 10px 26px rgba(216, 27, 63, .30);
+}
+body:not(.stage) .btn.ghost {
+  background: #ffffff;
+  border: 1.5px solid #dcc7b8;
+  color: #4a2a22;
+  -webkit-text-fill-color: #4a2a22;
+}
+body:not(.stage) .modal .btn { min-width: 96px; }
