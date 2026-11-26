@@ -211,3 +211,14 @@ body.stage .unlock-sub {
   color: #5a3428;
   font-weight: 700;
 }
+
+/* ---------- 底部明亮裝飾帶（真實照片，玫瑰金聖誕球） ---------- */
+body.stage .vignette::before {
+  content: "";
+  position: absolute; left: -2%; right: -2%; bottom: 0; height: 34vh;
+  background: url("../img/xmas-band.jpg") center bottom / cover no-repeat;
+  opacity: .62;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.55) 38%, #000 78%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.55) 38%, #000 78%);
+  pointer-events: none;
+}
