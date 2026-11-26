@@ -292,6 +292,16 @@
   }
 
   /* ---------------- 待機 / 狀態 ---------------- */
+  // 直接開投影頁時，先讀一次本機設定（沒有控制台連線也有正確文字）
+  function localSettings() {
+    try {
+      const raw = localStorage.getItem('luckyDraw.v1');
+      if (!raw) return {};
+      const st = JSON.parse(raw);
+      return (st && st.settings) || {};
+    } catch (e) { return {}; }
+  }
+
   function renderIdle() {
     setPhase('idle');
     clearWinners();
@@ -300,9 +310,11 @@
     el.slot.style.opacity = '';
     el.slot.style.transform = '';
     setAccent(1);
-    setName('聖誕快樂');
+    const ls = localSettings();
+    const st = (snapshot && snapshot.settings) || {};
+    setName(st.idleText || ls.idleText || '聖誕快樂');
     showDept('');
-    el.eyebrow.textContent = 'MERRY CHRISTMAS';
+    el.eyebrow.textContent = st.kickerText || ls.kickerText || 'MERRY CHRISTMAS';
     el.hint.textContent = '等待控制台操作';
     el.prizeTag.textContent = snapshot
       ? `已抽出 ${snapshot.winnersCount} 位 · 候選 ${snapshot.stats.pool} 人`
@@ -325,6 +337,12 @@
     }
     SFX.enabled = soundOn;
     syncBGM();
+    // 待機中改字：立刻反映（不用重新整理投影）
+    if (el.body.dataset.phase === 'idle') {
+      const _ls = localSettings();
+      setName((snap.settings && snap.settings.idleText) || _ls.idleText || '聖誕快樂');
+      el.eyebrow.textContent = (snap.settings && snap.settings.kickerText) || _ls.kickerText || 'MERRY CHRISTMAS';
+    }
     if (snap.stats) {
       el.poolInfo.innerHTML = `候選 <b>${snap.stats.pool}</b> 人<br>已抽出 ${snap.winnersCount || 0} 位`;
       if (el.body.dataset.phase === 'idle') {

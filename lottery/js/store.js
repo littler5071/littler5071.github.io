@@ -25,7 +25,9 @@
         drawStyle: 'orchestra',
         applause: true,
         showEmpNo: false,
-        allowRepeat: false
+        allowRepeat: false,
+        idleText: '聖誕快樂',
+        kickerText: 'MERRY CHRISTMAS'
       }
     };
   }

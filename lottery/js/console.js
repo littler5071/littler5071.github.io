@@ -868,6 +868,10 @@
     if (bt) bt.value = s.bgm || 'jingle';
     $('#setEmpNo').checked = !!s.showEmpNo;
     $('#setRepeat').checked = !!s.allowRepeat;
+    const idleIn = $('#setIdleText');
+    if (idleIn && document.activeElement !== idleIn) idleIn.value = s.idleText || '聖誕快樂';
+    const kickIn = $('#setKicker');
+    if (kickIn && document.activeElement !== kickIn) kickIn.value = s.kickerText || 'MERRY CHRISTMAS';
   }
 
   /* ---------------- 事件綁定 ---------------- */
@@ -1004,6 +1008,18 @@
     Store.updateSettings({ spinMs: v });
   });
   $('#setTease').onchange = e => Store.updateSettings({ tease: e.target.checked });
+  if ($('#setIdleText')) {
+    $('#setIdleText').oninput = e => {
+      Store.updateSettings({ idleText: e.target.value });
+      sendState();
+    };
+  }
+  if ($('#setKicker')) {
+    $('#setKicker').oninput = e => {
+      Store.updateSettings({ kickerText: e.target.value });
+      sendState();
+    };
+  }
   $('#setSound').onchange = e => {
     Store.updateSettings({ sound: e.target.checked });
     Bus.send({ type: 'setting', sound: e.target.checked }, stageWin);
