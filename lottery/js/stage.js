@@ -285,6 +285,9 @@
     }
 
     running = false;
+    // 一輪結束：背景音樂自動接回並持續循環
+    musicDrawPaused = false;
+    syncBGM();
     send({ type: 'draw-done', roundId: payload.roundId });
   }
 

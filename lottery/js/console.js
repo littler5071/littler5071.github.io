@@ -313,6 +313,13 @@
     setBusy(false);
     clearTimeout(busyTimer);
     if (silent) toast('投影畫面無回應，已解除鎖定', 'warn');
+
+    // 這一輪抽完：自動把背景音樂接回來（並維持循環播放）
+    if (S().settings.music) {
+      musicPaused = false;
+      updateMusicBtn();
+      Bus.send({ type: 'music', on: true }, stageWin);
+    }
   }
 
   async function startDraw(override) {
