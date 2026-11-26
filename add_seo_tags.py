@@ -107,7 +107,7 @@ def main() -> None:
             continue
         n_pages += 1
         url = canon_for(root, path)
-        urls.append(url)
+        urls.append((url, path))
         if rel.replace("/", os.sep) in HTML_SKIP:
             continue
         if only and not rel.startswith(only):
@@ -150,8 +150,14 @@ def main() -> None:
     today = time.strftime("%Y-%m-%d")
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    for u in urls:
-        sm.append("  <url><loc>%s</loc><lastmod>%s</lastmod></url>" % (u, today))
+    for u, _p in urls:
+        # lastmod 用檔案實際修改時間，不要每次都蓋成今天（否則每天 247 行全改、
+        # 搜尋引擎會把 lastmod 當雜訊）
+        try:
+            _lm = time.strftime("%Y-%m-%d", time.localtime(os.path.getmtime(_p)))
+        except OSError:
+            _lm = today
+        sm.append("  <url><loc>%s</loc><lastmod>%s</lastmod></url>" % (u, min(_lm, today)))
     sm.append("</urlset>")
     sitemap = "\n".join(sm) + "\n"
     # 4) robots.txt
