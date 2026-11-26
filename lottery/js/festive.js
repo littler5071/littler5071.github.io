@@ -4,6 +4,7 @@
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isStage = document.body.classList.contains("stage");
+  if (!isStage) return; // 控制台不加任何特效
 
   var cv = document.createElement("canvas");
   cv.id = "festiveFx";
@@ -19,13 +20,13 @@
   resize();
   window.addEventListener("resize", resize);
 
-  var COLORS = ["#ff3d71", "#ffb03a", "#ffd93d", "#42d6b4", "#4aa8ff", "#b06bff", "#ff8fb8"];
+  var COLORS = ["#c8102e", "#16a34a", "#d69e18", "#fff1c9", "#ff5d73"];
 
   function rnd(a, b) { return a + Math.random() * (b - a); }
   function pick(a) { return a[(Math.random() * a.length) | 0]; }
 
   var flakes = [];
-  var count = reduce ? 0 : (isStage ? 64 : 26);
+  var count = reduce ? 0 : 80;
   for (var i = 0; i < count; i++) {
     flakes.push({
       x: rnd(0, W), y: rnd(0, H),
@@ -33,7 +34,7 @@
       vy: rnd(0.15, 0.55),
       vx: rnd(-0.18, 0.18),
       a: rnd(0.25, 0.65),
-      c: Math.random() < 0.55 ? "#ffffff" : pick(COLORS)
+      c: Math.random() < 0.72 ? "#ffffff" : (Math.random() < 0.6 ? "#ffd166" : pick(["#c8102e", "#16a34a", "#b3760f"]))
     });
   }
 
