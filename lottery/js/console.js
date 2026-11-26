@@ -543,6 +543,8 @@
     ['record', 'roster', 'prizes', 'settings'].forEach(t => {
       $('#tab-' + t).hidden = t !== name;
     });
+    const side = document.querySelector('.side');
+    if (side) side.classList.toggle('side-auto', name === 'settings');
   }
 
   /* ---------------- 渲染 ---------------- */
@@ -557,6 +559,37 @@
   }
 
   let rosterSig = '';
+  let rosterSort = { key: null, dir: 1 };
+
+  function sortRoster(list) {
+    if (!rosterSort.key) return list;
+    const key = rosterSort.key;
+    const dir = rosterSort.dir;
+    const val = p => String(p[key] || '').trim();
+    return list.slice().sort((a, b) => {
+      const va = val(a);
+      const vb = val(b);
+      if (!va && vb) return 1;          // 空值固定排最後
+      if (va && !vb) return -1;
+      let r;
+      if (key === 'empNo') {
+        r = va.localeCompare(vb, undefined, { numeric: true, sensitivity: 'base' });
+      } else {
+        r = va.localeCompare(vb, 'zh-Hant');
+      }
+      if (r === 0) r = (a.name || '').localeCompare(b.name || '', 'zh-Hant');
+      return r * dir;
+    });
+  }
+
+  function updateSortIndicators() {
+    $$('#rosterTable th.sortable').forEach(th => {
+      const ind = th.querySelector('.sort-ind');
+      const on = th.dataset.sort === rosterSort.key;
+      if (ind) ind.textContent = on ? (rosterSort.dir > 0 ? ' ▲' : ' ▼') : '';
+      th.setAttribute('aria-sort', on ? (rosterSort.dir > 0 ? 'ascending' : 'descending') : 'none');
+    });
+  }
 
   function renderAll() {
     if (!Store.prizeOf(currentPrizeId)) pickDefaultPrize();
@@ -711,9 +744,11 @@
     const tbody = $('#rosterTable tbody');
     if (isEditing(tbody)) return;
     const roster = S().roster;
-    const sig = roster.length + '|' + S().winners.length + '|' + S().excluded.join(',');
+    const sig = roster.length + '|' + S().winners.length + '|' + S().excluded.join(',') +
+      '|' + (rosterSort.key || '') + rosterSort.dir;
     if (sig === rosterSig) return;
     rosterSig = sig;
+    updateSortIndicators();
     if (!roster.length) {
       tbody.innerHTML = '<tr><td colspan="5" class="hint" style="padding:26px;text-align:center">尚無名單。匯入 CSV 或貼上 Excel 內容。</td></tr>';
       return;
@@ -722,7 +757,7 @@
     S().winners.forEach(w => { if (!wonMap.has(w.key)) wonMap.set(w.key, w.prizeName); });
     const excluded = new Set(S().excluded);
 
-    const rows = roster.map((p, i) => {
+    const rows = sortRoster(roster).map((p, i) => {
       const won = wonMap.get(p.key);
       return `<tr class="${excluded.has(p.key) ? 'excluded' : ''}">
         <td class="row-no">${i + 1}</td>
@@ -907,6 +942,18 @@
     reader.onload = () => importRosterText(decodeFile(reader.result));
     reader.readAsArrayBuffer(f);
     e.target.value = '';
+  });
+
+  $$('#rosterTable th.sortable').forEach(th => {
+    th.onclick = () => {
+      const k = th.dataset.sort;
+      if (rosterSort.key === k) rosterSort.dir = -rosterSort.dir;
+      else { rosterSort.key = k; rosterSort.dir = 1; }
+      rosterSig = '';
+      renderRoster();
+      const label = { name: '姓名', dept: '部門', empNo: '員工編號' }[k] || k;
+      toast(`依「${label}」${rosterSort.dir > 0 ? '遞增' : '遞減'}排序`);
+    };
   });
 
   $('#btnPasteRoster').onclick = pasteRoster;

@@ -131,9 +131,14 @@ AI-抽獎系統/
 │  ├─ bus.js             跨視窗訊息（postMessage + BroadcastChannel）
 │  ├─ store.js           資料層：名單、獎項、抽獎演算法、儲存
 │  ├─ console.js         控制台邏輯
-│  ├─ audio.js           WebAudio 即時合成音效（無音檔）
-│  ├─ fx.js              Canvas 粒子（餘燼／漩渦／彩帶／光環）
+│  ├─ audio.js           音效與背景音樂（合成＋音檔播放）
+│  ├─ fx.js              Canvas 粒子（星塵／漩渦／彩帶／光環）
 │  └─ stage.js           舞台動畫時序
+├─ audio/                背景音樂與拍手聲（5 首 BGM + applause.wav）
+├─ fonts/
+│  └─ GreatVibes.woff2   手寫體字型
+├─ img/
+│  └─ favicon.svg        網站圖示（聖誕球）
 ├─ data/
 │  └─ sample-roster.csv  範例名單
 └─ docs/

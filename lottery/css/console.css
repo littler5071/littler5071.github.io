@@ -152,7 +152,12 @@
 .draw-tip.warn { border-color: #6b4a1c; color: #ffcf94; background: rgba(245, 196, 97, .06); }
 
 /* ---------- ?湔? ---------- */
-.side { display: flex; flex-direction: column; overflow: hidden; min-height: 640px; }
+.side {
+  display: flex; flex-direction: column; overflow: hidden;
+  height: calc(100vh - 118px);
+  min-height: 560px;
+}
+.side.side-auto { height: auto; min-height: 0; }
 .tabs { display: flex; gap: 4px; padding: 12px 14px 0; border-bottom: 1px solid var(--line-soft); }
 .tabs button {
   border: 0; background: transparent; color: var(--dim);
@@ -173,8 +178,10 @@
 .body-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .body-actions .btn { font-size: 12.5px; padding: 8px 12px; }
 .body-actions .hint { margin-left: auto; }
-.scroll { overflow: auto; flex: 1; min-height: 0; max-height: 62vh; padding-right: 4px; }
-@media (max-height: 800px) { .scroll { max-height: 48vh; } }
+.scroll { overflow: auto; flex: 1; min-height: 0; padding-right: 4px; overscroll-behavior: contain; }
+
+/* 設定頁改用整頁捲動，避免內外兩層捲軸 */
+#tab-settings .scroll { overflow: visible; padding-right: 0; }
 
 /* 銝剔?蝝??*/
 .round { margin-bottom: 16px; }
@@ -215,6 +222,9 @@
 
 /* ?銵?*/
 #rosterTable td { font-variant-numeric: tabular-nums; }
+#rosterTable th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+#rosterTable th.sortable:hover { color: var(--gold); }
+#rosterTable th .sort-ind { color: var(--gold); font-size: 9px; letter-spacing: 0; }
 #rosterTable .row-no { color: var(--dim-2); font-size: 11px; }
 #rosterTable .won-tag {
   font-size: 9.5px; padding: 1px 6px; border-radius: 5px;
