@@ -293,14 +293,17 @@
 
   /* ---------------- 待機 / 狀態 ---------------- */
   // 直接開投影頁時，先讀一次本機設定（沒有控制台連線也有正確文字）
-  function localSettings() {
+  let localCfg = {};
+  function refreshLocalCfg() {
     try {
       const raw = localStorage.getItem('luckyDraw.v1');
-      if (!raw) return {};
-      const st = JSON.parse(raw);
-      return (st && st.settings) || {};
-    } catch (e) { return {}; }
+      localCfg = raw ? ((JSON.parse(raw) || {}).settings || {}) : {};
+    } catch (e) { localCfg = {}; }
+    return localCfg;
   }
+  function localSettings() { return localCfg.idleText !== undefined ? localCfg : refreshLocalCfg(); }
+  refreshLocalCfg();
+  window.addEventListener('storage', e => { if (e.key === 'luckyDraw.v1') refreshLocalCfg(); });
 
   function renderIdle() {
     setPhase('idle');
@@ -339,7 +342,7 @@
     syncBGM();
     // 待機中改字：立刻反映（不用重新整理投影）
     if (el.body.dataset.phase === 'idle') {
-      const _ls = localSettings();
+      const _ls = refreshLocalCfg();
       setName((snap.settings && snap.settings.idleText) || _ls.idleText || '聖誕快樂');
       el.eyebrow.textContent = (snap.settings && snap.settings.kickerText) || _ls.kickerText || 'MERRY CHRISTMAS';
     }
