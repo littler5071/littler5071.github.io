@@ -19,9 +19,9 @@
 /* ---------- 底色：奶油底＋紅／綠／金三色光 ---------- */
 body.stage .bg {
   background:
-    radial-gradient(ellipse 54% 46% at 12% 4%, rgba(200, 16, 46, .26), transparent 66%),
-    radial-gradient(ellipse 52% 44% at 90% 96%, rgba(16, 138, 74, .22), transparent 66%),
-    radial-gradient(ellipse 60% 50% at 50% 44%, rgba(255, 206, 120, .30), transparent 70%),
+    radial-gradient(ellipse 54% 46% at 12% 4%, rgba(200, 16, 46, .34), transparent 68%),
+    radial-gradient(ellipse 52% 44% at 90% 96%, rgba(16, 138, 74, .26), transparent 68%),
+    radial-gradient(ellipse 60% 50% at 50% 44%, rgba(255, 196, 92, .42), transparent 72%),
     radial-gradient(ellipse 86% 74% at 50% 46%, rgba(255, 252, 244, .94), transparent 76%),
     linear-gradient(160deg, #fff3e2 0%, #ffe9d6 44%, #fffaf0 100%);
 }
@@ -74,25 +74,22 @@ body.stage .rays {
 
 /* ---------- 文字：深紅＋金、白描邊，投影也清楚 ---------- */
 body.stage .event-name {
-  background: linear-gradient(92deg, #7a1020 0%, #c8102e 30%, #b3760f 62%, #7a1020 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, .95);
-  animation: fest-shine 8s linear infinite;
-  filter: drop-shadow(0 3px 10px rgba(122, 16, 32, .28));
+  background: none;
+  color: #7a1020;
+  -webkit-text-fill-color: #7a1020;
+  -webkit-text-stroke: 0;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, .95);
   font-weight: 800;
 }
 
 body.stage .stage-body .name {
-  background: linear-gradient(92deg, #8c0f24 0%, #c8102e 26%, #b3760f 52%, #8c0f24 78%, #c8102e 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 2.2px #ffffff;
+  background: none;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-text-stroke: 6px #a3122f;
   paint-order: stroke fill;
-  animation: fest-shine 7s linear infinite;
-  filter: drop-shadow(0 6px 16px rgba(122, 16, 32, .30));
+  text-shadow: 0 10px 28px rgba(120, 10, 30, .34);
+  animation: none;
 }
 
 body.stage .stage-body .dept {
@@ -103,8 +100,9 @@ body.stage .stage-body .dept {
 
 /* 小字與統計：加深 */
 body.stage .pool-info,
-body.stage .clock { color: #5a2418; font-weight: 700; }
-body.stage .hint { color: #6b4a3e; font-weight: 600; }
+body.stage .clock { color: #3f1a11; font-weight: 800; }
+body.stage .hint { color: #4a2c22; font-weight: 700; }
+body.stage .eyebrow { color: #7a1020; font-weight: 800; letter-spacing: .12em; }
 body.stage .pool-info,
 body.stage .clock,
 body.stage .hint,
@@ -148,7 +146,7 @@ body.stage .vignette::before {
   content: "";
   position: absolute; inset: 0;
   background: url("../img/bokeh.jpg") center / cover no-repeat;
-  opacity: .30;
+  opacity: .20;
   mix-blend-mode: multiply;
   -webkit-mask-image: radial-gradient(ellipse 58% 54% at 50% 48%, transparent 34%, #000 92%);
   mask-image: radial-gradient(ellipse 58% 54% at 50% 48%, transparent 34%, #000 92%);
@@ -159,4 +157,89 @@ body.stage .vignette::after {
   position: absolute; inset: 0;
   background: radial-gradient(ellipse 62% 58% at 50% 48%, rgba(255, 252, 244, .96) 38%, rgba(255, 252, 244, 0) 72%);
   pointer-events: none;
+}
+
+/* ---------- 松枝與聖誕樹剪影 ---------- */
+.xmas-deco { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+.xmas-deco .branch { fill: #14532d; opacity: .42; }
+.xmas-deco .tree { fill: #14532d; opacity: .22; }
+.xmas-deco .tree-star { fill: #b3760f; opacity: .30; }
+
+/* ---------- 啟動畫面（待機）加喜氣 ---------- */
+@keyframes fest-glow {
+  0%,100% { box-shadow: 0 0 40px rgba(255, 176, 60, .45), inset 0 0 0 2px rgba(255,255,255,.7); }
+  50%     { box-shadow: 0 0 78px rgba(255, 150, 40, .75), inset 0 0 0 2px rgba(255,255,255,.95); }
+}
+body.stage .unlock {
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 8%, rgba(200, 16, 46, .20), transparent 62%),
+    radial-gradient(ellipse 55% 48% at 88% 92%, rgba(16, 138, 74, .18), transparent 62%),
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 240, 214, .96), rgba(255, 250, 242, .92) 60%),
+    linear-gradient(160deg, #fff4e4, #ffeadb 50%, #fffbf3);
+  backdrop-filter: blur(6px);
+}
+body.stage .unlock-icon {
+  width: 92px; height: 92px;
+  font-size: 40px;
+  border: 2px solid rgba(200, 16, 46, .45);
+  background: radial-gradient(circle at 38% 28%, #fff3cf, #ffd98a 55%, #f3b64a 100%);
+  color: #a3122b;
+  animation: fest-glow 3s ease-in-out infinite;
+}
+body.stage .unlock-title {
+  font-size: clamp(24px, 2.6vw, 42px);
+  color: #a3122b;
+  text-shadow: 0 3px 0 rgba(255, 255, 255, .9), 0 10px 26px rgba(200, 16, 46, .18);
+}
+body.stage .unlock-title::after {
+  content: "";
+  display: block;
+  width: 150px; height: 4px;
+  margin: 14px auto 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, transparent, #c8102e, #d69e18, #16a34a, transparent);
+}
+body.stage .unlock-sub { color: #6b4a3e; font-weight: 700; }
+
+/* ---------- 待機畫面加強：燈串感＋按鈕化標題 ---------- */
+body.stage .unlock::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(200, 16, 46, .55) 0 4px, transparent 5px),
+    radial-gradient(circle at 34% 72%, rgba(214, 158, 24, .55) 0 5px, transparent 6px),
+    radial-gradient(circle at 68% 22%, rgba(16, 138, 74, .5) 0 4px, transparent 5px),
+    radial-gradient(circle at 88% 66%, rgba(200, 16, 46, .45) 0 5px, transparent 6px),
+    radial-gradient(circle at 50% 90%, rgba(214, 158, 24, .45) 0 4px, transparent 5px),
+    radial-gradient(circle at 20% 46%, rgba(214, 158, 24, .40) 0 3px, transparent 4px),
+    radial-gradient(circle at 78% 40%, rgba(16, 138, 74, .40) 0 3px, transparent 4px);
+  animation: fest-twinkle 4.2s ease-in-out infinite;
+  opacity: .85;
+}
+body.stage .unlock-box { position: relative; z-index: 1; }
+body.stage .unlock-icon {
+  width: 128px; height: 128px; font-size: 58px;
+  background: radial-gradient(circle at 36% 28%, #d81b3f, #a3122b 62%, #7a0d1f 100%);
+  border: 3px solid rgba(255, 214, 130, .95);
+  color: #ffd98a;
+}
+body.stage .unlock-title {
+  display: inline-block;
+  margin: 6px auto 0;
+  padding: 16px 44px;
+  font-size: clamp(24px, 2.4vw, 40px);
+  color: #fff;
+  border-radius: 999px;
+  background: linear-gradient(100deg, #b3122f, #d81b3f 42%, #e2571b 72%, #d69e18 100%);
+  border: 3px solid rgba(255, 214, 130, .95);
+  box-shadow: 0 16px 40px rgba(179, 18, 47, .35), inset 0 2px 0 rgba(255, 255, 255, .35);
+  text-shadow: 0 2px 6px rgba(90, 8, 22, .45);
+}
+body.stage .unlock-title::after { display: none; }
+body.stage .unlock-sub {
+  margin-top: 18px;
+  font-size: clamp(14px, 1.15vw, 20px);
+  color: #5a3428;
+  font-weight: 700;
 }
