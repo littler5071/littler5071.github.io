@@ -94,8 +94,11 @@ def inject(path):
     rel_file = os.path.relpath(path, SITE).replace("\\", "/")
     if rel_file in SKIP:
         return "skip（StatiCrypt 加密頁，不動）"
+    if rel_file.endswith("-jia/index.html"):
+        return "skip（-jia 必須與 latest 位元相同，18:40 排程驗 md5）"
 
     html = open(path, encoding="utf-8").read()
+    orig = html
     html, n_css = strip_old(html)
 
     rel = os.path.relpath(os.path.dirname(path), SITE).replace("\\", "/")
@@ -112,7 +115,7 @@ def inject(path):
     else:
         html = head_tags + html
 
-    if "</style>" in html:
+    if "</style>" in html and ".viewsline{" not in html.split("</style>", 1)[0]:
         html = html.replace("</style>", VIEWS_CSS + "</style>", 1)
 
     if "</body>" in html:
@@ -120,6 +123,8 @@ def inject(path):
     else:
         html += chr(10) + views_html(rel)
 
+    if html == orig:
+        return "unchanged"
     open(path, "w", encoding="utf-8", newline="\n").write(html)
     return "ok（移除舊樣式 %d 行）" % n_css
 
