@@ -18,28 +18,21 @@
 
 /* ---------- 底色：奶油底＋紅／綠／金三色光 ---------- */
 body.stage .bg {
-  background:
-    radial-gradient(ellipse 54% 46% at 12% 4%, rgba(200, 16, 46, .34), transparent 68%),
-    radial-gradient(ellipse 52% 44% at 90% 96%, rgba(16, 138, 74, .26), transparent 68%),
-    radial-gradient(ellipse 60% 50% at 50% 44%, rgba(255, 196, 92, .42), transparent 72%),
-    radial-gradient(ellipse 86% 74% at 50% 46%, rgba(255, 252, 244, .94), transparent 76%),
-    linear-gradient(160deg, #fff3e2 0%, #ffe9d6 44%, #fffaf0 100%);
+  background-image: url("../img/xmas-bg.jpg");
+  background-size: cover;
+  background-position: 32% 50%;
+  background-repeat: no-repeat;
 }
 
 /* 彩球光斑（紅／綠／金） */
 body.stage .bg::after {
   content: "";
-  position: absolute; inset: -12%;
+  position: absolute; inset: -6%;
   background:
-    radial-gradient(circle at 14% 20%, rgba(200, 16, 46, .30) 0 74px, transparent 78px),
-    radial-gradient(circle at 30% 74%, rgba(16, 138, 74, .24) 0 58px, transparent 62px),
-    radial-gradient(circle at 76% 16%, rgba(214, 158, 24, .34) 0 66px, transparent 70px),
-    radial-gradient(circle at 92% 58%, rgba(200, 16, 46, .22) 0 52px, transparent 56px),
-    radial-gradient(circle at 48% 92%, rgba(214, 158, 24, .28) 0 62px, transparent 66px),
-    radial-gradient(circle at 66% 40%, rgba(16, 138, 74, .18) 0 44px, transparent 48px);
-  filter: blur(16px);
+    radial-gradient(ellipse 52% 46% at 50% 46%, rgba(255, 253, 246, .95) 0%, rgba(255, 252, 244, .88) 44%, rgba(255, 250, 240, .58) 68%, rgba(255, 248, 236, 0) 88%),
+    linear-gradient(180deg, rgba(255, 250, 242, .55) 0%, rgba(255, 250, 242, 0) 26%, rgba(255, 248, 236, 0) 74%, rgba(255, 248, 236, .55) 100%);
   pointer-events: none;
-  animation: fest-drift1 28s ease-in-out infinite;
+  animation: none;
 }
 
 /* ---------- 頂端聖誕燈串 ---------- */
@@ -100,8 +93,8 @@ body.stage .stage-body .dept {
 
 /* 小字與統計：加深 */
 body.stage .pool-info,
-body.stage .clock { color: #3f1a11; font-weight: 800; }
-body.stage .hint { color: #4a2c22; font-weight: 700; }
+body.stage .clock { color: #33140c; font-weight: 800; text-shadow: 0 1px 3px rgba(255,255,255,.95); }
+body.stage .hint { color: #45261c; font-weight: 800; text-shadow: 0 1px 3px rgba(255,255,255,.95); }
 body.stage .eyebrow { color: #7a1020; font-weight: 800; letter-spacing: .12em; }
 body.stage .pool-info,
 body.stage .clock,
@@ -141,29 +134,7 @@ body.stage .brand-tag {
   body.stage .event-name, body.stage .stage-body .name { animation: none; }
 }
 
-/* ---------- 免費素材：聖誕散景照片（CC0，only 邊緣） ---------- */
-body.stage .vignette::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: url("../img/bokeh.jpg") center / cover no-repeat;
-  opacity: .20;
-  mix-blend-mode: multiply;
-  -webkit-mask-image: radial-gradient(ellipse 58% 54% at 50% 48%, transparent 34%, #000 92%);
-  mask-image: radial-gradient(ellipse 58% 54% at 50% 48%, transparent 34%, #000 92%);
-  pointer-events: none;
-}
-body.stage .vignette::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 62% 58% at 50% 48%, rgba(255, 252, 244, .96) 38%, rgba(255, 252, 244, 0) 72%);
-  pointer-events: none;
-}
 
-/* ---------- 松枝與聖誕樹剪影 ---------- */
-.xmas-deco { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
-.xmas-deco .branch { fill: #14532d; opacity: .42; }
-.xmas-deco .tree { fill: #14532d; opacity: .22; }
-.xmas-deco .tree-star { fill: #b3760f; opacity: .30; }
 
 /* ---------- 啟動畫面（待機）加喜氣 ---------- */
 @keyframes fest-glow {
@@ -172,11 +143,8 @@ body.stage .vignette::after {
 }
 body.stage .unlock {
   background:
-    radial-gradient(ellipse 60% 50% at 12% 8%, rgba(200, 16, 46, .20), transparent 62%),
-    radial-gradient(ellipse 55% 48% at 88% 92%, rgba(16, 138, 74, .18), transparent 62%),
-    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 240, 214, .96), rgba(255, 250, 242, .92) 60%),
-    linear-gradient(160deg, #fff4e4, #ffeadb 50%, #fffbf3);
-  backdrop-filter: blur(6px);
+    radial-gradient(ellipse 54% 48% at 50% 48%, rgba(255, 253, 246, .93) 0%, rgba(255, 251, 242, .86) 46%, rgba(255, 248, 236, .45) 72%, rgba(255, 246, 232, .22) 100%);
+  backdrop-filter: blur(3px) saturate(1.05);
 }
 body.stage .unlock-icon {
   width: 92px; height: 92px;

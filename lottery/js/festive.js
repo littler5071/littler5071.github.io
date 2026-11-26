@@ -92,66 +92,6 @@
   requestAnimationFrame(loop);
 
 
-  /* ---------- 松枝與聖誕樹剪影（純 SVG，舞台專用） ---------- */
-  function svgEl(name, attrs) {
-    var el = document.createElementNS("http://www.w3.org/2000/svg", name);
-    for (var k in attrs) el.setAttribute(k, attrs[k]);
-    return el;
-  }
-
-  function branch(len, thickness, flip) {
-    // 主枝：一條弧線，沿線長出針葉
-    var g = svgEl("g", { transform: flip ? "scale(-1,1)" : "" });
-    var stem = svgEl("path", {
-      d: "M0,0 C" + (len * 0.35) + "," + (-len * 0.16) + " " + (len * 0.72) + "," + (-len * 0.30) + " " + len + "," + (-len * 0.46),
-      stroke: "#14532d", "stroke-width": thickness, fill: "none", "stroke-linecap": "round", opacity: ".55"
-    });
-    g.appendChild(stem);
-    var n = 26;
-    for (var i = 3; i < n; i++) {
-      var t = i / n;
-      var x = len * t;
-      var y = -len * 0.46 * t * t - len * 0.10 * t;
-      var nl = (1 - t) * len * 0.16 + len * 0.03;
-      var up = svgEl("path", {
-        d: "M" + x + "," + y + " l" + (nl * 0.75) + "," + (-nl) + " M" + x + "," + y + " l" + (nl * 0.85) + "," + (nl * 0.55),
-        stroke: "#14532d", "stroke-width": Math.max(1.4, thickness * 0.28), "stroke-linecap": "round", fill: "none", opacity: ".5"
-      });
-      g.appendChild(up);
-    }
-    return g;
-  }
-
-  function buildDeco() {
-    var svg = svgEl("svg", {
-      class: "xmas-deco", viewBox: "0 0 1280 720", preserveAspectRatio: "xMidYMid slice"
-    });
-    // 左下松枝
-    var g1 = svgEl("g", { transform: "translate(-40,760) rotate(-14)" });
-    g1.appendChild(branch(560, 16, false));
-    g1.appendChild(branch(430, 12, false).cloneNode(true));
-    svg.appendChild(g1);
-    // 右下松枝（鏡像）
-    var g2 = svgEl("g", { transform: "translate(1320,770) rotate(194)" });
-    g2.appendChild(branch(560, 16, false));
-    svg.appendChild(g2);
-
-    // 聖誕樹剪影（左下，淡淡的）
-    var tree = svgEl("g", { class: "tree", transform: "translate(120, 620) scale(1)" });
-    tree.appendChild(svgEl("path", { d: "M0,0 L120,-300 L240,0 Z" }));
-    tree.appendChild(svgEl("path", { d: "M18,-60 L120,-330 L222,-60 Z" }));
-    tree.appendChild(svgEl("path", { d: "M40,-150 L120,-400 L200,-150 Z" }));
-    tree.appendChild(svgEl("rect", { x: "108", y: "0", width: "24", height: "54", fill: "#5b3a1e", opacity: ".5" }));
-    svg.appendChild(tree);
-    var star = svgEl("path", {
-      class: "tree-star",
-      d: "M120,-430 l10,26 28,2 -22,18 7,28 -23,-15 -23,15 7,-28 -22,-18 28,-2 z"
-    });
-    svg.appendChild(star);
-
-    document.body.appendChild(svg);
-  }
-  buildDeco();
 
   // 中獎時噴彩帶：監看 #winners / #name 的變化
   function watch(el, cb) {
