@@ -138,7 +138,14 @@ def main() -> None:
         if _had_canon:
             _blk = re.sub("<link rel=\"canonical\"[^>]*>\\n\\n?", "", _blk)
         if _pos is None:
-            new = new.replace("</head>", _blk + "</head>", 1)
+            # 新頁（產生器剛寫好、還沒有 SEO 區塊）要插在 nav.css 那一行「之前」：
+            # 全站 245 頁的既有慣例是「SEO 區塊在前、nav 三行在最後」，
+            # 插在 </head> 會變成 nav 在前，下次產生器重寫又以另一種順序寫回 → 每晚來回搬三行。
+            _navm = re.search(r"[ \t]*<link[^>]*nav\.css[^>]*>\n", new)
+            if _navm:
+                new = new[:_navm.start()] + _blk + new[_navm.start():]
+            else:
+                new = new.replace("</head>", _blk + "</head>", 1)
         else:
             new = new[:_pos] + _blk + new[_pos:]
         n_seo += 1
