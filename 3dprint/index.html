@@ -58,12 +58,6 @@
   th{background:#f0ebe1;font-size:13px}
   tr:last-child td{border-bottom:0}
   footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
-  /* hermesviews（瀏覽次數） */
-  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
-        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
-  .viewsline .vnum{color:#364e70}
-  .viewsline .vnum.vnum-on{color:#bf4a3a}
-  .viewsline .vnum.vnum-off{color:#78706a}
 
   .wt{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;
     background:#fff1e6;color:#a8552a;font-size:11px;font-weight:700;vertical-align:1px}
@@ -75,6 +69,12 @@
   .meta{display:inline-flex;align-items:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;vertical-align:1px}
   .meta .dl{margin:0}
   .meta .wt,.meta .pt{margin-left:0}
+  /* hermesviews（瀏覽次數） */
+  .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
+        border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
+  .viewsline .vnum{color:#364e70}
+  .viewsline .vnum.vnum-on{color:#bf4a3a}
+  .viewsline .vnum.vnum-off{color:#78706a}
 </style>
 <!-- hermes-seo -->
 <meta name="keywords" content="小R頻道, 小R 頻道, 小R, 小R老師, xiaor, AI 助理實測, 股市觀察, 多益英文, 台股觀察">
@@ -352,6 +352,6 @@
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
 })();
 </script>
-<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="18" data-views>—</span></div>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views-fallback="24" data-views>—</span></div>
 </body>
 </html>

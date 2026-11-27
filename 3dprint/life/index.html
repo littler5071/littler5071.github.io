@@ -52,16 +52,16 @@
   th{background:#f0ebe1;font-size:13px}
   tr:last-child td{border-bottom:0}
   footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
+
+  .meta{display:inline-flex;align-items:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;vertical-align:1px}
+  .meta .dl{margin:0}
+  .meta .wt,.meta .pt{margin-left:0}
   /* hermesviews（瀏覽次數） */
   .viewsline{max-width:1000px;margin:30px auto 0;padding:16px 18px 30px;text-align:center;
         border-top:2px dashed #d9d1c2;font-size:13px;color:#78706a}
   .viewsline .vnum{color:#364e70}
   .viewsline .vnum.vnum-on{color:#bf4a3a}
   .viewsline .vnum.vnum-off{color:#78706a}
-
-  .meta{display:inline-flex;align-items:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;vertical-align:1px}
-  .meta .dl{margin:0}
-  .meta .wt,.meta .pt{margin-left:0}
 </style>
 <style>
   .backrow{margin:0 0 14px}
@@ -84,6 +84,9 @@
   .pt{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;
     background:#eaf2ff;color:#2f5aa8;font-size:11px;font-weight:700;vertical-align:1px}
 </style>
+<link rel="stylesheet" href="../../nav.css?v=b7b27715">
+<script defer src="../../nav.js?v=887e3871"></script>
+<script defer src="../../counter.js?v=e837f732"></script>
 </head>
 <body>
 <div class="wrap">
@@ -202,5 +205,6 @@
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
 })();
 </script>
+<div class="viewsline">瀏覽次數 <span class="vnum" data-views>—</span></div>
 </body>
 </html>
