@@ -35,9 +35,9 @@
   figure img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);
     box-shadow:0 10px 26px rgba(70,50,35,.10);display:block}
   figcaption{color:var(--sub);font-size:13px;margin-top:8px;line-height:1.6}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
-  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-  .kpi b{display:block;font-size:30px;line-height:1.2;color:var(--accent);font-family:var(--mono)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}
+  .kpi b{display:block;font-size:clamp(24px,3vw,30px);line-height:1.2;color:var(--accent);font-family:var(--mono)}
   .kpi span{font-size:13.5px;color:var(--sub)}
   .box{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
     border-radius:12px;padding:14px 18px;margin:18px 0}
