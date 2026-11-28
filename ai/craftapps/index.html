@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Craft Apps 實測：AI 兩個月重寫 Adobe 全家桶，能用了嗎？｜小R頻道</title>
+<meta name="description" content="開源 Rust 版 Adobe 全家桶 ArtCraft／Craft Apps 實測報告：17 個 App、8 萬顆星背後的真相，桌面版實際開檔、Web 版實測失敗、成熟度與風險完整分析。">
+<style>
+  :root{
+    --ink:#211d19; --sub:#6b6357; --line:#e5dfd4; --card:#fffdf8; --accent:#c2452d;
+    --bg:#f8f5ef; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.85;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    -webkit-text-size-adjust:100%;position:relative}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(120,100,80,.10) 1px,transparent 1px);
+    background-size:22px 22px;opacity:.55}
+  .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:30px clamp(16px,5vw,44px) 70px}
+  a{color:var(--accent)}
+  .backlink{color:var(--sub);text-decoration:none;font-size:14px}
+  .kicker{display:inline-block;font-size:12.5px;letter-spacing:.14em;color:var(--accent);
+    font-weight:800;margin:20px 0 6px}
+  h1{font-size:clamp(25px,5.2vw,40px);line-height:1.35;margin:6px 0 12px;letter-spacing:-.01em;text-wrap:balance}
+  .lead{font-size:clamp(15px,2.2vw,17.5px);color:#463f37;margin:0 0 8px}
+  .meta{color:var(--sub);font-size:13px;margin:0 0 24px}
+  h2{font-size:clamp(19px,3.3vw,24px);margin:40px 0 10px;padding-top:6px}
+  h2 .num{color:var(--accent);font-family:var(--mono);font-size:.8em;margin-right:8px}
+  h3{font-size:clamp(16px,2.6vw,18.5px);margin:24px 0 6px}
+  p{margin:0 0 12px}
+  ul,ol{margin:0 0 14px;padding-left:22px}
+  li{margin:5px 0}
+  figure{margin:20px 0}
+  figure img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);
+    box-shadow:0 10px 26px rgba(70,50,35,.10);display:block}
+  figcaption{color:var(--sub);font-size:13px;margin-top:8px;line-height:1.6}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .kpi b{display:block;font-size:30px;line-height:1.2;color:var(--accent);font-family:var(--mono)}
+  .kpi span{font-size:13.5px;color:var(--sub)}
+  .box{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:12px;padding:14px 18px;margin:18px 0}
+  .box.ok{border-left-color:#4f8a5b}
+  .box.warn{border-left-color:#c98a2a}
+  .box p:last-child{margin-bottom:0}
+  code{font-family:var(--mono);font-size:.92em;background:#fff;border:1px solid var(--line);
+    padding:1px 6px;border-radius:5px}
+  .verdict{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:22px 0}
+  .verdict h3{margin-top:0}
+  .foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--sub);font-size:13.5px}
+  .tag{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;
+    background:#fff;border:1px solid var(--line);color:var(--sub);margin:0 6px 6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="../../">← 小R頻道</a>
+  <div class="kicker">實測報告 / ART CRAFT</div>
+  <h1>AI 用兩個月重寫 Adobe 全家桶：Craft Apps 到底能不能用？</h1>
+  <p class="lead">8 萬顆星的開源專案、17 個純 Rust 寫的創作軟體、免費下載。我把它裝起來、開了一張 1600×1067 的圖、也試了網頁版，這篇是把「看起來能用」與「真的能用」分開的實測紀錄。</p>
+  <p class="meta">實測日期 2026-11-28｜PhotoCraft 0.23.1（2026-11-12 版）｜Linux x86_64 / 軟體渲染</p>
+
+  <div class="cards">
+    <div class="kpi"><b>81.9k</b><span>PhotoCraft 星星數</span></div>
+    <div class="kpi"><b>17</b><span>整套 App 數量</span></div>
+    <div class="kpi"><b>126 MB</b><span>Linux 版安裝檔</span></div>
+    <div class="kpi"><b>219 MB</b><span>實測記憶體佔用</span></div>
+  </div>
+
+  <h2><span class="num">01</span>這是什麼</h2>
+  <p>一句話：<b>一群人用 AI 輔助、以 Rust 從零重寫 Adobe Creative Suite 的開源專案</b>，授權 Apache-2.0，免費下載，Windows／macOS／Linux／FreeBSD／網頁版都有。</p>
+  <p>它的主張是「clean-room（淨室）重寫」：不看對手原始碼，只依照功能與操作習慣重做，所以選單、快捷鍵、面板位置都刻意做成 Adobe 使用者熟悉的樣子。</p>
+  <h3>對應關係（官方定位）</h3>
+  <ul>
+    <li><b>PhotoCraft</b> ↔ Photoshop｜<b>LightCraft</b> ↔ Lightroom｜<b>VectorCraft</b> ↔ Illustrator</li>
+    <li><b>FilmCraft</b> ↔ Premiere｜<b>EffectCraft</b> ↔ After Effects｜<b>AniCraft</b> ↔ Animate</li>
+    <li><b>DesignCraft</b> ↔ InDesign｜<b>FigCraft</b> ↔ Figma｜<b>PdfCraft</b> ↔ Acrobat</li>
+    <li><b>TextureCraft</b> ↔ Substance Painter｜<b>MaterialCraft</b> ↔ Substance Designer</li>
+    <li><b>SoundCraft</b> ↔ Audition｜<b>WordCraft</b>／<b>DeckCraft</b>／<b>GridCraft</b> ↔ Office 三件套</li>
+    <li><b>CADCraft</b> ↔ AutoCAD｜<b>Craft Anything</b>：用 AI 理解並改造軟體本身</li>
+  </ul>
+
+  <h2><span class="num">02</span>熱度：兩個月長到 8 萬星</h2>
+  <p>我直接查 GitHub API，不看新聞稿：</p>
+  <ul>
+    <li>PhotoCraft：<b>81,901 星</b>、14,396 fork、<b>5,917 個未關閉 issue</b>（repo 建立於 2026-09-30）</li>
+    <li>ArtCraft 主 repo：<b>42,556 星</b>、821 個 issue（建立於 2022，但 2026 年才轉向這個路線）</li>
+    <li>CADCraft：8,561 星、1,361 個 issue（2026-10-07 建立）</li>
+    <li>啟動器 Launcher：5,695 星、865 個 issue（2026-10-09 建立）</li>
+    <li>最新版 v0.23.1：Linux x86_64 AppImage <b>126.0 MB</b>、deb 135 MB、flatpak 99.7 MB</li>
+  </ul>
+  <div class="box warn">
+    <p><b>但星星不等於品質。</b>PhotoCraft 的 issue 編號已經跑到 <code>#17000</code> 以上——兩個月內上萬筆 issue 與 PR，這是「AI 代理大量產出」的典型指紋，維護者根本消化不完 5,917 個未關閉 issue。</p>
+  </div>
+
+  <h2><span class="num">03</span>實測一：桌面版真的開得起來</h2>
+  <p>測試環境是 Linux，顯示卡是軟體渲染（沒有 GPU 加速）。AppImage 解開後直接執行，大約 <b>20 秒</b>進入主畫面，記憶體佔用 <b>219 MB</b>。</p>
+  <p>介面完整：上方 File／Edit／Image／Layer／Type／Select／Filter／View／Window／Help 十個選單、左側一整排工具、右側 Color／Adjustments／Layers 面板、底部狀態列。</p>
+  <figure>
+    <img src="img/editor.jpg" alt="PhotoCraft 實際開啟 PNG 後的編輯介面">
+    <figcaption>實測：用檔案參數開啟一張 1600×1067 的 PNG。狀態列顯示「Opened pctest.png」、縮放 72.3%、色彩模式 RGB/8，右側 Layers 有 Background 圖層。這是真的編輯器，不是截圖。</figcaption>
+  </figure>
+  <div class="box ok">
+    <p><b>通過的項目：</b>啟動、開 PNG、畫布正確顯示、工具列／圖層／色彩面板齊全、文件尺寸與色彩模式正確、可切換工具（我測到漸層工具與其選項列）。</p>
+  </div>
+  <div class="box warn">
+    <p><b>沒過關的項目：</b>在軟體渲染環境下，它會跳出「Switched to CPU rendering」警告並切到 CPU 合成，狀態列固定顯示 <code>CPU Rendering</code>；也就是說它<b>吃 GPU 吃很重</b>，沒有硬體加速的機器（像虛擬機、遠端桌面）體驗會明顯掉。</p>
+  </div>
+  <figure>
+    <img src="img/cpu-fallback.jpg" alt="PhotoCraft 在軟體渲染環境跳出 CPU 渲染警告">
+    <figcaption>沒有 GPU 時的實際畫面：程式沒有崩潰，但直接降級成 CPU 合成，並建議你「先存檔再重試 GPU」。</figcaption>
+  </figure>
+
+  <h2><span class="num">04</span>實測二：網頁版目前載不起來</h2>
+  <p>官方有出 <code>photocraft-web-0.23.1.zip</code>（15.3 MB），我把它解開、用本機伺服器跑，結果卡在「Loading PhotoCraft…」，主控台出現：</p>
+  <ul>
+    <li><code>GET /app/snippets/eframe-…/inline0.js → 404</code></li>
+    <li>頁面接著顯示「This is taking longer than expected… files may have failed to download」</li>
+  </ul>
+  <figure>
+    <img src="img/web-broken.jpg" alt="PhotoCraft 網頁版卡在 Loading PhotoCraft">
+    <figcaption>網頁版實測：啟動用的檔案少了一個，卡在載入畫面。這是打包缺檔，不是我的環境問題（同一個瀏覽器開 unkernel 的 WebAssembly 頁面是正常的）。</figcaption>
+  </figure>
+  <p>這一點很重要：<b>如果你想「點開網頁就能用」，現在還不行</b>，得裝桌面版。</p>
+
+  <h2><span class="num">05</span>技術架構：不是包一層瀏覽器</h2>
+  <ul>
+    <li><b>純 Rust、沒有 Electron</b>：原生 GPU canvas，走 Metal／Vulkan／DirectX 12／WebGPU</li>
+    <li><b>真的讀寫 PSD／PSB</b>：官方稱 135 個真實檔案有 134 個位元組級往返一致（我沒有逐一驗證，但格式支援是它最有價值的部分）</li>
+    <li><b>非破壞性編輯</b>：16 種調整圖層、70+ 即時濾鏡、智慧物件、圖層樣式</li>
+    <li><b>色彩管理</b>：8／16／32-bit、RGB／CMYK／Lab／灰階、ICC 與軟打樣</li>
+    <li><b>Agent-ready</b>：CLI、JSON 控制通道、MCP server，可以被 AI 直接驅動</li>
+  </ul>
+  <p>這個架構解釋了兩件事：為什麼它啟動只要幾秒（沒有 Chromium）、為什麼在沒有 GPU 的機器上會強制降級（合成器真的在 GPU 上跑）。</p>
+
+  <h2><span class="num">06</span>成熟度：官方自己說是 early alpha</h2>
+  <p>官網每個 App 都標 <b>Early alpha／In development</b>，這不是我下的評語。外部評價也很兩極：</p>
+  <ul>
+    <li>Hacker News 反方：「我打開 PhotoCraft，載入幾個簡單的排版專案，幾乎什麼都不能用。」</li>
+    <li>Hacker News 正方：「大約是 GIMP／Affinity 的 75%，速度與記憶體還更好。」</li>
+    <li>德國 c't 實測（Spiegel 摘要）：像真的，但離日常工作還很遠。</li>
+    <li>Phoronix 的標題直接寫：「AI 做出 Adobe Photoshop／Premiere 的開源 clean-room 實作」。</li>
+  </ul>
+  <p>我的實測結果正好落在中間：<b>開啟、顯示、面板、工具切換都正常</b>；但這是「檔案進得去、畫面出得來」的等級，還不到「拿它交件」。</p>
+
+  <h2><span class="num">07</span>風險與要注意的地方</h2>
+  <ol>
+    <li><b>看起來能用，是最危險的地方。</b>選單、快捷鍵、面板都跟 Adobe 一樣，很容易讓人以為可以接手正式案，結果在某個關鍵功能才發現沒做。</li>
+    <li><b>維護能量被稀釋。</b>5,917 個未關閉 issue、上萬筆 PR，代表審查與修復的品質很難穩定。</li>
+    <li><b>授權要看清。</b>主要 repo 是 Apache-2.0，但 <code>artcraft-services</code> 顯示 NOASSERTION（不明確）；要商用整合前必須逐一確認。</li>
+    <li><b>網頁版現階段不可用</b>（我實測的缺檔問題）。</li>
+    <li><b>沒有 GPU 的環境體驗差很多</b>，遠端桌面、虛擬機要留意。</li>
+  </ol>
+
+  <h2><span class="num">08</span>誰適合、誰不適合</h2>
+  <div class="verdict">
+    <h3>適合</h3>
+    <ul>
+      <li>想觀察「AI 寫大型軟體能到什麼程度」的人（這是最好的樣本）</li>
+      <li>Linux 使用者想找原生、免費的看圖／轉檔／簡單編修工具</li>
+      <li>要做內容的人：這題材自帶討論度，實測比轉貼新聞更有說服力</li>
+    </ul>
+    <h3>不適合</h3>
+    <ul>
+      <li>要交件、要趕稿、要跟客戶交付 PSD 的工作流（現在還不行）</li>
+      <li>需要穩定批次處理、腳本自動化的生產環境</li>
+      <li>期待「網頁打開就能用」的人（現階段請裝桌面版）</li>
+    </ul>
+  </div>
+
+  <h2><span class="num">09</span>怎麼試</h2>
+  <ul>
+    <li>啟動器（會幫你選平台）：<a href="https://github.com/storytold/craft-launcher/releases" target="_blank" rel="noopener">github.com/storytold/craft-launcher/releases</a></li>
+    <li>PhotoCraft 單獨下載：<a href="https://github.com/storytold/photocraft/releases" target="_blank" rel="noopener">github.com/storytold/photocraft/releases</a></li>
+    <li>官網：<a href="https://getartcraft.com/apps" target="_blank" rel="noopener">getartcraft.com/apps</a></li>
+  </ul>
+  <p class="foot">實測方式：Linux x86_64、PhotoCraft 0.23.1 AppImage（126 MB）＋ 官方網頁版 0.23.1；原始截圖為 1600×1000。<br>
+  星數與 issue 數取自 GitHub API（2026-11-28）。本文為個人實測，非官方評論。</p>
+</div>
+</body>
+</html>
