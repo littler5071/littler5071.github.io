@@ -102,7 +102,7 @@
     <figcaption>實測：用檔案參數開啟一張 1600×1067 的 PNG。狀態列顯示「Opened pctest.png」、縮放 72.3%、色彩模式 RGB/8，右側 Layers 有 Background 圖層。這是真的編輯器，不是截圖。</figcaption>
   </figure>
   <div class="box ok">
-    <p><b>通過的項目：</b>啟動、開 PNG、畫布正確顯示、工具列／圖層／色彩面板齊全、文件尺寸與色彩模式正確、可切換工具（我測到漸層工具與其選項列）。</p>
+    <p><b>通過的項目：</b>啟動、開 PNG、畫布正確顯示、工具列／圖層／色彩面板齊全、文件尺寸與色彩模式正確、工具選項列會隨工具變化（實測畫面為漸層工具的 Reverse／Dither 選項）。</p>
   </div>
   <div class="box warn">
     <p><b>沒過關的項目：</b>在軟體渲染環境下，它會跳出「Switched to CPU rendering」警告並切到 CPU 合成，狀態列固定顯示 <code>CPU Rendering</code>；也就是說它<b>吃 GPU 吃很重</b>，沒有硬體加速的機器（像虛擬機、遠端桌面）體驗會明顯掉。</p>
