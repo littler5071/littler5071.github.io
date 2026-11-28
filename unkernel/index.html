@@ -99,16 +99,17 @@
   <div class="cmds">
     <div class="cmd"><code>uname -a</code><span>看核心版本與架構（會顯示 aarch64）</span></div>
     <div class="cmd"><code>cat /proc/cpuinfo</code><span>看模擬出來的 CPU 與特性</span></div>
-    <div class="cmd"><code>free -m</code><span>看記憶體（預設 2 GB）</span></div>
-    <div class="cmd"><code>apk add htop</code><span>真的從 Alpine 官方鏡像裝套件</span></div>
-    <div class="cmd"><code>python3 -c "print(2**100)"</code><span>裝完 Python 直接跑</span></div>
-    <div class="cmd"><code>df -h</code><span>看 rootfs 與 overlay</span></div>
+    <div class="cmd"><code>free -m</code><span>看記憶體用量</span></div>
+    <div class="cmd"><code>df -h</code><span>看 rootfs 與 overlay 掛載</span></div>
+    <div class="cmd"><code>ps</code><span>看真正的行程表（不是假殼）</span></div>
+    <div class="cmd"><code>awk 'BEGIN{print 2^100}'</code><span>跑一個大數運算</span></div>
   </div>
 
   <h2>要知道的三件事</h2>
   <ul class="note">
     <li><b>只有 aarch64</b>：x86 的 Linux 執行檔、Windows 的 exe 不能跑。</li>
     <li><b>關掉分頁就重來</b>：這個示範沒接持久磁碟；官方版本可以把資料碟存在瀏覽器裡。</li>
+    <li><b>這個頁面離線執行</b>：套件安裝（<code>apk add</code>）走代理，只允許官方網域，所以這裡不提供；官方站台可以。</li>
     <li><b>不是沙箱</b>：它是模擬層，不要拿來跑不信任的程式，也別當伺服器。</li>
   </ul>
 
