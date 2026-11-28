@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>瀏覽器裡的 Linux：unkernel 實測｜小R頻道</title>
+<meta name="description" content="不用安裝、不用伺服器，在瀏覽器裡開一台真的 Linux：Alpine 3.24、aarch64、核心 7.3.4 編譯成 WebAssembly，1 秒內開機。">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css">
+<style>
+  :root{
+    --ink:#1c1a17; --sub:#6b6357; --line:#e3ddd2; --card:#fffdf8; --accent:#c2452d;
+    --bg:#f7f4ee; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.75;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:960px;margin:0 auto;padding:28px clamp(16px,5vw,40px) 64px}
+  .backlink{color:var(--sub);text-decoration:none;font-size:14px}
+  .backlink:hover{color:var(--accent)}
+  h1{font-size:clamp(24px,5vw,38px);line-height:1.35;margin:14px 0 10px;letter-spacing:-.01em}
+  .lead{color:#4a443b;margin:0 0 6px}
+  .stamp{color:var(--sub);font-size:13px;margin:0 0 22px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+  .chip{font-size:12.5px;padding:4px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);color:#5b5348}
+  .chip b{color:var(--accent)}
+  .stage{background:#14110f;border-radius:14px;overflow:hidden;border:1px solid #2a2521;
+    box-shadow:0 18px 40px rgba(60,40,30,.18)}
+  .stage-head{display:flex;align-items:center;gap:10px;padding:9px 14px;background:#1d1916;border-bottom:1px solid #2a2521}
+  .dot{width:10px;height:10px;border-radius:50%;background:#3b3430}
+  .dot.r{background:#e05a4f}.dot.y{background:#e0a33f}.dot.g{background:#4fae6a}
+  .stage-title{font-family:var(--mono);font-size:12.5px;color:#9a908a;margin-left:6px}
+  .stage-badge{margin-left:auto;font-size:12px;color:#bdb3ab;font-family:var(--mono)}
+  #term{height:min(62vh,520px);padding:10px 8px 12px}
+  .xterm{padding:0}
+  .boot{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;
+    background:rgba(20,17,15,.92);color:#e8ded6;text-align:center;padding:24px}
+  .stage-body{position:relative}
+  .btn{appearance:none;border:0;cursor:pointer;font-weight:800;font-size:16px;
+    padding:14px 30px;border-radius:999px;color:#fff;letter-spacing:.02em;
+    background:linear-gradient(100deg,#c2452d,#e06a33 60%,#d69e18);
+    box-shadow:0 12px 26px rgba(194,69,45,.35)}
+  .btn:disabled{opacity:.6;cursor:progress}
+  .btn.ghost{background:transparent;border:1px solid #4a423c;color:#e8ded6;box-shadow:none;font-size:14px;padding:9px 18px}
+  .hint{color:#a89d95;font-size:13px;margin:0}
+  .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0 0}
+  .kbd{font-family:var(--mono);font-size:12px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+  h2{font-size:clamp(18px,3.4vw,22px);margin:34px 0 8px}
+  .cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0 0}
+  .cmd{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 13px}
+  .cmd code{font-family:var(--mono);font-size:13.5px;color:var(--accent);font-weight:700}
+  .cmd span{display:block;color:var(--sub);font-size:13px;margin-top:2px}
+  ul.note{margin:8px 0 0;padding-left:20px;color:#3a352e}
+  ul.note li{margin:5px 0}
+  .foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--sub);font-size:13.5px}
+  @media (max-width:520px){
+    #term{height:min(64vh,460px)}
+    .stage-title{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="../">← 小R頻道</a>
+  <h1>在瀏覽器裡開一台 Linux，1 秒開機</h1>
+  <p class="lead">這不是遠端連線、也不是假殼。核心（Linux 7.3.4）真的被編譯成 WebAssembly，跑在你這台裝置的瀏覽器裡；使用者程式是未經修改的 Alpine aarch64 套件。</p>
+  <p class="stamp">unkernel 0.2.0 實測｜Alpine 3.24.4｜核心 7.3.4+ aarch64</p>
+
+  <div class="chips">
+    <span class="chip">核心 <b>Linux 7.3.4</b></span>
+    <span class="chip">發行版 <b>Alpine 3.24.4</b></span>
+    <span class="chip">架構 <b>aarch64</b></span>
+    <span class="chip">第一次載入 <b>約 15 MB</b></span>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="stage-title">root@unkernel — sh</span>
+      <span class="stage-badge" id="badge">待機</span>
+    </div>
+    <div class="stage-body">
+      <div id="term"></div>
+      <div class="boot" id="boot">
+        <p class="hint" id="bootMsg">按下面的按鈕啟動（第一次會下載約 15 MB，之後走瀏覽器快取）</p>
+        <button class="btn" id="startBtn">啟動 Linux</button>
+        <p class="hint">手機也可以，點終端機就會叫出鍵盤</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bar">
+    <button class="btn ghost" id="restartBtn" disabled>重新開機</button>
+    <button class="btn ghost" id="fsBtn" disabled>全螢幕</button>
+    <span class="hint" id="stat"></span>
+  </div>
+
+  <h2>可以試這些</h2>
+  <div class="cmds">
+    <div class="cmd"><code>uname -a</code><span>看核心版本與架構（會顯示 aarch64）</span></div>
+    <div class="cmd"><code>cat /proc/cpuinfo</code><span>看模擬出來的 CPU 與特性</span></div>
+    <div class="cmd"><code>free -m</code><span>看記憶體（預設 2 GB）</span></div>
+    <div class="cmd"><code>apk add htop</code><span>真的從 Alpine 官方鏡像裝套件</span></div>
+    <div class="cmd"><code>python3 -c "print(2**100)"</code><span>裝完 Python 直接跑</span></div>
+    <div class="cmd"><code>df -h</code><span>看 rootfs 與 overlay</span></div>
+  </div>
+
+  <h2>要知道的三件事</h2>
+  <ul class="note">
+    <li><b>只有 aarch64</b>：x86 的 Linux 執行檔、Windows 的 exe 不能跑。</li>
+    <li><b>關掉分頁就重來</b>：這個示範沒接持久磁碟；官方版本可以把資料碟存在瀏覽器裡。</li>
+    <li><b>不是沙箱</b>：它是模擬層，不要拿來跑不信任的程式，也別當伺服器。</li>
+  </ul>
+
+  <div class="foot">
+    技術來源：<a href="https://github.com/pithings/unkernel" target="_blank" rel="noopener">pithings/unkernel</a>（核心與模擬器 GPL-2.0、JS SDK MIT）｜
+    官方示範：<a href="https://www.unkernel.dev/" target="_blank" rel="noopener">unkernel.dev</a>
+  </div>
+</div>
+
+<script type="module">
+const $ = (id) => document.getElementById(id);
+const badge = $("badge"), bootBox = $("boot"), bootMsg = $("bootMsg");
+const startBtn = $("startBtn"), restartBtn = $("restartBtn"), fsBtn = $("fsBtn"), stat = $("stat");
+
+let term, fitAddon, vm = null, booting = false;
+
+async function makeTerm() {
+  const [{ Terminal }, { FitAddon }] = await Promise.all([
+    import("https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/+esm"),
+    import("https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/+esm"),
+  ]);
+  term = new Terminal({
+    cursorBlink: true, fontSize: 13.5, fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace',
+    theme: { background: "#14110f", foreground: "#e8ded6", cursor: "#e0a33f",
+             selectionBackground: "#3b3430", black: "#14110f", brightBlack: "#6b6357" },
+    convertEol: false, scrollback: 1200,
+  });
+  fitAddon = new FitAddon();
+  term.loadAddon(fitAddon);
+  term.open($("term"));
+  try { fitAddon.fit(); } catch (e) {}
+  window.addEventListener("resize", () => { try { fitAddon.fit(); } catch (e) {} });
+}
+
+function setBadge(t) { badge.textContent = t; }
+
+async function boot() {
+  if (booting) return;
+  booting = true;
+  startBtn.disabled = true; restartBtn.disabled = true; fsBtn.disabled = true;
+  bootBox.style.display = "flex";
+  bootMsg.textContent = "正在載入核心與 Alpine（約 15 MB）…";
+  setBadge("載入中");
+
+  try {
+    if (!term) await makeTerm();
+    term.reset();
+    term.write("正在啟動 unkernel（第一次比較慢，之後有快取）…\r\n");
+
+    const mod = await import("./lib/web.mjs");
+    if (mod.checkSupport) {
+      const sup = mod.checkSupport();
+      if (sup && sup.ok === false) throw new Error("這個瀏覽器不支援（需要 WebAssembly JSPI）");
+    }
+
+    vm = await mod.createKernel({ distro: "./distros/alpine.erofs" });
+
+    vm.onOutput((bytes) => term.write(new Uint8Array(bytes)));
+
+    term.onData((d) => { try { vm.write(d); } catch (e) {} });
+    setTimeout(() => { try { fitAddon.fit(); vm.resize(term.cols, term.rows); } catch (e) {} }, 300);
+    window.addEventListener("resize", () => { try { vm.resize(term.cols, term.rows); } catch (e) {} });
+
+    vm.exited.then(({ code, kind }) => {
+      term.write(`\r\n[系統結束 code=${code} kind=${kind}]\r\n`);
+      setBadge("已結束");
+      booting = false; restartBtn.disabled = false;
+    });
+
+    bootBox.style.display = "none";
+    setBadge("執行中");
+    restartBtn.disabled = false; fsBtn.disabled = false;
+
+    if (vm.stats) {
+      const s = vm.stats();
+      const mem = s && (s.memoryMiB || (s.kernel && s.kernel.memoryMiB));
+      stat.textContent = mem ? `記憶體 ${mem} MB｜JIT 開啟` : "JIT 開啟";
+    }
+  } catch (err) {
+    console.error(err);
+    bootMsg.textContent = "啟動失敗：" + (err && err.message ? err.message : String(err));
+    startBtn.disabled = false;
+    setBadge("失敗");
+  } finally {
+    booting = false;
+  }
+}
+
+startBtn.addEventListener("click", boot);
+
+restartBtn.addEventListener("click", async () => {
+  try { if (vm && vm.stop) vm.stop(); } catch (e) {}
+  vm = null;
+  bootBox.style.display = "flex";
+  bootMsg.textContent = "重新開機中…";
+  await boot();
+});
+
+fsBtn.addEventListener("click", () => {
+  const el = document.querySelector(".stage");
+  if (!document.fullscreenElement) el.requestFullscreen && el.requestFullscreen();
+  else document.exitFullscreen && document.exitFullscreen();
+  setTimeout(() => { try { fitAddon.fit(); vm && vm.resize(term.cols, term.rows); } catch (e) {} }, 400);
+});
+
+// 終端機點一下就聚焦，手機才會叫鍵盤
+$("term").addEventListener("click", () => { if (term) term.focus(); });
+</script>
+</body>
+</html>
